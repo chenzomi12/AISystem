@@ -29,6 +29,7 @@
 |编号|名称|名称|备注|
 |1|自动微分|01 基本介绍|[silde](./Frontend/AutoDiff/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1FV4y1T7zp/), [article](https://zhuanlan.zhihu.com/p/518198564)|
 | |自动微分|02 什么是微分|[silde](./Frontend/AutoDiff/02.base_concept.pptx), [video](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [article](https://zhuanlan.zhihu.com/p/518198564)|
+| |自动微分|03 数学计算模式|[silde](./Frontend/AutoDiff/03.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1zD4y117bL/), [article](https://zhuanlan.zhihu.com/p/518296942)|
 |||||
 
 **底层编译技术**
