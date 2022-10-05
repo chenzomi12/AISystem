@@ -35,7 +35,9 @@
 | |自动微分|06 亲自实现一个PyTorch|[silde](./Frontend/AutoDiff/06.reversed_mode.ipynb), [video](https://www.bilibili.com/video/BV1ae4y1z7E6/), [article](https://zhuanlan.zhihu.com/p/547865589)|
 | |自动微分|07 自动微分的挑战&未来|[silde](./Frontend/AutoDiff/07.challenge.pptx), [video](https://www.bilibili.com/video/BV17e4y1z73W/)|
 |2|AI框架基础|01 基本介绍|[silde](./Frontend/Foundation/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1he4y1z7oD/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
-||AI框架基础|02 AI框架有什么用|[silde](./Frontend/Foundation/02.fundamentals.pptx), [video]()|
+||AI框架基础|02 AI框架有什么用|[silde](./Frontend/Foundation/02.fundamentals.pptx), [video](https://www.bilibili.com/video/BV1fd4y1q7qk/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
+||AI框架基础|03 AI框架之争（框架发展）|[silde](./Frontend/Foundation/03.history.pptx), [video](https://www.bilibili.com/video/BV1C8411x7Kn/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
+||AI框架基础|04 编程范式（声明式&命令式）|[silde](./Frontend/Foundation/04.programing.pptx), [video](https://www.bilibili.com/video/BV1gR4y1o7WT/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
 |||||
 
 **底层编译技术**
