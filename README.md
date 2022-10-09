@@ -34,10 +34,15 @@
 | |自动微分|05 手把手实现正向微分框架|[silde](./Frontend/AutoDiff/05.forward_mode.ipynb), [video](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [article](https://zhuanlan.zhihu.com/p/520451681)|
 | |自动微分|06 亲自实现一个PyTorch|[silde](./Frontend/AutoDiff/06.reversed_mode.ipynb), [video](https://www.bilibili.com/video/BV1ae4y1z7E6/), [article](https://zhuanlan.zhihu.com/p/547865589)|
 | |自动微分|07 自动微分的挑战&未来|[silde](./Frontend/AutoDiff/07.challenge.pptx), [video](https://www.bilibili.com/video/BV17e4y1z73W/)|
+|||||
 |2|AI框架基础|01 基本介绍|[silde](./Frontend/Foundation/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1he4y1z7oD/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
 ||AI框架基础|02 AI框架有什么用|[silde](./Frontend/Foundation/02.fundamentals.pptx), [video](https://www.bilibili.com/video/BV1fd4y1q7qk/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
 ||AI框架基础|03 AI框架之争（框架发展）|[silde](./Frontend/Foundation/03.history.pptx), [video](https://www.bilibili.com/video/BV1C8411x7Kn/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
 ||AI框架基础|04 编程范式（声明式&命令式）|[silde](./Frontend/Foundation/04.programing.pptx), [video](https://www.bilibili.com/video/BV1gR4y1o7WT/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
+|||||
+|3|计算图|01 基本介绍|[silde](./Frontend/DataFlow/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1cG411E7gV/)|
+||计算图|02 什么是计算图|[silde](./Frontend/DataFlow/02.computation_graph.pptx), [video](https://www.bilibili.com/video/BV1rR4y197HM/)|
+||计算图|03 计算图跟自动微分的关系|[silde](./Frontend/DataFlow/03.atuodiff.pptx), [video](https://www.bilibili.com/video/BV1S24y197FU/)|
 |||||
 
 **底层编译技术**
