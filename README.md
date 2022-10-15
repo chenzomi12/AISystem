@@ -24,26 +24,29 @@
 
 **[前端核心模块](./Frontend/)**
 
-|||||
-|---|---|---|---|
-|编号|名称|名称|备注|
-|1|自动微分|01 基本介绍|[silde](./Frontend/AutoDiff/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1FV4y1T7zp/), [article](https://zhuanlan.zhihu.com/p/518198564)|
-| |自动微分|02 什么是微分|[silde](./Frontend/AutoDiff/02.base_concept.pptx), [video](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [article](https://zhuanlan.zhihu.com/p/518198564)|
-| |自动微分|03 正反向计算模式|[silde](./Frontend/AutoDiff/03.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1zD4y117bL/), [article](https://zhuanlan.zhihu.com/p/518296942)|
-| |自动微分|04 三种实现方法|[silde](./Frontend/AutoDiff/04.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1BN4y1P76t/), [article](https://zhuanlan.zhihu.com/p/520065656)|
-| |自动微分|05 手把手实现正向微分框架|[silde](./Frontend/AutoDiff/05.forward_mode.ipynb), [video](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [article](https://zhuanlan.zhihu.com/p/520451681)|
-| |自动微分|06 亲自实现一个PyTorch|[silde](./Frontend/AutoDiff/06.reversed_mode.ipynb), [video](https://www.bilibili.com/video/BV1ae4y1z7E6/), [article](https://zhuanlan.zhihu.com/p/547865589)|
-| |自动微分|07 自动微分的挑战&未来|[silde](./Frontend/AutoDiff/07.challenge.pptx), [video](https://www.bilibili.com/video/BV17e4y1z73W/)|
-|||||
-|2|AI框架基础|01 基本介绍|[silde](./Frontend/Foundation/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1he4y1z7oD/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
-||AI框架基础|02 AI框架有什么用|[silde](./Frontend/Foundation/02.fundamentals.pptx), [video](https://www.bilibili.com/video/BV1fd4y1q7qk/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
-||AI框架基础|03 AI框架之争（框架发展）|[silde](./Frontend/Foundation/03.history.pptx), [video](https://www.bilibili.com/video/BV1C8411x7Kn/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
-||AI框架基础|04 编程范式（声明式&命令式）|[silde](./Frontend/Foundation/04.programing.pptx), [video](https://www.bilibili.com/video/BV1gR4y1o7WT/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
-|||||
-|3|计算图|01 基本介绍|[silde](./Frontend/DataFlow/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1cG411E7gV/)|
-||计算图|02 什么是计算图|[silde](./Frontend/DataFlow/02.computation_graph.pptx), [video](https://www.bilibili.com/video/BV1rR4y197HM/)|
-||计算图|03 计算图跟自动微分的关系|[silde](./Frontend/DataFlow/03.atuodiff.pptx), [video](https://www.bilibili.com/video/BV1S24y197FU/)|
-|||||
+|     |        |                  |                                                                                                                                                               |
+| --- | ------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 编号  | 名称     | 名称               | 备注                                                                                                                                                            |
+| 1   | 自动微分   | 01 基本介绍          | [silde](./Frontend/AutoDiff/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1FV4y1T7zp/), [article](https://zhuanlan.zhihu.com/p/518198564)   |
+|     | 自动微分   | 02 什么是微分         | [silde](./Frontend/AutoDiff/02.base_concept.pptx), [video](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [article](https://zhuanlan.zhihu.com/p/518198564)   |
+|     | 自动微分   | 03 正反向计算模式       | [silde](./Frontend/AutoDiff/03.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1zD4y117bL/), [article](https://zhuanlan.zhihu.com/p/518296942)      |
+|     | 自动微分   | 04 三种实现方法        | [silde](./Frontend/AutoDiff/04.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1BN4y1P76t/), [article](https://zhuanlan.zhihu.com/p/520065656)      |
+|     | 自动微分   | 05 手把手实现正向微分框架   | [silde](./Frontend/AutoDiff/05.forward_mode.ipynb), [video](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [article](https://zhuanlan.zhihu.com/p/520451681)  |
+|     | 自动微分   | 06 亲自实现一个PyTorch | [silde](./Frontend/AutoDiff/06.reversed_mode.ipynb), [video](https://www.bilibili.com/video/BV1ae4y1z7E6/), [article](https://zhuanlan.zhihu.com/p/547865589) |
+|     | 自动微分   | 07 自动微分的挑战&未来    | [silde](./Frontend/AutoDiff/07.challenge.pptx), [video](https://www.bilibili.com/video/BV17e4y1z73W/)                                                         |
+|     |        |                  |                                                                                                                                                               |
+| 2   | AI框架基础 | 01 基本介绍          | [silde](./Frontend/Foundation/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1he4y1z7oD/?vd_source=26de035c60e6c7f810371fdfd13d14b6)         |
+|     | AI框架基础 | 02 AI框架有什么用      | [silde](./Frontend/Foundation/02.fundamentals.pptx), [video](https://www.bilibili.com/video/BV1fd4y1q7qk/?vd_source=26de035c60e6c7f810371fdfd13d14b6)         |
+|     | AI框架基础 | 03 AI框架之争（框架发展）  | [silde](./Frontend/Foundation/03.history.pptx), [video](https://www.bilibili.com/video/BV1C8411x7Kn/?vd_source=26de035c60e6c7f810371fdfd13d14b6)              |
+|     | AI框架基础 | 04 编程范式（声明式&命令式） | [silde](./Frontend/Foundation/04.programing.pptx), [video](https://www.bilibili.com/video/BV1gR4y1o7WT/?vd_source=26de035c60e6c7f810371fdfd13d14b6)           |
+|     |        |                  |                                                                                                                                                               |
+| 3   | 计算图    | 01 基本介绍          | [silde](./Frontend/DataFlow/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1cG411E7gV/)                                                      |
+|     | 计算图    | 02 什么是计算图        | [silde](./Frontend/DataFlow/02.computation_graph.pptx), [video](https://www.bilibili.com/video/BV1rR4y197HM/)                                                 |
+|     | 计算图    | 03 计算图跟自动微分关系    | [silde](./Frontend/DataFlow/03.atuodiff.pptx), [video](https://www.bilibili.com/video/BV1S24y197FU/)                                                          |
+|     | 计算图    | 04 图优化与图执行调度     | [silde](./Frontend/DataFlow/04.dispatch.pptx),[video](https://www.bilibili.com/video/BV1hD4y1k7Ty/)                                                                                                         |
+|     | 计算图    | 05 计算图的控制流机制实现   | [silde](./Frontend/DataFlow/05.control_flow.pptx),[video](https://www.bilibili.com/video/BV17P41177Pk/)                                                                                                         |
+|     | 计算图    | 06 计算图未来将会走向何方？  | [silde](./Frontend/DataFlow/06.future.pptx),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/)                                                                                                         |
+|     |        |                  |                                                                                                                                                               |
 
 **底层编译技术**
 
@@ -64,4 +67,3 @@
 我们注意到，现在的大部分人工智能相关的课程，特别是深度学习和机器学习相关课程主要集中在相关理论、算法或者应用，与系统相关的课程并不多见。我们希望人工智能系统这门课能让人工智能相关教育变得更加全面和深入，以共同促进人工智能与系统在开源方面的共同学习和讨论。
 
 （原谅我复制粘贴微软[AI-System](https://github.com/microsoft/AI-System)的介绍，人家写得很好啦；另外推荐一个很好学习参考项目，公司跟英国麦络老师（爱丁堡大学）合作的[机器学习系统：设计和实现](https://github.com/openmlsys/openmlsys-zh)。）
-

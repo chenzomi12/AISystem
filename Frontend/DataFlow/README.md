@@ -1,0 +1,16 @@
+# Computational Graph 计算图
+
+为了高效地训练一个复杂神经网络，框架需要解决诸多问题， 例如：如何实现自动求导，如何利用编译期分析对神经网络计算进行化简、合并、变换，如何规划基本计算单元在加速器上的执行，如何将基本处理单元派发（dispatch）到特定的高效后端实现，如何进行内存预分配和管理等。用统一的方式解决这些问题都驱使着框架设计者思考如何为各类神经网络计算提供统一的描述，从而使得在运行神经网络计算之前，能够对整个计算过程尽可能进行推断，在编译期自动为用户程序补全反向计算，规划执行，最大程度地降低运行时开销。目前主流的深度学习框架都选择使用计算图来抽象神经网络计算，【计算图】系列展示了基于深度学习框架/AI框架计算图的核心内容。
+
+## 内容大纲
+
+|||||
+|---|---|---|---|
+|编号|名称|名称|备注|
+|     | 计算图    | 01 基本介绍          | [silde](./Frontend/DataFlow/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1cG411E7gV/)                                                      |
+|     | 计算图    | 02 什么是计算图        | [silde](./Frontend/DataFlow/02.computation_graph.pptx), [video](https://www.bilibili.com/video/BV1rR4y197HM/)                                                 |
+|     | 计算图    | 03 计算图跟自动微分关系    | [silde](./Frontend/DataFlow/03.atuodiff.pptx), [video](https://www.bilibili.com/video/BV1S24y197FU/)                                                          |
+|     | 计算图    | 04 图优化与图执行调度     | [silde](./Frontend/DataFlow/04.dispatch.pptx),[video](https://www.bilibili.com/video/BV1hD4y1k7Ty/)                                                                                                         |
+|     | 计算图    | 05 计算图的控制流机制实现   | [silde](./Frontend/DataFlow/05.control_flow.pptx),[video](https://www.bilibili.com/video/BV17P41177Pk/)                                                                                                         |
+|     | 计算图    | 06 计算图未来将会走向何方？  | [silde](./Frontend/DataFlow/06.future.pptx),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/)                                                                                                         |
+|||||
