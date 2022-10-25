@@ -43,10 +43,14 @@
 | 3   | 计算图    | 01 基本介绍          | [silde](./Frontend/DataFlow/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1cG411E7gV/)                                                      |
 |     | 计算图    | 02 什么是计算图        | [silde](./Frontend/DataFlow/02.computation_graph.pptx), [video](https://www.bilibili.com/video/BV1rR4y197HM/)                                                 |
 |     | 计算图    | 03 计算图跟自动微分关系    | [silde](./Frontend/DataFlow/03.atuodiff.pptx), [video](https://www.bilibili.com/video/BV1S24y197FU/)                                                          |
-|     | 计算图    | 04 图优化与图执行调度     | [silde](./Frontend/DataFlow/04.dispatch.pptx),[video](https://www.bilibili.com/video/BV1hD4y1k7Ty/)                                                                                                         |
-|     | 计算图    | 05 计算图的控制流机制实现   | [silde](./Frontend/DataFlow/05.control_flow.pptx),[video](https://www.bilibili.com/video/BV17P41177Pk/)                                                                                                         |
-|     | 计算图    | 06 计算图未来将会走向何方？  | [silde](./Frontend/DataFlow/06.future.pptx),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/)                                                                                                         |
+|     | 计算图    | 04 图优化与图执行调度     | [silde](./Frontend/DataFlow/04.dispatch.pptx),[video](https://www.bilibili.com/video/BV1hD4y1k7Ty/)                                                           |
+|     | 计算图    | 05 计算图的控制流机制实现   | [silde](./Frontend/DataFlow/05.control_flow.pptx),[video](https://www.bilibili.com/video/BV17P41177Pk/)                                                       |
+|     | 计算图    | 06 计算图未来将会走向何方？  | [silde](./Frontend/DataFlow/06.future.pptx),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/)                                                             |
 |     |        |                  |                                                                                                                                                               |
+| 4   | 分布式并行  | 01 基本介绍          | [silde](./Frontend/Distribution/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1ge411L7mi/)                                                                                                                                                  |
+|     | 分布式并行  | 02 大模型训练的挑战      | [silde](./Frontend/Distribution/02.challenge.pptx), [video](https://www.bilibili.com/video/BV1n8411s7f3/)                                                                                                                                                  |
+|     | 分布式并行  | 03 AI框架分布式功能     | [silde](./Frontend/Distribution/03.system.pptx), [video](https://www.bilibili.com/video/BV1Y14y1576A/)                                                                                                                                                  |
+|     | 分布式并行  | 04 分布式服务器架构      | [silde](./Frontend/Distribution/04.architecture.pptx), [video]()                                                                                                                                                  |
 
 **底层编译技术**
 
