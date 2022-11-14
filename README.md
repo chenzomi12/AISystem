@@ -58,8 +58,8 @@
 |     | 分布式并行  | 07(上) 并行算法：数据并行      | [silde](./Frontend/Distribution/07.1.data_parallel.pptx), [video](https://www.bilibili.com/video/BV1JK411S7gL/)                                               |
 |     | 分布式并行  | 07(中) 并行算法：张量并行      | [silde](./Frontend/Distribution/07.2.model_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                              |
 |     | 分布式并行  | 07(下) 并行算法：流水并行      | [silde](./Frontend/Distribution/07.3.pipeline_parallel.pptx), [video](https://www.bilibili.com/video/BV1WD4y1t7Ba/)                                           |
-|     | 分布式并行  | 08 混合并行              | [silde](./Frontend/Distribution/08.hybrid_parallel.pptx), [video]()                                                                                           |
-|     | 分布式并行  | 09 分布式训练总结           | [silde](./Frontend/Distribution/), [video]()                                                                                                                  |
+|     | 分布式并行  | 08 混合并行              | [silde](./Frontend/Distribution/08.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/)                                                                                           |
+|     | 分布式并行  | 09 分布式训练总结           | [silde](./Frontend/Distribution/10.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/)                                                                                                                  |
 
 **底层编译技术**
 
