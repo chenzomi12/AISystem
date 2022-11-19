@@ -63,6 +63,14 @@
 
 **底层编译技术**
 
+|||||
+|---|---|---|---|
+|编号|名称|具体内容|备注|
+|1|AI编译器| 01 课程概述|[silde](./Compiler/AIComplier/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1D84y1y73v/)|
+|2|传统编译器|02 开源编译器的发展|[silde](./Compiler/AIComplier/02.compiler_history.pptx), [video](https://www.bilibili.com/video/BV1sM411C7Vr/)|
+| |传统编译器|03 GCC编译过程和原理|[silde](./Compiler/AIComplier/03.gcc.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)|
+|||||
+
 待更...
 
 **AI芯片**
