@@ -58,18 +58,23 @@
 |     | 分布式并行  | 07(上) 并行算法：数据并行      | [silde](./Frontend/Distribution/07.1.data_parallel.pptx), [video](https://www.bilibili.com/video/BV1JK411S7gL/)                                               |
 |     | 分布式并行  | 07(中) 并行算法：张量并行      | [silde](./Frontend/Distribution/07.2.model_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                              |
 |     | 分布式并行  | 07(下) 并行算法：流水并行      | [silde](./Frontend/Distribution/07.3.pipeline_parallel.pptx), [video](https://www.bilibili.com/video/BV1WD4y1t7Ba/)                                           |
-|     | 分布式并行  | 08 混合并行              | [silde](./Frontend/Distribution/08.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/)                                                                                           |
-|     | 分布式并行  | 09 分布式训练总结           | [silde](./Frontend/Distribution/10.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/)                                                                                                                  |
+|     | 分布式并行  | 08 混合并行              | [silde](./Frontend/Distribution/08.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/)                                               |
+|     | 分布式并行  | 09 分布式训练总结           | [silde](./Frontend/Distribution/10.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/)                                                       |
 
 **底层编译技术**
 
-|||||
-|---|---|---|---|
-|编号|名称|具体内容|备注|
-|1|AI编译器| 01 课程概述|[silde](./Compiler/AIComplier/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1D84y1y73v/)|
-|2|传统编译器|02 开源编译器的发展|[silde](./Compiler/AIComplier/02.compiler_history.pptx), [video](https://www.bilibili.com/video/BV1sM411C7Vr/)|
-| |传统编译器|03 GCC编译过程和原理|[silde](./Compiler/AIComplier/03.gcc.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)|
-|||||
+|     |        |                  |                                                                                                                |
+| --- | ------ | ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| 编号  | 名称     | 具体内容             | 备注                                                                                                             |
+| 1   | AI编译器  | 01 课程概述          | [silde](./Compiler/AIComplier/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1D84y1y73v/)     |
+| 2   | 传统编译器  | 02 开源编译器的发展      | [silde](./Compiler/AIComplier/02.compiler_history.pptx), [video](https://www.bilibili.com/video/BV1sM411C7Vr/) |
+| 3   | 传统编译器  | 03 GCC编译过程和原理    | [silde](./Compiler/AIComplier/03.gcc.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)              |
+| 4   | 传统编译器  | 04 LLVM设计架构      | [silde](./Compiler/AIComplier/04.llvm.pptx), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/)             |
+| 5   | 传统编译器  | 05(上) LLVM IR详解  | [silde](./Compiler/AIComplier/05.llvm_detail01.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)    |
+|     | 传统编译器  | 05(中) LLVM前端和优化层 | [silde](./Compiler/AIComplier/05.llvm_detail02.pptx), [video](https://www.bilibili.com/video/BV1vd4y1t7vS)     |
+|     | 传统编译器  | 05(下) LLVM后端代码生成 | [silde](./Compiler/AIComplier/05.llvm_detail03.pptx), [video](https://www.bilibili.com/video/BV1cd4y1b7ho)     |
+| 6   | AI 编译器 | 06 为什么需要AI编译器    | [silde](./Compiler/AIComplier/06.ai_compiler01.pptx), [video](https://www.bilibili.com/video/BV1pM41167KP)     |
+|     |        |                  |                                                                                                                |
 
 待更...
 
