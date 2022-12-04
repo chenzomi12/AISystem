@@ -24,61 +24,62 @@
 
 **[一. AI框架核心模块](./Frontend/)**
 
-|     |        |                   |                                                                                                                                                               |
+| || | |
 | --- | ------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 编号  | 名称     | 名称                | 备注                                                                                                                                                            |
-| 1   | AI框架基础 | 01 基本介绍           | [silde](./Frontend/Foundation/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1he4y1z7oD/?vd_source=26de035c60e6c7f810371fdfd13d14b6)         |
-|     | AI框架基础 | 02 AI框架有什么用       | [silde](./Frontend/Foundation/02.fundamentals.pptx), [video](https://www.bilibili.com/video/BV1fd4y1q7qk/?vd_source=26de035c60e6c7f810371fdfd13d14b6)         |
-|     | AI框架基础 | 03 AI框架之争（框架发展）   | [silde](./Frontend/Foundation/03.history.pptx), [video](https://www.bilibili.com/video/BV1C8411x7Kn/?vd_source=26de035c60e6c7f810371fdfd13d14b6)              |
-|     | AI框架基础 | 04 编程范式（声明式&命令式）  | [silde](./Frontend/Foundation/04.programing.pptx), [video](https://www.bilibili.com/video/BV1gR4y1o7WT/?vd_source=26de035c60e6c7f810371fdfd13d14b6)           |
-|     |        |                   |                                                                                                                                                               |
-| 2   | 自动微分   | 01 基本介绍           | [silde](./Frontend/AutoDiff/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1FV4y1T7zp/), [article](https://zhuanlan.zhihu.com/p/518198564)   |
-|     | 自动微分   | 02 什么是微分          | [silde](./Frontend/AutoDiff/02.base_concept.pptx), [video](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [article](https://zhuanlan.zhihu.com/p/518198564)   |
-|     | 自动微分   | 03 正反向计算模式        | [silde](./Frontend/AutoDiff/03.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1zD4y117bL/), [article](https://zhuanlan.zhihu.com/p/518296942)      |
-|     | 自动微分   | 04 三种实现方法         | [silde](./Frontend/AutoDiff/04.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1BN4y1P76t/), [article](https://zhuanlan.zhihu.com/p/520065656)      |
-|     | 自动微分   | 05 手把手实现正向微分框架    | [silde](./Frontend/AutoDiff/05.forward_mode.ipynb), [video](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [article](https://zhuanlan.zhihu.com/p/520451681)  |
-|     | 自动微分   | 06 亲自实现一个PyTorch  | [silde](./Frontend/AutoDiff/06.reversed_mode.ipynb), [video](https://www.bilibili.com/video/BV1ae4y1z7E6/), [article](https://zhuanlan.zhihu.com/p/547865589) |
-|     | 自动微分   | 07 自动微分的挑战&未来     | [silde](./Frontend/AutoDiff/07.challenge.pptx), [video](https://www.bilibili.com/video/BV17e4y1z73W/)                                                         |
-|     |        |                   |                                                                                                                                                               |
-| 3   | 计算图    | 01 基本介绍           | [silde](./Frontend/DataFlow/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1cG411E7gV/)                                                      |
-|     | 计算图    | 02 什么是计算图         | [silde](./Frontend/DataFlow/02.computation_graph.pptx), [video](https://www.bilibili.com/video/BV1rR4y197HM/)                                                 |
-|     | 计算图    | 03 计算图跟自动微分关系     | [silde](./Frontend/DataFlow/03.atuodiff.pptx), [video](https://www.bilibili.com/video/BV1S24y197FU/)                                                          |
-|     | 计算图    | 04 图优化与图执行调度      | [silde](./Frontend/DataFlow/04.dispatch.pptx),[video](https://www.bilibili.com/video/BV1hD4y1k7Ty/)                                                           |
-|     | 计算图    | 05 计算图的控制流机制实现    | [silde](./Frontend/DataFlow/05.control_flow.pptx),[video](https://www.bilibili.com/video/BV17P41177Pk/)                                                       |
-|     | 计算图    | 06 计算图未来将会走向何方？   | [silde](./Frontend/DataFlow/06.future.pptx),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/)                                                             |
-|     |        |                   |                                                                                                                                                               |
-| 4   | 分布式训练  | 01 基本介绍           | [silde](./Frontend/Distribution/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1ge411L7mi/)                                                  |
-| 4.1 | 分布式集群  | 02 AI集群服务器架构      | [silde](./Frontend/Distribution/04.architecture.pptx), [video](https://www.bilibili.com/video/BV1fg41187rc/)                                                  |
-|     | 分布式集群  | 03 AI集群软硬件通信      | [silde](./Frontend/Distribution/05.1.communication.pptx), [video](https://www.bilibili.com/video/BV14P4y1S7u4/)                                               |
-|     | 分布式集群  | 04 集合通信原语         | [silde](./Frontend/Distribution/05.2.primitive.pptx), [video](https://www.bilibili.com/video/BV1te4y1e7vz/)                                                   |
-| 4.2 | 分布式算法  | 05 大模型训练的挑战       | [silde](./Frontend/Distribution/02.challenge.pptx), [video](https://www.bilibili.com/video/BV1n8411s7f3/)                                                     |
-|     | 分布式算法  | 06 AI框架分布式功能      | [silde](./Frontend/Distribution/03.system.pptx), [video](https://www.bilibili.com/video/BV1Y14y1576A/)                                                        |
-|     | 分布式算法  | 07 算法：大模型算法结构     | [silde](./Frontend/Distribution/06.algorithm_arch.pptx), [video](https://www.bilibili.com/video/BV1Mt4y1M7SE/)                                                |
-|     | 分布式算法  | 08 算法：亿级规模SOTA大模型 | [silde](./Frontend/Distribution/06.algorithm_arch.pptx), [video](https://www.bilibili.com/video/BV1em4y1F7ay/)                                                |
-| 4.3 | 分布式并行  | 09 并行策略：数据并行      | [silde](./Frontend/Distribution/07.1.data_parallel.pptx), [video](https://www.bilibili.com/video/BV1JK411S7gL/)                                               |
-|     | 分布式并行  | 10 模型并行之张量并行      | [silde](./Frontend/Distribution/07.2.model_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                              |
-|     | 分布式并行  | 11 MindSpore张量并行  | [silde](./Frontend/Distribution/07.2.model_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                              |
-|     | 分布式并行  | 12 模型并行之流水并行      | [silde](./Frontend/Distribution/07.3.pipeline_parallel.pptx), [video](https://www.bilibili.com/video/BV1WD4y1t7Ba/)                                           |
-|     | 分布式并行  | 13 混合并行           | [silde](./Frontend/Distribution/08.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/)                                               |
-|     | 分布式汇总  | 14 分布式训练总结        | [silde](./Frontend/Distribution/10.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/)                                                       |
+| 编号| 名称 | 名称| 备注|
+| 1 | AI框架基础 | 01 基本介绍 | [silde](./Frontend/Foundation/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1he4y1z7oD/?vd_source=26de035c60e6c7f810371fdfd13d14b6) |
+| | AI框架基础 | 02 AI框架有什么用 | [silde](./Frontend/Foundation/02.fundamentals.pptx), [video](https://www.bilibili.com/video/BV1fd4y1q7qk/?vd_source=26de035c60e6c7f810371fdfd13d14b6) |
+| | AI框架基础 | 03 AI框架之争（框架发展） | [silde](./Frontend/Foundation/03.history.pptx), [video](https://www.bilibili.com/video/BV1C8411x7Kn/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
+| | AI框架基础 | 04 编程范式（声明式&命令式）| [silde](./Frontend/Foundation/04.programing.pptx), [video](https://www.bilibili.com/video/BV1gR4y1o7WT/?vd_source=26de035c60e6c7f810371fdfd13d14b6) |
+| || | |
+| 2 | 自动微分 | 01 基本介绍 | [silde](./Frontend/AutoDiff/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1FV4y1T7zp/), [article](https://zhuanlan.zhihu.com/p/518198564) |
+| | 自动微分 | 02 什么是微分| [silde](./Frontend/AutoDiff/02.base_concept.pptx), [video](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [article](https://zhuanlan.zhihu.com/p/518198564) |
+| | 自动微分 | 03 正反向计算模式| [silde](./Frontend/AutoDiff/03.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1zD4y117bL/), [article](https://zhuanlan.zhihu.com/p/518296942)|
+| | 自动微分 | 04 三种实现方法 | [silde](./Frontend/AutoDiff/04.grad_mode.pptx), [video](https://www.bilibili.com/video/BV1BN4y1P76t/), [article](https://zhuanlan.zhihu.com/p/520065656)|
+| | 自动微分 | 05 手把手实现正向微分框架| [silde](./Frontend/AutoDiff/05.forward_mode.ipynb), [video](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [article](https://zhuanlan.zhihu.com/p/520451681)|
+| | 自动微分 | 06 亲自实现一个PyTorch| [silde](./Frontend/AutoDiff/06.reversed_mode.ipynb), [video](https://www.bilibili.com/video/BV1ae4y1z7E6/), [article](https://zhuanlan.zhihu.com/p/547865589) |
+| | 自动微分 | 07 自动微分的挑战&未来 | [silde](./Frontend/AutoDiff/07.challenge.pptx), [video](https://www.bilibili.com/video/BV17e4y1z73W/) |
+| || | |
+| 3 | 计算图| 01 基本介绍 | [silde](./Frontend/DataFlow/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1cG411E7gV/)|
+| | 计算图| 02 什么是计算图 | [silde](./Frontend/DataFlow/02.computation_graph.pptx), [video](https://www.bilibili.com/video/BV1rR4y197HM/) |
+| | 计算图| 03 计算图跟自动微分关系 | [silde](./Frontend/DataFlow/03.atuodiff.pptx), [video](https://www.bilibili.com/video/BV1S24y197FU/)|
+| | 计算图| 04 图优化与图执行调度| [silde](./Frontend/DataFlow/04.dispatch.pptx),[video](https://www.bilibili.com/video/BV1hD4y1k7Ty/) |
+| | 计算图| 05 计算图的控制流机制实现| [silde](./Frontend/DataFlow/05.control_flow.pptx),[video](https://www.bilibili.com/video/BV17P41177Pk/) |
+| | 计算图| 06 计算图未来将会走向何方？ | [silde](./Frontend/DataFlow/06.future.pptx),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/) |
+| || | |
+| 4 | 分布式训练| 01 基本介绍 | [silde](./Frontend/Distribution/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1ge411L7mi/)|
+| 4.1 | 分布式集群| 02 AI集群服务器架构| [silde](./Frontend/Distribution/04.architecture.pptx), [video](https://www.bilibili.com/video/BV1fg41187rc/)|
+| | 分布式集群| 03 AI集群软硬件通信| [silde](./Frontend/Distribution/05.1.communication.pptx), [video](https://www.bilibili.com/video/BV14P4y1S7u4/) |
+| | 分布式集群| 04 集合通信原语 | [silde](./Frontend/Distribution/05.2.primitive.pptx), [video](https://www.bilibili.com/video/BV1te4y1e7vz/) |
+| 4.2 | 分布式算法| 05 大模型训练的挑战 | [silde](./Frontend/Distribution/02.challenge.pptx), [video](https://www.bilibili.com/video/BV1n8411s7f3/) |
+| | 分布式算法| 06 AI框架分布式功能| [silde](./Frontend/Distribution/03.system.pptx), [video](https://www.bilibili.com/video/BV1Y14y1576A/)|
+| | 分布式算法| 07 算法：大模型算法结构 | [silde](./Frontend/Distribution/06.algorithm_arch.pptx), [video](https://www.bilibili.com/video/BV1Mt4y1M7SE/)|
+| | 分布式算法| 08 算法：亿级规模SOTA大模型 | [silde](./Frontend/Distribution/06.algorithm_arch.pptx), [video](https://www.bilibili.com/video/BV1em4y1F7ay/)|
+| 4.3 | 分布式并行| 09 并行策略：数据并行| [silde](./Frontend/Distribution/07.1.data_parallel.pptx), [video](https://www.bilibili.com/video/BV1JK411S7gL/) |
+| | 分布式并行| 10 模型并行之张量并行| [silde](./Frontend/Distribution/07.2.model_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)|
+| | 分布式并行| 11 MindSpore张量并行| [silde](./Frontend/Distribution/07.2.model_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)|
+| | 分布式并行| 12 模型并行之流水并行| [silde](./Frontend/Distribution/07.3.pipeline_parallel.pptx), [video](https://www.bilibili.com/video/BV1WD4y1t7Ba/) |
+| | 分布式并行| 13 混合并行 | [silde](./Frontend/Distribution/08.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/) |
+| | 分布式汇总| 14 分布式训练总结| [silde](./Frontend/Distribution/10.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/) |
 
 **[二. 底层编译技术](./Compiler/)**
 
-|     |        |                  |                                                                                                             |
+| ||| |
 | --- | ------ | ---------------- | ----------------------------------------------------------------------------------------------------------- |
-| 编号  | 名称     | 具体内容             | 备注                                                                                                          |
-| 1   | 编译器基础  | 01 课程概述          | [silde](./Compiler/01.Base/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1D84y1y73v/)     |
-|     | 传统编译器  | 02 开源编译器的发展      | [silde](./Compiler/01.Base/02.compiler_history.pptx), [video](https://www.bilibili.com/video/BV1sM411C7Vr/) |
-|     | 传统编译器  | 03 GCC编译过程和原理    | [silde](./Compiler/01.Base/03.gcc.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)              |
-|     | 传统编译器  | 04 LLVM设计架构      | [silde](./Compiler/01.Base/04.llvm.pptx), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/)             |
-|     | 传统编译器  | 05(上) LLVM IR详解  | [silde](./Compiler/01.Base/05.llvm_detail01.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)    |
-|     | 传统编译器  | 05(中) LLVM前端和优化层 | [silde](./Compiler/01.Base/05.llvm_detail02.pptx), [video](https://www.bilibili.com/video/BV1vd4y1t7vS)     |
-|     | 传统编译器  | 05(下) LLVM后端代码生成 | [silde](./Compiler/01.Base/05.llvm_detail03.pptx), [video](https://www.bilibili.com/video/BV1cd4y1b7ho)     |
-|     |        |                  |                                                                                                             |
-| 2   | AI 编译器 | 01 为什么需要AI编译器    | [silde](./Compiler/02.ICompiler/01.ai_compiler.pptx), [video](https://www.bilibili.com/video/BV1pM41167KP)  |
-|     | AI 编译器 | 02 AI编译器发展与架构    | [silde](./Compiler/02.ICompiler/02.ai_compiler.pptx),                                                       |
-|     | AI 编译器 | 02 AI编译器的挑战与思考   | [silde](./Compiler/02.ICompiler/03.ai_compiler.pptx),                                                       |
-|     |        |                  |                                                                                                             |
+| 编号| 名称 | 具体内容 | 备注|
+| 1 | 编译器基础| 01 课程概述| [silde](./Compiler/01.Base/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1D84y1y73v/) |
+| | 传统编译器| 02 开源编译器的发展| [silde](./Compiler/01.Base/02.history.pptx), [video](https://www.bilibili.com/video/BV1sM411C7Vr/) |
+| | 传统编译器| 03 GCC编译过程和原理| [silde](./Compiler/01.Base/03.gcc.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)|
+| | 传统编译器| 04 LLVM设计架构| [silde](./Compiler/01.Base/04.llvm.pptx), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/) |
+| | 传统编译器| 05(上) LLVM IR详解| [silde](./Compiler/01.Base/05.llvm_detail01.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)|
+| | 传统编译器| 05(中) LLVM前端和优化层 | [silde](./Compiler/01.Base/06.llvm_detail02.pptx), [video](https://www.bilibili.com/video/BV1vd4y1t7vS) |
+| | 传统编译器| 05(下) LLVM后端代码生成 | [silde](./Compiler/01.Base/07.llvm_detail03.pptx), [video](https://www.bilibili.com/video/BV1cd4y1b7ho) |
+| ||| |
+| 2 | AI 编译器 | 01 为什么需要AI编译器| [silde](./Compiler/02.ICompiler/01.appear.pptx), [video](https://www.bilibili.com/video/BV1pM41167KP)|
+| | AI 编译器 | 02 AI编译器的发展阶段| [silde](./Compiler/02.ICompiler/02.stage.pptx), [video](https://www.bilibili.com/video/BV1QK411R7iy/)|
+| | AI 编译器 | 03 AI编译器的通用架构| [silde](./Compiler/02.ICompiler/03.architecture.pptx), [video](https://www.bilibili.com/video/BV1qD4y1Y73e/)|
+| | AI 编译器 | 04 AI编译器的挑战与思考 | [silde](./Compiler/02.ICompiler/04.future.pptx), |
+| ||| |
 
 待更...
 
