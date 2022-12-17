@@ -47,20 +47,23 @@
 |     | 计算图    | 05 计算图的控制流机制实现    | [silde](./Frontend/DataFlow/05.control_flow.pptx),[video](https://www.bilibili.com/video/BV17P41177Pk/)                                                       |
 |     | 计算图    | 06 计算图未来将会走向何方？   | [silde](./Frontend/DataFlow/06.future.pptx),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/)                                                             |
 |     |        |                   |                                                                                                                                                               |
-| 4   | 分布式训练  | 01 基本介绍           | [silde](./Frontend/Distribution/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1ge411L7mi/)                                                  |
-| 4.1 | 分布式集群  | 02 AI集群服务器架构      | [silde](./Frontend/Distribution/02.architecture.pptx), [video](https://www.bilibili.com/video/BV1fg41187rc/)                                                  |
-|     | 分布式集群  | 03 AI集群软硬件通信      | [silde](./Frontend/Distribution/03.communication.pptx), [video](https://www.bilibili.com/video/BV14P4y1S7u4/)                                               |
-|     | 分布式集群  | 04 集合通信原语         | [silde](./Frontend/Distribution/04.primitive.pptx), [video](https://www.bilibili.com/video/BV1te4y1e7vz/)                                                   |
-| 4.2 | 分布式算法  | 05 AI框架分布式功能       | [silde](./Frontend/Distribution/05.system.pptx), [video](https://www.bilibili.com/video/BV1n8411s7f3/)                                                     |
-|     | 分布式算法  | 06 大模型训练的挑战      | [silde](./Frontend/Distribution/06.challenge.pptx), [video](https://www.bilibili.com/video/BV1Y14y1576A/)                                                        |
-|     | 分布式算法  | 07 算法：大模型算法结构     | [silde](./Frontend/Distribution/07.algorithm_arch.pptx), [video](https://www.bilibili.com/video/BV1Mt4y1M7SE/)                                                |
-|     | 分布式算法  | 08 算法：亿级规模SOTA大模型 | [silde](./Frontend/Distribution/08.algorithm_sota.pptx), [video](https://www.bilibili.com/video/BV1em4y1F7ay/)                                                |
-| 4.3 | 分布式并行  | 09 数据并行      | [silde](./Frontend/Distribution/09.data_parallel.pptx), [video](https://www.bilibili.com/video/BV1JK411S7gL/)                                               |
-|     | 分布式并行  | 10 模型并行之张量并行      | [silde](./Frontend/Distribution/10.tensor_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                              |
-|     | 分布式并行  | 11 MindSpore张量并行  | [silde](./Frontend/Distribution/11.mindspore_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                              |
-|     | 分布式并行  | 12 模型并行之流水并行      | [silde](./Frontend/Distribution/12.pipeline_parallel.pptx), [video](https://www.bilibili.com/video/BV1WD4y1t7Ba/)                                           |
-|     | 分布式并行  | 13 混合并行           | [silde](./Frontend/Distribution/13.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/)                                               |
-|     | 分布式汇总  | 14 分布式训练总结        | [silde](./Frontend/Distribution/14.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/)                                                       |
+| 4   | 分布式集群 | 01 基本介绍           | [silde](./Frontend/Distribution/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1ge411L7mi/)   |
+|     | 分布式集群 | 02 AI集群服务器架构      | [silde](./Frontend/Distribution/02.architecture.pptx), [video](https://www.bilibili.com/video/BV1fg41187rc/)   |
+|     | 分布式集群 | 03 AI集群软硬件通信      | [silde](./Frontend/Distribution/03.communication.pptx), [video](https://www.bilibili.com/video/BV14P4y1S7u4/)  |
+|     | 分布式集群 | 04 集合通信原语         | [silde](./Frontend/Distribution/04.primitive.pptx), [video](https://www.bilibili.com/video/BV1te4y1e7vz/)      |
+|     | 分布式算法 | 05 AI框架分布式功能      | [silde](./Frontend/Distribution/05.system.pptx), [video](https://www.bilibili.com/video/BV1n8411s7f3/)         |
+|     |       |                   |                                                                                                                |
+| 5   | 分布式算法 | 06 大模型训练的挑战       | [silde](./Frontend/Distribution/06.challenge.pptx), [video](https://www.bilibili.com/video/BV1Y14y1576A/)      |
+|     | 分布式算法 | 07 算法：大模型算法结构     | [silde](./Frontend/Distribution/07.algorithm_arch.pptx), [video](https://www.bilibili.com/video/BV1Mt4y1M7SE/) |
+|     | 分布式算法 | 08 算法：亿级规模SOTA大模型 | [silde](./Frontend/Distribution/08.algorithm_sota.pptx), [video](https://www.bilibili.com/video/BV1em4y1F7ay/) |
+|     |       |                   |   
+| 6   | 分布式并行  | 01 基本介绍           | [silde](./Frontend/Parallel/01.introduction.pptx), [video](://whttps://www.bilibili.com/video/BV1ve411w7DL/)   |
+|     | 分布式并行  | 02 数据并行           | [silde](./Frontend/Parallel/02.data_parallel.pptx), [video](https://www.bilibili.com/video/BV1JK411S7gL/)                                                 |
+|     | 分布式并行  | 03 模型并行之张量并行      | [silde](./Frontend/Parallel/03.tensor_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                               |
+|     | 分布式并行  | 04 MindSpore张量并行  | [silde](./Frontend/Parallel/04.mindspore_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                            |
+|     | 分布式并行  | 05 模型并行之流水并行      | [silde](./Frontend/Parallel/05.pipeline_parallel.pptx), [video](https://www.bilibili.com/video/BV1WD4y1t7Ba/)                                             |
+|     | 分布式并行  | 06 混合并行           | [silde](./Frontend/Parallel/06.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/)                                               |
+|     | 分布式汇总  | 07 分布式训练总结        | [silde](./Frontend/Parallel/07.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/)                                                       |
 |     |        |                   |                                                                                                                                                               |
 
 **[二. 底层编译技术](./Compiler/)**
