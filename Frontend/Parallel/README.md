@@ -7,11 +7,11 @@
 | 编号  | 名称    | 名称                   | 备注                                                                                                                  |
 | --- | ----- | -------------------- | ------------------------------------------------------------------------------------------------------------------- |
 |     |        |                   |                                                                                                                                                               |
-| 6   | 分布式并行  | 01 基本介绍           | [silde](./Frontend/Parallel/01.introduction.pptx), [video](://whttps://www.bilibili.com/video/BV1ve411w7DL/)   |
-|     | 分布式并行  | 02 数据并行           | [silde](./Frontend/Parallel/02.data_parallel.pptx), [video](https://www.bilibili.com/video/BV1JK411S7gL/)                                                 |
-|     | 分布式并行  | 03 模型并行之张量并行      | [silde](./Frontend/Parallel/03.tensor_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                               |
-|     | 分布式并行  | 04 MindSpore张量并行  | [silde](./Frontend/Parallel/04.mindspore_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                            |
-|     | 分布式并行  | 05 模型并行之流水并行      | [silde](./Frontend/Parallel/05.pipeline_parallel.pptx), [video](https://www.bilibili.com/video/BV1WD4y1t7Ba/)                                             |
-|     | 分布式并行  | 06 混合并行           | [silde](./Frontend/Parallel/06.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/)                                               |
-|     | 分布式汇总  | 07 分布式训练总结        | [silde](./Frontend/Parallel/07.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/)                                                       |
+| 6   | 分布式并行  | 01 基本介绍           | [silde](./01.introduction.pptx), [video](https://www.bilibili.com/video/BV1ve411w7DL/)   |
+|     | 分布式并行  | 02 数据并行           | [silde](./02.data_parallel.pptx), [video](https://www.bilibili.com/video/BV1JK411S7gL/)                                                 |
+|     | 分布式并行  | 03 模型并行之张量并行      | [silde](./03.tensor_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                               |
+|     | 分布式并行  | 04 MindSpore张量并行  | [silde](./04.mindspore_parallel.pptx), [video](https://www.bilibili.com/video/BV1vt4y1K7wT/)                                            |
+|     | 分布式并行  | 05 模型并行之流水并行      | [silde](./05.pipeline_parallel.pptx), [video](https://www.bilibili.com/video/BV1WD4y1t7Ba/)                                             |
+|     | 分布式并行  | 06 混合并行           | [silde](./06.hybrid_parallel.pptx), [video](https://www.bilibili.com/video/BV1gD4y1t7Ut/)                                               |
+|     | 分布式汇总  | 07 分布式训练总结        | [silde](./07.summary.pptx), [video](https://www.bilibili.com/video/BV1av4y1S7DQ/)                                                       |
 |     |        |                   |                                                                                                                                                               |

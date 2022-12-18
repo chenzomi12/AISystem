@@ -9,8 +9,8 @@ AI框架基础内容介绍，从AI框架基础（02）去介绍为什么我们�
 |||||
 |---|---|---|---|
 |编号|名称|名称|备注|
-|2|AI框架基础|01 基本介绍|[silde](./Frontend/Foundation/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1he4y1z7oD/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
-||AI框架基础|02 AI框架有什么用|[silde](./Frontend/Foundation/02.fundamentals.pptx), [video](https://www.bilibili.com/video/BV1fd4y1q7qk/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
-||AI框架基础|03 AI框架之争（框架发展）|[silde](./Frontend/Foundation/03.history.pptx), [video](https://www.bilibili.com/video/BV1C8411x7Kn/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
-||AI框架基础|04 编程范式（声明式&命令式）|[silde](./Frontend/Foundation/04.programing.pptx), [video](https://www.bilibili.com/video/BV1gR4y1o7WT/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
+|2|AI框架基础|01 基本介绍|[silde](./01.introduction.pptx), [video](https://www.bilibili.com/video/BV1he4y1z7oD/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
+||AI框架基础|02 AI框架有什么用|[silde](./02.fundamentals.pptx), [video](https://www.bilibili.com/video/BV1fd4y1q7qk/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
+||AI框架基础|03 AI框架之争（框架发展）|[silde](./03.history.pptx), [video](https://www.bilibili.com/video/BV1C8411x7Kn/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
+||AI框架基础|04 编程范式（声明式&命令式）|[silde](./04.programing.pptx), [video](https://www.bilibili.com/video/BV1gR4y1o7WT/?vd_source=26de035c60e6c7f810371fdfd13d14b6)|
 |||||
