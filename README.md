@@ -90,6 +90,17 @@
 |     | TorchDynamo | 03 Torch FX 与 LazyTensor 特性 | [silde](./Compiler/03.PyTorch/03.torchfx_lazy.pptx), [video](https://www.bilibili.com/video/BV1944y1m7fU/)   |
 |     | TorchDynamo | 04 TorchDynamo 来啦           | [silde](./Compiler/03.PyTorch/04.torchdynamo.pptx),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)   |
 |     |             |                             |                                                                                                              |
+| 4   | 前端优化     | 01 内容介绍          | [silde](./Compiler/04.FrontendOpt/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1ne411w7n2/)   |
+|     | 前端优化     | 02 计算图层IR          | [silde](./Compiler/04.FrontendOpt/02.graph_ir.pptx), [video](https://www.bilibili.com/video/BV1kV4y1w72W/)   |
+|     | 前端优化     | 03 算子融合策略          | [silde](./Compiler/04.FrontendOpt/03.op_fusion.pptx), [video](https://www.bilibili.com/video/BV1P24y1D7RV/)   |
+|     | 前端优化     | 04(上) 布局转换原理          | [silde](./Compiler/04.FrontendOpt/04.layout_trans01.pptx), [video](https://www.bilibili.com/video/BV1xK411z7Uw/)   |
+|     | 前端优化     | 04(下) 布局转换算法          | [silde](./Compiler/04.FrontendOpt/04.layout_trans02.pptx), [video](https://www.bilibili.com/video/BV1gd4y1Y7dc/)   |
+|     | 前端优化     | 05 内存分配算法          | [silde](./Compiler/04.FrontendOpt/05.memory.pptx), [video]()   |
+|     | 前端优化     | 06 常量折叠原理          | [silde](./Compiler/04.FrontendOpt/06.constant_fold.pptx), [video](https://www.bilibili.com/video/BV1P8411W7dY/)   |
+|     | 前端优化     | 07 公共子表达式消除          | [silde](./Compiler/04.FrontendOpt/07.cse.pptx), [video](https://www.bilibili.com/video/BV1rv4y1Q7tp/)   |
+|     | 前端优化     | 08 死代码消除          | [silde](./Compiler/04.FrontendOpt/08.dce.pptx), [video](https://www.bilibili.com/video/BV1hD4y1h7nh/)   |
+|     | 前端优化     | 09 代数简化          | [silde](./Compiler/04.FrontendOpt/09.algebraic_reduced.pptx), [video]()   |
+|     |             |                             |                                                                                                              |
 
 待更...
 
