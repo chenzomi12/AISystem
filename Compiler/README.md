@@ -12,41 +12,43 @@
 
 ### 课程部分
 
-**[二. 底层编译技术](./Compiler/)**
+**[二. 底层编译技术](./)**
 
-|     |             |                             |                                                                                                                  |
-| --- | ----------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| 编号  | 名称          | 具体内容                        | 备注                                                                                                               |
-|     | 编译器基础       | 01 课程概述                     | [silde](./Compiler/01.Base/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1D84y1y73v/)          |
-|     |             |                             |                                                                                                                  |
-| 1   | 传统编译器       | 02 开源编译器的发展                 | [silde](./Compiler/01.Base/02.history.pptx), [video](https://www.bilibili.com/video/BV1sM411C7Vr/)               |
-|     | 传统编译器       | 03 GCC编译过程和原理               | [silde](./Compiler/01.Base/03.gcc.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)                   |
-|     | 传统编译器       | 04 LLVM设计架构                 | [silde](./Compiler/01.Base/04.llvm.pptx), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/)                  |
-|     | 传统编译器       | 05(上) LLVM IR详解             | [silde](./Compiler/01.Base/05.llvm_detail01.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)         |
-|     | 传统编译器       | 05(中) LLVM前端和优化层            | [silde](./Compiler/01.Base/06.llvm_detail02.pptx), [video](https://www.bilibili.com/video/BV1vd4y1t7vS)          |
-|     | 传统编译器       | 05(下) LLVM后端代码生成            | [silde](./Compiler/01.Base/07.llvm_detail03.pptx), [video](https://www.bilibili.com/video/BV1cd4y1b7ho)          |
-|     |             |                             |                                                                                                                  |
-| 2   | AI 编译器      | 01 为什么需要AI编译器               | [silde](./Compiler/02.AICompiler/01.appear.pptx), [video](https://www.bilibili.com/video/BV1pM41167KP)           |
-|     | AI 编译器      | 02 AI编译器的发展阶段               | [silde](./Compiler/02.AICompiler/02.stage.pptx), [video](https://www.bilibili.com/video/BV1QK411R7iy/)           |
-|     | AI 编译器      | 03 AI编译器的通用架构               | [silde](./Compiler/02.AICompiler/03.architecture.pptx), [video](https://www.bilibili.com/video/BV1qD4y1Y73e/)    |
-|     | AI 编译器      | 04 AI编译器的挑战与思考              | [silde](./Compiler/02.AICompiler/04.future.pptx),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)         |
-|     |             |                             |                                                                                                                  |
-| 3   | PyTorch2.0  | 01 PyTorch2.0 特性串讲          | [silde](./Compiler/03.PyTorch/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1p84y1675B/)       |
-| 3.1 | TorchDynamo | 02 TorchScript 静态图尝试        | [silde](./Compiler/03.PyTorch/02.torchscript.pptx), [video](https://www.bilibili.com/video/BV1JV4y1P7gB/)        |
-|     | TorchDynamo | 03 Torch FX 与 LazyTensor 特性 | [silde](./Compiler/03.PyTorch/03.torchfx_lazy.pptx), [video](https://www.bilibili.com/video/BV1944y1m7fU/)       |
-|     | TorchDynamo | 04 TorchDynamo 来啦           | [silde](./Compiler/03.PyTorch/04.torchdynamo.pptx),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)       |
-|     |             |                             |                                                                                                                  |
-| 4   | 前端优化        | 01 内容介绍                     | [silde](./Compiler/04.FrontendOpt/01.introduction.pptx), [video](https://www.bilibili.com/video/BV1ne411w7n2/)   |
-|     | 前端优化        | 02 计算图层IR                   | [silde](./Compiler/04.FrontendOpt/02.graph_ir.pptx), [video](https://www.bilibili.com/video/BV1kV4y1w72W/)       |
-|     | 前端优化        | 03 算子融合策略                   | [silde](./Compiler/04.FrontendOpt/03.op_fusion.pptx), [video](https://www.bilibili.com/video/BV1P24y1D7RV/)      |
-|     | 前端优化        | 04(上) 布局转换原理                | [silde](./Compiler/04.FrontendOpt/04.layout_trans01.pptx), [video](https://www.bilibili.com/video/BV1xK411z7Uw/) |
-|     | 前端优化        | 04(下) 布局转换算法                | [silde](./Compiler/04.FrontendOpt/04.layout_trans02.pptx), [video](https://www.bilibili.com/video/BV1gd4y1Y7dc/) |
-|     | 前端优化        | 05 内存分配算法                   | [silde](./Compiler/04.FrontendOpt/05.memory.pptx), [video]()                                                     |
-|     | 前端优化        | 06 常量折叠原理                   | [silde](./Compiler/04.FrontendOpt/06.constant_fold.pptx), [video](https://www.bilibili.com/video/BV1P8411W7dY/)  |
-|     | 前端优化        | 07 公共子表达式消除                 | [silde](./Compiler/04.FrontendOpt/07.cse.pptx), [video](https://www.bilibili.com/video/BV1rv4y1Q7tp/)            |
-|     | 前端优化        | 08 死代码消除                    | [silde](./Compiler/04.FrontendOpt/08.dce.pptx), [video](https://www.bilibili.com/video/BV1hD4y1h7nh/)            |
-|     | 前端优化        | 09 代数简化                     | [silde](./Compiler/04.FrontendOpt/09.algebraic.pptx), [video]()                                                  |
-|     |             |                             |                                                                                                                  |
+|     |             |                             |                                                                                                  |
+| --- | ----------- | --------------------------- | ------------------------------------------------------------------------------------------------ |
+| 编号  | 名称          | 具体内容                        | 备注                                                                                               |
+|     | 编译器基础       | 01 课程概述                     | [silde](./Base/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1D84y1y73v/)       |
+|     |             |                             |                                                                                                  |
+| 1   | 传统编译器       | 02 开源编译器的发展                 | [silde](./Base/02.history.pdf), [video](https://www.bilibili.com/video/BV1sM411C7Vr/)            |
+|     | 传统编译器       | 03 GCC编译过程和原理               | [silde](./Base/03.gcc.pdf), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)                |
+|     | 传统编译器       | 04 LLVM设计架构                 | [silde](./Base/04.llvm.pdf), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/)               |
+|     | 传统编译器       | 05(上) LLVM IR详解             | [silde](./Base/05.llvm_detail01.pdf), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)      |
+|     | 传统编译器       | 05(中) LLVM前端和优化层            | [silde](./Base/06.llvm_detail02.pdf), [video](https://www.bilibili.com/video/BV1vd4y1t7vS)       |
+|     | 传统编译器       | 05(下) LLVM后端代码生成            | [silde](./Base/07.llvm_detail03.pdf), [video](https://www.bilibili.com/video/BV1cd4y1b7ho)       |
+|     |             |                             |                                                                                                  |
+| 2   | AI 编译器      | 01 为什么需要AI编译器               | [silde](./AICompiler/01.appear.pdf), [video](https://www.bilibili.com/video/BV1pM41167KP)        |
+|     | AI 编译器      | 02 AI编译器的发展阶段               | [silde](./AICompiler/02.stage.pdf), [video](https://www.bilibili.com/video/BV1QK411R7iy/)        |
+|     | AI 编译器      | 03 AI编译器的通用架构               | [silde](./AICompiler/03.architecture.pdf), [video](https://www.bilibili.com/video/BV1qD4y1Y73e/) |
+|     | AI 编译器      | 04 AI编译器的挑战与思考              | [silde](./AICompiler/04.future.pdf),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)      |
+|     |             |                             |                                                                                                  |
+| 3   | 前端优化        | 01 内容介绍                     | [silde](./Frontend/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1ne411w7n2/)   |
+|     | 前端优化        | 02 计算图层IR                   | [silde](./Frontend/02.graph_ir.pdf), [video](https://www.bilibili.com/video/BV1kV4y1w72W/)       |
+|     | 前端优化        | 03 算子融合策略                   | [silde](./Frontend/03.op_fusion.pdf), [video](https://www.bilibili.com/video/BV1P24y1D7RV/)      |
+|     | 前端优化        | 04(上) 布局转换原理                | [silde](./Frontend/04.layout_trans01.pdf), [video](https://www.bilibili.com/video/BV1xK411z7Uw/) |
+|     | 前端优化        | 04(下) 布局转换算法                | [silde](./04.layout_trans02.pdf), [video](https://www.bilibili.com/video/BV1gd4y1Y7dc/)          |
+|     | 前端优化        | 05 内存分配算法                   | [silde](./Frontend/05.memory.pdf), [video]()                                                     |
+|     | 前端优化        | 06 常量折叠原理                   | [silde](./Frontend/06.constant_fold.pdf), [video](https://www.bilibili.com/video/BV1P8411W7dY/)  |
+|     | 前端优化        | 07 公共表达式消除                  | [silde](./Frontend/07.cse.pdf), [video](https://www.bilibili.com/video/BV1rv4y1Q7tp/)            |
+|     | 前端优化        | 08 死代码消除                    | [silde](./Frontend/08.dce.pdf), [video](https://www.bilibili.com/video/BV1hD4y1h7nh/)            |
+|     | 前端优化        | 09 代数简化原理                   | [silde](./Frontend/09.algebraic.pdf), [video](https://www.bilibili.com/video/BV1g24y1Q7qC/)      |
+|     | 前端优化        | 10 优化Pass排序                 | [silde](./Frontend/10.summary.pdf), [video](https://www.bilibili.com/video/BV1L14y1P7ku/)        |
+|     |             |                             |                                                                                                  |
+| 5   | PyTorch2.0  | 01 PyTorch2.0 特性串讲          | [silde](./PyTorch/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1p84y1675B/)    |
+| 5.1 | TorchDynamo | 02 TorchScript 静态图尝试        | [silde](./PyTorch/02.torchscript.pdf), [video](https://www.bilibili.com/video/BV1JV4y1P7gB/)     |
+|     | TorchDynamo | 03 Torch FX 与 LazyTensor 特性 | [silde](./PyTorch/03.torchfx_lazy.pdf), [video](https://www.bilibili.com/video/BV1944y1m7fU/)    |
+|     | TorchDynamo | 04 TorchDynamo 来啦           | [silde](./PyTorch/04.torchdynamo.pd'f),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)   |
+|     |             |                             |                                                                                                  |
+
 更新ing...
 
 ## 项目背景
