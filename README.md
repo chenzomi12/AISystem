@@ -1,6 +1,6 @@
 # Deep Learning System
 
-深度学习系统（AI系统）
+深度学习系统
 
 这个开源项目英文名字叫做 Deep Learning System 或者 AI System，中文名字叫做 深度学习系统 或者 AI系统。
 
@@ -36,15 +36,15 @@
 
 **[二. 底层编译技术](./Compiler/)**
 
-|     |                                  |                                   |
-| --- | -------------------------------- | --------------------------------- |
-| 编号  | 名称                               | 具体内容                              |
-| 1   | [传统编译器](./Compiler/Tradition)    | 传统编译器GCC与LLVM，LLVM详细架构            |
-| 2   | [AI 编译器](./Compiler/AICompiler)  | AI编译器发展与架构定义，未来挑战与思考              |
-| 3   | [前端优化](./Compiler/Frontend)      | AI编译器的前端优化Pass<br>算子融合、内存排布、代数简化等 |
-| 3   | [后端优化](./Compiler/Backend)       | AI编译器的后端优化，更新中...                 |
-| 5   | [PyTorch2.0](./Compiler/PyTorch) | PyTorch2.0最重要的新特性：编译技术栈，更新中...    |
-|     |                                  |                                   |
+|        |                                  |                                   |
+|:------:|:-------------------------------- |:--------------------------------- |
+| **编号** | **名称**                           | **具体内容**                          |
+| 1      | [传统编译器](./Compiler/Tradition)    | 传统编译器GCC与LLVM，LLVM详细架构            |
+| 2      | [AI 编译器](./Compiler/AICompiler)  | AI编译器发展与架构定义，未来挑战与思考              |
+| 3      | [前端优化](./Compiler/Frontend)      | AI编译器的前端优化Pass<br>算子融合、内存排布、代数简化等 |
+| 3      | [后端优化](./Compiler/Backend)       | AI编译器的后端优化，更新中...                 |
+| 5      | [PyTorch2.0](./Compiler/PyTorch) | PyTorch2.0最重要的新特性：编译技术栈，更新中...    |
+|        |                                  |                                   |
 
 更新中...
 
@@ -62,4 +62,4 @@
 
 我们注意到，现在的大部分人工智能相关的课程，特别是深度学习和机器学习相关课程主要集中在相关理论、算法或者应用，与系统相关的课程并不多见。我们希望人工智能系统这门课能让人工智能相关教育变得更加全面和深入，以共同促进人工智能与系统在开源方面的共同学习和讨论。
 
-（原谅我复制粘贴微软[AI-System](https://github.com/microsoft/AI-System)的介绍，人家写得很好啦；另外推荐一个很好学习参考项目，公司跟英国麦络老师（爱丁堡大学）合作的[机器学习系统：设计和实现](https://github.com/openmlsys/openmlsys-zh)。）
+（原谅我复制粘贴微软[AI-System](https://github.com/microsoft/AI-System)的介绍，人家写得很好啦；另外推荐一个很好学习参考项目，华为公司跟英国麦络老师（爱丁堡大学）合作的[机器学习系统：设计和实现](https://github.com/openmlsys/openmlsys-zh)。）
