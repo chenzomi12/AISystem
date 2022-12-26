@@ -1,18 +1,12 @@
-# Deep Learning System
+# AI编译器
 
-深度学习系统（AI系统）
+随着深度学习的应用场景的不断泛化，深度学习计算任务也需要部署在不同的计算设备和硬件架构上；同时，实际部署或训练场景对性能往往也有着更为激进的要求，例如针对硬件特点定制计算代码。
 
-这个开源项目英文名字叫做 Deep Learning System 或者 AI System，中文名字叫做 深度学习系统 或者 AI系统。
-
-主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着我在工作当中所积累、梳理、构建关于华为昇腾的内容。当然这里不是打广告，而是希望跟所有关注开源项目的好朋友一起探讨研究，共同促进学习讨论。
+这些需求在通用的AI框架中已经难已得到满足。由于深度学习计算任务在现有的AI框架中往往以DSL（Domain Specific Language）的方式进行编程和表达，这本身使得深度学习计算任务的优化和执行天然符合传统计算机语言的编译和优化过程。因此，深度学习的编译与优化就是将当前的深度学习计算任务通过一层或多层中间表达进行翻译和优化，最终转化成目标硬件上的可执行代码的过程。本章将围绕现有AI编译器中的编译和优化工作的内容展开介绍。
 
 ## 内容大纲
 
-第二部分进进阶篇介绍AI框架**<u>底层编译技术</u>**，将站在系统设计的角度，思考在设计现代机器学习系统中需要考虑的编译器问题，特别是中间表达乃至后端优化。
-
-### 课程部分
-
-**[二. 底层编译技术](./)**
+**[二. AI编译技术](./)**
 
 |     |             |                             |                                                                                                  |
 | --- | ----------- | --------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -35,7 +29,7 @@
 |     | 前端优化        | 02 计算图层IR                   | [silde](./Frontend/02.graph_ir.pdf), [video](https://www.bilibili.com/video/BV1kV4y1w72W/)       |
 |     | 前端优化        | 03 算子融合策略                   | [silde](./Frontend/03.op_fusion.pdf), [video](https://www.bilibili.com/video/BV1P24y1D7RV/)      |
 |     | 前端优化        | 04(上) 布局转换原理                | [silde](./Frontend/04.layout_trans01.pdf), [video](https://www.bilibili.com/video/BV1xK411z7Uw/) |
-|     | 前端优化        | 04(下) 布局转换算法                | [silde](./Frontend/04.layout_trans02.pdf), [video](https://www.bilibili.com/video/BV1gd4y1Y7dc/)          |
+|     | 前端优化        | 04(下) 布局转换算法                | [silde](./Frontend/04.layout_trans02.pdf), [video](https://www.bilibili.com/video/BV1gd4y1Y7dc/) |
 |     | 前端优化        | 05 内存分配算法                   | [silde](./Frontend/05.memory.pdf), [video]()                                                     |
 |     | 前端优化        | 06 常量折叠原理                   | [silde](./Frontend/06.constant_fold.pdf), [video](https://www.bilibili.com/video/BV1P8411W7dY/)  |
 |     | 前端优化        | 07 公共表达式消除                  | [silde](./Frontend/07.cse.pdf), [video](https://www.bilibili.com/video/BV1rv4y1Q7tp/)            |
@@ -43,20 +37,13 @@
 |     | 前端优化        | 09 代数简化原理                   | [silde](./Frontend/09.algebraic.pdf), [video](https://www.bilibili.com/video/BV1g24y1Q7qC/)      |
 |     | 前端优化        | 10 优化Pass排序                 | [silde](./Frontend/10.summary.pdf), [video](https://www.bilibili.com/video/BV1L14y1P7ku/)        |
 |     |             |                             |                                                                                                  |
-| 4   | 后端优化        | 01 内容介绍                     | [silde](./Backend/01.introduction.pdf), [video](https://www.bilibili.com/video/BV17D4y177bP/)   |
+| 4   | 后端优化        | 01 AI编译器后端优化介绍              | [silde](./Backend/01.introduction.pdf), [video](https://www.bilibili.com/video/BV17D4y177bP/)    |
+|     | 后端优化        | 02 算子分为计算与调度                | [silde](./Backend/02.ops_compute.pdf), [video](https://www.bilibili.com/video/BV1K84y1x7Be/)     |
+|     | 后端优化        | 03 算子优化手工方式                 | [silde](./Backend/03.optimization.pdf), [video](https://www.bilibili.com/video/BV1ZA411X7WZ/)    |
+|     | 后端优化        | 04 算子循环优化                   | [silde](./Backend/04.loop_opt.pdf), [video](https://www.bilibili.com/video/BV17D4y177bP/)        |
 |     |             |                             |                                                                                                  |
 | 5   | PyTorch2.0  | 01 PyTorch2.0 特性串讲          | [silde](./PyTorch/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1p84y1675B/)    |
 | 5.1 | TorchDynamo | 02 TorchScript 静态图尝试        | [silde](./PyTorch/02.torchscript.pdf), [video](https://www.bilibili.com/video/BV1JV4y1P7gB/)     |
 |     | TorchDynamo | 03 Torch FX 与 LazyTensor 特性 | [silde](./PyTorch/03.torchfx_lazy.pdf), [video](https://www.bilibili.com/video/BV1944y1m7fU/)    |
 |     | TorchDynamo | 04 TorchDynamo 来啦           | [silde](./PyTorch/04.torchdynamo.pd'f),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)   |
 |     |             |                             |                                                                                                  |
-
-更新ing...
-
-## 项目背景
-
-近年来人工智能特别是深度学习技术得到了飞速发展，这背后离不开计算机硬件和软件系统的不断进步。在可见的未来，人工智能技术的发展仍将依赖于计算机系统和人工智能相结合的共同创新模式。需要注意的是，计算机系统现在正以更大的规模和更高的复杂性来赋能于人工智能，这背后不仅需要更多的系统上的创新，更需要系统性的思维和方法论。与此同时，人工智能也反过来为设计复杂系统提供支持。
-
-我们注意到，现在的大部分人工智能相关的课程，特别是深度学习和机器学习相关课程主要集中在相关理论、算法或者应用，与系统相关的课程并不多见。我们希望人工智能系统这门课能让人工智能相关教育变得更加全面和深入，以共同促进人工智能与系统在开源方面的共同学习和讨论。
-
-（原谅我复制粘贴微软[AI-System](https://github.com/microsoft/AI-System)的介绍，人家写得很好啦；另外推荐一个很好学习参考项目，公司跟英国麦络老师（爱丁堡大学）合作的[机器学习系统：设计和实现](https://github.com/openmlsys/openmlsys-zh)。）
