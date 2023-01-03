@@ -41,9 +41,12 @@
 |     | 后端优化        | 02 算子分为计算与调度                | [silde](./Backend/02.ops_compute.pdf), [video](https://www.bilibili.com/video/BV1K84y1x7Be/)     |
 |     | 后端优化        | 03 算子优化手工方式                 | [silde](./Backend/03.optimization.pdf), [video](https://www.bilibili.com/video/BV1ZA411X7WZ/)    |
 |     | 后端优化        | 04 算子循环优化                   | [silde](./Backend/04.loop_opt.pdf), [video](https://www.bilibili.com/video/BV17D4y177bP/)        |
+|     | 后端优化        | 05 指令和内存优化                  | [silde](./Backend/05.other_opt.pdf), [video](https://www.bilibili.com/video/BV11d4y1a7J6/)       |
+|     | 后端优化        | 06 Auto-Tuning原理            | [silde](./Backend/06.auto_tuning.pdf), [video](https://www.bilibili.com/video/BV1uA411D7JF/)     |
 |     |             |                             |                                                                                                  |
 | 5   | PyTorch2.0  | 01 PyTorch2.0 特性串讲          | [silde](./PyTorch/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1p84y1675B/)    |
 | 5.1 | TorchDynamo | 02 TorchScript 静态图尝试        | [silde](./PyTorch/02.torchscript.pdf), [video](https://www.bilibili.com/video/BV1JV4y1P7gB/)     |
 |     | TorchDynamo | 03 Torch FX 与 LazyTensor 特性 | [silde](./PyTorch/03.torchfx_lazy.pdf), [video](https://www.bilibili.com/video/BV1944y1m7fU/)    |
-|     | TorchDynamo | 04 TorchDynamo 来啦           | [silde](./PyTorch/04.torchdynamo.pd'f),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)   |
-|     |             |                             |                                                                                                  |
+|     | TorchDynamo | 04 TorchDynamo 来啦           | [silde](./PyTorch/04.torchdynamo.pdf),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)    |
+| 5.2 | AOTAutograd | 05 AOTAutograd 原理           | [silde](./PyTorch/05.aotatuograd.pdf),  [video](https://www.bilibili.com/video/BV1Me4y1V7Ke/)    |
+|     | AOTAutograd | 06 Dispatch 机制              |                                                                                                  |
