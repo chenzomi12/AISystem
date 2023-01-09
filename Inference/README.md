@@ -10,23 +10,29 @@
 
 ## 课程部分
 
-|     |       |          |              |     |
-| --- | ----- | -------- | ------------ | --- |
-| 编号  | 名称    | 内容       | 资源           | 备注  |
-| 1   | 推理引擎  | 推理引擎简介   | slide, video |     |
-|     | 推理引擎  | 生命周期管理   | slide, video |     |
-|     | 推理引擎  | 推理引擎专用芯片 | slide, video |     |
-| 2   | 离线优化  | 低比特量化    | slide, video |     |
-|     | 离线优化  | 二值化网络    | slide, video |     |
-|     | 离线优化  | 网络剪枝     | slide, video |     |
-|     | 离线优化  | 模型蒸馏     | slide, video |     |
-| 3   | 部署优化  | 图转换与优化   | slide, video |     |
-|     | 部署优化  |          | slide, video |     |
-|     | 部署优化  |          | slide, video |     |
-| 4   | 运行时优化 | 并发执行     | slide, video |     |
-|     | 运行时优化 | 动态Batch  | slide, video |     |
-|     | 运行时优化 | 内存分配     | slide, video |     |
-|     |       |          |              |     |
+|     |       |              |                                                     |     |
+| --- | ----- | ------------ | --------------------------------------------------- | --- |
+| 编号  | 名称    | 内容           | 资源                                                  | 备注  |
+| 1   | 推理系统  | 01 内容介绍      | [slide](./Inference/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1J8411K7pj/) |     |
+|     | 推理系统  | 02 什么是推理系统   | [slide](./Inference/02.constraints.pdf）, [video](https://www.bilibili.com/video/BV1nY4y1f7G5/)  |     |
+|     | 推理系统  | 03 推理流程全景    | [slide](./Inference/03.workflow.pdf), [video]()     |     |
+|     | 推理系统  | 04 推理系统架构    | [slide](./Inference/04.system.pdf), [video]()       |     |
+|     | 推理系统  | 05(上) 推理引擎架构 | [slide](./Inference/05.inference.pdf), [video]()    |     |
+|     | 推理系统  | 05(下) 推理引擎架构 | [slide](./Inference/06.architecture.pdf), [video]() |     |
+|     |       |              |                                                     |     |
+| 2   | 离线优化  | 低比特量化        | slide, video                                        |     |
+|     | 离线优化  | 二值化网络        | slide, video                                        |     |
+|     | 离线优化  | 网络剪枝         | slide, video                                        |     |
+|     | 离线优化  | 模型蒸馏         | slide, video                                        |     |
+|     |       |              |                                                     |     |
+| 3   | 部署优化  | 图转换与优化       | slide, video                                        |     |
+|     | 部署优化  |              | slide, video                                        |     |
+|     | 部署优化  |              | slide, video                                        |     |
+|     |       |              |                                                     |     |
+| 4   | 运行时优化 | 并发执行         | slide, video                                        |     |
+|     | 运行时优化 | 动态Batch      | slide, video                                        |     |
+|     | 运行时优化 | 内存分配         | slide, video                                        |     |
+|     |       |              |                                                     |     |
 
 ## 项目背景
 
