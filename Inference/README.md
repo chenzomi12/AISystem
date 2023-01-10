@@ -15,7 +15,7 @@
 | 编号  | 名称    | 内容           | 资源                                                                                              | 备注  |
 | 1   | 推理系统  | 01 内容介绍      | [slide](./Inference/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1J8411K7pj/) |     |
 |     | 推理系统  | 02 什么是推理系统   | [slide](./Inference/02.constraints.pdf), [video](https://www.bilibili.com/video/BV1nY4y1f7G5/)  |     |
-|     | 推理系统  | 03 推理流程全景    | [slide](./Inference/03.workflow.pdf), [video]()                                                 |     |
+|     | 推理系统  | 03 推理流程全景    | [slide](./Inference/03.workflow.pdf), [video](https://www.bilibili.com/video/BV1M24y1v7rK/)                                                 |     |
 |     | 推理系统  | 04 推理系统架构    | [slide](./Inference/04.system.pdf), [video]()                                                   |     |
 |     | 推理系统  | 05(上) 推理引擎架构 | [slide](./Inference/05.inference.pdf), [video]()                                                |     |
 |     | 推理系统  | 05(下) 推理引擎架构 | [slide](./Inference/06.architecture.pdf), [video]()                                             |     |
