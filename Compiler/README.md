@@ -24,29 +24,29 @@
 
 通过《AI编译器原理介绍》这个课程，以及这门课程后面的几门课程，你将获取并且掌握的技能：
 
-| 编号  | 名称                     | 具体内容                                                                                                |
-|:---:|:---------------------- |:--------------------------------------------------------------------------------------------------- |
-| 1   | [传统编译器](./Tradition/) | 目前最常用的GCC和LLVM的发展历史，GCC的使用方式和LLVM的架构前后端优化划分，去了解传统编译器的整体架构和脉络。                             |
-| 2   | [AI 编译器](./AICompiler/)     | AI 编译器发展时间并不长，从TF第一代开始到目前进入第二代，AI编译器整体架构基本上已经清晰，可是也会越到很多挑战和技术难点。                          |
-| 3   | [前端优化](./Frontend/)      | AI 编译器的前端优化包括图算融合、数据排布、内存优化等跟深度学习相结合的优化手段，同时把传统编译器关于代数优化的技术引入到计算图中。 |
-| 4   | [后端优化](./Backend/)   | AI 编译器为了更好地跟硬件打交道，充分赋能硬件，需要后端优化来支持，于是后端针对调度树或者底层IR回进行循环优化、指令优化和内存优化等优化手段。              |
-| 5   | [多面体技术](./AICluster)   | 多面体表示技术作为统一化的程序变换表示技术, 可以通过迭代域、仿射调度、访存函数等操作对算子或者Kernel进行循环优化和内存映射优化，作为AI编译器的前言研究方向。              |
-| 6   | [PyTorch图模式](./PyTorch/)    | 在充分了解AI编译器后，来深度剖析PyTorch2.0关于图模式的Dynamo是如何实现的，如何对PyTorch的后端执行进行加速。    |
-|     |                        |                                                                                                     |
+| 编号  | 名称                       | 具体内容                                                                                |
+|:---:|:------------------------ |:----------------------------------------------------------------------------------- |
+| 1   | [传统编译器](./Tradition/)    | 目前最常用的GCC和LLVM的发展历史，GCC的使用方式和LLVM的架构前后端优化划分，去了解传统编译器的整体架构和脉络。                       |
+| 2   | [AI 编译器](./AICompiler/)  | AI 编译器发展时间并不长，从TF第一代开始到目前进入第二代，AI编译器整体架构基本上已经清晰，可是也会越到很多挑战和技术难点。                    |
+| 3   | [前端优化](./Frontend/)      | AI 编译器的前端优化包括图算融合、数据排布、内存优化等跟深度学习相结合的优化手段，同时把传统编译器关于代数优化的技术引入到计算图中。                 |
+| 4   | [后端优化](./Backend/)       | AI 编译器为了更好地跟硬件打交道，充分赋能硬件，需要后端优化来支持，于是后端针对调度树或者底层IR回进行循环优化、指令优化和内存优化等优化手段。           |
+| 5   | [多面体技术](./AICluster)     | 多面体表示技术作为统一化的程序变换表示技术, 可以通过迭代域、仿射调度、访存函数等操作对算子或者Kernel进行循环优化和内存映射优化，作为AI编译器的前言研究方向。 |
+| 6   | [PyTorch图模式](./PyTorch/) | 在充分了解AI编译器后，来深度剖析PyTorch2.0关于图模式的Dynamo是如何实现的，如何对PyTorch的后端执行进行加速。                  |
+|     |                          |                                                                                     |
 
 ## 课程细节
 
 |     |             |                             |                                                                                                  |
 | --- | ----------- | --------------------------- | ------------------------------------------------------------------------------------------------ |
 | 编号  | 名称          | 具体内容                        | 备注                                                                                               |
-|     | 编译器基础       | 01 课程概述                     | [silde](./Tradition/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1D84y1y73v/)       |
+|     | 编译器基础       | 01 课程概述                     | [silde](./Tradition/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1D84y1y73v/)  |
 |     |             |                             |                                                                                                  |
-| 1   | 传统编译器       | 02 开源编译器的发展                 | [silde](./Tradition/02.history.pdf), [video](https://www.bilibili.com/video/BV1sM411C7Vr/)            |
-|     | 传统编译器       | 03 GCC编译过程和原理               | [silde](./Tradition/03.gcc.pdf), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)                |
-|     | 传统编译器       | 04 LLVM设计架构                 | [silde](./Tradition/04.llvm.pdf), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/)               |
-|     | 传统编译器       | 05(上) LLVM IR详解             | [silde](./Tradition/05.llvm_detail01.pdf), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)      |
-|     | 传统编译器       | 05(中) LLVM前端和优化层            | [silde](./Tradition/06.llvm_detail02.pdf), [video](https://www.bilibili.com/video/BV1vd4y1t7vS)       |
-|     | 传统编译器       | 05(下) LLVM后端代码生成            | [silde](./Tradition/07.llvm_detail03.pdf), [video](https://www.bilibili.com/video/BV1cd4y1b7ho)       |
+| 1   | 传统编译器       | 02 开源编译器的发展                 | [silde](./Tradition/02.history.pdf), [video](https://www.bilibili.com/video/BV1sM411C7Vr/)       |
+|     | 传统编译器       | 03 GCC编译过程和原理               | [silde](./Tradition/03.gcc.pdf), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)           |
+|     | 传统编译器       | 04 LLVM设计架构                 | [silde](./Tradition/04.llvm.pdf), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/)          |
+|     | 传统编译器       | 05(上) LLVM IR详解             | [silde](./Tradition/05.llvm_detail01.pdf), [video](https://www.bilibili.com/video/BV1LR4y1f7et/) |
+|     | 传统编译器       | 05(中) LLVM前端和优化层            | [silde](./Tradition/06.llvm_detail02.pdf), [video](https://www.bilibili.com/video/BV1vd4y1t7vS)  |
+|     | 传统编译器       | 05(下) LLVM后端代码生成            | [silde](./Tradition/07.llvm_detail03.pdf), [video](https://www.bilibili.com/video/BV1cd4y1b7ho)  |
 |     |             |                             |                                                                                                  |
 | 2   | AI 编译器      | 01 为什么需要AI编译器               | [silde](./AICompiler/01.appear.pdf), [video](https://www.bilibili.com/video/BV1pM41167KP)        |
 |     | AI 编译器      | 02 AI编译器的发展阶段               | [silde](./AICompiler/02.stage.pdf), [video](https://www.bilibili.com/video/BV1QK411R7iy/)        |
