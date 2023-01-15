@@ -77,7 +77,7 @@
 |     | TorchDynamo | 03 Torch FX 与 LazyTensor 特性 | [silde](./PyTorch/03.torchfx_lazy.pdf), [video](https://www.bilibili.com/video/BV1944y1m7fU/)    |
 |     | TorchDynamo | 04 TorchDynamo 来啦           | [silde](./PyTorch/04.torchdynamo.pdf),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)    |
 | 5.2 | AOTAutograd | 05 AOTAutograd 原理           | [silde](./PyTorch/05.aotatuograd.pdf),  [video](https://www.bilibili.com/video/BV1Me4y1V7Ke/)    |
-|     | AOTAutograd | 06 Dispatch 机制              |                                                                                                  |
+|     | AOTAutograd | 06 Dispatch 机制              | [silde](./PyTorch/06.dispatch.pdf),  [video](https://www.bilibili.com/video/BV1L3411d7SM/)       |
 
 ## 目标学员
 
