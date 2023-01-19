@@ -54,7 +54,7 @@
 | **编号** | **名称**                         | **具体内容**                   |
 | 1      | [推理系统](./Inference/Inference/) | 推理系统整体介绍，推理引擎架构梳理          |
 | 2      | [轻量网络](./Inference/Mobilenet/) | 轻量化主干网络，MobileNet等SOTA模型介绍 |
-| 3      | [模型小型化](./Inference/Compress/) | 量化、蒸馏、剪枝和二值化算法             |
+| 3      | [模型小型化](./Inference/Compress/) | 模型压缩4件套，量化、蒸馏、剪枝和二值化  |
 | 3      | 更新中                            |                            |
 |        |                                |                            |
 

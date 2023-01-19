@@ -23,25 +23,7 @@
 |     | 推理系统  | 05(下) 推理引擎架构 | [slide](./Inference/06.architecture.pdf), [video](https://www.bilibili.com/video/BV1FG4y1C7Mn/) |     |
 |     |       |              |                                                                                                 |     |
 | 2   | 模型小型化 | 01 推理参数了解    | [slide](./Mobilenet/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1KW4y1G75J/) |     |
+|     | 模型小型化 | 02(上) CNN模型小型化    | [slide](./Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1Y84y1b7xj/) |     |
+|     | 模型小型化 | 02(下) CNN模型小型化    | [slide](./Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1DK411k7qt/) |     |
+|     | 模型小型化 | 03 Transformer小型化    | [slide](./Mobilenet/03.transform.pdf), [video](https://www.bilibili.com/video/BV19d4y1V7ou/) |     |
 |     |       |              |                                                                                                 |     |
-|     | 离线优化  | 二值化网络        | slide, video                                                                                    |     |
-|     | 离线优化  | 二值化网络        | slide, video                                                                                    |     |
-|     | 离线优化  | 网络剪枝         | slide, video                                                                                    |     |
-|     | 离线优化  | 模型蒸馏         | slide, video                                                                                    |     |
-|     |       |              |                                                                                                 |     |
-| 3   | 部署优化  | 图转换与优化       | slide, video                                                                                    |     |
-|     | 部署优化  |              | slide, video                                                                                    |     |
-|     | 部署优化  |              | slide, video                                                                                    |     |
-|     |       |              |                                                                                                 |     |
-| 4   | 运行时优化 | 并发执行         | slide, video                                                                                    |     |
-|     | 运行时优化 | 动态Batch      | slide, video                                                                                    |     |
-|     | 运行时优化 | 内存分配         | slide, video                                                                                    |     |
-|     |       |              |                                                                                                 |     |
-
-## 项目背景
-
-近年来人工智能特别是深度学习技术得到了飞速发展，这背后离不开计算机硬件和软件系统的不断进步。在可见的未来，人工智能技术的发展仍将依赖于计算机系统和人工智能相结合的共同创新模式。需要注意的是，计算机系统现在正以更大的规模和更高的复杂性来赋能于人工智能，这背后不仅需要更多的系统上的创新，更需要系统性的思维和方法论。与此同时，人工智能也反过来为设计复杂系统提供支持。
-
-我们注意到，现在的大部分人工智能相关的课程，特别是深度学习和机器学习相关课程主要集中在相关理论、算法或者应用，与系统相关的课程并不多见。我们希望人工智能系统这门课能让人工智能相关教育变得更加全面和深入，以共同促进人工智能与系统在开源方面的共同学习和讨论。
-
-（原谅我复制粘贴微软[AI-System](https://github.com/microsoft/AI-System)的介绍，人家写得很好啦；另外推荐一个很好学习参考项目，公司跟英国麦络老师（爱丁堡大学）合作的[机器学习系统：设计和实现](https://github.com/openmlsys/openmlsys-zh)。）
