@@ -4,15 +4,17 @@
 
 ## 内容大纲
 
+> *建议优先下载或者使用PDF版本，PPT版本会因为字体缺失等原因导致版本很丑哦~*
+
 | 名称    | 名称               | 备注                                                                                      |
 | ----- | ---------------- | --------------------------------------------------------------------------------------- |
 |       |                  |                                                                                         |
-| 编译器基础 | 01 课程概述          | [silde](./01.introduction.pptx), [video](https://www.bilibili.com/video/BV1D84y1y73v/)  |
+| 编译器基础 | 01 课程概述          | [silde](./01.introduction.pdf), [video](https://www.bilibili.com/video/BV1D84y1y73v/)  |
 |       |                  |                                                                                         |
-| 传统编译器 | 02 开源编译器的发展      | [silde](./02.history.pptx), [video](https://www.bilibili.com/video/BV1sM411C7Vr/)       |
-| 传统编译器 | 03 GCC编译过程和原理    | [silde](./03.gcc.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)           |
-| 传统编译器 | 04 LLVM设计架构      | [silde](./04.llvm.pptx), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/)          |
-| 传统编译器 | 05(上) LLVM IR详解  | [silde](./05.llvm_detail01.pptx), [video](https://www.bilibili.com/video/BV1LR4y1f7et/) |
-| 传统编译器 | 05(中) LLVM前端和优化层 | [silde](./06.llvm_detail02.pptx), [video](https://www.bilibili.com/video/BV1vd4y1t7vS)  |
-| 传统编译器 | 05(下) LLVM后端代码生成 | [silde](./07.llvm_detail03.pptx), [video](https://www.bilibili.com/video/BV1cd4y1b7ho)  |
+| 传统编译器 | 02 开源编译器的发展      | [silde](./02.history.pdf), [video](https://www.bilibili.com/video/BV1sM411C7Vr/)       |
+| 传统编译器 | 03 GCC编译过程和原理    | [silde](./03.gcc.pdf), [video](https://www.bilibili.com/video/BV1LR4y1f7et/)           |
+| 传统编译器 | 04 LLVM设计架构      | [silde](./04.llvm.pdf), [video](https://www.bilibili.com/video/BV1CG4y1V7Dn/)          |
+| 传统编译器 | 05(上) LLVM IR详解  | [silde](./05.llvm_detail01.pdf), [video](https://www.bilibili.com/video/BV1LR4y1f7et/) |
+| 传统编译器 | 05(中) LLVM前端和优化层 | [silde](./06.llvm_detail02.pdf), [video](https://www.bilibili.com/video/BV1vd4y1t7vS)  |
+| 传统编译器 | 05(下) LLVM后端代码生成 | [silde](./07.llvm_detail03.pdf), [video](https://www.bilibili.com/video/BV1cd4y1b7ho)  |
 |       |                  |                                                                                         |

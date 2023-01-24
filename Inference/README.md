@@ -10,20 +10,29 @@
 
 ## 课程部分
 
-> > *建议优先下载或者使用PDF版本，PPT版本会因为字体缺失等原因导致版本很丑哦~*
+> *建议优先下载或者使用PDF版本，PPT版本会因为字体缺失等原因导致版本很丑哦~*
 
-|     |       |              |                                                                                                 |     |
-| --- | ----- | ------------ | ----------------------------------------------------------------------------------------------- | --- |
-| 编号  | 名称    | 内容           | 资源                                                                                              | 备注  |
-| 1   | 推理系统  | 01 内容介绍      | [slide](./Inference/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1J8411K7pj/) |     |
-|     | 推理系统  | 02 什么是推理系统   | [slide](./Inference/02.constraints.pdf), [video](https://www.bilibili.com/video/BV1nY4y1f7G5/)  |     |
-|     | 推理系统  | 03 推理流程全景    | [slide](./Inference/03.workflow.pdf), [video](https://www.bilibili.com/video/BV1M24y1v7rK/)     |     |
-|     | 推理系统  | 04 推理系统架构    | [slide](./Inference/04.system.pdf), [video](https://www.bilibili.com/video/BV1Gv4y1i7Tw/)       |     |
-|     | 推理系统  | 05(上) 推理引擎架构 | [slide](./Inference/05.inference.pdf), [video](https://www.bilibili.com/video/BV1Mx4y137Er/)    |     |
-|     | 推理系统  | 05(下) 推理引擎架构 | [slide](./Inference/06.architecture.pdf), [video](https://www.bilibili.com/video/BV1FG4y1C7Mn/) |     |
-|     |       |              |                                                                                                 |     |
-| 2   | 模型小型化 | 01 推理参数了解    | [slide](./Mobilenet/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1KW4y1G75J/) |     |
-|     | 模型小型化 | 02(上) CNN模型小型化    | [slide](./Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1Y84y1b7xj/) |     |
-|     | 模型小型化 | 02(下) CNN模型小型化    | [slide](./Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1DK411k7qt/) |     |
-|     | 模型小型化 | 03 Transformer小型化    | [slide](./Mobilenet/03.transform.pdf), [video](https://www.bilibili.com/video/BV19d4y1V7ou/) |     |
-|     |       |              |                                                                                                 |     |
+|     |       |                   |                                                                                                 |     |
+| --- | ----- | ----------------- | ----------------------------------------------------------------------------------------------- | --- |
+| 编号  | 名称    | 内容                | 资源                                                                                              | 备注  |
+| 1   | 推理系统  | 01 内容介绍           | [slide](./Inference/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1J8411K7pj/) |     |
+|     | 推理系统  | 02 什么是推理系统        | [slide](./Inference/02.constraints.pdf), [video](https://www.bilibili.com/video/BV1nY4y1f7G5/)  |     |
+|     | 推理系统  | 03 推理流程全景         | [slide](./Inference/03.workflow.pdf), [video](https://www.bilibili.com/video/BV1M24y1v7rK/)     |     |
+|     | 推理系统  | 04 推理系统架构         | [slide](./Inference/04.system.pdf), [video](https://www.bilibili.com/video/BV1Gv4y1i7Tw/)       |     |
+|     | 推理系统  | 05(上) 推理引擎架构      | [slide](./Inference/05.inference.pdf), [video](https://www.bilibili.com/video/BV1Mx4y137Er/)    |     |
+|     | 推理系统  | 05(下) 推理引擎架构      | [slide](./Inference/06.architecture.pdf), [video](https://www.bilibili.com/video/BV1FG4y1C7Mn/) |     |
+|     |       |                   |                                                                                                 |     |
+| 2   | 模型小型化 | 01 推理参数了解         | [slide](./Mobilenet/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1KW4y1G75J/) |     |
+|     | 模型小型化 | 02(上) CNN模型小型化    | [slide](./Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1Y84y1b7xj/)          |     |
+|     | 模型小型化 | 02(下) CNN模型小型化    | [slide](./Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1DK411k7qt/)          |     |
+|     | 模型小型化 | 03 Transformer小型化 | [slide](./Mobilenet/03.transform.pdf), [video](https://www.bilibili.com/video/BV19d4y1V7ou/)    |     |
+|     |       |                   |                                                                                                 |     |
+| 3   | 模型压缩  | 01 基本介绍           | [slide](./Slim/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1384y187tL/)      |     |
+|     | 模型压缩  | 02 低比特量化原理        | [slide](./Slim/02.quant.pdf), [video](https://www.bilibili.com/video/BV1VD4y1n7AR/)             |     |
+|     | 模型压缩  | 03 感知量化训练 QAT     | [slide](./Slim/03.qat.pdf), [video](https://www.bilibili.com/video/BV1s8411w7b9/)               |     |
+|     | 模型压缩  | 04 训练后量化PTQ与部署    | [slide](./Slim/04.ptq.pdf), [video](https://www.bilibili.com/video/BV1HD4y1n7E1/)               |     |
+|     | 模型压缩  | 05 模型剪枝           | [slide](./Slim/05.pruning.pdf), [video]()                                                       |     |
+|     | 模型压缩  | 06(上) 知识蒸馏原理      | [slide](./Slim/06.distillation.pdf), [video]()                                                  |     |
+|     | 模型压缩  | 06(下) 知识蒸馏算法      | [slide](./Slim/06.distillation.pdf), [video]()                                                  |     |
+|     | 待更    |                   |                                                                                                 |     |
+|     |       |                   |                                                                                                 |     |

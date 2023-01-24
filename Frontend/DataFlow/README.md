@@ -4,13 +4,15 @@
 
 ## 内容大纲
 
+> *建议优先下载或者使用PDF版本，PPT版本会因为字体缺失等原因导致版本很丑哦~*
+
 |     |     |                 |                                                                                             |
 | --- | --- | --------------- | ------------------------------------------------------------------------------------------- |
 | 编号  | 名称  | 名称              | 备注                                                                                          |
-|     | 计算图 | 01 基本介绍         | [silde](./01.introduction.pptx), [video](https://www.bilibili.com/video/BV1cG411E7gV/)      |
-|     | 计算图 | 02 什么是计算图       | [silde](./02.computation_graph.pptx), [video](https://www.bilibili.com/video/BV1rR4y197HM/) |
-|     | 计算图 | 03 计算图跟自动微分关系   | [silde](./03.atuodiff.pptx), [video](https://www.bilibili.com/video/BV1S24y197FU/)          |
-|     | 计算图 | 04 图优化与图执行调度    | [silde](./04.dispatch.pptx),[video](https://www.bilibili.com/video/BV1hD4y1k7Ty/)           |
-|     | 计算图 | 05 计算图的控制流机制实现  | [silde](./05.control_flow.pptx),[video](https://www.bilibili.com/video/BV17P41177Pk/)       |
-|     | 计算图 | 06 计算图未来将会走向何方？ | [silde](./06.future.pptx),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/)             |
+|     | 计算图 | 01 基本介绍         | [silde](./01.introduction.pdf), [video](https://www.bilibili.com/video/BV1cG411E7gV/)      |
+|     | 计算图 | 02 什么是计算图       | [silde](./02.computation_graph.pdf), [video](https://www.bilibili.com/video/BV1rR4y197HM/) |
+|     | 计算图 | 03 计算图跟自动微分关系   | [silde](./03.atuodiff.pdf), [video](https://www.bilibili.com/video/BV1S24y197FU/)          |
+|     | 计算图 | 04 图优化与图执行调度    | [silde](./04.dispatch.pdf),[video](https://www.bilibili.com/video/BV1hD4y1k7Ty/)           |
+|     | 计算图 | 05 计算图的控制流机制实现  | [silde](./05.control_flow.pdf),[video](https://www.bilibili.com/video/BV17P41177Pk/)       |
+|     | 计算图 | 06 计算图未来将会走向何方？ | [silde](./06.future.pdf),[video](https://www.bilibili.com/video/BV1hm4y1A7Nv/)             |
 |     |     |                 |                                                                                             |

@@ -4,10 +4,12 @@
 
 ## 内容大纲
 
+> *建议优先下载或者使用PDF版本，PPT版本会因为字体缺失等原因导致版本很丑哦~*
+
 | 名称     | 名称             | 备注                                                                                     |
 | ------ | -------------- | -------------------------------------------------------------------------------------- |
 |        |                |                                                                                        |
-| AI 编译器 | 01 为什么需要AI编译器  | [silde](./01.appear.pptx), [video](https://www.bilibili.com/video/BV1pM41167KP)        |
-| AI 编译器 | 02 AI编译器的发展阶段  | [silde](./02.stage.pptx), [video](https://www.bilibili.com/video/BV1QK411R7iy/)        |
-| AI 编译器 | 03 AI编译器的通用架构  | [silde](./03.architecture.pptx), [video](https://www.bilibili.com/video/BV1qD4y1Y73e/) |
-| AI 编译器 | 04 AI编译器的挑战与思考 | [silde](./04.future.pptx),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)      |
+| AI 编译器 | 01 为什么需要AI编译器  | [silde](./01.appear.pdf), [video](https://www.bilibili.com/video/BV1pM41167KP)        |
+| AI 编译器 | 02 AI编译器的发展阶段  | [silde](./02.stage.pdf), [video](https://www.bilibili.com/video/BV1QK411R7iy/)        |
+| AI 编译器 | 03 AI编译器的通用架构  | [silde](./03.architecture.pdf), [video](https://www.bilibili.com/video/BV1qD4y1Y73e/) |
+| AI 编译器 | 04 AI编译器的挑战与思考 | [silde](./04.future.pdf),  [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)      |
