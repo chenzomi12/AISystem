@@ -1,8 +1,6 @@
 # Deep Learning System
 
-深度学习系统
-
-这个开源项目英文名字叫做 Deep Learning System 或者 AI System，中文名字叫做 深度学习系统 或者 AI系统。
+这个开源项目英文名字叫做 **Deep Learning System** 或者 **AI System**，中文名字叫做 **深度学习系统** 或者 **AI系统**。
 
 主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着我在工作当中所积累、梳理、构建关于华为昇腾的内容。当然这里不是打广告，而是希望跟所有关注开源项目的好朋友一起探讨研究，共同促进学习讨论。
 
@@ -55,8 +53,8 @@
 | 1      | [推理系统](./Inference/Inference/)    | 推理系统整体介绍，推理引擎架构梳理          |
 | 2      | [轻量网络](./Inference/Mobilenet/)    | 轻量化主干网络，MobileNet等SOTA模型介绍 |
 | 3      | [模型压缩](./Inference/Slim/)         | 模型压缩4件套，量化、蒸馏、剪枝和二值化       |
-| 4      | [模型转换&优化](./Inference/Converter/) | 对训练完的模型进行转换，并对计算图优化        |
-| 5      | 更新中                               |                            |
+| 4      | [模型转换&优化](./Inference/Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
+| 5      | [执行优化](./Inference/Runtime/)      | 推理引擎执行阶段Runtime和Kernel底层优化 |
 |        |                                   |                            |
 
 **AI芯片**

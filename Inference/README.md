@@ -36,10 +36,13 @@
 |     | 模型压缩    | 06(下) 知识蒸馏算法      | [slide](./Slim/06.distillation.pdf), [video](https://www.bilibili.com/video/BV1vA411d7MF/)          |     |
 |     |         |                   |                                                                                                     |     |
 | 4   | 模型转换与优化 | 01 基本介绍           | [slide](./Converter/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1724y1z7ep/)     |     |
-|     | 模型转换模块  | 02 架构与文件格式        | [slide](./Converter/02.converter_princ.pdf), [video](https://www.bilibili.com/video/BV13P4y167sr/)  |     |
+| 4.1 | 模型转换模块  | 02 架构与文件格式        | [slide](./Converter/02.converter_princ.pdf), [video](https://www.bilibili.com/video/BV13P4y167sr/)  |     |
 |     | 模型转换模块  | 03 自定义计算图IR       | [slide](./Converter/03.converter_ir.pdf), [video](https://www.bilibili.com/video/BV1rx4y177R9/)     |     |
 |     | 模型转换模块  | 04 流程细节           | [slide](./Converter/04.converter_detail.pdf), [video](https://www.bilibili.com/video/BV13341197zU/) |     |
-|     | 图优化模块   | 05 计算图优化策略        | [slide](./Converter/04.converter_detail.pdf), [video](https://www.bilibili.com/video/BV1g84y1L7tF/) |     |
+| 4.2 | 图优化模块   | 05 计算图优化策略        | [slide](./Converter/05.optimizer.pdf), [video](https://www.bilibili.com/video/BV1g84y1L7tF/) |     |
+|     | 图优化模块   | 06 常量折叠&冗余节点消除     | [slide](./Converter/06.basic.pdf), [video]() |     |
+|     | 图优化模块   | 07 算子融合/替换/前移     | [slide](./Converter/06.basic.pdf), [video]() |     |
+|     | 图优化模块   | 08 数据布局转换&内存优化     | [slide](./Converter/07.extend.pdf), [video]() |     |
 |     |         |                   |                                                                                                     |     |
 |     | 更新中ing  |                   |                                                                                                     |     |
 |     |         |                   |                                                                                                     |     |
