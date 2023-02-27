@@ -54,12 +54,17 @@
 | 2      | [轻量网络](./Inference/Mobilenet/)    | 轻量化主干网络，MobileNet等SOTA模型介绍 |
 | 3      | [模型压缩](./Inference/Slim/)         | 模型压缩4件套，量化、蒸馏、剪枝和二值化       |
 | 4      | [模型转换&优化](./Inference/Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
-| 5      | [执行优化](./Inference/Runtime/)      | 推理引擎执行阶段Runtime和Kernel底层优化 |
-|        |                                   |                            |
+| 5      | [Kernel优化](./Inference/Kernel/)   | Kernel层、算子层优化，对算子、内存、调度优化  |
 
-**AI芯片**
+**[四. AI芯片](./Hardware/)**
 
-待更...
+|        |                                     |          |
+|:------:|:----------------------------------- |:-------- |
+| **编号** | **名称**                              | **具体内容** |
+| 1      | [加速芯片基础](./Hardware/Foundation/)    |          |
+| 2      | [NVIDIA GPU](./Hardware/Nvdia/)     |          |
+| 3      | [HUAWEI Ascend](./Hardware/Ascend/) |          |
+| 4      | [TPU以及其他](./Hardware/Others/)       |          |
 
 ## 项目背景
 
