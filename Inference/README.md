@@ -73,6 +73,9 @@
 |     |          |                   |                                                                                                     |     |
 | 5   | Kernel优化 | 01 Kernel优化架构     | [slide](./Kernel/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1Ze4y1c7Bb/)        |     |
 |     |          | 02 卷积操作基础原理       | [slide](./Kernel/02.conv.pdf),[video](https://www.bilibili.com/video/BV1No4y1e7KX/)                 |     |
+|     |          | 03 Im2Col算法       | [slide](./Kernel/03.im2col.pdf),[video](https://www.bilibili.com/video/BV1Ys4y1o7XW/)                 |     |
+|     |          | 04 Winograd算法       | [slide](./Kernel/04.winograd.pdf),[video](https://www.bilibili.com/video/BV1vv4y1Y7sc/)                 |     |
+|     |          | 05 QNNPack算法       | [slide](./Kernel/05.qnnpack.pdf),[video](https://www.bilibili.com/video/BV1ms4y1o7ki/)                 |     |
 |     |          |                   |                                                                                                     |     |
 
 ## 目标学员

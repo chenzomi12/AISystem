@@ -11,4 +11,4 @@ CHatGPT
 |             |                             |                                                                                       |
 | ChatGPT狂飙 | 01 GPT系列详解          | [silde](./chatGPT01.pdf), [video](https://www.bilibili.com/video/BV1kv4y1s7V7/) |
 | ChatGPT狂飙 | 02 RLHF强化学习PPO      | [silde](./chatGPT02.pdf), [video](https://www.bilibili.com/video/BV1w8411M7YB/)  |
-| ChatGPT狂飙 | 03 InstructGPT解读     | [silde](./chatGPT03.pdf), [video]() |
+| ChatGPT狂飙 | 03 InstructGPT解读     | [silde](./chatGPT03.pdf), [video](https://www.bilibili.com/video/BV1e24y1s7k8/) |
