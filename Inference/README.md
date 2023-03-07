@@ -72,11 +72,13 @@
 |     | 图优化模块    | 08 数据布局转换&内存优化    | [slide](./Converter/07.extend.pdf), [video](https://www.bilibili.com/video/BV1Ae4y1N7u7/)           |     |
 |     |          |                   |                                                                                                     |     |
 | 5   | Kernel优化 | 01 Kernel优化架构     | [slide](./Kernel/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1Ze4y1c7Bb/)        |     |
-|     |          | 02 卷积操作基础原理       | [slide](./Kernel/02.conv.pdf),[video](https://www.bilibili.com/video/BV1No4y1e7KX/)                 |     |
-|     |          | 03 Im2Col算法       | [slide](./Kernel/03.im2col.pdf),[video](https://www.bilibili.com/video/BV1Ys4y1o7XW/)                 |     |
-|     |          | 04 Winograd算法       | [slide](./Kernel/04.winograd.pdf),[video](https://www.bilibili.com/video/BV1vv4y1Y7sc/)                 |     |
-|     |          | 05 QNNPack算法       | [slide](./Kernel/05.qnnpack.pdf),[video](https://www.bilibili.com/video/BV1ms4y1o7ki/)                 |     |
-|     |          |                   |                                                                                                     |     |
+|     | Kernel优化 | 02 卷积操作基础原理       | [slide](./Kernel/02.conv.pdf),[video](https://www.bilibili.com/video/BV1No4y1e7KX/)                 |     |
+|     | Kernel优化 | 03 Im2Col算法       | [slide](./Kernel/03.im2col.pdf),[video](https://www.bilibili.com/video/BV1Ys4y1o7XW/)               |     |
+|     | Kernel优化 | 04 Winograd算法     | [slide](./Kernel/04.winograd.pdf),[video](https://www.bilibili.com/video/BV1vv4y1Y7sc/)             |     |
+|     | Kernel优化 | 05 QNNPack算法      | [slide](./Kernel/05.qnnpack.pdf),[video](https://www.bilibili.com/video/BV1ms4y1o7ki/)              |     |
+|     | Kernel优化 | 06 推理内存布局         | [slide](./Kernel/06.memory.pdf),  [video](https://www.bilibili.com/video/BV1eX4y1X7mL/)             |     |
+|     | Kernel优化 | 07 nc4hw4内存排布     | [slide](./Kernel/07.nc4hw4.pdf),  [video]()                                                         |     |
+|     | Kernel优化 | 08 汇编与循环优化        | [slide](./Kernel/08.others.pdf),  [video]()                                                         |     |
 
 ## 目标学员
 
