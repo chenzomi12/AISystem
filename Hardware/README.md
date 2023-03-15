@@ -29,6 +29,8 @@ XXXX待补充！AI芯片这里就很硬核了，希望可以坚持到最后啦�
 |     | AI 计算体系 | 02 AI计算模式(上) | [slide](./Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/)     |     |
 |     | AI 计算体系 | 03 AI计算模式(下) | [slide](./Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |     |
 |     | AI 计算体系 | 04 关键设计指标 | [slide](./Foundation/04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/) |     |
+|     | AI 计算体系 | 05 矩阵计算 | [slide](./Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/) |     |
+|     | AI 计算体系 | 06 比特位宽 | [slide](./Foundation/06.bit_width.pdf), [video]() |     |
 |     |         |              |                                                                                                     |     |
 
 ## 目标学员
