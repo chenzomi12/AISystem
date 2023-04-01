@@ -38,7 +38,8 @@ XXXX待补充！AI芯片这里就很硬核了，希望可以坚持到最后啦�
 |     | AI 计算体系 | 07 AI计算体系总结  | [slide](./Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/)                    |     |
 |     |         |              |                                                                                                     |     |
 |     | AI 芯片基础 | 01 CPU 基础  | [slide](./ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)                    |     |
-|     | AI 芯片基础 | 02 ISA 指令架构  | [slide](./ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/)                    |     |
+|     | AI 芯片基础 | 02 CPU 指令集架构  | [slide](./ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/)                    |     |
+|     | AI 芯片基础 | 02 CPU 计算本质  | [slide](./ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)                    |     |
 
 ## 目标学员
 
