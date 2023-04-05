@@ -12,7 +12,7 @@
 | 1   | 自动微分 | 01 基本介绍          | [silde](./01.introduction.pdf), [video](https://www.bilibili.com/video/BV1FV4y1T7zp/), [article](https://zhuanlan.zhihu.com/p/518198564)   |
 |     | 自动微分 | 02 什么是微分         | [silde](./02.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [article](https://zhuanlan.zhihu.com/p/518198564)   |
 |     | 自动微分 | 03 正反向计算模式       | [silde](./03.grad_mode.pdf), [video](https://www.bilibili.com/video/BV1zD4y117bL/), [article](https://zhuanlan.zhihu.com/p/518296942)      |
-|     | 自动微分 | 04 三种实现方法        | [silde](./04.grad_mode.pdf), [video](https://www.bilibili.com/video/BV1BN4y1P76t/), [article](https://zhuanlan.zhihu.com/p/520065656)      |
+|     | 自动微分 | 04 三种实现方法        | [silde](./04.implement.pdf), [video](https://www.bilibili.com/video/BV1BN4y1P76t/), [article](https://zhuanlan.zhihu.com/p/520065656)      |
 |     | 自动微分 | 05 手把手实现正向微分框架   | [silde](./05.forward_mode.ipynb), [video](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [article](https://zhuanlan.zhihu.com/p/520451681)  |
 |     | 自动微分 | 06 亲自实现一个PyTorch | [silde](./06.reversed_mode.ipynb), [video](https://www.bilibili.com/video/BV1ae4y1z7E6/), [article](https://zhuanlan.zhihu.com/p/547865589) |
 |     | 自动微分 | 07 自动微分的挑战&未来    | [silde](./07.challenge.pdf), [video](https://www.bilibili.com/video/BV17e4y1z73W/)                                                         |
