@@ -6,9 +6,9 @@ XXXX待补充！AI芯片这里就很硬核了，希望可以坚持到最后啦�
 
 - 《AI 计算体系》深入深度学习计算模式，从而理解“计算”需要什么。通过AI芯片关键指标，了解AI芯片要更好的支持“计算”，需要关注那些重点工作。最后通过深度学习的计算核心“矩阵乘”来看对“计算”的实际需求和情况，为了提升计算性能、降低功耗和满足训练推理不同场景应用，对“计算”引入 TF32/BF16 等复杂多样的比特位宽。
 
-- 
-
-- 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
+- 《AI芯片基础》简单从CPU开始看通用逻辑架构（冯诺依曼架构）开始，通过打开计算的本质（数据与时延）从而引出对于并行计算GPU作用和解决的业务场景，到目前最火的AI芯片NPU。最后迈入超异构并行CPU、GPU、NPU并存的计算系统架构黄金十年。
+  
+希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
 
 ## 课程目标
 
@@ -30,16 +30,19 @@ XXXX待补充！AI芯片这里就很硬核了，希望可以坚持到最后啦�
 | --- | ------- | ------------ | --------------------------------------------------------------------------------------------------- | --- |
 | 编号  | 名称      | 内容           | 资源                                                                                                  | 备注  |
 | 1   | AI 计算体系 | 01 课程内容      | [slide](./Foundation/01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/)        |     |
-|     | AI 计算体系 | 02 AI计算模式(上) | [slide](./Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/)     |     |
-|     | AI 计算体系 | 03 AI计算模式(下) | [slide](./Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |     |
-|     | AI 计算体系 | 04 关键设计指标    | [slide](./Foundation/04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/)         |     |
-|     | AI 计算体系 | 05 核心计算：矩阵乘  | [slide](./Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/)                     |     |
-|     | AI 计算体系 | 06 数据单位：bits | [slide](./Foundation/06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/)                  |     |
-|     | AI 计算体系 | 07 AI计算体系总结  | [slide](./Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/)                    |     |
+| 1   | AI 计算体系 | 02 AI计算模式(上) | [slide](./Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/)     |     |
+| 1   | AI 计算体系 | 03 AI计算模式(下) | [slide](./Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |     |
+| 1   | AI 计算体系 | 04 关键设计指标    | [slide](./Foundation/04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/)         |     |
+| 1   | AI 计算体系 | 05 核心计算：矩阵乘  | [slide](./Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/)          |     |
+| 1   | AI 计算体系 | 06 数据单位：bits | [slide](./Foundation/06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/)       |     |
+| 1   | AI 计算体系 | 07 AI计算体系总结  | [slide](./Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/)         |     |
 |     |         |              |                                                                                                     |     |
-|     | AI 芯片基础 | 01 CPU 基础  | [slide](./ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)                    |     |
-|     | AI 芯片基础 | 02 CPU 指令集架构  | [slide](./ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/)                    |     |
-|     | AI 芯片基础 | 02 CPU 计算本质  | [slide](./ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)                    |     |
+| 2   | AI 芯片基础 | 01 CPU 基础    | [slide](./ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)          |     |
+| 2   | AI 芯片基础 | 02 CPU 指令集架构 | [slide](./ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/)           |     |
+| 2   | AI 芯片基础 | 03 CPU 计算本质  | [slide](./ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)          |     |
+| 2   | AI 芯片基础 | 04 CPU 计算时延    | [slide](./ChipBase/04.cpu_latency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/)                                                   |     |
+| 2   | AI 芯片基础 | 05 GPU 基础    | [slide](./ChipBase/05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/)                                                   |     |
+| 2   | AI 芯片基础 | 06 NPU 基础    | [slide](./ChipBase/06.npu.pptx), [video]()                                                   |     |
 
 ## 目标学员
 
