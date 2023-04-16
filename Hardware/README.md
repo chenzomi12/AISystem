@@ -47,7 +47,8 @@ XXXX待补充！AI芯片这里就很硬核了，希望可以坚持到最后啦�
 | 2   | AI 芯片基础 | 06 NPU 基础    | [slide](./ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)              |     |
 | 2   | AI 芯片基础 | 07 超异构计算     | [slide](./ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK)                                                        |     |
 |     |         |              |                                                                                                     |     |
-| 3   | GPU 原理详解 | 01 GPU工作原理     | [slide](./GPU/01.works.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK)                                                        |     |
+| 3   | GPU 原理详解 | 01 GPU工作原理     | [slide](./GPU/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)                                                        |     |
+| 3   | GPU 原理详解 | 02 GPU适用于GPU     | [slide](./GPU/02.principle.pdf), [video]()                                                        |     |
 
 ## 目标学员
 
