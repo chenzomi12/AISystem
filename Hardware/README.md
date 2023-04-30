@@ -51,6 +51,8 @@ XXXX待补充！AI芯片这里就很硬核了，希望可以坚持到最后啦�
 | 3   | GPU 原理详解 | 02 GPU适用于GPU     | [slide](./GPU/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)                                                        |     |
 |     |         |              |                                                                                                     |     |
 | 3   | GPU 原理详解 | 01 GPU架构与CUDA关系     | [slide](./GPU/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/)                                                        |     |
+| 3   | GPU 原理详解 | 02 GPU架构回顾第一篇     | [slide](./GPU/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)                                                        |     |
+| 3   | GPU 原理详解 | 02 GPU架构回顾第二篇     | [slide](./GPU/05.turing.pdf), [video]()                                                        |     |
 
 ## 目标学员
 
