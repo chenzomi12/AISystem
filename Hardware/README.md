@@ -1,6 +1,6 @@
 # AI芯片：核心原理
 
-XXXX待补充！AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基础到AI芯片的范围都会涉及，芯片设计需要考虑上面AI框架的前端、后端编译，而不是停留在天天喊着吊打英伟达，被现实打趴。
+AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基础到AI芯片的范围都会涉及，芯片设计需要考虑上面AI框架的前端、后端编译，而不是停留在天天喊着吊打英伟达，被现实打趴。
 
 ## 课程简介
 
@@ -22,37 +22,38 @@ XXXX待补充！AI芯片这里就很硬核了，希望可以坚持到最后啦�
 | 1      | [AI 计算体系](./Foundation/) | 神经网络等AI技术的计算模式和计算体系架构         |
 | 2      | [AI 芯片基础](./ChipBase/)   | CPU、GPU、NPU等芯片基础原理，与体系架构黄金10年 |
 | 3      | [通用图形处理器 GPU](./GPU/)    | 模型压缩4件套，量化、蒸馏、剪枝和二值化          |
-| 4      | [AI专用处理器 NPU](./NPU)     | 华为、谷歌、特斯拉等专用AI处理器核心原理         |
+| 4      | [AI专用处理器 NPU](./NPU/)    | 华为、谷歌、特斯拉等专用AI处理器核心原理         |
 
 ## 课程细节
 
 > *建议优先下载或者使用PDF版本，PPT版本会因为字体缺失等原因导致版本很丑哦~*
 
-|     |         |              |                                                                                                     |     |
-| --- | ------- | ------------ | --------------------------------------------------------------------------------------------------- | --- |
-| 编号  | 名称      | 内容           | 资源                                                                                                  | 备注  |
-| 1   | AI 计算体系 | 01 课程内容      | [slide](./Foundation/01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/)        |     |
-| 1   | AI 计算体系 | 02 AI计算模式(上) | [slide](./Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/)     |     |
-| 1   | AI 计算体系 | 03 AI计算模式(下) | [slide](./Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |     |
-| 1   | AI 计算体系 | 04 关键设计指标    | [slide](./Foundation/04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/)         |     |
-| 1   | AI 计算体系 | 05 核心计算：矩阵乘  | [slide](./Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/)          |     |
-| 1   | AI 计算体系 | 06 数据单位：bits | [slide](./Foundation/06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/)       |     |
-| 1   | AI 计算体系 | 07 AI计算体系总结  | [slide](./Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/)         |     |
-|     |         |              |                                                                                                     |     |
-| 2   | AI 芯片基础 | 01 CPU 基础    | [slide](./ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)          |     |
-| 2   | AI 芯片基础 | 02 CPU 指令集架构 | [slide](./ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/)           |     |
-| 2   | AI 芯片基础 | 03 CPU 计算本质  | [slide](./ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)          |     |
-| 2   | AI 芯片基础 | 04 CPU 计算时延  | [slide](./ChipBase/04.cpu_latency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/)       |     |
-| 2   | AI 芯片基础 | 05 GPU 基础    | [slide](./ChipBase/05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/)               |     |
-| 2   | AI 芯片基础 | 06 NPU 基础    | [slide](./ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)              |     |
-| 2   | AI 芯片基础 | 07 超异构计算     | [slide](./ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK)                                                        |     |
-|     |         |              |                                                                                                     |     |
-| 3   | GPU 原理详解 | 01 GPU工作原理     | [slide](./GPU/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)                                                        |     |
-| 3   | GPU 原理详解 | 02 GPU适用于GPU     | [slide](./GPU/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)                                                        |     |
-|     |         |              |                                                                                                     |     |
-| 3   | GPU 原理详解 | 01 GPU架构与CUDA关系     | [slide](./GPU/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/)                                                        |     |
-| 3   | GPU 原理详解 | 02 GPU架构回顾第一篇     | [slide](./GPU/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)                                                        |     |
-| 3   | GPU 原理详解 | 02 GPU架构回顾第二篇     | [slide](./GPU/05.turing.pdf), [video]()                                                        |     |
+|     |          |                    |                                                                                                     |     |
+| --- | -------- | ------------------ | --------------------------------------------------------------------------------------------------- | --- |
+| 编号  | 名称       | 内容                 | 资源                                                                                                  | 备注  |
+| 1   | AI 计算体系  | 01 课程内容            | [slide](./Foundation/01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/)        |     |
+| 1   | AI 计算体系  | 02 AI计算模式(上)       | [slide](./Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/)     |     |
+| 1   | AI 计算体系  | 03 AI计算模式(下)       | [slide](./Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |     |
+| 1   | AI 计算体系  | 04 关键设计指标          | [slide](./Foundation/04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/)         |     |
+| 1   | AI 计算体系  | 05 核心计算：矩阵乘        | [slide](./Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/)          |     |
+| 1   | AI 计算体系  | 06 数据单位：bits       | [slide](./Foundation/06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/)       |     |
+| 1   | AI 计算体系  | 07 AI计算体系总结        | [slide](./Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/)         |     |
+|     |          |                    |                                                                                                     |     |
+| 2   | AI 芯片基础  | 01 CPU 基础          | [slide](./ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)          |     |
+| 2   | AI 芯片基础  | 02 CPU 指令集架构       | [slide](./ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/)           |     |
+| 2   | AI 芯片基础  | 03 CPU 计算本质        | [slide](./ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)          |     |
+| 2   | AI 芯片基础  | 04 CPU 计算时延        | [slide](./ChipBase/04.cpu_latency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/)       |     |
+| 2   | AI 芯片基础  | 05 GPU 基础          | [slide](./ChipBase/05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/)               |     |
+| 2   | AI 芯片基础  | 06 NPU 基础          | [slide](./ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)              |     |
+| 2   | AI 芯片基础  | 07 超异构计算           | [slide](./ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK)             |     |
+|     |          |                    |                                                                                                     |     |
+| 3   | GPU 原理详解 | 01 GPU工作原理         | [slide](./GPU/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)                  |     |
+| 3   | GPU 原理详解 | 02 GPU适用于GPU       | [slide](./GPU/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)              |     |
+|     |          |                    |                                                                                                     |     |
+| 3   | GPU 原理详解 | 01 GPU架构与CUDA关系    | [slide](./GPU/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/)           |     |
+| 3   | GPU 原理详解 | 02 GPU架构回顾第一篇      | [slide](./GPU/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)                  |     |
+| 3   | GPU 原理详解 | 03 GPU架构回顾第二篇      | [slide](./GPU/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/)                 |     |
+| 4   | GPU 原理详解 | 04 TensorCore原理(上) | [slide](./GPU/06.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)               |     |
 
 ## 目标学员
 
