@@ -8,7 +8,7 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 
 - 《AI 芯片基础》简单从CPU开始看通用逻辑架构（冯诺依曼架构）开始，通过打开计算的本质（数据与时延）从而引出对于并行计算GPU作用和解决的业务场景，到目前最火的AI芯片NPU。最后迈入超异构并行CPU、GPU、NPU并存的计算系统架构黄金十年。
 
-- 《GPU 原理详解》
+- 《GPU 原理详解》主要是深入地讲解GPU的工作原理，其最重要的指标是计算吞吐和存储和传输带宽。英伟达的GPU架构发展了十几年9代架构，其中专门为AI而生的Tensor Core对AI加速尤为重要，因此重点对Tensor Core进行深入剖析其发展、演进和架构。
 
 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
 
@@ -21,7 +21,7 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 | **编号** | **名称**                   | **具体内容**                      |
 | 1      | [AI 计算体系](./Foundation/) | 神经网络等AI技术的计算模式和计算体系架构         |
 | 2      | [AI 芯片基础](./ChipBase/)   | CPU、GPU、NPU等芯片基础原理，与体系架构黄金10年 |
-| 3      | [通用图形处理器 GPU](./GPU/)    | 模型压缩4件套，量化、蒸馏、剪枝和二值化          |
+| 3      | [通用图形处理器 GPU](./GPU/)    |GPU的基本原理、Tensor Core深度剖析          |
 | 4      | [AI专用处理器 NPU](./NPU/)    | 华为、谷歌、特斯拉等专用AI处理器核心原理         |
 
 ## 课程细节
@@ -53,7 +53,10 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 | 3   | GPU 原理详解 | 01 GPU架构与CUDA关系    | [slide](./GPU/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/)           |     |
 | 3   | GPU 原理详解 | 02 GPU架构回顾第一篇      | [slide](./GPU/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)                  |     |
 | 3   | GPU 原理详解 | 03 GPU架构回顾第二篇      | [slide](./GPU/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/)                 |     |
-| 4   | GPU 原理详解 | 04 TensorCore原理(上) | [slide](./GPU/06.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)               |     |
+| 3   | GPU 原理详解 | 04 TensorCore原理(上) | [slide](./GPU/06.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)               |     |
+| 3   | GPU 原理详解 | 05 TensorCore架构(中) | [slide](./GPU/07.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/)               |     |
+| 3   | GPU 原理详解 | 06 TensorCore剖析(下) | [slide](./GPU/08.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/)               |     |
+
 
 ## 目标学员
 
