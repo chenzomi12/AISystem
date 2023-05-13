@@ -8,7 +8,9 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 
 - 《AI 芯片基础》简单从CPU开始看通用逻辑架构（冯诺依曼架构）开始，通过打开计算的本质（数据与时延）从而引出对于并行计算GPU作用和解决的业务场景，到目前最火的AI芯片NPU。最后迈入超异构并行CPU、GPU、NPU并存的计算系统架构黄金十年。
 
-- 《GPU 原理详解》主要是深入地讲解GPU的工作原理，其最重要的指标是计算吞吐和存储和传输带宽。英伟达的GPU架构发展了十几年9代架构，其中专门为AI而生的Tensor Core对AI加速尤为重要，因此重点对Tensor Core进行深入剖析其发展、演进和架构。
+- 《GPU 原理详解》主要是深入地讲解GPU的工作原理，其最重要的指标是计算吞吐和存储和传输带宽，并对英伟达的GPU的十年5代架构进行梳理。
+
+- 《Tensor Core 与 NVlink》英伟达架构里面专门为AI而生的 Tensor Core 和 NVLink 对AI加速尤为重要，因此重点对 Tensor Core 和 NVLink 进行深入剖析其发展、演进和架构。
 
 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
 
@@ -16,13 +18,14 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 
 通过《AI芯片：核心原理》这个课程，以及这门课程后面的几门课程，你将获取并且掌握的技能：
 
-|        |                          |                               |
-|:------:|:------------------------ |:----------------------------- |
-| **编号** | **名称**                   | **具体内容**                      |
-| 1      | [AI 计算体系](./Foundation/) | 神经网络等AI技术的计算模式和计算体系架构         |
-| 2      | [AI 芯片基础](./ChipBase/)   | CPU、GPU、NPU等芯片基础原理，与体系架构黄金10年 |
-| 3      | [通用图形处理器 GPU](./GPU/)    |GPU的基本原理、Tensor Core深度剖析          |
-| 4      | [AI专用处理器 NPU](./NPU/)    | 华为、谷歌、特斯拉等专用AI处理器核心原理         |
+|        |                             |                               |
+|:------:|:--------------------------- |:----------------------------- |
+| **编号** | **名称**                      | **具体内容**                      |
+| 1      | [AI 计算体系](./Foundation/)    | 神经网络等AI技术的计算模式和计算体系架构         |
+| 2      | [AI 芯片基础](./ChipBase/)      | CPU、GPU、NPU等芯片基础原理，与体系架构黄金10年 |
+| 3      | [通用图形处理器 GPU](./GPUBase/)   | GPU的基本原理，英伟达GPU的架构发展          |
+| 3      | [英伟达GPU的AI详解](./GPUDetail/) | 英伟达GPU的TensorCore、NVLink深度剖析  |
+| 4      | [AI专用处理器 NPU](./NPU/)       | 华为、谷歌、特斯拉等专用AI处理器核心原理         |
 
 ## 课程细节
 
@@ -47,16 +50,15 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 | 2   | AI 芯片基础  | 06 NPU 基础          | [slide](./ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)              |     |
 | 2   | AI 芯片基础  | 07 超异构计算           | [slide](./ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK)             |     |
 |     |          |                    |                                                                                                     |     |
-| 3   | GPU 原理详解 | 01 GPU工作原理         | [slide](./GPU/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)                  |     |
-| 3   | GPU 原理详解 | 02 GPU适用于GPU       | [slide](./GPU/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)              |     |
+| 3   | GPU 原理详解 | 01 GPU工作原理         | [slide](./GPUBase/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)              |     |
+| 3   | GPU 原理详解 | 02 GPU适用于AI        | [slide](./GPUBase/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)          |     |
+| 3   | GPU 原理详解 | 03 GPU架构与CUDA关系    | [slide](./GPUBase/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/)       |     |
+| 3   | GPU 原理详解 | 04 GPU架构回顾第一篇      | [slide](./GPUBase/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)              |     |
+| 3   | GPU 原理详解 | 05 GPU架构回顾第二篇      | [slide](./GPUBase/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/)             |     |
 |     |          |                    |                                                                                                     |     |
-| 3   | GPU 原理详解 | 01 GPU架构与CUDA关系    | [slide](./GPU/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/)           |     |
-| 3   | GPU 原理详解 | 02 GPU架构回顾第一篇      | [slide](./GPU/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)                  |     |
-| 3   | GPU 原理详解 | 03 GPU架构回顾第二篇      | [slide](./GPU/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/)                 |     |
-| 3   | GPU 原理详解 | 04 TensorCore原理(上) | [slide](./GPU/06.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)               |     |
-| 3   | GPU 原理详解 | 05 TensorCore架构(中) | [slide](./GPU/07.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/)               |     |
-| 3   | GPU 原理详解 | 06 TensorCore剖析(下) | [slide](./GPU/08.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/)               |     |
-
+| 4   | GPU 原理详解 | 01 TensorCore原理(上) | [slide](./GPUDetail/01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)         |     |
+| 4   | GPU 原理详解 | 02 TensorCore架构(中) | [slide](./GPUDetail/02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/)       |     |
+| 4   | GPU 原理详解 | 03 TensorCore剖析(下) | [slide](./GPUDetail/03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/)          |     |
 
 ## 目标学员
 
