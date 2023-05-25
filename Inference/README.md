@@ -29,11 +29,11 @@
 |        |                         |                            |
 |:------:|:----------------------- |:-------------------------- |
 | **编号** | **名称**                  | **具体内容**                   |
-| 1      | [推理系统](./Inference/)    | 推理系统整体介绍，推理引擎架构梳理          |
-| 2      | [轻量网络](./Mobilenet/)    | 轻量化主干网络，MobileNet等SOTA模型介绍 |
-| 3      | [模型压缩](./Slim/)         | 模型压缩4件套，量化、蒸馏、剪枝和二值化       |
-| 4      | [模型转换&优化](./Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
-| 5      | [Kernel优化](./Kernel/)   | Kernel层、算子层优化，对算子、内存、调度优化  |
+| 1      | [推理系统](./01 Inference/)    | 推理系统整体介绍，推理引擎架构梳理          |
+| 2      | [轻量网络](./02 Mobilenet/)    | 轻量化主干网络，MobileNet等SOTA模型介绍 |
+| 3      | [模型压缩](./03 Slim/)         | 模型压缩4件套，量化、蒸馏、剪枝和二值化       |
+| 4      | [模型转换&优化](./04 Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
+| 5      | [Kernel优化](./05 Kernel/)   | Kernel层、算子层优化，对算子、内存、调度优化  |
 
 ## 课程细节
 
@@ -42,43 +42,43 @@
 |     |          |                   |                                                                                                     |     |
 | --- | -------- | ----------------- | --------------------------------------------------------------------------------------------------- | --- |
 | 编号  | 名称       | 内容                | 资源                                                                                                  | 备注  |
-| 1   | 推理系统     | 01 内容介绍           | [slide](./Inference/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1J8411K7pj/)     |     |
-|     | 推理系统     | 02 什么是推理系统        | [slide](./Inference/02.constraints.pdf), [video](https://www.bilibili.com/video/BV1nY4y1f7G5/)      |     |
-|     | 推理系统     | 03 推理流程全景         | [slide](./Inference/03.workflow.pdf), [video](https://www.bilibili.com/video/BV1M24y1v7rK/)         |     |
-|     | 推理系统     | 04 推理系统架构         | [slide](./Inference/04.system.pdf), [video](https://www.bilibili.com/video/BV1Gv4y1i7Tw/)           |     |
-|     | 推理系统     | 05(上) 推理引擎架构      | [slide](./Inference/05.inference.pdf), [video](https://www.bilibili.com/video/BV1Mx4y137Er/)        |     |
-|     | 推理系统     | 05(下) 推理引擎架构      | [slide](./Inference/06.architecture.pdf), [video](https://www.bilibili.com/video/BV1FG4y1C7Mn/)     |     |
+| 1   | 推理系统     | 01 内容介绍           | [slide](./01 Inference/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1J8411K7pj/)     |     |
+|     | 推理系统     | 02 什么是推理系统        | [slide](./01 Inference/02.constraints.pdf), [video](https://www.bilibili.com/video/BV1nY4y1f7G5/)      |     |
+|     | 推理系统     | 03 推理流程全景         | [slide](./01 Inference/03.workflow.pdf), [video](https://www.bilibili.com/video/BV1M24y1v7rK/)         |     |
+|     | 推理系统     | 04 推理系统架构         | [slide](./01 Inference/04.system.pdf), [video](https://www.bilibili.com/video/BV1Gv4y1i7Tw/)           |     |
+|     | 推理系统     | 05(上) 推理引擎架构      | [slide](./01 Inference/05.inference.pdf), [video](https://www.bilibili.com/video/BV1Mx4y137Er/)        |     |
+|     | 推理系统     | 05(下) 推理引擎架构      | [slide](./01 Inference/06.architecture.pdf), [video](https://www.bilibili.com/video/BV1FG4y1C7Mn/)     |     |
 |     |          |                   |                                                                                                     |     |
-| 2   | 模型小型化    | 01 推理参数了解         | [slide](./Mobilenet/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1KW4y1G75J/)     |     |
-|     | 模型小型化    | 02(上) CNN模型小型化    | [slide](./Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1Y84y1b7xj/)              |     |
-|     | 模型小型化    | 02(下) CNN模型小型化    | [slide](./Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1DK411k7qt/)              |     |
-|     | 模型小型化    | 03 Transformer小型化 | [slide](./Mobilenet/03.transform.pdf), [video](https://www.bilibili.com/video/BV19d4y1V7ou/)        |     |
+| 2   | 模型小型化    | 01 推理参数了解         | [slide](./02 Mobilenet/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1KW4y1G75J/)     |     |
+|     | 模型小型化    | 02(上) CNN模型小型化    | [slide](./02 Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1Y84y1b7xj/)              |     |
+|     | 模型小型化    | 02(下) CNN模型小型化    | [slide](./02 Mobilenet/02.cnn.pdf), [video](https://www.bilibili.com/video/BV1DK411k7qt/)              |     |
+|     | 模型小型化    | 03 Transformer小型化 | [slide](./02 Mobilenet/03.transform.pdf), [video](https://www.bilibili.com/video/BV19d4y1V7ou/)        |     |
 |     |          |                   |                                                                                                     |     |
-| 3   | 模型压缩     | 01 基本介绍           | [slide](./Slim/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1384y187tL/)          |     |
-|     | 模型压缩     | 02 低比特量化原理        | [slide](./Slim/02.quant.pdf), [video](https://www.bilibili.com/video/BV1VD4y1n7AR/)                 |     |
-|     | 模型压缩     | 03 感知量化训练 QAT     | [slide](./Slim/03.qat.pdf), [video](https://www.bilibili.com/video/BV1s8411w7b9/)                   |     |
-|     | 模型压缩     | 04 训练后量化PTQ与部署    | [slide](./Slim/04.ptq.pdf), [video](https://www.bilibili.com/video/BV1HD4y1n7E1/)                   |     |
-|     | 模型压缩     | 05 模型剪枝           | [slide](./Slim/05.pruning.pdf), [video](https://www.bilibili.com/video/BV1y34y1Z7KQ/)               |     |
-|     | 模型压缩     | 06(上) 知识蒸馏原理      | [slide](./Slim/06.distillation.pdf), [video](https://www.bilibili.com/video/BV1My4y197Tf/)          |     |
-|     | 模型压缩     | 06(下) 知识蒸馏算法      | [slide](./Slim/06.distillation.pdf), [video](https://www.bilibili.com/video/BV1vA411d7MF/)          |     |
+| 3   | 模型压缩     | 01 基本介绍           | [slide](./03 Slim/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1384y187tL/)          |     |
+|     | 模型压缩     | 02 低比特量化原理        | [slide](./03 Slim/02.quant.pdf), [video](https://www.bilibili.com/video/BV1VD4y1n7AR/)                 |     |
+|     | 模型压缩     | 03 感知量化训练 QAT     | [slide](./03 Slim/03.qat.pdf), [video](https://www.bilibili.com/video/BV1s8411w7b9/)                   |     |
+|     | 模型压缩     | 04 训练后量化PTQ与部署    | [slide](./03 Slim/04.ptq.pdf), [video](https://www.bilibili.com/video/BV1HD4y1n7E1/)                   |     |
+|     | 模型压缩     | 05 模型剪枝           | [slide](./03 Slim/05.pruning.pdf), [video](https://www.bilibili.com/video/BV1y34y1Z7KQ/)               |     |
+|     | 模型压缩     | 06(上) 知识蒸馏原理      | [slide](./03 Slim/06.distillation.pdf), [video](https://www.bilibili.com/video/BV1My4y197Tf/)          |     |
+|     | 模型压缩     | 06(下) 知识蒸馏算法      | [slide](./03 Slim/06.distillation.pdf), [video](https://www.bilibili.com/video/BV1vA411d7MF/)          |     |
 |     |          |                   |                                                                                                     |     |
-| 4   | 模型转换&优化  | 01 基本介绍           | [slide](./Converter/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1724y1z7ep/)     |     |
-| 4.1 | 模型转换模块   | 02 架构与文件格式        | [slide](./Converter/02.converter_princ.pdf), [video](https://www.bilibili.com/video/BV13P4y167sr/)  |     |
-|     | 模型转换模块   | 03 自定义计算图IR       | [slide](./Converter/03.converter_ir.pdf), [video](https://www.bilibili.com/video/BV1rx4y177R9/)     |     |
-|     | 模型转换模块   | 04 流程细节           | [slide](./Converter/04.converter_detail.pdf), [video](https://www.bilibili.com/video/BV13341197zU/) |     |
-| 4.2 | 图优化模块    | 05 计算图优化策略        | [slide](./Converter/05.optimizer.pdf), [video](https://www.bilibili.com/video/BV1g84y1L7tF/)        |     |
-|     | 图优化模块    | 06 常量折叠&冗余节点消除    | [slide](./Converter/06.basic.pdf), [video](https://www.bilibili.com/video/BV1fA411r7hr/)            |     |
-|     | 图优化模块    | 07 算子融合/替换/前移     | [slide](./Converter/06.basic.pdf), [video](https://www.bilibili.com/video/BV1Qj411T7Ef/)            |     |
-|     | 图优化模块    | 08 数据布局转换&内存优化    | [slide](./Converter/07.extend.pdf), [video](https://www.bilibili.com/video/BV1Ae4y1N7u7/)           |     |
+| 4   | 模型转换&优化  | 01 基本介绍           | [slide](./04 Converter/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1724y1z7ep/)     |     |
+| 4.1 | 模型转换模块   | 02 架构与文件格式        | [slide](./04 Converter/02.converter_princ.pdf), [video](https://www.bilibili.com/video/BV13P4y167sr/)  |     |
+|     | 模型转换模块   | 03 自定义计算图IR       | [slide](./04 Converter/03.converter_ir.pdf), [video](https://www.bilibili.com/video/BV1rx4y177R9/)     |     |
+|     | 模型转换模块   | 04 流程细节           | [slide](./04 Converter/04.converter_detail.pdf), [video](https://www.bilibili.com/video/BV13341197zU/) |     |
+| 4.2 | 图优化模块    | 05 计算图优化策略        | [slide](./04 Converter/05.optimizer.pdf), [video](https://www.bilibili.com/video/BV1g84y1L7tF/)        |     |
+|     | 图优化模块    | 06 常量折叠&冗余节点消除    | [slide](./04 Converter/06.basic.pdf), [video](https://www.bilibili.com/video/BV1fA411r7hr/)            |     |
+|     | 图优化模块    | 07 算子融合/替换/前移     | [slide](./04 Converter/06.basic.pdf), [video](https://www.bilibili.com/video/BV1Qj411T7Ef/)            |     |
+|     | 图优化模块    | 08 数据布局转换&内存优化    | [slide](./04 Converter/07.extend.pdf), [video](https://www.bilibili.com/video/BV1Ae4y1N7u7/)           |     |
 |     |          |                   |                                                                                                     |     |
-| 5   | Kernel优化 | 01 Kernel优化架构     | [slide](./Kernel/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1Ze4y1c7Bb/)        |     |
-|     | Kernel优化 | 02 卷积操作基础原理       | [slide](./Kernel/02.conv.pdf),[video](https://www.bilibili.com/video/BV1No4y1e7KX/)                 |     |
-|     | Kernel优化 | 03 Im2Col算法       | [slide](./Kernel/03.im2col.pdf),[video](https://www.bilibili.com/video/BV1Ys4y1o7XW/)               |     |
-|     | Kernel优化 | 04 Winograd算法     | [slide](./Kernel/04.winograd.pdf),[video](https://www.bilibili.com/video/BV1vv4y1Y7sc/)             |     |
-|     | Kernel优化 | 05 QNNPack算法      | [slide](./Kernel/05.qnnpack.pdf),[video](https://www.bilibili.com/video/BV1ms4y1o7ki/)              |     |
-|     | Kernel优化 | 06 推理内存布局         | [slide](./Kernel/06.memory.pdf),  [video](https://www.bilibili.com/video/BV1eX4y1X7mL/)             |     |
-|     | Kernel优化 | 07 nc4hw4内存排布     | [slide](./Kernel/07.nc4hw4.pdf),  [video]()                                                         |     |
-|     | Kernel优化 | 08 汇编与循环优化        | [slide](./Kernel/08.others.pdf),  [video]()                                                         |     |
+| 5   | Kernel优化 | 01 Kernel优化架构     | [slide](./05 Kernel/01.introduction.pdf), [video](https://www.bilibili.com/video/BV1Ze4y1c7Bb/)        |     |
+|     | Kernel优化 | 02 卷积操作基础原理       | [slide](./05 Kernel/02.conv.pdf),[video](https://www.bilibili.com/video/BV1No4y1e7KX/)                 |     |
+|     | Kernel优化 | 03 Im2Col算法       | [slide](./05 Kernel/03.im2col.pdf),[video](https://www.bilibili.com/video/BV1Ys4y1o7XW/)               |     |
+|     | Kernel优化 | 04 Winograd算法     | [slide](./05 Kernel/04.winograd.pdf),[video](https://www.bilibili.com/video/BV1vv4y1Y7sc/)             |     |
+|     | Kernel优化 | 05 QNNPack算法      | [slide](./05 Kernel/05.qnnpack.pdf),[video](https://www.bilibili.com/video/BV1ms4y1o7ki/)              |     |
+|     | Kernel优化 | 06 推理内存布局         | [slide](./05 Kernel/06.memory.pdf),  [video](https://www.bilibili.com/video/BV1eX4y1X7mL/)             |     |
+|     | Kernel优化 | 07 nc4hw4内存排布     | [slide](./05 Kernel/07.nc4hw4.pdf),  [video]()                                                         |     |
+|     | Kernel优化 | 08 汇编与循环优化        | [slide](./05 Kernel/08.others.pdf),  [video]()                                                         |     |
 
 ## 目标学员
 

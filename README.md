@@ -50,11 +50,11 @@
 |        |                                   |                            |
 |:------:|:--------------------------------- |:-------------------------- |
 | **编号** | **名称**                            | **具体内容**                   |
-| 1      | [推理系统](./Inference/Inference/)    | 推理系统整体介绍，推理引擎架构梳理          |
-| 2      | [轻量网络](./Inference/Mobilenet/)    | 轻量化主干网络，MobileNet等SOTA模型介绍 |
-| 3      | [模型压缩](./Inference/Slim/)         | 模型压缩4件套，量化、蒸馏、剪枝和二值化       |
-| 4      | [模型转换&优化](./Inference/Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
-| 5      | [Kernel优化](./Inference/Kernel/)   | Kernel层、算子层优化，对算子、内存、调度优化  |
+| 1      | [推理系统](./Inference/01 Inference/)    | 推理系统整体介绍，推理引擎架构梳理          |
+| 2      | [轻量网络](./Inference/02 Mobilenet/)    | 轻量化主干网络，MobileNet等SOTA模型介绍 |
+| 3      | [模型压缩](./Inference/03 Slim/)         | 模型压缩4件套，量化、蒸馏、剪枝和二值化       |
+| 4      | [模型转换&优化](./Inference/04 Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
+| 5      | [Kernel优化](./Inference/05 Kernel/)   | Kernel层、算子层优化，对算子、内存、调度优化  |
 
 **[四. AI芯片](./Hardware/)**
 
