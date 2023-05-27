@@ -77,6 +77,6 @@
 
 ## 贡献者
 
-<a href="https://github.com/eryajf/learn-github/graphs/contributors">
+<a href="https://github.com/chenzomi12/DeepLearningSystem/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=eryajf/learn-github" />
 </a>
