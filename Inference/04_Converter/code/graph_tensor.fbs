@@ -1,0 +1,36 @@
+
+// 定义 Tensor 的数据类型
+enum DataType : int {
+  DT_INVALID = 0,
+  DT_FLOAT = 1,
+  DT_DOUBLE = 2,
+  DT_INT32 = 3,
+  DT_UINT8 = 4,
+  DT_INT16 = 5,
+  DT_INT8 = 6,
+  // ...
+}
+
+// 定义 Tensor 数据排布格式
+enum DATA_FORMAT : byte {
+    ND,
+    NCHW,
+    NHWC,
+    NC4HW4,
+    NC1HWC0,
+    UNKNOWN,
+    // ...
+}
+
+// 定义 Tensor
+table Tensor {
+    // shape
+    dims: [int];
+    dataFormat: DATA_FORMAT;
+
+    // data type
+    dataType: DataType = DT_FLOAT;
+
+    // extra
+    // ...
+}
