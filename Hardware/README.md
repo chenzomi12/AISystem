@@ -62,7 +62,9 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 | 4   | GPU 原理详解 | 04 分布式通信与NVLink | [slide](./04_GPUDetail/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)          |     |
 | 4   | GPU 原理详解 | 05 NVLink原理剖析 | [slide](./04_GPUDetail/05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/)          |     |
 |     |          |                    |                                                                                                     |     |
-| 5   | NPU 芯片原理 | 01 特斯拉DOJO架构 | [slide](./05_NPU/01.DOJO_Arch.pptx), [video](https://www.bilibili.com/video/BV1Ro4y1M7n8/)         |     |
+| 5   | NPU 芯片原理 | 01 特斯拉DOJO架构 | [slide](./05_NPU/01.DOJO_Arch.pdf), [video](https://www.bilibili.com/video/BV1Ro4y1M7n8/)         |     |
+| 5   | NPU 芯片原理 | 02 特斯拉DOJO Core | [slide](./05_NPU/02.DOJO_Detail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/)         |     |
+| 5   | NPU 芯片原理 | 03 特斯拉DOJO系统 | [slide](./05_NPU/03.DOJO_System.pdf), [video]()         |     |
 
 ## 目标学员
 
