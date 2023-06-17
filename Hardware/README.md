@@ -18,9 +18,9 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 
 通过《AI芯片：核心原理》这个课程，以及这门课程后面的几门课程，你将获取并且掌握的技能：
 
-|        |                             |                               |
-|:------:|:--------------------------- |:----------------------------- |
-| **编号** | **名称**                      | **具体内容**                      |
+|        |                                |                               |
+|:------:|:------------------------------ |:----------------------------- |
+| **编号** | **名称**                         | **具体内容**                      |
 | 1      | [AI 计算体系](./01_Foundation/)    | 神经网络等AI技术的计算模式和计算体系架构         |
 | 2      | [AI 芯片基础](./02_ChipBase/)      | CPU、GPU、NPU等芯片基础原理，与体系架构黄金10年 |
 | 3      | [通用图形处理器 GPU](./03_GPUBase/)   | GPU的基本原理，英伟达GPU的架构发展          |
@@ -31,9 +31,9 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 
 > *建议优先下载或者使用PDF版本，PPT版本会因为字体缺失等原因导致版本很丑哦~*
 
-|     |          |                    |                                                                                                     |     |
-| --- | -------- | ------------------ | --------------------------------------------------------------------------------------------------- | --- |
-| 编号  | 名称       | 内容                 | 资源                                                                                                  | 备注  |
+|     |          |                    |                                                                                                        |     |
+| --- | -------- | ------------------ | ------------------------------------------------------------------------------------------------------ | --- |
+| 编号  | 名称       | 内容                 | 资源                                                                                                     | 备注  |
 | 1   | AI 计算体系  | 01 课程内容            | [slide](./01_Foundation/01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/)        |     |
 | 1   | AI 计算体系  | 02 AI计算模式(上)       | [slide](./01_Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/)     |     |
 | 1   | AI 计算体系  | 03 AI计算模式(下)       | [slide](./01_Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |     |
@@ -41,7 +41,7 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 | 1   | AI 计算体系  | 05 核心计算：矩阵乘        | [slide](./01_Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/)          |     |
 | 1   | AI 计算体系  | 06 数据单位：bits       | [slide](./01_Foundation/06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/)       |     |
 | 1   | AI 计算体系  | 07 AI计算体系总结        | [slide](./01_Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/)         |     |
-|     |          |                    |                                                                                                     |     |
+|     |          |                    |                                                                                                        |     |
 | 2   | AI 芯片基础  | 01 CPU 基础          | [slide](./02_ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)          |     |
 | 2   | AI 芯片基础  | 02 CPU 指令集架构       | [slide](./02_ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/)           |     |
 | 2   | AI 芯片基础  | 03 CPU 计算本质        | [slide](./02_ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)          |     |
@@ -49,22 +49,23 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 | 2   | AI 芯片基础  | 05 GPU 基础          | [slide](./02_ChipBase/05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/)               |     |
 | 2   | AI 芯片基础  | 06 NPU 基础          | [slide](./02_ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)              |     |
 | 2   | AI 芯片基础  | 07 超异构计算           | [slide](./02_ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK)             |     |
-|     |          |                    |                                                                                                     |     |
+|     |          |                    |                                                                                                        |     |
 | 3   | GPU 原理详解 | 01 GPU工作原理         | [slide](./03_GPUBase/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)              |     |
 | 3   | GPU 原理详解 | 02 GPU适用于AI        | [slide](./03_GPUBase/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)          |     |
 | 3   | GPU 原理详解 | 03 GPU架构与CUDA关系    | [slide](./03_GPUBase/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/)       |     |
 | 3   | GPU 原理详解 | 04 GPU架构回顾第一篇      | [slide](./03_GPUBase/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)              |     |
 | 3   | GPU 原理详解 | 05 GPU架构回顾第二篇      | [slide](./03_GPUBase/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/)             |     |
-|     |          |                    |                                                                                                     |     |
+|     |          |                    |                                                                                                        |     |
 | 4   | GPU 原理详解 | 01 TensorCore原理(上) | [slide](./04_GPUDetail/01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)         |     |
 | 4   | GPU 原理详解 | 02 TensorCore架构(中) | [slide](./04_GPUDetail/02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/)       |     |
 | 4   | GPU 原理详解 | 03 TensorCore剖析(下) | [slide](./04_GPUDetail/03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/)          |     |
-| 4   | GPU 原理详解 | 04 分布式通信与NVLink | [slide](./04_GPUDetail/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)          |     |
-| 4   | GPU 原理详解 | 05 NVLink原理剖析 | [slide](./04_GPUDetail/05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/)          |     |
-|     |          |                    |                                                                                                     |     |
-| 5   | NPU 芯片原理 | 01 特斯拉DOJO架构 | [slide](./05_NPU/01.DOJO_Arch.pdf), [video](https://www.bilibili.com/video/BV1Ro4y1M7n8/)         |     |
-| 5   | NPU 芯片原理 | 02 特斯拉DOJO Core | [slide](./05_NPU/02.DOJO_Detail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/)         |     |
-| 5   | NPU 芯片原理 | 03 特斯拉DOJO系统 | [slide](./05_NPU/03.DOJO_System.pdf), [video]()         |     |
+| 4   | GPU 原理详解 | 04 分布式通信与NVLink    | [slide](./04_GPUDetail/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)     |     |
+| 4   | GPU 原理详解 | 05 NVLink原理剖析      | [slide](./04_GPUDetail/05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/)      |     |
+| 4   | GPU 原理详解 | 05 NVSwitch原理剖析      | [slide](./04_GPUDetail/06.deep_nvswitch.pdf), [video]()      |     |
+|     |          |                    |                                                                                                        |     |
+| 5   | NPU 芯片原理 | 01 特斯拉DOJO架构       | [slide](./05_NPU/01.DOJO_Arch.pdf), [video](https://www.bilibili.com/video/BV1Ro4y1M7n8/)              |     |
+| 5   | NPU 芯片原理 | 02 特斯拉DOJO Core    | [slide](./05_NPU/02.DOJO_Detail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/)            |     |
+| 5   | NPU 芯片原理 | 03 特斯拉DOJO系统       | [slide](./05_NPU/03.DOJO_System.pdf), [video]()                                                        |     |
 
 ## 目标学员
 
