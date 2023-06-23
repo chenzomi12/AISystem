@@ -18,14 +18,14 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 
 通过《AI芯片：核心原理》这个课程，以及这门课程后面的几门课程，你将获取并且掌握的技能：
 
-|        |                                |                               |
-|:------:|:------------------------------ |:----------------------------- |
-| **编号** | **名称**                         | **具体内容**                      |
-| 1      | [AI 计算体系](./01_Foundation/)    | 神经网络等AI技术的计算模式和计算体系架构         |
-| 2      | [AI 芯片基础](./02_ChipBase/)      | CPU、GPU、NPU等芯片基础原理，与体系架构黄金10年 |
-| 3      | [通用图形处理器 GPU](./03_GPUBase/)   | GPU的基本原理，英伟达GPU的架构发展          |
-| 4      | [英伟达GPU的AI详解](./04_GPUDetail/) | 英伟达GPU的TensorCore、NVLink深度剖析  |
-| 5      | [AI专用处理器 NPU](./05_NPU/)       | 华为、谷歌、特斯拉等专用AI处理器核心原理         |
+|        |                                 |                               |
+|:------:|:------------------------------- |:----------------------------- |
+| **编号** | **名称**                          | **具体内容**                      |
+| 1      | [AI 计算体系](./01_Foundation/)     | 神经网络等AI技术的计算模式和计算体系架构         |
+| 2      | [AI 芯片基础](./02_ChipBase/)       | CPU、GPU、NPU等芯片基础原理，与体系架构黄金10年 |
+| 3      | [GPU 原理详解](./03_GPUBase/)       | GPU的基本原理，英伟达GPU的架构发展          |
+| 4      | [NVIDIA GPU原理](./04_GPUDetail/) | 英伟达GPU的TensorCore、NVLink深度剖析  |
+| 5      | [NPU 芯片原理](./05_NPU/)           | 华为、谷歌、特斯拉等专用AI处理器核心原理         |
 
 ## 课程细节
 
@@ -61,11 +61,15 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 | 4   | GPU 原理详解 | 03 TensorCore剖析(下) | [slide](./04_GPUDetail/03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/)          |     |
 | 4   | GPU 原理详解 | 04 分布式通信与NVLink    | [slide](./04_GPUDetail/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)     |     |
 | 4   | GPU 原理详解 | 05 NVLink原理剖析      | [slide](./04_GPUDetail/05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/)      |     |
-| 4   | GPU 原理详解 | 05 NVSwitch原理剖析      | [slide](./04_GPUDetail/06.deep_nvswitch.pdf), [video]()      |     |
+| 4   | GPU 原理详解 | 05 NVSwitch原理剖析    | [slide](./04_GPUDetail/06.deep_nvswitch.pdf), [video](https://www.bilibili.com/video/BV1uM4y1n7qd/)    |     |
 |     |          |                    |                                                                                                        |     |
 | 5   | NPU 芯片原理 | 01 特斯拉DOJO架构       | [slide](./05_NPU/01.DOJO_Arch.pdf), [video](https://www.bilibili.com/video/BV1Ro4y1M7n8/)              |     |
-| 5   | NPU 芯片原理 | 02 特斯拉DOJO Core    | [slide](./05_NPU/02.DOJO_Detail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/)            |     |
-| 5   | NPU 芯片原理 | 03 特斯拉DOJO系统       | [slide](./05_NPU/03.DOJO_System.pdf), [video]()                                                        |     |
+| 5   | NPU 芯片原理 | 02 特斯拉DOJO Core原理  | [slide](./05_NPU/02.DOJO_Detail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/)            |     |
+| 5   | NPU 芯片原理 | 03 特斯拉DOJO存算系统     | [slide](./05_NPU/03.DOJO_System.pdf), [video](https://www.bilibili.com/video/BV1Ez4y1e7zo/)            |     |
+|     |          |                    |                                                                                                        |     |
+| 5   | NPU 芯片原理 | 01 壁仞产品解读          | [slide](./05_NPU/04.BR100_System.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y/)           |     |
+| 5   | NPU 芯片原理 | 01 壁仞BR100架构       | [slide](./05_NPU/05.BR100_Detail.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y/)           |     |
+|     |          |                    |                                                                                                        |     |
 
 ## 目标学员
 
