@@ -1,6 +1,10 @@
 # AI芯片：核心原理
 
-AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基础到AI芯片的范围都会涉及，芯片设计需要考虑上面AI框架的前端、后端编译，而不是停留在天天喊着吊打英伟达，被现实打趴。
+AI芯片这里就很硬核了，从芯片的基础到AI芯片的范围都会涉及，芯片设计需要考虑上面AI框架的前端、后端编译，而不是停留在天天喊着吊打英伟达，被现实打趴。
+
+> 欢迎大家使用的过程中发现bug或者勘误直接提交PR到开源社区哦！
+
+> 请大家尊重开源和作者的努力，引用PPT的内容请规范转载标明出处哦！
 
 ## 课程简介
 
@@ -10,7 +14,7 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 
 - 《GPU 原理详解》主要是深入地讲解GPU的工作原理，其最重要的指标是计算吞吐和存储和传输带宽，并对英伟达的GPU的十年5代架构进行梳理。
 
-- 《Tensor Core 与 NVlink》英伟达架构里面专门为AI而生的 Tensor Core 和 NVLink 对AI加速尤为重要，因此重点对 Tensor Core 和 NVLink 进行深入剖析其发展、演进和架构。
+- 《NVIDIA GPU原理》英伟达架构里面专门为AI而生的 Tensor Core 和 NVLink 对AI加速尤为重要，因此重点对 Tensor Core 和 NVLink 进行深入剖析其发展、演进和架构。
 
 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
 
@@ -68,7 +72,7 @@ AI芯片这里就很硬核了，希望可以坚持到最后啦，从芯片的基
 | 5   | NPU 芯片原理 | 03 特斯拉DOJO存算系统     | [slide](./05_NPU/03.DOJO_System.pdf), [video](https://www.bilibili.com/video/BV1Ez4y1e7zo/)            |     |
 |     |          |                    |                                                                                                        |     |
 | 5   | NPU 芯片原理 | 01 壁仞产品解读          | [slide](./05_NPU/04.BR100_System.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y/)           |     |
-| 5   | NPU 芯片原理 | 01 壁仞BR100架构       | [slide](./05_NPU/05.BR100_Detail.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y/)           |     |
+| 5   | NPU 芯片原理 | 01 壁仞BR100架构       | [slide](./05_NPU/05.BR100_Detail.pdf), [video](hhttps://www.bilibili.com/video/BV1G14y1275T/)          |     |
 |     |          |                    |                                                                                                        |     |
 
 ## 目标学员
