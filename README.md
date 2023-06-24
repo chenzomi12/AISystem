@@ -71,17 +71,19 @@
 
 近年来人工智能特别是深度学习技术得到了飞速发展，这背后离不开计算机硬件和软件系统的不断进步。在可见的未来，人工智能技术的发展仍将依赖于计算机系统和人工智能相结合的共同创新模式。需要注意的是，计算机系统现在正以更大的规模和更高的复杂性来赋能于人工智能，这背后不仅需要更多的系统上的创新，更需要系统性的思维和方法论。与此同时，人工智能也反过来为设计复杂系统提供支持。
 
-我们注意到，现在的大部分人工智能相关的课程，特别是深度学习和机器学习相关课程主要集中在相关理论、算法或者应用，与系统相关的课程并不多见。我们希望人工智能系统这门课能让人工智能相关教育变得更加全面和深入，以共同促进人工智能与系统在开源方面的共同学习和讨论。
-
-（原谅我复制粘贴微软[AI-System](https://github.com/microsoft/AI-System)的介绍哈，人家写得很好啦）
+我们注意到，现在的大部分人工智能相关的课程，特别是深度学习和机器学习相关课程主要集中在相关理论、算法或者应用，与系统相关的课程并不多见。我们希望人工智能系统这门课能让人工智能相关教育变得更加全面和深入，以共同促进人工智能与系统在开源方面的共同学习和讨论。（原谅我复制粘贴微软[AI-System](https://github.com/microsoft/AI-System)的介绍哈，人家写得很好啦）
 
 ## 贡献者
+
+
 
 <!-- readme: collaborators,contributors -start -->
 
 <a href="https://github.com/chenzomi12/DeepLearningSystem/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=chenzomi12/DeepLearningSystem" />
 </a>
+
+
 
 Made with [contrib.rocks](https://contrib.rocks).
 
