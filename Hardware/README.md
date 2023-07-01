@@ -71,8 +71,9 @@ AI芯片这里就很硬核了，从芯片的基础到AI芯片的范围都会涉�
 | 5   | NPU 芯片原理 | 02 特斯拉DOJO Core原理  | [slide](./05_NPU/02.DOJO_Detail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/)            |     |
 | 5   | NPU 芯片原理 | 03 特斯拉DOJO存算系统     | [slide](./05_NPU/03.DOJO_System.pdf), [video](https://www.bilibili.com/video/BV1Ez4y1e7zo/)            |     |
 |     |          |                    |                                                                                                        |     |
-| 5   | NPU 芯片原理 | 01 壁仞产品解读          | [slide](./05_NPU/04.BR100_System.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y/)           |     |
-| 5   | NPU 芯片原理 | 01 壁仞BR100架构       | [slide](./05_NPU/05.BR100_Detail.pdf), [video](hhttps://www.bilibili.com/video/BV1G14y1275T/)          |     |
+| 6   | 国内 AI 芯片 | 01 壁仞产品解读          | [slide](./05_NPU/04.BR100_System.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y/)           |     |
+| 6   | 国内 AI 芯片 | 02 壁仞BR100架构       | [slide](./05_NPU/05.BR100_Detail.pdf), [video](https://www.bilibili.com/video/BV1G14y1275T/)          |     |
+| 6   | 国内 AI 芯片 | 03 燧原产品与DTU架构       | [slide](./05_NPU/06.SUIYUAN_DTU.pdf), [video]()          |     |
 |     |          |                    |                                                                                                        |     |
 
 ## 目标学员
