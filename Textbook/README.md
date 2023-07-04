@@ -72,17 +72,17 @@
 
 1. 基本介绍  
 
-2. 什么是微分 [silde](https://link.zhihu.com/?target=https%3A//github.com/chenzomi12/DeepLearningSystem/blob/main/Frontend/AutoDiff/02.base_concept.pptx),[video](https://link.zhihu.com/?target=https%3A//www.bilibili.com/video/BV1Ld4y1M7GJ/),[article](https://zhuanlan.zhihu.com/p/518198564)
+2. 什么是微分
 
-3. 正反向计算模式 [silde](https://link.zhihu.com/?target=https%3A//github.com/chenzomi12/DeepLearningSystem/blob/main/Frontend/AutoDiff/03.grad_mode.pptx),[video](https://link.zhihu.com/?target=https%3A//www.bilibili.com/video/BV1zD4y117bL/),[article](https://zhuanlan.zhihu.com/p/518296942)
+3. 正反向计算模式
 
-4. 三种实现方法 [silde](https://link.zhihu.com/?target=https%3A//github.com/chenzomi12/DeepLearningSystem/blob/main/Frontend/AutoDiff/04.grad_mode.pptx),[video](https://link.zhihu.com/?target=https%3A//www.bilibili.com/video/BV1BN4y1P76t/),[article](https://zhuanlan.zhihu.com/p/520065656)
+4. 自动微分(AD)实现
 
-5. 手把手实现正向微分框架 [silde](https://link.zhihu.com/?target=https%3A//github.com/chenzomi12/DeepLearningSystem/blob/main/Frontend/AutoDiff/05.forward_mode.ipynb),[video](https://link.zhihu.com/?target=https%3A//www.bilibili.com/video/BV1Ne4y1p7WU/),[article](https://zhuanlan.zhihu.com/p/520451681)
+5. 操作符重载实现AD
 
-6. 亲自实现一个PyTorch [silde](https://link.zhihu.com/?target=https%3A//github.com/chenzomi12/DeepLearningSystem/blob/main/Frontend/AutoDiff/06.reversed_mode.ipynb),[video](https://link.zhihu.com/?target=https%3A//www.bilibili.com/video/BV1ae4y1z7E6/),[article](https://zhuanlan.zhihu.com/p/547865589)
+6. PyTorch自动微分机制
 
-7. 自动微分的挑战&未来 [silde](https://link.zhihu.com/?target=https%3A//github.com/chenzomi12/DeepLearningSystem/blob/main/Frontend/AutoDiff/07.challenge.pptx),[video](https://link.zhihu.com/?target=https%3A//www.bilibili.com/video/BV17e4y1z73W/)
+7. 自动微分的挑战&未来
 
 #### 计算图——赵含霖
 
