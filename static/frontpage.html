@@ -1,0 +1,228 @@
+<head>
+<style>
+h1, .side-doc-outline  {
+    display: none;
+}
+.document .page-content {
+    width: 100%;
+}
+h2, h3, h4 {
+    letter-spacing: 2px;
+}
+.mdl-grid {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 0 0 0;
+}
+h2.toc {
+    padding: 100px 0 0 0;
+}
+
+.header h2 {
+    font-size: 2rem;
+    padding-bottom: 35px;
+}
+
+.header p {
+    font-size: 1.25rem;
+    letter-spacing: 0px;
+    line-height: 1.5rempx;
+    padding-bottom: 10px;
+}
+
+.header .mdl-button {
+  margin: 0px 10px;
+  letter-spacing: 2px;
+  font-size: 16px;
+  margin: 1rem 1.5rem;
+  height: 40px;
+  width: 120px;
+}
+.author-item {
+  max-width: 300px;
+}
+.author-item h3 {
+    padding-top: 25px;
+    padding-bottom: 10px;
+}
+.author-item img {
+    border-radius: 50%;
+    width: 120px;
+}
+.authors h4 {
+    width: 100%;
+}
+
+.authors h2 {
+    padding-bottom: 18px;
+}
+
+.running-item  {
+  max-width: 300px;
+}
+
+.running-item img {
+  height: 40px;
+}
+
+.running-item p {
+    padding: 20px;
+}
+
+.running.mdl-grid {
+padding: 20px 0 0 0;
+}
+
+.logos img {
+display: inline;
+max-height: 70px;
+max-width: 100px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.logos {
+padding-top: 1em;
+padding-bottom: 2em;
+}
+
+.logos .mdl-grid {
+padding: 0;
+}
+
+.features .logos .mdl-cell {
+padding: 10px 0;
+}
+
+
+.features .mdl-cell {
+    padding: 0 36px;
+}
+.features h2, .features-2 h2 {
+    padding-bottom: 24px;
+}
+.features-2 p {
+    padding: 0 200px;
+}
+.institute.mdl-grid {
+    padding: 24px;
+}
+.institute .mdl-cell {
+    text-align: left;
+    padding: 0;
+}
+#logoimg {
+    padding-top: 0em;
+    padding-bottom: 2em;
+    width: 100%;
+}
+#map {
+    height: 400px;
+    width: 100%;
+}
+#mapimg {
+    width: 100%;
+}
+a {
+  font-size: normal;
+}
+
+@media (max-width: 1000px) {
+    .mdl-grid, h2.toc {
+        padding: 50px 0 0 0;
+    }
+    .header img, .features-2 img {
+        max-width: 300px;
+    }
+    .header .mdl-cell--1-col {
+        display: none;
+    }
+    .features img {
+        max-width: 350px;
+    }
+    .features-2 p {
+        padding: 0 24px;
+    }
+.features .mdl-cell {
+    padding: 0 8px;
+}
+}
+
+.collapsible {
+    background-color: #EEE;
+    color: black;
+    cursor: pointer;
+    padding: 6px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 16px;
+}
+.collapsible-active, .collapsible:hover {
+    background-color: #DDD;
+}
+.expansion {
+    padding: 3px 6px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.cover h2 {
+  font-size: 34px;
+  margin-bottom: 0px;
+  padding-bottom: 20px;
+}
+
+.cover p.version {
+  font-size: 18px;
+  padding: 0 0 9px 0;
+
+}
+
+.cover p {
+  margin: 0;
+  padding:  20px 0 0px 0;
+  font-size: 20px;
+  line-height: normal;
+}
+
+.mdl-cell.mdl-cell--5-col.mdl-cell--middle.cover {
+    width: 600px;
+}
+
+</style>
+</head>
+
+<div class="mdl-grid header">
+  <div class="mdl-cell mdl-cell--5-col mdl-cell--middle cover">
+    <h2 class="mdl-color-text--primary">AI系统 & 深度学习系统</h2>
+    <h2 class="mdl-color-text--primary">AI System & DL System</h2>
+    <p>这个开源项目英文名字叫做 Deep Learning System 或者 AI System/AISys/AI Infra/ML System/MLSys，中文名字叫做 深度学习系统 或者 AI系统。</p>
+    <p>主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着在工作当中所积累、梳理、构建 AI 系统全栈的内容。希望跟所有关注 AI 开源项目的好朋友一起探讨研究，共同促进学习讨论。</p>
+    <p><a class="github-button" href="https://github.com/chenzomi12/DeepLearningSystem" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star DeepLearningSystem on GitHub">Star</a></p>
+  </div>
+</div>
+
+<h2 class="toc">目录</h2>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("collapsible-active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+</script>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
