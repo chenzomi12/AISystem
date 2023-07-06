@@ -1,7 +1,3 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/chenzomi12/DeepLearningSystem/master/static/logo-with-text.png" width="350">
-</div>
-
 # Deep Learning System & AI System
 
 [![Continuous Integration](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml)
@@ -9,13 +5,13 @@
 
 这个开源项目英文名字叫做 **Deep Learning System** 或者 **AI System(AISys)**、**AI Infra**、**ML System(MLSys)**，中文名字叫做 **深度学习系统** 或者 **AI系统**。
 
-** 课程网页地址 [website]()
+ **课程网页地址**[https://chenzomi12.github.io/](https://chenzomi12.github.io/)
 
 主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着 ZOMI 在华为昇腾工作当中所积累、梳理、构建 AI 系统全栈的内容。希望跟所有关注 AI 开源项目的好朋友一起探讨研究，共同促进学习讨论。
 
 > 欢迎大家使用的过程中发现bug或者勘误直接提交PR到开源社区哦！
 > 
-> 请大家尊重开源和ZOMI付出，引用PPT的内容请规范转载标明出处哦！
+> 请大家尊重开源和作者付出，引用PPT的内容请规范转载标明出处哦！
 
 ## 项目背景
 
@@ -51,52 +47,52 @@
 
 ### 课程部分
 
-**[二. AI框架核心技术](./Frontend/)**
+**[二. AI框架核心技术](./020Framework/)**
 
 | 编号  | 名称                                  | 具体内容                        |
 |:---:|:----------------------------------- |:--------------------------- |
-| 1   | [AI框架基础](./Frontend/01_Foundation/) | AI框架的作用、发展、编程范式             |
-| 2   | [自动微分](./Frontend/02_AutoDiff/)     | 自动微分的实现方式和原理                |
-| 3   | [计算图](./Frontend/03_DataFlow/)      | 计算图的概念，图优化、图执行、控制流表达        |
-| 4   | [分布式集群](./Frontend/04_AICluster)    | AI集群服务器架构、软硬件通信方式           |
-| 5   | [分布式算法](./Frontend/05_AIAlgo)       | 大模型挑战，Transformer和MOE结构的大模型 |
-| 6   | [分布式并行](./Frontend/06_Parallel)     | 数据并行、模型并行、混合并行的原理和策略        |
+| 1   | [AI框架基础](./021FW_Foundation/) | AI框架的作用、发展、编程范式             |
+| 2   | [自动微分](./022FW_AutoDiff/)     | 自动微分的实现方式和原理                |
+| 3   | [计算图](./023FW_DataFlow/)      | 计算图的概念，图优化、图执行、控制流表达        |
+| 4   | [分布式集群](./024FW_AICluster/)    | AI集群服务器架构、软硬件通信方式           |
+| 5   | [分布式算法](./025FW_AIAlgo/)       | 大模型挑战，Transformer和MOE结构的大模型 |
+| 6   | [分布式并行](./026FW_Parallel/)     | 数据并行、模型并行、混合并行的原理和策略        |
 |     |                                     |                             |
 
-**[三. AI编译原理](./Compiler/)**
+**[三. AI编译原理](./030Compiler/)**
 
 |        |                                     |                                 |
 |:------:|:----------------------------------- |:------------------------------- |
 | **编号** | **名称**                              | **具体内容**                        |
-| 1      | [传统编译器](./Compiler/01_Tradition)    | 传统编译器GCC与LLVM，LLVM详细架构          |
-| 2      | [AI 编译器](./Compiler/02_AICompiler)  | AI编译器发展与架构定义，未来挑战与思考            |
-| 3      | [前端优化](./Compiler/03_Frontend)      | AI编译器的前端优化(算子融合、内存优化等)          |
-| 4      | [后端优化](./Compiler/04_Backend)       | AI编译器的后端优化(Kernel优化、AutoTuning) |
+| 1      | [传统编译器](./031CM_Tradition/)    | 传统编译器GCC与LLVM，LLVM详细架构          |
+| 2      | [AI 编译器](./032CM_AICompiler/)  | AI编译器发展与架构定义，未来挑战与思考            |
+| 3      | [前端优化](./033CM_Frontend/)      | AI编译器的前端优化(算子融合、内存优化等)          |
+| 4      | [后端优化](./034CM_Backend/)       | AI编译器的后端优化(Kernel优化、AutoTuning) |
 | 5      | 多面体                                 | 待更ing...                        |
-| 6      | [PyTorch2.0](./Compiler/06_PyTorch) | PyTorch2.0最重要的新特性：编译技术栈         |
+| 6      | [PyTorch2.0](./036CM_PyTorch/) | PyTorch2.0最重要的新特性：编译技术栈         |
 |        |                                     |                                 |
 
-**[四. AI推理系统](./Inference/)**
+**[四. AI推理系统](./040Inference/)**
 
 |        |                                    |                            |
 |:------:|:---------------------------------- |:-------------------------- |
 | **编号** | **名称**                             | **具体内容**                   |
-| 1      | [推理系统](./Inference/01_Inference/)  | 推理系统整体介绍，推理引擎架构梳理          |
-| 2      | [轻量网络](./Inference/02_Mobilenet/)  | 轻量化主干网络，MobileNet等SOTA模型介绍 |
-| 3      | [模型压缩](./Inference/03_Slim/)       | 模型压缩4件套，量化、蒸馏、剪枝和二值化       |
-| 4      | [转换&优化](./Inference/04_Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
-| 5      | [Kernel优化](./Inference/05_Kernel/) | Kernel层、算子层优化，对算子、内存、调度优化  |
+| 1      | [推理系统](./041INF_Inference/)  | 推理系统整体介绍，推理引擎架构梳理          |
+| 2      | [轻量网络](./042INF_Mobilenet/)  | 轻量化主干网络，MobileNet等SOTA模型介绍 |
+| 3      | [模型压缩](./043INF_Slim/)       | 模型压缩4件套，量化、蒸馏、剪枝和二值化       |
+| 4      | [转换&优化](./044INF_Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
+| 5      | [Kernel优化](./045INF_Kernel/) | Kernel层、算子层优化，对算子、内存、调度优化  |
 
-**[五. AI芯片架构](./Hardware/)**
+**[五. AI芯片架构](./050Hardware/)**
 
 |        |                                      |                              |
 |:------:|:------------------------------------ |:---------------------------- |
 | **编号** | **名称**                               | **具体内容**                     |
-| 1      | [AI 计算体系](./Hardware/01_Foundation/) | 神经网络等AI技术的计算模式和计算体系架构        |
-| 2      | [AI 芯片基础](./Hardware/02_ChipBase/)   | CPU、GPU、NPU等芯片体系架构基础原理       |
-| 3      | [图形处理器 GPU](./Hardware/03_GPUBase/)  | GPU的基本原理，英伟达GPU的架构发展         |
-| 4      | [英伟达GPU详解](./Hardware/04_GPUDetail/) | 英伟达GPU的TensorCore、NVLink深度剖析 |
-| 5      | [AI专用处理器](./Hardware/05_NPU)         | 华为、谷歌、特斯拉等专用AI处理器核心原理        |
+| 1      | [AI 计算体系](./051HW_Foundation/) | 神经网络等AI技术的计算模式和计算体系架构        |
+| 2      | [AI 芯片基础](./052HW_ChipBase/)   | CPU、GPU、NPU等芯片体系架构基础原理       |
+| 3      | [图形处理器 GPU](./053HW_GPUBase/)  | GPU的基本原理，英伟达GPU的架构发展         |
+| 4      | [英伟达GPU详解](./054HW_GPUDetail/) | 英伟达GPU的TensorCore、NVLink深度剖析 |
+| 5      | [AI专用处理器](./055HW_NPU/)         | 华为、谷歌、特斯拉等专用AI处理器核心原理        |
 
 ## 贡献者
 
