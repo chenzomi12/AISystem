@@ -1,8 +1,17 @@
-# Deep Learning System
+<div align="center">
+  <img src="https://raw.githubusercontent.com/chenzomi12/DeepLearningSystem/master/static/logo-with-text.png" width="350">
+</div>
+
+# Deep Learning System & AI System
+
+[![Continuous Integration](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml)
+[![Build Docker Image](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml)
 
 这个开源项目英文名字叫做 **Deep Learning System** 或者 **AI System(AISys)**、**AI Infra**、**ML System(MLSys)**，中文名字叫做 **深度学习系统** 或者 **AI系统**。
 
-主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着 ZOMI 在工作当中所积累、梳理、构建 AI 系统全栈的内容。希望跟所有关注 AI 开源项目的好朋友一起探讨研究，共同促进学习讨论。
+** 课程网页地址 [website]()
+
+主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着 ZOMI 在华为昇腾工作当中所积累、梳理、构建 AI 系统全栈的内容。希望跟所有关注 AI 开源项目的好朋友一起探讨研究，共同促进学习讨论。
 
 > 欢迎大家使用的过程中发现bug或者勘误直接提交PR到开源社区哦！
 > 
@@ -54,7 +63,7 @@
 | 6   | [分布式并行](./Frontend/06_Parallel)     | 数据并行、模型并行、混合并行的原理和策略        |
 |     |                                     |                             |
 
-**[三. 底层编译技术](./Compiler/)**
+**[三. AI编译原理](./Compiler/)**
 
 |        |                                     |                                 |
 |:------:|:----------------------------------- |:------------------------------- |
@@ -67,7 +76,7 @@
 | 6      | [PyTorch2.0](./Compiler/06_PyTorch) | PyTorch2.0最重要的新特性：编译技术栈         |
 |        |                                     |                                 |
 
-**[四. 推理系统](./Inference/)**
+**[四. AI推理系统](./Inference/)**
 
 |        |                                    |                            |
 |:------:|:---------------------------------- |:-------------------------- |
@@ -78,7 +87,7 @@
 | 4      | [转换&优化](./Inference/04_Converter/) | AI框架训练后模型进行转换，并对计算图优化      |
 | 5      | [Kernel优化](./Inference/05_Kernel/) | Kernel层、算子层优化，对算子、内存、调度优化  |
 
-**[五. AI芯片](./Hardware/)**
+**[五. AI芯片架构](./Hardware/)**
 
 |        |                                      |                              |
 |:------:|:------------------------------------ |:---------------------------- |

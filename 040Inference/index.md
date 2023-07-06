@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# 四、推理系统&引擎
+# == 四、推理系统&引擎 ==
 
 训练过程通过设定数据处理方式，并设计合适的网络模型结构以及损失函数和优化算法，在此基础上将数据集以小批量（mini-batch）反复进行前向计算并计算损失，然后反向计算梯度利用特定的优化函数来更新模型，来使得损失函数达到最优的结果。训练过程最重要的就是梯度的计算和反向传播。
 
@@ -35,7 +35,7 @@
 | 分类   | 名称               | 内容                                                                                                   |
 |:-:|:-:|:-:|
 | 推理系统     | 01 内容介绍           |  [video](https://www.bilibili.com/video/BV1J8411K7pj/)     |
-| 推理系统     | 02 什么是推理系统        |  [video](https://www.bilibili.com/video/BV1nY4y1f7G5/)       |
+| 推理系统     | 02 推理系统介绍           |  [video](https://www.bilibili.com/video/BV1nY4y1f7G5/)       |
 | 推理系统     | 03 推理流程全景         |  [video](https://www.bilibili.com/video/BV1M24y1v7rK/)          |
 | 推理系统     | 04 推理系统架构         |  [video](https://www.bilibili.com/video/BV1Gv4y1i7Tw/)           |
 | 推理系统     | 05(上) 推理引擎架构      |  [video](https://www.bilibili.com/video/BV1Mx4y137Er/)        |
@@ -60,9 +60,9 @@
 |:-:|:-:|:-:|
 | 模型压缩     | 01 基本介绍           |  [video](https://www.bilibili.com/video/BV1384y187tL/)               |
 | 模型压缩     | 02 低比特量化原理        |  [video](https://www.bilibili.com/video/BV1VD4y1n7AR/)                      |
-| 模型压缩     | 03 感知量化训练 QAT     |  [video](https://www.bilibili.com/video/BV1s8411w7b9/)                        |
+| 模型压缩     | 03 感知量化训练QAT     |  [video](https://www.bilibili.com/video/BV1s8411w7b9/)                        |
 | 模型压缩     | 04 训练后量化PTQ与部署    |  [video](https://www.bilibili.com/video/BV1HD4y1n7E1/)                        |
-| 模型压缩     | 05 模型剪枝           |  [video](https://www.bilibili.com/video/BV1y34y1Z7KQ/)                    |
+| 模型压缩     | 05 模型剪枝原理          |  [video](https://www.bilibili.com/video/BV1y34y1Z7KQ/)                    |
 | 模型压缩     | 06(上) 知识蒸馏原理      |  [video](https://www.bilibili.com/video/BV1My4y197Tf/)               |
 | 模型压缩     | 06(下) 知识蒸馏算法      |  [video](https://www.bilibili.com/video/BV1vA411d7MF/)               |
 
@@ -75,7 +75,7 @@
 | 模型转换&优化  | 01 基本介绍           |  [video](https://www.bilibili.com/video/BV1724y1z7ep/)     |
 | 模型转换模块   | 02 架构与文件格式        |  [video](https://www.bilibili.com/video/BV13P4y167sr/)  |
 | 模型转换模块   | 03 自定义计算图IR       |  [video](https://www.bilibili.com/video/BV1rx4y177R9/)     |
-| 模型转换模块   | 04 流程细节           |  [video](https://www.bilibili.com/video/BV13341197zU/) |
+| 模型转换模块   | 04 模型转换流程           |  [video](https://www.bilibili.com/video/BV13341197zU/) |
 | 图优化模块    | 05 计算图优化策略        |  [video](https://www.bilibili.com/video/BV1g84y1L7tF/)        |
 | 图优化模块    | 06 常量折叠&冗余节点消除    |  [video](https://www.bilibili.com/video/BV1fA411r7hr/)            |
 | 图优化模块    | 07 算子融合/替换/前移     |  [video](https://www.bilibili.com/video/BV1Qj411T7Ef/)            |
@@ -88,7 +88,7 @@
 | 分类   | 名称               | 内容                                                                                                   |
 |:-:|:-:|:-:|
 | Kernel优化 | 01 Kernel优化架构     | [video](https://www.bilibili.com/video/BV1Ze4y1c7Bb/)           |
-| Kernel优化 | 02 卷积操作基础原理       | [video](https://www.bilibili.com/video/BV1No4y1e7KX/)                    |
+| Kernel优化 | 02 卷积操作原理       | [video](https://www.bilibili.com/video/BV1No4y1e7KX/)                    |
 | Kernel优化 | 03 Im2Col算法       | [video](https://www.bilibili.com/video/BV1Ys4y1o7XW/)                  |
 | Kernel优化 | 04 Winograd算法     | [video](https://www.bilibili.com/video/BV1vv4y1Y7sc/)                |
 | Kernel优化 | 05 QNNPack算法      | [video](https://www.bilibili.com/video/BV1ms4y1o7ki/)                 |

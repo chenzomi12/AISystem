@@ -45,7 +45,7 @@
 | AI 编译器      | 01 为什么需要AI编译器               | [video](https://www.bilibili.com/video/BV1pM41167KP)        |
 | AI 编译器      | 02 AI编译器的发展阶段               | [video](https://www.bilibili.com/video/BV1QK411R7iy/)        |
 | AI 编译器      | 03 AI编译器的通用架构               | [video](https://www.bilibili.com/video/BV1qD4y1Y73e/) |
-| AI 编译器      | 04 AI编译器的挑战与思考              | [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)      |
+| AI 编译器      | 04 AI编译器挑战与思考              | [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)      |
 
 ### 前端优化
 
@@ -54,8 +54,8 @@
 | 分类   | 名称               | 内容                                                                                                   |
 |:-:|:-:|:-:|
 | 前端优化        | 01 内容介绍                     | [video](https://www.bilibili.com/video/BV1ne411w7n2/)   |
-| 前端优化        | 02 计算图层IR                   | [video](https://www.bilibili.com/video/BV1kV4y1w72W/)       |
-| 前端优化        | 03 算子融合策略                   | [video](https://www.bilibili.com/video/BV1P24y1D7RV/)      |
+| 前端优化        | 02 图算 IR                      | [video](https://www.bilibili.com/video/BV1kV4y1w72W/)       |
+| 前端优化        | 03 算子融合                   | [video](https://www.bilibili.com/video/BV1P24y1D7RV/)      |
 | 前端优化        | 04(上) 布局转换原理                | [video](https://www.bilibili.com/video/BV1xK411z7Uw/) |
 | 前端优化        | 04(下) 布局转换算法                | [video](https://www.bilibili.com/video/BV1gd4y1Y7dc/) |
 | 前端优化        | 05 内存分配算法                   | [video]()                                                     |
@@ -71,9 +71,9 @@
 
 | 分类   | 名称               | 内容                                                                                                   |
 |:-:|:-:|:-:|
-| 后端优化        | 01 AI编译器后端优化介绍              | [video](https://www.bilibili.com/video/BV17D4y177bP/)    |
-| 后端优化        | 02 算子分为计算与调度                | [video](https://www.bilibili.com/video/BV1K84y1x7Be/)     |
-| 后端优化        | 03 算子优化手工方式                 | [video](https://www.bilibili.com/video/BV1ZA411X7WZ/)    |
+| 后端优化        | 01 内容介绍              | [video](https://www.bilibili.com/video/BV17D4y177bP/)    |
+| 后端优化        | 02 算子的计算与调度                | [video](https://www.bilibili.com/video/BV1K84y1x7Be/)     |
+| 后端优化        | 03 算子手工优化方式                 | [video](https://www.bilibili.com/video/BV1ZA411X7WZ/)    |
 | 后端优化        | 04 算子循环优化                   | [video](https://www.bilibili.com/video/BV17D4y177bP/)        |
 | 后端优化        | 05 指令和内存优化                  | [video](https://www.bilibili.com/video/BV11d4y1a7J6/)       |
 | 后端优化        | 06 Auto-Tuning原理            | [video](https://www.bilibili.com/video/BV1uA411D7JF/)     |
@@ -88,9 +88,9 @@
 
 | 分类   | 名称               | 内容                                                                                                   |
 |:-:|:-:|:-:|
-| PyTorch2.0  | 01 PyTorch2.0 特性串讲          | [video](https://www.bilibili.com/video/BV1p84y1675B/)    |
+| PyTorch2.0  | 01 PyTorch2.0 特性          | [video](https://www.bilibili.com/video/BV1p84y1675B/)    |
 | TorchDynamo | 02 TorchScript 静态图尝试        | [video](https://www.bilibili.com/video/BV1JV4y1P7gB/)     |
-| TorchDynamo | 03 Torch FX 与 LazyTensor 特性 | [video](https://www.bilibili.com/video/BV1944y1m7fU/)    |
-| TorchDynamo | 04 TorchDynamo 来啦           | [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)    |
+| TorchDynamo | 03 FX 与 LazyTensor | [video](https://www.bilibili.com/video/BV1944y1m7fU/)    |
+| TorchDynamo | 04 TorchDynamo 获取图           | [video](https://www.bilibili.com/video/BV1Hv4y1R7uc/)    |
 | AOTAutograd | 05 AOTAutograd 原理           | [video](https://www.bilibili.com/video/BV1Me4y1V7Ke/)    |
 | AOTAutograd | 06 Dispatch 机制              | [video](https://www.bilibili.com/video/BV1L3411d7SM/)       |

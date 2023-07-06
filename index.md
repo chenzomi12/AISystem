@@ -8,12 +8,18 @@ AI System & Deep Learning System
    :file: frontpage.html
 ```
 
+<!-- AI框架核心模块 -->
+```toc
+:maxdepth: 1
+
+020Framework/index
+```
+
 ```toc
 :maxdepth: 2
 :numbered:
 :caption: Contents:
 
-020Framework/index
 021FW_Foundation/index
 022FW_AutoDiff/index
 023FW_DataFlow/index
@@ -22,12 +28,18 @@ AI System & Deep Learning System
 026FW_Parallel/index
 ```
 
+<!-- AI编译原理 -->
+```toc
+:maxdepth: 1
+
+030Compiler/index
+```
+
 ```toc
 :maxdepth: 2
 :numbered:
 :caption: Contents:
 
-030Compiler/index
 031CM_Tradition/index
 032CM_AICompiler/index
 033CM_Frontend/index
@@ -35,17 +47,11 @@ AI System & Deep Learning System
 036CM_PyTorch/index
 ```
 
+<!-- AI推理系统 -->
 ```toc
-:maxdepth: 2
-:numbered:
-:caption: Contents:
+:maxdepth: 1
 
 040Inference/index
-041INF_Inference/index
-042INF_Mobilenet/index
-043INF_Slim/index
-044INF_Converter/index
-045INF_Kernel/index
 ```
 
 ```toc
@@ -53,7 +59,25 @@ AI System & Deep Learning System
 :numbered:
 :caption: Contents:
 
+041INF_Inference/index
+042INF_Mobilenet/index
+043INF_Slim/index
+044INF_Converter/index
+045INF_Kernel/index
+```
+
+<!-- AI芯片架构 -->
+```toc
+:maxdepth: 1
+
 050Hardware/index
+```
+
+```toc
+:maxdepth: 2
+:numbered:
+:caption: Contents:
+
 051HW_Foundation/index
 052HW_ChipBase/index
 053HW_GPUBase/index

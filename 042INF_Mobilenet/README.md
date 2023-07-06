@@ -8,7 +8,6 @@
 
 | 名称    | 内容                | 资源                                                                                    | 备注  |
 | ----- | ----------------- | ------------------------------------------------------------------------------------- | --- |
-|       |                   |                                                                                       |     |
 | 模型小型化 | 01 推理参数了解         | [slide](./01.introduction.pdf), [video](https://www.bilibili.com/video/BV1KW4y1G75J/) |     |
 | 模型小型化 | 02(上) CNN模型小型化    | [slide](./02.cnn.pdf), [video](https://www.bilibili.com/video/BV1Y84y1b7xj/)          |     |
 | 模型小型化 | 02(下) CNN模型小型化    | [slide](./02.cnn.pdf), [video](https://www.bilibili.com/video/BV1DK411k7qt/)          |     |
