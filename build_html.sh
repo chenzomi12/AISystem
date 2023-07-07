@@ -7,6 +7,7 @@ d2lbook build rst
 cp static/frontpage.html _build/rst/
 
 d2lbook build html
+# mkdir _build/html/_images/
 # cp -r static/image/* _build/html/_images/
 
 cp -r static/template/material.blue-deep_orange.min.css _build/html/_static/material-design-lite-1.3.0/

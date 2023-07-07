@@ -5,7 +5,9 @@
 
 这个开源项目英文名字叫做 **Deep Learning System** 或者 **AI System(AISys)**、**AI Infra**、**ML System(MLSys)**，中文名字叫做 **深度学习系统** 或者 **AI系统**。
 
- **课程网页地址**[https://chenzomi12.github.io/](https://chenzomi12.github.io/)
+ **课程网页地址** [https://chenzomi12.github.io/](https://chenzomi12.github.io/)
+
+目前视频已经连载得80%左右啦，剩下的文字课程内容正在一节节补充更新，每晚空了ZOMI会更新完正在 [AISys](https://chenzomi12.github.io/) 的链接。
 
 主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着 ZOMI 在华为昇腾工作当中所积累、梳理、构建 AI 系统全栈的内容。希望跟所有关注 AI 开源项目的好朋友一起探讨研究，共同促进学习讨论。
 
