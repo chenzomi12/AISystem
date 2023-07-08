@@ -12,7 +12,7 @@ AI System & Deep Learning System
 ```toc
 :maxdepth: 1
 
-020Framework/index
+020Framework/README
 ```
 
 ```toc
@@ -20,19 +20,19 @@ AI System & Deep Learning System
 :numbered:
 :caption: Contents:
 
-021FW_Foundation/index
-022FW_AutoDiff/index
-023FW_DataFlow/index
-024FW_AICluster/index
-025FW_AIAlgo/index
-026FW_Parallel/index
+021FW_Foundation/README
+022FW_AutoDiff/README
+023FW_DataFlow/README
+024FW_AICluster/README
+025FW_AIAlgo/README
+026FW_Parallel/README
 ```
 
 <!-- AI编译原理 -->
 ```toc
 :maxdepth: 1
 
-030Compiler/index
+030Compiler/README
 ```
 
 ```toc
@@ -40,18 +40,18 @@ AI System & Deep Learning System
 :numbered:
 :caption: Contents:
 
-031CM_Tradition/index
-032CM_AICompiler/index
-033CM_Frontend/index
-034CM_Backend/index
-036CM_PyTorch/index
+031CM_Tradition/README
+032CM_AICompiler/README
+033CM_Frontend/README
+034CM_Backend/README
+036CM_PyTorch/README
 ```
 
 <!-- AI推理系统 -->
 ```toc
 :maxdepth: 1
 
-040Inference/index
+040Inference/README
 ```
 
 ```toc
@@ -59,18 +59,18 @@ AI System & Deep Learning System
 :numbered:
 :caption: Contents:
 
-041INF_Inference/index
-042INF_Mobilenet/index
-043INF_Slim/index
-044INF_Converter/index
-045INF_Kernel/index
+041INF_Inference/README
+042INF_Mobilenet/README
+043INF_Slim/README
+044INF_Converter/README
+045INF_Kernel/README
 ```
 
 <!-- AI芯片架构 -->
 ```toc
 :maxdepth: 1
 
-050Hardware/index
+050Hardware/README
 ```
 
 ```toc
@@ -78,11 +78,11 @@ AI System & Deep Learning System
 :numbered:
 :caption: Contents:
 
-051HW_Foundation/index
-052HW_ChipBase/index
-053HW_GPUBase/index
-054HW_GPUDetail/index
-055HW_NPU/index
+051HW_Foundation/README
+052HW_ChipBase/README
+053HW_GPUBase/README
+054HW_GPUDetail/README
+055HW_NPU/README
 ```
 
 ```toc
@@ -90,5 +90,5 @@ AI System & Deep Learning System
 :numbered:
 :caption: Contents:
 
-000Others/index
+000Others/README
 ```

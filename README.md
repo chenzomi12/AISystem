@@ -3,19 +3,19 @@
 [![Continuous Integration](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml)
 [![Build Docker Image](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml)
 
-这个开源项目英文名字叫做 **Deep Learning System** 或者 **AI System(AISys)**、**AI Infra**、**ML System(MLSys)**，中文名字叫做 **深度学习系统** 或者 **AI系统**。
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
 
-文字课程内容正在一节节补充更新，每晚空了ZOMI会更新完正在 [AISys](https://chenzomi12.github.io/) 的链接。
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@zomi6222/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
 
-文字课程在chenzomi12.github.io，系列视频托管B站和油管，PPT开源在github，欢迎取用！
-
-主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着 ZOMI 在华为昇腾工作当中所积累、梳理、构建 AI 系统全栈的内容。希望跟所有关注 AI 开源项目的好朋友一起探讨研究，共同促进学习讨论。
-
-> 非常希望您也参与到这个开源项目中，联系方式[Github Issues] 区留言哦！
+> 非常希望您也参与到这个开源项目中，联系方式[Github Issues] 区留言哦
 >
-> 欢迎大家使用的过程中发现bug或者勘误直接提交PR到开源社区哦！
+> 欢迎大家使用的过程中发现bug或者勘误直接提交PR到开源社区哦
 
 ## 项目背景
+
+这个开源项目英文名字叫做 **Deep Learning System** 或者 **AI System(AISys)**、**AI Infra**、**ML System(MLSys)**，中文名字叫做 **深度学习系统** 或者 **AI系统**。
+
+本开源项目主要是跟大家一起探讨和学习人工智能、深度学习的计算机系统设计，而整个系统是围绕着 ZOMI 在华为昇腾工作当中所积累、梳理、构建 AI 系统全栈的内容。希望跟所有关注 AI 开源项目的好朋友一起探讨研究，共同促进学习讨论。
 
 近年来人工智能特别是深度学习技术得到了飞速发展，这背后离不开计算机硬件和软件系统的不断进步。在可见的未来，人工智能技术的发展仍将依赖于计算机系统和人工智能相结合的共同创新模式。需要注意的是，计算机系统现在正以更大的规模和更高的复杂性来赋能于人工智能，这背后不仅需要更多的系统上的创新，更需要系统性的思维和方法论。与此同时，人工智能也反过来为设计复杂系统提供支持。
 
