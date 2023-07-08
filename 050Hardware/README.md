@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# 五、AI芯片核心原理
+# == 五、AI芯片核心原理 ==
 
 AI芯片这里就很硬核了，从芯片的基础到AI芯片的范围都会涉及，芯片设计需要考虑上面AI框架的前端、后端编译，而不是停留在天天喊着吊打英伟达，被现实打趴。
 
@@ -28,11 +28,11 @@ AI芯片这里就很硬核了，从芯片的基础到AI芯片的范围都会涉�
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 计算体系 | 01 课程内容| [slide](./01_Foundation/01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/)|
+| AI 计算体系 | 01 课程内容| [slide](./01_Foundation/01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/) |
 | AI 计算体系 | 02 AI计算模式(上) | [slide](./01_Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/) |
 | AI 计算体系 | 03 AI计算模式(下) | [slide](./01_Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |
 | AI 计算体系 | 04 关键设计指标| [slide](./01_Foundation/04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/) |
-| AI 计算体系 | 05 核心计算：矩阵乘| [slide](./01_Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/)|
+| AI 计算体系 | 05 核心计算：矩阵乘| [slide](./01_Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/) |
 | AI 计算体系 | 06 数据单位：bits | [slide](./01_Foundation/06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/) |
 | AI 计算体系 | 07 AI计算体系总结| [slide](./01_Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/) |
 
@@ -42,12 +42,12 @@ AI芯片这里就很硬核了，从芯片的基础到AI芯片的范围都会涉�
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 芯片基础 | 01 CPU 基础| [slide](./02_ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)|
+| AI 芯片基础 | 01 CPU 基础| [slide](./02_ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/) |
 | AI 芯片基础 | 02 CPU 指令集架构 | [slide](./02_ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/) |
-| AI 芯片基础 | 03 CPU 计算本质| [slide](./02_ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)|
+| AI 芯片基础 | 03 CPU 计算本质| [slide](./02_ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/) |
 | AI 芯片基础 | 04 CPU 计算时延| [slide](./02_ChipBase/04.cpu_latency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/) |
 | AI 芯片基础 | 05 GPU 基础| [slide](./02_ChipBase/05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/) |
-| AI 芯片基础 | 06 NPU 基础| [slide](./02_ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)|
+| AI 芯片基础 | 06 NPU 基础| [slide](./02_ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/) |
 | AI 芯片基础 | 07 超异构计算 | [slide](./02_ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK) |
 
 ### GPU 原理详解
@@ -58,13 +58,13 @@ AI芯片这里就很硬核了，从芯片的基础到AI芯片的范围都会涉�
 |:--:|:--:|:--:|
 | GPU 原理详解 | 01 GPU工作原理 | [slide](./03_GPUBase/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/) |
 | GPU 原理详解 | 02 GPU适用于AI| [slide](./03_GPUBase/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/) |
-| GPU 原理详解 | 03 GPU架构与CUDA关系| [slide](./03_GPUBase/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/)|
+| GPU 原理详解 | 03 GPU架构与CUDA关系| [slide](./03_GPUBase/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/) |
 | GPU 原理详解 | 04 GPU架构回顾第一篇| [slide](./03_GPUBase/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/) |
-| GPU 原理详解 | 05 GPU架构回顾第二篇| [slide](./03_GPUBase/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/)|
-| NVIDIA GPU详解 | 01 TensorCore原理(上) | [slide](./04_GPUDetail/01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)|
-| NVIDIA GPU详解 | 02 TensorCore架构(中) | [slide](./04_GPUDetail/02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/)|
+| GPU 原理详解 | 05 GPU架构回顾第二篇| [slide](./03_GPUBase/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/) |
+| NVIDIA GPU详解 | 01 TensorCore原理(上) | [slide](./04_GPUDetail/01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/) |
+| NVIDIA GPU详解 | 02 TensorCore架构(中) | [slide](./04_GPUDetail/02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/) |
 | NVIDIA GPU详解 | 03 TensorCore剖析(下) | [slide](./04_GPUDetail/03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/) |
-| NVIDIA GPU详解 | 04 分布式通信与NVLink| [slide](./04_GPUDetail/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)|
+| NVIDIA GPU详解 | 04 分布式通信与NVLink| [slide](./04_GPUDetail/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/) |
 | NVIDIA GPU详解 | 05 NVLink原理剖析| [slide](./04_GPUDetail/05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/) |
 | NVIDIA GPU详解 | 05 NVSwitch原理剖析| [slide](./04_GPUDetail/06.deep_nvswitch.pdf), [video](https://www.bilibili.com/video/BV1uM4y1n7qd/) |
 
@@ -86,4 +86,4 @@ AI芯片这里就很硬核了，从芯片的基础到AI芯片的范围都会涉�
 |:--:|:--:|:--:|
 | 国内AI芯片 | 01 壁仞产品解读 | [slide](./05_NPU/04.BR100_System.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y/) |
 | 国内AI芯片 | 02 壁仞BR100架构| [slide](./05_NPU/05.BR100_Detail.pdf), [video](https://www.bilibili.com/video/BV1G14y1275T/) |
-| 国内AI芯片 | 03 燧原产品与DTU架构 | [slide](./05_NPU/06.SUIYUAN_DTU.pdf), [video]()|
+| 国内AI芯片 | 03 燧原产品与DTU架构 | [slide](./05_NPU/06.SUIYUAN_DTU.pdf), [video]() |

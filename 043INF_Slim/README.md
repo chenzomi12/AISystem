@@ -1,3 +1,5 @@
+<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
+
 # 模型压缩
 
 《模型压缩》模型压缩跟轻量化网络模型不同，压缩主要是对轻量化或者非轻量化模型执行剪枝、蒸馏、量化等压缩算法和手段，使得模型更加小、更加轻便、更加利于执行。
@@ -19,3 +21,15 @@
 | 模型压缩 | 05 模型剪枝 | [PPT](./05.pruning.pdf), [视频](https://www.bilibili.com/video/BV1y34y1Z7KQ/) |
 | 模型压缩 | 06(上) 知识蒸馏原理| [PPT](./06.distillation.pdf), [视频](https://www.bilibili.com/video/BV1My4y197Tf/)|
 | 模型压缩 | 06(下) 知识蒸馏算法| [PPT](./06.distillation.pdf), [视频](https://www.bilibili.com/video/BV1vA411d7MF/)|
+
+```toc
+:maxdepth: 2
+
+01.introduction
+02.quant
+03.qat
+04.ptq
+05.pruning
+06.distillation
+07.distillation
+```

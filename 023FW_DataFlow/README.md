@@ -16,12 +16,12 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 计算图 | 01 基本介绍 | [silde](./01.introduction.pdf),[视频](https://www.bilibili.com/video/BV1cG411E7gV/)|
-| 计算图 | 02 什么是计算图 | [silde](./02.computation_graph.pdf), [视频](https://www.bilibili.com/video/BV1rR4y197HM/) |
-| 计算图 | 03 计算图跟自动微分关系 | [silde](./03.atuodiff.pdf), [视频](https://www.bilibili.com/video/BV1S24y197FU/)|
-| 计算图 | 04 图优化与图执行调度| [silde](./04.dispatch.pdf),[视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/) |
-| 计算图 | 05 计算图的控制流机制实现| [silde](./05.control_flow.pdf),[视频](https://www.bilibili.com/video/BV17P41177Pk/) |
-| 计算图 | 06 计算图未来将会走向何方？ | [silde](./06.future.pdf),[视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/) |
+| 计算图 | 01 基本介绍 | [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1cG411E7gV/) |
+| 计算图 | 02 什么是计算图 | [PPT](./02.computation_graph.pdf), [视频](https://www.bilibili.com/video/BV1rR4y197HM/) |
+| 计算图 | 03 计算图跟自动微分关系 | [PPT](./03.atuodiff.pdf), [视频](https://www.bilibili.com/video/BV1S24y197FU/) |
+| 计算图 | 04 图优化与图执行调度| [PPT](./04.dispatch.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/) |
+| 计算图 | 05 计算图的控制流机制实现| [PPT](./05.control_flow.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/) |
+| 计算图 | 06 计算图未来将会走向何方？ | [PPT](./06.future.pdf), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/) |
 
 ```toc
 :maxdepth: 2

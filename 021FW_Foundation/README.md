@@ -16,7 +16,7 @@ AI框架基础内容介绍，从AI框架基础（02）去介绍为什么我们�
 |:--:|:--:|:--:|
 | AI框架基础 | 01 基本介绍| [silde](./01.introduction.pdf), [video](https://www.bilibili.com/video/BV1he4y1z7oD) |
 | AI框架基础 | 02 AI框架的作用| [silde](./02.fundamentals.pdf), [video](https://www.bilibili.com/video/BV1fd4y1q7qk) |
-| AI框架基础 | 03 AI框架之争（框架发展）| [silde](./03.history.pdf), [video](https://www.bilibili.com/video/BV1C8411x7Kn)|
+| AI框架基础 | 03 AI框架之争（框架发展）| [silde](./03.history.pdf), [video](https://www.bilibili.com/video/BV1C8411x7Kn) |
 | AI框架基础 | 04 编程范式（声明式&命令式） | [silde](./04.programing.pdf), [video](https://www.bilibili.com/video/BV1gR4y1o7WT) |
 
 ```toc
