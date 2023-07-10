@@ -20,8 +20,8 @@
 | 02 什么是微分 | [文章](./02.base_concept.md), [PPT](./02.base_concept.pdf), [视频](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [字幕](./srt/02.srt) |
 | 03 正反向计算模式 | [文章](./03.grad_mode.md), [PPT](./03.grad_mode.pdf), [视频](https://www.bilibili.com/video/BV1zD4y117bL/), [字幕](./srt/03.srt) |
 | 04 三种实现方法| [文章](./04.implement.md), [PPT](./04.implement.pdf), [视频](https://www.bilibili.com/video/BV1BN4y1P76t/), [字幕](./srt/04.srt) |
-| 05 手把手实现正向微分框架 | [文章](./05.forward_mode.md), [PPT](./05.forward_mode.ipynb), [视频](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [字幕](./srt/05.srt) |
-| 06 亲自实现一个PyTorch | [文章](./06.reversed_mode.md), [PPT](./06.reversed_mode.ipynb), [视频](https://www.bilibili.com/video/BV1ae4y1z7E6/), [字幕](./srt/06.srt) |
+| 05 手把手实现正向微分框架 | [文章](./05.forward_mode.md), [视频](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [字幕](./srt/05.srt) |
+| 06 亲自实现一个PyTorch | [文章](./06.reversed_mode.md), [视频](https://www.bilibili.com/video/BV1ae4y1z7E6/), [字幕](./srt/06.srt) |
 | 07 自动微分的挑战&未来| [文章](./07.challenge.md), [PPT](./07.challenge.pdf), [视频](https://www.bilibili.com/video/BV17e4y1z73W/), [字幕](./srt/07.srt) |
 
 ```toc
