@@ -41,28 +41,30 @@ AI系统里面，其实大部分开发者并不关心AI框架或者AI框架的�
 
 《自动微分》AI框架会默认提供自动微分功能，避免用户手动地去对神经网络模型求导，这些复杂的工作交给AI框架就好了，于是自动微自然成为分作为AI框架的核心功能。
 
-| 分类 | 名称 | 内容 | 
-|:-:|:-:|:-:|
-| 2 | 自动微分 | 01 基本介绍 | [PPT](./02 AutoDiff/01.introduction.pptx), [视频](https://www.bilibili.com/video/BV1FV4y1T7zp/) |
-| 自动微分 | 02 什么是微分| [PPT](./02 AutoDiff/02.base_concept.pptx), [视频](https://www.bilibili.com/video/BV1Ld4y1M7GJ/) |
-| 自动微分 | 03 正反向计算模式| [PPT](./02 AutoDiff/03.grad_mode.pptx), [视频](https://www.bilibili.com/video/BV1zD4y117bL/) |
-| 自动微分 | 04 三种实现方法 | [PPT](./02 AutoDiff/04.grad_mode.pptx), [视频](https://www.bilibili.com/video/BV1BN4y1P76t/) |
-| 自动微分 | 05 手把手实现正向微分框架| [PPT](./02 AutoDiff/05.forward_mode.ipynb), [视频](https://www.bilibili.com/video/BV1Ne4y1p7WU/) |
-| 自动微分 | 06 亲自实现一个PyTorch| [PPT](./02 AutoDiff/06.reversed_mode.ipynb), [视频](https://www.bilibili.com/video/BV1ae4y1z7E6/) |
-| 自动微分 | 07 自动微分的挑战&未来 | [PPT](./02 AutoDiff/07.challenge.pptx), [视频](https://www.bilibili.com/video/BV17e4y1z73W/) |
+| 小节 | 链接|
+|:--:|:--:|
+| 01 基本介绍| [文章](../022FW_AutoDiff/01.introduction.md), [PPT](../022FW_AutoDiff/01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1FV4y1T7zp/), [字幕](../022FW_AutoDiff/srt/01.srt) |
+| 02 什么是微分 | [文章](../022FW_AutoDiff/02.base_concept.md), [PPT](../022FW_AutoDiff/02.base_concept.pdf), [视频](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [字幕](../022FW_AutoDiff/srt/02.srt) |
+| 03 正反向计算模式 | [文章](../022FW_AutoDiff/03.grad_mode.md), [PPT](../022FW_AutoDiff/03.grad_mode.pdf), [视频](https://www.bilibili.com/video/BV1zD4y117bL/), [字幕](../022FW_AutoDiff/srt/03.srt) |
+| 04 三种实现方法| [文章](../022FW_AutoDiff/04.implement.md), [PPT](../022FW_AutoDiff/04.implement.pdf), [视频](https://www.bilibili.com/video/BV1BN4y1P76t/), [字幕](../022FW_AutoDiff/srt/04.srt) |
+| 05 手把手实现正向微分框架 | [文章](../022FW_AutoDiff/05.forward_mode.md), [视频](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [字幕](../022FW_AutoDiff/srt/05.srt) |
+| 06 亲自实现一个PyTorch | [文章](../022FW_AutoDiff/06.reversed_mode.md), [视频](https://www.bilibili.com/video/BV1ae4y1z7E6/), [字幕](../022FW_AutoDiff/srt/06.srt) |
+| 07 自动微分的挑战&未来| [文章](../022FW_AutoDiff/07.challenge.md), [PPT](../022FW_AutoDiff/07.challenge.pdf), [视频](https://www.bilibili.com/video/BV17e4y1z73W/), [字幕](../022FW_AutoDiff/srt/07.srt) |
+
 
 ### 计算图
 
 《计算图》实际上，AI框架主要的职责是把深度学习的表达转换称为计算机能够识别的计算图，计算图作为AI框架中核心的数据结构，贯穿AI框架的大部分整个生命周期，于是计算图对于AI框架的前端核心技术就显得尤为重要。
 
-| 分类 | 名称 | 内容 | 
-|:-:|:-:|:-:|
-| 计算图| 01 基本介绍 | [PPT](./03_DataFlow/01.introduction.pptx), [视频](https://www.bilibili.com/video/BV1cG411E7gV/) |
-| 计算图| 02 什么是计算图 | [PPT](./03_DataFlow/02.computation_graph.pptx), [视频](https://www.bilibili.com/video/BV1rR4y197HM/) |
-| 计算图| 03 计算图跟自动微分关系 | [PPT](./03_DataFlow/03.atuodiff.pptx), [视频](https://www.bilibili.com/video/BV1S24y197FU/) |
-| 计算图| 04 图优化与图执行调度| [PPT](./03_DataFlow/04.dispatch.pptx), [视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/) |
-| 计算图| 05 计算图的控制流机制实现| [PPT](./03_DataFlow/05.control_flow.pptx), [视频](https://www.bilibili.com/video/BV17P41177Pk/) |
-| 计算图| 06 计算图未来将会走向何方？ | [PPT](./03_DataFlow/06.future.pptx), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/) |
+| 小节 | 链接|
+|:--:|:--:|
+| 01 基本介绍 | [文章](../023FW_DataFlow/01.introduction.md), [PPT](../023FW_DataFlow/01.introduction.pptx), [视频](https://www.bilibili.com/video/BV1cG411E7gV/), [字幕](../023FW_DataFlow/srt/01.srt) |
+| 02 什么是计算图 | [文章](../023FW_DataFlow/02.computegraph.md), [PPT](../023FW_DataFlow/02.computegraph.pptx), [视频](https://www.bilibili.com/video/BV1rR4y197HM/), [字幕](../023FW_DataFlow/srt/02.srt) |
+| 03 与自动微分关系 | [文章](../023FW_DataFlow/03.atuodiff.md), [PPT](../023FW_DataFlow/03.atuodiff.pptx), [视频](https://www.bilibili.com/video/BV1S24y197FU/), [字幕](../023FW_DataFlow/srt/03.srt) |
+| 04 图优化与图执行调度| [文章](../023FW_DataFlow/04.dispatch.md), [PPT](../023FW_DataFlow/04.dispatch.pptx), [视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/), [字幕](../023FW_DataFlow/srt/04.srt) |
+| 05 计算图控制流实现| [文章](../023FW_DataFlow/05.control_flow.md), [PPT](。./023FW_DataFlow/05.control_flow.pptx), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](../023FW_DataFlow/srt/05.srt) |
+| 06 计算图实现动静统一| [文章](../023FW_DataFlow/06.static_graph.md), [PPT](../023FW_DataFlow/06.static_graph.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](。./srt/06.srt) |
+| 07 计算图的挑战与未来 |[文章](../023FW_DataFlow/07.future.md), [PPT](../023FW_DataFlow/07.future.pdf), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/), [字幕](.。/srt/07.srt) |
 
 ### 分布式集群
 

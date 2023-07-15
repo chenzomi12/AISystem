@@ -8,26 +8,25 @@
 
 我在这里抛砖引玉，希望您可以一起参与到这个开源项目中，跟更多的您一起探讨学习！
 
-## 内容大纲
-
 > `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/DeepLearningSystem) 下载，网页课程版链接会失效哦~
 >
 > 建议优先下载 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~
 
-| 大纲 | 小节 | 链接|
-|:--:|:--:|:--:|
-| 计算图 | 01 基本介绍 | [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1cG411E7gV/) |
-| 计算图 | 02 什么是计算图 | [PPT](./02.computation_graph.pdf), [视频](https://www.bilibili.com/video/BV1rR4y197HM/) |
-| 计算图 | 03 计算图跟自动微分关系 | [PPT](./03.atuodiff.pdf), [视频](https://www.bilibili.com/video/BV1S24y197FU/) |
-| 计算图 | 04 图优化与图执行调度| [PPT](./04.dispatch.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/) |
-| 计算图 | 05 计算图的控制流机制实现| [PPT](./05.control_flow.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/) |
-| 计算图 | 06 计算图未来将会走向何方？ | [PPT](./06.future.pdf), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/) |
+| 小节 | 链接|
+|:--:|:--:|
+| 01 基本介绍 | [文章](./01.introduction.md), [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1cG411E7gV/), [字幕](./srt/01.srt) |
+| 02 什么是计算图 | [文章](./02.computegraph.md), [PPT](./02.computegraph.pdf), [视频](https://www.bilibili.com/video/BV1rR4y197HM/), [字幕](./srt/02.srt) |
+| 03 与自动微分关系 | [文章](./03.atuodiff.md), [PPT](./03.atuodiff.pdf), [视频](https://www.bilibili.com/video/BV1S24y197FU/), [字幕](./srt/03.srt) |
+| 04 图优化与图执行调度| [文章](./04.dispatch.md), [PPT](./04.dispatch.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/), [字幕](./srt/04.srt) |
+| 05 计算图控制流实现| [文章](./04.dispatch.md), [PPT](./05.control_flow.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](./srt/05.srt) |
+| 06 计算图实现动静统一| [文章](./06.future.md), [PPT](./06.static_graph.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](./srt/06.srt) |
+| 07 计算图的挑战与未来 |[文章](./07.future.md), [PPT](./07.future.pdf), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/), [字幕](./srt/07.srt) |
 
 ```toc
 :maxdepth: 2
 
 01.introduction
-02.computation_graph
+02.computegraph
 03.atuodiff
 04.dispatch
 05.control_flow
