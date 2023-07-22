@@ -24,9 +24,6 @@ AI System & Deep Learning System
 021FW_Foundation/README
 022FW_AutoDiff/README
 023FW_DataFlow/README
-024FW_AICluster/README
-025FW_AIAlgo/README
-026FW_Parallel/README
 ```
 
 <!-- AI编译原理 -->
@@ -86,6 +83,24 @@ AI System & Deep Learning System
 055HW_NPU/README
 ```
 
+<!-- 大模型 -->
+```toc
+:maxdepth: 1
+
+060Foundation/README
+```
+
+```toc
+:maxdepth: 2
+:numbered:
+:caption: Contents:
+
+061FW_AICluster/README
+062FW_AIAlgo/README
+063FW_Parallel/README
+```
+
+<!-- 附录 -->
 ```toc
 :maxdepth: 1
 :numbered:
