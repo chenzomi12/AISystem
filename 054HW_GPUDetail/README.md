@@ -2,9 +2,9 @@
 
 - 《NVIDIA GPU原理》英伟达架构里面专门为AI而生的 Tensor Core 和 NVLink 对AI加速尤为重要，因此重点对 Tensor Core 和 NVLink 进行深入剖析其发展、演进和架构。
 
-我在这里抛砖引玉，希望您可以一起参与到这个开源项目中，跟更多的您一起探讨学习！
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
 
-## 内容大纲
+**内容大纲**
 
 > `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/DeepLearningSystem) 下载，网页课程版链接会失效哦~
 >
