@@ -88,7 +88,8 @@
 | 2      | [AI 芯片基础](./052HW_ChipBase/)   | CPU、GPU、NPU等芯片体系架构基础原理       |
 | 3      | [图形处理器 GPU](./053HW_GPUBase/)  | GPU的基本原理，英伟达GPU的架构发展         |
 | 4      | [英伟达GPU详解](./054HW_GPUDetail/) | 英伟达GPU的TensorCore、NVLink深度剖析 |
-| 5      | [AI专用处理器](./055HW_NPU/)         | 华为、谷歌、特斯拉等专用AI处理器核心原理        |
+| 5      | [国外 AI 处理器](./055HW_Abroad/)   | 谷歌、特斯拉等专用AI处理器核心原理        |
+| 6      | [国内 AI 处理器](./056HW_Domestic/)   | 寒武纪、燧原科技等专用AI处理器核心原理        |
 
 **[六. 大模型训练](./060Foundation/)**
 
