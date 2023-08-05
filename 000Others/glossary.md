@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# 术语表
+# 术语表(DONE)
 
 术语表（Glossary），本词汇表包含与AI系统相关的词汇和定义。
 
