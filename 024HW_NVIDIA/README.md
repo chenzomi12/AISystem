@@ -1,4 +1,4 @@
-# NVIDIA GPU详解(视频)
+# NVIDIA GPU详解
 
 - 《NVIDIA GPU原理》英伟达架构里面专门为AI而生的 Tensor Core 和 NVLink 对AI加速尤为重要，因此重点对 Tensor Core 和 NVLink 进行深入剖析其发展、演进和架构。
 

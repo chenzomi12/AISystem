@@ -16,12 +16,12 @@ html {
 }
 
 ::-moz-selection {
-    background: #b3d4fc;
+    background: #fff1a6;
     text-shadow: none
 }
 
 ::selection {
-    background: #b3d4fc;
+    background: #fff1a6;
     text-shadow: none
 }
 
@@ -4827,7 +4827,8 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__ripple-container .mdl-ripple,
 .mdl-layout__drawer>* {
     -webkit-flex-shrink: 0;
     -ms-flex-negative: 0;
-    flex-shrink: 0
+    flex-shrink: 0;
+    background: #fff1a6
 }
 
 .mdl-layout__drawer>.mdl-layout__title,
