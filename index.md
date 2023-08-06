@@ -8,25 +8,35 @@ AI System & Deep Learning System
    :file: frontpage.html
 ```
 
-<!-- AI框架核心模块 -->
+<!-- 一、AI系统概述 -->
+```toc
+:maxdepth: 1
+:caption: Contents:
+
+010system/README
+```
+
+<!-- 二、AI芯片架构 -->
 ```toc
 :maxdepth: 1
 
-020Framework/readme
+020Hardware/README
 ```
-
 
 ```toc
 :maxdepth: 2
 :numbered:
 :caption: Contents:
 
-021FW_Foundation/README
-022FW_AutoDiff/README
-023FW_DataFlow/README
+021HW_Foundation/README
+022HW_ChipBase/README
+023HW_GPUBase/README
+024HW_NVIDIA/README
+025HW_Abroad/README
+026HW_Domestic/README
 ```
 
-<!-- AI编译原理 -->
+<!-- 三、AI编译体系 -->
 ```toc
 :maxdepth: 1
 
@@ -45,7 +55,7 @@ AI System & Deep Learning System
 036CM_PyTorch/README
 ```
 
-<!-- AI推理系统 -->
+<!-- 四、AI推理系统 -->
 ```toc
 :maxdepth: 1
 
@@ -64,11 +74,11 @@ AI System & Deep Learning System
 045INF_Kernel/README
 ```
 
-<!-- AI芯片架构 -->
+<!-- 五、AI框架核心模块 -->
 ```toc
 :maxdepth: 1
 
-050Hardware/README
+050Framework/README
 ```
 
 ```toc
@@ -76,11 +86,9 @@ AI System & Deep Learning System
 :numbered:
 :caption: Contents:
 
-051HW_Foundation/README
-052HW_ChipBase/README
-053HW_GPUBase/README
-054HW_GPUDetail/README
-055HW_NPU/README
+051FW_Foundation/README
+052FW_AutoDiff/README
+053FW_DataFlow/README
 ```
 
 <!-- 大模型 -->
@@ -103,7 +111,6 @@ AI System & Deep Learning System
 <!-- 附录 -->
 ```toc
 :maxdepth: 1
-:numbered:
 :caption: Contents:
 
 000Others/README

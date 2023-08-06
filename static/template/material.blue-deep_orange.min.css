@@ -4790,7 +4790,7 @@ fieldset[disabled] .mdl-checkbox .mdl-checkbox__ripple-container .mdl-ripple,
     -webkit-flex-wrap: nowrap;
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
-    width: 240px;
+    width: 260px;
     height: 100%;
     max-height: 100%;
     position: absolute;

@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# == 六、大模型训练 ==
+# ==== 六、大模型训练
 
 - 待更新...
 

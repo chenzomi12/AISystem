@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# == 附录(DONE) ==
+# ==== 附录(DONE)
 
 本节附录主要是介绍本开源项目的书写规范、使用到的书写工具、还有关于本课程/视频/书籍相关配套内容的介绍。
 
