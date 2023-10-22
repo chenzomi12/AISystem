@@ -1,53 +1,31 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# ==== 六、大模型训练
+# AI 集群组成
 
-- 待更新...
+[![Continuous Integration](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml)
+[![Build Docker Image](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml)
 
-> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
+《AI 集群组成》分为两部分，第一部分在纵深上深入地去根据大模型在 AI 系统全栈中的冲击内容，去体会大模型遇到 AI 系统的整体架构；第二部分根据大模型从集群建设、数据算法、训练微调推理、推理部署应用的全流程每一个环节之间的关系。
 
-## 课程简介
-
-- 待更新...
-
-## 课程细节
+## 内容大纲
 
 > `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/DeepLearningSystem) 下载，网页课程版链接会失效哦~
 >
 > 建议优先下载 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~
 
-### 分布式集群
+| 大纲 | 小节 | 链接|
+|:--:|:--:|:--:|
+| 大模型 | 01 大模型整体介绍(上) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
+| 大模型 | 02 大模型整体介绍(下) | [slide](./02_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
 
-《分布式集群》随着AI集群的出现，越来越多的网络模型运行在集群上面，但是AI集群如何管理？如何通信？如何协同工作？AI框架如何支持分布式功能都需要我们去了解，才能更好地利用AI集群算力。
+## 备注
 
-| 分类 | 名称 | 内容 | 
-|:-:|:-:|:-:|
-| 分布式集群| 01 基本介绍 | [PPT](./04_AICluster/01.introduction.pptx), [视频](https://www.bilibili.com/video/BV1ge411L7mi/) |
-| 分布式集群| 02 AI集群服务器架构| [PPT](./04_AICluster/02.architecture.pptx), [视频](https://www.bilibili.com/video/BV1fg41187rc/) |
-| 分布式集群| 03 AI集群软硬件通信| [PPT](./04_AICluster/03.communication.pptx), [视频](https://www.bilibili.com/video/BV14P4y1S7u4/) |
-| 分布式集群| 04 集合通信原语 | [PPT](./04_AICluster/04.primitive.pptx), [视频](https://www.bilibili.com/video/BV1te4y1e7vz/) |
-| 分布式算法| 05 AI框架分布式功能| [PPT](./04_AICluster/05.system.pptx), [视频](https://www.bilibili.com/video/BV1n8411s7f3/) |
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
 
-### 分布式算法
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@zomi6222/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
 
-《分布式算法》随着大模型的出现，越来越多的大模型算法涌现，特别是Transformer和MOE结构，引爆了千亿乃至万亿规模的大模型，新的AI算法奇点来了，AI工程师也需要了解最新的动态。
-
-| 分类 | 名称 | 内容 | 
-|:-:|:-:|:-:|
-| 分布式算法| 06 大模型训练的挑战 | [PPT](./05_AIAlgo/06.challenge.pptx), [视频](https://www.bilibili.com/video/BV1Y14y1576A/) |
-| 分布式算法| 07 算法：大模型算法结构 | [PPT](./05_AIAlgo/07.algorithm_arch.pptx), [视频](https://www.bilibili.com/video/BV1Mt4y1M7SE/) |
-| 分布式算法| 08 算法：亿级规模SOTA大模型 | [PPT](./05_AIAlgo/08.algorithm_sota.pptx), [视频](https://www.bilibili.com/video/BV1em4y1F7ay/) |
-
-### 分布式并行
-
-《分布式并行》可是在AI集群，想要训练起千亿乃至万亿规模的大模型，谈何容易，于是出现了不同类型的分布式并行策略，目的是解决性能墙、内存墙、调优墙等并行问题，使的开发者能够真正让AI算法快速在AI集群上执行。
-
-| 分类 | 名称 | 内容 | 
-|:-:|:-:|:-:|
-| 分布式并行| 01 基本介绍 | [PPT](./06_Parallel/01.introduction.pptx), [视频](https://www.bilibili.com/video/BV1ve411w7DL/) |
-| 分布式并行| 02 数据并行 | [PPT](./06_Parallel/02.data_parallel.pptx), [视频](https://www.bilibili.com/video/BV1JK411S7gL/) |
-| 分布式并行| 03 模型并行之张量并行| [PPT](./06_Parallel/03.tensor_parallel.pptx), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/) |
-| 分布式并行| 04 MindSpore张量并行| [PPT](./06_Parallel/04.mindspore_parallel.pptx), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/) |
-| 分布式并行| 05 模型并行之流水并行| [PPT](./06_Parallel/05.pipeline_parallel.pptx), [视频](https://www.bilibili.com/video/BV1WD4y1t7Ba/) |
-| 分布式并行| 06 混合并行 | [PPT](./06_Parallel/06.hybrid_parallel.pptx), [视频](https://www.bilibili.com/video/BV1gD4y1t7Ut/) |
-| 分布式汇总| 07 分布式训练总结| [PPT](./06_Parallel/07.summary.pptx), [视频](https://www.bilibili.com/video/BV1av4y1S7DQ/) |
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
