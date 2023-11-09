@@ -17,7 +17,7 @@
 
 本开源项目主要是跟大家一起探讨和学习人工智能、深度学习的系统设计，而整个系统是围绕着 ZOMI 在工作当中所积累、梳理、构建 AI 系统全栈的内容。希望跟所有关注 AI 开源项目的好朋友一起探讨研究，共同促进学习讨论。
 
-![AI系统全栈](./images/01Introduction/AIsystem02.png)
+![AI系统全栈](./images/ai_system.png)
 
 ## 课程内容大纲
 
@@ -100,6 +100,10 @@
 | 1   | [课程介绍](./06Foundation/)    | 大模型整体架构和大模型全流程           |
 | 2   | [AI 集群](./06Foundation/02AICluster/)    | AI集群服务器整体组成相关技术           |
 | 3   | [集群通信](./06Foundation/03Network/)    | AI 片内通信、AI集群通信拓扑与集合通信原理           |
+
+### 知识清单
+
+![知识清单](./images/knowledge_list.png)
 
 ## 贡献者
 
