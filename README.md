@@ -98,8 +98,17 @@
 | 编号  | 名称                                  | 具体内容                        |
 |:---:|:----------------------------------- |:--------------------------- |
 | 1   | [课程介绍](./06Foundation/)    | 大模型整体架构和大模型全流程           |
-| 2   | [AI 集群](./06Foundation/02AICluster/)    | AI集群服务器整体组成相关技术           |
-| 3   | [集群通信](./06Foundation/03Network/)    | AI 片内通信、AI集群通信拓扑与集合通信原理           |
+| 2   | [AI 集群](./06Foundation/02AICluster/)    | AI集群服务器整体组成相关技术初体验           |
+| 3   | [集群存储](./06Foundation/03Storage/)        | 更新中           |
+| 4   | [集群通信](./06Foundation/04Network/)        | 更新中           |
+| 5   | [数据处理](./06Foundation/05Dataset/)        | 更新中           |
+| 6   | [大模型算法](./06Foundation/06Algorithm/)    | 更新中           |
+| 7   | [大模型训练](./06Foundation/07Train/)        | 更新中           |
+| 8   | [分布式并行](./06Foundation/08Parallel/)     | 更新中           |
+| 9   | [大模型微调](./06Foundation/09Finetune/)     | 更新中           |
+| 10  | [大模型验证](./06Foundation/10Evaluate/)     | 更新中           |
+| 11  | [大模型推理](./06Foundation/11Inference/)    | 更新中           |
+| 12   | [AI Agent](./06Foundation/12Agent/)    | AI Agent 智能体，通过大模型走向GAI          |
 
 ### 知识清单
 
@@ -117,4 +126,4 @@
 
 ## 备注
 
-> 这个仓已经到达疯狂的8G啦（ZOMI把所有制作过程、高清图片都原封不动提供），如果你要git clone会非常的慢，因此建议优先到  [Releases · chenzomi12/DeepLearningSystem](https://github.com/chenzomi12/DeepLearningSystem/releases) 来下载你需要的内容。
+> 这个仓已经到达疯狂的10G啦（ZOMI把所有制作过程、高清图片都原封不动提供），如果你要git clone会非常的慢，因此建议优先到  [Releases · chenzomi12/DeepLearningSystem](https://github.com/chenzomi12/DeepLearningSystem/releases) 来下载你需要的内容。
