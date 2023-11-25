@@ -117,11 +117,9 @@
 ## 贡献者
 
 <!-- readme: collaborators,contributors -start -->
-
 <a href="https://github.com/chenzomi12/DeepLearningSystem/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=chenzomi12/DeepLearningSystem" />
 </a>
-
 <!-- readme: collaborators,contributors -end -->
 
 ## 备注
