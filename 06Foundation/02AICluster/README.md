@@ -16,7 +16,7 @@
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
 | 大模型 | 01 大模型整体介绍(上) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
-| 大模型 | 02 大模型整体介绍(下) | [slide](./02_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
+| 大模型 | 02 大模型整体介绍(下) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
 
 ## 备注
 
