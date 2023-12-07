@@ -15,8 +15,15 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 大模型 | 01 大模型整体介绍(上) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
-| 大模型 | 02 大模型整体介绍(下) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
+| 大模型 | 01 大模型整体架构 | [slide](../01Introduce/01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
+| 大模型 | 02 大模型全流程 | [slide](../01Introduce//01_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
+|:--:|:--:|:--:|
+| 大模型 | 03 大模型训练效率 | [slide](./03efficiency.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| 大模型 | 04 AI集群硬件组成 | [slide](./04Hardware.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| 大模型 | 05 集群服务器架构 | [slide](./05ClusterArch.pdf), [video](https://www.bilibili.com/video/BV1384y127iP) |
+| 大模型 | 05 大模型训练显存分析 | [slide](./06TrainingMemory.pdf), [video](https://www.bilibili.com/video/BV15Q4y147Uo) |
+| 大模型 | 06 大模型推理显存分析 | [slide](./07InferenceMemory.pdf), [video](https://www.bilibili.com/video/BV1Rc411S7jj) |
+
 
 ## 备注
 
