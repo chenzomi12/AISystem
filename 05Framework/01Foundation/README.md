@@ -17,11 +17,14 @@ AI框架基础内容介绍，从AI框架基础开始去介绍为什么我们要�
 | 03 AI框架之争（框架发展）| [文章](./03.history.md), [PPT](./03.history.pdf), [视频](https://www.bilibili.com/video/BV1C8411x7Kn), [字幕](./srt/03.srt) |
 | 04 编程范式（声明式&命令式） | [文章](./04.programing.md), [PPT](./04.programing.pdf), [视频](https://www.bilibili.com/video/BV1gR4y1o7WT), [字幕](./srt/04.srt) |
 
-```toc
-:maxdepth: 2
+## 备注
 
-01.introduction
-02.fundamentals
-03.history
-04.programing
-```
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

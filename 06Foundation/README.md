@@ -1,18 +1,20 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# === 六、大模型与AI系统 ===
+# 六、大模型遇到 AI 系统
 
-大模型是基于AI集群的全栈软硬件性能优化，通过最小的每一块AI芯片组成的AI集群，编译器使能到上层的AI框架，训练过程需要分布式并行、集群通信等算法支持，而且在大模型领域最近持续演进如智能体等新技术。
+大模型是基于 AI 集群的全栈软硬件性能优化，通过最小的每一块AI芯片组成的AI集群，编译器使能到上层的AI框架，训练过程需要分布式并行、集群通信等算法支持，而且在大模型领域最近持续演进如智能体等新技术。
 
-> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
+> 希望这个系列能够给朋友们带来一些帮助，也希望ZOMI能够继续坚持完成所有内容哈！欢迎您也参与到这个开源项目的贡献！
 
 ## 课程简介
 
-- **《AI框架基础》**主要是对AI框架的作用、发展、编程范式等散点进行汇总分享，让开发者能够知道AI框架与AI框架之间的差异和共同点，目前的AI框架主要的开发和编程方式。
+- [《大模型全流程》](./01Introduce/)分为两部分，第一部分在纵深上深入地去根据大模型在 AI 系统全栈中的冲击内容，去体会大模型遇到 AI 系统的整体架构；第二部分根据大模型从集群建设、数据算法、训练微调推理、推理部署应用的全流程每一个环节之间的关系。
 
-- **《自动微分》**AI框架会默认提供自动微分功能，避免用户手动地去对神经网络模型求导，这些复杂的工作交给AI框架就好了，于是自动微自然成为分作为AI框架的核心功能。
+- [《AI 集群简介》](./02AICluster/)宏观层面在 AI 集群的基础上整体了解大模型在 AI 集群的训练效率，推理和训练在集群中所占用的显存，硬件层面从 AI 集群的具体硬件模块及其相匹配的基本组成，并基于此形成的 AI 集群服务器的整体架构。
 
-- **《计算图》**实际上，AI框架主要的职责是把深度学习的表达转换称为计算机能够识别的计算图，计算图作为AI框架中核心的数据结构，贯穿AI框架的大部分整个生命周期，于是计算图对于AI框架的前端核心技术就显得尤为重要。
+- [《AI 集群存储》](./03Storage/)想要占领大模型应用的高地，数据和算力可以说是不可或缺的基石。和算力相关的讨论已经有很多，以至于英伟达的市值在2023年翻了两番。同样不应小觑的还有数据，除了数据量的爆炸性增长，数据的读取、写入、传输等基础性能，开始遇到越来越多的新挑战。
+
+- [《AI 智能体》](./12Agent/)AI Agent 智能体基于 LLMs 大语言模型的能力，未来不仅会改变每个人与计算机交互的方式。它们还将颠覆软件行业，带来自我们从键入命令到点击图标以来最大的计算革命。
 
 ## 课程细节
 
@@ -20,42 +22,55 @@
 >
 > 建议优先下载 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~
 
-### AI框架基础
+### [《大模型全流程》](./01Introduce/)
 
-《AI框架基础》主要是对AI框架的作用、发展、编程范式等散点进行汇总分享，让开发者能够知道AI框架与AI框架之间的差异和共同点，目前的AI框架主要的开发和编程方式。
+| 大纲 | 小节 | 链接|
+|:--:|:--:|:--:|
+| 大模型 | 01 大模型整体介绍(上) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
+| 大模型 | 02 大模型整体介绍(下) | [slide](./02_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
 
-| 小节 | 链接|
-|:--:|:--:|
-| 01 基本介绍| [文章](../021FW_Foundation/01.introduction.md), [PPT](../021FW_Foundation/01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1he4y1z7oD), [字幕](../021FW_Foundation/srt/01.srt) |
-| 02 AI框架的作用| [文章](../021FW_Foundation/02.fundamentals.md), [PPT](../021FW_Foundation/02.fundamentals.pdf), [视频](https://www.bilibili.com/video/BV1fd4y1q7qk), [字幕](../021FW_Foundation/srt/02.srt) |
-| 03 AI框架之争（框架发展）| [文章](../021FW_Foundation/03.history.md), [PPT](../021FW_Foundation/03.history.pdf), [视频](https://www.bilibili.com/video/BV1C8411x7Kn), [字幕](../021FW_Foundation/srt/03.srt) |
-| 04 编程范式（声明式&命令式） | [文章](../021FW_Foundation/04.programing.md), [PPT](../021FW_Foundation/04.programing.pdf), [视频](https://www.bilibili.com/video/BV1gR4y1o7WT), [字幕](../021FW_Foundation/srt/04.srt) |
+### [《AI 集群简介》](./02AICluster/)
 
-### 自动微分
+| 大纲 | 小节 | 链接|
+|:--:|:--:|:--:|
+| AI 集群简介 | 03 大模型训练效率 | [slide](./03efficiency.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| AI 集群简介 | 04 AI集群硬件组成 | [slide](./04Hardware.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| AI 集群简介 | 05 集群服务器架构 | [slide](./05ClusterArch.pdf), [video](https://www.bilibili.com/video/BV1384y127iP) |
+| AI 集群简介 | 05 大模型训练显存分析 | [slide](./06TrainingMemory.pdf), [video](https://www.bilibili.com/video/BV15Q4y147Uo) |
+| AI 集群简介 | 06 大模型推理显存分析 | [slide](./07InferenceMemory.pdf), [video](https://www.bilibili.com/video/BV1Rc411S7jj) |
 
-《自动微分》AI框架会默认提供自动微分功能，避免用户手动地去对神经网络模型求导，这些复杂的工作交给AI框架就好了，于是自动微自然成为分作为AI框架的核心功能。
+### [《AI 集群存储》](./03Storage/)
 
-| 小节 | 链接|
-|:--:|:--:|
-| 01 基本介绍| [文章](../022FW_AutoDiff/01.introduction.md), [PPT](../022FW_AutoDiff/01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1FV4y1T7zp/), [字幕](../022FW_AutoDiff/srt/01.srt) |
-| 02 什么是微分 | [文章](../022FW_AutoDiff/02.base_concept.md), [PPT](../022FW_AutoDiff/02.base_concept.pdf), [视频](https://www.bilibili.com/video/BV1Ld4y1M7GJ/), [字幕](../022FW_AutoDiff/srt/02.srt) |
-| 03 正反向计算模式 | [文章](../022FW_AutoDiff/03.grad_mode.md), [PPT](../022FW_AutoDiff/03.grad_mode.pdf), [视频](https://www.bilibili.com/video/BV1zD4y117bL/), [字幕](../022FW_AutoDiff/srt/03.srt) |
-| 04 三种实现方法| [文章](../022FW_AutoDiff/04.implement.md), [PPT](../022FW_AutoDiff/04.implement.pdf), [视频](https://www.bilibili.com/video/BV1BN4y1P76t/), [字幕](../022FW_AutoDiff/srt/04.srt) |
-| 05 手把手实现正向微分框架 | [文章](../022FW_AutoDiff/05.forward_mode.md), [视频](https://www.bilibili.com/video/BV1Ne4y1p7WU/), [字幕](../022FW_AutoDiff/srt/05.srt) |
-| 06 亲自实现一个PyTorch | [文章](../022FW_AutoDiff/06.reversed_mode.md), [视频](https://www.bilibili.com/video/BV1ae4y1z7E6/), [字幕](../022FW_AutoDiff/srt/06.srt) |
-| 07 自动微分的挑战&未来| [文章](../022FW_AutoDiff/07.challenge.md), [PPT](../022FW_AutoDiff/07.challenge.pdf), [视频](https://www.bilibili.com/video/BV17e4y1z73W/), [字幕](../022FW_AutoDiff/srt/07.srt) |
+| 大纲 | 小节 | 链接|
+|:--:|:--:|:--:|
+| 大模型 | 01 存储遇到大模型介绍 | [slide](./01Introduce.pdf), [video](https://www.bilibili.com/video/BV1H94y1J7wq) |
+| 大模型 | 02 存储硬件介质组成 | [slide](./02Hardware.pdf), [video](https://www.bilibili.com/video/BV1fw411P7FY) |
+| 大模型 | 03 存储集群连接方式 | [slide](./03Connect.pdf), [video](https://www.bilibili.com/video/BV1SQ4y147b3) |
+| 大模型 | 04 数据存储的类型 | [slide](./04Object.pdf), [video](https://www.bilibili.com/video/BV1fa4y1Z76n) |
+| 大模型 | 05 存储遇到大模型的挑战 | [slide](./05Challenge.pdf), [video](https://www.bilibili.com/video/BV1UG411i7SM) |
+| 大模型 | 06 训练存储优化方案(上) | [slide](./06Optimizer.pdf), [video](https://www.bilibili.com/video/BV1uw411h7B7) |
+| 大模型 | 07 训练存储优化方案(下) | [slide](./07Checkpoint.pdf), [video](https://www.bilibili.com/video/BV11u4y1c7Pu) |
+| 大模型 | 08 大模型CKPT优化手段 | [slide](./07Checkpoint.pdf), [video](https://www.bilibili.com/video/BV1wM411d7cc) |
+| 大模型 | 09 存算架构思考 | [slide](./08Future.pdf), [video](https://www.bilibili.com/video/BV1kw411h74p/) |
 
+### [AI 智能体](./12Agent/)
 
-### 计算图
+| 大纲 | 小节 | 链接|
+|:--:|:--:|:--:|
+| 大模型 | 01 大模型遇到AI Agent | [slide](./12Agent/01Introduction.pdf), [video](https://www.bilibili.com/video/BV11w411p7dW/) |
+| 大模型 | 02 AI Agent具体组成 | [slide](./12Agent/02Component.pdf), [video](https://www.bilibili.com/video/BV11u4y1P73P/) |
+| 大模型 | 03 Planning与Prompt关系 | [slide](./12Agent/03Planning.pdf), [video](https://www.bilibili.com/video/BV1kM411f7Gb/) |
+| 大模型 | 04 AI Agent应用原理剖析 | [slide](./12Agent/04Application.pdf), [video](https://www.bilibili.com/video/BV1zM411f7n2/) |
+| 大模型 | 05 AI Agent问题与未来思考 | [slide](./12Agent/05Summary.pdf), [video](https://www.bilibili.com/video/BV1KC4y1S7ZG/) |
 
-《计算图》实际上，AI框架主要的职责是把深度学习的表达转换称为计算机能够识别的计算图，计算图作为AI框架中核心的数据结构，贯穿AI框架的大部分整个生命周期，于是计算图对于AI框架的前端核心技术就显得尤为重要。
+## 备注
 
-| 小节 | 链接|
-|:--:|:--:|
-| 01 基本介绍 | [文章](../023FW_DataFlow/01.introduction.md), [PPT](../023FW_DataFlow/01.introduction.pptx), [视频](https://www.bilibili.com/video/BV1cG411E7gV/), [字幕](../023FW_DataFlow/srt/01.srt) |
-| 02 什么是计算图 | [文章](../023FW_DataFlow/02.computegraph.md), [PPT](../023FW_DataFlow/02.computegraph.pptx), [视频](https://www.bilibili.com/video/BV1rR4y197HM/), [字幕](../023FW_DataFlow/srt/02.srt) |
-| 03 与自动微分关系 | [文章](../023FW_DataFlow/03.atuodiff.md), [PPT](../023FW_DataFlow/03.atuodiff.pptx), [视频](https://www.bilibili.com/video/BV1S24y197FU/), [字幕](../023FW_DataFlow/srt/03.srt) |
-| 04 图优化与图执行调度| [文章](../023FW_DataFlow/04.dispatch.md), [PPT](../023FW_DataFlow/04.dispatch.pptx), [视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/), [字幕](../023FW_DataFlow/srt/04.srt) |
-| 05 计算图控制流实现| [文章](../023FW_DataFlow/05.control_flow.md), [PPT](。./023FW_DataFlow/05.control_flow.pptx), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](../023FW_DataFlow/srt/05.srt) |
-| 06 计算图实现动静统一| [文章](../023FW_DataFlow/06.static_graph.md), [PPT](../023FW_DataFlow/06.static_graph.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](。./srt/06.srt) |
-| 07 计算图的挑战与未来 |[文章](../023FW_DataFlow/07.future.md), [PPT](../023FW_DataFlow/07.future.pdf), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/), [字幕](.。/srt/07.srt) |
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

@@ -59,3 +59,15 @@ AI系统里面，其实大部分开发者并不关心AI框架或者AI框架的�
 | 05 计算图控制流实现| [文章](../023FW_DataFlow/05.control_flow.md), [PPT](。./023FW_DataFlow/05.control_flow.pptx), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](../023FW_DataFlow/srt/05.srt) |
 | 06 计算图实现动静统一| [文章](../023FW_DataFlow/06.static_graph.md), [PPT](../023FW_DataFlow/06.static_graph.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](。./srt/06.srt) |
 | 07 计算图的挑战与未来 |[文章](../023FW_DataFlow/07.future.md), [PPT](../023FW_DataFlow/07.future.pdf), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/), [字幕](.。/srt/07.srt) |
+
+## 备注
+
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

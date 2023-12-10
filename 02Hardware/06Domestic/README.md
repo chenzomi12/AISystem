@@ -18,3 +18,15 @@
 | 国外 AI 芯片 | 04 寒武纪AI芯片第一股 | [slide](./04.cambricon_Product.pdf), [video](https://www.bilibili.com/video/BV1Y8411m7Cd)|
 | 国外 AI 芯片 | 05 寒武纪AI芯片架构剖析（上） | [slide](./05.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1op4y157Qf)|
 | 国外 AI 芯片 | 06 寒武纪AI芯片架构剖析（下） | [slide](./06.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1TV411j7Yx)|
+
+## 备注
+
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

@@ -28,18 +28,14 @@ AI编译器主要是分为前端优化、后端优化，部分还会有中间优
 | 10 代数简化| [PPT](./10.algebraic.pdf), [视频](https://www.bilibili.com/video/BV1g24y1Q7qC/), [文章](./10.algebraic.md), [字幕](./srt/10.srt) |
 | 11 优化Pass排序| [PPT](./11.summary.pdf), [视频](https://www.bilibili.com/video/BV1L14y1P7ku/), [文章](./11.summary.md), [字幕](./srt/11.srt) |
 
-```toc
-:maxdepth: 2
+## 备注
 
-01.introduction
-02.graph_ir
-03.op_fusion
-04.layout_trans01
-04.layout_trans02
-05.memory
-06.constant_fold
-07.cse
-08.dce
-09.algebraic
-10.summary
-```
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

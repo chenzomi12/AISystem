@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# === 一、AI系统概述 ===
+# 一、AI系统概述
 
 目前应用最为广泛，工程实践最丰富，研究最为火热的人工智能（Artificial Intelligence）方向就是深度学习（Deep Learning）。深度学习算法目前在计算机视觉，自然语言处理，语音识别等典型场景取得了超越传统算法的效果与突破性进展。应用与算法层面成功的背后离不开系统本身作为基础设施提供容易编程的接口，高效率的执行，大规模的训练，跨平台的部署和工具链的支持。
 
@@ -26,17 +26,15 @@
 
 ## 课程细节
 
-> `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/DeepLearningSystem) 下载，网页课程版链接会失效哦~
+
+## 备注
+
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
 >
-> 建议优先下载 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~
-
-```toc
-:maxdepth: 1
-
-01present
-02drive
-03architecture
-04sample
-05principle
-06foundation
-```
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

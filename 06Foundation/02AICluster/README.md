@@ -1,11 +1,11 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# AI 集群组成
+# AI 集群简介
 
 [![Continuous Integration](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml)
 [![Build Docker Image](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml)
 
-《AI 集群组成》分为两部分，第一部分在纵深上深入地去根据大模型在 AI 系统全栈中的冲击内容，去体会大模型遇到 AI 系统的整体架构；第二部分根据大模型从集群建设、数据算法、训练微调推理、推理部署应用的全流程每一个环节之间的关系。
+《AI 集群组成》宏观层面在 AI 集群的基础上整体了解大模型在 AI 集群的训练效率，推理和训练在集群中所占用的显存，硬件层面从 AI 集群的具体硬件模块及其相匹配的基本组成，并基于此形成的 AI 集群服务器的整体架构。
 
 ## 内容大纲
 
@@ -15,21 +15,17 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 大模型 | 01 大模型整体架构 | [slide](../01Introduce/01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
-| 大模型 | 02 大模型全流程 | [slide](../01Introduce//01_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
-|:--:|:--:|:--:|
-| 大模型 | 03 大模型训练效率 | [slide](./03efficiency.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
-| 大模型 | 04 AI集群硬件组成 | [slide](./04Hardware.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
-| 大模型 | 05 集群服务器架构 | [slide](./05ClusterArch.pdf), [video](https://www.bilibili.com/video/BV1384y127iP) |
-| 大模型 | 05 大模型训练显存分析 | [slide](./06TrainingMemory.pdf), [video](https://www.bilibili.com/video/BV15Q4y147Uo) |
-| 大模型 | 06 大模型推理显存分析 | [slide](./07InferenceMemory.pdf), [video](https://www.bilibili.com/video/BV1Rc411S7jj) |
-
+| AI 集群简介 | 03 大模型训练效率 | [slide](./03efficiency.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| AI 集群简介 | 04 AI集群硬件组成 | [slide](./04Hardware.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| AI 集群简介 | 05 集群服务器架构 | [slide](./05ClusterArch.pdf), [video](https://www.bilibili.com/video/BV1384y127iP) |
+| AI 集群简介 | 05 大模型训练显存分析 | [slide](./06TrainingMemory.pdf), [video](https://www.bilibili.com/video/BV15Q4y147Uo) |
+| AI 集群简介 | 06 大模型推理显存分析 | [slide](./07InferenceMemory.pdf), [video](https://www.bilibili.com/video/BV1Rc411S7jj) |
 
 ## 备注
 
 文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
 
-文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@zomi6222/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
 
 > 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
 >

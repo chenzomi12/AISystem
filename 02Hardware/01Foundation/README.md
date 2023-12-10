@@ -21,3 +21,15 @@
 | AI 计算体系 | 05 核心计算：矩阵乘| [slide](./05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/) |
 | AI 计算体系 | 06 数据单位：比特位 | [slide](./06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/) |
 | AI 计算体系 | 07 AI计算体系总结| [slide](./07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/) |
+
+## 备注
+
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

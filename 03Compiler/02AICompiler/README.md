@@ -19,11 +19,15 @@
 | 03 AI编译器的通用架构| [PPT](./03.architecture.pdf), [视频](https://www.bilibili.com/video/BV1qD4y1Y73e/), [文章](./03.architecture.md), [字幕](./srt/03.srt) |
 | 04 AI编译器的挑战与思考 | [PPT](./04.future.pdf),[视频](https://www.bilibili.com/video/BV1Hv4y1R7uc/), , [文章](./04.future.md), [字幕](./srt/04.srt) |
 
-```toc
-:maxdepth: 2
+## 备注
 
-01.appear
-02.stage
-03.architecture
-04.future
-```
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
+

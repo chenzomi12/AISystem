@@ -1,7 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# === 四、推理系统&引擎 ===
-
+# 四、推理系统&引擎
 
 训练过程通过设定数据处理方式，并设计合适的网络模型结构以及损失函数和优化算法，在此基础上将数据集以小批量（mini-batch）反复进行前向计算并计算损失，然后反向计算梯度利用特定的优化函数来更新模型，来使得损失函数达到最优的结果。训练过程最重要的就是梯度的计算和反向传播。
 
@@ -96,3 +95,15 @@
 | Kernel优化 | 06 推理内存布局 | [PPT](./05_Kernel/06.memory.pdf), [视频](https://www.bilibili.com/video/BV1eX4y1X7mL/), [字幕](./srt/05_Kernel/06.srt) |
 | Kernel优化 | 07 nc4hw4内存排布 | [PPT](./05_Kernel/07.nc4hw4.pdf) |
 | Kernel优化 | 08 汇编与循环优化| [PPT](./05_Kernel/08.others.pdf) |
+
+## 备注
+
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

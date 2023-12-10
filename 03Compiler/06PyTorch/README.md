@@ -19,13 +19,14 @@ PyTorch 2.0 是PyTorch捐献给Linux基金会的第一个版本。从PyTorch 1.0
 | 05 AOTAutograd 原理 | [PPT](./05.aotatuograd.pdf), [视频](https://www.bilibili.com/video/BV1Me4y1V7Ke/), [文章](./05.aotatuograd.md), [字幕](./srt/05.srt) |
 | 06 Dispatch 机制| [PPT](./06.dispatch.pdf), [视频](https://www.bilibili.com/video/BV1L3411d7SM/), [文章](./06.dispatch.md), [字幕](./srt/06.srt) |
 
-```toc
-:maxdepth: 2
+## 备注
 
-01.introduction
-02.torchscript
-03.torchfx_lazy
-04.torchdynamo
-05.aotatuograd
-06.dispatch
-```
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

@@ -18,3 +18,15 @@
 | GPU 原理详解 | 04 分布式通信与NVLink| [slide](./04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)|
 | GPU 原理详解 | 05 NVLink原理剖析| [slide](./05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/) |
 | GPU 原理详解 | 05 NVSwitch原理剖析| [slide](./06.deep_nvswitch.pdf), [video](https://www.bilibili.com/video/BV1uM4y1n7qd/) |
+
+## 备注
+
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+>
+> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
