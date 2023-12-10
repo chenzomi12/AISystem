@@ -1,8 +1,8 @@
-# GPU 原理详解
+# 图形处理器 GPU
 
-- 《GPU 原理详解》主要是深入地讲解GPU的工作原理，其最重要的指标是计算吞吐和存储和传输带宽，并对英伟达的GPU的十年5代架构进行梳理。
+- 《图形处理器 GPU》主要是深入地讲解GPU的工作原理，其最重要的指标是计算吞吐和存储和传输带宽，并对英伟达的GPU的十年5代架构进行梳理。
 
-> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
+> 希望这个系列能够给朋友们带来一些帮助，也希望ZOMI能够继续坚持完成所有内容哈！欢迎您也参与到这个开源项目的贡献！
 
 **内容大纲**
 
@@ -12,18 +12,8 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| GPU 原理详解 | 01 GPU工作原理| [slide](./03_GPUBase/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)|
-| GPU 原理详解 | 02 GPU适用于AI | [slide](./03_GPUBase/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)|
-| GPU 原理详解 | 03 GPU架构与CUDA关系 | [slide](./03_GPUBase/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/) |
-| GPU 原理详解 | 04 GPU架构回顾第一篇 | [slide](./03_GPUBase/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)|
-| GPU 原理详解 | 05 GPU架构回顾第二篇 | [slide](./03_GPUBase/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/) |
-
-```toc
-:maxdepth: 2
-
-01.works
-02.principle
-03.base_concept
-04.fermi
-05.turing
-```
+| 图形处理器 GPU | 01 GPU工作原理| [slide](./01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)|
+| 图形处理器 GPU | 02 GPU适用于AI | [slide](./02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)|
+| 图形处理器 GPU | 03 GPU架构与CUDA关系 | [slide](./03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/) |
+| 图形处理器 GPU | 04 GPU架构回顾第一篇 | [slide](./04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)|
+| 图形处理器 GPU | 05 GPU架构回顾第二篇 | [slide](./05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/) |

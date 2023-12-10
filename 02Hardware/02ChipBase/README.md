@@ -4,7 +4,7 @@
 
 《AI芯片基础》简单从CPU开始看通用逻辑架构（冯诺依曼架构）开始，通过打开计算的本质（数据与时延）从而引出对于并行计算GPU作用和解决的业务场景，到目前最火的AI芯片NPU。最后迈入超异构并行CPU、GPU、NPU并存的计算系统架构黄金十年。
 
-> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
+> 希望这个系列能够给朋友们带来一些帮助，也希望ZOMI能够继续坚持完成所有内容哈！欢迎您也参与到这个开源项目的贡献！
 
 **内容大纲**
 
@@ -21,15 +21,3 @@
 | AI 芯片基础 | 05 GPU 基础| [slide](./05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/) |
 | AI 芯片基础 | 06 NPU 基础| [slide](./06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)|
 | AI 芯片基础 | 07 超异构计算 | [slide](./07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK) |
-
-```toc
-:maxdepth: 2
-
-01.cpu_base
-02.cpu_isa
-03.cpu_data
-04.cpu_latency
-05.gpu
-06.npu
-07.future
-```

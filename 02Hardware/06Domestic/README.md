@@ -1,8 +1,8 @@
-# 国内 AI 芯片架构
+# 国内 AI 芯片
 
-- 《NVIDIA GPU原理》英伟达架构里面专门为AI而生的 Tensor Core 和 NVLink 对AI加速尤为重要，因此重点对 Tensor Core 和 NVLink 进行深入剖析其发展、演进和架构。
+- 《国内 AI 芯片》深入地解读国内 AI 初创芯片厂商如国内第一 AI 芯片上市公司寒武纪、国内造GPU声势最大的壁仞科技、腾讯重头的燧原科技等科技公司的 AI 芯片架构。
 
-> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
+> 希望这个系列能够给朋友们带来一些帮助，也希望ZOMI能够继续坚持完成所有内容哈！欢迎您也参与到这个开源项目的贡献！
 
 **内容大纲**
 
@@ -12,20 +12,9 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| GPU 原理详解 | 01 TensorCore原理(上) | [slide](./01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)|
-| GPU 原理详解 | 02 TensorCore架构(中) | [slide](./02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/)|
-| GPU 原理详解 | 03 TensorCore剖析(下) | [slide](./03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/) |
-| GPU 原理详解 | 04 分布式通信与NVLink| [slide](./04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)|
-| GPU 原理详解 | 05 NVLink原理剖析| [slide](./05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/) |
-| GPU 原理详解 | 05 NVSwitch原理剖析| [slide](./06.deep_nvswitch.pdf), [video](https://www.bilibili.com/video/BV1uM4y1n7qd/) |
-
-```toc
-:maxdepth: 2
-
-01.BR100_System
-02.BR100_Detail
-03.SUIYUAN_DTU
-04.cambricon_Product
-05.cambricon_Arch
-06.cambricon_Arch
-```
+| 国外 AI 芯片 | 01 壁仞BR100产品介绍 | [slide](./01.BR100_System.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y)|
+| 国外 AI 芯片 | 02 壁仞BR100芯片架构 | [slide](./02.BR100_Detail.pdf), [video](https://www.bilibili.com/video/BV1G14y1275T)|
+| 国外 AI 芯片 | 03 燧原科技AI芯片 | [slide](./03.SUIYUAN_DTU.pdf), [video](https://www.bilibili.com/video/BV15W4y1Z7Hj)|
+| 国外 AI 芯片 | 04 寒武纪AI芯片第一股 | [slide](./04.cambricon_Product.pdf), [video](https://www.bilibili.com/video/BV1Y8411m7Cd)|
+| 国外 AI 芯片 | 05 寒武纪AI芯片架构剖析（上） | [slide](./05.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1op4y157Qf)|
+| 国外 AI 芯片 | 06 寒武纪AI芯片架构剖析（下） | [slide](./06.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1TV411j7Yx)|

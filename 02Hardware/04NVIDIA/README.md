@@ -2,7 +2,7 @@
 
 - 《NVIDIA GPU原理》英伟达架构里面专门为AI而生的 Tensor Core 和 NVLink 对AI加速尤为重要，因此重点对 Tensor Core 和 NVLink 进行深入剖析其发展、演进和架构。
 
-> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
+> 希望这个系列能够给朋友们带来一些帮助，也希望ZOMI能够继续坚持完成所有内容哈！欢迎您也参与到这个开源项目的贡献！
 
 **内容大纲**
 
@@ -18,14 +18,3 @@
 | GPU 原理详解 | 04 分布式通信与NVLink| [slide](./04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)|
 | GPU 原理详解 | 05 NVLink原理剖析| [slide](./05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/) |
 | GPU 原理详解 | 05 NVSwitch原理剖析| [slide](./06.deep_nvswitch.pdf), [video](https://www.bilibili.com/video/BV1uM4y1n7qd/) |
-
-```toc
-:maxdepth: 2
-
-01.basic_tc
-02.history_tc
-03.deep_tc
-04.basic_nvlink
-05.deep_nvlink
-06.deep_nvswitch
-```

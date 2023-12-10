@@ -63,6 +63,7 @@
 | 4      | [英伟达 GPU 详解](./02Hardware/04NVIDIA/) | 英伟达GPU的TensorCore、NVLink深度剖析 |
 | 5      | [国外 AI 处理器](./02Hardware/05Abroad/)   | 谷歌、特斯拉等专用AI处理器核心原理        |
 | 6      | [国内 AI 处理器](./02Hardware/06Domestic/)   | 寒武纪、燧原科技等专用AI处理器核心原理        |
+| 7      | [AI 芯片黄金10年](./02Hardware/07Thought/)   | 对 AI 芯片的编程模式和发展进行总结        |
 
 ### **[三. AI编译原理](./03Compiler/)**
 
