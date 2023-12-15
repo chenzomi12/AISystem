@@ -106,10 +106,12 @@ AI硬件体系结构主要是指AI芯片，这里就很硬核了，从芯片的�
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 芯片黄金十年 | 01 芯片的编程体系 | [slide](./07Thought/01.Introduction.pdf), [video](https://www.bilibili.com/video/BV13u4y197Lw)|
-| AI 芯片黄金十年 | 02 SIMD和SIMT跟AI芯片关系 | [slide](./07Thought/02.SIMT&SIMD.pdf), [video](https://www.bilibili.com/video/BV1Kr4y1d7eW)|
-| AI 芯片黄金十年 | 03 CUDA/SIMD/SIMT/DSA关系 | [slide](./07Thought/03.SPMT.pdf), [video](https://www.bilibili.com/video/BV1WC4y1w79T)|
-| AI 芯片黄金十年 | 04 CUDA跟SIMT硬件关系 | [slide](./07Thought/04.NVSIMT.pdf), [video](https://www.bilibili.com/video/BV16c41117vp)|
+| AI 芯片黄金十年 | 01 芯片的编程体系 | [slide](./01.Introduction.pdf), [video](https://www.bilibili.com/video/BV13u4y197Lw)|
+| AI 芯片黄金十年 | 02 SIMD和SIMT跟AI芯片关系 | [slide](./02.SIMT&SIMD.pdf), [video](https://www.bilibili.com/video/BV1Kr4y1d7eW)|
+| AI 芯片黄金十年 | 03 CUDA/SIMD/SIMT/DSA关系 | [slide](./03.SPMT.pdf), [video](https://www.bilibili.com/video/BV1WC4y1w79T)|
+| AI 芯片黄金十年 | 04 CUDA跟SIMT硬件关系 | [slide](./04.NVSIMT.pdf), [video](https://www.bilibili.com/video/BV16c41117vp)|
+| AI 芯片黄金十年 | 05 从CUDA和NVIDIA中借鉴 | [slide](./05.DSA.pdf), [video](https://www.bilibili.com/video/BV1j94y1N7qh)|
+| AI 芯片黄金十年 | 06 AI芯片的思考 | [slide](./06.AIChip.pdf), [video](https://www.bilibili.com/video/BV1te411y7UC/)|
 
 ## 备注
 
