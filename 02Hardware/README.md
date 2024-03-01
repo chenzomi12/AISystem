@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# 二、AI芯片体系结构
+# 二、AI 硬件体系结构
 
 AI硬件体系结构主要是指AI芯片，这里就很硬核了，从芯片的基础到AI芯片的范围都会涉及，芯片设计需要考虑上面AI框架的前端、后端编译，而不是停留在天天喊着吊打英伟达，被现实打趴。
 
@@ -36,44 +36,44 @@ AI硬件体系结构主要是指AI芯片，这里就很硬核了，从芯片的�
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 计算体系 | 01 课程内容| [slide](./01Foundation/01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/) |
-| AI 计算体系 | 02 AI计算模式(上) | [slide](./01Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/) |
-| AI 计算体系 | 03 AI计算模式(下) | [slide](./01Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |
-| AI 计算体系 | 04 关键设计指标| [slide](./01Foundation/04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/) |
-| AI 计算体系 | 05 核心计算：矩阵乘| [slide](./01Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/) |
-| AI 计算体系 | 06 数据单位：比特位 | [slide](./01Foundation/06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/) |
-| AI 计算体系 | 07 AI计算体系总结| [slide](./01Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/) |
+| AI 计算体系 | 01 课程内容 | [slide](./01Foundation/01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/), [字幕](./01Foundation/srt/01.srt) |
+| AI 计算体系 | 02 AI计算模式(上) | [slide](./01Foundation/02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/), [字幕](./01Foundation/srt/02.srt) |
+| AI 计算体系 | 03 AI计算模式(下) | [slide](./01Foundation/03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/), [字幕](./01Foundation/srt/03.srt) |
+| AI 计算体系 | 04 关键设计指标| [slide](./01Foundation/04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/), [字幕](./01Foundation/srt/04.srt) |
+| AI 计算体系 | 05 核心计算：矩阵乘| [slide](./01Foundation/05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/), [字幕](./01Foundation/srt/05.srt) |
+| AI 计算体系 | 06 数据单位：比特位 | [slide](./01Foundation/06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/), [字幕](./01Foundation/srt/06.srt) |
+| AI 计算体系 | 07 AI计算体系总结| [slide](./01Foundation/07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/), [字幕](./01Foundation/srt/07.srt) |
 
 ### [AI 芯片基础](./02ChipBase/)
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 芯片基础 | 01 CPU 基础| [slide](./02ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)|
-| AI 芯片基础 | 02 CPU 指令集架构 | [slide](./02ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/) |
-| AI 芯片基础 | 03 CPU 计算本质| [slide](./02ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)|
-| AI 芯片基础 | 04 CPU 计算时延| [slide](./02ChipBase/04.cpu_latency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/) |
-| AI 芯片基础 | 05 GPU 基础| [slide](./02ChipBase/05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/) |
-| AI 芯片基础 | 06 NPU 基础| [slide](./02ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)|
-| AI 芯片基础 | 07 超异构计算 | [slide](./02ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK) |
+| AI 芯片基础 | 01 CPU 基础原理 | [slide](./02ChipBase/01.cpu_base.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/), [字幕](./02ChipBase/srt/01.srt) |
+| AI 芯片基础 | 02 CPU 指令集架构 | [slide](./02ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/), [字幕](./02ChipBase/srt/02.srt) |
+| AI 芯片基础 | 03 CPU 计算本质 | [slide](./02ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/), [字幕](./02ChipBase/srt/03.srt) |
+| AI 芯片基础 | 04 CPU 计算时延 | [slide](./02ChipBase/04.cpu_latency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/), [字幕](./02ChipBase/srt/04.srt) |
+| AI 芯片基础 | 05 GPU 基础原理 | [slide](./02ChipBase/05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/), [字幕](./02ChipBase/srt/05.srt) |
+| AI 芯片基础 | 06 NPU 基础原理 | [slide](./02ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/), [字幕](./02ChipBase/srt/06.srt) |
+| AI 芯片基础 | 07 超异构计算 | [slide](./02ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK), [字幕](./02ChipBase/srt/07.srt) |
 
 ### [图形处理器 GPU](./03GPUBase/)
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 图形处理器 GPU | 01 GPU工作原理| [slide](./03_GPUBase/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)|
-| 图形处理器 GPU | 02 GPU适用于AI | [slide](./03_GPUBase/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)|
-| 图形处理器 GPU | 03 GPU架构与CUDA关系 | [slide](./03_GPUBase/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/) |
-| 图形处理器 GPU | 04 GPU架构回顾第一篇 | [slide](./03_GPUBase/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)|
-| 图形处理器 GPU | 05 GPU架构回顾第二篇 | [slide](./03_GPUBase/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/) |
+| 图形处理器 GPU | 01 GPU 工作原理 | [slide](./03_GPUBase/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/), [字幕](./03_GPUBase/srt/01.srt) |
+| 图形处理器 GPU | 02 GPU 适用于AI | [slide](./03_GPUBase/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/), [字幕](./03_GPUBase/srt/02.srt) |
+| 图形处理器 GPU | 03 GPU 架构与CUDA关系 | [slide](./03_GPUBase/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/), [字幕](./03_GPUBase/srt/03.srt) |
+| 图形处理器 GPU | 04 GPU 架构回顾第一篇 | [slide](./03_GPUBase/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/), [字幕](./03_GPUBase/srt/04.srt) |
+| 图形处理器 GPU | 05 GPU 架构回顾第二篇 | [slide](./03_GPUBase/05.turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/), [字幕](./03GPUBase/srt/05.srt) |
 
 ### [英伟达 GPU 详解](./04NVIDIA/)
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| GPU 原理详解 | 01 TensorCore原理(上) | [slide](./04NVIDIA/01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)|
-| GPU 原理详解 | 02 TensorCore架构(中) | [slide](./04NVIDIA/02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/)|
-| GPU 原理详解 | 03 TensorCore剖析(下) | [slide](./04NVIDIA/03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/) |
-| GPU 原理详解 | 04 分布式通信与NVLink| [slide](./04NVIDIA/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)|
+| GPU 原理详解 | 01 TensorCore原理(上) | [slide](./04NVIDIA/01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/) , [字幕](./04NVIDIA/srt/01.srt) |
+| GPU 原理详解 | 02 TensorCore架构(中) | [slide](./04NVIDIA/02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/), [字幕](./04NVIDIA/srt/02.srt) |
+| GPU 原理详解 | 03 TensorCore剖析(下) | [slide](./04NVIDIA/03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/), [字幕](./04NVIDIA/srt/03.srt) |
+| GPU 原理详解 | 04 分布式通信与NVLink| [slide](./04NVIDIA/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/), [字幕](./04NVIDIA/srt/04.srt) |
 | GPU 原理详解 | 05 NVLink原理剖析| [slide](./04NVIDIA/05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/) |
 | GPU 原理详解 | 05 NVSwitch原理剖析| [slide](./04NVIDIA/06.deep_nvswitch.pdf), [video](https://www.bilibili.com/video/BV1uM4y1n7qd/) |
 
@@ -99,19 +99,23 @@ AI硬件体系结构主要是指AI芯片，这里就很硬核了，从芯片的�
 | 国外 AI 芯片 | 02 壁仞BR100芯片架构 | [slide](./06Domestic/02.BR100_Detail.pdf), [video](https://www.bilibili.com/video/BV1G14y1275T)|
 | 国外 AI 芯片 | 03 燧原科技AI芯片 | [slide](./06Domestic/03.SUIYUAN_DTU.pdf), [video](https://www.bilibili.com/video/BV15W4y1Z7Hj)|
 | 国外 AI 芯片 | 04 寒武纪AI芯片第一股 | [slide](./06Domestic/04.cambricon_Product.pdf), [video](https://www.bilibili.com/video/BV1Y8411m7Cd)|
-| 国外 AI 芯片 | 05 寒武纪AI芯片架构剖析（上） | [slide](./06Domestic/05.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1op4y157Qf)|
-| 国外 AI 芯片 | 06 寒武纪AI芯片架构剖析（下） | [slide](./06Domestic/06.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1TV411j7Yx)|
+| 国外 AI 芯片 | 05 寒武纪AI芯片架构剖析（上） | [slide](./06Domestic/05.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1op4y157Qf) |
+| 国外 AI 芯片 | 06 寒武纪AI芯片架构剖析（下） | [slide](./06Domestic/06.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1TV411j7Yx) |
 
 ### [AI 芯片黄金十年](./07Thought/)
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 芯片黄金十年 | 01 芯片的编程体系 | [slide](./01.Introduction.pdf), [video](https://www.bilibili.com/video/BV13u4y197Lw)|
-| AI 芯片黄金十年 | 02 SIMD和SIMT跟AI芯片关系 | [slide](./02.SIMT&SIMD.pdf), [video](https://www.bilibili.com/video/BV1Kr4y1d7eW)|
-| AI 芯片黄金十年 | 03 CUDA/SIMD/SIMT/DSA关系 | [slide](./03.SPMT.pdf), [video](https://www.bilibili.com/video/BV1WC4y1w79T)|
-| AI 芯片黄金十年 | 04 CUDA跟SIMT硬件关系 | [slide](./04.NVSIMT.pdf), [video](https://www.bilibili.com/video/BV16c41117vp)|
-| AI 芯片黄金十年 | 05 从CUDA和NVIDIA中借鉴 | [slide](./05.DSA.pdf), [video](https://www.bilibili.com/video/BV1j94y1N7qh)|
-| AI 芯片黄金十年 | 06 AI芯片的思考 | [slide](./06.AIChip.pdf), [video](https://www.bilibili.com/video/BV1te411y7UC/)|
+| AI 芯片黄金十年 | 01 芯片的编程体系 | [slide](./01.Introduction.pdf), [video](https://www.bilibili.com/video/BV13u4y197Lw) |
+| AI 芯片黄金十年 | 02 SIMD和SIMT跟AI芯片关系 | [slide](./02.SIMT&SIMD.pdf), [video](https://www.bilibili.com/video/BV1Kr4y1d7eW) |
+| AI 芯片黄金十年 | 03 CUDA/SIMD/SIMT/DSA关系 | [slide](./03.SPMT.pdf), [video](https://www.bilibili.com/video/BV1WC4y1w79T) |
+| AI 芯片黄金十年 | 04 CUDA跟SIMT硬件关系 | [slide](./04.NVSIMT.pdf), [video](https://www.bilibili.com/video/BV16c41117vp) |
+| AI 芯片黄金十年 | 05 从CUDA和NVIDIA中借鉴 | [slide](./05.DSA.pdf), [video](https://www.bilibili.com/video/BV1j94y1N7qh) |
+| AI 芯片黄金十年 | 06 AI芯片的思考 | [slide](./06.AIChip.pdf), [video](https://www.bilibili.com/video/BV1te411y7UC/) |
+
+## 课程脑图
+
+![本章脑图](images/Architecture.png)
 
 ## 备注
 
