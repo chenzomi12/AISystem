@@ -63,6 +63,15 @@
 | 大模型 | 04 AI Agent应用原理剖析 | [slide](./12Agent/04Application.pdf), [video](https://www.bilibili.com/video/BV1zM411f7n2/) |
 | 大模型 | 05 AI Agent问题与未来思考 | [slide](./12Agent/05Summary.pdf), [video](https://www.bilibili.com/video/BV1KC4y1S7ZG/) |
 
+### [大模型专题解读](./13chatGPT/)
+| 名称        | 名称               | 备注                                                                              |
+| --------- | ---------------- | ------------------------------------------------------------------------------- |
+| ChatGPT狂飙 | 01 GPT 系列详解       | [silde](./13chatGPT/chatGPT01.pdf), [video](https://www.bilibili.com/video/BV1kv4y1s7V7/) |
+| ChatGPT狂飙 | 02 RLHF 强化学习 PPO   | [silde](./13chatGPT/chatGPT02.pdf), [video](https://www.bilibili.com/video/BV1w8411M7YB/) |
+| ChatGPT狂飙 | 03 InstructGPT 解读 | [silde](./13chatGPT/chatGPT03.pdf), [video](https://www.bilibili.com/video/BV1e24y1s7k8/) |
+| 视频生成模型 | 01 OpenAI SORA | [silde](./13chatGPT/SORA01.pdf), [video](https://www.bilibili.com/video/BV1jx421C7mG/) |
+| 世界模型 | 01 World Model | [silde](./13chatGPT/WorldModel01.pdf), [video]() |
+
 ## 备注
 
 文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
