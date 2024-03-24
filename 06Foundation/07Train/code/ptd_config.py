@@ -1,7 +1,31 @@
 
-world_size = 16
-tensor_model_parallel_size = 2
+# world_size = 16
+# tensor_model_parallel_size = 2
+# pipeline_model_parallel_size = 4
+world_size = 192
+tensor_model_parallel_size = 8
+pipeline_model_parallel_size = 8
+
+world_size = 128
+tensor_model_parallel_size = 8
+pipeline_model_parallel_size = 8
+
+world_size = 64
+tensor_model_parallel_size = 8
+pipeline_model_parallel_size = 8
+
+world_size = 160
+tensor_model_parallel_size = 8
 pipeline_model_parallel_size = 4
+
+world_size = 224
+tensor_model_parallel_size = 8
+pipeline_model_parallel_size = 4
+
+world_size = 96
+tensor_model_parallel_size = 8
+pipeline_model_parallel_size = 4
+
 data_parallel_size = world_size // (tensor_model_parallel_size *
                                     pipeline_model_parallel_size) # 2
 num_tensor_model_parallel_groups = world_size // tensor_model_parallel_size # 8
