@@ -16,6 +16,8 @@
 
 - [《AI 智能体》](./12Agent/)AI Agent 智能体基于 LLMs 大语言模型的能力，未来不仅会改变每个人与计算机交互的方式。它们还将颠覆软件行业，带来自我们从键入命令到点击图标以来最大的计算革命。
 
+- [《大模型热点剖析》](./12Agent/)*ChatGPT* 以其强大的信息整合和对话能力惊艳了全球，在自然语言处理上面表现出了惊人的能力。这么强大的工具我们都想体验一下，都想了解背后的算法原理。在这一节内容里面，我们将会跟小伙伴们一起去深入探讨各种围绕大模型相关的热点应用，进行深度剖析和原理分解，希望能够给大家带来不一样的思考和碰撞。
+
 ## 课程细节
 
 > `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/DeepLearningSystem) 下载，网页课程版链接会失效哦~
@@ -26,8 +28,8 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 大模型 | 01 大模型整体介绍(上) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
-| 大模型 | 02 大模型整体介绍(下) | [slide](./02_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
+| 大模型全流程 | 01 大模型整体介绍(上) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
+| 大模型全流程 | 02 大模型整体介绍(下) | [slide](./02_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
 
 ### [《AI 集群简介》](./02AICluster/)
 
@@ -43,25 +45,34 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 大模型 | 01 存储遇到大模型介绍 | [slide](./01Introduce.pdf), [video](https://www.bilibili.com/video/BV1H94y1J7wq) |
-| 大模型 | 02 存储硬件介质组成 | [slide](./02Hardware.pdf), [video](https://www.bilibili.com/video/BV1fw411P7FY) |
-| 大模型 | 03 存储集群连接方式 | [slide](./03Connect.pdf), [video](https://www.bilibili.com/video/BV1SQ4y147b3) |
-| 大模型 | 04 数据存储的类型 | [slide](./04Object.pdf), [video](https://www.bilibili.com/video/BV1fa4y1Z76n) |
-| 大模型 | 05 存储遇到大模型的挑战 | [slide](./05Challenge.pdf), [video](https://www.bilibili.com/video/BV1UG411i7SM) |
-| 大模型 | 06 训练存储优化方案(上) | [slide](./06Optimizer.pdf), [video](https://www.bilibili.com/video/BV1uw411h7B7) |
-| 大模型 | 07 训练存储优化方案(下) | [slide](./07Checkpoint.pdf), [video](https://www.bilibili.com/video/BV11u4y1c7Pu) |
-| 大模型 | 08 大模型CKPT优化手段 | [slide](./07Checkpoint.pdf), [video](https://www.bilibili.com/video/BV1wM411d7cc) |
-| 大模型 | 09 存算架构思考 | [slide](./08Future.pdf), [video](https://www.bilibili.com/video/BV1kw411h74p/) |
+| 集群存储 | 01 存储遇到大模型介绍 | [slide](./01Introduce.pdf), [video](https://www.bilibili.com/video/BV1H94y1J7wq) |
+| 集群存储 | 02 存储硬件介质组成 | [slide](./02Hardware.pdf), [video](https://www.bilibili.com/video/BV1fw411P7FY) |
+| 集群存储 | 03 存储集群连接方式 | [slide](./03Connect.pdf), [video](https://www.bilibili.com/video/BV1SQ4y147b3) |
+| 集群存储 | 04 数据存储的类型 | [slide](./04Object.pdf), [video](https://www.bilibili.com/video/BV1fa4y1Z76n) |
+| 集群存储 | 05 存储遇到大模型的挑战 | [slide](./05Challenge.pdf), [video](https://www.bilibili.com/video/BV1UG411i7SM) |
+| 集群存储 | 06 训练存储优化方案(上) | [slide](./06Optimizer.pdf), [video](https://www.bilibili.com/video/BV1uw411h7B7) |
+| 集群存储 | 07 训练存储优化方案(下) | [slide](./07Checkpoint.pdf), [video](https://www.bilibili.com/video/BV11u4y1c7Pu) |
+| 集群存储 | 08 大模型CKPT优化手段 | [slide](./07Checkpoint.pdf), [video](https://www.bilibili.com/video/BV1wM411d7cc) |
+| 集群存储 | 09 存算架构思考 | [slide](./08Future.pdf), [video](https://www.bilibili.com/video/BV1kw411h74p/) |
 
 ### [AI 智能体](./12Agent/)
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 大模型 | 01 大模型遇到AI Agent | [slide](./12Agent/01Introduction.pdf), [video](https://www.bilibili.com/video/BV11w411p7dW/) |
-| 大模型 | 02 AI Agent具体组成 | [slide](./12Agent/02Component.pdf), [video](https://www.bilibili.com/video/BV11u4y1P73P/) |
-| 大模型 | 03 Planning与Prompt关系 | [slide](./12Agent/03Planning.pdf), [video](https://www.bilibili.com/video/BV1kM411f7Gb/) |
-| 大模型 | 04 AI Agent应用原理剖析 | [slide](./12Agent/04Application.pdf), [video](https://www.bilibili.com/video/BV1zM411f7n2/) |
-| 大模型 | 05 AI Agent问题与未来思考 | [slide](./12Agent/05Summary.pdf), [video](https://www.bilibili.com/video/BV1KC4y1S7ZG/) |
+| AI 智能体 | 01 大模型遇到AI Agent | [slide](./12Agent/01Introduction.pdf), [video](https://www.bilibili.com/video/BV11w411p7dW/) |
+| AI 智能体 | 02 AI Agent具体组成 | [slide](./12Agent/02Component.pdf), [video](https://www.bilibili.com/video/BV11u4y1P73P/) |
+| AI 智能体 | 03 Planning与Prompt关系 | [slide](./12Agent/03Planning.pdf), [video](https://www.bilibili.com/video/BV1kM411f7Gb/) |
+| AI 智能体 | 04 AI Agent应用原理剖析 | [slide](./12Agent/04Application.pdf), [video](https://www.bilibili.com/video/BV1zM411f7n2/) |
+| AI 智能体 | 05 AI Agent问题与未来思考 | [slide](./12Agent/05Summary.pdf), [video](https://www.bilibili.com/video/BV1KC4y1S7ZG/) |
+
+### [大模型热点剖析](./13Application/)
+| 名称        | 名称               | 备注                                                                              |
+| --------- | ---------------- | ------------------------------------------------------------------------------- |
+| ChatGPT狂飙 | 01 GPT 系列详解       | [silde](./13chatGPT/chatGPT01.pdf), [video](https://www.bilibili.com/video/BV1kv4y1s7V7/) |
+| ChatGPT狂飙 | 02 RLHF 强化学习 PPO   | [silde](./13chatGPT/chatGPT02.pdf), [video](https://www.bilibili.com/video/BV1w8411M7YB/) |
+| ChatGPT狂飙 | 03 InstructGPT 解读 | [silde](./13chatGPT/chatGPT03.pdf), [video](https://www.bilibili.com/video/BV1e24y1s7k8/) |
+| 视频生成模型 | 01 OpenAI SORA | [silde](./13chatGPT/SORA01.pdf), [video](https://www.bilibili.com/video/BV1jx421C7mG/) |
+| 世界模型 | 01 World Model | [silde](./13chatGPT/WorldModel01.pdf), [video]() |
 
 ## 备注
 
