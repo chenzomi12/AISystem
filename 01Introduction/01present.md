@@ -14,7 +14,7 @@
 
 人工智能正在日益渗透到所有的技术领域，而深度学习(DL)是目前人工智能中最活跃的分支。最近几年，DL取得了许多重要进展，其中一些因为事件跟大众关系密切而引人瞩目，而有的虽然低调但意义重大。深度学习从业人员应该保持足够的嗅觉，这个领域正在发生很多事情，必须要跑的足够的快才能跟上时代步伐。深度学习在计算机视觉 CV、自然语言处理 NLP、语音识别 Audio 这三大领域方向中都取得了显著的成果。
 
-![](00insertimages.png)
+![](images/01.Present01.png)
 
 ### CV 领域应用
 
@@ -26,7 +26,7 @@
 
 - 面部识别：深度学习算法可以高精度识别和匹配人脸，实现安全访问控制、监控甚至个性化营销等应用。例如，出于安全目的，机场和政府大楼使用面部识别来筛查乘客和员工。同样，零售商使用面部识别来分析客户行为和偏好，并提供个性化的购物体验。
 
-![](00insertimages.png)
+![](images/01.Present02.png)
 
 ### NLP 领域应用
 
@@ -40,7 +40,7 @@
 
 - 机器翻译：机器翻译是NLP领域的一个重要应用，它是将一种自然语言文本自动翻译成另一种自然语言文本的过程。深度学习可以通过建立神经网络模型，利用大量双语语料库进行训练，从而实现高质量的机器翻译。
 
-![](00insertimages.png)
+![](images/01.Present03.png)
 
 ### Audio 领域应用
 
@@ -56,7 +56,7 @@
 
 - 跨模态音频处理：深度学习技术可以实现跨模态的音频处理，将音频信号与其他模态的信息进行融合和处理。例如，可以将音频信号与图像或文本信息进行联合处理，实现更加丰富和准确的音频分析和合成。
 
-![](00insertimages.png)
+![](images/01.Present04.png)
 
 ## AI 场景与行业应用
 
@@ -72,7 +72,7 @@
 
 - 自动驾驶：通过深度学习，自动驾驶车辆能够更准确地识别道路上的物体，更安全地执行驾驶决策，更稳定地控制车辆的行驶。如通过物体检测模型能够进行更好的路标检测，道路线检测进而增强自动驾驶方案。同时，深度学习还能够提高自动驾驶车辆的适应性和智能化水平，使其能够更好地应对复杂的交通环境和多种驾驶场景。在未来，随着自动驾驶技术的不断发展，深度学习将在其中发挥越来越重要的作用，推动自动驾驶技术的进步和应用。
 
-![](00insertimages.png)
+![](images/01.Present05.png)
 
 综上所述，可以看到也是这些有应用与部署人工智能技术的公司都会在人工智能基础设施和系统上投入和研发，进而通过提升人工智能模型生产效率，更快的获取效果更好的模型进而获取领先优势，然后再通过业务场景反哺，获取更多的数据和加大研发投入，驱动人工智能系统与工具链的创新与发展。
 
@@ -80,13 +80,13 @@
 
 虽然 AI 在今年取得了举世瞩目的进展与突破，但是其当前基于的核心理论神经网络等，在这波浪潮开始前已经基本奠定，并经历了多次的起起伏伏。神经网络作为 AI 的前身，经历了以下的发展阶段：
 
-![](images/01present_06.png)
+![](images/01.Present06.jpg)
 
 1943 年，神经科学家和控制论专家 Warren McCulloch 和逻辑学家 Walter Pitts 基于数学和阈值逻辑算法创造了一种神经网络计算模型。并发表文章 "A Logical Calculus of the ideas Imminent in Nervous Activity"[<sup>[3]</sup>]。
 
 1957 年，Frank Rosenblat 发明感知机（Perceptron）[<sup>[4]</sup>]。奠定了之后 AI 的基本结构，其计算以矩阵乘加运算为主，进而影响了后续人工智能芯片和系统的基本算子类型，例如：英伟达的新款GPU就有为矩阵计算设计的专用张量核（Tensor Core）。
 
-![](00insertimages.png)
+![](images/01.Present07.png)
 
 1960 年，Bernard Widrow[<sup>[5]</sup>] 和 Hoff 发明了感知器 Adaline/Madaline，首次尝试把线性层叠加整合为多层感知器网络。感知器本质上是一种线性模型，可以对输入的训练集数据进行二分类，且能够在训练集中自动更新权值。感知器的提出吸引了大量科学家对人工神经网络研究的兴趣，对神经网络的发展具有里程碑式的意义。为之后的多层 AI 的网络结构奠定了基础，进而后期不断衍生更深层的模型，产生大模型和模型并行等系统问题。
 
@@ -107,7 +107,7 @@
 
 2006 年，Geoff Hinton、Ruslan Salakhutdinov、Osindero 的论文 “Reducing the Dimensionality of Data with Neural Networks”[<sup>[10]</sup>] 表明，多层前馈神经网络可以一次有效地预训练一层，依次将每一层视为无监督受限的玻尔兹曼（Boltzmann）机，然后使用监督反向传播对其进行微调，其论文主要研究深度信念网络（Deep Belief Nets）的学习。
 
-![](00insertimages.png)
+![](images/01.Present08.png)
 
 2009 年，李飞飞教授团队在佛罗里达州举行的 2009 年计算机视觉和模式识别 (CVPR) 会议上首次以海报的形式展示了他们的 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)[<sup>[11]</sup>] 数据库，之后大量计算机视觉领域的经典模型在此数据库上进行验证，评测并演进。李飞飞于 2006 年产生想法并开始研究 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)[<sup>[11]</sup>] 。
 
@@ -121,13 +121,13 @@
 
 2012 年 9 月，Alex Krizhevsky，Ilya Sutskever 和 Geoffrey Hinton，团队通过设计 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)[<sup>[14]</sup>] 赢得 ImageNet 竞赛，深度神经网络开始再次流行。首次采用 ReLU 激活函数，扩展了 LeNet5 结构，添加 Dropout 层减小过拟合，LRN 层增强泛化能力/减小过拟合。这些新的模型结构和训练方法影响着后续的模型设计和系统优化，例如：激活函数和卷积层的内核融合计算等。其花费 5 到 6 天，采用 2 块 NVIDIA GTX 580 3GB GPUs 对计算进行加速，进而形成 AI 系统以 GPU 等加速器为主要计算单元的架构。
 
-![](00insertimages.png)
+![](images/01.Present09.png)
 
 截至到 2012 年这个时间点，基础架构的线索中，以英伟达（NVIDIA）为代表的芯片厂商已经连续发布了 Tesla，Fermi，[Kepler](https://en.wikipedia.org/wiki/Kepler_(microarchitecture)) 架构系列商用 GPU 和多款消费级 GPU，这些 GPU 已经开始被研究工作引用加速 AI 算法与模型的研究，被业界公司用于人工智能产品。但同时从 AlexNet 工作中看到，作还基于 CUDA API 进行编程实现了[cuda-convnet](https://code.google.com/archive/p/cuda-convnet)， AI 系统与工具伴随着 AI 算法与模型的突破与需求呼之欲出，在后面的章节中将会总结和展望 AI 系统本身的脉络，现状与发展。
 
 在之后的时间里，以 [ImageNet](https://www.image-net.org/)，等公开的各领域（例如，计算机视觉，自然语言处理）数据集为代表的各个应用领域的公开数据集或基准测试，驱动着以卷积神经网络 CNN，循环神经网络 RNN，Transformer，图神经网络 GNN 为代表的 AI 模型网络结构的发展和创新。
 
-![](images/01present_10.jpg)
+![](images/01.Present10.png)
 
 基准测试的好处是研究者从繁杂的应用问题建模和数据预处理工作跳出，能够在给定数据集上尽可能排除其他因素干扰，更为公平对比已有工作，并研发创新模型结构。在当前的社区工作中可以观察到， AI 模型网络结构越来越深，新结构层出不穷，同时不断驱动 AI 系统的演化。模型作为上层应用负载，是驱动系统演化的驱动力之一。关注模型结构和 AI 的应用场景变化，能够让系统研究者和工程师把握系统发展的趋势，并设计出符合潮流和应对未来变化的系统。
 
@@ -137,33 +137,33 @@
 
 ## 参考文献
 
-2. [Silver, D., Huang, A., Maddison, C. et al. Mastering the game of Go with deep neural networks and tree search. Nature 529, 484–489 (2016). https://doi.org/10.1038/nature16961](https://www.nature.com/articles/nature16961)
+1. [Silver, D., Huang, A., Maddison, C. et al. Mastering the game of Go with deep neural networks and tree search. Nature 529, 484–489 (2016). https://doi.org/10.1038/nature16961](https://www.nature.com/articles/nature16961)
 
-3. [McCulloch, W.S., Pitts, W. A logical calculus of the ideas immanent in nervous activity. Bulletin of Mathematical Biophysics 5, 115–133 (1943).](https://link.springer.com/article/10.1007/BF02478259)
+2. [McCulloch, W.S., Pitts, W. A logical calculus of the ideas immanent in nervous activity. Bulletin of Mathematical Biophysics 5, 115–133 (1943).](https://link.springer.com/article/10.1007/BF02478259)
 
-4. [The perceptron - A perceiving and recognizing automaton. Rosenblatt, F. Technical Report 85-460-1, Cornell Aeronautical Laboratory, Ithaca, New York, January, 1957.](https://bibbase.org/network/publication/rosenblatt-theperceptronaperceivingandrecognizingautomaton-1957)
+3. [The perceptron - A perceiving and recognizing automaton. Rosenblatt, F. Technical Report 85-460-1, Cornell Aeronautical Laboratory, Ithaca, New York, January, 1957.](https://bibbase.org/network/publication/rosenblatt-theperceptronaperceivingandrecognizingautomaton-1957)
 
-5. [Bernard Widrow. (1960). “Adaptive "Adaline" Neuron Using Chemical "memistors".” Number Technical Report 1553-2. Stanford Electron. Labs. Stanford, CA](https://www-isl.stanford.edu/~widrow/papers/t1960anadaptive.pdf)
+4. [Bernard Widrow. (1960). “Adaptive "Adaline" Neuron Using Chemical "memistors".” Number Technical Report 1553-2. Stanford Electron. Labs. Stanford, CA](https://www-isl.stanford.edu/~widrow/papers/t1960anadaptive.pdf)
 
-6. [Minsky, M., Papert, S. (1969). Perceptrons: An Introduction to Computational Geometry. Cambridge, MA, USA: MIT Press.](https://www.amazon.com/Perceptrons-Introduction-Computational-Geometry-Expanded/dp/0262631113)
+5. [Minsky, M., Papert, S. (1969). Perceptrons: An Introduction to Computational Geometry. Cambridge, MA, USA: MIT Press.](https://www.amazon.com/Perceptrons-Introduction-Computational-Geometry-Expanded/dp/0262631113)
 
-7. [Werbos, Paul J.. “Beyond Regression : "New Tools for Prediction and Analysis in the Behavioral Sciences.” (1974).](https://books.google.com/books/about/Beyond_Regression.html?id=z81XmgEACAAJ)
+6. [Werbos, Paul J.. “Beyond Regression : "New Tools for Prediction and Analysis in the Behavioral Sciences.” (1974).](https://books.google.com/books/about/Beyond_Regression.html?id=z81XmgEACAAJ)
 
-8. [Rina Dechter. 1986. Learning while searching in constraint-satisfaction-problems. In Proceedings of the Fifth AAAI National Conference on Artificial Intelligence (AAAI'86). AAAI Press, 178–183.](https://dl.acm.org/doi/abs/10.5555/2887770.2887799)
+7. [Rina Dechter. 1986. Learning while searching in constraint-satisfaction-problems. In Proceedings of the Fifth AAAI National Conference on Artificial Intelligence (AAAI'86). AAAI Press, 178–183.](https://dl.acm.org/doi/abs/10.5555/2887770.2887799)
 
-9. [Y. LeCun et al., "Backpropagation Applied to Handwritten Zip Code Recognition," in Neural Computation, vol. 1, no. 4, pp. 541-551, Dec. 1989, doi: 10.1162/neco.1989.1.4.541.](https://ieeexplore.ieee.org/document/6795724)
+8. [Y. LeCun et al., "Backpropagation Applied to Handwritten Zip Code Recognition," in Neural Computation, vol. 1, no. 4, pp. 541-551, Dec. 1989, doi: 10.1162/neco.1989.1.4.541.](https://ieeexplore.ieee.org/document/6795724)
 
-10. [Hinton GE, Salakhutdinov RR. Reducing the dimensionality of data with neural networks. Science. 2006 Jul 28;313(5786):504-7. doi: 10.1126/science.1127647. PMID: 16873662.](https://www.science.org/doi/10.1126/science.1127647)
+9. [Hinton GE, Salakhutdinov RR. Reducing the dimensionality of data with neural networks. Science. 2006 Jul 28;313(5786):504-7. doi: 10.1126/science.1127647. PMID: 16873662.](https://www.science.org/doi/10.1126/science.1127647)
 
-11. [Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K., & Fei-Fei, L. (2009). Imagenet: A large-scale hierarchical image database. In 2009 IEEE conference on computer vision and pattern recognition (pp. 248–255).
+10. [Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K., & Fei-Fei, L. (2009). Imagenet: A large-scale hierarchical image database. In 2009 IEEE conference on computer vision and pattern recognition (pp. 248–255).
     ](https://image-net.org/)
 
-12. [Dong Yu, Frank Seide, and Gang Li. 2012. Conversational speech transcription using context-dependent deep neural networks. In Proceedings of the 29th International Coference on International Conference on Machine Learning (ICML'12). Omnipress, Madison, WI, USA, 1–2.](https://dl.acm.org/doi/10.5555/3042573.3042574)
+11. [Dong Yu, Frank Seide, and Gang Li. 2012. Conversational speech transcription using context-dependent deep neural networks. In Proceedings of the 29th International Coference on International Conference on Machine Learning (ICML'12). Omnipress, Madison, WI, USA, 1–2.](https://dl.acm.org/doi/10.5555/3042573.3042574)
 
-13. [Quoc V. Le, Marc'Aurelio Ranzato, Rajat Monga, Matthieu Devin, Kai Chen, Greg S. Corrado, Jeff Dean, and Andrew Y. Ng. 2012. Building high-level features using large scale unsupervised learning. In Proceedings of the 29th International Coference on International Conference on Machine Learning (ICML'12). Omnipress, Madison, WI, USA, 507–514.](https://dl.acm.org/doi/10.5555/3042573.3042641)
+12. [Quoc V. Le, Marc'Aurelio Ranzato, Rajat Monga, Matthieu Devin, Kai Chen, Greg S. Corrado, Jeff Dean, and Andrew Y. Ng. 2012. Building high-level features using large scale unsupervised learning. In Proceedings of the 29th International Coference on International Conference on Machine Learning (ICML'12). Omnipress, Madison, WI, USA, 507–514.](https://dl.acm.org/doi/10.5555/3042573.3042641)
 
-14. [Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. 2017. ImageNet classification with deep convolutional neural networks. Commun. ACM 60, 6 (June 2017), 84–90. https://doi.org/10.1145/3065386](https://dl.acm.org/doi/10.1145/3065386)
+13. [Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. 2017. ImageNet classification with deep convolutional neural networks. Commun. ACM 60, 6 (June 2017), 84–90. https://doi.org/10.1145/3065386](https://dl.acm.org/doi/10.1145/3065386)
 
-15. [Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Köpf, Edward Yang, Zach DeVito, Martin Raison, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. 2019. PyTorch: an imperative style, high-performance deep learning library. Proceedings of the 33rd International Conference on Neural Information Processing Systems. Curran Associates Inc., Red Hook, NY, USA, Article 721, 8026–8037.](https://dl.acm.org/doi/10.5555/3454287.3455008)
+14. [Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Köpf, Edward Yang, Zach DeVito, Martin Raison, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. 2019. PyTorch: an imperative style, high-performance deep learning library. Proceedings of the 33rd International Conference on Neural Information Processing Systems. Curran Associates Inc., Red Hook, NY, USA, Article 721, 8026–8037.](https://dl.acm.org/doi/10.5555/3454287.3455008)
 
-16. [Martín Abadi, Paul Barham, Jianmin Chen, Zhifeng Chen, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Geoffrey Irving, Michael Isard, Manjunath Kudlur, Josh Levenberg, Rajat Monga, Sherry Moore, Derek G. Murray, Benoit Steiner, Paul Tucker, Vijay Vasudevan, Pete Warden, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. 2016. TensorFlow: a system for large-scale machine learning. In Proceedings of the 12th USENIX conference on Operating Systems Design and Implementation (OSDI'16). USENIX Association, USA, 265–283.](https://dl.acm.org/doi/10.5555/3026877.3026899)
+15. [Martín Abadi, Paul Barham, Jianmin Chen, Zhifeng Chen, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Geoffrey Irving, Michael Isard, Manjunath Kudlur, Josh Levenberg, Rajat Monga, Sherry Moore, Derek G. Murray, Benoit Steiner, Paul Tucker, Vijay Vasudevan, Pete Warden, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. 2016. TensorFlow: a system for large-scale machine learning. In Proceedings of the 12th USENIX conference on Operating Systems Design and Implementation (OSDI'16). USENIX Association, USA, 265–283.](https://dl.acm.org/doi/10.5555/3026877.3026899)
