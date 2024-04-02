@@ -1,4 +1,4 @@
-# Deep Learning System & AI System
+# AI System & AI Infra
 
 [![Continuous Integration](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml)
 [![Build Docker Image](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml)
