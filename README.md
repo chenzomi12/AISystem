@@ -115,14 +115,6 @@
 
 ![知识清单](images/knowledge_list.png)
 
-## 贡献者
-
-<!-- readme: collaborators,contributors -start -->
-<a href="https://github.com/chenzomi12/DeepLearningSystem/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=chenzomi12/DeepLearningSystem" />
-</a>
-<!-- readme: collaborators,contributors -end -->
-
 ## 备注
 
 > 这个仓已经到达疯狂的10G啦（ZOMI把所有制作过程、高清图片都原封不动提供），如果你要git clone会非常的慢，因此建议优先到  [Releases · chenzomi12/DeepLearningSystem](https://github.com/chenzomi12/DeepLearningSystem/releases) 来下载你需要的内容。
