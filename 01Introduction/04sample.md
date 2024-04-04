@@ -1,44 +1,85 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
-# AI系统原则与样例
+# AI 系统与程序代码关系
 
-算法工程师通过 Python 和框架书写人工智能程序，而人工智能程序底层的系统问题被当前层的抽象隐藏，到底在每个代码部分具体底层发生了什么？有哪些有意思的系统设计问题？我们将从一个实例启发读者，并和后面各个章节构建起桥梁与联系。
+模型算法的开发者一般会通过使用 AI 框架提供 Python 等高级语言的API，来编写对应的人工智能程序，而人工智能程序的底层系统问题被当前层抽象隐藏。到底在每个代码部分具体底层发生了什么？有哪些有意思的系统设计问题？
 
-## 1.4.1 一个深度学习样例与其中的系统问题
+本节我们将从一个具体的 PyTorch 实现一个 LeNet5 神经网络模型作为实例开始，启发读者和后面 AI 系统的每一层和各个章节构建起桥梁与联系。
 
-如下图 1.5.1 所示，我们可以看到一个深度学习模型可以接受输入（例如，当前手写数字图片），产生输出（例如图中为数字分类），这个过程叫前向传播（Forward Propagation）。那么如何得到一个针对当前已有的输入输出数据上，预测效果最好的模型呢？我们需要通过训练的过程，训练过程可以抽象为一个优化问题，优化目标为:
+![](images/04Sample01.png)
+
+## 神经网络样例
+
+### AI 训练流程原理
+
+如图所示，可以看到一个神经网络模型可以接受输入（如当前手写数字图片），产生输出（如数字分类），这个过程叫前向传播（Forward Propagation）。
+
+![](images/04Sample02.png)
+
+那么如何得到一个针对当前已有的输入输出数据上，预测效果最好的神经网络模型呢？这个时候需要通过对网络模型进行训练，训练过程可以抽象为数学上的优化问题，优化目标为:
+
 $$\theta = argmin_{\theta}\sum[Loss(f_{\theta}(x), y)]$$
-其中的 $f_{\theta}$ 代表深度学习模型，例如后面提到的LeNet，$Loss$ 代表损失函数，$x$ 代表数据中的输入也就是图像，$y$ 代表数据中的标签值，也就是输出，训练的过程就是找到最小化 $Loss$ 的 $\theta$ 取值，$\theta$ 也称作权重。在训练过程中将通过梯度下降算法进行求解，$\theta = \theta - \alpha \delta_{\theta}Loss(\theta)$，其中 $\alpha$ 也叫学习率(Learning Rate)。当训练完成，就可以通过 $\hat{y} = f_\theta(x)$ 进行推理，使用和部署模型。
 
-<center><img src="./img/4/4-1-2.png"  /></center>
-<center>图 1.5.1 深度学习训练过程</center>
+其中：
 
-如下图 1.5.2 所示，左上角的图示中展示的是输入为手写数字图像，输出为分类向量，中间的矩形为各层输出的特征图，我们将其映射为具体的实现代码，其结构通过图右侧定义出来。我们可以看到深度学习模型就是通过各个层将输入图像通过多个层的算子处理为类别输出概率向量。用户一般经过两个阶段进行构建: （1）定义网络结构，例如图中和下面代码实例中构建的 LeNet 网络，其中包含有二维卷积（Conv2D），最大池化（MaxPool2D），全连接（Linear）层。（2）开始训练，遍历一个批尺寸（Batch Size）数据，设置计算资源，前向传播计算，计算损失（Loss）。
+- $f_{\theta}$ 表示神经网络模型，例如 LeNet；
+- $Loss$ 表示损失函数；
+- $x$ 表示输入数据，数据中的输入也就是图像；
+- $y$ 表示标签值，也代表网络模型的输出；
 
-<center><img src="./img/4/4-1-1.png"  /></center>
-<center>图 1.5.2 PyTorch训练LeNet实例</center>
+训练的过程就是找到最小化 $Loss$ 的 $\theta$ 取值，$\theta$ 也称作权重，即网络模型中的参数。在训练过程中将通过梯度下降等数值优化算法进行求解：
 
-下面的实例是 PyTorch 在 MNIST 数据集上训练一个卷积神经网络 [LeNet](http://yann.lecun.com/exdb/lenet/)[<sup>[1]</sup>](#lenet) 的代码实例。具体解释请读者参考代码中的注释，代码入口为 "def main():" 函数。
+$$\theta = \theta - \alpha \delta_{\theta}Loss(\theta)$$
+
+其中， $\alpha$ 也称为学习率(Learning Rate)。当神经网络模型训练完成，就可以通过 $\hat{y} = f_\theta(x)$ 进行推理，使用和部署已经训练好的网络模型。
+
+如图所示，左上角展示输入为手写数字图像，输出为分类向量，中间矩形为各层输出的特征图（Feature Map），我们将其映射为具体的实现代码，其结构通过图右侧定义出来。
+
+可以看到神经网络模型就是通过各个层，将输入图像通过多个层的算子进行计算，得到为类别输出概率向量。
+
+> 算子：深度学习算法由一个个计算单元组成，称这些计算单元为算子（Operator，Op）。AI 框架中对张量计算的种类有很多，比如加法、乘法、矩阵相乘、矩阵转置等，这些计算被称为算子（Operator）。
+> 
+> 为了更加方便的描述计算图中的算子，现在来对**算子**这一概念进行定义：
+>
+> **数学上定义的算子**：一个函数空间到函数空间上的映射O：X→X，对任何函数进行某一项操作都可以认为是一个算子。
+> 
+> - **狭义的算子（Kernel）**：对张量 Tensor 执行的基本操作集合，包括四则运算，数学函数，甚至是对张量元数据的修改，如维度压缩（Squeeze），维度修改（reshape）等。
+> 
+> - **广义的算子（Function）**：AI 框架中对算子模块的具体实现，涉及到调度模块，Kernel 模块，求导模块以及代码自动生成模块。
+>
+> 对于神经网络模型而言，算子是网络模型中涉及到的计算函数。在 PyTorch 中，算子对应层中的计算逻辑，例如：卷积层（Convolution Layer）中的卷积算法，是一个算子；全连接层（Fully-connected Layer， FC layer）中的权值求和过程，也是一个算子。
+
+### 网络模型构建
+
+开发者一般经过两个阶段进行构建: 
+
+1. 定义神经网络结构，如图中和代码实例中构建的 LeNet5 网络模型，其中包含有卷积（Conv2D）层，最大池化层（MaxPool2D），全连接（Linear）层。
+
+2. 开始训练，遍历一个批大小（Batch Size）的数据，设置计算的 NPU/GPU 资源数量，执行前向传播计算，计算损失值（Loss），通过反向传播实现优化器计算，从而更新权重。
+
+![](images/04Sample03.png)
+
+现在使用 PyTorch 在 MNIST 数据集上训练一个卷积神经网络 [LeNet](http://yann.lecun.com/exdb/lenet/)[<sup>[1]</sup>](#lenet) 的代码实例。
 
 ```
 ...
-# 读者可以参考"第 3 章深度学习框架基础"理解深度学习框架的底层原理和设计
 import torch
+import torch_npu
 ...
 
-# 如果模型层数多，权重多到无法在单 GPU 显存放置，我们需要通过模型并行方式进行训练，读者可以参考"第6章分布式训练算法与系统"进行了解
+# 如果模型层数多，权重多到无法在单 GPU 显存放置，我们需要通过模型并行方式进行训练
 class LeNet(nn.Module):
     def __init__(self):
         super(LeNet, self).__init__()
-        # 请参考 1.4.2 小节，通过循环实现卷积理解卷积的执行逻辑并思考其中的潜在系统问题
+        # 通过循环 Loop 实现卷积理解卷积的执行逻辑，可以深入思考其中编译和硬件执行问题。我们将会在第二章、第三章详细展开计算到芯片的关系
         self.conv1 = nn.Conv2d(3, 6, 5)
-        # 我们能否调整超参数6为64？如何高效的搜索最有的配置？这些内容我们将在"第 9 章自动化机器学习系统"展开介绍
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.fc1 = nn.Linear(16*5*5, 120)
         self.fc2 = nn.Linear(120, 84)
         self.fc2 = nn.Linear(84, 10)
 
     def forward(self, x):
+    	  # 具体的执行 API 单位是算子，实际编译器或者硬件执行的是 Kernel。我们将会在第四章推理引擎Kernel优化详细介绍算子计算执行的方式
         out = F.relu(self.conv1(x))
         out = F.max_pool2d(out, 2)
         out = F.relu(self.conv2(out))
@@ -51,7 +92,7 @@ class LeNet(nn.Module):
 
 
 def train(args, model, device, train_loader, optimizer, epoch):
-    # 如何进行高效的训练，运行时是如何执行的？我们将在"第 3 章深度学习框架基础"进行介绍
+    # 如何进行高效的训练，运行时 Runtime 是如何执行的？我们将在第五章 AI 框架基础进行介绍
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
@@ -69,24 +110,22 @@ def test(model, device, test_loader):
     with torch.no_grad():
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
-            # 推理系统如何高效进行模型推理？我们将在"第 8 章深度学习推理系统"进行介绍
+            # 推理系统如何高效进行模型推理？我们将在第思章 AI 推理系统进行介绍
             output = model(data)
             ...
 
 
 def main():
     ...
-    # 当前语句决定了使用哪种加速器，读者可以通过"第4章矩阵运算与计算机体系结构"了解不同加速器的体系结构及底层原理。
-    device = torch.device("cuda" if use_cuda else "cpu")
-    # 如果batch size过大，造成单GPU内存无法容纳模型及中间激活的张量，读者可以参考"第 6 章分布式训练算法与系统"进行了解如何分布式训练
+    # 当前语句决定了使用哪种 AI 加速芯片，可以通过第二章的 AI 芯片基础去了解不同 AI 加速芯片的体系结构及芯片计算的底层原理。
+    device = torch.device("npu" if use_cuda else "cpu")
+    
+    # 如果 batch size 过大，造成单 NPU/GPU HBM 内存无法容纳模型及中间激活的张量，读者可以参考第六章的分布式训练算法，进行了解如何分布式训练
     train_kwargs = {'batch_size': args.batch_size}
     test_kwargs = {'batch_size': args.test_batch_size}
     ...
-    """
-    如何高效的进行数据读取？这些内容我们将在"第7章异构计算集群调度与资源管理系统"进行介绍。
-    如果我们训练的数据集和模型是为了解决预测系统优化配置问题，我们想训练的模型是优化系统配置，那么读者可以参考"第 13 章人工智能优化计算机系统"，思考如何将 AI 应用到系统优化。
-    如果我们的数据集没有提前准备好，需要实时和环境交互获取，那么读者可以参考"第 10 章强化学习系统"进行理解。
-    """
+    
+    # 如果数据量过大，那么可以使用分布式数据并行进行处理，利用集群的资源，可以通过第六章去了解其中的内容
     dataset1 = datasets.MNIST('../data', train=True, download=True, transform=transform)
     dataset2 = datasets.MNIST('../data', train=False, transform=transform)
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
@@ -94,93 +133,112 @@ def main():
     model = LeNet().to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
     ... 
+    
     for epoch in range(1, args.epochs + 1):
         train(args, model, device, train_loader, optimizer, epoch)
-        # 模型如果训练完成需要部署，我们如何压缩和量化后再部署？读者可以参考"第 11 章深度学习推理系统"进行了解
+        # 训练完成需要部署，如何压缩和量化后再部署？可以参考第四章推理系统进行了解
         test(model, device, test_loader)
         ... 
 
-# 如果用户提交多个这样的训练作业，系统如何调度和管理资源？读者可以参考"第7章异构计算集群调度与资源管理系统"进行了解
+# 如果用户提交多个这样的训练作业，系统如何调度和管理资源？读者可以参考第7章异构计算集群调度与资源管理系统"进行了解
 if __name__ == '__main__':
     main()
 ```
 
-## 1.4.2 模型算子实现中的系统问题
+## 算子实现的系统问题
 
-我们在深度学习中所描述的层（Layer），一般在深度学习编译器或者算子中也称作操作符（Operator）。底层算子的具体实现时先将其映射或转换为对应的矩阵运算（例如，通用矩阵乘），再由其对应的矩阵运算翻译为对应的循环（目前我们简化问题，后面的实例中忽略 stride 等其他超参数影响）。
+在神经网络中所描述的层（Layer），在 AI 框架中称为算子，或者叫做操作符（Operator）；底层算子的具体实现，在 AI 编译器或者在 AI 芯片时称为 Kernel，对应具体 Kernel 执行的时候会先将其映射或转换为对应的矩阵运算（例如，通用矩阵乘 GEMM），再由其对应的矩阵运算翻译为对应的循环 Loop 指令。
 
-图 1.5.3 的卷积层实例中，每次选取输入数据一层的一个窗口（例如和卷积核一样的宽高）然后和对应的卷积核(例如 Filter-1 中的 $5 \times 5$ 卷积核代表高 5 维宽 5 维的矩阵)进行[矩阵内积（Dot Product）](https://en.wikipedia.org/wiki/Dot_product)运算，最后将所有的计算结果与偏置项$b$相加后输出。
-然后一次沿着行进行滑动移动一定的步长，进行下次矩阵内积计算，直到边界后再沿着一定步长跳到下一列重复刚才的滑动窗口。这些结果最终组合成输出矩阵也就是产生特征图（Feature Map）。
-例如，图中所示的维度为，输入张量形状（Tensor Shape）为 $3 \times 32 \times 32$（3 代表通道，32 代表张量高度，32 代表张量宽度），经过 $2 \times 3 \times 5 \times 5$ 的卷积（2 代表输出通道数，3 代表输入通道数，5 代表卷积核高度，5 代表卷积核宽度）后，输出张量形状(Tensor Shape)为$2 \times 28 \times 28$（2 代表通道，28 代表高，28 代表宽）。
+### 卷积实现原理
 
-<center><img src="./img/4/conv3d.png"  /></center>
-<center>图 1.5.3 Conv2D 计算过程实例 (<a href="https://github.com/microsoft/ai-edu">图片引用 ai-edu</a>)</center>
-
-我们以卷积算子为例，图中所示的卷积的计算可以表达为多层嵌套循环，我们以下面代码为例进行分析。
+下图的卷积层实例中，每次选取输入数据一层的一个窗口（和卷积核一样的宽高），然后和对应的卷积核（$5 \times 5$ 卷积核代表高 5 维宽 5 维的矩阵）进行 [矩阵内积（Dot Product）](https://en.wikipedia.org/wiki/Dot_product) 运算，最后将所有的计算结果与偏置项 $b$ 相加后输出。
 
 ```
-# 为简化阐述计算过程，我们简化没有呈现维度（Dimension）的形状推导（Shape Inference）。
-# Conv2D 将被转换为如下的7层循环进行计算:
+import torch
 
+class LeNet(nn.Module):
+    def __init__(self):
+        super(LeNet, self).__init__()
+        ...
+        self.conv2 = nn.Conv2d(3, 2, 5)
+        ...
+        
+    def forward(self, x):
+    	  out = self.conv1(x)
+    	  ...
+```
+
+首先一次沿着行进行滑动一定的步长 Step，再进行下次矩阵内积计算，直到滑到边界后再沿着一定步长跳到下一列重复刚才的滑动窗口。最终把每一步的结果组合成输出矩阵，即产生特征图（Feature Map）。
+
+![](images/04Sample04.png)
+
+图中输入张量形状（Tensor Shape）为 $3 \times 32 \times 32$（3 代表通道数，32 代表张量高度和宽度），经过 $2 \times 3 \times 5 \times 5$ 的卷积（2 代表输出通道数，3 代表输入通道数，5 代表卷积核高度和宽度）后，输出张量形状为 $2 \times 28 \times 28$（2 代表通道，28 代表高度和宽度）。
+
+### 卷积执行样例
+
+示例的卷积计算，最终在程序上表达为多层嵌套循环，为简化计算过程，循环展开中没有呈现维度（Dimension）的形状推导（Shape Inference）。以 Conv2D 转换为如下 7 层循环进行 Kerenl 计算的代码：
+
+```
 # 批尺寸维度 batch_size
 for n in range(batch_size):
-  # 输出张量通道维度 output_channel
-  for oc in range(output_channel):
-    # 输入张量通道维度 input_channel
-    for ic in range(input_channel):
-      # 输出张量高度维度 out_height
-      for h in range(out_height):
-        # 输出张量宽度维度 out_width
-        for w in range(out_width):
-          # 卷积核高度维度 filter_height
-          for fh in range(filter_height):
-            # 卷积核宽度维度 filter_width
-            for fw in range(filter_width):
-              # 乘加（Multiply Add）运算
-              output[h, w, oc] += input[h + fw, w + fh, ic] * kernel[fw, fh, c, oc]  
+   # 输出张量通道维度 output_channel
+   for oc in range(output_channel):
+       # 输入张量通道维度 input_channel
+       for ic in range(input_channel):
+          # 输出张量高度维度 out_height
+          for h in range(out_height):
+              # 输出张量宽度维度 out_width
+              for w in range(out_width):
+                  # 卷积核高度维度 filter_height
+                  for fh in range(filter_height):
+                      # 卷积核宽度维度 filter_width
+                      for fw in range(filter_width):
+                          # 乘加（Multiply Add）运算
+                          output[h, w, oc] += input[h + fw, w + fh, ic]\
+                                            * kernel[fw, fh, c, oc]  
 ```
 
-在这其中有很多有趣的问题问题读者可以思考与预估：
+### AI 系统遇到的问题
 
-- 算法变换：从算法来说，当前7层循环可以转换为更加易于优化和高效的矩阵计算(例如，[cuDNN](https://docs.nvidia.com/deeplearning/cudnn/)[<sup>[2]</sup>](#cudnn) 库中的卷积就提供了[多种实现算法](https://docs.nvidia.com/deeplearning/cudnn/api/index.html#cudnnConvolutionForward))方式。这些算法被封装在库中，有些框架会在运行时动态调优选择不同算法策略，读者可以参考第 3 章进行更多的了解。
+在实际 Kernel 的计算过程中有很多有趣的问题：
 
-深度学习加速库（例如 cuDNN 等）通常通过应用 [im2col](https://hal.inria.fr/inria-00112631/document) 函数将卷积转换为通用矩阵乘法（General Matrix Multiplication）缩写 [GEMM](https://en.wikipedia.org/wiki/GEMM)，如图 1.4.4 所示。cuDNN 也支持利用其他算法实现卷积，例如 FFT， WINOGRAD 等。通用矩阵乘是计算机视觉和自然语言处理模型中的主要的计算原语（例如，卷积，全连接，平均池化，注意力等算子均可以转换为 GEMM），同时底层 GPU 和其他专有人工智能芯片ASIC也针对矩阵乘作为底层支持（例如 NVIDIA GPU 张量核（[Tensor Core](https://www.nvidia.com/en-us/data-center/tensor-cores/)），TPU 脉动阵列的矩阵乘单元（Matrix Multiply Unit）等），这样的转换就可以让算子利用专有底层硬件和软件的优化。
+- 硬件加速： 通用矩阵乘是计算机视觉和自然语言处理模型中的主要的计算方式，同时 NPU/GPU，如 TPU 脉动阵列的矩阵乘单元等其他专用人工智能芯片 ASIC 是否会针对矩阵乘作为底层支持？（第二章 AI 芯片体系结构相关内容）
 
-<center> <img src="./img/4/1-4-4-imtocol.png"  /></center>
+- 片上内存：其中参与计算的输入、权重和输出张量能否完全放入 NPU/GPU 缓存（L1、L2、Cache）？如果不能放入则需要通过循环块（Loop Tile）编译优化进行切片。（第二章 AI 芯片体系结构相关内容）
 
-图 1.4.4 卷积通过 im2col 转换为通用矩阵乘（图中我们使用一个卷积核和一个输入图片通道为例简要说明）(<a href="https://arxiv.org/pdf/2005.13076.pdf">图片引用 PHAST[<sup>[3]</sup>](#im2col)</a>)
+- 局部性：循环执行的主要计算语句是否有局部性可以利用？空间局部性（缓存线内相邻的空间是否会被连续访问）以及时间局部性（同一块内存多久后还会被继续访问），这样我们可以通过预估后，尽可能的通过编译调度循环执行。（第三章 AI 编译器相关内容）
 
-- 利用片上内存：其中参与计算的输入，权重和输出张量能否完全放入 GPU 缓存（L1，L2）？如果不能放入则需要通过循环块（Tile）编译优化进行切片，这些内容将在第5章着重介绍。
-- 局部性：循环执行的主要计算语句是否有局部性可以利用？空间局部性（缓存线内相邻的空间是否会被连续访问）以及时间局部性（同一块内存多久后还会被继续访问），这样我们可以通过预估后，尽可能的通过编译调度循环执行，这些内容将在第 5 章着重介绍。在 1.5 中我们也将打印矩阵乘的局部性，读者可以参考理解。
-- 近似计算：如果有些权重为 0 是否可以不进行计算？读者可以参考第 11 章稀疏性（Sparsity）部分进行了解。
-- 内存管理与扩展（Scale Out）：读者可以[预估](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/dnnmem.pdf)各个层的输出（Output）张量，输入（Input）张量，和内核（Kernel）张量大小，进而评估是否需要多卡，内存管理策略设计，以及换入换出策略等。读者可以参考第 5，8 章相关内存优化与管理内容。
-- 运行时任务调度：那么当算子与算子在运行时按一定调度次序执行，框架如何进行运行时管理，请读者参考第 3 章相关内容理解
+- 内存管理与扩展（Scale Out）：AI 系统工程师或者 AI 编译器会提前计算每一层的输出（Output）、输入（Input）和内核（Kernel）张量大小，进而评估需要多少计算资源、内存管理策略设计，以及换入换出策略等。（第三章 AI 编译器相关内容）
 
-## 1.4.3 框架执行深度学习模型的生命周期
+- 运行时调度：当算子与算子在运行时按一定调度次序执行，框架如何进行运行时管理？（第四章推理引擎相关内容）
 
-“Inside every large program is a small program struggling to get out.”--Tony Hoare。
+- 算法变换：从算法来说，当前多层循环的执行效率无疑是很低的，是否可以转换为更加易于优化和高效的矩阵计算？（第四章推理引擎相关内容）
 
-我们从下面实例会看到，目前算法工程师只需要书写核心算法（small program - 核心算法与高层设计），而不需要关注底层的很多代码（底层 large program）细节，通过层层抽象，提升了开发效率，但是对系统研发却隐藏了细节，需要我们进一步探究。
+- 编程方式：通过哪种编程方式可以让神经网络模型的程序开发更快？如何才能减少或者降低算法工程师的开发难度，让其更加聚焦 AI 算法的创新？（第五章 AI 框架相关内容）
 
-在之前的实例中，我们基本知晓 Python 书写训练程序，以及深度学习框架代码中的一个算子（例如，卷积）是如何翻译成底层 for 循环计算的，这类 for 循环计算通常可以被设备厂商提供的运行时算子库抽象，不需要用户继续书写 for 循环了，例如 cuDNN 提供卷积的实现和 API。
+## AI 系统执行具体计算
 
-如图 1.4.5 所示，相当于我们已经抽象到了 cuDNN 这层书写，似乎我们已经提升了很多开发效率
+目前算法工程师或者上层应用开发者只需要使用 AI 框架定义好的 API 使用高级编程语言如 Python 等去编写核心的神经网络模型算法，而不需要关注底层的执行细节和对一个的代码。底层通过层层抽象，提升了开发效率，但是对系统研发却隐藏了众多细节，需要 AI 系统开发的工程师进一步探究。
 
-- 我们为什么还需要深度学习框架（例如，TensorFlow，PyTorch）？
-- 那么框架作为至关重要的深度学习系统究竟在其中扮演什么角色和做了其他什么工作呢？
-- 用户的 Python 代码是如何一步步翻译到底层的具体实现呢？
+在上面的知识中，开发者已经学会使用 Python 去编写 AI 程序，以及深度学习代码中的一个算子（如卷积）是如何翻译成底层 for 循环从而进行实际的计算，这类 for 循环计算通常可以被 NPU/GPU 计算芯片厂商提供的运行时算子库进行抽象，不需要开发者不断编写 for 循环执行各种算子操作（如 cuDNN、cuBLAS 等提供卷积、GEMM等 Kernel的实现和对应的API）。
 
-我们以一个实例为例介绍：
+目前已经直接抽象到 Kernel 对具体算子进行执行这一层所提供的高级 API，似乎已经提升了很多开发效率，那么有几个问题：
 
-<center> <img src="./img/4/4-1-4-frompythontolower.png"/></center>
-<center>图 1.4.5 深度学习程序的层次化调用关系</center>
+- 为什么还需要 AI 框架（如 PyTorch、MindSpore 等）？
+- AI 框架在 AI System 中扮演什么角色和提供什么内容？
+- 用户编写的 Python 代码如何翻译给硬件去执行？
 
-首先，我们先对比一下，如果没有深度学习框架，而只将算子 for 循环抽象提供算子库（例如，cuDNN）的调用，读者将只能通过设备提供的底层 API 编写作业。例如，通过 CUDA + cuDNN 库书写卷积神经网络（[cuDNN书写的卷积神经网络LeNet实例](https://github.com/tbennun/cudnn-training)）[<sup>[4]</sup>](#cudnnlenet)。
+我们继续以上面的例子作为介绍。
 
-我们通过 LeNet 实现实例，对比 cuDNN + CUDA 这层抽象还不足以让算法工程师非常高效的设计模型和书写算法。如下两个实例所示，同样实现 LeNet，使用高层框架只需要 9 行，而通过 cuDNN 需要上千行代码，而且还需要精心的管理内存分配释放，拼接模型计算图，效率十分低下。
+![](images/04Sample05.png)
 
-***(1) 通过cuDNN + CUDA API编程实现LeNet，需要~1000行实现模型结构和内存管理等逻辑***
-[参考实例 cudnn-training](https://github.com/tbennun/cudnn-training/blob/master/lenet.cu)
+### AI 框架层
+
+如果没有 AI 框架，只将算子 for 循环抽象提供算子库（例如，cuDNN）的调用，算法工程师只能通过 NPU/GPU 厂商提供的底层 API 编写神经网络模型。例如，通过 CUDA + cuDNN 库书写卷积神经网络，如 [cuDNN书写的卷积神经网络LeNet实例](https://github.com/tbennun/cudnn-training)。
+
+1. 通过cuDNN + CUDA API 编程实现 LeNet
+ 
+[参考实例 cudnn-training](https://github.com/tbennun/cudnn-training/blob/master/lenet.cu)，需要~1000行实现模型结构和内存管理等逻辑。
 
 ```C++
 // 内存分配，如果用深度学习框架此步骤会省略
@@ -189,6 +247,7 @@ cudaMalloc(&d_data, sizeof(float) * context.m_batchSize * channels * height * wi
 cudaMalloc(&d_labels, sizeof(float) * context.m_batchSize * 1  * 1 * 1);
 cudaMalloc(&d_conv1, sizeof(float) * context.m_batchSize * conv1.out_channels * conv1.out_height * conv1.out_width);
 ...
+
 // 前向传播第一个卷积算子（仍需要写其他算子）
 ...
 cudnnConvolutionForward(cudnnHandle, &alpha, dataTensor,
@@ -196,6 +255,7 @@ cudnnConvolutionForward(cudnnHandle, &alpha, dataTensor,
                         conv1algo, workspace, m_workspaceSize, &beta,
                         conv1Tensor, conv1);
 ...
+
 // 反向传播第一个卷积算子（仍需要写其他算子），如果用深度学习框架此步骤会省略
 cudnnConvolutionBackwardBias(cudnnHandle, &alpha, conv1Tensor,
                              dpool1, &beta, conv1BiasTensor, gconv1bias);
@@ -204,11 +264,13 @@ cudnnConvolutionBackwardFilter(cudnnHandle, &alpha, dataTensor,
                                data, conv1Tensor, dpool1, conv1Desc,
                                conv1bwfalgo, workspace, m_workspaceSize, 
                                &beta, conv1filterDesc, gconv1));
+
 // 第一个卷积权重梯度更新（仍需要写其他算子），如果用深度学习框架此步骤会省略
 cublasSaxpy(cublasHandle, static_cast<int>(conv1.pconv.size()),
             &alpha, gconv1, 1, pconv1, 1);
 cublasSaxpy(cublasHandle, static_cast<int>(conv1.pbias.size()),
             &alpha, gconv1bias, 1, pconv1bias, 1);
+
 // 内存释放，如果用深度学习框架此步骤会省略
 ...
 cudaFree(d_data);
@@ -217,66 +279,71 @@ cudaFree(d_conv1);
 ...
 ```
 
-***(2) 通过 Keras 书写 LeNet （TensorFlow Backend）[<sup>[5]</sup>](#keraslenet)，只需要 9 行构建模型结构，算上训练逻辑只需要几十行代码***
-[参考文档 LeNet-5-with-Keras](https://github.com/TaavishThaman/LeNet-5-with-Keras/blob/master/lenet_5.py)
+2. 通过 PyTorch 编写 LeNet5
+
+只需要 10 行构建模型结构。
 
 ```python
-model = keras.Sequential()
-model.add(layers.Conv2D(filters=6, kernel_size=(3, 3), activation='relu', input_shape=(32,32,1)))
-model.add(layers.AveragePooling2D())
-model.add(layers.Conv2D(filters=16, kernel_size=(3, 3), activation='relu'))
-model.add(layers.AveragePooling2D())
-model.add(layers.Flatten())
-model.add(layers.Dense(units=120, activation='relu'))
-model.add(layers.Dense(units=84, activation='relu'))
-model.add(layers.Dense(units=10, activation = 'softmax'))
+class LeNet(nn.Module):
+    def __init__(self):
+        super(LeNet, self).__init__()
+        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16*5*5, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc2 = nn.Linear(84, 10)
+
+    def forward(self, x):
+        out = F.relu(self.conv1(x))
+        out = F.max_pool2d(out, 2)
+        out = F.relu(self.conv2(out))
+        out = F.max_pool2d(out, 2)
+        out = out.view(out.size(0), -1)
+        out = F.relu(self.fc1(out))
+        out = F.relu(self.fc2(out))
+        out = self.fc3(out)
+        return out
 ```
 
-从上面我们看到，深度学习框架对算法工程师开发深度学习模型，训练模型非常重要。总结起来，深度学习框架一般会提供以下功能：
+通过PyTorch + LeNet5 对比 cuDNN + CUDA，明显 cuDNN + CUDA 其抽象还不足以让算法工程师非常高效的设计神经网络模型和算法。同样实现 LeNet5，使用 AI 框架只需要 9 行代码，而通过 cuDNN 需要上千行代码，而且还需要精心的管理内存分配释放，拼接模型计算图，效率十分低下。
 
-1. 以 Python API 供读者编写复杂的模型计算图（Computation Graph）结构，调用基本算子实现（例如，卷积的 cuDNN 实现），大幅降低开发代码量。
-2. 自动化内存管理，不暴露指针和内存管理给用户。
-3. 自动微分（Automatic Differentiation）的功能，并能自动构建反向传播计算图，与前向传播图拼接成统一计算图。
-4. 调用或生成运行期优化代码（静态优化）
-5. 调度算子在指定设备的执行，并在运行期应用并行算子，提升设备利用率等优化（动态优化）。
+因此 AI 框架对算法工程师开发神经网络模型、训练模型等流程非常重要。从而可知 AI 框架一般会提供以下功能：
 
-从上面我们已经感受到深度学习框架已经我们解决了很多底层系统问题，隐藏了很多细节，但是这些细节和底层实现又是系统工程师比较关注的。接下来我们以一个深度学习作业如何被框架一步步底层执行的流程为例，为大家揭开框架底层隐藏的实现。 
-TensorFlow 也是应用非常广泛的框架，相比 PyTorch 的[命令式执行（Imperative Execution）](https://en.wikipedia.org/wiki/Imperative_programming)方式（运行到算子代码即触发执行，易于调试），TensorFlow 采用[符号执行（Symbolic Execution）](https://en.wikipedia.org/wiki/Symbolic_execution) （调用 session.run 才真正触发执行，并且框架能获取完整计算图进行优化）方式。二者详细区别我们将在后面框架章节进行介绍。我们在下面的图示和实例中以 TensorFlow 的一个简单程序为例，展示一个深度学习模型是如何被深度学习框架静态（Static）编译与运行时动态（Dynamic）管理的。
+1. 以 Python API 供读者编写网络模型计算图结构；
+2. 提供调用基本算子实现，大幅降低开发代码量；
+2. 自动化内存管理、不暴露指针和内存管理给用户；
+3. 实现自动微分功能，自动构建反向传播计算图；
+4. 调用或生成运行时优化代码，调度算子在指定设备的执行；
+6. 并在运行期应用并行算子，提升设备利用率等优化（动态优化）。
 
-如图 1.4.6 到图 1.4.9 所示，我们通过划分不同阶段，解释一个 TensorFlow 程序完成一个精简模型 x*y + z 的训练全生命周期。
+AI 框架帮助开发者解决了很多 AI System 底层问题，隐藏了很多工程的实现细节，但是这些细节和底层实现又是 AI System 工程师比较关注的点。
+
+### AI 框架层
 
 （1）前端程序转换为数据流图：如图 1-4-6 所示，这个阶段框架会将用户书写的模型程序，通过预先定义的接口，翻译为中间表达（Intermediate Representation），并且构建算子直接的依赖关系，形成前向数据流图（Data-Flow Graph）。
 
-<center> <img src="./img/4/4-1-5-pythontoforward.png"  /></center>
-<center>图 1.4.6 Python + TensorFlow 程序解析为中间表达和前向传播数据流图</center>
+![](images/04Sample06.png)
 
 （2）反向求导：如图 1-4-7 所示，这个阶段框架会分析形成前向数据流图，通过算子之前定义的反向传播算子，构建反向传播数据流图，并和前向传播数据流图一起形成整体的数据流图。
 
-<center> <img src="./img/4/4-1-6-backwardgraph.png"  /></center>
-<center>图 1.4.7 反向求导，自动微分(Automatic Differentiation)</center>
+![](images/04Sample07.png)
 
 （3）产生运行期代码：如图 1.4.8 所示，这个阶段框架会分析整体的数据流图，并根据运行时部署所在的设备（CPU，GPU 等），将算子中间表达产生为算子针对特定设备的运行期的代码，例如图中的 CPU 的 C++ 算子实现或者 GPU 的 CUDA 算子实现。
 
-<center> <img src="./img/4/4-1-7-genruntime.png"  /></center>
-<center>图 1.4.8 产生运行期代码</center>
+### AI 编译器与算子库
 
-（4）调度并运行代码：如图 1.4.9 所示，这个阶段框架会将算子及其运行期的代码实现，依次根据依赖关系，调度到计算设备上进行执行。对一些不方便静态做优化的选择，可以通过运行期调度达到，例如，并发（Concurrent）计算与 I/O，如有空闲资源并行执行没有依赖的算子等。目前框架例如，[PyTorch](https://proceedings.neurips.cc/paper/2019/file/bdbca288fee7f92f2bfa9f7012727740-Paper.pdf)，[TensorFlow](https://github.com/tensorflow/runtime/blob/master/documents/cuda-proposal.md#core-design-principles-and-decisions) 一般选择单 CUDA Stream 在 NVIDIA GPU 侧进行算子内核调度，数据加载会选择再设置其他 Stream。例如，PyTorch 出于[以下考量](https://proceedings.neurips.cc/paper/2019/file/bdbca288fee7f92f2bfa9f7012727740-Paper.pdf)[<sup>[6]</sup>](#pytorch)，以一种让他们合作共享 GPU 的方式编写 CUDA 内核较为困难，因为精确的调度是硬件控制。在实践中，内核编写者通常组合多个任务形成单片内核。数据加载和分布式计算实用程序是单 Stream 设计的例外，它们小心地插入额外的同步以避免与内存分配器的不良交互。
+![](images/04Sample08.png)
 
-<center> <img src="./img/4/4-1-8-execution.png"  /></center>
-<center>图 1.4.9 调度并运行代码</center>
+（4）调度并运行代码：如图 1.4.9 所示，这个阶段框架会将算子及其运行期的代码实现，依次根据依赖关系，调度到计算设备上进行执行。对一些不方便静态做优化的选择，可以通过运行期调度达到，例如，并发（Concurrent）计算与 I/O，如有空闲资源并行执行没有依赖的算子等。目前框架例如，PyTorch 一般选择单 CUDA Stream 在 NVIDIA GPU 侧进行算子内核调度，数据加载会选择再设置其他 Stream。
 
-综上所示，我们通过上面两个小节可以发现，如果没有框架和算子库的支持，算法工程师进行简单的深度学习模型设计与开发都会举步维艰，所以我们看到深度学习算法本身飞速发展的同时，也要看到底层系统对提升整个算法研发的生产力起到了不可或缺的作用。
+以一种让他们合作共享 GPU 的方式编写 CUDA 内核较为困难，因为精确的调度是硬件控制。在实践中，内核编写者通常组合多个任务形成单片内核。数据加载和分布式计算实用程序是单 Stream 设计的例外，它们小心地插入额外的同步以避免与内存分配器的不良交互。
 
-## 1.4.4 更广泛的人工智能系统生态
+![](images/04Sample09.png)
 
-除了以上小节框架本身提供的功能进行单模型训练，当前还在以下几个方面存在更广泛的人工智能系统生态。
+如果没有 AI 框架、AI编译器、算子库的支持，算法工程师进行简单的神经网络模型设计与开发都会举步维艰，所以应该看到 AI 算法本身飞速发展的同时，也要看到底层系统对提升整个算法研发的生产力起到了不可或缺的作用。
 
-- 更多的超参数组合与模型结构探索
-  - 之前我们看到的实例本身是单个模型的样例，但是深度学习模型可以通过变换其中的超参数和模型结构获取和训练更好的结果，这种探索式的过程也叫做自动化机器学习，读者可以参考第9章-自动化机器学习系统了解相关领域内容与挑战。
-- 共享的资源与多租的环境
-  - 如果我们现在的 GPU 等训练资源都是被公司或组织机构集中管理，用户需要共享使用资源进而提升资源整体利用率，那么在这种环境下系统如何提供给算法工程师接近单机的使用环境体验让算法工程师更加简便高效的使用资源？读者可以参考第7章-异构计算集群调度与资源管理系统进行了解平台如何应对当前的挑战。
-- 假设数据无法离线提前准备好？
-  - 如果数据没有提前准备好，需要系统提供更加多样的训练方式，深度学习系统需要不断与环境或者模拟器交互，通过强化学习方式进行训练，读者可以参考第 10 章-强化学习系统进行了解，强化学习系统如何在更复杂与多样的场景下进行模型训练以及数据获取。
-- 数据和人工智能模型的安全与隐私如何保障？
-  - 当前深度学习为数据驱动的方法，同时会产生交付的模型文件，模型泄露，篡改以及本身的缺陷会造成潜在的安全风险。如何保障深度学习整体的安全与隐私相比传统安全领域遇到了新的挑战，读者可以参考第12章-人工智能安全与隐私进行了解。
-- 之前我们大部分了解的是针对人工智能负载做系统设计也称作 System for AI，反过来我们也可以思考如何通过人工智能这种数据驱动的方法反过来指导系统设计与优化，也就是 AI for System，读者可以参考第13章-人工智能优化计算机系统进行了解。
+# 本节总结
+
+本章主要通过 PyTorch 的实例启发大家建立 AI 系统各个章节之间的联系，由于系统的多层抽象造成 AI 实践和算法创新的过程中已经无法感知底层系统的运行机制。希望能够结合后面章节的学习后，看到 AI System 底层的作用和复杂性，从而指导上层 AI 作业、算法、代码更加高效的执行和编写。
+
+请读完后面章节后再回看当前章节，并重新思考当前开发使能层下面的每一层的 AI System 底层发生了什么变化？执行了哪些操作和计算？
