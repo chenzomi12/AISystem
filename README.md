@@ -1,4 +1,4 @@
-# Deep Learning System & AI System
+# AI System & AI Infra
 
 [![Continuous Integration](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/ci.yml)
 [![Build Docker Image](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml/badge.svg)](https://github.com/d2l-ai/d2l-en/actions/workflows/build-docker.yml)
@@ -114,14 +114,6 @@
 ### 知识清单
 
 ![知识清单](images/knowledge_list.png)
-
-## 贡献者
-
-<!-- readme: collaborators,contributors -start -->
-<a href="https://github.com/chenzomi12/DeepLearningSystem/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=chenzomi12/DeepLearningSystem" />
-</a>
-<!-- readme: collaborators,contributors -end -->
 
 ## 备注
 
