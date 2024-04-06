@@ -12,7 +12,7 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 图形处理器 GPU | 01 GPU工作原理| [slide](./01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/)|
+| 图形处理器 GPU | 01 GPU工作原理| [文章](./01Works.md), [PPT](./01Works.pdf), [视频](https://www.bilibili.com/video/BV1bm4y1m7Ki/)|
 | 图形处理器 GPU | 02 GPU适用于AI | [slide](./02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)|
 | 图形处理器 GPU | 03 GPU架构与CUDA关系 | [slide](./03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/) |
 | 图形处理器 GPU | 04 GPU架构回顾第一篇 | [slide](./04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/)|

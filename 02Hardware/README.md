@@ -64,7 +64,7 @@ AI硬件体系结构主要是指AI芯片，这里就很硬核了，从芯片的�
 
 | 大纲        | 小节               | 链接                                                                                                                              |
 |:---------:|:----------------:|:-------------------------------------------------------------------------------------------------------------------------------:|
-| 图形处理器 GPU | 01 GPU 工作原理      | [slide](./03_GPUBase/01.works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/), [字幕](./03_GPUBase/srt/01.srt)        |
+| 图形处理器 GPU | 01 GPU 工作原理      | [文章](./03GPUBase/01Works.md), [PPT](./03GPUBase/01Works.pdf), [video](https://www.bilibili.com/video/BV1bm4y1m7Ki/), [字幕](./03_GPUBase/srt/01.srt)        |
 | 图形处理器 GPU | 02 GPU 适用于AI     | [slide](./03_GPUBase/02.principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/), [字幕](./03_GPUBase/srt/02.srt)    |
 | 图形处理器 GPU | 03 GPU 架构与CUDA关系 | [slide](./03_GPUBase/03.base_concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/), [字幕](./03_GPUBase/srt/03.srt) |
 | 图形处理器 GPU | 04 GPU 架构回顾第一篇   | [slide](./03_GPUBase/04.fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/), [字幕](./03_GPUBase/srt/04.srt)        |
