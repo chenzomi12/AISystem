@@ -16,7 +16,7 @@
 |:--:|:--:|:--:|
 | 模型转换&优化| 01 基本介绍 | [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1724y1z7ep/) |
 | 模型转换模块 | 02 架构与文件格式| [PPT](./02.converter_princ.pdf), [视频](https://www.bilibili.com/video/BV13P4y167sr/) |
-| 模型转换模块 | 03 自定义计算图IR | [PPT](./03.converter_ir.pdf), [视频](https://www.bilibili.com/video/BV1rx4y177R9/) |
+| 模型转换模块 | 03 自定义计算图 IR | [PPT](./03.converter_ir.pdf), [视频](https://www.bilibili.com/video/BV1rx4y177R9/) |
 | 模型转换模块 | 04 流程细节 | [PPT](./04.converter_detail.pdf), [视频](https://www.bilibili.com/video/BV13341197zU/) |
 | 图优化模块| 05 计算图优化策略| [PPT](./05.optimizer.pdf), [视频](https://www.bilibili.com/video/BV1g84y1L7tF/) |
 | 图优化模块| 06 常量折叠&冗余节点消除| [PPT](./06.basic.pdf), [视频](https://www.bilibili.com/video/BV1fA411r7hr/) |
@@ -27,10 +27,10 @@
 
 文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
 
-文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
 
-> 非常希望您也参与到这个开源项目中，B站给ZOMI留言哦！
+> 非常希望您也参与到这个开源项目中，B 站给 ZOMI 留言哦！
 >
-> 欢迎大家使用的过程中发现bug或者勘误直接提交代码PR到开源社区哦！
+> 欢迎大家使用的过程中发现 bug 或者勘误直接提交代码 PR 到开源社区哦！
 >
 > 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！

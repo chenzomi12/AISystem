@@ -2,7 +2,7 @@
 
 # 术语表(DONE)
 
-术语表（Glossary），本词汇表包含与AI系统相关的词汇和定义。
+术语表（Glossary），本词汇表包含与 AI 系统相关的词汇和定义。
 
 ## A
 
@@ -107,7 +107,7 @@
 | Defect Tolerance | 缺陷容忍| |
 | Dimension| 维度| |
 | Docker Hub | 镜像中心| |
-| Direct GPU Pass-Through| 直接GPU直通 | |
+| Direct GPU Pass-Through| 直接 GPU 直通 | |
 | Device Emulation | 设备仿真| |
 | Device | 设备| |
 | Data Privacy | 数据隐私| |
@@ -240,7 +240,7 @@
 | Locality| 局部性 | |
 | Linear Algebra| 线性代数| |
 | Loop| 循环| |
-| Linux Containers| Linux容器 | LXC |
+| Linux Containers| Linux 容器 | LXC |
 | Life Cycle| 生命周期| |
 | Label | 标签| |
 | Low Latency | 低延迟 | |
