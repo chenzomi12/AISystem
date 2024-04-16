@@ -21,10 +21,10 @@ max_gen_length = 128
 output_dir = "checkpoints"
 num_train_epochs = 5
 learning_rate = 5e-5
-deepspeed_config = "./ds_config.json" # deepspeed配置文件
-per_device_train_batch_size=1 # batch size设置为1，因为太大导致OOM
+deepspeed_config = "./ds_config.json" # deepspeed 配置文件
+per_device_train_batch_size=1 # batch size 设置为 1，因为太大导致 OOM
 per_device_eval_batch_size=1
-gradient_accumulation_steps=2 # 由于单卡的batch size为1，为了扩展batch size，使用梯度累加
+gradient_accumulation_steps=2 # 由于单卡的 batch size 为 1，为了扩展 batch size，使用梯度累加
  
 tokenizer = AutoTokenizer.from_pretrained(model_name)
  
@@ -45,7 +45,7 @@ tokenized_dataset = dataset.map(preprocess, batched=True, remove_columns=["dialo
 # print(tokenized_dataset["train"]["input_ids"][0]) # 打印结果
  
  
-# 对batch进行padding
+# 对 batch 进行 padding
 def collate_fn(features):
     batch_input_ids = [torch.LongTensor(feature["input_ids"]) for feature in features]
     batch_attention_mask = [torch.LongTensor(feature["attention_mask"]) for feature in features]
@@ -100,7 +100,7 @@ training_args = Seq2SeqTrainingArguments(
     per_device_train_batch_size=per_device_train_batch_size,
     per_device_eval_batch_size=per_device_eval_batch_size,
     gradient_accumulation_steps=gradient_accumulation_steps,
-    eval_accumulation_steps=1, # 防止评估时导致OOM
+    eval_accumulation_steps=1, # 防止评估时导致 OOM
     predict_with_generate=True,
     fp16=False,
     learning_rate=learning_rate,
@@ -108,13 +108,13 @@ training_args = Seq2SeqTrainingArguments(
     # logging & evaluation strategies
     logging_dir="logs",
     logging_strategy="steps",
-    logging_steps=50, # 每50个step打印一次log
+    logging_steps=50, # 每 50 个 step 打印一次 log
     evaluation_strategy="steps",
-    eval_steps=500, # 每500个step进行一次评估
+    eval_steps=500, # 每 500 个 step 进行一次评估
     save_steps=500,
     save_total_limit=2,
     load_best_model_at_end=True,
-    deepspeed=deepspeed_config, # deepspeed配置文件的位置
+    deepspeed=deepspeed_config, # deepspeed 配置文件的位置
     report_to="all"
 )
  
