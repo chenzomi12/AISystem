@@ -1,4 +1,4 @@
-<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
 # === 附录(DONE) ===
 
@@ -6,7 +6,7 @@
 
 在正文后面与正文有关的文章或参考资料，是作为说明书或论文的补充部分，并不是必需的。其是由于篇幅过大或取材于复制品而不便编入正文的材料。
 
-如果您看到这里，非常感谢您对 https://github.com/chenzomi12/AISystem 开源项目的支持和贡献，也非常欢迎您在 github issues 的区提出更多的疑问和交流。
+如果您看到这里，非常感谢您对 https://github.com/chenzomi12/DeepLearningSystem 开源项目的支持和贡献，也非常欢迎您在 github issues 的区提出更多的疑问和交流。
 
 ```toc
 :maxdepth: 1

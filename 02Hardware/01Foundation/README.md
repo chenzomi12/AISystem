@@ -1,4 +1,4 @@
-<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
 
 # AI 计算体系概述
 
@@ -8,13 +8,13 @@
 
 **内容大纲**
 
-> `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/AISystem) 下载，网页课程版链接会失效哦~
+> `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/DeepLearningSystem) 下载，网页课程版链接会失效哦~
 >
 > 建议优先下载 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 计算体系 | 01 课程内容| [文章](./01Introduction.md), [slide](./01Introduction.pdf), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/) |
+| AI 计算体系 | 01 课程内容| [slide](./01.introduction), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/) |
 | AI 计算体系 | 02 AI 计算模式(上) | [slide](./02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/) |
 | AI 计算体系 | 03 AI 计算模式(下) | [slide](./03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |
 | AI 计算体系 | 04 关键设计指标| [slide](./04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/) |
@@ -26,7 +26,7 @@
 
 文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
 
-文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/AISystem)，欢迎取用！！！
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/DeepLearningSystem)，欢迎取用！！！
 
 > 非常希望您也参与到这个开源项目中，B 站给 ZOMI 留言哦！
 >
