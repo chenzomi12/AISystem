@@ -1,4 +1,4 @@
-<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
+<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
 # 书写工具(DONE)
 
@@ -8,7 +8,7 @@
 - 文字与表格：markdown, ppt
 - 图像：ppt, ominGraffle
 
-## markdown目录生成工具
+## markdown 目录生成工具
 
 - [快速生成目录 auto-markdown-toc](https://marketplace.visualstudio.com/items?itemName=huntertran.auto-markdown-toc)
 
@@ -18,4 +18,4 @@ GitHub
 
 ## 练习
 
-- 如果为可运行代码，最好提供docker环境
+- 如果为可运行代码，最好提供 docker 环境
