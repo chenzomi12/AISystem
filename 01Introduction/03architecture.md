@@ -22,7 +22,7 @@ AI 系统设计本身需要各个环节通盘考量，无论是系统性能，�
 
 开发者一般通过编程语言 Python 和 AI 开发框架（例如 PyTorch、MindSpore 等）API 编码和描述以上 AI 模型，声明训练作业和部署模型流程。由最开始 AlexNet 是作者直接通过 [CUDA](https://code.google.com/archive/p/cuda-convnet) 实现网络模型，到目前有通过 Python 语言灵活和轻松调用的框架，到大家习惯使用 HuggingFace 进行神经网络语言模型训练，背后是系统工程师贴合实际需求不断研发新的工具，并推动深度学习生产力提升的结果。
 
-但是这些 AI 编程语言和 AI 开发框架应对自动化机器学习、强化学习等多样执行方式，以及细分的应用场景显得越来越开发低效，不够灵活，需要用户自定义一些特殊优化，没有好的工具和系统的支撑，这些问题一定程度上会拖慢和阻碍算法工程师研发效率，影响算法本身的发展。因此，目前开源社区中也不断涌现针对特定应用领域而设计的框架和工具，例如 [Hugging Face](https://huggingface.co/) 语言预训练模型动物园和社区，[FairSeq](https://github.com/pytorch/fairseq) 自然语言处理中的序列到序列模型套机，[MMDetection](https://github.com/open-mmlab/mmdetection) 物体检测套件，针对自动化机器学习设计的 [NNI](https://github.com/microsoft/nni) 加速库等，进而针对特定领域模型应用负载进行定制化设计和性能优化，并提供更简化的接口和应用体验。
+但是这些 AI 编程语言和 AI 开发框架应对自动化机器学习、强化学习等多样执行方式，以及细分的应用场景显得越来越低效，不够灵活，需要用户自定义一些特殊优化，没有好的工具和系统的支撑，这些问题一定程度上会拖慢和阻碍算法工程师研发效率，影响算法本身的发展。因此，目前开源社区中也不断涌现针对特定应用领域而设计的框架和工具，例如 [Hugging Face](https://huggingface.co/) 语言预训练模型动物园和社区，[FairSeq](https://github.com/pytorch/fairseq) 自然语言处理中的序列到序列模型套机，[MMDetection](https://github.com/open-mmlab/mmdetection) 物体检测套件，针对自动化机器学习设计的 [NNI](https://github.com/microsoft/nni) 加速库等，进而针对特定领域模型应用负载进行定制化设计和性能优化，并提供更简化的接口和应用体验。
 
 由于不同领域的输入数据格式不同，预测输出结果不同，数据获取方式不同，造成模型结构和训练方式产生非常多样的需求，各家公司和组织不断研发新的针对特定领域的 AI 开发框架或上层应用接口封装，以支持特定领域数据科学家快速验证和实现新的 AI 想法，工程化部署和批量训练成熟的模型。如 Facebook 推出的 Caffe 与 Torch 演化到 PyTorch，Google TensorFlow 及新推出的 JAX，基于 PyTorch 构建的 HuggingFace 等。AI 开发工具与 AI 开发框架本身也是随着用户的模型构建与程序编写与部署需求不断演进。
 
