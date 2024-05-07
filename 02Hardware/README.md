@@ -77,8 +77,8 @@ AI 硬件体系结构主要是指 AI 芯片，这里就很硬核了，从芯片�
 | GPU 原理详解 | 01 TensorCore 原理(上) | [slide](./04NVIDIA/01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/) , [字幕](./04NVIDIA/srt/01.srt)    |
 | GPU 原理详解 | 02 TensorCore 架构(中) | [slide](./04NVIDIA/02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/), [字幕](./04NVIDIA/srt/02.srt)   |
 | GPU 原理详解 | 03 TensorCore 剖析(下) | [slide](./04NVIDIA/03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/), [字幕](./04NVIDIA/srt/03.srt)      |
-| GPU 原理详解 | 04 分布式通信与 NVLink    | [slide](./04NVIDIA/04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/), [字幕](./04NVIDIA/srt/04.srt) |
-| GPU 原理详解 | 05 NVLink 原理剖析      | [slide](./04NVIDIA/05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/)                               |
+| GPU 原理详解 | 04 分布式通信与 NVLink    | [slide](./04NVIDIA/04.basic_NVLink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/), [字幕](./04NVIDIA/srt/04.srt) |
+| GPU 原理详解 | 05 NVLink 原理剖析      | [slide](./04NVIDIA/05.deep_NVLink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/)                               |
 | GPU 原理详解 | 05 NVSwitch 原理剖析    | [slide](./04NVIDIA/06.deep_nvswitch.pdf), [video](https://www.bilibili.com/video/BV1uM4y1n7qd/)                             |
 
 ### [国外 AI 芯片](./05Abroad/)

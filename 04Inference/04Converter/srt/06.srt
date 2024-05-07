@@ -52,7 +52,7 @@ Hello 大家好
 
 14
 00:00:42,440 --> 00:00:47,080
-分为 basic, extend,还有 layout 和 memory 三种的优化方式
+分为 basic, extend，有 layout 和 memory 三种的优化方式
 
 15
 00:00:47,080 --> 00:00:51,280

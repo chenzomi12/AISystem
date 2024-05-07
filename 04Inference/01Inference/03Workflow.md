@@ -90,7 +90,7 @@
 
 |      | 云端部署                           | 端侧部署                    |
 |:---- | ------------------------------ | ----------------------- |
-| 算力   | 算力强大（TFLOPS,并行可扩展），适合训练和推理阶段计算 | 算力有限，水平扩展性差，更适合推理阶段前向计算 |
+| 算力   | 算力强大（TFLOPS，行可扩展），适合训练和推理阶段计算 | 算力有限，水平扩展性差，更适合推理阶段前向计算 |
 | 时延   | 主要的时延来自网络传输和计算开销               | 本地计算无网络开销或者开销很低，实时响应要求高 |
 | 网络依赖 | 强依赖                            | 弱依赖                     |
 | 能耗   | 百瓦以上                           | 几十瓦，能耗比高                |
@@ -174,7 +174,7 @@
 5. Optimal Aggregation Policy for Reducing Tail Latency of Web Search
 6. A Survey of Model Compression and Acceleration for Deep Neural Networks
 7. CSE 599W: System for ML - Model Serving
-8. https://developer.nvidia.com/deep-learning-performance-training-inference 
+8. https://developer.NVIDIA.com/deep-learning-performance-training-inference 
 9. DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING
 10. Learning both Weights and Connections for Efficient Neural Networks
 11. DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT

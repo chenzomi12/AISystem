@@ -15,8 +15,8 @@
 | GPU 原理详解 | 01 TensorCore 原理(上) | [slide](./01.basic_tc.pdf), [video](https://www.bilibili.com/video/BV1aL411a71w/)|
 | GPU 原理详解 | 02 TensorCore 架构(中) | [slide](./02.history_tc.pdf), [video](https://www.bilibili.com/video/BV1pL41187FH/)|
 | GPU 原理详解 | 03 TensorCore 剖析(下) | [slide](./03.deep_tc.pdf), [video](https://www.bilibili.com/video/BV1oh4y1J7B4/) |
-| GPU 原理详解 | 04 分布式通信与 NVLink| [slide](./04.basic_nvlink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)|
-| GPU 原理详解 | 05 NVLink 原理剖析| [slide](./05.deep_nvlink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/) |
+| GPU 原理详解 | 04 分布式通信与 NVLink| [slide](./04.basic_NVLink.pdf), [video](https://www.bilibili.com/video/BV1cV4y1r7Rz/)|
+| GPU 原理详解 | 05 NVLink 原理剖析| [slide](./05.deep_NVLink.pdf), [video](https://www.bilibili.com/video/BV1uP411X7Dr/) |
 | GPU 原理详解 | 05 NVSwitch 原理剖析| [slide](./06.deep_nvswitch.pdf), [video](https://www.bilibili.com/video/BV1uM4y1n7qd/) |
 
 ## 备注
