@@ -1,16 +1,18 @@
 <!--Copyright © XcodeHw 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# MobileNetV1
+# MobileNet 系列
 
 本章节会介绍 MobileNet v1，重点在于其模型结构的轻量化设计，主要介绍详细的轻量化设计原则，基于这原则，MobileNetV1 是如何设计成一个小型，低延迟，低功耗的参数化模型，可以满足各种用例的资源约束。可以更方便的实现分类，检测，嵌入和分割等功能。
 
-## 贡献概述
+======= 同样合并 MoblieNet 系列到总体总结哈
+
+## MobileNet V1
 
 MobileNet v1 是一种体积较小、计算量较少、适用于移动设备的卷积神经网络。mobileNet V1 的主要创新点是用深度可分离卷积(depthwise separable convolution)代替普通的卷积，并使用宽度乘数(width multiply)减少参数量，在 ImageNet 图像分类、Stanford Dog 细粒度图像分类、目标检测、人脸属性识别、人脸编码、以图搜地等计算机视觉任务上，结合知识蒸馏进行评估，MobileNet 表现出极致的轻量化和速度性能。
 
-## 设计思路
+### 设计思路
 
-### 逐通道卷积（Depthwise Convolution）
+#### 逐通道卷积（Depthwise Convolution）
 
 Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一个通道只被一个卷积核卷积，这个过程产生的 feature map 通道数和输入的通道数完全一样，如下图所示：
 
@@ -24,15 +26,16 @@ Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一�
 
 其中$D_{k}$为卷积核尺寸，$D_{f}$为特征图尺寸，M 为输入通道数，输出通道数为 1。
 
-### 逐点卷积（Pointwise Convolution）
-Pointwise Convolution 的本质就是$1\times 1$的卷积，它的卷积核的尺寸为$1\times 1\times M$，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
+#### 逐点卷积 Pointwise Convolution
+
+Pointwise Convolution 的本质就是 $1\times 1$ 的卷积，它的卷积核的尺寸为 $1\times 1\times M$，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
 ![Pointwise Convolution 结构](./images/04.mobilenet_02.png)
 
 参数量:$1\times 1\times M\times N$
 
 计算量:$1\times 1\times M\times N\times D_{f}\times D_{f}$
 
-其中卷积核尺寸是$1\times1$，$D_{f}$为特征图尺寸，$M$为输入通道数，$N$为输出通道数。
+其中卷积核尺寸是 $1\times1$，$D_{f}$ 为特征图尺寸，$M$为输入通道数，$N$为输出通道数。
 
 因此计算一次深度可分离卷积的总体计算量为:
 
@@ -46,7 +49,7 @@ $$
 \frac{D_{k}\cdot D_{k}\cdot M\cdot D_{F}\cdot D_{F} + M\cdot N\cdot D_{F}\cdot D_{F}}{D_{k}\cdot D_{k}\cdot M\cdot N\cdot D_{F}\cdot D_{F}}=\frac{1}{N}+\frac{1}{D_{k}^{2}}
 $$
 
-### 宽度乘子（α）和分辨率乘子（ρ）
+#### 宽度乘子（α）和分辨率乘子（ρ）
 
 宽度和分辨率调整系数用于调整模型的大小和计算复杂性。
 
@@ -55,21 +58,26 @@ $$
 - **分辨率系数（ρ）**：分辨率系数是一个介于 0 和 1 之间的比例因子。通过降低输入图像的分辨率，可以减少卷积操作的计算量和内存消耗。
 
 计算量:
+
 $$
 D_{k}\cdot D_{k} \cdot αM\cdotρD_{F}\cdotρD_{F}+ αM\cdot αN\cdotρD_{F}\cdotρD_{F}
 $$
+
 计算量减少了:
+
 $$
 \frac{D_{k}\cdot D_{k} \cdot αM\cdotρD_{F}\cdotρD_{F}+ αM\cdot αN\cdotρD_{F}\cdotρD_{F}}{D_{k}\cdot D_{k} \cdot M\cdot N\cdot D_{F}\cdot D_{F}} =\frac{αρ}{N}+\frac{α^{2}ρ^{2}}{D_{k}^{2}}
 $$
 
-## 网络结构
+### 网络结构
 
 MBconv 由 Depthwise Convolution，BN，ReLU 组成，基本结构如下图右面所示：
 
 ![MBconv 结构](./images/04.mobilenet_03.png)
 
-## 代码
+====== 模型结构介绍太少了，融合进去代码哈
+
+### 代码
 
 ```python
 import torch.nn as nn
@@ -124,23 +132,24 @@ class MobileNetV1(nn.Module):
         x = x.view(-1, 1024)
         x = self.fc(x)
         return x
-
-
-
 ```
-# MobileNetV2
+
+======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
+
+## MobileNet V2
 
 在上一章节中介绍了 MobileNetV1 版本，主要是将普通卷积转成逐点和逐通道卷积，也讲到了用于调整模型的大小和计算复杂性的宽度和分辨率因子。在本章节中主要会讲解基于 V1 构建的更高效更 轻量的网络结构。 
 
-## 贡献概述
+### 贡献概述
 
 MobileNet-v2 的主要思想就是在 v1 的基础上引入了线性瓶颈 (Linear Bottleneck)和逆残差 (Inverted Residual)来提高网络的表征能力，同样也是一种轻量级的卷积神经网络。
 
-## 设计思路
+### 设计思路
 
-### Linear Bottlenecks(线性瓶颈层)
+#### Linear Bottlenecks(线性瓶颈层)
 
 MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“瘦身”，这样特征信息就能更集中在缩减后的通道中。但研究人员发现深度可分离卷积中有大量卷积核为 0，即有很多卷积核没有参与实际计算。研究后发现是 ReLU 激活函数的问题，认为 ReLU 这个激活函数，在低维空间运算中会损失很多信息，而在高维空间中会保留较多有用信息 。ReLU 会对维度较低的张量造成较大的信息损耗。
+
 维度越低，损失信息越多。（如下图 2 和 3 已经没有螺旋的样子了）；维度越高，损失信息越少（当原始输入维度数增加到 15 以后再加 ReLU，基本不会丢失太多的信息，接近输入）。
 
 ![ReLu](./images/04.mobilenet_04.png)
@@ -151,18 +160,19 @@ MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“
 
 实验证据表明，使用线性层至关重要，因为它可以防止非线性破坏太多的信息。
 
+#### 可分离卷积块的演化
 
-### 可分离卷积块的演化
+可分离卷积块的演化如下图所示：
 
-可分离卷积块的演化如下图所示:
-(a)：标准卷积（一个大方块）；
-(b)：深度可分离卷积(=Depthwise convolution+Pointwise Convolution=薄片片+方块块)；
-(c)：linear bottleneck，(高维后)relu6-dw-relu6-pw，降维-升维-；
-(d)：和图(c)等效，(线性激活后)pw 升维-relu6-dw-relu6-pw，降维-线性激活；
+1. 标准卷积（一个大方块）；
+2. 深度可分离卷积(=Depthwise convolution+Pointwise Convolution=薄片片+方块块)；
+3. linear bottleneck，(高维后)relu6-dw-relu6-pw，降维-升维-；
+4. 和图(c)等效，(线性激活后)pw 升维-relu6-dw-relu6-pw，降维-线性激活；
 
 ![Conv](./images/04.mobilenet_05.png)
 
-### Inverted residuals(反向残差）
+#### Inverted residuals 反向残差
+
 反向残差如下图所示
 
 ![反向残差](./images/04.mobilenet_06.png)
@@ -175,17 +185,21 @@ Residual block 先用 1x1 卷积降通道过 ReLU，再 3x3 卷积过 ReLU，最
 
 在 Inverted Residual block 中，3x3 卷积变成 Depthwise 了，计算量很少了，所以通道数可以多一点，效果更好，所以通过 1x1 卷积先提升通道数，再 Depthwise3x3 卷积，最后用 1x1 卷积降低通道数。两端的通道数都很小，所以 1x1 卷积升通道和降通道计算量都并不大，而中间的通道数虽然多，但是 Depthwise 的卷积计算量也不。
 
-### 关于 ReLU6
+#### 关于 ReLU6
 
-卷积之后通常会接一个 ReLU 非线性激活，在 MobileNet 中使用 ReLU6。ReLU6 在普通的 ReLU 基础上限制最大输出为 6，这是为了在移动端设备 float16/int8 的低精度的时候也能有很好的数值分辨率。如果对 ReLU 的激活范围不加限制，输出范围为 0 到正无穷，如果激活值非常大，分布在一个很大的范围内，则低精度的 float16/int8 无法很好地精确描述如此大范围的数值，带来精度损失。
+卷积之后通常会接一个 ReLU 非线性激活，在 MobileNet 中使用 ReLU6。ReLU6 在普通的 ReLU 基础上限制最大输出为 6，这是为了在移动端设备 float16/int8 的低精度的时候也能有很好的数值分辨率。
 
-## 网络结构
+如果对 ReLU 的激活范围不加限制，输出范围为 0 到正无穷，如果激活值非常大，分布在一个很大的范围内，则低精度的 float16/int8 无法很好地精确描述如此大范围的数值，带来精度损失。
 
-v2 的加入了 1×1 升维，引入 Shortcut 并且去掉了最后的 ReLU，改为 Linear。步长为 1 时，先进行 1×1 卷积升维，再进行深度卷积提取特征，再通过 Linear 的逐点卷积降维。将 input 与 output 相加，形成残差结构。步长为 2 时，因为 input 与 output 的尺寸不符，因此不添加 shortcut 结构。整个结构由 v2 block 堆叠而成。
+### 网络结构
+
+v2 的加入了 1×1 升维，引入 Shortcut 并且去掉了最后的 ReLU，改为 Linear。步长为 1 时，先进行 1×1 卷积升维，再进行深度卷积提取特征，再通过 Linear 的逐点卷积降维。
+
+将 input 与 output 相加，形成残差结构。步长为 2 时，因为 input 与 output 的尺寸不符，因此不添加 shortcut 结构。整个结构由 v2 block 堆叠而成。
 
 ![v2block](./images/04.mobilenet_07.png)
 
-## 代码
+### 代码
 
 ```python
 from torch import nn
@@ -306,18 +320,17 @@ class MobileNetV2(nn.Module):
         x = torch.flatten(x, 1)
         x = self.classifier(x)
         return x
-
 ```
 
-# MobileNetV3
+======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
+
+## MobileNet V3
 
 在本章节会主要介绍 MobileNetV3 相对于 V1，V2 的改进之处，除了介绍更轻量的网络结构外，还会给大家带来新的技术，什么是神经网络结构搜索(Nas)，以及 Nas 如何与 MobileNet 进行结合。
 
-## 贡献概述
+MobileNetV3 是由 google 团队在 2019 年提出的轻量化网络模型，传统的卷积神经网络，内容需求大，运算量大，无法再移动设备以及嵌入式设备上运行，为了解决这一问题，MobileNet 网络应运而生。
 
-MobileNetV3 是由 google 团队在 2019 年提出的轻量化网络模型，传统的卷积神经网络，内容需求大，运算量大，无法再移动设备以及嵌入式设备上运行，为了解决这一问题，MobileNet 网络应运而生。MobileNetV3 在移动端图像分类、目标检测、语义分割等任务上均取得了优秀的表现。MobileNetV3 采用了很多新的技术，包括针对通道注意力的 Squeeze-and-Excitation 模块、NAS 搜索方法等，这些方法都有利于进一步提升网络的性能。
-
-## 设计原则
+MobileNetV3 在移动端图像分类、目标检测、语义分割等任务上均取得了优秀的表现。MobileNetV3 采用了很多新的技术，包括针对通道注意力的 Squeeze-and-Excitation 模块、NAS 搜索方法等，这些方法都有利于进一步提升网络的性能。
 
 ### 重新设计耗时层结构
 
@@ -325,7 +338,7 @@ MobileNetV3 是由 google 团队在 2019 年提出的轻量化网络模型，传
 
 ![新结构](./images/04.mobilenet_08.png)
 
-### 重新设计激活函数
+#### 重新设计激活函数
 
 引入新的非线性激活函数：h-swish。swish 公式：
 
@@ -345,7 +358,7 @@ $$
 
 在网络结构搜索中，作者结合两种技术：资源受限的 NAS（platform-aware NAS）与 NetAdapt，前者用于在计算和参数量受限的前提下搜索网络的各个模块，所以称之为模块级的搜索（Block-wise Search） ，后者用于对各个模块确定之后网络层的微调。
 
-### NAS 搜索全局结构（Block-wise Search）
+#### NAS 搜索全局结构（Block-wise Search）
 
 采用 NSA 方法来搜寻全局网络结构，另外需要针对轻量模型进行优化，用一个多目标奖励。
 
@@ -355,7 +368,7 @@ $$
 
 来近似 pareto 最优解，根据目标延迟 TAR 为每个模型 m 平衡模型精度 ACC(m)和延迟 LAT(m)。用较小的权重因子 w =-0.15 来弥补不同的延迟的更大精度变化。从头训练了一个新的架构搜索，找到了初始的 seed 模型，然后应用 NetAdapt 和其他优化来获得最终的 MobilenetV3-Small 模型。
 
-### NetAdapt 搜索层结构（Layer-wise Search）
+#### NetAdapt 搜索层结构（Layer-wise Search）
 
 $$
 \frac{ΔACC}{ΔLatency}
@@ -367,23 +380,21 @@ $$
 
 - 减少所有共享相同 bottleneck size 模块的瓶颈。
 
+### 网络结构
 
-
-## 网络结构
-
-### SE 结构
+#### SE 结构
 
 首先使用一个全局池化层将每个通道变成一个具体的数值，然后接两个全连接层，最后通过一个 H-Sigmoid 函数获取最终的权重，赋值给最初的特征图。
 
 ![SE 结构](./images/04.mobilenet_10.png)
 
-### MobileNet v3 block
+#### MobileNet v3 block
 
 核心模块，也是网络的基本模块。主要实现了通道可分离卷积+SE 通道注意力机制+残差连接。结构图如下：
 
 ![v3 block 结构](./images/04.mobilenet_11.png)
 
-## 代码
+### 代码
 
 ```python
 from typing import Callable, List, Optional
@@ -450,7 +461,6 @@ class SqueezeExcitation(nn.Module):
         scale = F.hardsigmoid(scale, inplace=True)   # 激活函数
         return scale * x   # 将得到的数据与传入的对应 channel 数据进行相乘
 
-
 # 定义 block 的配置类
 class InvertedResidualConfig:
     def __init__(self,
@@ -473,8 +483,6 @@ class InvertedResidualConfig:
     @staticmethod
     def adjust_channels(channels: int, width_multi: float):
         return _make_divisible(channels * width_multi, 8)
-
-
 
 # 定义 block 模块
 # 此为 block 模块，其包含第一个 1x1 卷积层、DeptWis 卷积层、SE 注意力机制层（判断是否需求）、第二个 1x1 卷积层、激活函数（需要判断是否是非线性激活）
@@ -532,7 +540,6 @@ class InvertedResidual(nn.Module):
             result += x   # 进行 shortcut 连接
 
         return result
-
 
 # MobileNetV3 网络结构基础框架：其包括：模型的第一层卷积层———>nx【bneckBlock 模块】———>1x1 的卷积层———>自适应平均池化层———>全连接层———>全连接层
 class MobileNetV3(nn.Module):
@@ -612,8 +619,6 @@ class MobileNetV3(nn.Module):
 
     def forward(self, x: Tensor) -> Tensor:
         return self._forward_impl(x)
-
-
 
 ### 构建 large 基础 mobilenet_v3_large 模型
 def mobilenet_v3_large(num_classes: int = 1000,
@@ -707,17 +712,25 @@ def mobilenet_v3_small(num_classes: int = 1000,
 
 ```
 
-# MobileNet V4
+======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
+
+## MobileNet V4
 
 在这一章节会介绍 MobileNets 系列最新的版本 V4，重会介绍 V4 做出哪些方面的升级，以及使用哪些更先进的思想与技术，给轻量级的网络设计带来重要的改变。
 
-## 贡献概述
+MobileNetV4，主要是针对移动设备设计的通用高效架构。在其核心部分，引入了通用倒瓶颈（UIB）搜索块，Mobile MQA，带来了 39%速度提升。同时还带来了一种优化的神经架构搜索（NAS）方法，它提高了 MobileNetV4 搜索的有效性。
 
-MobileNetV4，主要是针对移动设备设计的通用高效架构。在其核心部分，引入了通用倒瓶颈（UIB）搜索块，Mobile MQA，带来了 39%速度提升。同时还带来了一种优化的神经架构搜索（NAS）方法，它提高了 MobileNetV4 搜索的有效性。UIB、Mobile MQA 以及精细化的 NAS 方法的整合，使得 MNv4 模型系列在移动 CPU、DSP、GPU 以及像苹果神经引擎和谷歌 Pixel EdgeTPU 这样的专用加速器上几乎达到了帕累托最优——这是其他测试模型所不具备的特性。最后，为了进一步提升准确度，引入了一种新颖的蒸馏技术。借助这项技术，MNv4-Hybrid-Large 模型在 ImageNet-1K 上的准确度达到了 87%，在 Pixel 8 EdgeTPU 上的运行时间仅为 3.8ms。
+UIB、Mobile MQA 以及精细化的 NAS 方法的整合，使得 MNv4 模型系列在移动 CPU、DSP、GPU 以及像苹果神经引擎和谷歌 Pixel EdgeTPU 这样的专用加速器上几乎达到了帕累托最优——这是其他测试模型所不具备的特性。最后，为了进一步提升准确度，引入了一种新颖的蒸馏技术。借助这项技术，MNv4-Hybrid-Large 模型在 ImageNet-1K 上的准确度达到了 87%，在 Pixel 8 EdgeTPU 上的运行时间仅为 3.8ms。
 
-## 设计原则
+### 设计原则
 
-MobileNetV4 在平衡 MACs 和内存带宽方面进行了投资，旨在以最低的成本获得最大的回报，特别关注网络的起始和结束部分。在网络的开头，MobileNetV4 使用大而昂贵的前几层来显著提高模型的容量和下游准确性。这些初始层主要由大量的 MACs 组成，因此它们仅在低 Ridge Point 硬件上成本较高。在网络的末端，所有 MobileNetV4 变体使用相同大小的最终全连接(FC)层以最大化准确性，尽管这导致较小尺寸的 MNV4 变体在高 Ridge Point 硬件上遭受更高的 FC 延迟。由于大的初始卷积层在低 RP 硬件上成本高，但在高 RP 硬件上并不昂贵，而最终的全连接层在高 Ridge Point 硬件上成本高，在低 Ridge Point 硬件上却不贵，MobileNetV4 模型不会同时遭受这两种减速。换句话说，MNV4 模型能够使用提高准确性的昂贵层，但不会同时承受这些层的组合成本，从而在所有脊点上都实现了几乎是最优的 Pareto 性能。经过一系列的研究，MobileNet V4 提出了以下的设计原则 :
+MobileNetV4 在平衡 MACs 和内存带宽方面进行了投资，旨在以最低的成本获得最大的回报，特别关注网络的起始和结束部分。
+
+在网络的开头，MobileNetV4 使用大而昂贵的前几层来显著提高模型的容量和下游准确性。这些初始层主要由大量的 MACs 组成，因此它们仅在低 Ridge Point 硬件上成本较高。在网络的末端，所有 MobileNetV4 变体使用相同大小的最终全连接(FC)层以最大化准确性，尽管这导致较小尺寸的 MNV4 变体在高 Ridge Point 硬件上遭受更高的 FC 延迟。
+
+由于大的初始卷积层在低 RP 硬件上成本高，但在高 RP 硬件上并不昂贵，而最终的全连接层在高 Ridge Point 硬件上成本高，在低 Ridge Point 硬件上却不贵，MobileNetV4 模型不会同时遭受这两种减速。
+
+换句话说，MNV4 模型能够使用提高准确性的昂贵层，但不会同时承受这些层的组合成本，从而在所有脊点上都实现了几乎是最优的 Pareto 性能。经过一系列的研究，MobileNet V4 提出了以下的设计原则 :
 
 - 多路径效率问题：组卷积和类似的多路径设计，尽管具有更低的浮点运算次数（FLOPcounts），但由于内存访问复杂度，可能效率较低。
 
@@ -737,15 +750,17 @@ MobileNet V4 具有以下原则:
 
 这些原则使得 MobileNetV4 在所有评估的硬件上大多数情况下都是帕累托最优的。
 
-## 网络结构
+### 网络结构
 
-### Hardware-Independent Pareto Efficiency
+#### Hardware-Independent Pareto Efficiency
 
 屋顶线模型：为了使一个模型在普遍情况下都高效，它必须能够在其理论的计算复杂度与实际硬件性能之间找到平衡。
 
 在硬件目标上表现出色，这些硬件目标的瓶颈极大地限制了模型性能，这些瓶颈主要由硬件的最高计算吞吐量和最高内存带宽决定。
 
-为此，作者使用了屋顶线模型，该模型估计给定工作负载的性能，并预测它是受内存瓶颈还是计算瓶颈的限制。简而言之，它忽略了特定的硬件细节，只考虑工作负载的操作强度（LayerMACs/(WeightBytes + ActivationBytes）与硬件处理器和内存系统的理论极限之间的关系。内存和计算操作大致是并行发生的，因此两个中较慢的那个大约决定了延迟瓶颈。为了将屋顶线模型应用于以 为索引的神经网络层，作者可以以下述方式计算模型推理延迟：
+为此，作者使用了屋顶线模型，该模型估计给定工作负载的性能，并预测它是受内存瓶颈还是计算瓶颈的限制。简而言之，它忽略了特定的硬件细节，只考虑工作负载的操作强度 LayerMACs/(WeightBytes + ActivationBytes) 与硬件处理器和内存系统的理论极限之间的关系。
+
+内存和计算操作大致是并行发生的，因此两个中较慢的那个大约决定了延迟瓶颈。为了将屋顶线模型应用于以 为索引的神经网络层，作者可以以下述方式计算模型推理延迟：
 
 $$
 MACTime_{i}=\frac{LayerMAC_{s_{i}}}{PeakMA_{s}}
@@ -758,24 +773,34 @@ $$
 $$
 MemTime_{i}=\frac{WeightBytes_{i}+AtivationBytes_{i}}{PeakMemmBW}
 $$
+
 在屋顶线模型中，硬件行为由_脊点_（RP）来总结，即硬件的峰值 MACs 与峰值 MemBW 之比。也就是说，这是实现最大性能所需的最小操作强度。
+
 如下图 2,3 所示，作者从 RP 预期的最低值（0MAC/字节）扫描到最高值（500MACs/字节）。屋顶线模型仅依赖于数据传输与计算的比率，因此具有相同 RP 的所有硬件通过延迟对工作负载的排名是相同的。3 这意味着，如果新目标的 RP 包含在扫描范围内，那么扫描-RP 的屋顶线分析（见下一段）同样适用于未来的硬件和软件。
 
 ![RP 图](./images/04.mobilenet_12.png)
 
-脊点扫描分析：如图 2 和图 3 所示，屋顶线模型揭示了 MobileNetV4 模型如何与其他卷积 MobileNets 相比，实现硬件独立的几乎帕累托最优性能。在低脊点硬件（例如 CPU）上，模型更可能受计算限制而非内存限制。因此，为了提高延迟，即使以增加内存复杂度为代价（如 MobileNetV3Large-1.5x），也要最小化总的 MAC 数量。在高脊点硬件上，数据移动是瓶颈，所以 MAC 不会显著减慢模型速度，但可以增加模型容量（如 MobileNetV1-1.5x）。因此，为低脊点优化的模型在高脊点上运行缓慢，因为内存密集和低 MAC 的全连接（FC）层受到内存带宽的限制，不能利用高可用的峰值 MAC。
+脊点扫描分析：如图 2 和图 3 所示，屋顶线模型揭示了 MobileNetV4 模型如何与其他卷积 MobileNets 相比，实现硬件独立的几乎帕累托最优性能。在低脊点硬件（例如 CPU）上，模型更可能受计算限制而非内存限制。
 
-### Universal Inverted Bottlenecks
+因此，为了提高延迟，即使以增加内存复杂度为代价（如 MobileNetV3Large-1.5x），也要最小化总的 MAC 数量。
+
+在高脊点硬件上，数据移动是瓶颈，所以 MAC 不会显著减慢模型速度，但可以增加模型容量（如 MobileNetV1-1.5x）。因此，为低脊点优化的模型在高脊点上运行缓慢，因为内存密集和低 MAC 的全连接（FC）层受到内存带宽的限制，不能利用高可用的峰值 MAC。
+
+#### Universal Inverted Bottlenecks
 
 作者提出了通用逆瓶颈（UniversalInvertedBottleneck, UIB）模块，这是一个适用于高效网络设计的可适应构建块，它具有灵活地适应各种优化目标的能力，而不会使搜索复杂度爆炸性增长。
 
 倒瓶颈（IB）模块，由 MobileNetV2 提出，已成为高效网络的标准化构建模块。
 
-基于最成功的 MobileNet 要素——可分离的深度卷积（DW）和点式（PW）扩展及倒瓶颈结构，本文引入了一种新的构建块——通用倒瓶颈（UIB）块，如下图所示。其结构相当简单。作者在倒瓶颈块中引入了两个可选的 DW，一个在扩展层之前，另一个在扩展层和投影层之间。这些 DW 的存在与否是神经网络架构搜索（NAS）优化过程的一部分，从而产生新的架构。尽管这种修改很简单，但作者的新构建块很好地统一了几个重要现有块，包括原始的 IB 块、ConvNext 块以及 ViT 中的 FFN 块。此外，UIB 还引入了一种新的变体：额外的深度卷积 IB（ExtraDW）块。
+基于最成功的 MobileNet 要素——可分离的深度卷积（DW）和点式（PW）扩展及倒瓶颈结构，本文引入了一种新的构建块——通用倒瓶颈（UIB）块，如下图所示。其结构相当简单。
+
+作者在倒瓶颈块中引入了两个可选的 DW，一个在扩展层之前，另一个在扩展层和投影层之间。这些 DW 的存在与否是神经网络架构搜索（NAS）优化过程的一部分，从而产生新的架构。尽管这种修改很简单，但作者的新构建块很好地统一了几个重要现有块，包括原始的 IB 块、ConvNext 块以及 ViT 中的 FFN 块。此外，UIB 还引入了一种新的变体：额外的深度卷积 IB（ExtraDW）块。
 
 ![RP 图](./images/04.mobilenet_13.png)
 
-除了在神经网络架构搜索（NAS）过程中允许灵活的中间层（IB）结构外，作者还避免了任何人为设计的缩放规则，比如在 EfficientNet 中使用的那种，而是为每个模型大小单独优化结构。为了防止 NAS 超级网络的大小爆炸性增长，作者共享了通用组件（逐点扩展和投影）并简单地将深度可分离卷积（DWs）作为额外的搜索选项添加进去。结合基于超级网络的网络架构搜索算法，这种方法使得大多数参数（大于 95%）可以在不同的实例之间共享，使得 NAS 变得极其高效。
+除了在神经网络架构搜索（NAS）过程中允许灵活的中间层（IB）结构外，作者还避免了任何人为设计的缩放规则，比如在 EfficientNet 中使用的那种，而是为每个模型大小单独优化结构。
+
+为了防止 NAS 超级网络的大小爆炸性增长，作者共享了通用组件（逐点扩展和投影）并简单地将深度可分离卷积（DWs）作为额外的搜索选项添加进去。结合基于超级网络的网络架构搜索算法，这种方法使得大多数参数（大于 95%）可以在不同的实例之间共享，使得 NAS 变得极其高效。
 
 倒瓶颈（IB）- 在扩展的特征激活上进行空间混合，以增加成本为代价提供更大的模型容量。
 
@@ -785,15 +810,19 @@ ExtraDW 是本文提出的一种新变体，它允许廉价地增加网络的深
 
 FFN 是由两个 1x1 的点状卷积（PW）堆叠而成，并在它们之间加入激活和标准化层。PW 是最受加速器友好的操作之一，但最好与其他模块一起使用。
 
-### MobileMQA
+#### MobileMQA
 
 在本节中，作者介绍了 MobileMQA，这是一个专门为加速器优化的新型注意力块，它能提供超过 39%的推理速度提升。
 
 操作强度的重要性：近期在视觉模型的研究中，人们大多致力于减少算术运算（MACs）以提高效率。然而，在移动加速器上性能的真正瓶颈往往不是计算而是内存访问。这是因为加速器提供的计算能力远大于内存带宽。因此，仅仅最小化 MACs 可能并不会导致更好的性能。相反，作者必须考虑操作强度，即算术运算与内存访问的比率。
 
-MQA 在混合模型中是高效的：MHSA 将 Query、键和值投影到多个空间以捕捉信息的不同方面。多 Query 注意力（MQA） 通过在所有头之间使用共享的键和值简化了这一点。尽管多个 Query 头是必要的，但大型语言模型可以有效共享单个键和值的头，而不会牺牲准确度。对于键和值使用一个共享的头，当批处理的 Token 数量相对于特征维度较小时，可以大大减少内存访问需求，从而显著提高操作强度。这对于面向移动应用的混合视觉模型通常是这种情况，在这种情况下，仅在具有高特征维度的低分辨率后期阶段使用注意力，并且批大小通常为 1。作者的实验证实了 MQA 在混合模型中的优势。如表 1 所示，与 MHSA 相比，MQA 在 EdgeTPUs 和三星 S23GPU 上实现了超过 39%的加速，而质量损失可以忽略不计（-0.03%）。MQA 还将 MACs 和模型参数减少了 25%以上。据作者所知，作者是第一个在移动视觉中使用 MQA 的。
+MQA 在混合模型中是高效的：MHSA 将 Query、键和值投影到多个空间以捕捉信息的不同方面。多 Query 注意力（MQA） 通过在所有头之间使用共享的键和值简化了这一点。尽管多个 Query 头是必要的，但大型语言模型可以有效共享单个键和值的头，而不会牺牲准确度。对于键和值使用一个共享的头，当批处理的 Token 数量相对于特征维度较小时，可以大大减少内存访问需求，从而显著提高操作强度。
 
-采用非对称空间下采样： 受到 MQA 的启发，它在 Query、键和值之间使用非对称计算，作者将空间缩减注意力（SRA）融合到作者优化的 MQA 模块中，以降低键和值的分辨率，同时保持高分辨率 Query。这一策略是由混合模型中空间相邻标记之间的观察到的相关性所启发的，这归因于早期层中的空间混合卷积滤波器。通过非对称空间下采样，作者在输入和输出之间保持了相同的标记数量，保持了注意力的高分辨率并显著提高了效率。与不同，作者的方法用步长为 2 的 3x3 深度卷积替换了 AvgPooling，为提高模型容量提供了一种成本效益高的方式。
+这对于面向移动应用的混合视觉模型通常是这种情况，在这种情况下，仅在具有高特征维度的低分辨率后期阶段使用注意力，并且批大小通常为 1。作者的实验证实了 MQA 在混合模型中的优势。如表 1 所示，与 MHSA 相比，MQA 在 EdgeTPUs 和三星 S23GPU 上实现了超过 39%的加速，而质量损失可以忽略不计（-0.03%）。MQA 还将 MACs 和模型参数减少了 25%以上。据作者所知，作者是第一个在移动视觉中使用 MQA 的。
+
+采用非对称空间下采样： 受到 MQA 的启发，它在 Query、键和值之间使用非对称计算，作者将空间缩减注意力（SRA）融合到作者优化的 MQA 模块中，以降低键和值的分辨率，同时保持高分辨率 Query。这一策略是由混合模型中空间相邻标记之间的观察到的相关性所启发的，这归因于早期层中的空间混合卷积滤波器。
+
+通过非对称空间下采样，作者在输入和输出之间保持了相同的标记数量，保持了注意力的高分辨率并显著提高了效率。与不同，作者的方法用步长为 2 的 3x3 深度卷积替换了 AvgPooling，为提高模型容量提供了一种成本效益高的方式。
 
 移动 MQA 这里作者提出了作者的移动 MQA 模块：
 
@@ -807,7 +836,7 @@ $$
 
 其中 SR 表示空间缩减，在作者设计中是指步长为 2 的深度可分离卷积（DW），或者在未使用空间缩减的情况下的恒等函数。结合非对称空间下采样可以在极小的精度损失（-0.06%）情况下，带来超过 20%的效率提升。
 
-### Refining NAS for Enhanced Architectures
+#### Refining NAS for Enhanced Architectures
 
 为了有效地实例化 UIB 块，作者采用了针对性能改进定制的 TuNAS。
 
@@ -845,8 +874,7 @@ $$
 
 需要注意的是，通过将作者的搜索空间限制在跨设备具有良好相关成本模型的组件上，作者发现 EdgeTPU 延迟优化可以直接产生普遍高效的模型。
 
-
-## 代码
+### 代码
 
 ```python
 '''
@@ -1245,12 +1273,23 @@ class MobileNetV4(nn.Module):
         return [x1, x2, x3, x4, x5]
 ```
 
+======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
 
+## 小结
 
+MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动设备和嵌入式系统。其主要特点包括采用深度可分离卷积技术、具有宽度和分辨率调整系数、低延迟、低计算资源占用，以及广泛应用于多种计算机视觉任务。MobileNet V2 是在 V1 基础上提出的升级版轻量级深度学习卷积神经网络（CNN）架构。
 
-# 小结
+在提高性能的同时保持了低计算复杂性和参数数量的优势，适用于移动设备和嵌入式系统。MobileNet V3 是在 V2 基础上进一步优化的轻量级深度学习卷积神经网络（CNN）架构。
 
-MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动设备和嵌入式系统。其主要特点包括采用深度可分离卷积技术、具有宽度和分辨率调整系数、低延迟、低计算资源占用，以及广泛应用于多种计算机视觉任务。MobileNet V2 是在 V1 基础上提出的升级版轻量级深度学习卷积神经网络（CNN）架构。它在提高性能的同时保持了低计算复杂性和参数数量的优势，适用于移动设备和嵌入式系统。MobileNet V3 是在 V2 基础上进一步优化的轻量级深度学习卷积神经网络（CNN）架构。它继承了 MobileNet V1 和 MobileNet V2 的优点，同时融合了神经网络架构搜索技术（Neural Architecture Search，NAS），在性能和效率方面取得了更大的提升。MobileNet V4 引入了新的通用反转瓶颈和移动 MQA 层，并结合了改进的神经架构搜索（NAS）方法。将这些与一种新颖的、最先进的蒸馏方法相结合，作者在 Pixel8EdgeTPU 上以 3.8 毫秒的延迟达到了 87%的 ImageNet-1K 准确度，推进了移动计算机视觉的最新技术水平。
+它继承了 MobileNet V1 和 MobileNet V2 的优点，同时融合了神经网络架构搜索技术（Neural Architecture Search，NAS），在性能和效率方面取得了更大的提升。MobileNet V4 引入了新的通用反转瓶颈和移动 MQA 层，并结合了改进的神经架构搜索（NAS）方法。
+
+将这些与一种新颖的、最先进的蒸馏方法相结合，作者在 Pixel8EdgeTPU 上以 3.8 毫秒的延迟达到了 87%的 ImageNet-1K 准确度，推进了移动计算机视觉的最新技术水平。
+
+## 本节视频
+
+<html>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1Y84y1b7xj&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</html>
 
 ## 参考文献
 
@@ -1316,11 +1355,4 @@ MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动�
 
 30.[Pavan Kumar Anasosalu Vasu, James Gabriel, Jeff Zhu, Oncel Tuzel, and Anurag Ranjan. Fastvit: A fast hybrid vision transformer using structural reparameterization. arXiv preprint arXiv:2303.14189, 2023.](https://arxiv.org/pdf/2303.14189.pdf)
 
-## 本节视频
-
-<html>
-
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1Y84y1b7xj&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-</html>
 
