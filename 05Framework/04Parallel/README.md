@@ -14,22 +14,28 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 分布式并行 | 01 基本介绍| [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1ve411w7DL/) |
-| 分布式并行 | 02 数据并行| [PPT](./02.data_parallel.pdf), [视频](https://www.bilibili.com/video/BV1JK411S7gL/) |
-| 分布式并行 | 03 模型并行之张量并行 | [PPT](./03.tensor_parallel.pdf), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/) |
-| 分布式并行 | 04 MindSpore 张量并行 | [PPT](./04.mindspore_parallel.pdf), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/) |
-| 分布式并行 | 05 模型并行之流水并行 | [PPT](./05.pipeline_parallel.pdf), [视频](https://www.bilibili.com/video/BV1WD4y1t7Ba/) |
-| 分布式并行 | 06 混合并行| [PPT](./06.hybrid_parallel.pdf), [视频](https://www.bilibili.com/video/BV1gD4y1t7Ut/) |
-| 分布式汇总 | 07 分布式训练总结 | [PPT](./07.summary.pdf), [视频](https://www.bilibili.com/video/BV1av4y1S7DQ/) |
+| 分布式并行 | 01 基本介绍 | [文章](./01Introduction.md), [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1ve411w7DL/) |
+| 分布式并行 | 02 数据并行 | [文章](./02DataParallel.md), [PPT](./02DataParallel.pdf), [视频](https://www.bilibili.com/video/BV1JK411S7gL/) |
+| 分布式并行 | 03 模型并行之张量并行 | [文章](./03TensorParallel.md), [PPT](./03TensorParallel.pdf), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/) |
+| 分布式并行 | 04 MindSpore 张量并行 | [文章](./04MindsporeParallel.md), [PPT](./04MindsporeParallel.pdf), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/) |
+| 分布式并行 | 05 模型并行之流水并行 | [文章](./05PipelineParallel.md), [PPT](./05PipelineParallel.pdf), [视频](https://www.bilibili.com/video/BV1WD4y1t7Ba/) |
+| 分布式并行 | 06 多维混合并行 | [文章](./06HybridParallel.md), [PPT](./06HybridParallel.pdf), [视频](https://www.bilibili.com/video/BV1gD4y1t7Ut/) |
+| 分布式汇总 | 07 分布式训练总结 | [文章](./07Summary.md), [PPT](./07Summary.pdf), [视频](https://www.bilibili.com/video/BV1av4y1S7DQ/) |
+
+## 备注
+
+文字课程内容正在一节节补充更新，每晚会抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
+
+文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/AISystem)，欢迎取用！！！
+
+> 非常希望您也参与到这个开源项目中，B 站给 ZOMI 留言哦！
+>
+> 欢迎大家使用的过程中发现 bug 或者勘误直接提交代码 PR 到开源社区哦！
+>
+> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
 
 ```toc
 :maxdepth: 2
 
-01.introduction
-02.data_parallel
-03.tensor_parallel
-04.mindspore_parallel
-05.pipeline_parallel
-06.hybrid_parallel
-07.summary
+
 ```
