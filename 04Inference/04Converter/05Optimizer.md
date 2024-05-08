@@ -1,16 +1,16 @@
-<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/DeepLearningSystem)版权许可-->
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
 # 计算图优化
 
-## 推理引擎架构
-
-现在来到推理引擎转换中的图优化模块，这里主要负责实现计算图中的算子融合、布局转换、算子替换、内存优化等非常多不同的类型的优化的 parts，以达到更好的推理效果。
+现在来到推理引擎转换中的图优化模块，这里主要负责实现计算图中的算子融合、布局转换、算子替换、内存优化等非常多不同的类型的优化的 pass，以达到更好的推理效果。
 
 ![推理引擎架构](image/infer_engine.png)
 
+======= 这里要介绍计算图优化，本节要介绍的内容哦
+
 ## 挑战与架构
 
-### 挑战
+### 离线模块的挑战
 
 首先整体看下在离线优化模块中的挑战和架构，在最开始第一节内容的时候其实已经跟大家详细的普及过，优化模块的挑战主要由以下几部分组成：
 
@@ -49,7 +49,9 @@
 
   - 内存分配的优化：内存分配的优化主要是通过合理的内存管理策略，来减少内存的分配和回收开销。例如，可以使用内存池（memory pool）来管理内存，将经常使用的内存块预先分配好，然后在需要时直接从内存池中获取，避免频繁的内存分配和回收操作。此外，也可以使用一些高级的内存管理技术，如垃圾回收（garbage collection）和引用计数（reference counting）等。
 
-### 架构
+====== 取消目录结构，按照文章的方式平铺哈，有必要就分1.2.3 这种。
+
+### 转换模块架构
 
 针对于这些挑战，设计了整个转换模块的架构，可以看到转换模块分为两层：
 
@@ -69,6 +71,8 @@ Post Optimize: 最后的优化阶段负责对数据的格式转换，以及相�
 
 ![转换模块的工作流程](image/converter02.png)
 
+上面的内容可以删掉了，在前一篇文章里面有，这里面聚焦计算图优化。其实上面的内容，是引导到计算图优化的，因为有很多XXXX原因，需要实现计算图优化。弱化上面的背景
+
 ## 计算图优化
 
 现在来到了核心内容，离线优化模块的计算图优化。早在本章节之前，AI 编译器的前端优化已经讲述了很多计算图优化相关的内容。但这些是基于 AI 框架实现的且通常出现于训练场景中，主要原因在于在在线训练的过程中。实验时间的要求相对宽松，所以可以引入较多的 GIT 编译或者是其他编译。
@@ -79,67 +83,76 @@ Post Optimize: 最后的优化阶段负责对数据的格式转换，以及相�
 
 ### 图优化方式
 
+=========== 去掉目录结构，basic 是什么，Extended是什么，用文字描述出来哈。
+
 - Basic: 基础优化涵盖了所有保留计算图语义的修改，如：常量折叠、冗余节点消除和有限数量的算子融合。
 
-  常量折叠：
+常量折叠：
 
-  ```python
-  #Before optimization
-  x = 2，y = 3，z = x * y
-  #After constant folding
-  z = 6
-  ```
+```python
+#Before optimization
+x = 2，y = 3，z = x * y
+#After constant folding
+z = 6
+```
 
-  冗余节点消除：
+冗余节点消除：
 
-  ```python
-  #Before optimization
-  x = a + b，y = c + d，z = x
-  #After constant folding
-  z = a + b
-  ```
+```python
+#Before optimization
+x = a + b，y = c + d，z = x
+#After constant folding
+z = a + b
+```
 
-  有限数量的算子融合：
+有限数量的算子融合：
 
-  ```python
-  #Before optimization
-  x = a + b，y = x * c
-  #After constant folding
-  y = (a + b) * c
-  ```
+```python
+#Before optimization
+x = a + b，y = x * c
+#After constant folding
+y = (a + b) * c
+```
 
 - Extended: 扩展优化仅在运行特定后端，如 CPU、CUDA、NPU  后端执行提供程序时适用。其针对硬件进行特殊且复杂的 Kernel 融合策略和方法。
 
-  示例： CUDA 后端的算子融合
+示例： CUDA 后端的算子融合
 
-  ```C++
-  // 优化前：（1）独立的 CUDA 内核实现加法
-  __global__ void add(float *x, float *y, float *z, int n) {
-      int index = threadIdx.x;
-      if (index < n) {
-          z[index] = x[index] + y[index];
-      }
-  }
-  //优化前：（2）独立的 CUDA 内核实现乘法
-  __global__ void mul(float *x, float *y, float *z, int n) {
-      int index = threadIdx.x;
-      if (index < n) {
-          z[index] = x[index] * y[index];
-      }
-  }
-  //优化后：单一 CUDA 内核实现加法和乘法，减少数据从全局内存到设备内存的传输次数，从而提高计算效率
-  __global__ void add(float *x, float *y, float *z, int n) {
-      int index = threadIdx.x;
-      if (index < n) {
-          float tmp = x[index] + y[index];
-          w[index] = tmp * z[index];
-      }
-  }
-  ```
+```C++
+// 优化前：（1）独立的 CUDA 内核实现加法
+__global__ void add(float *x, float *y, float *z, int n) {
+    int index = threadIdx.x;
+    if (index < n) {
+        z[index] = x[index] + y[index];
+    }
+}
+//优化前：（2）独立的 CUDA 内核实现乘法
+__global__ void mul(float *x, float *y, float *z, int n) {
+    int index = threadIdx.x;
+    if (index < n) {
+        z[index] = x[index] * y[index];
+    }
+}
+```
+
+======= 详细介绍对应内容
+
+```C++
+//优化后：单一 CUDA 内核实现加法和乘法，减少数据从全局内存到设备内存的传输次数，从而提高计算效率
+__global__ void add(float *x, float *y, float *z, int n) {
+    int index = threadIdx.x;
+    if (index < n) {
+        float tmp = x[index] + y[index];
+        w[index] = tmp * z[index];
+    }
+}
+```
 
 - Layout & Memory: 布局转换优化，主要是不同 AI 框架，在不同的硬件后端训练又在不同的硬件后端执行，数据的存储和排布格式不同。
 
-  例如在 TensorFlow 中，数据默认以"NHWC"（批量大小、高度、宽度、通道数）的格式存储，而在 PyTorch 中，数据默认以"NCHW"（批量大小、通道数、高度、宽度）的格式存储。当在不同的硬件后端进行训练和执行时，可能需要进行类似的数据格式转换，以确保数据能够在不同的环境中正确地被处理。
+===== 取消目录结构，根据自己的理解详细展开内容哈
+
+例如在 TensorFlow 中，数据默认以"NHWC"（批量大小、高度、宽度、通道数）的格式存储，而在 PyTorch 中，数据默认以"NCHW"（批量大小、通道数、高度、宽度）的格式存储。当在不同的硬件后端进行训练和执行时，可能需要进行类似的数据格式转换，以确保数据能够在不同的环境中正确地被处理。
 
 在讲述了图优化的相关方式之后，这些方法与架构中优化模块的对应关系如下所示：
 
@@ -149,19 +162,13 @@ Post Optimize: 最后的优化阶段负责对数据的格式转换，以及相�
 
 - Post Optimize: 最后的部分则主要位 extend 的优化方式以及 layout 和 memory 的优化方式
 
-## ONNX Runtime 图优化
+## ONNX Runtime 图优化示例
 
 ONNX Runtime（Open Neural Network Exchange Runtime，简称 ORT），这是一个用于神经网络模型推理的跨平台库。
 
 ONNXRuntime 支持多种运行后端包括 CPU，GPU，TensorRT，DML 等。可以说 ONNXRuntime 是对 ONNX 模型最原生的支持，只要掌握模型导出的相应操作，便能对将不同框架的模型进行部署，提高开发效率。
 
-- 官网：https://onnxruntime.ai/
-
-- python-ORT 教程：https://onnxruntime.ai/docs/api/python/index.html
-
-- C++ - ORT 教程：https://onnxruntime.ai/docs/api/c/
-
-- github 下载：https://github.com/microsoft/onnxruntime/releases
+======= 内容太过于简陋啦，一定要深入哈，深入找一个图优化示例，用 PyTorch 的Trition等都可以。
 
 ### Levels
 
@@ -192,7 +199,7 @@ auto session_ = Ort::Session(env, "optimized_file_path", session_options)
 
 ## 计算图优化回顾
 
-1）小结 
+## 小姐诶 
 
 本章节简要围绕计算图优化的基础内容进行了介绍，在了解当前挑战与架构的基础上，梳理了计算图优化的相关方式，同时结合示例描述了主流图优化方法 ONNX Runtime
 
@@ -202,4 +209,10 @@ auto session_ = Ort::Session(env, "optimized_file_path", session_options)
 
 - Example - ONNX Runtime 图优化
 
-2）视频更新链接：<iframe src="https://www.bilibili.com/video/BV1g84y1L7tF/?vd_source=48d8e5ac90484eed50f6a9e77c0e730e&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+====== 取消目录结构，用一段话来描述哈。
+
+## 本节视频
+
+<html>
+<iframe src="https://www.bilibili.com/video/BV1g84y1L7tF/?vd_source=48d8e5ac90484eed50f6a9e77c0e730e&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</html>

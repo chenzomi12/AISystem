@@ -12,10 +12,10 @@ AI 框架基础内容介绍，从 AI 框架基础开始去介绍为什么我们�
 
 | 小节 | 链接|
 |:--:|:--:|
-| 01 基本介绍| [文章](./01.introduction.md), [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1he4y1z7oD), [字幕](./srt/01.srt) |
-| 02 AI 框架的作用| [文章](./02.fundamentals.md), [PPT](./02.fundamentals.pdf), [视频](https://www.bilibili.com/video/BV1fd4y1q7qk), [字幕](./srt/02.srt) |
-| 03 AI 框架之争（框架发展）| [文章](./03.history.md), [PPT](./03.history.pdf), [视频](https://www.bilibili.com/video/BV1C8411x7Kn), [字幕](./srt/03.srt) |
-| 04 编程范式（声明式&命令式） | [文章](./04.programing.md), [PPT](./04.programing.pdf), [视频](https://www.bilibili.com/video/BV1gR4y1o7WT), [字幕](./srt/04.srt) |
+| 01 基本介绍| [文章](./01Introduction.md), [PPT](./01Introduction.md), [视频](https://www.bilibili.com/video/BV1he4y1z7oD), [字幕](./srt/01.srt) |
+| 02 AI 框架的作用| [文章](./02Fundamentals.md), [PPT](./02Fundamentals.pdf), [视频](https://www.bilibili.com/video/BV1fd4y1q7qk), [字幕](./srt/02.srt) |
+| 03 AI 框架之争（框架发展）| [文章](./03History.md), [PPT](./03History.pdf), [视频](https://www.bilibili.com/video/BV1C8411x7Kn), [字幕](./srt/03.srt) |
+| 04 编程范式（声明式&命令式） | [文章](./04Programing.md), [PPT](./04Programing.pdf), [视频](https://www.bilibili.com/video/BV1gR4y1o7WT), [字幕](./srt/04.srt) |
 
 ## 备注
 

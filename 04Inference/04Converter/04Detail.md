@@ -1,6 +1,12 @@
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # 模型转换流程
 
-用户在使用深度学习框架时，可能会遇到训练环境和部署环境不匹配的情况，比如用户用 Caffe 训练好了一个图像识别的模型，但是生产环境是使用 TensorFlow 做预测。因此就需要将使用不同训练框架训练出来的模型相互联系起来，使用户可以进行快速的转换。模型转换主要有**直接转换**和**规范式转换**两种方式，本文将详细介绍这两种转换方式的流程以及相关的技术细节。
+======== 整体问题跟前面的几篇类似，因此统一审视以下哈。
+
+用户在使用深度学习框架时，可能会遇到训练环境和部署环境不匹配的情况，比如用户用 Caffe 训练好了一个图像识别的模型，但是生产环境是使用 TensorFlow 做预测。
+
+因此就需要将使用不同训练框架训练出来的模型相互联系起来，使用户可以进行快速的转换。模型转换主要有**直接转换**和**规范式转换**两种方式，本文将详细介绍这两种转换方式的流程以及相关的技术细节。
 
 ## 模型转换技术的设计思路
 
@@ -187,7 +193,15 @@ else:
 
 ## 总结
 
-模型转换是指将不同框架的模型格式转换为推理引擎统一的计算图表示。本文介绍了直接转换和规范式转换两种主要方式：直接转换和规范式转换。然后介绍了模型转换的通用流程，包括生成计算图、对接通用算子、目标格式转换和模型保存。模型转换直接关系到模型在不同框架间的部署和应用效果，因此在实践中需要结合具体需求和场景选择合适的转换方式和工具。
+模型转换是指将不同框架的模型格式转换为推理引擎统一的计算图表示。本文介绍了直接转换和规范式转换两种主要方式：直接转换和规范式转换。
+
+然后介绍了模型转换的通用流程，包括生成计算图、对接通用算子、目标格式转换和模型保存。模型转换直接关系到模型在不同框架间的部署和应用效果，因此在实践中需要结合具体需求和场景选择合适的转换方式和工具。
+
+## 本节视频
+
+<html>
+<iframe src="https://www.bilibili.com/video/BV13341197zU/?spm_id_from=333.880.my_history.page.click&vd_source=57ec244afa109ba4ee6346389a5f32f7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</html>
 
 ## 参考文章
 
@@ -200,9 +214,3 @@ else:
 7. [Open Neural Network Exchange Intermediate Representation (ONNX IR) Specification](https://github.com/onnx/onnx/blob/main/docs/IR.md)
 8. [模型部署入门教程（一）：模型部署简介](https://zhuanlan.zhihu.com/p/477743341)
 9. [模型部署入门教程（三）：PyTorch 转 ONNX 详解](https://zhuanlan.zhihu.com/p/498425043)
-
-## 本节视频
-
-<html>
-<iframe src="https://www.bilibili.com/video/BV13341197zU/?spm_id_from=333.880.my_history.page.click&vd_source=57ec244afa109ba4ee6346389a5f32f7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-</html>
