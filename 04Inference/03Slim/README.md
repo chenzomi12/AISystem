@@ -14,13 +14,13 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 模型压缩 | 01 基本介绍 | [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1384y187tL/)|
-| 模型压缩 | 02 低比特量化原理| [PPT](./02.quant.pdf), [视频](https://www.bilibili.com/video/BV1VD4y1n7AR/) |
-| 模型压缩 | 03 感知量化训练 QAT | [PPT](./03.qat.pdf), [视频](https://www.bilibili.com/video/BV1s8411w7b9/) |
-| 模型压缩 | 04 训练后量化 PTQ 与部署| [PPT](./04.ptq.pdf), [视频](https://www.bilibili.com/video/BV1HD4y1n7E1/) |
-| 模型压缩 | 05 模型剪枝 | [PPT](./05.pruning.pdf), [视频](https://www.bilibili.com/video/BV1y34y1Z7KQ/) |
-| 模型压缩 | 06(上) 知识蒸馏原理| [PPT](./06.distillation.pdf), [视频](https://www.bilibili.com/video/BV1My4y197Tf/)|
-| 模型压缩 | 06(下) 知识蒸馏算法| [PPT](./06.distillation.pdf), [视频](https://www.bilibili.com/video/BV1vA411d7MF/)|
+| 模型压缩 | 01 基本介绍 | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1384y187tL/)|
+| 模型压缩 | 02 低比特量化原理 | [文章](./02Quant.md), [PPT](./02Quant.pdf), [视频](https://www.bilibili.com/video/BV1VD4y1n7AR/) |
+| 模型压缩 | 03 感知量化训练 QAT | [文章](./03QAT.md), [PPT](./03QAT.pdf), [视频](https://www.bilibili.com/video/BV1s8411w7b9/) |
+| 模型压缩 | 04 训练后量化 PTQ 与部署| [文章](./04PTQ.md), [PPT](./04PTQ.pdf), [视频](https://www.bilibili.com/video/BV1HD4y1n7E1/) |
+| 模型压缩 | 05 模型剪枝 | [文章](./05Pruning.md), [PPT](./05Pruning.pdf), [视频](https://www.bilibili.com/video/BV1y34y1Z7KQ/) |
+| 模型压缩 | 06(上) 知识蒸馏原理 | [文章](./06Distillation.md), [PPT](./06Distillation.pdf), [视频](https://www.bilibili.com/video/BV1My4y197Tf/)|
+| 模型压缩 | 06(下) 知识蒸馏算法 | [文章](./06Distillation.md), [PPT](./06Distillation.pdf), [视频](https://www.bilibili.com/video/BV1vA411d7MF/)|
 
 ## 备注
 

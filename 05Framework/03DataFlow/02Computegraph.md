@@ -26,7 +26,7 @@
 
 因此派生出了目前主流的 AI 框架都选择使用**计算图**来抽象神经网络计算。
 
-![计算图/数据流图](../images/023FW_DataFlow/graph_framework01.png)
+![计算图/数据流图](./images/graph_framework01.png)
 
 ### 计算图的定义
 
@@ -43,7 +43,7 @@ $$ f(x1,x2)=ln(x1)+x1x2−sin(x2) $$
 
 对上述公式转换为对应的计算图。
 
-![计算图/数据流图](../images/023FW_DataFlow/forward_mode01.png)
+![计算图/数据流图](./images/forward_mode01.png)
 :width:`650px`
 
 ## 计算图的基本构成
