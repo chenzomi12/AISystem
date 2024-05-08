@@ -1,4 +1,4 @@
-<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
 # AI 芯片基础
 
@@ -15,12 +15,12 @@
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
 | AI 芯片基础 | 01 CPU 基础| [文章](./01CPUBase.md), [slide](./01CPUBase.pdf), [video](https://www.bilibili.com/video/BV1tv4y1V72f/)|
-| AI 芯片基础 | 02 CPU 指令集架构 | [slide](./02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/) |
-| AI 芯片基础 | 03 CPU 计算本质| [slide](./03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)|
-| AI 芯片基础 | 04 CPU 计算时延| [slide](./04.cpu_latency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/) |
-| AI 芯片基础 | 05 GPU 基础| [文章](./05GPUBase.md), [slide](./05GPUBase.md), [video](https://www.bilibili.com/video/BV1sM411T72Q/) |
-| AI 芯片基础 | 06 NPU 基础| [slide](./06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)|
-| AI 芯片基础 | 07 超异构计算 | [slide](./07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK) |
+| AI 芯片基础 | 02 CPU 指令集架构 | [文章](./02CPUISA.md), [slide](./02CPUISA.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/) |
+| AI 芯片基础 | 03 CPU 计算本质| [文章](./03CPUData.md), [slide](./03CPUData.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/)|
+| AI 芯片基础 | 04 CPU 计算时延| [文章](./04CPULatency.md), [slide](./04CPULatency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/) |
+| AI 芯片基础 | 05 GPU 基础| [文章](./05GPUBase.md), [slide](./05GPUBase.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/) |
+| AI 芯片基础 | 06 NPU 基础| [文章](./06NPUBase.md), [slide](./06NPUBase.pdf), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/)|
+| AI 芯片基础 | 07 超异构计算 | [文章](./07Future.md), [slide](./07Future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK) |
 
 ## 备注
 

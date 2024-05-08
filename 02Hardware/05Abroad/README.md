@@ -12,11 +12,11 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 国外 AI 芯片 | 01 特斯拉 DOJO 架构 | [slide](./01.DOJO_Arch.pdf), [video](https://www.bilibili.com/video/BV1Ro4y1M7n8/) |
-| 国外 AI 芯片 | 02 特斯拉 DOJO 细节 | [slide](./02.DOJO_Detail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/) |
-| 国外 AI 芯片 | 03 特斯拉 DOJO 存算系统 | [slide](./03.DOJO_System.pdf), [video](https://www.bilibili.com/video/BV1Ez4y1e7zo/) |
+| 国外 AI 芯片 | 01 特斯拉 DOJO 架构 | [slide](./01.DOJOArch.pdf), [video](https://www.bilibili.com/video/BV1Ro4y1M7n8/) |
+| 国外 AI 芯片 | 02 特斯拉 DOJO 细节 | [slide](./02.DOJODetail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/) |
+| 国外 AI 芯片 | 03 特斯拉 DOJO 存算系统 | [slide](./03.DOJOSystem.pdf), [video](https://www.bilibili.com/video/BV1Ez4y1e7zo/) |
 |:--:|:--:|:--:|
-| 国外 AI 芯片 | 04 谷歌 TPU 芯片发展 | [slide](./04.TPU_Introl.pdf), [video](https://www.bilibili.com/video/BV1Dp4y1V7PF/) |
+| 国外 AI 芯片 | 04 谷歌 TPU 芯片发展 | [slide](./04.TPUIntrol.pdf), [video](https://www.bilibili.com/video/BV1Dp4y1V7PF/) |
 | 国外 AI 芯片 | 05 谷歌 TPU1 脉动阵列 | [slide](./05.TPU1.pdf), [video](https://www.bilibili.com/video/BV12P411W7YC/) |
 | 国外 AI 芯片 | 06 谷歌 TPU2 推理到训练 | [slide](./06.TPU2.pdf), [video](https://www.bilibili.com/video/BV1x84y1f7Ex/) |
 | 国外 AI 芯片 | 07 谷歌 TPU3 POD 超节点 | [slide](./07.TPU3.pdf), [video](https://www.bilibili.com/video/BV1Pm4y1g7MG/) |
@@ -25,7 +25,6 @@
 |:--:|:--:|:--:|
 | 国外 AI 芯片 | 09 TPU 创世人发布 Groq 芯片  | [slide](./09.Groq.pdf), [video](https://www.bilibili.com/video/BV1jx421C7mG) |
 |:--:|:--:|:--:|
-| 国外 AI 芯片 | 10 Meta 发布自家 MTIA 芯片 | [slide](./10.MTIA.pdf), [video]() |
 
 ## 备注
 

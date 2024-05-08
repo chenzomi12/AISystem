@@ -1,0 +1,11 @@
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# 特斯拉 DOJO Core 原理
+
+> 待更新中，卷的不行了卷得不行了！ZOMI 一个人晚上下班后才能更新视频和文章，如果您有兴趣也非常希望您能够参与进来（Github Issues 区留言或者 B 站私信 ZOMI 哦），一起写 AI 系统，一起分享 AI 系统的知识。
+
+## 本节视频
+
+<html>
+<iframe src="https://player.bilibili.com/player.html?aid=402167691&bvid=BV17o4y1N7Yn&cid=1160734973&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</html>

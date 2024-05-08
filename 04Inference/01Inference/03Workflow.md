@@ -1,3 +1,5 @@
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # 推理流程全景
 
 本节介绍深度学习模型在部署态中的两种方式：云侧部署和边缘侧部署。其中，云侧部署适用于云服务器等具备强大计算能力和存储空间的环境，可以实现高吞吐量和集中的数据管理，但可能面临高成本、网络延迟和数据隐私等挑战。
@@ -48,9 +50,13 @@
 云端部署推理系统的确具备诸多显著优点，使其成为众多企业和项目首选的部署方式。然而，云端部署并非万能解决方案，也伴随着一些特定的挑战。
 
 - 人工智能的服务成本非常高昂。因为需要云端的服务你就需要大量的机器，大量的容灾，大量的各种设备维护机房，所以它整体的成本是很高的。
+
 - 推理服务对网络的依赖高。用户请求需要通过网络传输到云端进行处理，再返回结果，可能导致一定延迟。对于对实时性要求极高的应用（如实时语音识别、远程操控），网络延迟可能成为关键瓶颈。
+
 - 数据隐私问题。在某些应用场景下，数据可能包含敏感信息，直接上传至云端进行推理可能引发隐私问题或不符合数据保护法规的要求。此时，可能需要采用加密、差分隐私等技术，或考虑边缘端推理以减少数据外传。
+
 - 数据传输成本。当推理过程中涉及大量数据传输（如高清视频流分析）时，可能会产生较高的带宽费用，尤其是在大规模部署和高并发情况下。数据传输成本不仅是网络带宽使用费，也可能包括因数据传输而产生的电力消耗、硬件磨损等间接成本。
+
 - 难以定制化模型。云端一般都会做一些通用的模型，很难定制化模型。
 
 ### 边缘侧部署特点与挑战
@@ -90,7 +96,7 @@
 
 |      | 云端部署                           | 端侧部署                    |
 |:---- | ------------------------------ | ----------------------- |
-| 算力   | 算力强大（TFLOPS,并行可扩展），适合训练和推理阶段计算 | 算力有限，水平扩展性差，更适合推理阶段前向计算 |
+| 算力   | 算力强大（TFLOPS，行可扩展），适合训练和推理阶段计算 | 算力有限，水平扩展性差，更适合推理阶段前向计算 |
 | 时延   | 主要的时延来自网络传输和计算开销               | 本地计算无网络开销或者开销很低，实时响应要求高 |
 | 网络依赖 | 强依赖                            | 弱依赖                     |
 | 能耗   | 百瓦以上                           | 几十瓦，能耗比高                |
@@ -159,6 +165,10 @@
 
 最后一种方式是利用 DNN 独特的层的结构，让一些层在边缘设备上计算，一些层由边缘服务器或云端计算。这种方法可以通过利用其他边缘设备的计算周期来潜在地提供延迟减少，但是还需要注意的是，在 DNN 分区点传递中间结果的延迟会影响总体的收益。
 
+## 小结
+
+====== 加一段自己的个人理解
+
 ## 本节视频
 
 <html>
@@ -174,7 +184,7 @@
 5. Optimal Aggregation Policy for Reducing Tail Latency of Web Search
 6. A Survey of Model Compression and Acceleration for Deep Neural Networks
 7. CSE 599W: System for ML - Model Serving
-8. https://developer.nvidia.com/deep-learning-performance-training-inference 
+8. https://developer.NVIDIA.com/deep-learning-performance-training-inference 
 9. DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING
 10. Learning both Weights and Connections for Efficient Neural Networks
 11. DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT
