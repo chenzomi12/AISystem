@@ -36,7 +36,7 @@
 
 | 小节 | 链接 |
 |:----------:|:----------------------------------------------------------------------------------------------------------------------------------------------:|
-| 01 编译器基础概念 | [PPT](./01Tradition/01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1D84y1y73v/), [文章](./01Tradition/01.introduction.md), [字幕](./01Tradition/srt/01.srt) |
+| 01 编译器基础概念 | [文章](), [PPT](./01Tradition/01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1D84y1y73v/), [文章](./01Tradition/01.introduction.md), [字幕](./01Tradition/srt/01.srt) |
 
 ### [传统编译器](./01Tradition/)
 
@@ -44,12 +44,12 @@
 
 | 小节 | 链接 |
 |:------------- |:-------------------------------------------------------------------------------------------------- |
-| 02 开源编译器的发展   | [PPT](./01Tradition/02.history.pdf), [视频](https://www.bilibili.com/video/BV1sM411C7Vr/), [字幕](./01Tradition/srt/02.srt) |
-| 03 GCC 编译过程和原理 | [PPT](./01Tradition/03.gcc.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./01Tradition/srt/03.srt) |
-| 04 LLVM 设计架构   | [PPT](./01Tradition/04.llvm.pdf), [视频](https://www.bilibili.com/video/BV1CG4y1V7Dn/), [字幕](./01Tradition/srt/04.srt) |
-| 05 LLVM IR 详解  | [PPT](./01Tradition/05.llvm_detail01.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./01Tradition/srt/05.srt) |
-| 06 LLVM 前端和优化层 | [PPT](./01Tradition/06.llvm_detail02.pdf), [视频](https://www.bilibili.com/video/BV1vd4y1t7vS), [字幕](./01Tradition/srt/06.srt) |
-| 07 LLVM 后端代码生成 | [PPT](./01Tradition/07.llvm_detail03.pdf), [视频](https://www.bilibili.com/video/BV1cd4y1b7ho), [字幕](./01Tradition/srt/07.srt) |
+| 02 开源编译器的发展   | [文章](./01Tradition/02History.md), [PPT](./01Tradition/02History.pdf), [视频](https://www.bilibili.com/video/BV1sM411C7Vr/), [字幕](./01Tradition/srt/02.srt) |
+| 03 GCC 编译过程和原理 | [文章](./01Tradition/03GCC.md), [PPT](./01Tradition/03GCC.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./01Tradition/srt/03.srt) |
+| 04 LLVM 设计架构   | [文章](./01Tradition/04LLVM.md), [PPT](./01Tradition/04LLVM.pdf), [视频](https://www.bilibili.com/video/BV1CG4y1V7Dn/), [字幕](./01Tradition/srt/04.srt) |
+| 05 LLVM IR 详解  | [文章](./01Tradition/05LLVMDetail01.md), [PPT](./01Tradition/05LLVMDetail01.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./01Tradition/srt/05.srt) |
+| 06 LLVM 前端和优化层 | [文章](./01Tradition/05LLVMDetail02.md), [PPT](./01Tradition/05LLVMDetail02.pdf), [视频](https://www.bilibili.com/video/BV1vd4y1t7vS), [字幕](./01Tradition/srt/06.srt) |
+| 07 LLVM 后端代码生成 | [文章](./01Tradition/05LLVMDetail03.md), [PPT](./01Tradition/05LLVMDetail03.pdf), [视频](https://www.bilibili.com/video/BV1cd4y1b7ho), [字幕](./01Tradition/srt/07.srt) |
 
 ### [AI 编译器](./02AICompiler/)
 
@@ -57,10 +57,10 @@
 
 | 小节 | 链接 |
 |:-------------- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 01 为什么需要 AI 编译器  | [PPT](./02AICompiler/01.appear.pdf), [视频](https://www.bilibili.com/video/BV1pM41167KP), [文章](./02AICompiler/01.appear.md), [字幕](./02AICompiler/srt/01.srt) |
-| 02 AI 编译器的发展阶段  | [PPT](./02AICompiler/02.stage.pdf), [视频](https://www.bilibili.com/video/BV1QK411R7iy/), [文章](./02AICompiler/02.stage.md), [字幕](./02AICompiler/srt/02.srt) |
-| 03 AI 编译器的通用架构  | [PPT](./02AICompiler/03.architecture.pdf), [视频](https://www.bilibili.com/video/BV1qD4y1Y73e/), [文章](./02AICompiler/03.architecture.md), [字幕](./02AICompiler/srt/03.srt) |
-| 04 AI 编译器的挑战与思考 | [PPT](./02AICompiler/04.future.pdf),[视频](https://www.bilibili.com/video/BV1Hv4y1R7uc/), , [文章](./02AICompiler/04.future.md), [字幕](./02AICompiler/srt/04.srt) |
+| 01 为什么需要 AI 编译器  | [文章](./02AICompiler/01Appear.md), [PPT](./02AICompiler/01Appear.pdf), [视频](https://www.bilibili.com/video/BV1pM41167KP), [字幕](./02AICompiler/srt/01.srt) |
+| 02 AI 编译器的发展阶段  | [文章](./02AICompiler/02Stage.md), [PPT](./02AICompiler/02Stage.pdf), [视频](https://www.bilibili.com/video/BV1QK411R7iy/), [字幕](./02AICompiler/srt/02.srt) |
+| 03 AI 编译器的通用架构  | [文章](./02AICompiler/03Architecture.md), [PPT](./02AICompiler/03Architecture.pdf), [视频](https://www.bilibili.com/video/BV1qD4y1Y73e/), [字幕](./02AICompiler/srt/03.srt) |
+| 04 AI 编译器的挑战与思考 | [文章](./02AICompiler/04Future.md), [PPT](./02AICompiler/04Future.pdf),[视频](https://www.bilibili.com/video/BV1Hv4y1R7uc/), [字幕](./02AICompiler/srt/04.srt) |
 
 ### [前端优化](./03Frontend/)
 
@@ -68,11 +68,11 @@
 
 | 小节 | 链接 |
 |:-----------:|:----------------------------------------------------------------------------------------------------------------------------------:|
-| 01 内容介绍     | [PPT](./03Frontend/01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1ne411w7n2/), [文章](./03Frontend/01.introduction.md), [字幕](./03Frontend/srt/01.srt)   |
-| 02 计算图层 IR   | [PPT](./03Frontend/02.graph_ir.pdf), [视频](https://www.bilibili.com/video/BV1kV4y1w72W/), [文章](./03Frontend/02.graph_ir.md), [字幕](./03Frontend/srt/02.srt)           |
-| 03 算子融合策略   | [PPT](./03Frontend/03.op_fusion.pdf), [视频](https://www.bilibili.com/video/BV1P24y1D7RV/), [文章](./03Frontend/03.op_fusion.md), [字幕](./03Frontend/srt/03.srt)         |
-| 04 布局转换原理   | [PPT](./03Frontend/04.layout_princ.pdf), [视频](https://www.bilibili.com/video/BV1xK411z7Uw/), [文章](./03Frontend/04.layout_princ.md), [字幕](./03Frontend/srt/04.srt)   |
-| 05 布局转换算法   | [PPT](./03Frontend/05.layout_algo.pdf), [视频](https://www.bilibili.com/video/BV1gd4y1Y7dc/), [文章](./03Frontend/05.layout_algo.md), [字幕](./03Frontend/srt/05.srt)     |
+| 01 内容介绍     | [PPT](./03Frontend/01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1ne411w7n2/), [文章](./03Frontend/01Introduction.md), [字幕](./03Frontend/srt/01.srt)   |
+| 02 计算图层 IR   | [PPT](./03Frontend/02GraphIR.pdf), [视频](https://www.bilibili.com/video/BV1kV4y1w72W/), [文章](./03Frontend/02GraphIR.md), [字幕](./03Frontend/srt/02.srt)           |
+| 03 算子融合策略   | [PPT](./03Frontend/03OPFusion.pdf), [视频](https://www.bilibili.com/video/BV1P24y1D7RV/), [文章](./03Frontend/03OPFusion.md), [字幕](./03Frontend/srt/03.srt)         |
+| 04 布局转换原理   | [PPT](./03Frontend/04LayoutPrinc.pdf), [视频](https://www.bilibili.com/video/BV1xK411z7Uw/), [文章](./03Frontend/04LayoutPrinc.md), [字幕](./03Frontend/srt/04.srt)   |
+| 05 布局转换算法   | [PPT](./03Frontend/05LayoutAlgo.pdf), [视频](https://www.bilibili.com/video/BV1gd4y1Y7dc/), [文章](./03Frontend/05LayoutAlgo.md), [字幕](./03Frontend/srt/05.srt)     |
 | 06 内存分配算法   | [PPT](./03Frontend/06.memory.pdf), [视频](https://www.bilibili.com/video/BV1nM411879s/), [文章](./03Frontend/06.memory.md), [字幕](./03Frontend/srt/06.srt)               |
 | 07 常量折叠原理   | [PPT](./03Frontend/07.constant_fold.pdf), [视频](https://www.bilibili.com/video/BV1P8411W7dY/), [文章](./03Frontend/07.constant_fold.md), [字幕](./03Frontend/srt/07.srt) |
 | 08 公共表达式消除  | [PPT](./03Frontend/08.cse.pdf), [视频](https://www.bilibili.com/video/BV1rv4y1Q7tp/), [文章](./03Frontend/08.cse.md), [字幕](./03Frontend/srt/08.srt)                     |
