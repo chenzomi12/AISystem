@@ -52,8 +52,8 @@
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
 | 模型轻量化| 01 推理参数了解 | [PPT](./02Mobilenet/01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1KW4y1G75J/), [字幕](./srt/02Mobilenet/01.srt) |
-| 模型小型化| 02(上) CNN 模型小型化 | [PPT](./02Mobilenet/02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1Y84y1b7xj/), [字幕](./srt/02Mobilenet/02.srt) |
-| 模型小型化| 02(下) CNN 模型小型化 | [PPT](./02Mobilenet/02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1DK411k7qt/), [字幕](./srt/02Mobilenet/03.srt) |
+| 模型小型化| 02(上) CNN 模型小型化 | [PPT](./02Mobilenet/02CNN.pdf), [视频](https://www.bilibili.com/video/BV1Y84y1b7xj/), [字幕](./srt/02Mobilenet/02.srt) |
+| 模型小型化| 02(下) CNN 模型小型化 | [PPT](./02Mobilenet/02CNN.pdf), [视频](https://www.bilibili.com/video/BV1DK411k7qt/), [字幕](./srt/02Mobilenet/03.srt) |
 | 模型小型化| 03 Transformer 小型化 | [PPT](./02Mobilenet/03Transform.pdf), [视频](https://www.bilibili.com/video/BV19d4y1V7ou/), [字幕](./srt/02Mobilenet/04.srt) |
 
 ### 模型压缩
