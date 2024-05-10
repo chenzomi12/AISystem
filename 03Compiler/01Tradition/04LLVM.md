@@ -96,7 +96,7 @@ LLVM 的中间表示（IR）连接前端和后端。然后 LLVM 的优化器会�
 
 ======= 有些内容过于口水话，应该更加描述得更加准确一点。如所以用户看到的就只是 Clang 的前端，而后面 LLVM 的优化器和后端都隐藏在幕后。藏在幕后？藏在哪里？架构很清楚，后端前端、中间层。
 
-## LLVM 核心流程分析
+## LLVM 核心流程
 
 编译器前端工作流程（词法、语法、语义分析）
 中间优化层大数据中的 Pass 优化
@@ -184,7 +184,7 @@ clang -ccc-print-phases .\hello.c
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?aid=817933285&bvid=BV1CG4y1V7Dn&cid=900870578&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
 ## 引用
