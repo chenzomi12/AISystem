@@ -1,5 +1,3 @@
-import deepspeed
- 
 from transformers import Trainer
  
 trainer = Trainer(
