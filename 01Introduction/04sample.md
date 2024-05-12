@@ -31,7 +31,7 @@ $$\theta = argmin_{\theta}\sum[Loss(f_{\theta}(x), y)]$$
 
 $$\theta = \theta - \alpha \delta_{\theta}Loss(\theta)$$
 
-其中， $\alpha$ 也称为学习率(Learning Rate)。当神经网络模型训练完成，就可以通过 $\hat{y} = f_\theta(x)$ 进行推理，使用和部署已经训练好的网络模型。
+其中，$\alpha$ 也称为学习率(Learning Rate)。当神经网络模型训练完成，就可以通过 $\hat{y} = f_\theta(x)$ 进行推理，使用和部署已经训练好的网络模型。
 
 如图所示，左上角展示输入为手写数字图像，输出为分类向量，中间矩形为各层输出的特征图（Feature Map），我们将其映射为具体的实现代码，其结构通过图右侧定义出来。
 
@@ -47,7 +47,7 @@ $$\theta = \theta - \alpha \delta_{\theta}Loss(\theta)$$
 > 
 > - **广义的算子（Function）**：AI 框架中对算子模块的具体实现，涉及到调度模块，Kernel 模块，求导模块以及代码自动生成模块。
 >
-> 对于神经网络模型而言，算子是网络模型中涉及到的计算函数。在 PyTorch 中，算子对应层中的计算逻辑，例如：卷积层（Convolution Layer）中的卷积算法，是一个算子；全连接层（Fully-connected Layer， FC layer）中的权值求和过程，也是一个算子。
+> 对于神经网络模型而言，算子是网络模型中涉及到的计算函数。在 PyTorch 中，算子对应层中的计算逻辑，例如：卷积层（Convolution Layer）中的卷积算法，是一个算子；全连接层（Fully-connected Layer，FC layer）中的权值求和过程，也是一个算子。
 
 ### 网络模型构建
 

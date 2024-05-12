@@ -1,3 +1,5 @@
+<!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # 为什么 GPU 适用于 AI
 
 为什么 GPU 适用于 AI 计算或者为什么 AI 训练需要使用 GPU，而不是使用 CPU 呢？本节内容主要探究 GPU AI 编程的本质，首先回顾卷积计算是如何实现的，然后探究 GPU 的线程分级，分析 AI 的计算模式和线程之间的关系，最后讨论矩阵乘计算如何使用 GPU 编程去提升算力利用率或者提升算法利用率。
