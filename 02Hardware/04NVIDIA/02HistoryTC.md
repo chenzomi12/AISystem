@@ -164,13 +164,17 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 ## 第五代TensorCore（Blackwell）
 
-为了更好地适应AI工作负载的需求，同时提高性能和降低资源消耗。在Blackwell架构中，继续扩展对低精度计算范围支持。第五代TensorCore中，能够处理最低至FP4精度，并着眼于使用非常低精度的格式进行推理。
+为了更好地适应AI工作负载的需求，同时提高性能和降低资源消耗。在Blackwell架构中，支持了第二代Transformer Engine，继续扩展对低精度计算范围支持。第五代TensorCore中，能够处理最低至FP4精度，并着眼于使用非常低精度的格式进行推理。
 
 为了应对那些FP4精度不足以满足的工作负载，第五代TensorCore还增加了对FP6精度的兼容。虽然FP6精度在计算性能上并不比FP8有显著提升——因为它在NVIDIA的张量核心中本质上仍然是以类似FP8的方式进行操作——但由于数据大小缩小了25%，它在内存占用和带宽需求方面带来了显著的优势。
 
 对于大型语言模型（LLM）的推理任务而言，内存容量依然是这些加速器所面临的主要限制。因此，在推理过程中降低内存使用量成为了一个亟待解决的问题。通过采用低精度格式如FP4和FP6，可以在保持推理质量的同时，有效减少内存消耗，这对于提升LLM推理的效率和可行性至关重要。
 
-此外，第五代TensorCore还支持社区定义的微缩放格式，它是一种精度调整技术，它允许模型在保持相对高精度的同时减少计算资源的消耗。
+此外，第五代TensorCore还支持社区定义的微缩放格式 MX（Microscaling） Format ，它是一种精度调整技术，相比一般的 scalar format （比如 FP32, BP16），MX Format 的粒度更高，多个 scalar 构成一组数据（vector format），它允许模型在保持相对高精度的同时减少计算资源的消耗。
+
+MX Format的核心特点是其由两个主要部分组成：scale（X）和element（P）。在这种格式中，k个element共享一个相同的scale。Element的定义是基于scalar format，如FP32、BP16等。这种设计允许在保持一定精度的同时，通过共享scale来减少存储需求和计算开销。此外，我们可以MX Format将视为一种不带shift的量化方法。量化是一种将连续或高精度数据转换为低精度表示的技术，通常用于减少模型大小和加速推理过程。MX Format通过引入block size k来定义量化的粒度，即每个block中的element数量。在标准中，block size通常设置为32，这意味着每个scale会影响32个element。
+
+MX Format的优势在于它提供了比传统的per-tensor或per-channel量化更低的粒度，这有助于在保持计算效率的同时提高精度。然而，这种更细的量化粒度也会带来额外的存储开销。MX Format的另一个特点是其数据位度的灵活性。例如，MXFP4格式中，scale bits为8，block size为32，这意味着每个scalar平均占用12比特（8 bits for scale + 4 bits for element），这比传统的FP4格式提供了更多的信息。因此，MX Format可以被看作是一种定制的数据表示方式，旨在为特定的硬件平台提供加速。
 
 ## Tensor Core 的应用
 
