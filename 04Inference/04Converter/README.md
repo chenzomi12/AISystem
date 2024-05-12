@@ -14,14 +14,14 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 模型转换&优化| 01 基本介绍 | [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1724y1z7ep/) |
-| 模型转换模块 | 02 架构与文件格式| [PPT](./02.converter_princ.pdf), [视频](https://www.bilibili.com/video/BV13P4y167sr/) |
-| 模型转换模块 | 03 自定义计算图 IR | [PPT](./03.converter_ir.pdf), [视频](https://www.bilibili.com/video/BV1rx4y177R9/) |
-| 模型转换模块 | 04 流程细节 | [PPT](./04.converter_detail.pdf), [视频](https://www.bilibili.com/video/BV13341197zU/) |
-| 图优化模块| 05 计算图优化策略| [PPT](./05.optimizer.pdf), [视频](https://www.bilibili.com/video/BV1g84y1L7tF/) |
-| 图优化模块| 06 常量折叠&冗余节点消除| [PPT](./06.basic.pdf), [视频](https://www.bilibili.com/video/BV1fA411r7hr/) |
-| 图优化模块| 07 算子融合/替换/前移 | [PPT](./06.basic.pdf), [视频](https://www.bilibili.com/video/BV1Qj411T7Ef/) |
-| 图优化模块| 08 数据布局转换&内存优化| [PPT](./07.extend.pdf), [视频](https://www.bilibili.com/video/BV1Ae4y1N7u7/) |
+| 模型转换&优化| 01 基本介绍 | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1724y1z7ep/) |
+| 模型转换模块 | 02 架构与文件格式| [文章](./02Principle.md), [PPT](./02Principle.pdf), [视频](https://www.bilibili.com/video/BV13P4y167sr/) |
+| 模型转换模块 | 03 自定义计算图 IR | [文章](./03IR.md), [PPT](./03IR.pdf), [视频](https://www.bilibili.com/video/BV1rx4y177R9/) |
+| 模型转换模块 | 04 流程细节 | [文章](./04Detail.md), [PPT](./04Detail.pdf), [视频](https://www.bilibili.com/video/BV13341197zU/) |
+| 图优化模块| 05 计算图优化策略| [文章](./05Optimizer.md), [PPT](./05Optimizer.pdff), [视频](https://www.bilibili.com/video/BV1g84y1L7tF/) |
+| 图优化模块| 06 常量折叠&冗余节点消除| [文章](./06Basic.md), [PPT](./06Basic.pdf), [视频](https://www.bilibili.com/video/BV1fA411r7hr/) |
+| 图优化模块| 07 算子融合/替换/前移 | [文章](./06Basic.md), [PPT](./06Basic.pdf), [视频](https://www.bilibili.com/video/BV1Qj411T7Ef/) |
+| 图优化模块| 08 数据布局转换&内存优化| [文章](./07Extend.md), [PPT](./07Extend.pdf), [视频](https://www.bilibili.com/video/BV1Ae4y1N7u7/) |
 
 ## 备注
 
