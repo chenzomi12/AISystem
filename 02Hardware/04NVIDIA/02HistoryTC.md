@@ -172,7 +172,7 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 此外，第五代TensorCore还支持社区定义的微缩放格式 MX（Microscaling） Format ，它是一种精度调整技术，相比一般的 scalar format （比如 FP32, FP16），MX Format 的粒度更高，多个 scalar 构成一组数据（vector format），它允许模型在保持相对高精度的同时减少计算资源的消耗。
 
-MX Format的核心特点是其由两个主要部分组成：scale（X）和element（P）。在这种格式中，k个element共享一个相同的scale。Element的定义是基于scalar format，如FP32、FP16等。这种设计允许在保持一定精度的同时，通过共享scale来减少存储需求和计算开销。此外，我们可以MX Format将视为一种不带shift的量化方法。量化是一种将连续或高精度数据转换为低精度表示的技术，通常用于减少模型大小和加速推理过程。MX Format通过引入block size k来定义量化的粒度，即每个block中的element数量。在标准中，block size通常设置为32，这意味着每个scale会影响32个element。MX Format的优势在于它提供了比传统的per-tensor或per-channel量化更低的粒度，这有助于在保持计算效率的同时提高精度。然而，这种更细的量化粒度也会带来额外的存储开销。MX Format的另一个特点是其数据位度的灵活性。例如，MXFP4格式中，scale bits为8，block size为32，这意味着每个scalar平均占用12比特（8 bits for scale + 4 bits for element），这比传统的FP4格式提供了更多的信息。因此，MX Format可以被看作是一种定制的数据表示方式，旨在为特定的硬件平台提供加速。
+MX Format的核心特点是其由两个主要部分组成：scale（X）和element（P）。在这种格式中，k个element共享一个相同的scale。Element的定义是基于scalar format，如FP32、FP16等。这种设计允许在保持一定精度的同时，通过共享scale来减少存储需求和计算开销。此外，我们可以将MX Format视为一种不带shift的量化方法。量化是一种将连续或高精度数据转换为低精度表示的技术，通常用于减少模型大小和加速推理过程。MX Format通过引入block size k来定义量化的粒度，即每个block中的element数量。在标准中，block size通常设置为32，这意味着每个scale会影响32个element。MX Format的优势在于它提供了比传统的per-tensor或per-channel量化更低的粒度，这有助于在保持计算效率的同时提高精度。然而，这种更细的量化粒度也会带来额外的存储开销。MX Format的另一个特点是其数据位度的灵活性。例如，MXFP4格式中，scale bits为8，block size为32，这意味着每个scalar平均占用12比特（8 bits for scale + 4 bits for element），这比传统的FP4格式提供了更多的信息。总之，MX Format可以被看作是一种定制的数据表示方式，旨在为特定的硬件平台提供加速。
 
 此外，Blackwell架构，进一步支持了第二代 Transformer 引擎。第二代 Transformer 引擎与第五代Tensor Core 技术与 TensorRT-LLM 和 NeMo 框架创新相结合，加速大语言模型 (LLM) 和专家混合模型 (MoE) 的推理和训练，可将性能和效率翻倍，同时为当前和新一代 MoE 模型保持高精度。
 
