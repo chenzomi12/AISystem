@@ -12,7 +12,9 @@
 
 到了 2022 年，NVIDIA 发布了专为深度学习设计的 Hopper 架构。Hopper 架构标志性的变化是引入了 FP8 张量核心，这一创新进一步加速了 AI 训练和推理过程。值得注意的是，Hopper 架构去除了 RT Core，以便为深度学习计算腾出更多空间，这一决策凸显了 NVIDIA 对深度学习领域的专注和投入。此外，Hopper 架构还引入了 Transformer 引擎，这使得它在处理如今广泛应用的 Transformer 模型时表现出色，进一步巩固了 NVIDIA 在深度学习硬件领域的领导地位。
 
-总的来说，从 Volta 到 Hopper，NVIDIA 的 GPU 架构经历了一系列针对深度学习优化的重大创新和升级，每一次进步都在推动深度学习技术的边界。这些架构的发展不仅体现了 NVIDIA 在硬件设计方面的前瞻性，也为深度学习的研究和应用提供了强大的计算支持，促进了人工智能技术的快速发展。
+2024年，Nvidia推出了Blackwell架构为生成式人工智能带来了显著的飞跃。相较于H100 GPU，GB200 Superchip在处理LLM推理任务时，性能实现了高达30倍的惊人提升，同时在能耗方面也实现了高达25倍的优化。其中GB200 Superchip能够组合两个Blackwell GPU，并与Nvidia的Grace中央处理单元配对，支持Nvlink-C2C互联。此外，Blackwell还引入了第二代Transformer引擎，增强了对FP4和FP6精度的兼容性，显著降低了模型运行时的内存占用和带宽需求。此外，还引入了第五代Nvlink技术，使每个GPU的带宽从900GB/秒增加到1800GB/秒。
+
+总的来说，从 Volta 到 Blackwell，NVIDIA 的 GPU 架构经历了一系列针对深度学习优化的重大创新和升级，每一次进步都在推动深度学习技术的边界。这些架构的发展不仅体现了 NVIDIA 在硬件设计方面的前瞻性，也为深度学习的研究和应用提供了强大的计算支持，促进了人工智能技术的快速发展。
 
 接下来，我们将逐一深入剖析每一代 Tensor Core 的独特之处，以揭示其背后的技术奥秘。
 
@@ -159,6 +161,20 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 ![Hopper 直接读取共享内存异步 Tensor Core](images/02history_tc_12.png)
 
 此外，通过 TMA 将 SM 组织成一个更大的计算和存储单元，从而实现了数据从全局内存（global memory）到共享内存（shared memory）的异步加载，以及数据到寄存器的计算和矩阵乘法的流水线处理，最后通过硬件实现了矩阵乘法的流水线。硬件实现的矩阵乘法流水线确保了计算过程的连续性和高效性，使得 GPU 能够更快地处理大规模矩阵运算。
+
+## 第五代TensorCore（Blackwell）
+
+为了更好地适应AI工作负载的需求，同时提高性能和降低资源消耗。在Blackwell架构中，支持了第五代TensorCore，继续扩展了对低精度计算范围支持。第五代TensorCore中，能够处理最低至FP4精度，并着眼于使用非常低精度的格式进行推理。与上一代 NVIDIA Hopper 相比，有着第五代TensorCore支持的 Blackwell 架构可为 GPT-MoE-1.8 T 等大型模型提供 30 倍的加速。
+
+此外，为了应对那些FP4精度不足以满足的工作负载，第五代TensorCore还增加了对FP6精度的兼容。虽然FP6精度在计算性能上并不比FP8有显著提升——因为它在NVIDIA的张量核心中本质上仍然是以类似FP8的方式进行操作——但由于数据大小缩小了25%，它在内存占用和带宽需求方面带来了显著的优势。
+
+对于大型语言模型（LLM）的推理任务而言，内存容量依然是这些加速器所面临的主要限制。因此，在推理过程中降低内存使用量成为了一个亟待解决的问题。通过采用低精度格式如FP4和FP6，可以在保持推理质量的同时，有效减少内存消耗，这对于提升LLM推理的效率和可行性至关重要。
+
+此外，第五代TensorCore还支持社区定义的微缩放格式 MX（Microscaling） Format ，它是一种精度调整技术，相比一般的 scalar format （比如 FP32, FP16），MX Format 的粒度更高，多个 scalar 构成一组数据（vector format），它允许模型在保持相对高精度的同时减少计算资源的消耗。
+
+MX Format的核心特点是其由两个主要部分组成：scale（X）和element（P）。在这种格式中，k个element共享一个相同的scale。Element的定义是基于scalar format，如FP32、FP16等。这种设计允许在保持一定精度的同时，通过共享scale来减少存储需求和计算开销。此外，我们可以将MX Format视为一种不带shift的量化方法。量化是一种将连续或高精度数据转换为低精度表示的技术，通常用于减少模型大小和加速推理过程。MX Format通过引入block size k来定义量化的粒度，即每个block中的element数量。在标准中，block size通常设置为32，这意味着每个scale会影响32个element。MX Format的优势在于它提供了比传统的per-tensor或per-channel量化更低的粒度，这有助于在保持计算效率的同时提高精度。然而，这种更细的量化粒度也会带来额外的存储开销。MX Format的另一个特点是其数据位度的灵活性。例如，MXFP4格式中，scale bits为8，block size为32，这意味着每个scalar平均占用12比特（8 bits for scale + 4 bits for element），这比传统的FP4格式提供了更多的信息。总之，MX Format可以被看作是一种定制的数据表示方式，旨在为特定的硬件平台提供加速。
+
+此外，Blackwell架构，进一步支持了第二代 Transformer 引擎。第二代 Transformer 引擎与第五代Tensor Core 技术与 TensorRT-LLM 和 NeMo 框架创新相结合，加速大语言模型 (LLM) 和专家混合模型 (MoE) 的推理和训练，可将性能和效率翻倍，同时为当前和新一代 MoE 模型保持高精度。
 
 ## Tensor Core 的应用
 
