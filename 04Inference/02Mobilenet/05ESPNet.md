@@ -1,26 +1,34 @@
 <!--Copyright © XcodeHw 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# ESPNet系列
+# ESPNet 系列
 
-本章节会介绍ESPNet系列，与前面的网络不太一样的是该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块(ESP Module)，而在ESPNetV2上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
+本章节将会介绍 ESPNet 系列，该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块（ESP Module）；而在 ESPNet V2 上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
 
 ## ESPNet V1
 
-**ESPNetV1**：是一种快速高效的卷积神经网络，主要应用在高分辨图像下的语义分割，在计算、内存占用、功耗方面都非常高效。主要贡献在于基于传统卷积模块，提出一种高效空间金子塔卷积模块(ESP Module)，有助于减少模型运算量和内存、功率消耗 ，来提升终端设备适用性，方便部署到移动端。
+**ESPNet V1**：应用在高分辨图像下的语义分割，在计算、内存占用、功耗方面都非常高效。主要贡献在于基于传统卷积模块，提出高效空间金子塔卷积模块（ESP Module），有助于减少模型运算量和内存、功率消耗，来提升终端设备适用性，方便部署到移动端。
 
-### 设计思路
+### ESP 模块
 
-#### Efficient spatial pyramid
+======== 标题尽可能用简短的形式来表达，能有中文或者缩写的用中文或者缩写哈，这样标题简洁
 
-ESPNet基于卷积因子分解的原则，ESP模块将标准卷积分解成point-wise卷积和空洞卷积金字塔(spatial pyramid of dilated convolutions)，point-wise卷积将输入映射到低维特征空间，就是采用K个1x1xM的小卷积核对原图进行卷积操作，1x1卷积的作用其实就是为了降低维度，这样就可以减少参数。空洞卷积金字塔使用K组空洞卷积的同时下采样得到低维特征这种分解方法能够大量减少ESP模块的参数和内存，并且保证了较大的感受野(如下图a所示)。
+基于卷积因子分解的原则，ESP（Efficient spatial pyramid）模块将标准卷积分解成 point-wise 卷积和空洞卷积金字塔（spatial pyramid of dilated convolutions）。point-wise 卷积将输入的特征映射到低维特征空间，即采用 K 个 1x1xM 的小卷积核对输入的特征进行卷积操作，1x1 卷积的作用其实就是为了降低维度，这样就可以减少参数。空洞卷积金字塔使用 K 组空洞卷积的同时下采样得到低维特征，这种分解方法能够大量减少 ESP 模块的参数和内存，并且保证了较大的感受野(如下图 a 所示)。
 
-![ESP结构](./images/05.espnet_01.png)
+![ESP 结构](./images/05Espnet01.png)
+======== 注意图片名字跟文件名保持一致哈，方便索引哈
 
-下面来计算下一共包含的参数，其实在效果上，以这种轻量级的网络作为backbone效果肯定不如那些重量级的，比如Resnet，但是在运行速度上有很大优势。
+上图 (b) 展示了 ESP 模块采用的减少-分裂-转换-合并策略。下面来计算下一共包含的参数，其实在效果上，以这种轻量级的网络作为 backbone 效果肯定不如那些重量级的，比如 Resnet，但是在运行速度上有很大优势。
+======== 这段话很像是机器翻译过来的哈，建议通读一下，不像是自然写出来的话。“重量级的？”，而且这段话读起来很怪。
 
-如上图所示，对Efficient spatial pyramid第一部分来说，$d$个$1\times1\times M$的卷积核，将M维的输入feature map降至d维。此时参数为:$M*N/K$ ,第二部分参数量为$K*n^{2}*(N/K)^{2}$，和标准卷积结构相比，参数数量降低很多。
+如上图所示，对 ESP 模块的第一部分来说，$d$ 个 $1\times1\times M$ 的卷积核，将 M 维的输入特征降至 d 维。此时参数为：$M*N/K$，第二部分参数量为 $K*n^{2}*(N/K)^{2}$，和标准卷积结构相比，参数数量降低很多。
 
-为了减少计算量，又引入了一个简单的超参数K,它的作用是统一收缩网络中各个ESP模块的特征映射维数。Reduce对于给定K,ESP模块首先通过逐点卷积将特征映射从m维空间缩减到$N/K$维空间(上图a中的步骤1)。split然后将低维特征映射拆分到K个并行分支上。Transform:然后每个分支使用$2^{k-1},k=1,...,k-1$给出的$n\times\n$个扩张速率不同的卷积核同时处理这些特征映射(上图a中的步骤2)。merge:然后将这K个并行扩展卷积核的输出连接起来，产生一个n维输出特征map。上图b展示了ESP模块采用的减少-分裂-转换-合并策略。
+为了减少计算量，又引入了一个简单的超参数 K，它的作用是统一收缩网络中各个 ESP 模块的特征映射维数。Reduce 对于给定 K，ESP 模块首先通过逐点卷积将特征映射从 m 维空间缩减到 $N/K$ 维空间（上图 a 中的步骤 1）。通过 Split 将低维特征映射拆分到 K 个并行分支上。
+
+然后每个分支使用 $2^{k-1},k=1,...,k-1$ 给出的 $n\times\n$ 个扩张速率不同的卷积核同时处理这些特征映射（上图 a 中的步骤 2）。最后将 K 个并行扩展卷积核的输出连接起来，产生一个 n 维输出特征图。
+
+======== 注意标点符号，文章中都用逗号，而不是,
+
+下面代码使用 PyTorch 来实现具体的 ESP 模块：
 
 ```python
 class ESPModule(nn.Module):
@@ -75,59 +83,59 @@ class ESPModule(nn.Module):
         return x
 ```
 
+======= 回车用一个空行就可以了，不用太多的哈。
 
+### HFF 特性
 
-#### Hierarchical feature fusion (HFF)
+虽然将扩张卷积的输出拼接在一起会给 ESP 模块带来一个较大的有效感受野，但也会引入不必要的棋盘或网格假象，如下图所示。
 
-虽然将扩张卷积的输出拼接在一起会给ESP模块带来一个较大的有效感受野，但也会引入不必要的棋盘或网格假象，如下图所示。
+![HFF 结构](./images/05.espnet_02.png)
 
-![HFF结构](./images/05.espnet_02.png)
+上图(a)举例说明一个网格伪像，其中单个活动像素(红色)与膨胀率 r = 2 的 3×3 膨胀卷积核卷积。
 
-上图(a)举例说明一个网格伪像，其中单个活动像素(红色)与膨胀率r = 2的3×3膨胀卷积核卷积。
+上图(b)具有和不具有层次特征融合（Hierarchical feature fusion，HFF）的 ESP 模块特征图可视化。ESP 中的 HFF 消除了网格伪影。彩色观看效果最佳。
 
-上图(b)具有和不具有层次特征融合(HFF)的ESP模块特征图可视化。ESP中的HFF消除了网格伪影。彩色观看效果最佳。
+========= 文章里面括号主要用中文的（），具体上下标的上图(a)(b)用英文的()哈
 
-为了解决ESP中的网格问题，使用不同膨胀率的核获得的特征映射在拼接之前会进行层次化添加(上图b中的HFF)。该解决方案简单有效，且不会增加ESP模块的复杂性，这与现有方法不同，现有方法通过使用膨胀率较小的卷积核学习更多参数来消除网格误差[Dilated residual networks,Understanding convolution for semantic segmentation]。为了改善网络内部的梯度流动，ESP模块的输入和输出特征映射使用元素求和[Deep residual learning for image recognition]进行组合。
+为了解决 ESP 中的网格问题，使用不同膨胀率的核获得的特征映射在拼接之前会进行层次化添加(上图 b 中的 HFF)。该解决方案简单有效，且不会增加 ESP 模块的复杂性，这与现有方法不同，现有方法通过使用膨胀率较小的卷积核学习更多参数来消除网格误差[Dilated residual networks,Understanding convolution for semantic segmentation]。为了改善网络内部的梯度流动，ESP 模块的输入和输出特征映射使用元素求和[Deep residual learning for image recognition]进行组合。
 
 ### 网络结构
 
-ESPNet使用ESP模块学习卷积核以及下采样操作，除了第一层是标准的大步卷积。所有层(卷积和ESP模块)后面都有一个批归一化和一个PReLU非线性，除了最后一个点卷积，它既没有批归一化，也没有非线性。最后一层输入softmax进行像素级分类。
+ESPNet 使用 ESP 模块学习卷积核以及下采样操作，除了第一层是标准的大步卷积。所有层(卷积和 ESP 模块)后面都有一个批归一化和一个 PReLU 非线性，除了最后一个点卷积，它既没有批归一化，也没有非线性。最后一层输入 softmax 进行像素级分类。
 
-ESPNet的不同变体如下图所示。第一个变体，ESPNet-A(图a)，是一种标准网络，它以RGB图像作为输入，并使用ESP模块学习不同空间层次的表示，以产生一个分割掩码。第二种ESP - b(图b)通过在之前的跨步ESP模块和之前的ESP模块之间共享特征映射，改善了ESPNet-A内部的信息流。第三种变体，ESPNet-C(图c)，加强了ESPNet-B内部的输入图像，以进一步改善信息的流动。这三种变量产生的输出的空间维度是输入图像的1 / 8。第四种变体，ESPNet(图d)，在ESPNet- c中添加了一个轻量级解码器(使用reduceupsample-merge的原理构建)，输出与输入图像相同空间分辨率的分割mask。
+ESPNet 的不同变体如下图所示。第一个变体，ESPNet-A(图 a)，是一种标准网络，它以 RGB 图像作为输入，并使用 ESP 模块学习不同空间层次的表示，以产生一个分割掩码。第二种 ESP - b(图 b)通过在之前的跨步 ESP 模块和之前的 ESP 模块之间共享特征映射，改善了 ESPNet-A 内部的信息流。第三种变体，ESPNet-C(图 c)，加强了 ESPNet-B 内部的输入图像，以进一步改善信息的流动。这三种变量产生的输出的空间维度是输入图像的 1 / 8。第四种变体，ESPNet(图 d)，在 ESPNet- c 中添加了一个轻量级解码器(使用 reduceupsample-merge 的原理构建)，输出与输入图像相同空间分辨率的分割 mask。
 
-![ESP网络结构](./images/05.espnet_03.png)
+![ESP 网络结构](./images/05.espnet_03.png)
 
-从ESPNet- a到ESPNet的路径。红色和绿色色框分别代表负责下采样和上采样操作的模块。空间级别的l在(a)中的每个模块的左侧。本文将每个模块表示为(#输入通道，#输出通道)。这里，conv-n表示n × n卷积。
+从 ESPNet- a 到 ESPNet 的路径。红色和绿色色框分别代表负责下采样和上采样操作的模块。空间级别的 l 在(a)中的每个模块的左侧。本文将每个模块表示为(#输入通道，#输出通道)。这里，conv-n 表示 n × n 卷积。
 
-为了在不改变网络拓扑结构的情况下构建具有较深计算效率的边缘设备网络，超参数α控制网络的深度;ESP模块在空间层次l上重复$α_{l}$次。在更高的空间层次(l = 0和l = 1)， cnn需要更多的内存，因为这些层次的特征图的空间维数较高。为了节省内存，ESP和卷积模块都不会在这些空间级别上重复。
+为了在不改变网络拓扑结构的情况下构建具有较深计算效率的边缘设备网络，超参数α控制网络的深度;ESP 模块在空间层次 l 上重复$α_{l}$次。在更高的空间层次(l = 0 和 l = 1)， cnn 需要更多的内存，因为这些层次的特征图的空间维数较高。为了节省内存，ESP 和卷积模块都不会在这些空间级别上重复。
 
 ## ESPNet V2
 
-**ESPNetV2**：是由ESPNetV1改进来的，一种轻量级、能耗高效、通用的卷积神经网络，利用分组卷积核深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。同时在图像分类、目标检测、语义分割等任务上检验了模型效果。
+**ESPNet V2**：是由 ESPNet V1 改进来的，一种轻量级、能耗高效、通用的卷积神经网络，利用分组卷积核深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。同时在图像分类、目标检测、语义分割等任务上检验了模型效果。
 
-### 设计思路
+ESPNet V2 与 V1 版本相比，其特点如下：
 
-与V1版本相比，其特点如下：
+1. 将原来 ESPNet 的 point-wise convolutions 替换为 group point-wise convolutions；
 
-1.将原来ESPNet的point-wise convolutions替换为group point-wise convolutions；
+2. 将原来 ESPNet 的 dilated convolutions 替换为 depth-wise dilated convolution；
 
-2.将原来ESPNet的dilated convolutions替换为depth-wise dilated convolution；
+3. HFF 加在 depth-wise dilated separable convolutions 和 point-wise (or 1 × 1)卷积之间，去除 gridding artifacts；
 
-3.HFF加在depth-wise dilated separable convolutions和point-wise (or 1 × 1)卷积之间，去除gridding artifacts；
+4. 使用 group point-wise convolution 替换 K 个 point-wise convolutions；
 
-4.使用group point-wise convolution 替换K个point-wise convolutions；
+5. 加入平均池化（average pooling ），将输入图片信息加入 EESP 中；
 
-5.加入平均池化（average pooling ）,将输入图片信息加入EESP中；
+6. 使用级联（concatenation）取代对应元素加法操作（element-wise addition operation ）
 
-6.使用级联（concatenation）取代对应元素加法操作（element-wise addition operation ）
+###  DDConv 模块
 
-####  Depth-wise dilated separable convolution
+深度分离空洞卷积（Depth-wise dilated separable convolution，DDConv）分两步：
 
-深度分离空洞卷积分两步：
+- 对每个输入通道执行空洞率为 r 的 DDConv，从有效感受野学习代表性特征。
 
-- 对每个输入通道执行空洞率为r的DDConv，从有效感受野学习代表性特征。
-
-- 标准1x1卷积学习DDConv输出的线性组合特征。
+- 标准 1x1 卷积学习 DDConv 输出的线性组合特征。
 
 深度分离空洞卷积与其他卷积的参数量与感受野对比如下表所示。
 
@@ -138,27 +146,27 @@ ESPNet的不同变体如下图所示。第一个变体，ESPNet-A(图a)，是一
 | Depth-wise separable         |$n^{2}c+c\hat{c}$|$n\times n$|
 | Depth-wise dilated separable |$n^{2}c+c\hat{c}$|$n_{r}\times n_{r}$|
 
+### EESP 模块
 
+EESP 模块结构如下图，图 b 中相比于 ESPNet，输入层采用分组卷积，DDConv+Conv1x1 取代标准空洞卷积，依然采用 HFF 的融合方式，（c）是（b）的等价模式。当输入通道数 M=240，g=K=4, d=M/K=60，EESP 比 ESP 少 7 倍的参数。
 
-#### EESP unit
+![EESP 结构](./images/03cnn/03CNN_05.png)
 
-EESP模块结构如下图，图b中相比于ESPNet，输入层采用分组卷积，DDConv+Conv1x1取代标准空洞卷积，依然采用HFF的融合方式，（c）是（b）的等价模式。当输入通道数M=240，g=K=4, d=M/K=60，EESP比ESP少7倍的参数。
+描述了一个新的网络模块 EESP，它利用深度可分离扩张和组逐点卷积设计，专为边缘设备而设计。该模块受 ESPNet 架构的启发，基于 ESP 模块构建，使用了减少-分割-变换-合并的策略。通过组逐点和深度可分离扩张卷积，该模块的计算复杂度得到了显著的降低。进一步，描述了一种带有捷径连接到输入图像的分层 EESP 模块，以更有效地学习多尺度的表示。
 
-![EESP结构](./images/03cnn/03CNN_05.png)
-
-描述了一个新的网络单元EESP，它利用深度可分离扩张和组逐点卷积设计，专为边缘设备而设计。该单元受ESPNet架构的启发，基于ESP模块构建，使用了减少-分割-变换-合并的策略。通过组逐点和深度可分离扩张卷积，该单元的计算复杂度得到了显著的降低。进一步，描述了一种带有捷径连接到输入图像的分层EESP单元，以更有效地学习多尺度的表示。
-
-如上图中b所示，能够降低$\frac{Md+n^{2}d^{2}K}{\frac{Md}{g}+(n^{2}+d)dK}$倍计算复杂度，K为空洞卷积金字塔层数。考虑到单独计算K个point-wise卷积等同于单个分组数为K的point-wise分组卷积，而分组卷积的在实现上更高效，于是改进为上图c的最终结构。
+如上图中 b 所示，能够降低$\frac{Md+n^{2}d^{2}K}{\frac{Md}{g}+(n^{2}+d)dK}$倍计算复杂度，K 为空洞卷积金字塔层数。考虑到单独计算 K 个 point-wise 卷积等同于单个分组数为 K 的 point-wise 分组卷积，而分组卷积的在实现上更高效，于是改进为上图 c 的最终结构。
 
 ```python
 class EESP(nn.Module):
     '''
+    // ======= 中文中文哈
     This class defines the EESP block, which is based on the following principle
         REDUCE ---> SPLIT ---> TRANSFORM --> MERGE
     '''
 
-    def __init__(self, nIn, nOut, stride=1, k=4, r_lim=7, down_method='esp'):                     #down_method --> ['avg' or 'esp']
+    def __init__(self, nIn, nOut, stride=1, k=4, r_lim=7, down_method='esp'):                     #down_method --> ['avg' or 'esp'] ======= 注释是解释的作用，不是标记哈，这个看上去就像是标记哈
         '''
+        // ======== 中文中文哈，要不就不写
         :param nIn: number of input channels
         :param nOut: number of output channels
         :param stride: factor by which we should skip (useful for down-sampling). If 2, then down-samples the feature map by 2
@@ -237,19 +245,21 @@ class EESP(nn.Module):
         return self.module_act(expanded)
 ```
 
-#### Strided EESP
+============ 代码的注释都没有中文哈，中文是让别人理解，这里不是写代码哈，是伪代码，让别人理解看懂的代码
 
-为了在多尺度下能够有效地学习特征，对上图1c的网络做了四点改动（如下图所示）：
+### Strided EESP 模块
 
-1.对DDConv添加stride属性。
+为了在多尺度下能够有效地学习特征，对上图 1c 的网络做了四点改动（如下图所示）：
 
-2.右边的shortcut中带了平均池化操作，实现维度匹配。
+1.对 DDConv 添加 stride 属性。
 
-3.将相加的特征融合方式替换为concat形式，增加特征的维度。
+2.右边的 shortcut 中带了平均池化操作，实现维度匹配。
 
-4.融合原始输入图像的下采样信息，使得特征信息更加丰富。具体做法是先将图像下采样到与特征图的尺寸相同的尺寸，然后使用第一个卷积，一个标准的3×3卷积，用于学习空间表示。再使用第二个卷积，一个逐点卷积，用于学习输入之间的线性组合，并将其投影到高维空间。
+3.将相加的特征融合方式替换为 concat 形式，增加特征的维度。
 
-![Strided EESP结构](./images/05.espnet_05.png)
+4.融合原始输入图像的下采样信息，使得特征信息更加丰富。具体做法是先将图像下采样到与特征图的尺寸相同的尺寸，然后使用第一个卷积，一个标准的 3×3 卷积，用于学习空间表示。再使用第二个卷积，一个逐点卷积，用于学习输入之间的线性组合，并将其投影到高维空间。
+
+![Strided EESP 结构](./images/05.espnet_05.png)
 
 ```python
 
@@ -302,11 +312,15 @@ class DownSampler(nn.Module):
 ```
 ### 网络结构
 
-ESPNetv2网络使用EESP单元构建。在每个空间级别，ESPNetv2重复多次EESP单元以增加网络的深度。其中在每个卷积层之后使用batch normalization和PRelu，但在最后一个组级卷积层除外，在该层中，PRelu是在element-wise sum操作之后应用的。
+ESPNet V2 网络使用 EESP 模块构建。在每个空间级别，ESPNet V2 重复多次 EESP 模块以增加网络的深度。其中在每个卷积层之后使用 batch normalization 和 PRelu，但在最后一个组级卷积层除外，在该层中，PRelu 是在 element-wise sum 操作之后应用的。
 
 ## 小结
 
-ESPNet系列的核心在于空洞卷积金字塔，每层具有不同的dilation rate，在参数量不增加的情况下，能够融合多尺度特征，相对于深度可分离卷积，深度可分离空洞卷积金字塔性价比更高。另外，HFF的多尺度特征融合方法也很值得借鉴。
+- ESPNet 系列核心在于空洞卷积金字塔，每层具有不同的空洞比例（dilation rate）
+
+- ESPNet 模型结构再参数量不增加的情况下，利用 HFF 方法能够融合多尺度特征提升模型精度
+
+===== 小结高度提炼要点哈
 
 ## 本节视频
 
