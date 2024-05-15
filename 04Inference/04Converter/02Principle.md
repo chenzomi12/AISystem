@@ -42,18 +42,17 @@
 文本或者二进制格式 ====== 展开
 
 语言专有或者跨语言跨平台自定义格式 ======= 展开
-  
-3. 语言级通用序列化方法
 
+3. 语言级通用序列化方法
 - Python - [pickle](https://docs.python.org/3/library/pickle.html)
 - Python - [joblib](https://joblib.readthedocs.io/en/latest/persistence.html)
 - R - [rda](https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/save)
-======= 上面python和R是什么意思？要开展别人才知道你想要表达什么内容哈
+  ======= 上面python和R是什么意思？要开展别人才知道你想要表达什么内容哈
 
 joblib 在序列化大 numpy 数组时有性能优势，pickle 的 c 实现 cpickle 速度也很快。
 
 4. 用户自定义序列化方法
-  
+
 以上方法都无法达到要求，用户可以使用自定义序列化格式，以满足自己的特殊部署需求：部署性能、模型大小、环境要求等等。但这种方法在模型升级维护以及版本兼容性上是一个大的挑战。
 
 选择模型序列化方法，可以优先使用跨平台跨语言通用序列化方法，最后再考虑使用自定义序列化方法。
@@ -71,7 +70,7 @@ PyTorch 内部格式只存储已训练模型的状态，主要是对网络模型
 PyTorch 内部格式类似于 Python 语言级通用序列化方法[pickle](https://docs.python.org/3/library/pickle.html)。
 
 包括 weights、biases、Optimizer。 ====== 大部分目录我给你改了下，多组织下语言，不要目录结构哈。
-  
+
 ```python
 # Saving & Loading Model for Inference
 
@@ -91,11 +90,11 @@ model.eval()
 state_dict 只是一个 Python 字典对象，它将每个层映射到其参数张量。请注意，只有具有可学习参数的层（卷积层、线性层等）和注册缓冲区（batchnorm 的 running_mean）在模型的 state_dict 中具有条目。
 
 优化器对象 `torch.optim` 还有一个 state_dict，其中包含有关优化器状态以及所使用的超参数的信息。由于 state_dict 对象是 Python 字典，因此可以轻松保存、更新、更改和恢复它们，从而为 PyTorch 模型和优化器添加大量模块化功能。
-  
+
 2. [ONNX](https://pytorch.org/docs/master/onnx.html)
 
 内部支持 torch.onnx.export。 ===== 取消了目录很多语句不通哈
-  
+
 以下代码将预训练的 AlexNet 导出到名为 `alexnet.onnx` 的 ONNX 文件。调用 `torch.onnx.export` 运行模型一次以跟踪其执行情况，然后将跟踪的模型导出到指定文件。
 
 ```python
@@ -139,7 +138,7 @@ Protobuf 最初是由 Google 的工程师开发的，他们需要一种有效的
 #### 文件语法详解
 
 - **基本语法：** 字段规则 数据类型 名称 = 域值 [选项 = 选项值]
-  
+
 ```shell
 // 字段规则 数据类型 名称 = 域值 [选项 = 选项值]
 
@@ -150,11 +149,11 @@ message Net{      // message 属于 Net 域；
 ```
 
 - **字段规则**
-
+  
   - required：一个格式良好的消息一定要含有 1 个这种字段。表示该值是必须要设置的。
   - optional：消息格式中该字段可以有 0 个或 1 个值（不超过 1 个）。
   - repeated：在一个格式良好的消息中，这种字段可以重复任意多次（包括 0 次）。重复的值的顺序会被保留。表示该值可以重复，相当于 java 中的 List。 
-  
+
 #### Protobuf 例子
 
 我们将编写一个 caffe::NetParameter（或在 Python 中 caffe.proto.caffe_pb2.NetParameter）protobuf。
@@ -256,16 +255,20 @@ FlatBuffers 主要针对部署和对性能有要求的应用。相对于 Protoco
 1. 数据访问不需要解析
    
    - 将数据序列化成二进制 buffer，之后的数据访问直接读取这个 buffer，所以读取的效率很高。
+
 2. 内存高效、速度快
-    - 数据访问只在序列化后的二进制 buffer，不需额外的内存分配。
-    - 数据访问速度接近原生的 struct，只多了一次解引用（根据起始地址和偏移量，然后取值）
-  
+   
+   - 数据访问只在序列化后的二进制 buffer，不需额外的内存分配。
+   - 数据访问速度接近原生的 struct，只多了一次解引用（根据起始地址和偏移量，然后取值）
+
 3. 生成的代码量小
    
    - 只需依赖一个头文件
-  
+
 4. 可扩展性强
+
 5. 强类型检测
+
 6. 易于使用
 
 ======= 上面的目录太粗漏了，不合适哈，改一改。
@@ -275,11 +278,13 @@ FlatBuffers 主要针对部署和对性能有要求的应用。相对于 Protoco
 很多 AI 推理框架都是用的 FlatBuffers，最主要的有以下两个：
 
 - [MNN](https://github.com/alibaba/MNN/blob/master/README_CN.md)
+  
   - 阿里巴巴的深度神经网络推理引擎，是一个轻量级的深度神经网络引擎，支持深度学习的推理与训练。
   - 适用于服务器/个人电脑/手机/嵌入式各类设备。目前，MNN 已经在阿里巴巴的手机淘宝、手机天猫、优酷等 30 多个 App 中使用，覆盖直播、短视频、搜索推荐、商品图像搜索、互动营销、权益发放、安全风控等场景。
   - MNN 模型文件采用的存储结构是 FlatBuffers。
-  
+
 - [MindSpore Lite](https://www.mindspore.cn/lite/en)
+  
   - 一种适用于端边云场景的新型开源深度学习训练/推理框架。 
   - MindIR 全称 MindSpore IR，一种基于图表示的函数式 IR，定义了可扩展的图结构以及算子 IR 表示，存储了 MindSpore 基础数据结构。
   - MindIR 作为 MindSpore 的统一模型文件，同时存储了网络结构和权重参数值。同时支持部署到云端 Serving 和端侧 Lite 平台执行推理任务。
@@ -294,7 +299,7 @@ FlatBuffers 主要针对部署和对性能有要求的应用。相对于 Protoco
 ======= 加一段字介绍下面的表格是什么哈。
 
 |        | Proto Bufers                                                                                                           | Flatbuffers                                                                                   |
-|--------|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| ------ | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | 支持语言   | C/C++, C#, Go, Java, Python, Ruby, Objective-C, Dart                                                                   | C/C++, C#, Go, Java, JavaScript, TypeScript, Lua, PHP, Python, Rust, Lobster                  |
 | 版本     | 2.x/3.x，不相互兼容                                                                                                          | 1.x                                                                                           |
 | 协议文件   | .proto，需指定协议文件版本                                                                                                       | .fbs                                                                                          |
@@ -325,4 +330,3 @@ FlatBuffers 主要针对部署和对性能有要求的应用。相对于 Protoco
 8. [深入浅出 FlatBuffers 之 Schema](https://halfrost.com/flatbuffers_schema/)
 9. [FlatBuffers，MNN 模型存储结构基础 ---- 无法解读 MNN 模型文件的秘密](https://www.jianshu.com/p/8eb153c12a4b)
 10. [华为昇思 MindSpore 详细教程（一）](https://blog.csdn.net/m0_37605642/article/details/125691987)
-
