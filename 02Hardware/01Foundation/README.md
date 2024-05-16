@@ -15,7 +15,7 @@
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
 | AI 计算体系 | 01 课程内容| [文章](./01Introduction.md), [slide](./01Introduction.pdf), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/) |
-| AI 计算体系 | 02 AI 计算模式(上) | [slide](./02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/) |
+| AI 计算体系 | 02 AI 计算模式(上) | [文章](./02ArchSlim.md), [slide](./02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/) |
 | AI 计算体系 | 03 AI 计算模式(下) | [slide](./03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |
 | AI 计算体系 | 04 关键设计指标| [slide](./04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/) |
 | AI 计算体系 | 05 核心计算：矩阵乘| [slide](./05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/) |
