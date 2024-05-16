@@ -47,7 +47,7 @@
 - Python - [pickle](https://docs.python.org/3/library/pickle.html)
 - Python - [joblib](https://joblib.readthedocs.io/en/latest/persistence.html)
 - R - [rda](https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/save)
-  ======= 上面python和R是什么意思？要开展别人才知道你想要表达什么内容哈
+  ======= 上面 python 和 R 是什么意思？要开展别人才知道你想要表达什么内容哈
 
 joblib 在序列化大 numpy 数组时有性能优势，pickle 的 c 实现 cpickle 速度也很快。
 
@@ -59,7 +59,7 @@ joblib 在序列化大 numpy 数组时有性能优势，pickle 的 c 实现 cpic
 
 ### Pytorch 模型序列化方法
 
-====== Pytorch的模型序列化方式根据最新的API其实有更新，例如 model.to_cpu 这种，去调研一下，深入到这个领域，再展开。
+====== Pytorch 的模型序列化方式根据最新的 API 其实有更新，例如 model.to_cpu 这种，去调研一下，深入到这个领域，再展开。
 
 Pytorch 模型序列化有两种方法，一种是基于 Pytorch 内部格式，另一种是使用 ONNX。前者只保存了网络模型的参数、结构，不能保存网络模型的信息计算图。
 
@@ -81,7 +81,7 @@ model.load_state_dict(torch.load(PATH))
 model.eval()
 ```
 
-========= 文中的API和函数用 `xxxx` 来包住就很清晰了
+========= 文中的 API 和函数用 `xxxx` 来包住就很清晰了
 
 `torch.save` 将序列化对象保存到磁盘。该函数使用 Python 的 pickle 实用程序进行序列化。使用此函数可以保存各种对象的模型、张量和字典。
 
@@ -244,7 +244,7 @@ tf.io.decode_proto(
 
 对于 field 先解析 tag 得到 field_num 和 type。field_num 是属性 ID，type 帮助确定后面的 value 一种编码算法对数据进行解码。
 
-======== 基本上就是PPT的内容，要深入展开里面的细节，把知识读厚哈。
+======== 基本上就是 PPT 的内容，要深入展开里面的细节，把知识读厚哈。
 
 ### FlatBuffers
 
