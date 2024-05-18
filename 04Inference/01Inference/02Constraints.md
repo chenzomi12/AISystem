@@ -14,9 +14,7 @@
 
 接下来，先从深度学习训练过程和推理过程对比两者的相同点和不同点，以及在生命周期所处的环节，进而便于理解深度学习推理系统所侧重的目标。
 
-![神经网络模型的生命周期](./images/02lifePeriod.png)
-
-===== 图片命名规范，改为 02Constrains01.png，后续增加序号哈
+![神经网络模型的生命周期](./images/02Constrains01.png)
 
 如上图所示，神经网络模型的生命周期（Life Cycle）最核心的主要由数据准备、模型训练推理以及模型部署三个阶段组成。
 
@@ -42,9 +40,7 @@
 
 而在训练停止之后，整个模型的权重和偏置等参数已经被确定下来，也即得到一个固定化的网络模型，可以将其用于后续的数据预测或推理任务。
 
-![深度学习中模型的训练与推理](./images/introduction02.png)
-
-===== 图片命名规范
+![深度学习中模型的训练与推理](./images/02Constrains02.png)
 
 在完成了训练阶段后，就可以得到固定网络模型参数的权重参数，并通过离线和在线优化（例如压缩、量化等），内核编译（例如内核调优与代码生成）等技术将该模型加载部署在推理系统中。
 
@@ -110,38 +106,67 @@
 
 对于推理阶段，性能目标与训练阶段有所不同。 为了最大限度地减少网络的端到端响应时间（End to End Response Time），推理通常比训练批量输入更少的输入样本，也就是更小的批量大小，因为依赖推理工作的服务（例如，基于云的图像处理管道）需要尽可能的更快响应，因此用户不需要让系统累积样本形成更大的批量大小，从而避免了等待几秒钟的响应时间。在推理阶段，低延迟是更为关键的性能指标，而高吞吐量虽然在训练期间是重要的，但在推理时则相对次要。
 
-====== 这个例子很落后了，现在已经没有人用 rtensorflow 了，换成 pytorch 转 tensorRT。
-
-接下来，可以通过以下 MMdnn 自带的一个模型在 TensorRT 的推理过程实例来了解模型推理的常见步骤。
+接下来，可以通过以下使用 Pytorch 实现的ResNet50模型在 TensorRT 的推理过程实例来了解模型推理的常见步骤。
 
 ```python
-# (1) 将框架(本实例中为 TensorFlow 模型文件)的模型文件转换为推理系统的模型格式(本实例中为 UFF 格式).
-...
-uff_model = uff.from_tensorflow(tf_model, OUTPUT_NAMES)
-# (2) 部署模型文件到推理系统 TensorRT.
-...
-engine = trt.utils.uff_to_trt_engine(G_LOGGER, uff_model, parser, 1, 1 << 20)
-# (3) 读取测试输入. 
-...
-img = Image.open(path)
-...
-# (4) 初始化推理引擎上下文(Context).
-context = engine.create_execution_context()
-...
-# (5) 将输入数据拷贝到设备(例如，GPU)并执行模型进行推理
-...
-bindings = [int(d_input), int(d_output)]
-...
-cuda.memcpy_htod_async(d_input, img, stream)
-# (6) 模型推理
-context.enqueue(1, bindings, stream.handle, None)
-...
-# (7) 最后，获取推理结果，并将结果拷贝到主存
-cuda.memcpy_dtoh_async(output, d_output, stream)
-...
-print("Prediction: ", LABELS[np.argmax(output)])
-# 打印结果
->>> Prediction:  n01608432 kite 
+import torch
+import torchvision.models as models
+import tensorrt as trt
+import numpy as np
+import pycuda.driver as cuda
+import pycuda.autoinit
+
+# 步骤1：加载PyTorch模型并转换为ONNX格式
+model = models.resnet50(pretrained=True) # 加载预训练的ResNet50模型
+model.eval()
+dummy_input = torch.randn(1, 3, 224, 224) # 创建一个示例输入
+torch.onnx.export(model, dummy_input, "resnet50.onnx", opset_version=11) # 将模型导出为ONNX格式
+
+# 步骤2：使用TensorRT将ONNX模型转换为TensorRT引擎
+TRT_LOGGER = trt.Logger(trt.Logger.WARNING) # 创建一个Logger
+EXPLICIT_BATCH = 1 << int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH) # 如果是动态输入，需要显式指定EXPLICIT_BATCH
+with trt.Builder(TRT_LOGGER) as builder, builder.create_network(EXPLICIT_BATCH) as network, trt.OnnxParser(network, TRT_LOGGER) as parser:
+    # 创建一个Builder和Network
+    # builder创建计算图 INetworkDefinition
+    builder.max_workspace_size = 1 << 30  # 1GB ICudaEngine执行时GPU最大需要的空间
+    builder.max_batch_size = 1 # 执行时最大可以使用的batchsize
+
+    with open("resnet50.onnx", "rb") as model_file:
+        parser.parse(model_file.read())  # 解析ONNX文件
+
+    engine = builder.build_cuda_engine(network)  # 构建TensorRT引擎
+
+    with open("resnet50.trt", "wb") as f:
+        # 将引擎保存到文件
+        f.write(engine.serialize())
+
+# 步骤3：使用TensorRT引擎进行推理
+def load_engine(engine_file_path):
+    # 加载TensorRT引擎
+    with open(engine_file_path, "rb") as f, trt.Runtime(TRT_LOGGER) as runtime:
+        return runtime.deserialize_cuda_engine(f.read())
+
+engine = load_engine("resnet50.trt")
+context = engine.create_execution_context() # 将引擎应用到不同的GPU上配置执行环境
+
+# 准备输入和输出缓冲区
+input_shape = (1, 3, 224, 224)
+output_shape = (1, 1000)
+input_size = trt.volume(input_shape) * trt.float32.itemsize
+output_size = trt.volume(output_shape) * trt.float32.itemsize
+d_input = cuda.mem_alloc(input_size)
+d_output = cuda.mem_alloc(output_size)
+stream = cuda.Stream() # 创建流
+input_data = np.random.random(input_shape).astype(np.float32)# 创建输入数据
+cuda.memcpy_htod_async(d_input, input_data, stream) # 复制输入数据到GPU
+
+# 推理
+context.execute_async_v2(bindings=[int(d_input), int(d_output)], stream_handle=stream.handle)
+# 从GPU复制输出数据
+output_data = np.empty(output_shape, dtype=np.float32)
+cuda.memcpy_dtoh_async(output_data, d_output, stream) # 获取推理结果，并将结果拷贝到主存
+stream.synchronize() # 同步流
+print("Predicted output:", output_data)
 
 ```
 
@@ -149,9 +174,7 @@ print("Prediction: ", LABELS[np.argmax(output)])
 
 通过上面的代码实例，可以对推理系统的主干流程有一个基本的了解。当模型被部署之后，可以通过以下图示来观察常见推理系统的模块、与推理系统交互的系统以及推理任务的流水线。
 
-![推理服务系统图](./images/02InferenceSystem01.png)
-
-===== 图片命名规范
+![推理服务系统图](./images/02Constrains03.png)
 
 从上图的推理服务系统架构图中，可以清晰地看到推理服务系统的流程。首先，经过训练后的模型会被保存在文件系统中。随着训练效果的不断优化，可能会产生多个版本的模型，这些模型将按照既定的版本管理规则被妥善存储于文件系统中。
 
@@ -167,9 +190,7 @@ print("Prediction: ", LABELS[np.argmax(output)])
 
 该公司计划引入内容个性化推荐服务，并期望该服务满足以下几个方面的需求：首先是低延迟，即在互联网上响应请求的延迟通常应小于 100 毫秒，为用户带来流畅的观看体验；其次是高吞吐，因为突发事件可能引发用户量的急剧增加，因此系统需要具备迅速而有效地处理大量请求的能力；再者，系统需具备良好的扩展性，以适应不断扩大的用户群体；最后是准确度，系统需要实时捕捉视频内容和用户兴趣变化之间的关系，持续提供精准且个性化的推荐服务。
 
-![AI 框架、推理系统与硬件之间的关系图](./images/02InferenceSystem03.png)
-
-===== 图片命名规范
+![AI 框架、推理系统与硬件之间的关系图](./images/02Constrains04.png)
 
 根据上图示的 AI 框架、推理系统与硬件之间的关系，可以看到，除了应对应用场景的多样化需求，推理系统还需克服由不同训练框架和推理硬件所带来的部署环境多样性挑战，这些挑战不仅增加了部署优化和维护的难度，而且易于出错。
 
@@ -214,7 +235,7 @@ print("Prediction: ", LABELS[np.argmax(output)])
 
 如下图的推理系统组件与架构图所示，推理系统中常常涉及相应模块并完成相应功能，将在后面章节中逐步展开。 通过下图可以看到推理系统的全貌：
 
-![推理系统组件与架构图](./images/02InferenceSystem02.png)
+![推理系统组件与架构图](./images/02Constrains05.png)
 
 推理系统的构建涉及到多个核心环节，以确保请求与响应的高效处理、资源的高效调度、推理引擎的灵活适配、模型版本的有效管理、服务的健康监控以及边缘推理芯片与代码编译的优化。
 
@@ -236,7 +257,7 @@ print("Prediction: ", LABELS[np.argmax(output)])
 
 通过推理引擎的 API，开发者可以轻松读取模型的中间表示（IR）、设置输入输出的数据格式，并在指定的设备上执行模型推理。虽然 C++库是主要的实现方式，但为了方便不同开发者的使用，也提供了 C 库和 Python bindings（即通过 Python 直接调用 C/C++库）。
 
-![推理引擎架构图](./images/inference01.png)
+![推理引擎架构图](./images/02Constrains06.png)
 
 上图展示的是推理引擎的架构图。展示了整个推理引擎的流程结构与相关的算法，整个框架从上到下可以分为四个主要部分：API 接口输入、模型压缩与优化、Runtime 优化和 Kernel 优化。
 
@@ -282,3 +303,4 @@ Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负
 18. [Crazy Rockets-教你如何集成华为 HMS ML Kit 人脸检测和手势识别打造爆款小游戏](https://segmentfault.com/a/1190000037710505)
 19. [记录自己神经网络模型训练的全流程](https://zhuanlan.zhihu.com/p/465623148)
 20. [推理系统和推理引擎的整体架构](https://blog.csdn.net/weixin_45651194/article/details/132872588)
+21. [Pytorch-Onnx-Tensorrt模型转换教程案例](https://blog.csdn.net/weixin_44533869/article/details/125223704)
