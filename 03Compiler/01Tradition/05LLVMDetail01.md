@@ -77,7 +77,7 @@ int main(void)
 }
 ```
 
-======= 介绍下面XXXX
+======= 介绍下面 XXXX
 
 ```shell
 clang -S -emit-llvm .\test.c
@@ -157,7 +157,7 @@ attributes #0 = { noinline nounwind optnone uwtable "min-legal-vector-width"="0"
 
 ## LLVM IR 指导原则
 
-======= 下面的1,2没有前后文，看不懂主语。
+======= 下面的 1,2 没有前后文，看不懂主语。
 
 1. 采用静态单赋值形式（Static single assignment,SSA）表示，代码组织为三地址指令序列和无限寄存器让优化能够快速执行。
 

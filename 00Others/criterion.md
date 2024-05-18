@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 书写规范(DONE)
+# 书写规范
 
 书写规范（Writing Conventions）给出了包含文档内的书写约定。请作者与贡献者参考以下约定检查格式，内容一致性与正确性。
 
@@ -10,12 +10,12 @@
 
 ## 内容格式
 
-参考章节-第 7 章。
+参考章节《AI 框架》。
 
 ### 小节包含内容
 
-- n-前沿.md
-- n.m-章节名.md
+- 01Introduction.md
+- 序号+首字母大写.md
 - ...
 
 ### 小节内容
@@ -23,14 +23,6 @@
 1. 添加各个章节和小节序号。
 
 2. 提那家章节目录，例如可以通过[Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)插件自动化。
-   
-   ```
-   # 7.1 小节名
-   ```
-
-xxx
-
-小节目录
 
 ### 子节名
 
@@ -48,11 +40,13 @@ xxx
 -
 
 ```
+
 ## 1.3 文字
 
 1. 保持中文，中文（英文）。
 
 例如：
+
 Figure 改为图片
 
 2. 英文，数字，长序号两侧加空格，标点符号两侧不需要添加
@@ -72,11 +66,6 @@ Http 链接不直接暴露。放于语法[文字](链接中)。
 ## 1.5 图片
 
 1. 注意追加图序号。
-```
-
-<center><img src="./images.png" /></center>
-<center>图 7.1.1 多租环境提交运行作业（<a href="https://xx">图片引用</a>）</center>
-```
 2. 图片清晰度可以看到内容细节。
 3. 图片宽高调整自然。
 4. 图片添加引用。
