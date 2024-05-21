@@ -131,4 +131,4 @@ INT8 乘加之后的结果用 INT32 格式存储，如果下一层需要 INT8 �
 
 ## 参考
 
-- 8-bit Inference with TensorRT https://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf
+- 8-bit Inference with TensorRT https://on-demand.GPUtechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf

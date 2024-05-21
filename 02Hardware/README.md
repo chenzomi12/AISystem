@@ -56,7 +56,7 @@ AI 硬件体系结构主要是指 AI 芯片，这里就很硬核了，从芯片�
 | AI 芯片基础 | 02 CPU 指令集架构 | [slide](./02ChipBase/02.cpu_isa.pdf), [video](https://www.bilibili.com/video/BV1ro4y1W7xN/), [字幕](./02ChipBase/srt/02.srt)     |
 | AI 芯片基础 | 03 CPU 计算本质  | [slide](./02ChipBase/03.cpu_data.pdf), [video](https://www.bilibili.com/video/BV17X4y1k7eF/), [字幕](./02ChipBase/srt/03.srt)    |
 | AI 芯片基础 | 04 CPU 计算时延  | [slide](./02ChipBase/04.cpu_latency.pdf), [video](https://www.bilibili.com/video/BV1Qk4y1i7GT/), [字幕](./02ChipBase/srt/04.srt) |
-| AI 芯片基础 | 05 GPU 基础原理  | [slide](./02ChipBase/05.gpu.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/), [字幕](./02ChipBase/srt/05.srt)         |
+| AI 芯片基础 | 05 GPU 基础原理  | [slide](./02ChipBase/05.GPU.pdf), [video](https://www.bilibili.com/video/BV1sM411T72Q/), [字幕](./02ChipBase/srt/05.srt)         |
 | AI 芯片基础 | 06 NPU 基础原理  | [slide](./02ChipBase/06.npu.pptx), [video](https://www.bilibili.com/video/BV1Rk4y1e77n/), [字幕](./02ChipBase/srt/06.srt)        |
 | AI 芯片基础 | 07 超异构计算     | [slide](./02ChipBase/07.future.pdf), [video](https://www.bilibili.com/video/BV1YM4y117VK), [字幕](./02ChipBase/srt/07.srt)       |
 
