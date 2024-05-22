@@ -2,7 +2,7 @@
 
 为了满足数据中心算力需求，Google 在 2014 年开始研发基于特定领域架构（Domain-specific Architecture，DSA）的 TPU（Tensor Processing Unit），专门为深度学习任务设计的定制硬件加速器，加速谷歌的机器学习工作负载，特别是训练和推理大规模神经网络模型。
 
-David Patterson 是计算机体系结构领域科学家，自 1976 年起担任加州大学伯克利分校的计算机科学教授并在 2016 年宣布退休，在 2017 年加入 Google TPU 团队，2020 年在加州大学伯克利分校发表演讲《A Decade of Machine Learning Accelerators:Lessons Learned and Carbon Footprint》，分享了 TPU 近几年的发展历程以及心得体会，本节主要摘录并深入探讨其中的 8 点思考。
+David Patterson（大卫·帕特森）是计算机体系结构领域科学家，自 1976 年起担任加州大学伯克利分校的计算机科学教授并在 2016 年宣布退休，在 2017 年加入 Google TPU 团队，2020 年在加州大学伯克利分校发表演讲《A Decade of Machine Learning Accelerators:Lessons Learned and Carbon Footprint》，分享了 TPU 近几年的发展历程以及心得体会，本节主要摘录并深入探讨其中的 8 点思考。
 
 ## Thought 1：模型 Memory & FLOPs 增长
 
@@ -10,7 +10,7 @@ AI 模型近几年所需的内存空间和算力平均每年增长 50%，模型�
 
 ![模型参数量](images/06AIChip01.png)
 
-训练模型的增长速度比推理模型更快，2016-2023 年，SOTA 训练模型的算力需求年均增长 10 倍，GPT-2 模型的参数量从 15 亿增长到 GPT-3 1750 亿，提高了 100 倍。
+训练模型参数量的增长速度比推理模型更快，2016-2023 年，SOTA 训练模型的算力需求年均增长 10 倍，GPT-2 模型的参数量从 15 亿增长到 GPT-3 1750 亿，提高了 100 倍。
 
 ![模型参数量增长](images/06AIChip02.png)
 
@@ -38,7 +38,7 @@ AI 模型近几年所需的内存空间和算力平均每年增长 50%，模型�
 
 ![Virtual GPU Technology | NVIDIA GRID](images/06AIChip05.png)
 
-因此需要多租户技术（Multi-tenancy）实现算力切分、显存虚拟化、内存寻址、虚拟内存页等技术。GPU 虚拟化技术可以将物理 GPU 资源虚拟化为多个逻辑 GPU 资源，使多个用户或应用程序能够共享同一块物理 GPU 而不会相互干扰。这种技术可以提高 GPU 资源的利用率和性能，并且能够为不同用户提供独立的 GPU 环境，增强系统的安全性和隔离性。目前常见的 GPU 虚拟化技术包括 NVIDIA 的 vGPU、AMD 的 MxGPU 以及 Intel 的 GVT-g 虚拟化方案。
+因此需要多租户技术（Multi-tenancy）实现算力切分、显存虚拟化、内存寻址、虚拟内存页等技术。GPU 虚拟化技术可以将物理 GPU 资源虚拟化为多个逻辑 GPU 资源，使多个用户或应用程序能够共享同一块物理 GPU 而不会相互干扰。这种技术可以提高 GPU 资源的利用率和性能，并且能够为不同用户提供独立的 GPU 环境，增强系统的安全性和隔离性。目前常见的 GPU 虚拟化技术包括 NVIDIA vGPU、AMD MxGPU 以及 Intel GVT-g 等虚拟化方案。
 
 ## Thought 4：较大的 SRAM 和存取速度极快的 DRAM
 
@@ -46,7 +46,7 @@ AI 模型近几年所需的内存空间和算力平均每年增长 50%，模型�
 
 ![模型采用的多租户技术](images/06AIChip06.png)
 
-红色虚线表示单芯片的最大 SRAM（片上存储），而实际情况下不少模型需要的内存远大于此。部分芯片的设计思路是期望利用 SRAM 解决所有任务，减少内存数据搬运的时间，但是在多租户场景下很难实现。所以 AI 芯片不仅需要更大的 SRAM 内存空间，更需要存储速度更快的 DRAM。
+红色虚线表示单芯片的最大 SRAM（片上存储），而实际情况下不少模型需要的内存远大于此。部分芯片的设计思路是期望利用 SRAM 解决所有任务，减少内存数据搬运的时间，但是在多租户场景下很难实现。所以 AI 芯片不仅需要更大的SRAM 片上存储内存空间，更需要存储速度更快的片外存储 DRAM。
 
 ![存储空间与模型大小的差距](images/06AIChip07.png)
 
@@ -60,7 +60,7 @@ AI 模型近几年所需的内存空间和算力平均每年增长 50%，模型�
 
 ![线程内存共享减少数据搬运](images/06AIChip09.png)
 
-谷歌 TPU v1 有 65536 （256x256）个矩阵乘法单元（Matrix Multiply Unit），时钟周期是 700 MHz，在其中做了专门的数据流编排，从而使数据可以流动地更快，快速的传输给计算单元进行计算。峰值算力达到 92 T Operations/s（65,000×2×700M ≈ 90 TeraOPS），Accumulator 内存大小是 4 MB，Activation Storage 内存大小是 24 MB。
+谷歌 TPU v1 有 65536 （256x256）个矩阵乘法单元（Matrix Multiply Unit），时钟周期是 700 MHz，在其中做了专门的数据流编排，从而使数据可以流动地更快，快速地传输给计算单元进行计算。峰值算力达到 92 T Operations/s（65,000×2×700M ≈ 90 TeraOPS），Accumulator 内存大小是 4 MB，Activation Storage 内存大小是 24 MB。
 
 ![TPUv1: High-level Chip Architecture](images/06AIChip10.png)
 
@@ -110,17 +110,17 @@ DSA 的编译器需要对 AI 模型进行分析和优化，通过编译器把 AI
 
 当输入序列（sequence length）较长时，Transformer 的计算过程缓慢且耗费内存。Flash Attention（FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness（FlashAttention：一种具有 IO 感知，且兼具快速、内存高效的新型注意力算法））是 GPT-3.5 中引入的一种注意力机制，是一种改进的自注意力机制，它重新排序了注意力计算的顺序，以提高处理长序列数据时的效率。
 
-GPU 中存储单元主要有 HBM 和 SRAM，HBM 容量大但是访问速度慢，SRAM 容量小却有着较高的访问速度。GPU SRAM 的读写（I/O）的速度为 19TB/s 和 GPU HBM 的读写（I/O）速度相差十几倍，而对比存储容量也相差了好几个数量级。FlashAttention 通过减少 GPU 内存读取/写入，运行速度比 PyTorch 标准注意力快 2-4 倍，所需内存减少 5-20 倍。而且 Flash Attention 的计算是从 HBM 中读取块，在 SRAM 中计算之后再写到 HBM 中，因此想避免从 HBM 里读取或写入注意力矩阵。算法没有减少计算量，而是从 IO 感知出发，减少 HBM 访问次数，从而减少了计算时间。
+GPU 中存储单元主要有 HBM 和 SRAM，HBM 容量大但是访问速度慢，SRAM 容量小却有着较高的访问速度。GPU SRAM 的读写（I/O）的速度为 19 TB/s 和 GPU HBM 的读写（I/O）速度相差十几倍，而对比存储容量也相差了好几个数量级。FlashAttention 通过减少 GPU 内存读取/写入，运行速度比 PyTorch 标准注意力快 2-4 倍，所需内存减少 5-20 倍。而且 Flash Attention 的计算是从 HBM 中读取块，在 SRAM 中计算之后再写到 HBM 中，因此想避免从 HBM 里读取或写入注意力矩阵。算法没有减少计算量，而是从 IO 感知出发，减少 HBM 访问次数，从而减少了计算时间。
 
 ![Flash Attention](images/06AIChip16.png)
 
 ## 参考文献
 
 <div id="ref1"></div>
-[1] 演讲视频. "David Patterson: A Decade of Machine Learning Accelerators:Lessons Learned and Carbon Footprint" YouTube, [[https://www.youtube.com/watch?v=PLK3pGELbSs](https://www.youtube.com/watch?v=PLK3pGELbSs).](https://www.youtube.com/watch?v=PLK3pGELbSs](https://www.youtube.com/watch?v=PLK3pGELbSs).)
+[1] "David Patterson: A Decade of Machine Learning Accelerators:Lessons Learned and Carbon Footprint" YouTube, [https://www.youtube.com/watch?v=PLK3pGELbSs]
 
 <div id="ref2"></div>
-[2] 视频内容翻译. "TPU 演进十年：Google 的十大经验教训" 知乎, [[https://zhuanlan.zhihu.com/p/573794328](https://zhuanlan.zhihu.com/p/573794328).](https://zhuanlan.zhihu.com/p/573794328](https://zhuanlan.zhihu.com/p/573794328).)
+[2] "TPU 演进十年：Google 的十大经验教训" 知乎, [https://zhuanlan.zhihu.com/p/573794328]
 
 ## 本节视频
 
