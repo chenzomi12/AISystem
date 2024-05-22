@@ -99,7 +99,7 @@ DSA 硬件架构同样可以引入 Warp Scheduler 进行指令流水掩盖，让
 
 ## 借鉴Ⅲ：分支预测机制
 
-SPMD 编程模型对分支预测和控制流的高容忍度是支撑易用性的重要手段，减少分支和连续访存是软件层面、易用性方面需要关注的优化点。当然，在 SIMD 的硬件上同样可以通过 Predicate/mask 和对 gather/scatter 指令 memory coalescing 来实现，通过编译器实现分支预测从而让开发者无感，但是在 SIMD 线程有限的情况下，性能的提升可能会是个难题。
+SPMD 编程模型对分支预测和控制流的高容忍度是支撑易用性的重要手段，减少分支和连续访存是软件层面、易用性方面需要关注的优化点。当然，在 SIMD 的硬件上同样可以通过 Predicate/mask、 gather/scatter 指令和 memory coalescing 来实现，通过编译器实现分支预测从而让开发者无感，但是在 SIMD 线程数量有限的情况下，性能的提升可能会是个难题。
 
 英伟达 GPU 可以使线程在 Warp-base SIMD 上执行不同的分支，每个线程都可以执行带条件控制流指令（Conditional Control Flow Instructions），同时不同线程间可以分别执行不同的控制流路径（Different Control Flow Paths），比如分别执行不同的 Thread W，Thread X 和 Thread Y 控制流执行路径。
 
@@ -117,13 +117,13 @@ SPMD 编程模型对分支预测和控制流的高容忍度是支撑易用性的
 
 ![动态分支合并](images/05DSA07.png)
 
-动态 warp 分组更多是在编译器层面解决分支预测的问题，根据线程执行情况和数据依赖性动态组织 warp 中的线程，以提高并行计算性能和资源利用率，优化 GPU 计算，提高程序的执行效率。
+动态 Warp 分组（Dynamic Warp Formation）更多是在编译器层面解决分支预测的问题，根据线程执行情况和数据依赖性动态组织 Warp 中的线程，以提高并行计算性能和资源利用率，优化 GPU 计算，提高程序的执行效率。
 
 ![动态 Warp 分组](images/05DSA08.png)
 
 ## 借鉴Ⅳ：交互方式
 
-CUDA 可以提供 host（CPU）和 device（GPU）之间便利的交互方式，CUDA 中有很多实现机制与 SIMT、SIMD、DSA 的硬件架构本身并没有太多关系。CUDA 中的所有特性也不是 SIMT 架构独有的，因此不存在技术上选择 SIMT、SIMD、DSA 与硬件强行绑定等问题。比如 CUDA Runtime 提供 host 和 device 的 C++交互方式，如寒武纪 BANG C 语言在这个层面就参考了 CUDA。在软件层面的交互上，CUDA 可以很容易地实现向量加法：
+CUDA 可以提供 host（CPU）和 device（GPU）之间便利的交互方式，CUDA 中有很多实现机制与 SIMT、SIMD、DSA 的硬件架构本身并没有太多关系。CUDA 中的所有特性也不是 SIMT 架构独有的，因此不存在技术上选择 SIMT、SIMD、DSA 与硬件强行绑定等问题。比如 CUDA Runtime 提供 host 和 device 的 C++ 交互方式，如寒武纪 BANG C 语言在这个层面就参考了 CUDA。在软件层面的交互上，CUDA 可以很容易地实现向量加法：
 
 ```c
 for (int i = 0; i < 10000; ++i) {
@@ -186,7 +186,7 @@ int main() {
 }
 ```
 
-CUDA 同时具有编程开发的易用性，对初阶用户而言，CUDA 的易用性是极致的，入门开发者任意写一个简单的 Kernel，就能够获得比 CPU 高 5~10 倍的峰值性能。
+CUDA 同时具有编程开发的易用性，对初阶用户而言，CUDA 的易用性是极致的，入门开发者任意写一个简单的算子（Kernel），就能够获得比 CPU 高 5~10 倍的峰值性能。
 
 因为 DSA 硬件架构在流水和指令使用上缺乏完备、隐式的支持，指令流水的支持需要开发者通过手工掩盖、切块等其他优化思想补齐这部分性能，而使用底层指令则会让用户在写出正确的 Kernel 时花费更多的时间。
 
