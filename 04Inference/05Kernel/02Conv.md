@@ -350,11 +350,7 @@ def conv(inputs, kernel, stride, mode="SAME"):
     # 确定卷积核的尺寸
     ks = kernel.shape[:2]
     
-<<<<<<< HEAD
     # get_padding 确定 padding 的模式和数值
-=======
-    # get_padding 确定 padding 的模式和数值
->>>>>>> c7b6ce1868e05e1958823842177458d97860bb0a
     pad = get_padding(inputs, ks, mode="SAME")
     padded_inputs = np.pad(inputs, pad_width=((pad[0], pad[2]), (pad[1], pad[3]), (0, 0)), mode="constant")
 	  
