@@ -64,10 +64,10 @@ __global__ void add_matrix(float* a, float* b, float* c, int N) {
 
 int main() {
     dim3 dimBlock(blocksize, blocksize);
-    
+
     // Calculate the grid size
     dim3 dimGrid((N + dimBlock.x - 1) / dimBlock.x, (N + dimBlock.y - 1) / dimBlock.y);
-    
+
     // Launch the kernel
     add_matrix<<<dimGrid, dimBlock>>>(a, b, c, N);
 }
@@ -140,7 +140,7 @@ for (int i = 0; i < 10000; ++i) {
 // CUDA 核函数，用于执行向量加法
 __global__ void vectorAdd(int *a, int *b, int *c) {
     int i = blockDim.x * threadDim.x + threadIdx.x;
-    
+
     if (i < N) {
         c[i] = a[i] + b[i];
     }
