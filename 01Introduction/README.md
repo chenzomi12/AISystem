@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 一、AI 系统概述
+# === 一. AI 系统概述(DONE) ====
 
 目前应用最为广泛，工程实践最丰富，研究最为火热的人工智能（Artificial Intelligence，AI）方向就是深度学习（Deep Learning，DL）。深度学习算法目前在计算机视觉，自然语言处理，语音识别等典型场景取得了超越传统算法的效果与突破性进展。应用与算法层面成功的背后离不开系统本身作为基础设施提供容易编程的接口，高效率的执行，大规模的训练，跨平台的部署和工具链的支持。
 

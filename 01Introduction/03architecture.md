@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 系统全栈架构
+# AI 系统全栈架构(DONE)
 
 通过对 AI 的发展、以及模型算法、硬件与数据的趋势介绍，我们已经了解了 AI 系统的重要性。本章将介 AI 系统的设计目标，组成和生态，让读者形成人工智能系统的知识体系，为后续展开每个章节的内容做好铺垫。
 
