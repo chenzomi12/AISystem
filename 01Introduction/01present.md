@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 的历史与现状
+# AI 的历史与现状(DONE)
 
 本章将介绍 AI 的由来、现状和趋势，让大家能够了解 AI 应用的由来与趋势，为后面理解 AI 系统的设计形成初步的基础。在后面章节介绍的人工智能系统（AI System）奠定基础，值得注意的是，这些系统设计原则大部分也适合于机器学习系统（ML System）。
 

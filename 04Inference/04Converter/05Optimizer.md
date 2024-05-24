@@ -209,7 +209,7 @@ auto session_ = Ort::Session(env, "optimized_file_path", session_options)
 
 - Example - ONNX Runtime 图优化
 
-====== 取消目录结构，用一段话来描述哈。
+====== 取消目录结构，分开几个内容介绍本节内容哈。
 
 ## 本节视频
 

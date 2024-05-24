@@ -64,8 +64,6 @@
 
 在本小节中，将通过具体实例来展示推理系统的实际应用，包括人脸 landmark 的应用以及利用华为 HMS Core 实现的人脸和手势检测等端侧应用。同时，也将探讨维护推理系统所面临的问题和挑战。
 
-====== 推理很多好玩和有意思的新应用和场景，这里可以增加新的点，不要被 PPT 和视频内容受限哈。
-
 ### 人脸 Landmark
 
 ![人脸 landmark 的应用](./images/example01.gif)
@@ -124,10 +122,10 @@
 8. [https://developer.NVIDIA.com/deep-learning-performance-training-inference](https://developer.NVIDIA.com/deep-learning-performance-training-inference)
 9. [DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING](https://arxiv.org/pdf/1510.00149.pdf)
 10. [Learning both Weights and Connections for Efficient Neural Networks](https://pdfs.semanticscholar.org/1ff9/a37d766e3a4f39757f5e1b235a42dacf18ff.pdf)
-11. [DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT](http://on-demand.gputechconf.com/gtcdc/2017/presentation/dc7172-shashank-prasanna-deep-learning-deployment-with-NVIDIA-tensorrt.pdf)
+11. [DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT](http://on-demand.GPUtechconf.com/gtcdc/2017/presentation/dc7172-shashank-prasanna-deep-learning-deployment-with-NVIDIA-tensorrt.pdf)
 12. [Halide: A Language and Compiler for Optimizing Parallelism,Locality, and Recomputation in Image Processing Pipelines](https://people.csail.mit.edu/jrk/halide-pldi13.pdf)
 13. [TVM: An Automated End-to-End Optimizing Compiler for Deep Learning](https://www.usenix.org/system/files/osdi18-chen.pdf)
-14. [8-bit Inference with TensorRT](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)
+14. [8-bit Inference with TensorRT](http://on-demand.GPUtechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)
 15. [https://github.com/microsoft/AI-System](https://github.com/microsoft/AI-System)
 16. [推理系统&引擎](https://chenzomi12.github.io/040Inference/README.html) 
 17. [NCNN、OpenVino、 TensorRT、MediaPipe、ONNX，各种推理部署架构，到底哪家强？](https://zhuanlan.zhihu.com/p/423551635)
