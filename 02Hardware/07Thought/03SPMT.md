@@ -16,7 +16,7 @@
 
 ### 串行执行 SISD
 
-串行执行与 SISD（Single Instruction, Single Data）类似，以向量相加的操作来举例说明，每一次 for 循环，都要执行一次向量 A 和向量 B 相加之后得到向量 C 的操作，在 CPU 中经常使用这种方式。一般在 CPU 中会采用流水执行，乱序执行和超长指令集 VLIW 架构来提高计算效率。
+串行执行与 SISD（Single Instruction, Single Data）类似，以向量相加 $C[i] = A[i] + B[i]$ 的操作来举例说明，每一次 for 循环（Iter.i），都要执行一次向量 A 和向量 B 相加之后得到向量 C 的操作，在 CPU 中经常使用这种方式。一般在 CPU 中会采用流水执行，乱序执行和超长指令集（VLIW）架构来提高计算效率。
 
 ```c
 for (int i = 0; i < N; ++i) 
@@ -57,27 +57,27 @@ for (int i = 0; i < N; ++i)
 
 ### 多线程 SPMD
 
-SPMD（Single Program Multiple Data）是一种并行计算模型，多线程 SPMD 指的是在 SPMD 模型中使用多个线程来执行并行计算任务。在多线程 SPMD 中，每个线程都执行相同的程序，但处理不同的数据，通过并发执行来加速计算过程。SPMD 通过循环中的每个迭代独立实现，在程序上，程序员或编译器生成线程来执行每次迭代，使得每个线程在不同的数据上执行相同的计算，SIMT 独立的线程管理硬件来使能硬件处理方式。
-
-SPMD 和 SIMD 不同之处在于，SIMD 在相同指令下执行不同的数据实现并行，而 SPMD 则是提出使用线程来管理每个迭代，SPMD 最终执行在 SIMD 机器上，因此发展出新的单指令多线程硬件执行模式 SIMT（Single Instruction Multiple Thread）。
+SPMD（Single Program Multiple Data）是一种并行计算模型，多线程 SPMD 指的是在 SPMD 模型中使用多个线程来执行并行计算任务。在多线程 SPMD 中，每个线程（Thread i）都执行相同的程序，但处理不同的数据，通过并发执行来加速计算过程。SPMD 通过循环中的每个迭代独立实现，在程序上，程序员或编译器生成线程来执行每次迭代，使得每个线程在不同的数据上执行相同的计算，SIMT 独立的线程管理硬件来使能硬件处理方式。
 
 ![SPMD](images/03SPMT07.png)
 
+SPMD 和 SIMD 不同之处在于，SIMD 在相同指令下执行不同的数据实现并行，而 SPMD 则是提出使用线程来管理每个迭代，SPMD 最终执行在 SIMD 机器上，因此发展出新的单指令多线程硬件执行模式 SIMT（Single Instruction Multiple Thread）。
+
 ## SIMT-GPU SIMD 机制
 
-GPU 的 SIMT 实际上是具体硬件执行 SIMD 的编程指令，采用并行编程模式使用 SPMD 来控制线程的方式。每个线程对不同的数据执行执行相同指令代码，同时每个线程都有独立的上下文。执行相同指令时一组线程由硬件动态分为一组 Wrap，硬件 Warp 实际上是由 SIMD 操作形成的，由 SIMT 构成前端并在 SIMD 后端中执行。
+GPU 的 SIMT 实际上是具体硬件执行 SIMD 指令，采用并行编程模式使用 SPMD 来控制线程的方式。每个线程对不同的数据执行相同的指令代码，同时每个线程都有独立的上下文。执行相同指令时一组线程由硬件动态分为一组 Wrap，硬件 Warp 实际上是由 SIMD 操作形成的，由 SIMT 构成前端并在 SIMD 后端中执行。
 
 ![GPU SIMT & SIMD](images/03SPMT08.png)
 
 在英伟达 GPU 中，Warp 是执行相同指令的线程集合，作为 GPU 的硬件 SM 调度单位，Warp 里的线程执行 SIMD，因此每个 Warp 中就能实现单指令多数据。CUDA 的编程模式实际上是 SPMD，因此从编程人员的视角来看只需要实现单程序多数据，具体到 GPU 的硬件执行模式则是采用了 SIMT，硬件实现单指令多线程。
 
-![英伟达 GPU SIMT](images/03SPMT08.png)
+![英伟达 GPU SIMT](images/03SPMT09.png)
 
 因此综合前面的分析，SISD、SIMD、SIMT、SPMD 和 DSA 相关概念就有了一个清晰的定义和区分：
 
 - SISD、SIMD 和 SIMT 按照时间轴的执行方式如下所示。
 
-![SISD、SIMD 和 SIMT 对比](images/03SPMT09.png)
+![SISD、SIMD 和 SIMT 时序对比](images/03SPMT10.png)
 
 - SIMD 代指指令的执行方式和对应映射的硬件体系结构。
 
@@ -115,13 +115,13 @@ SIMT 是标量指令的多个指令流，可以动态地把线程按 wrap 分组
 
 - 一组执行相同指令的线程由硬件动态组织成线程组 warp，加快了 SIMD 的计算并行度。
 
-假设一个 Warp 包含 32 个线程，如果需要进行 32000 次迭代，每个迭代执行一个线程，因此需要 1000 个 warp。第一个迭代 Warp0 执行第 0~32 个线程，第二个迭代 Warp1 执行第 33~64 个线程，第二十一个迭代 Warp20 执行第 20x33+1 ~ 20x33+32 个线程，可以看出 SIMT 是标量指令的多个指令流，可以动态地把线程按 wrap 分组执行，使并行度增加。
-
-![第一个迭代 Warp0](images/03SPMT10.png)
+假设一个 Warp 包含 32 个线程，如果需要进行 32000 次迭代，每个迭代执行一个线程，因此需要 1000 个 warp。第一个迭代 Warp0 执行第 0~32 个线程，第二个迭代 Warp1 执行第 33~64 个线程，第二十一个迭代 Warp20 执行第 20x33+1 ~ 20x33+32 个线程，可以看出 SIMT 是标量指令的多个指令流，可以动态地把线程按 Wrap 分组执行，使并行度增加。
 
 ![第一个迭代 Warp0](images/03SPMT11.png)
 
-![第一个迭代 Warp0](images/03SPMT12.png)
+![第二个迭代 Warp1](images/03SPMT12.png)
+
+![第二十一个迭代 Warp20](images/03SPMT13.png)
 
 由于程序并行执行最大的瓶颈是访存和控制流，因此 SIMD 架构中单线程 CPU 通过大量控制逻辑进行超前执行、缓存、预取等机制来强行缓解计算瓶颈。SIMT 架构 GPU 通过细粒度的多线程（Fine-Grained Multi-Threading，FGMT）调度将处理器的执行流水线细分为更小的单元，使得不同线程的指令可以交错执行，从而减少指令执行的等待时间和资源浪费，以此来实现访存和计算并行。
 
@@ -129,19 +129,19 @@ SIMT 是标量指令的多个指令流，可以动态地把线程按 wrap 分组
 
 Warp 是在不同地址数据下，执行相同指令的线程集合，所有线程执行相同的代码，可以看出 Thread Warp 中有很多个 Thread，多个 Warp 组成 SIMD Pipeline 执行对应的操作。
 
-![Thread Warp](images/03SPMT13.png)
+![Thread Warp](images/03SPMT14.png)
 
 SIMT 架构通过细粒度多线程（FGMT）隐藏延迟，SIMD Pipeline 中每个线程一次执行一条指令，Warp 支持乱序执行以隐藏访存延迟，并不是通过顺序的方式调度执行，此外线程寄存器值都保留在 RF（Register File）中，并且 FGMT 允许长延迟。英伟达通过添加 Warp schedluer 硬件调度，使 Warp 先访存完毕之后交给 SIMD Pipeline 去执行尽可能多的指令，隐藏其它 Warp 的访存时间。
 
-![细粒度多线程（FGMT）](images/03SPMT14.png)
+![细粒度多线程（FGMT）](images/03SPMT15.png)
 
 SIMT 相比 SIMD 在可编程性上最根本性的优势在于硬件层面解决了大部分流水编排的问题，Warp 指令级并行中每个 warp 有 32 个线程和 8 条执行通道，每个时钟周期执行一次 Warp，一次 Warp 完成 24 次操作。
 
-![warp 指令执行的时序图](images/03SPMT15.png)
+![warp 指令执行的时序图](images/03SPMT16.png)
 
 在 GPU 宏观架构层面，GDDR 里面的数据通过内存控制器（Memory Controller）传输到片内总线（Interconnection Network），然后分发到具体的核心（Cuda Core/Tensor Core），在每个执行核心中会有 SIMD 执行单元，从而实现并行计算。
 
-![warp 指令执行的时序图](images/03SPMT16.png)
+![GPU数据存取与并行计算](images/03SPMT17.png)
 
 ## 总结
 
@@ -160,15 +160,15 @@ SIMT 相比 SIMD 在可编程性上最根本性的优势在于硬件层面解决
 
 2023 年 AMD 发布 MI300X，将计算拆分到加速器复合芯片 (XCD) 上，每个 XCD 包含一组核心和一个共享缓存。具体来说，每个 XCD 物理上都有 40 个 CDNA 3 计算单元，其中 38 个在 MI300X 上的每个 XCD 上启用。XCD 上也有一个 4 MB 二级缓存，为芯片的所有 CU 提供服务。MI300X 有 8 个 XCD，总共有 304 个计算单元。以 CDNA 3 架构的 MI300X 可以将所有这些 CU 公开为单个 GPU。
 
-![ADM CDNA3 架构](images/03SPMT17.png)
+![ADM CDNA3 架构](images/03SPMT18.png)
 
 每个 CU 有 4 个 SIMD 计算单元，每个周期 CU 调度程序会从 4 个 SIMD 中选择一个进行执行，并检查线程是否准备好执行。AMD MI300 支持 ROCm 6，支持 TF32 和 FP8 数据类型，Transformer Engine 和结构化稀疏性，AI/ML 框架等。
 
-![ADM CDNA3 CU 架构](images/03SPMT18.png)
+![ADM CDNA3 CU 架构](images/03SPMT19.png)
 
 NVIDIA 的 H100 由 132 个流式多处理器 （SM）组成，作为一个大型统一的 GPU 呈现给程序员。计算通过 CUDA 程序分发到具体的核心（Cuda Core/Tensor Core），每个执行核心有 SIMD 执行单元，从而实现并行计算。
 
-![NVIDIA Hopper 架构](images/03SPMT19.png)
+![NVIDIA Hopper 架构](images/03SPMT20.png)
 
 > NVIDA 推出 CUDA 并遵循自定义的 SIMT 架构做对了什么？
 
@@ -177,16 +177,16 @@ NVIDIA 推出 CUDA 并遵循自定义的 SIMT 架构基于 SIMD，并构建了�
 ## 参考文献
 
 <div id="ref1"></div>
-[1] 未名超算队. "北大未名超算队 高性能计算入门讲座（一）:概论." Bilibili, [https://www.bilibili.com/video/BV1814y1g7YC/](https://www.bilibili.com/video/BV1814y1g7YC/).
+[1] 未名超算队. "北大未名超算队 高性能计算入门讲座（一）:概论." Bilibili, [https://www.bilibili.com/video/BV1814y1g7YC/]
 
 <div id="ref2"></div>
-[2] 专用架构与 AI 软件栈（1）. "专用架构与 AI 软件栈（1）." Zhihu, [https://zhuanlan.zhihu.com/p/387269513](https://zhuanlan.zhihu.com/p/387269513).
+[2] 专用架构与 AI 软件栈（1）. Zhihu, [https://zhuanlan.zhihu.com/p/387269513]
 
 <div id="ref3"></div>
-[3] "AMD’s CDNA 3 Compute Architecture." Chips and Cheese, [https://chipsandcheese.com/2023/12/17/amds-cdna-3-compute-architecture/](https://chipsandcheese.com/2023/12/17/amds-cdna-3-compute-architecture/).
+[3] "AMD’s CDNA 3 Compute Architecture." Chips and Cheese, [https://chipsandcheese.com/2023/12/17/amds-cdna-3-compute-architecture/]
 
 <div id="ref4"></div>
-[4] CUDA 生态才是英伟达 AI 霸主护城河-深度分析 2024. "CUDA 生态才是英伟达 AI 霸主护城河-深度分析 2024." WeChat, [https://mp.weixin.qq.com/s/VGej8Jjags5v0JsHIuf_tQ](https://mp.weixin.qq.com/s/VGej8Jjags5v0JsHIuf_tQ). 
+[4] CUDA 生态才是英伟达 AI 霸主护城河-深度分析 2024. WeChat, [https://mp.weixin.qq.com/s/VGej8Jjags5v0JsHIuf_tQ]
 
 ## 本节视频
 
