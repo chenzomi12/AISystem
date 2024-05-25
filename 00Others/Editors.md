@@ -1,49 +1,27 @@
-# 编辑和作者
+# 编辑和作者(DONE)
 
 ## 章节编辑
 
-本书由超过30位人工智能系统领域的学术专家和开发人员共同完成。以下为各个章节编辑：
+本书由超过40位人工智能系统（AI System）领域的学术专家和开发人员共同完成，其排名不分先后。以下为各个章节编辑：
 
-项目README: [@luomai](https://github.com/luomai)
+项目README: [ZOMI 酱](https://github.com/chenzomi12)
 
-序言：[@luomai](https://github.com/luomai)
+序言&导读：[ZOMI 酱](https://github.com/chenzomi12)
 
-导论：[@luomai](https://github.com/luomai)
+AI 系统概述：[ZOMI 酱](https://github.com/chenzomi12)
 
-编程接口：[@Laicheng0830](https://github.com/Laicheng0830)
+AI 硬件体系结构：[ZOMI 酱](https://github.com/chenzomi12), [@刘军](), [@张晓天](), [@李明慧](https://github.com/xxx), [@张圣航](), [@刘纬恒](), [@李宗泽](),  [@赵文千]()
 
-计算图：[@hanjr92](https://github.com/hanjr92)
+AI 编译原理：[ZOMI 酱](https://github.com/chenzomi12), [@史家兴](), [@宋一帆](), [@韩昊知](), [@李行](), [@武震卿](), [@张浩](), [@陈庚天](), 
 
-进阶篇序言：[@ganzhiliang](https://github.com/ganzhiliang) 
+推理引擎系列：[ZOMI 酱](https://github.com/chenzomi12), [高鑫淼](), [何伟](), [刘旭斌](), [杨璇](), [徐宏博](), [栾少](), [谢迎](), [刘欣楠](), [李行](), [江典恒]()
 
-编译器前端和IR： [@LiangZhibo](https://github.com/LiangZhibo)
+AI 框架：[ZOMI 酱](https://github.com/chenzomi12), [金傲群]()
 
-编译器后端和运行时： [@chujinjin101](https://github.com/chujinjin101)
-
-硬件加速器：[@anyrenwei](https://github.com/anyrenwei)
-
-数据处理框架： [@eedalong](https://github.com/eedalong)
-
-模型部署： [@AssassinG](https://github.com/AssassinGQ)
-
-分布式训练系统： [@luomai](https://github.com/luomai)
-
-拓展篇序言：[@luomai](https://github.com/luomai)
-
-深度学习推荐系统：[@future-xy](https://github.com/future-xy)
-
-联邦学习系统：[@chengtianwu](https://github.com/chengtianwu)
-
-强化学习系统：[@quantumiracle](https://github.com/quantumiracle)
-
-可解释性AI系统：[@HaoyangLee](https://github.com/HaoyangLee)
-
-机器人系统：[@Jack](https://github.com/Jiankai-Sun)
-
-附录：机器学习介绍：[@Hao](https://github.com/zsdonghao)
+附录：机器学习介绍：[ZOMI 酱](https://github.com/chenzomi12)
 
 ## 加入我们
 
-我们创建了OpenMLSys微信群来讨论书籍的写作和拓展。如果希望加入我们，可以扫以下二维码（加的时候请介绍自己，并说明希望参与书籍的哪方面工作）：
+我们创建了 AISystem 社区来讨论人工智能系统项目的参与方式。
 
-![OpenMLSys社区微信群](./mlsys_group.png)
+如果希望加入我们，可以 B 站或者 Youtube 私信 ZOMI（加的时候请介绍自己，并说明希望参与 AI System 哪方面工作）。
