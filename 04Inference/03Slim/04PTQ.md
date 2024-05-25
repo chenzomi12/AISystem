@@ -25,6 +25,7 @@
 $$
 uint8 = round(float/scale) - offset
 $$
+:eqlabel:`04PTQ_eq1`
 
 静态离线量化的目标是求取量化比例因子，主要通过对称量化、非对称量化方式来求，而找最大值或者阈值的方法又有 MinMax、KL 散度、ADMM、EQ，MSE 等方法。
 
@@ -65,6 +66,7 @@ KL 散度校准法也叫相对熵，其中 p 表示真实分布，q 表示非真
 $$
 𝐷_{KL} (P_f || Q_q)=\sum\limits^{N}_{i=1}P(i)*log_2\frac{P_f(i)}{Q_q(𝑖)}
 $$
+:eqlabel:`04PTQ_eq2`
 
 相对熵，用来衡量真实分布与非真实分布的差异大小。目的就是改变量化域，实则就是改变真实的分布，并使得修改后得真实分布在量化后与量化前相对熵越小越好。
 
@@ -126,18 +128,22 @@ INT8 卷积如下图所示，里面混合里三种不同的模式，因为不同
 $$
 scale = (x_{max}-x_{min})/(Q_{max}-Q{min})
 $$
+:eqlabel:`04PTQ_eq3`
 
 $$
 offset = Q_{min}-round(\frac{x_{min}}{scale})
 $$
+:eqlabel:`04PTQ_eq4`
 
 $$
 uint8 = round(\frac{float}{scale})-offset
 $$
+:eqlabel:`04PTQ_eq5`
 
 $$
 float=scale \times (uint+offset)
 $$
+:eqlabel:`04PTQ_eq6`
 
 #### 反量化
 
@@ -153,6 +159,7 @@ y &= x \cdot w \\
 &\approx (x_{\text{scale}} \cdot w_{\text{scale}}) \cdot INT32_{result}
 \end{align*}
 $$
+:eqlabel:`04PTQ_eq7`
 
 #### 重量化
 
@@ -166,18 +173,21 @@ y &= x \cdot w \\
 &= (x_{\text{scale}} \cdot w_{\text{scale}}) \cdot \text{INT32\_result}
 \end{align*}
 $$
+:eqlabel:`04PTQ_eq8`
 
 其中 y 为下一个节点的输入，即 $y=x_{next}$:
 
 $$
 y=y_{scale}*(y_{int}+y_{offset})
 $$
+:eqlabel:`04PTQ_eq9`
 
 这里是对$y$进行量化，$x_{next int}=y_{int}$,有：
 
 $$
 x_{next int}=\frac{x_{scale} \cdot w_{scale}}{x_{next scale}}\cdot INT32_{result}-x_{next offset}
 $$
+:eqlabel:`04PTQ_eq10`
 
 因此重量化需要本算子输入input和weight的scale，以及下一个算子的input输入数据的scale和offset。
 

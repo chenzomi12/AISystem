@@ -42,6 +42,7 @@ S = \frac{R_{max}-R_{min}}{Q_{max}-Q_{min}}\\
  \\
 Z=Q_{max}-\frac {R_{max}}{S}
 $$
+:eqlabel:`03QAT_eq1`
 
 FakeQuant 量化和反量化的过程：
 
@@ -52,6 +53,7 @@ Q(x) &= FakeQuant(x) \\
 &= s * (Clamp(round(x/s)-z)+z)
 \end{align*}
 $$
+:eqlabel:`03QAT_eq2`
 
 原始权重为 W，伪量化之后得到浮点值Q(W)，同理得到激活的伪量化值Q(X)。这些伪量化得到的浮点值虽然表示为浮点数，但仅能取离散的量化级别。
 
@@ -66,18 +68,21 @@ $$
 $$
 \frac{\partial Q(W)}{\partial W} = 0
 $$
+:eqlabel:`03QAT_eq3`
 
 因为梯度为0，所以网络学习不到任何内容，权重 $W$ 也不会更新：
 
 $$
 g_W = \frac{\partial L}{\partial W} = \frac{\partial L}{\partial Q(W)} \cdot \frac{\partial Q(W)}{\partial W}=0
 $$
+:eqlabel:`03QAT_eq4`
 
 这里可以使用直通估计器（Straight-Through Estimator，简称STE）简单地将梯度通过量化传递，近似来计算梯度。这使得模型能够在前向传播中进行量化模拟，但在反向传播中仍然更新高精度的浮点数参数。STE 近似假设量化操作的梯度为1，从而允许梯度直接通过量化节点：
 
 $$
 g_W = \frac{\partial L}{\partial W} = \frac{\partial L}{\partial Q(W)}
 $$
+:eqlabel:`03QAT_eq5`
 
 ![使用STE导数近似的FakeQuant正向和反向传播](./images/03QAT04.png)
 
