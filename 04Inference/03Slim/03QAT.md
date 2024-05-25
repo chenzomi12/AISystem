@@ -6,7 +6,7 @@
 
 QAT 的流程如下图所示，首先基于预训练好的模型获取计算图，对计算图插入伪量化算子。准备好训练数据进行训练或者微调，在训练过程中最小化量化误差，最终得到 QAT 之后对神经网络模型。QAT 模型需要转换去掉伪量化算子，为推理部署做准备。
 
-![量化感知训练的步骤](./images/03QAT01.png)
+<img src="./images/03QAT01.png" alt="量化感知训练的步骤" style="zoom:80%;">
 
 QAT 时会往模型中插入伪量化节点 FakeQuant 来模拟量化引入的误差。端测推理的时候折叠 FakeQuant 节点中的属性到 tensor 中，在端侧推理的过程中直接使用 tensor 中带有的量化属性参数。
 
@@ -24,7 +24,7 @@ FakeQuant 节点通常插入在模型的以下关键部分：
 
 下面是一个计算图，同时对输入和权重插入伪量化算子：
 
-![插入fake quant节点](./images/03QAT02.png)
+<img src="./images/03QAT02.png" alt="插入FakeQuant节点" style="zoom:90%;">
 
 伪量化节点的作用：
 
@@ -59,7 +59,7 @@ $$
 
 正向传播的时候 FakeQuant 节点对数据进行了模拟量化规约的过程，如下图所示：
 
-![正向传播](./images/03QAT03.png)
+<img src="./images/03QAT03.png" alt="正向传播" style="zoom:80%;">
 
 ### 反向传播
 
@@ -84,11 +84,11 @@ g_W = \frac{\partial L}{\partial W} = \frac{\partial L}{\partial Q(W)}
 $$
 :eqlabel:`03QAT_eq5`
 
-![使用STE导数近似的FakeQuant正向和反向传播](./images/03QAT04.png)
+<img src="./images/03QAT04.png" alt="使用STE导数近似的FakeQuant正向和反向传播" style="zoom:60%;">
 
 如果被量化的值在$[x_{min}, x_{max}] $范围内，STE 近似的结果为 1，否则为 0。这种方法使模型能够在训练期间适应量化噪声，从而在实际部署时能够更好地处理量化误差。如下图所示：
 
-![反向传播梯度计算](./images/03QAT05.png)
+<img src="./images/03QAT05.png" alt="反向传播梯度计算" style="zoom:80%;">
 
 通过 QAT，深度学习模型能够在保持高效推理的同时，尽量减少量化带来的精度损失，是模型压缩和部署的重要技术之一。在大多数情况下，一旦应用量化感知训练，量化推理精度几乎与浮点精度完全相同。然而，在 QAT 中重新训练模型的计算成本可能是数百个 epoch。
 
