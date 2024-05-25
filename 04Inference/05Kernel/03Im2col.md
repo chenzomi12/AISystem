@@ -166,27 +166,30 @@ $$
 
 ## Kernel层的优化
 
-推理引擎在Kernel层的优化方法和技术主要集中在CPU和GPU上，这些技术旨在提高计算效率和性能。以下分别介绍一下针对CPU和GPU的几种优化技术。
+Kernel层的优化主要体现在各种高性能算子和算子库的设计上，这些算子和算子库通常针对不同的处理器架构（如CPU、GPU、TPU等）进行了优化，以提高计算速度和效率。以下分别介绍一下针对CPU和GPU的几种优化技术。
 
 CPU优化技术：
 
 1. **NEON**： NEON是ARM架构上的SIMD（单指令多数据）扩展，用于提高多媒体处理和浮点运算的性能。推理引擎可以利用NEON指令集来优化Kernel层，特别是在移动设备和嵌入式设备上。
-
 2. **AVX**： AVX（Advanced Vector Extensions）是Intel处理器上的SIMD指令集，用于提高浮点运算和整数运算的性能。推理引擎可以利用AVX指令集来优化Kernel层，特别是在Intel CPU上。
-
 3. **Metal**： Metal是苹果开发的低级图形和计算API，用于优化在Apple GPU上的性能。推理引擎可以利用Metal API来优化Kernel层，特别是在iOS和macOS设备上。
-
 4. **TVM**： TVM（Tensor Virtual Machine）是一个开源的深度学习编译器框架，用于优化深度学习模型在各种硬件上的性能。它支持CPU、GPU、TPU和其他类型的硬件。
 
 GPU优化技术：
 
 1. **CUDA**： CUDA是NVIDIA的并行计算平台和编程模型，用于在NVIDIA GPU上执行并行计算。推理引擎可以利用CUDA来优化Kernel层，特别是在大规模矩阵运算和卷积操作方面。
-
 2. **OpenCL**： OpenCL是一个开放的标准，用于编写在异构系统上运行的程序。它允许开发者利用CPU、GPU和其他类型的处理器来加速计算密集型任务。推理引擎可以利用OpenCL来优化Kernel层，特别是在GPU上。
-
 3. **Vulkan**： Vulkan是新一代的图形和计算API，用于在各种GPU上执行并行计算。推理引擎可以利用Vulkan API来优化Kernel层，特别是在高性能计算和图形处理方面。
-
 4. **Tensor Cores**： Tensor Cores是NVIDIA GPU上的一种特殊类型的核心，专门用于加速矩阵乘法和卷积操作。推理引擎可以利用Tensor Cores来优化Kernel层，特别是在执行大规模的矩阵运算时。
+
+此外，封装的高性能算子库有：
+
+1. **cuDNN（CUDA Deep Neural Network Library）**：由NVIDIA开发，为GPU优化的深度神经网络算子库，包括卷积、池化、归一化、激活函数等。
+2. **MKL-DNN（Intel Math Kernel Library for Deep Neural Networks）**：由Intel开发，为CPU优化的深度神经网络算子库，现在发展成为oneDNN，支持多种Intel处理器。
+3. **MIOpen**：由AMD开发，为GPU优化的深度学习算子库，特别针对AMD的GPU架构进行了优化。
+4. **TensorRT**：NVIDIA的深度学习推理优化器，它提供了C++和Python接口，可以对模型进行优化并生成高性能的推理引擎。
+5. **ONNX Runtime**：支持ONNX模型的跨平台推理引擎，包括了对多种硬件平台的高性能算子实现。
+6. **ACL（ARM Compute Library）**：由ARM开发，为ARM架构的CPU和GPU提供优化的算子库，包括卷积、池化、全连接层等。
 
 这些优化方法和技术可以根据具体的硬件平台和模型需求来选择和组合，以提高推理引擎在Kernel层的性能。在实际应用中，开发者需要根据目标设备和性能要求来选择最合适的优化策略。
 
@@ -195,5 +198,5 @@ GPU优化技术：
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="[https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0](https://www.bilibili.com/video/BV1Ys4y1o7XW/?spm_id_from=333.788&vd_source=096daa038c279ccda6e4f8c5eea82de7)" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
