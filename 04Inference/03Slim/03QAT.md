@@ -106,4 +106,4 @@ $$
 - 全网最全-网络模型低比特量化 https://zhuanlan.zhihu.com/p/453992336
 - [Practical Quantization in PyTorch](https://pytorch.org/blog/quantization-in-practice/)
 - Jacob, Benoit, et al. "Quantization and training of neural networks for efficient integer-arithmetic-only inference." Proceedings of the IEEE conference on computer vision and pattern recognition. 2018.
-- Jacob, Benoit, et al. "Quantization and training of neural networks for efficient integer-arithmetic-only inference." Proceedings of the IEEE conference on computer vision and pattern recognition. 2018.
+- Wu, Hao, et al. "Integer quantization for deep learning inference: Principles and empirical evaluation." arXiv preprint arXiv:2004.09602 (2020).
