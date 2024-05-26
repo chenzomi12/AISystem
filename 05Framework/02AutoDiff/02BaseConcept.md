@@ -1,6 +1,6 @@
 <!--适用于[License](https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
 
-# 什么是微分
+# 什么是微分(DONE)
 
 自动微分（Automatic Differentiation，AD）是一种对计算机程序进行高效准确求导的技术，一直被广泛应用于计算流体力学、大气科学、工业设计仿真优化等领域。
 
@@ -20,7 +20,7 @@
 
 - **自动微分法(Automatic Differentiation)**：介于数值微分和符号微分之间的方法，采用类似有向图的计算来求解微分值，也是本文介绍的重点。
 
-![计算机程序求导的方法](./images/02BaseConcept01.png)
+![计算机程序求导的方法](images/02BaseConcept01.png)
 
 下面详细对上面 4 种不同的计算机求导方法进行详细说明。
 
@@ -79,7 +79,7 @@ $$ \frac{\delta f(x)}{\delta x} \approx \frac{f(x+h)-f(x-h)}{2h} $$
 $$ \frac{\delta f(x)}{\delta x} \approx \frac{f(x+h)-f(x-h)}{2h}+O(h^2) $$
 :eqlabel:`diff_02_eq6`
 
-![误差曲线](./images/02BaseConcept02.png)
+![误差曲线](images/02BaseConcept02.png)
 :width:`600px`
 
 数值微分的优点是：
@@ -122,7 +122,7 @@ $$ \frac{\delta}{\delta x}(f(x)g(x))=(\frac{\delta}{\delta x}f(x))g(x)+f(x)(\fra
 $$ l_{n+1}=4l_n(1-l_n) $$
 :eqlabel:`diff_02_eq9`
 
-![递归求导](./images/02BaseConcept03.png)
+![递归求导](images/02BaseConcept03.png)
 
 可以看到在不同的迭代中其符号微分的结果相比人工简化后的结果复杂很多，且随着迭代次数而增大。
 
