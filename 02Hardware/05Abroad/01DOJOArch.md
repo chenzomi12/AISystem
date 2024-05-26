@@ -16,7 +16,7 @@ D1 芯片是 DOJO 超级计算机的基本单元。它是由 Ganesh Venkataraman
 
 每个 DOJO core 都具有 CPU 专用内存和 I/O 接口。所以我们甚至可以把每个 DOJO core 都看作一个独立的 PC 级的 CPU。每个 DOJO core 都拥有一个 1.25MB 的 SRAM 作为主存，其中 SRAM 能以 400GB/s 速度加载数据，给 scalar 或者 vector 进行计算，并以 270GB/s 的速度存储。DOJO core 读写的速率非常的快！
 
-![alt text](./images/dojo-core.png)
+![alt text](./images/DOJOArch01.png)
 
 ## 训练瓦片（Training Tiles）
 
@@ -24,27 +24,27 @@ D1 芯片是 DOJO 超级计算机的基本单元。它是由 Ganesh Venkataraman
 
 基于 D1 芯片，特斯拉推出晶圆上系统级方案，通过应用台积电 SoW 封装技术，以极低的延迟和极高的带宽实现大量的计算集成，将所有 25 颗 D1 裸片集成到一个训练瓦片（Training Tiles）上，横排 5 个竖排 5 个，成方阵排列。每个 D1 芯片之间都是通过 DIP（DOJO 接口处理器）进行互连。
 
-![alt text](./images/tile.png)
+![alt text](./images/DOJOArch02.png)
 
 每个 DOJO 训练瓦片（Training Tiles）都需要单独供电，每个瓦片消耗 15 kW。由计算、I/O、功率和液冷模块就组成了一个完整的训练瓦片（Training Tiles）。
 
-![alt text](./images/training-tile.jpg)
+![alt text](./images/DOJOArch03.jpg)
 
 ## 系统托盘（System Tray）
 
 6 个训练瓦片（Training Tiles）就会组成一个系统托盘（System Tray）。其中有非常多的电缆直接连接，具有高速连接，密集集成的特性。BF16/CFP8 峰值算例可达到 54TFLOPS，功耗大概 100+kW。
 
-![alt text](./images/system-tray.png)
+![alt text](./images/DOJOArch04.png)
 
 DIP（DOJO 接口处理器）是一个具有高带宽内存的 PCIe 卡，使用了特斯拉独创的传输协议 TTP（Tesla Transport Protocol）。每个 DIP 都包含 PCIe 插槽和两个 32GB 的 HBM。
 
-![alt text](./images/DIP.png)
+![alt text](./images/DOJOArch05.png)
 
 DIP 是主机与训练瓦片（Training Tiles）之间的桥梁。
 
 TTP 可以将标准以太网转化为 Z 平面拓扑，拥有高 Z 平面拓扑连。Z 平面拓扑可以更好的帮助训练瓦片（Training Tiles）进行数据的交换，进而实现近存计算。
 
-![alt text](./images/system-tray&dip.png)
+![alt text](./images/DOJOArch06.png)
 
 最多可以将 5 个 DIP 以 900GB/s 的速度连接到一个训练瓦片上，达到 4.5TB/s 的总量。每个训练瓦片都有 160GB 的 HBM。
 
@@ -52,7 +52,7 @@ TTP 可以将标准以太网转化为 Z 平面拓扑，拥有高 Z 平面拓扑�
 
 每个 DOJO ExaPOD 拥有 10 个 DOJO 主机（Cabinet），集成了 120 个训练瓦片（Training Tiles），内置 3000 个 D1 芯片，拥有 100 万个 DOJO core，BF16/CFP8 峰值算力达到 1.1EFLOPS（百亿亿次浮点运算），拥有 1.3TB 高速 SRAM 和 13TB 高带宽 DRAM。
 
-![alt text](./images/exaPOD.png)
+![alt text](./images/DOJOArch07.png)
 
 ## DOJO 设计哲学
 
