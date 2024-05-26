@@ -37,7 +37,7 @@
 
 下图是TPU各个版本的形态，第一行从左到右分别是 TPU v1, v2, v4, 第二行从左到右分别是 TPU v4i 和 v3
 
-![ALL TPU](images/tpu/tpu_04.png)
+![ALL TPU](images/TPUIntro04.png)
 
 ### 历代 TPU 产品
 
@@ -64,7 +64,7 @@
 
 在最新的 Tensor G3 芯片中，我们对每个关键的系统组件都进行了升级，以便更好地支持设备上的生成式人工智能技术。这包括最新型号的 ARM 中央处理器、性能更强的图形处理器、全新的图像信号处理器和图像数字信号处理器，以及我们最新研发的，专门为运行 Google 的人工智能模型而量身打造的 TPU。”[<sup>[3]</sup>](#ref3)
 
-![Alt text](images/tpu/tpu_06.png)
+![Alt text](images/TPUIntro06.png)
 
 ## TPU 架构演进
 
@@ -96,7 +96,7 @@ TPU 封装内还有 8GiB 双通道 2133MHz DDR3 SDRAM，带宽为 34GB/s。指�
 
 尽管连续数值被压缩到较小的离散范围可能引起一定精度损失，但得益于神经网络的泛化能力，在推理场景，特别是分类任务中，量化后的神经网络模型能够在保持接近原始 FP32/FP16 精度水平的同时，实现更快的推理速度和更低的资源消耗。
 
-![Alt text](images/tpu/tpu_08.png)
+![Alt text](images/TPUIntro08.png)
 
 - **特性二：脉动阵列 & MXU**
 
@@ -106,17 +106,26 @@ CPU 旨在执行各种计算任务，因此具备通用性。CPU 通过在寄存
 
 下面这个图中，左边的图例描述了 CPU 中的程序逻辑，数据在经过 ALU 计算前后都会经由寄存器处理，而右图描述了 TPU 内部数据在 ALU 之间更快地流动且复用的过程。[<sup>[2]</sup>](#ref2)
 
-![Alt text](images/tpu/tpu_09.png)
+![Alt text](images/TPUIntro09.png)
 
 下图的两个动图是脉动阵列的原理图示，我们可以看到，输入的数据在和权重矩阵相乘的流动中十分有节奏感，就像是心脏泵血一样，这就是为什么脉动阵列要这样命名（注：Systolic 一词专指“心脏收缩的”）
 
-用脉动阵列做输入向量和权重矩阵的矩阵乘法           |  用脉动阵列做输入矩阵和权重矩阵的矩阵乘法    
-:-------------------------:|:-------------------------:
-![Alt text](images/tpu/tpu_31.png) |  ![Alt text](images/tpu/tpu_32.png)
+<div style="display: flex; justify-content: space-between;">
+  <div style="width: 48%;">
+    <img src="images/TPUIntro31.png" alt="Image 2" style="width: 100%;">
+    <p style="text-align: center; font-style: italic;">	用脉动阵列做输入向量和权重矩阵的矩阵乘法 </p>
+  </div>
+  <div style="width: 48%;">
+    <img src="images/TPUIntro32.png" alt="Image 2" style="width: 100%;">
+    <p style="text-align: center; font-style: italic;">用脉动阵列做输入矩阵和权重矩阵的矩阵乘法 </p>
+  </div>
+</div>
+
+
 
 MXU 的本质就是一个包含了$256 \times 256 = 65536$个 ALU 的超大的、每一个时钟周期可以处理 65536 个 INT8 加乘运算的脉动阵列。将这个数字和 TPU v1 的频率 700MHZ 相乘我们可以得出 TPU v1 可以每秒钟处理$65536 \times 7 \times 10^8 \approx 4.6 \times 10 ^{12} $个加乘运算。下图中我们可以看到，数据和权重从控制器传入 MXU，脉冲阵列中经过计算再产出最终的结果。
 
-![MXU](images/tpu/tpu_18.png)
+![MXU](images/TPUIntro18.png)
 
 **特性三：专用硬件（Minimal and Deterministic Design）**
 
@@ -130,9 +139,9 @@ MXU 的本质就是一个包含了$256 \times 256 = 65536$个 ALU 的超大的�
 
 进一步地，谷歌将四个 TPU v2 排列成了性能为 180 TFLOPS 的四芯片模块，并将这样的 64 个模块组成一个一共有 256 片 TPU v2 集成的 TPU v2 Pod，理论峰值计算量达到了恐怖的 11.5 PFLOPS。
 
-![Alt text](images/tpu/tpu_19.png)!
+![Alt text](images/TPUIntro19.png)!
 
-[Alt text](images/tpu/tpu_22.png)
+[Alt text](images/TPUIntro22.png)
 
 TPU v2 和 v1 的架构差距很小，而主要的架构不同体现在训练场景的优化。我们上文提到，在神经网络的超强泛化能力下，TPU v1 通过将 FP32/FP16 量化成 INT8 的方式大幅度优化了推理场景的计算效率 —— 然而在模型的训练的过程中，INT8 则会导致模型训练中的不稳定和极大随机性，这对于模型训练来说是灾难性的。于是在 TPU v2 中，谷歌的工程师们优化了芯片架构，增加了对于 BF16 的支持。
 
@@ -144,7 +153,7 @@ TPU v2 和 v1 的架构差距很小，而主要的架构不同体现在训练场
 
 - BF16 格式减少了存储和带宽的需求。这意味着相同的内存和带宽可以处理更多的数据，提高了 TPU 数据传输和吞吐效率和计算速率，使得大规模的数据集和复杂模型可以在资源有限的环境中被有效训练和使用。
 
-![Alt text](images/tpu/tpu_21.png)
+![Alt text](images/TPUIntro21.png)
 
 ### TPU v3 概览
 
@@ -152,7 +161,7 @@ TPU v3 相较于其前身 TPU v2 有了显著的提升。这一代 TPU 在晶体
 
 此外，TPU v3 的一个显著改进是其 2D torus 互连结构，它从 TPU v2 的 256 个芯片扩展到了 TPU v3 的 1,024 个芯片，这使得 Pod 超算型号的处理能力提升了 10.7 倍，计算理论峰值从 12 petaflops 跃升至 126 petaflops（BF16）。[<sup>[2]</sup>](#ref5)
 
-![Alt text](images/tpu/tpu_23.png)
+![Alt text](images/TPUIntro23.png)
 
 ### TPU v4 概览
 
@@ -160,11 +169,11 @@ TPU v3 相较于其前身 TPU v2 有了显著的提升。这一代 TPU 在晶体
 
 在内存带宽上，TPU v4 带来了 33%的提升，达到了 1.2TB/s。就像 v3 之于 v2，TPU v4 首次应用了 3D torus 的互联方式，提供了比 2D torus 更高的带宽和更优的性能，能够支持多达 4,096 个 TPU v4 核心，在 TPU v4 POD 中总共提供了 1.1260 exaflops 的 BF16 峰值算力。
 
-![Alt text](images/tpu/tpu_26.png)
+![Alt text](images/TPUIntro26.png)
 
 以下是 3d torus 的图例，简单来说，相比于 2d torus，3d torus 中的节点可以左右、上下、前后互联。谷歌在论文中提到，3D torus 提供了比2D torus更高的双分带宽（Higher Bisection Bandwidth），结合OCS能够跳过故障的单元，大大提升了TPU的可用性。同时，3d torus也增强了用户使用时候的定制性和模块化，用户可以按需选择需要的拓扑结构。
 
-![Alt text](images/tpu/tpu_28.png)
+![Alt text](images/TPUIntro28.png)
 
 ## 小结
 
