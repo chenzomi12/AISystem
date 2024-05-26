@@ -24,7 +24,7 @@
 
 AI 芯片的广泛定义是指那些面向人工智能应用的芯片。按照不同的角度，AI 芯片可以有不同的分类划分，比如按照技术架构分为 CPU，GPU（Graphics Processing Unit，图形处理单元），半定制化的 FPGA（Field Programmable Gate Array，现场可编程门阵列），全定制化 ASIC（Application-Specific Integrated Circuit，专用集成电路）。
 
-![](./images/01Introduction01.png)
+![](images/01Introduction01.png)
 
 CPU、GPU、FPGA、ASIC 是目前 AI 计算过程中最主流的四种芯片类型，CPU、GPU、FPGA 是前期较为成熟的芯片架构，属于通用性芯片，ASIC 是为 AI 特定场景定制的芯片。他们的主要区别体现在计算效率、能耗和灵活性上面，对 AI 算法具有不同的支持程度。
 
@@ -50,11 +50,11 @@ CPU、GPU、FPGA、ASIC 是目前 AI 计算过程中最主流的四种芯片类�
 
 这一趋势已经持续了半个多世纪，摩尔定律都非常准确的预测了半导体行业的发展趋势，成为指导计算机处理器制造的黄金准则，也成为了推动科技行业发展的“自我实现”的预言。
 
-![](./images/01Introduction02.png)
+![](images/01Introduction02.png)
 
 如今半个多世纪过去了，虽然半导体芯片制程的工艺还在不断推进，但是摩尔定律中的时间周期也在拉长。2017 年图灵奖得主、加州伯克利大学计算机科学教授、谷歌杰出工程师 David Patterson 表示：“现在，摩尔定律真的结束了，计算机体系结构将迎来下一个黄金时代“。
 
-![](./images/01Introduction03.png)
+![](images/01Introduction03.png)
 
 计算机芯片架构的发展历程确实非常丰富和有趣。从最早的单核 CPU 到多核 CPU，再到多核 GPU/NPU，以及现在的超异构集群体系，每一次技术进步都极大地推动了计算能力的提升和应用场景的拓展。下面简要回顾一下这些发展阶段：
 
@@ -68,7 +68,7 @@ CPU、GPU、FPGA、ASIC 是目前 AI 计算过程中最主流的四种芯片类�
 
 这些技术的发展，不仅推动了硬件的进步，也为软件和应用的开发提供了更多可能性。随着人工智能、大数据、云计算等领域的快速发展，未来的计算机架构可能会有更多创新和突破。
 
-![](./images/01Introduction04.png)
+![](images/01Introduction04.png)
 
 未来软硬件协同设计、计算机体系结构安全性，以及芯片设计开发流程等方面都存在着很多创新与挑战，在这样的背景下，加油吧，下一个黄金时代的从业者们！
 

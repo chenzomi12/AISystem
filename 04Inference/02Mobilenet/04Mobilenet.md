@@ -24,7 +24,7 @@ Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一�
 
 计算量 :$D_{k}\times  D_{k}\times M\times D_{f}\times D_{f}$
 
-其中$D_{k}$为卷积核尺寸，$D_{f}$为特征图尺寸，M 为输入通道数，输出通道数为 1。
+其中 $D_{k}$ 为卷积核尺寸，$D_{f}$ 为特征图尺寸，M 为输入通道数，输出通道数为 1。
 
 #### 逐点卷积 Pointwise Convolution
 
@@ -35,7 +35,7 @@ Pointwise Convolution 的本质就是 $1\times 1$ 的卷积，它的卷积核的
 
 计算量:$1\times 1\times M\times N\times D_{f}\times D_{f}$
 
-其中卷积核尺寸是 $1\times1$，$D_{f}$ 为特征图尺寸，$M$为输入通道数，$N$为输出通道数。
+其中卷积核尺寸是 $1\times1$，$D_{f}$ 为特征图尺寸，$M$ 为输入通道数，$N$ 为输出通道数。
 
 因此计算一次深度可分离卷积的总体计算量为:
 

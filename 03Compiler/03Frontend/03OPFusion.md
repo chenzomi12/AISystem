@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
 ![alt text](./images/03.op_fusion/opfusion04.png)
 
-下图左侧，Conv 算子输出$\bold{x}$，顺序经过 Add、Mul、Add 算子处理后得到$\bold{y}$，处理过程可表示为$\bold{y}=\overbrace{\bold{a}\underbrace{(\bold{x}+\bold{b})}_{\bold{x}_{1}}}^{\bold{x}_{2}}+\bold{x}$。其中，$\bold{x}+\bold{b}=\bold{x}_{1}$为第一个 Add 算子的中间结果，$\bold{a}x_{1}=\bold{x}_{2}$为 Mul 算子输出的中间结果；在执行 Mul 算子时，需要对中间结果$x_{1}$进行访存。下图右侧，将 Add 与 Mul 算子融合后，可减少一次对中间结果$x_{1}$的访存。 
+下图左侧，Conv 算子输出 $\bold{x}$，顺序经过 Add、Mul、Add 算子处理后得到 $\bold{y}$，处理过程可表示为 $\bold{y}=\overbrace{\bold{a}\underbrace{(\bold{x}+\bold{b})}_{\bold{x}_{1}}}^{\bold{x}_{2}}+\bold{x}$。其中，$\bold{x}+\bold{b}=\bold{x}_{1}$ 为第一个 Add 算子的中间结果，$\bold{a}x_{1}=\bold{x}_{2}$ 为 Mul 算子输出的中间结果；在执行 Mul 算子时，需要对中间结果 $x_{1}$ 进行访存。下图右侧，将 Add 与 Mul 算子融合后，可减少一次对中间结果 $x_{1}$ 的访存。 
 
 <img src="./images/03.op_fusion/layerfusion01.png" width = 100% />
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
 ![alt text](./images/03.op_fusion/opfusion01.png)
 
-下图左侧，$\bold{y}_{1}=\bold{a}\bold{x}$，$\bold{y}_{2}=\bold{b}+\bold{x}$；Conv 算子执行后对中间结果$\bold{x}$缓存；Mul 与 Add 算子可并行执行，但 Mul 与 Add 算子均需访问中间结果$\bold{x}$。下图右侧，分别将 Conv 与 Mul，Conv 与 Add 算子融合后再并行执行，可避免对 Conv 算子中间结果$\bold{x}$的缓存与访问。
+下图左侧，$\bold{y}_{1}=\bold{a}\bold{x}$，$\bold{y}_{2}=\bold{b}+\bold{x}$；Conv 算子执行后对中间结果 $\bold{x}$ 缓存；Mul 与 Add 算子可并行执行，但 Mul 与 Add 算子均需访问中间结果 $\bold{x}$。下图右侧，分别将 Conv 与 Mul，Conv 与 Add 算子融合后再并行执行，可避免对 Conv 算子中间结果 $\bold{x}$ 的缓存与访问。
 
 ![alt text](./images/03.op_fusion/layerfusion02.png)
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
 ![alt text](./images/03.op_fusion/opfusion03.png)
 
-下图左侧，融合前分别执行 Conv, Mul, Add 算子需要 3 次 kernel 开销，1 次中间结果$\bold{x}$的缓存，2 次中间结果$\bold{x}$的访问；下图左侧，将 Conv 算子与 Mul 算子融合后，将融合后算子输出的中间结果$\bold{y}_{1}$与$\bold{x}$缓存至同一块内存中；下图右侧将 Conv 与 Mul 算子融合后仅需 2 次 kernel 开销，一次中间结果$[\bold{y}_{1};\bold{x}]$缓存，1 次中间结果$[\bold{y}_{1};\bold{x}]$的访问；
+下图左侧，融合前分别执行 Conv, Mul, Add 算子需要 3 次 kernel 开销，1 次中间结果 $\bold{x}$ 的缓存，2 次中间结果 $\bold{x}$ 的访问；下图左侧，将 Conv 算子与 Mul 算子融合后，将融合后算子输出的中间结果 $\bold{y}_{1}$ 与 $\bold{x}$ 缓存至同一块内存中；下图右侧将 Conv 与 Mul 算子融合后仅需 2 次 kernel 开销，一次中间结果 $[\bold{y}_{1};\bold{x}]$ 缓存，1 次中间结果 $[\bold{y}_{1};\bold{x}]$ 的访问；
 
 ![alt text](./images/03.op_fusion/layerfusion03.png)
 
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
 ![alt text](./images/03.op_fusion/opfusion02.png)
 
-下图左侧融合前，Conv、Mul 与 Add 算子分别需要 3 次 kernel 开销，1 次中间结果$\bold{x}$的缓存，2 次中将结果$\bold{x}$的访问；将 Mul 与 Add 算子融合后，仅需要 2 次 kernel 开销，1 次中间结果$\bold{x}$缓存，一次中间结果$\bold{x}$访问。
+下图左侧融合前，Conv、Mul 与 Add 算子分别需要 3 次 kernel 开销，1 次中间结果 $\bold{x}$ 的缓存，2 次中将结果 $\bold{x}$ 的访问；将 Mul 与 Add 算子融合后，仅需要 2 次 kernel 开销，1 次中间结果 $\bold{x}$ 缓存，一次中间结果 $\bold{x}$ 访问。
 
 ![alt text](./images/03.op_fusion/layerfusion04.png)
 
@@ -106,29 +106,29 @@ if __name__ == "__main__":
 
 ### BN 计算流程
 
-在 BN 前向计算过程中，首先求输入数据的均值$\mu$与方差$\sigma^{2}$，然后使用$\mu$、$\sigma^{2}$对每个输入数据进行归一化及缩放操作。其中，$\mu$、$\sigma^{2}$依赖于输入数据；归一化及缩放计算的输入则依赖于输入数据、均值、方差以及两个超参数。下图为前向计算过程中 BN 的数据依赖关系：
+在 BN 前向计算过程中，首先求输入数据的均值 $\mu$ 与方差 $\sigma^{2}$，然后使用 $\mu$、$\sigma^{2}$ 对每个输入数据进行归一化及缩放操作。其中，$\mu$、$\sigma^{2}$ 依赖于输入数据；归一化及缩放计算的输入则依赖于输入数据、均值、方差以及两个超参数。下图为前向计算过程中 BN 的数据依赖关系：
 
 ![alt text](./images/03.op_fusion/bn01.png)
 
-其中，$\gamma$和$\beta$是一个可学习的参数，在训练过程中，和其他层的权重参数一样，通过梯度下降进行学习。在训练过程中，为保持稳定，一般使用滑动平均法更新$\mu$与$\sigma^{2}$，滑动平均就是在更新当前值时，保留一定比例上一时刻的值，以均值$\mu$为例，根据比例$\theta$（如，$\theta=0.99$）保存之前的均值，当前只更新 $1-\theta$ 倍的本 Batch 的均值，计算方法如下：
+其中，$\gamma$ 和 $\beta$ 是一个可学习的参数，在训练过程中，和其他层的权重参数一样，通过梯度下降进行学习。在训练过程中，为保持稳定，一般使用滑动平均法更新 $\mu$ 与 $\sigma^{2}$，滑动平均就是在更新当前值时，保留一定比例上一时刻的值，以均值 $\mu$ 为例，根据比例 $\theta$（如，$\theta=0.99$）保存之前的均值，当前只更新 $1-\theta$ 倍的本 Batch 的均值，计算方法如下：
 
 $$
 \mu_{i}=\theta_{\mu_{i-1}}+(1-\theta)\mu_{i}
 $$
 
-BN 反向计算过程中，首先求参数误差；然后使用参数误差$\Delta\gamma$、$\Delta\beta$ 计算输入误差$\Delta X$ 。参数误差导数依赖于输出结果误差$\Delta Y$以及输入$X$；输入误差$\Delta X$ 依赖于参数误差导数及输入$X$、输出误差$\Delta Y$。反向过程包括求参数误差以及输入误差两部分，BN 反向计算的关键访存特征是两次使用输入特征$X$及输出误差$\Delta Y$，分别用于计算参数误差$\Delta\gamma$、$\Delta\beta$ 及输入数据误差$\Delta X$。
+BN 反向计算过程中，首先求参数误差；然后使用参数误差 $\Delta\gamma$、$\Delta\beta$ 计算输入误差 $\Delta X$ 。参数误差导数依赖于输出结果误差 $\Delta Y$ 以及输入 $X$；输入误差 $\Delta X$ 依赖于参数误差导数及输入 $X$、输出误差 $\Delta Y$。反向过程包括求参数误差以及输入误差两部分，BN 反向计算的关键访存特征是两次使用输入特征 $X$ 及输出误差 $\Delta Y$，分别用于计算参数误差 $\Delta\gamma$、$\Delta\beta$ 及输入数据误差 $\Delta X$。
 
 ![alt text](./images/03.op_fusion/bn02.png)
 
 ### 计算访存分析
 
-前向计算过程中，每层的计算结果需写出主存，用于反向计算过程中计算输入误差；反向计算过程中，每层的结果误差也需写出到主存，原因是反向计算时 BN 层及卷积层都需要进行两次计算，分别求参数误差及输入数据误差，$X$、$\Delta Y$ 加载两次来计算参数误差$\Delta\gamma$、$\Delta\beta$  及输入误差$\Delta X$ 。ReLU 输入$Y$ 不需要保存，直接依据结果$Z$ 即可计算出其输入数据误差。
+前向计算过程中，每层的计算结果需写出主存，用于反向计算过程中计算输入误差；反向计算过程中，每层的结果误差也需写出到主存，原因是反向计算时 BN 层及卷积层都需要进行两次计算，分别求参数误差及输入数据误差，$X$、$\Delta Y$ 加载两次来计算参数误差 $\Delta\gamma$、$\Delta\beta$  及输入误差 $\Delta X$ 。ReLU 输入 $Y$ 不需要保存，直接依据结果 $Z$ 即可计算出其输入数据误差。
 
 ![alt text](./images/03.op_fusion/bn04.png)
 
 ### 模型重构及算子融合
 
-前向过程中，BN 重构为两个子层：BN_A 和 BN_B。其中 BN_A 计算均值与方差，BN_B 完成归一化与缩放，分别融合于相邻卷积层及激活层。首先从主存读取输入$X$、均值$\mu$、方差$\sigma^{2}$ 、参数$\gamma$、$\beta$，计算 BN_B，完成归一化及缩放计算，将结果 Y 用于激活计算，输出$Z$用于卷积计算，卷积结果$X^{'}$写出到主存之前，计算 BN_A，即求均值$\mu^{'}$与方差$\sigma^{2}$。完成“**归一化缩放->激活层->卷积层->计算卷积结果均值与方差**”结构模块的前向计算过程只需要读取一次，并写回卷积计算结果$X^{'}$及相关参数。
+前向过程中，BN 重构为两个子层：BN_A 和 BN_B。其中 BN_A 计算均值与方差，BN_B 完成归一化与缩放，分别融合于相邻卷积层及激活层。首先从主存读取输入 $X$、均值 $\mu$、方差 $\sigma^{2}$ 、参数 $\gamma$、$\beta$，计算 BN_B，完成归一化及缩放计算，将结果 Y 用于激活计算，输出 $Z$ 用于卷积计算，卷积结果 $X^{'}$ 写出到主存之前，计算 BN_A，即求均值 $\mu^{'}$ 与方差 $\sigma^{2}$。完成“**归一化缩放->激活层->卷积层->计算卷积结果均值与方差**”结构模块的前向计算过程只需要读取一次，并写回卷积计算结果 $X^{'}$ 及相关参数。
 
 ![alt text](./images/03.op_fusion/bn05.png)
 
@@ -166,7 +166,7 @@ $$
   y =\gamma\frac{w}{{\sqrt {\operatorname{var}}}}*x+\gamma\frac{{\left( {b - mean} \right)}}{{\sqrt {\operatorname{var} } }}  + \beta
   $$
   
-  也即将卷积与 BN 融合后的新权重$w'$与$b'$，可表示为如下所示：
+  也即将卷积与 BN 融合后的新权重 $w'$ 与 $b'$，可表示为如下所示：
   
   $$
   \begin{gathered}
@@ -193,7 +193,7 @@ TVM 主要用于推理场景。在架构上，主要包括 Relay 和 TIR 两层�
 - 支配树：各个点的支配点构成的树
 - 支配点：所有能够到达当前节点的路径的公共祖先点（ Least Common Ancestors，LCA）
 
-具体而言，对于一张有向图(可以有环)我们规定一个起点$r$, 从$r$点到图上另一个点$w$可能存在很多条路径(下面将$r$到$w$简写为$r→w$)。如果对于$r→w$的任意一条路径中都存在一个点$p$, 那么我们称点$p$为$w$的支配点(也可以称作是$r→w$的必经点), 注意$r$点不讨论支配点。下面用$idom[u]$表示离点$u$最近的支配点。对于原图上除$r$外每一个点$u$, 从$idom[u]$向$u$建一条边, 最后我们可以得到一个以$r$为根的树。这个树我们就叫它"支配树"。如下图所示，到达 Node8 的路径有 Node3->4->7->8，Node3->5->7->8，Node3->6->7->8，因此 Node4，Node5，Node6,，Node7 为 Node8 的支配点。
+具体而言，对于一张有向图(可以有环)我们规定一个起点 $r$, 从 $r$ 点到图上另一个点 $w$ 可能存在很多条路径(下面将 $r$ 到 $w$ 简写为 $r→w$)。如果对于 $r→w$ 的任意一条路径中都存在一个点 $p$, 那么我们称点 $p$ 为 $w$ 的支配点(也可以称作是 $r→w$ 的必经点), 注意 $r$ 点不讨论支配点。下面用 $idom[u]$ 表示离点 $u$ 最近的支配点。对于原图上除 $r$ 外每一个点 $u$, 从 $idom[u]$ 向 $u$ 建一条边, 最后我们可以得到一个以 $r$ 为根的树。这个树我们就叫它"支配树"。如下图所示，到达 Node8 的路径有 Node3->4->7->8，Node3->5->7->8，Node3->6->7->8，因此 Node4，Node5，Node6,，Node7 为 Node8 的支配点。
 
 <img src="./images/03.op_fusion/tvm_lca01.png" width = 60% />
 

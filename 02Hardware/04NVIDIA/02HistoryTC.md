@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Tensor Core 架构演进
+# Tensor Core 架构演进(DONE)
 
 自 Volta 架构时代起，NVIDIA 的 GPU 架构已经明显地转向深度学习领域的优化和创新。2017 年，Volta 架构横空出世，其中引入的张量核心（Tensor Core）设计可谓划时代之作，这一设计专门针对深度学习计算进行了优化，通过执行融合乘法加法操作，大幅提升了计算效率。与前一代 Pascal 架构相比，Volta 架构在深度学习训练和推理方面的性能提升了 3 倍，这一飞跃性进步为深度学习的发展提供了强大的硬件支持。
 
@@ -162,15 +162,15 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 此外，通过 TMA 将 SM 组织成一个更大的计算和存储单元，从而实现了数据从全局内存（global memory）到共享内存（shared memory）的异步加载，以及数据到寄存器的计算和矩阵乘法的流水线处理，最后通过硬件实现了矩阵乘法的流水线。硬件实现的矩阵乘法流水线确保了计算过程的连续性和高效性，使得 GPU 能够更快地处理大规模矩阵运算。
 
-## 第五代 TensorCore（Blackwell）
+## 第五代 Tensor Core（Blackwell）
 
-为了更好地适应 AI 工作负载的需求，同时提高性能和降低资源消耗。在 Blackwell 架构中，支持了第五代 TensorCore，继续扩展了对低精度计算范围支持。第五代 TensorCore 中，能够处理最低至 FP4 精度，并着眼于使用非常低精度的格式进行推理。与上一代 NVIDIA Hopper 相比，有着第五代 TensorCore 支持的 Blackwell 架构可为 GPT-MoE-1.8 T 等大型模型提供 30 倍的加速。
+为了更好地适应 AI 工作负载的需求，同时提高性能和降低资源消耗。在 Blackwell 架构中，支持了第五代 Tensor Core，继续扩展了对低精度计算范围支持。第五代 Tensor Core 中，能够处理最低至 FP4 精度，并着眼于使用非常低精度的格式进行推理。与上一代 NVIDIA Hopper 相比，有着第五代 Tensor Core 支持的 Blackwell 架构可为 GPT-MoE-1.8 T 等大型模型提供 30 倍的加速。
 
-此外，为了应对那些 FP4 精度不足以满足的工作负载，第五代 TensorCore 还增加了对 FP6 精度的兼容。虽然 FP6 精度在计算性能上并不比 FP8 有显著提升——因为它在 NVIDIA 的张量核心中本质上仍然是以类似 FP8 的方式进行操作——但由于数据大小缩小了 25%，它在内存占用和带宽需求方面带来了显著的优势。
+此外，为了应对那些 FP4 精度不足以满足的工作负载，第五代 Tensor Core 还增加了对 FP6 精度的兼容。虽然 FP6 精度在计算性能上并不比 FP8 有显著提升——因为它在 NVIDIA 的张量核心中本质上仍然是以类似 FP8 的方式进行操作——但由于数据大小缩小了 25%，它在内存占用和带宽需求方面带来了显著的优势。
 
 对于大型语言模型（LLM）的推理任务而言，内存容量依然是这些加速器所面临的主要限制。因此，在推理过程中降低内存使用量成为了一个亟待解决的问题。通过采用低精度格式如 FP4 和 FP6，可以在保持推理质量的同时，有效减少内存消耗，这对于提升 LLM 推理的效率和可行性至关重要。
 
-此外，第五代 TensorCore 还支持社区定义的微缩放格式 MX（Microscaling） Format ，它是一种精度调整技术，相比一般的 scalar format （比如 FP32, FP16），MX Format 的粒度更高，多个 scalar 构成一组数据（vector format），它允许模型在保持相对高精度的同时减少计算资源的消耗。
+此外，第五代 Tensor Core 还支持社区定义的微缩放格式 MX（Microscaling） Format ，它是一种精度调整技术，相比一般的 scalar format （比如 FP32, FP16），MX Format 的粒度更高，多个 scalar 构成一组数据（vector format），它允许模型在保持相对高精度的同时减少计算资源的消耗。
 
 MX Format 的核心特点是其由两个主要部分组成：scale（X）和 element（P）。在这种格式中，k 个 element 共享一个相同的 scale。Element 的定义是基于 scalar format，如 FP32、FP16 等。这种设计允许在保持一定精度的同时，通过共享 scale 来减少存储需求和计算开销。此外，我们可以将 MX Format 视为一种不带 shift 的量化方法。量化是一种将连续或高精度数据转换为低精度表示的技术，通常用于减少模型大小和加速推理过程。MX Format 通过引入 block size k 来定义量化的粒度，即每个 block 中的 element 数量。在标准中，block size 通常设置为 32，这意味着每个 scale 会影响 32 个 element。MX Format 的优势在于它提供了比传统的 per-tensor 或 per-channel 量化更低的粒度，这有助于在保持计算效率的同时提高精度。然而，这种更细的量化粒度也会带来额外的存储开销。MX Format 的另一个特点是其数据位度的灵活性。例如，MXFP4 格式中，scale bits 为 8，block size 为 32，这意味着每个 scalar 平均占用 12 比特（8 bits for scale + 4 bits for element），这比传统的 FP4 格式提供了更多的信息。总之，MX Format 可以被看作是一种定制的数据表示方式，旨在为特定的硬件平台提供加速。
 
@@ -191,7 +191,7 @@ MX Format 的核心特点是其由两个主要部分组成：scale（X）和 ele
 这就要求在软件编程时，我们需要深入理解硬件的特性，合理地进行数据布局和计算优化，以实现更高的计算效率。这种对矩阵进行 padding 的操作，我们称之为 Padding Vocabulary Size，它是优化大模型计算性能的关键一步。
 综上所述，Tensor Core 的应用在大模型计算中发挥着重要的作用。通过深入了解硬件特性，并结合合理的软件编程优化，我们可以更好地利用 Tensor Core 的计算能力，提升大模型的训练效率。
 
-## 小结
+## 小结与讨论
 
 经过上述探讨，我们可以对历代的 Tensor Core 进行一个简要的总结。Tensor Core 的演进主要带来了三大关键提升。
 
