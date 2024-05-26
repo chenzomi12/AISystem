@@ -4,7 +4,7 @@
 
 自 Volta 架构时代起，NVIDIA 的 GPU 架构已经明显地转向深度学习领域的优化和创新。2017 年，Volta 架构横空出世，其中引入的张量核心（Tensor Core）设计可谓划时代之作，这一设计专门针对深度学习计算进行了优化，通过执行融合乘法加法操作，大幅提升了计算效率。与前一代 Pascal 架构相比，Volta 架构在深度学习训练和推理方面的性能提升了 3 倍，这一飞跃性进步为深度学习的发展提供了强大的硬件支持。
 
-![Nvida GPU Tensor Core 发展](images/02history_tc_01.png)
+![Nvida GPU Tensor Core 发展](images/02HistoryTC01.png)
 
 紧随其后，在一年后的 2018 年，NVIDIA 发布了 Turing 架构，进一步增强了 Tensor Core 的功能。Turing 架构不仅延续了对浮点运算的优化，还新增了对 INT8、INT4、甚至是 Binary(INT1)等整数格式的支持。这一举措不仅使大范围混合精度训练成为可能，更将 GPU 的性能吞吐量推向了新的高度，较 Pascal GPU 提升了惊人的 32 倍。此外，Turing 架构还引入了先进的光线追踪(RT Core)技术。
 
@@ -18,11 +18,13 @@
 
 接下来，我们将逐一深入剖析每一代 Tensor Core 的独特之处，以揭示其背后的技术奥秘。
 
+![](images/02HistoryTC02.png)
+
 ## 第一代 Tensor Core（Volta）
 
 在开始介绍 Volta 架构中的第一代 Tensor Core 之前，我们先来了解一下 Volta 架构的实现细节。
 
-![Volta SM](images/02history_tc_02.png)
+![Volta SM](images/02HistoryTC03.png)
 
 如上图所示，左边就是 Volta SM 的架构图，Volta 架构中的 Streaming Multiprocessor（SM）通过引入子核心（Sub Core）概念，提升了其执行效率和灵活性。在 Volta 架构中，一个 SM 由 4 个 Sub Core 组成，每个 Sub Core 可以被视为一个更小的、功能完备的执行单元，它们共同工作以提高整体的处理能力。
 
@@ -40,7 +42,7 @@
 
 值得注意的是，每个 SM Sub-Core 内含有两个 4x4x4 Tensor Core。Warp Scheduler 向 Tensor Core 发送矩阵乘法 GEMM 运算指令。Tensor Core 接收来自寄存器文件的输入矩阵（A、B、C），执行多次 4x4x4 矩阵乘法操作，直至完成整个矩阵乘法，并将结果矩阵写回寄存器文件(Register File)中。
 
-![Volta SM 微架构](images/02history_tc_03.png)
+![Volta SM 微架构](images/02HistoryTC04.png)
 
 如上图所示，最上面是共享的 L1 缓存，每个时钟周期可以执行 4 个 Warp 指令，下属 4 个独立的 Sub Core，面的数据是不进行缓存的，但是每个 Sub Core 里有两个 Tensor Core, 这两个 Tensor Core 中的数据是可以共享的，再往下有一个共享内存，每个时钟周期可以传输 128B 的数据，当所有的 SM 计算完这个权重矩阵就会将数据回传到 L2 Cache 中，最后返回 Host Cpu 中。
 
@@ -48,7 +50,7 @@
 
 如图所示，在一个 Sub Core 内的微架构中，顶部依然是 L1 Cache，紧随其后的是 L0 Cache，也就是 Register File。Register File 负责将数据传输到 Warp Scheduler，而具体的指令调度则依赖于 Warp Scheduler。针对通用的矩阵计算任务，即 CUDA Core 计算，我们通过 Math Dispatch Unit 将指令分发到具体的 FP64、INT、FP32 和 MUFU 等执行单元进行计算。
 
-![Volta Sub Core 微架构](images/02history_tc_04.png)
+![Volta Sub Core 微架构](images/02HistoryTC05.png)
 
 然而，当调用 WMMA 相关的 API 或指令时，Warp Scheduler 会直接触发 Tensor Core 中的计算，每个 Tensor Core 内含有两个 4x4x4 的矩阵，在每个时钟周期内并行进行计算，最终将结果存回 Register File 寄存器中。寄存器通过 MIO 的 Data Pipeline 与 Shared Memory 进行通讯。
 
@@ -62,7 +64,7 @@
 
 在 Turing 架构中，我们直接进入 Sub Core，即微内核，来了解 Tensor Core 的第二代。
 
-![Turing Sub Core 微架构](images/02history_tc_05.png)
+![Turing Sub Core 微架构](images/02HistoryTC06.png)
 
 如上图所示，与之前的版本相比，Turing 架构的 Tensor Core 除了支持 FP16 类型之外，还增加了 INT8 和 INT4 等多种类型，这一变化使得 Turing 架构在处理不同精度的计算任务时更加得心应手。
 
@@ -80,7 +82,7 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 如图所示为 Ampere 架构多级带宽体系，我们从下往上看，最下面为这次架构升级所引入 NVLink 技术，它主要来优化单机多块 GPU 卡之间的数据互连访问。在传统的架构中，GPU 之间的数据交换需要通过 CPU 和 PCIe 总线，这成为了数据传输的瓶颈。而 NVLink 技术允许 GPU 之间直接进行高速的数据传输，极大地提高了数据传输的效率和速度。
 
-![Ampere 多级带宽体系](images/02history_tc_06.png)
+![Ampere 多级带宽体系](images/02HistoryTC07.png)
 
 接下来，再往上一层，为 L2 Cache 缓存和 DRAM，它们负责的是每块 GPU 卡内部的存储。L2 Cache 缓存作为一个高速缓存，用于存储经常访问的数据，以减少对 DRAM 的访问延迟。DRAM 则提供了更大的存储空间，用于存储 GPU 计算所需的大量数据。这两者的协同工作，使得 GPU 能够高效地处理大规模数据集。这里要说明的一点是我们所说的 HBM 其实就是多个 DRAM 的堆叠，它通过堆叠多个 DRAM 芯片来提高带宽和容量。
 
@@ -94,7 +96,7 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 在 Ampere 之前的 GPU 架构中，如果要使用共享内存（Shared Memory），必须先把数据从全局内存（Global Memory）加载到寄存器中，然后再写入共享内存。这不仅浪费了宝贵的寄存器资源，还增加了数据搬运的时延，影响了 GPU 的整体性能。
 
-![Ampere 异步内存拷贝机制](images/02history_tc_07.png)
+![Ampere 异步内存拷贝机制](images/02HistoryTC08.png)
 
 如上图所示，Ampere 架构中提供异步内存拷贝机制，通过新指令 LDGSTS（Load Global Storage Shared），实现全局内存直接加载到共享内存，避免了数据从全局内存到寄存器再到共享内存的繁琐操作，从而减少时延和功耗。
 
@@ -106,7 +108,7 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 当我们深入研究 FFMA（Fuse Fold Math and Add）操作时，我们可以从上图中得到更多的信息。在这个图中，绿色的小块代表 Sub Core，也就是之前提到的 Sub Core。而图中连续的蓝色框代表寄存器 Registers。
 
-![Ampere FFMA](images/02history_tc_08.png)
+![Ampere FFMA](images/02HistoryTC09.png)
 
 当寄存器仅使用 CUDA Core 时，所有数据都存储在寄存器中，每个寄存器针对一个 CUDA Core 进行数据传输。这样使用 CUDA Core 计算会非常慢。
 
@@ -134,7 +136,7 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 在第 4 代 Tensor Core 中，一个显著的创新是引入了 Tensor Memory Accelerator（简称 TMA），这一功能被称为增量内存加速。这一技术的出现，极大地提升了数据处理效率，为高性能计算领域注入了新的活力。
 
-![Hopper FFMA](images/02history_tc_09.png)
+![Hopper FFMA](images/02HistoryTC10.png)
 
 对比 A100 与 H100 的 SM 架构图，如上图所示，我们可以发现二者在结构上并没有太大的差异。然而，由于工艺制程的进步，H100 中的 CUDA Core 和 Tensor Core 的密度得以显著提升。更为重要的是，H100 中新增了 Tensor Memory Accelerator，这一硬件化的数据异步加载机制使得全局内存的数据能够更为高效地异步加载到共享内存，进而供寄存器进行读写操作。
 
@@ -144,7 +146,7 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 ### 分布式共享内存和 warp group 编程模式
 
-![Hopper TBC](images/02history_tc_10.png)
+![Hopper TBC](images/02HistoryTC11.png)
 
 如上图所示，在 H100 之前的架构中，线程的控制相对有限，主要基于 Grid 和 Block 的划分，分别对应硬件 SM 和 Device，且局部数据只能通过 shared memory 限制在 SM 内部，不能跨 SM。然而，在 Hopper 架构中，情况发生了显著变化。通过在硬件层面引入交叉互联网络，数据得以在 4 个 SM 之间进行拓展和共享，GPC 内 SM 可以高效访问彼此的共享内存。这一创新使得 SM 之间能够实现高效的通信，从而打破了之前架构中 SM 间的数据隔阂。
 
@@ -152,13 +154,13 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 更直观的从软件层面去看一下，有什么区别呢?
 
-![Hopper TBC Block](images/02history_tc_11.png)
+![Hopper TBC Block](images/02HistoryTC12.png)
 
 如上图左边所示, 就是没有进行分布式共享内存的，每个 Thread Block 都对应一个 SM，每个 SM 内部拥有自己的共享内存。然而，SM 与 SM 之间无法进行直接的数据交互，这意味着它们之间的通信必须通过全局内存进行。这种通信方式不仅增加了数据传输的时延，还可能导致寄存器的过度使用，降低了计算效率。
 
 而在 H100 架构中，如上图右边所示，通过引入 SM 的 Cluster 或 Block 的 Cluster，实现了硬件层面的分布式共享内存。这意味着 SM 与 SM 之间的数据可以直接进行互联，无需再通过全局内存进行中转。这种机制极大地减少了数据传输的时延，提高了数据交互的效率。同时，由于数据可以在 SM 之间直接共享，寄存器的使用也得到了更加合理的分配，减少了不必要的浪费。
 
-![Hopper 直接读取共享内存异步 Tensor Core](images/02history_tc_12.png)
+![Hopper 直接读取共享内存异步 Tensor Core](images/02HistoryTC13.png)
 
 此外，通过 TMA 将 SM 组织成一个更大的计算和存储单元，从而实现了数据从全局内存（global memory）到共享内存（shared memory）的异步加载，以及数据到寄存器的计算和矩阵乘法的流水线处理，最后通过硬件实现了矩阵乘法的流水线。硬件实现的矩阵乘法流水线确保了计算过程的连续性和高效性，使得 GPU 能够更快地处理大规模矩阵运算。
 
@@ -172,30 +174,17 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 此外，第五代 Tensor Core 还支持社区定义的微缩放格式 MX（Microscaling） Format ，它是一种精度调整技术，相比一般的 scalar format （比如 FP32, FP16），MX Format 的粒度更高，多个 scalar 构成一组数据（vector format），它允许模型在保持相对高精度的同时减少计算资源的消耗。
 
-MX Format 的核心特点是其由两个主要部分组成：scale（X）和 element（P）。在这种格式中，k 个 element 共享一个相同的 scale。Element 的定义是基于 scalar format，如 FP32、FP16 等。这种设计允许在保持一定精度的同时，通过共享 scale 来减少存储需求和计算开销。此外，我们可以将 MX Format 视为一种不带 shift 的量化方法。量化是一种将连续或高精度数据转换为低精度表示的技术，通常用于减少模型大小和加速推理过程。MX Format 通过引入 block size k 来定义量化的粒度，即每个 block 中的 element 数量。在标准中，block size 通常设置为 32，这意味着每个 scale 会影响 32 个 element。MX Format 的优势在于它提供了比传统的 per-tensor 或 per-channel 量化更低的粒度，这有助于在保持计算效率的同时提高精度。然而，这种更细的量化粒度也会带来额外的存储开销。MX Format 的另一个特点是其数据位度的灵活性。例如，MXFP4 格式中，scale bits 为 8，block size 为 32，这意味着每个 scalar 平均占用 12 比特（8 bits for scale + 4 bits for element），这比传统的 FP4 格式提供了更多的信息。总之，MX Format 可以被看作是一种定制的数据表示方式，旨在为特定的硬件平台提供加速。
+MX Format 的核心特点是其由两个主要部分组成：scale（X）和 element（P）。在这种格式中，k 个 element 共享一个相同的 scale。Element 的定义是基于 scalar format，如 FP32、FP16 等。这种设计允许在保持一定精度的同时，通过共享 scale 来减少存储需求和计算开销。此外，我们可以将 MX Format 视为一种不带 shift 的量化方法。量化是一种将连续或高精度数据转换为低精度表示的技术，通常用于减少模型大小和加速推理过程。MX Format 通过引入 block size k 来定义量化的粒度，即每个 block 中的 element 数量。
+
+ze 通常设置为 32，这意味着每个 scale 会影响 32 个 element。MX Format 的优势在于它提供了比传统的 per-tensor 或 per-channel 量化更低的粒度，这有助于在保持计算效率的同时提高精度。然而，这种更细的量化粒度也会带来额外的存储开销。MX Format 的另一个特点是其数据位度的灵活性。例如，MXFP4 格式中，scale bits 为 8，block size 为 32，这意味着每个 scalar 平均占用 12 比特（8 bits for scale + 4 bits for element），这比传统的 FP4 格式提供了更多的信息。总之，MX Format 可以被看作是一种定制的数据表示方式，旨在为特定的硬件平台提供加速。
 
 此外，Blackwell 架构，进一步支持了第二代 Transformer 引擎。第二代 Transformer 引擎与第五代 Tensor Core 技术与 TensorRT-LLM 和 NeMo 框架创新相结合，加速大语言模型 (LLM) 和专家混合模型 (MoE) 的推理和训练，可将性能和效率翻倍，同时为当前和新一代 MoE 模型保持高精度。
-
-## Tensor Core 的应用
-
-最后一个内容，我们来探讨一下 Tensor Core 的应用。在 H100 架构中，Tensor Core 的设计主要是针对大模型，特别是像 GPT、ChatGPT 这种基于 transformer 架构堆叠而成的大型语言模型。这些大模型在处理时面临着巨大的挑战，因为它们的输入包含大量的词汇，这些词汇需要被嵌入成具体的向量进行计算。同时，输出也是以向量的形式呈现，经过 softmax 处理后，会形成一个比词表更大的向量。
-
-在处理这些大模型时，词向量的维度和矩阵的规模都会变得非常庞大，这给计算带来了极大的压力。而 Tensor Core 的数量是有限的，尽管在 V100 中，我们能够通过软件的方式将其扩展到 16x16x16 的规模，通过局部数据的搬运来提升计算效率，但这并不意味着我们能够轻松地处理所有嵌入的向量或大矩阵。
-
-![transformer 计算](images/02history_tc_13.png)
-
-实际上，对于大模型的处理，我们需要更加精细地考虑数据的布局和计算的方式。例如，当 input size 达到 1024，batch size 为 5120 时，使用 FP16 进行训练，整个词汇表的大小可能超过三万个词汇。
-
-在 transformer 的 Attention 模型结构中，会涉及到大量的矩阵乘法运算。为了提高性能，我们通常需要对矩阵进行 padding 操作，使其维度成为 8 的倍数。这样一来，整体的计算性能会得到显著提升。
-
-这就要求在软件编程时，我们需要深入理解硬件的特性，合理地进行数据布局和计算优化，以实现更高的计算效率。这种对矩阵进行 padding 的操作，我们称之为 Padding Vocabulary Size，它是优化大模型计算性能的关键一步。
-综上所述，Tensor Core 的应用在大模型计算中发挥着重要的作用。通过深入了解硬件特性，并结合合理的软件编程优化，我们可以更好地利用 Tensor Core 的计算能力，提升大模型的训练效率。
 
 ## 小结与讨论
 
 经过上述探讨，我们可以对历代的 Tensor Core 进行一个简要的总结。Tensor Core 的演进主要带来了三大关键提升。
 
-![Tensor Core 性能提升](images/02history_tc_14.png)
+![Tensor Core 性能提升](images/02HistoryTC14.png)
 
 首先，是内存能力的提升，有效地打破了所谓的“内存墙”。随着技术的不断进步，Tensor Core 在处理大规模数据时，能够更高效地利用和管理内存资源，从而显著提升了计算性能。
 

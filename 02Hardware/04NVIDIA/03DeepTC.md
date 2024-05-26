@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Tensor Core 深度剖析
+# Tensor Core 深度剖析(DONE)
 
 Tensor Core 是用于加速深度学习计算的关键技术，其主要功能是执行深度神经网络中的矩阵乘法和卷积运算。通过利用混合精度计算和张量核心操作，Tensor Core 能够在较短的时间内完成大量矩阵运算，从而显著加快深度学习模型的训练和推断过程。具体来说，Tensor Core 采用半精度(FP16)作为输入和输出，并利用全精度(FP32)进行存储中间结果计算，以确保计算精度的同时最大限度地提高计算效率。
 
@@ -10,7 +10,7 @@ Tensor Core 是用于加速深度学习计算的关键技术，其主要功能�
 
 下面我们首先来回顾一下 Tensor Core 的计算原理。
 
-![Tensor Core 计算](images/03.deep_tc_01.png)
+![Tensor Core 计算](images/03DeepTC01.png)
 
 如上图所示，深绿色的矩阵是一个 4x4 的矩阵 A，紫色的矩阵是一个 4x4 的矩阵 B，两个矩阵相乘再加上一个绿色的矩阵 C。那所谓混合精度就是指在计算的过程当中使用 FP16 去计算，但是存储的时候使用 FP32 或者 FP16 进行存储。
 
@@ -22,7 +22,7 @@ $$
 
 然而在 NVIDIA 的 GPU Tensor Core 中并不是一行一行的计算，而是整一个矩阵进行计算，我们可以看看官方给出的 Tensor Core 的计算模拟图。
 
-![Tensor Core FMA](images/03.deep_tc_02.png)
+![Tensor Core FMA](images/03DeepTC02.png)
 
 如上图所示，左边为没有 Tensor Core 的 Pascal 架构，其运行原理是一个元素跟一行进行相乘，每个时钟周期执行 4 次相乘得到一列的数据。右边则为具有 Tensor Core 的 Volta 的架构，其 Tensor Core 计算的过程是把整个矩阵 A 和矩阵 B 进行相乘然后得到整一个矩阵的输出。
 
@@ -32,7 +32,7 @@ $$
 
 指令流水是一种提高处理器执行指令效率的技术，其基本原理是将一条指令的操作分成多个细小的步骤，每个步骤由专门的电路完成。这些步骤通过流水线的方式连续执行，从而实现了指令的并行处理。
 
-![Tensor Core 模拟电路](images/03.deep_tc_03.png)
+![Tensor Core 模拟电路](images/03DeepTC03.png)
 
 如上图所示为 Tensor Core 的模拟电路示意图，在图中有两个不同的符号，其中一个是加号，表示为矩阵加计算操作，一个是乘号，表示为矩阵乘计算操作，这两个是矩阵计算中的基本操作。另外，在这个电路图中，绿色长方块代表的是计算中的寄存器，下面横着的为 16 位的寄存器，用于存储输入和中间数据，竖着的为 32 位的寄存器，用于存储累积结果或中间高精度数据。
 
@@ -44,7 +44,7 @@ $$
 
 那么一个矩阵中更多元素的是如何进行计算的呢？
 
-![Tensor Core 矩阵模拟电路](images/03.deep_tc_04.png)
+![Tensor Core 矩阵模拟电路](images/03DeepTC04.png)
 
 上面展示的矩阵 A 的一行跟矩阵 B 的一列进行 FMA，得到一个元素 $D_{0,0}$，即图中的第一个蓝色方块，那么整个矩阵计算时的电路图则如上图所示。
 它是一个简单的电路拼接，就是将 A 矩阵的每一行跟 B 矩阵的每一列进行相乘
@@ -56,21 +56,21 @@ $$
 
 当我们进行一个 Fp32 标量元素乘加操作的指令时，就像下面图所示。
 
-![Tensor Core 标量流水线](images/03.deep_tc_05.png)
+![Tensor Core 标量流水线](images/03DeepTC05.png)
 
 但实际上，Tensor Core 里面的乘法计算只有 Fp16，存储或者加法计算的时候是用到 Fp32 的，于是可以把刚才的一个乘法计算把它节省掉。
 
 那么如果实现两个元素相乘，就可以把两条流水并行起来，这个就是指令的流水，如下图所示。
 
-![Tensor Core 两个元素流水线](images/03.deep_tc_06.png)
+![Tensor Core 两个元素流水线](images/03DeepTC06.png)
 
 在 Tensor Core 实际计算的时候，实现输出一个元素的计算，即用 A 的一行乘以 B 的一列，就要有四条 Pipeline 的流水线。
 
-![Tensor Core 一行 x 一列流水线](images/03.deep_tc_07.png)
+![Tensor Core 一行 x 一列流水线](images/03DeepTC07.png)
 
 如上图所示，通过上面的绿色指令流水计算出了 $D_{0,0}$，通过黄色的流水线计算出了 $D_{0,1}$，接下来想要把所有的元素计算出来，就有大量的指令的流水去拼接。
 
-![Tensor Core 矩阵流水线](images/03.deep_tc_08.png)
+![Tensor Core 矩阵流水线](images/03DeepTC08.png)
 
 如上图所示，数据在流水线中的读写操作是有一定规律的。在乘法计算阶段，需要从存储单元中读取数据进行计算；而在计算完成后的 Round 阶段，则需要将计算结果写回存储单元。因此，在流水线的某个时刻，整个过程会涉及四个数据：从寄存器读取到计算单元的两个数据，以及计算结果存储回寄存器的两个数据。
 
@@ -93,7 +93,7 @@ NVIDIA CUDA 对于 Tensor Core 的定义主要是通过 CUDA 提供一种通用�
 
 在 Tensor Core 中一个矩阵乘的计算，也就是所谓的 GEMM，其实一次只能计算一个小的矩阵块。在实际的运算中，也就需要把矩阵 A 切分出来一个小块，把矩阵 B 也切分出来个小块，算出来一个小的矩阵 C，如下图所示。
 
-![Block-level 的矩阵乘](images/03.deep_tc_09.png)
+![Block-level 的矩阵乘](images/03DeepTC09.png)
 
 那这个时候在整体的软件编程的时，就会沿着每一个维度，如上图的 N 维和 K 维进行拆分为小的矩阵进行计算，最后对结果进行累积。
 
@@ -122,7 +122,7 @@ for (int mb = O; mb < M; mb += Mtile)
 
 ### Warp-level 矩阵乘
 
-![Warp-level 的矩阵乘](images/03.deep_tc_10.png)
+![Warp-level 的矩阵乘](images/03DeepTC10.png)
 
 在 CUDA 编程模型中，当我们在线程块（Block）内执行矩阵乘法操作时，这些操作实际上是在 Warp 级别上被分配和执行的。Warp 是 GPU 上的一个执行单元，它由固定数量的线程（通常是 32 个线程）组成，这些线程协同工作以执行相同的指令。
 
@@ -134,7 +134,7 @@ for (int mb = O; mb < M; mb += Mtile)
 
 当执行矩阵乘法时，Warp 中的线程会协同工作，完成一系列乘法和加法操作。这个过程涉及到从共享内存（SMEM）加载数据到寄存器（RF），进行计算，然后将结果存储回寄存器或全局内存中。
 
-![Warp-level 的矩阵乘展开](images/03.deep_tc_11.png)
+![Warp-level 的矩阵乘展开](images/03DeepTC11.png)
 
 下面我们详细解释一下这个过程：
 
@@ -153,7 +153,7 @@ Tensor Core 是 NVIDIA GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-le
 
 在 GEMM（General Matrix Multiply，通用矩阵乘法）的软硬件分层中，数据复用是一个非常重要的概念。由于矩阵通常很大，包含大量的数据，因此有效地复用这些数据可以显著提高计算效率。在每一层中，都会通过不同的内存层次结构（如全局内存、共享内存和寄存器）来管理和复用数据。
 
-![Thread-level 的矩阵乘](images/03.deep_tc_12.png)
+![Thread-level 的矩阵乘](images/03DeepTC12.png)
 
 具体来说，大矩阵通常被分割成小块，并存储在全局内存中。然后，在计算过程中，这些小块数据会被加载到共享内存或寄存器中，以便进行高效的计算。通过这种方式，可以最大限度地减少内存访问延迟，并提高计算吞吐量。
 在计算完每一小块矩阵乘法后，得到的结果通常也是一小块数据。为了得到最终的完整矩阵乘法结果，需要将所有小块结果累积起来。这通常涉及到将中间结果从寄存器或共享内存写回到全局内存中，并在必要时进行进一步的同步和累加操作。
@@ -164,7 +164,7 @@ Tensor Core 是 NVIDIA GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-le
 
 下面我们再来详细展开 Tensor Core 是如何完成累积矩阵并写出最终结果的。
 
-![Tensor Core 累积矩阵并写出最终结果](images/03.deep_tc_13.png)
+![Tensor Core 累积矩阵并写出最终结果](images/03DeepTC13.png)
 
 存在 register file 中的临时结果的回传是通过 WMMA 的 API 完成的，在 Tensor Core 提供的 WMMA API 里面有个 store matrix sync 的 API。这个 API 工作就是把所有的数据都搬到共享内存，也就是 SMEM 里面。
 
@@ -174,7 +174,7 @@ Tensor Core 是 NVIDIA GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-le
 
 下面我们来总结一下整个的计算过程：
 
-![Tensor Core 计算全流程](images/03.deep_tc_14.png)
+![Tensor Core 计算全流程](images/03DeepTC14.png)
 
 首先，矩阵在进行 GEMM 计算之前会被分块，这些分块后的矩阵存储在全局内存（Global Memory）中。全局内存是 GPU 上最大的内存区域，用于存储计算过程中需要访问的大量数据。
 
