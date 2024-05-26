@@ -32,19 +32,19 @@ Ops Optimizer接收到Tensor IR后，其会针对每个算子进行具体的性�
 
 前端主要负责接收和处理来自不同深度学习框架的模型，并将其转换为通用的中间表示（IR），进行初步优化。
 
-*Input Format of DL Models（输入格式）*：支持多种深度学习框架，如TensorFlow、PyTorch、Caffe2、MXNet、飞桨（PaddlePaddle）和ONNX等。
+**Input Format of DL Models（输入格式）**：支持多种深度学习框架，如TensorFlow、PyTorch、Caffe2、MXNet、飞桨（PaddlePaddle）和ONNX等。
 
-*Transformation（转换）*：将来自不同框架的模型转换为统一的表示形式。常见的转换方式包括：TVM的Relay、nGraph的Bridge、PyTorch的ATen（TorchScript）或直接翻译等。
+**Transformation（转换）**：将来自不同框架的模型转换为统一的表示形式。常见的转换方式包括：TVM的Relay、nGraph的Bridge、PyTorch的ATen（TorchScript）或直接翻译等。
 
-*High-level IR / Graph IR（高层次IR/图IR）*：这些IR是设备无关的，主要用于表示计算图。表示方法包括DAG（有向无环图）和基于绑定的张量计算等。实现部分涉及数据表示和操作符支持。
+**High-level IR / Graph IR（高层次IR/图IR）**：这些IR是设备无关的，主要用于表示计算图。表示方法包括DAG（有向无环图）和基于绑定的张量计算等。实现部分涉及数据表示和操作符支持。
 
 当初步生成Computation Graph(计算图)后，会通过一些方法对计算图进行进一步的优化。
 
-*Computation Graph Optimizations（计算图优化策略）*：构建计算图并进行优化，具体优化包括：Algebraic simplification（代数简化）、Operator fusion（算子融合）、Operation sinking（操作下沉）、CSE（公共子表达式消除）、DCE（死代码消除）、Static memory planning（静态内存优化）、Layout transformation（布局转换）等。
+**Computation Graph Optimizations（计算图优化策略）**：构建计算图并进行优化，具体优化包括：Algebraic simplification（代数简化）、Operator fusion（算子融合）、Operation sinking（操作下沉）、CSE（公共子表达式消除）、DCE（死代码消除）、Static memory planning（静态内存优化）、Layout transformation（布局转换）等。
 
-*Methods（计算图进一步优化方法）*：对计算图进行进一步优化，使用各种方法如Pattern matcher（模式匹配）和Graph rewriting（图重写）等。
+**Methods（计算图进一步优化方法）**：对计算图进行进一步优化，使用各种方法如Pattern matcher（模式匹配）和Graph rewriting（图重写）等。
 
-*Debug Tools（调试工具）*：提供调试工具，如IR转储（文本形式和DAG形式）等。
+**Debug Tools（调试工具）**：提供调试工具，如IR转储（文本形式和DAG形式）等。
 
 ### 编译器后端
 
