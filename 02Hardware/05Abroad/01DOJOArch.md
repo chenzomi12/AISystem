@@ -12,11 +12,11 @@ DOJO 特指特斯拉想要构建的超级计算机系统。所以本质来说，
 
 D1 芯片是 DOJO 超级计算机的基本单元。它是由 Ganesh Venkataramanan 带领的硬件团队所设计的。D1 芯片采用台积电 7nm 工艺制造，核心面积为 645 平方毫米，集成了多大 500 亿个晶体管。每个 D1 芯片 BF16、CFP8 算力可达 362TFLOPS，FP32 算力可达 22.6TFLOPS，而 TDP（热设计功耗）仅为 400W。D1 芯片的供电方式与传统芯片的供电方式是不同的，这将会在后面的 Training Tile 部分进行讲解。
 
-在每个 D1 芯片内包含 345 个计算核心（computing core），叫做 “DOJO core”。
+在每个 D1 芯片内包含 345 个计算核心（computing Core），叫做 “DOJO Core”。
 
-每个 DOJO core 都具有 CPU 专用内存和 I/O 接口。所以我们甚至可以把每个 DOJO core 都看作一个独立的 PC 级的 CPU。每个 DOJO core 都拥有一个 1.25MB 的 SRAM 作为主存，其中 SRAM 能以 400GB/s 速度加载数据，给 scalar 或者 vector 进行计算，并以 270GB/s 的速度存储。DOJO core 读写的速率非常的快！
+每个 DOJO Core 都具有 CPU 专用内存和 I/O 接口。所以我们甚至可以把每个 DOJO Core 都看作一个独立的 PC 级的 CPU。每个 DOJO Core 都拥有一个 1.25MB 的 SRAM 作为主存，其中 SRAM 能以 400GB/s 速度加载数据，给 scalar 或者 vector 进行计算，并以 270GB/s 的速度存储。DOJO Core 读写的速率非常的快！
 
-![alt text](./images/dojo-core.png)
+![alt text](./images/dojo-Core.png)
 
 ## 训练瓦片（Training Tiles）
 
@@ -50,13 +50,13 @@ TTP 可以将标准以太网转化为 Z 平面拓扑，拥有高 Z 平面拓扑�
 
 两个系统托盘（System Tray）组成一个 DOJO 主机（Cabinet）
 
-每个 DOJO ExaPOD 拥有 10 个 DOJO 主机（Cabinet），集成了 120 个训练瓦片（Training Tiles），内置 3000 个 D1 芯片，拥有 100 万个 DOJO core，BF16/CFP8 峰值算力达到 1.1EFLOPS（百亿亿次浮点运算），拥有 1.3TB 高速 SRAM 和 13TB 高带宽 DRAM。
+每个 DOJO ExaPOD 拥有 10 个 DOJO 主机（Cabinet），集成了 120 个训练瓦片（Training Tiles），内置 3000 个 D1 芯片，拥有 100 万个 DOJO Core，BF16/CFP8 峰值算力达到 1.1EFLOPS（百亿亿次浮点运算），拥有 1.3TB 高速 SRAM 和 13TB 高带宽 DRAM。
 
 ![alt text](./images/exaPOD.png)
 
 ## DOJO 设计哲学
 
-每 354 个 Dojo core 组成一块 D1 芯片，而每 25 课芯片组成一个训练瓦片（Training Tiles）。最后 120 个训练瓦片（Training Tiles）组成一组 DOJO ExaPOD 计算集群，共计 3000 颗 D1 芯片。
+每 354 个 Dojo Core 组成一块 D1 芯片，而每 25 课芯片组成一个训练瓦片（Training Tiles）。最后 120 个训练瓦片（Training Tiles）组成一组 DOJO ExaPOD 计算集群，共计 3000 颗 D1 芯片。
 
 | 分层 | 名称           | 片上 SRAM | 算力         | 备注                                                         |
 | ---- | -------------- | -------- | ------------ | ------------------------------------------------------------ |
@@ -71,7 +71,7 @@ DOJO 采用存算一体架构（“存内计算”或者“近存计算”），
 
 * 延迟精简：为了实现其区域计算效率最大化，内核以 2GHz 运行，只使用基本的分支预测器和小指令缓存，只保留必要的部件架构，其余面积留给向量计算和矩阵计算单元。
 
-* 功能精简：通过削减对运行内部不是必须处理器功能，来进一步减少功耗和面积使用。DOJO core 不进行数据端缓存，不支持虚拟内存，也不支持精确异常。
+* 功能精简：通过削减对运行内部不是必须处理器功能，来进一步减少功耗和面积使用。DOJO Core 不进行数据端缓存，不支持虚拟内存，也不支持精确异常。
 
 接下来我们拿当前最热门的 GPU 芯片 A100 和 DOJO D1 芯片进行简单的比较，我们可以发现 D1 芯片的片上 SRAM 相比于当前主流的 GPU 要多一个数量级以上。
 
@@ -80,4 +80,4 @@ DOJO 采用存算一体架构（“存内计算”或者“近存计算”），
 | DOJO D1 | 440MB    | 362TFLOPS | 单芯片，354 核心数，654mm2 |
 | A100    | 40MB     | 312TFLOPS | 单芯片，128 核心数         |
 
-如果从计算核心角度来看，A100 上虽然只有 128 个 SM，但每个 SM 都有 4 个 Tensor core。拿 A100 中 Tensor core 的数量和 D1 芯片中核心数量进行对比相差并不大。但是由于 DOJO 用的是存算一体的架构，所有 D1 芯片肯定更占优势！
+如果从计算核心角度来看，A100 上虽然只有 128 个 SM，但每个 SM 都有 4 个 Tensor Core。拿 A100 中 Tensor Core 的数量和 D1 芯片中核心数量进行对比相差并不大。但是由于 DOJO 用的是存算一体的架构，所有 D1 芯片肯定更占优势！

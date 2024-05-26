@@ -28,7 +28,7 @@ ShuffleNet 网络结构同样沿袭了稀疏连接的设计理念。作者通过
 
 #### 逐点分组卷积(Pointwise group convolution)
 
-pointwise group convolutions，其实就是带分组的卷积核为$1x1$的卷积，也就是说 pointwise convolution 是卷积核为$1x1$的卷积。在 ResNeXt 中主要是对$3x3$的卷积做分组操作，但是在 ShuffleNet 中，作者是对$1x1$的卷积做分组的操作，因为作者认为$1x1$的卷积操作的计算量不可忽视。
+pointwise group convolutions，其实就是带分组的卷积核为 $1x1$ 的卷积，也就是说 pointwise convolution 是卷积核为 $1x1$ 的卷积。在 ResNeXt 中主要是对 $3x3$ 的卷积做分组操作，但是在 ShuffleNet 中，作者是对 $1x1$ 的卷积做分组的操作，因为作者认为 $1x1$ 的卷积操作的计算量不可忽视。
 
 那什么叫做分组？就是将输入与输出的通道分成几组，比如输出与输入的通道数都是 4 个且分成 2 组，那第 1、2 通道的输出只使用第 1、2 通道的输入，同样那第 3、4 通道的输出只使用第 1、2 通道的输入。
 
@@ -226,7 +226,7 @@ ShuffleNet v2 是一种深度神经网络架构，与 ShuffleNet v1 和 MobileNe
 
 在 ShuffleNet v1 block 的基础上，ShuffleNet v2 block 引入通道分割（Channel Split）这个简单的算子来实现上述目的，如下图 (c) 所示。在每个单元 (block) 的开始，我们将输入特征图的 c 个通道切分成 (split) 两个分支 (branches)：$c-c'$ 个通道和 $c'$ 个通道。
 
-根据 G3 网络碎片尽可能少，其中一个分支保持不变（shortcut connection），另外一个分支包含三个通道数一样的卷积来满足 G1。和 v1 不同，v2 block 的两个$1\times1$卷积不再使用分组卷积，一部分原因是为了满足 G2，另外一部分原因是一开始的通道切分 （split）操作已经完成了分组效果。
+根据 G3 网络碎片尽可能少，其中一个分支保持不变（shortcut connection），另外一个分支包含三个通道数一样的卷积来满足 G1。和 v1 不同，v2 block 的两个 $1\times1$ 卷积不再使用分组卷积，一部分原因是为了满足 G2，另外一部分原因是一开始的通道切分 （split）操作已经完成了分组效果。
 
 最后，对两个分支的结果进行拼接（concatnate），这样对于卷积 block 来说，输入输出通道数是一样的，符合 G1 原则。和 ShuffleNet v1 一样都使用通道打乱（channel shuffle）操作来保证两个分支的信息进行交互。
 

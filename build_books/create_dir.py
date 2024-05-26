@@ -3,11 +3,13 @@
 import os
 import shutil
 
+
 TEMP = """
-```toc
-:maxdepth: 2
+```{toctree}
+:maxdepth: 1
 
 """
+
 
 def del_dir_byname(path):
 	if os.path.exists(path):
@@ -74,7 +76,7 @@ def get_subfile(path, dir_path):
 	save_name = dir_path.split('/')[:-1]
 	save_path = '/'.join(save_name) + image_name
 	
-	## 找到所有的md并记录下来
+	## 找到所有的 md 并记录下来
 	for file in file_path:
 		fp = os.path.join(path, file)
 		if os.path.isfile(fp) and check_markdown(fp):
@@ -90,6 +92,7 @@ def get_subfile(path, dir_path):
 		# 移动 images 目录到外层
 		elif os.path.isdir(fp) and fp.split('/')[-1] == "images":
 			shutil.copytree(fp, save_path, dirs_exist_ok = True)
+	temp += "```"
 
 	## 迁移文件到新的地方
 	print("now we are going to move: ", target_filenames)
@@ -104,7 +107,6 @@ def get_subfile(path, dir_path):
 		fp = os.path.join(dir_path, file)
 		add2readme(fp, temp)
 		change_iamgepath_markdown(fp)
-
 
 	return target_filenames
 
@@ -123,18 +125,18 @@ def getallfile(path):
 				get_subfile(fp, new_path)
 
 		elif os.path.isfile(fp):
-			# 遍历md文件，并复制到指定目录
+			# 遍历 md 文件，并复制到指定目录
 			if check_markdown(fp):
 				new_dir_name = fp.split('/')[-2]
 				new_path = create_dir(dir_paths, new_dir_name)
 				shutil.copy(fp, new_path)
 
 
-target_dir1 = '/Users/chenzhongming/Workplaces/DLSys_github/02Hardware'
-target_dir2 = '/Users/chenzhongming/Workplaces/DLSys_github/03Compiler'
-target_dir3 = '/Users/chenzhongming/Workplaces/DLSys_github/04Inference'
-target_dir4 = '/Users/chenzhongming/Workplaces/DLSys_github/05Framework'
-dir_paths = '/Users/chenzhongming/Workplaces/DLSys_BOOK/'
+target_dir1 = '/Users/chenzhongming/Workplaces/AISysten_github/02Hardware'
+target_dir2 = '/Users/chenzhongming/Workplaces/AISysten_github/03Compiler'
+target_dir3 = '/Users/chenzhongming/Workplaces/AISysten_github/04Inference'
+target_dir4 = '/Users/chenzhongming/Workplaces/AISysten_github/05Framework'
+dir_paths = '/Users/chenzhongming/Workplaces/AISystem_BOOK/source/'
 
 getallfile(target_dir1)
 

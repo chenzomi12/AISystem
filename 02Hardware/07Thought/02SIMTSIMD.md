@@ -24,7 +24,7 @@ $$C[0: 3] = A[0: 3] × B[0: 3]$$
 
 - **优点**：在一定程度上可以提升计算性能，利用内存数据总线带宽，多个数据可以同时从内存读和写。如 $C[0: 3] = A[0: 3] × B[0: 3]$ 操作在使用 SIMD 之后，代码量为原来的 1/4，执行周期也相应降为原来的 1/4。
 
-以$C[0: 3] = A[0: 3] × B[0: 3]$ 计算为例，以下是计算机在没有使用 SIMD 时实际执行的指令，可以看出总共有 4 个 ST，可以实现对四个元素进行逐元素相加或相乘。
+以 $C[0: 3] = A[0: 3] × B[0: 3]$ 计算为例，以下是计算机在没有使用 SIMD 时实际执行的指令，可以看出总共有 4 个 ST，可以实现对四个元素进行逐元素相加或相乘。
 
 ```c
 t1 = LD B, i
@@ -92,7 +92,7 @@ SIMT 类似 CPU 上的多线程，有多个计算核心系统，每一个核心�
 
 ![SIMT 计算本质](images/02SIMT_SIMD03.png)
 
-具体到 SIMT 的硬件结构，SIMT 提供一个多核系统（SIMT Core Cluster），CPU 负责将算子（ Kernel）加载到 SIMT Core Cluster 中，每个 SIMT 核（SIMT Core）有独立的 RF（Register File）、ALU、Data Cache，但是只有一个指令计数寄存器（Program Counter）和一个指令译码寄存器，指令被同时广播给所有的 SIMT 核，从而执行具体的计算。GPU 则是由多个 SIMT Core Cluster 组成，每个 SIMT Core Cluster 由多个SIMT Core 构成，SIMT Core 中有多个 Thread Block。
+具体到 SIMT 的硬件结构，SIMT 提供一个多核系统（SIMT Core Cluster），CPU 负责将算子（ Kernel）加载到 SIMT Core Cluster 中，每个 SIMT 核（SIMT Core）有独立的 RF（Register File）、ALU、Data Cache，但是只有一个指令计数寄存器（Program Counter）和一个指令译码寄存器，指令被同时广播给所有的 SIMT 核，从而执行具体的计算。GPU 则是由多个 SIMT Core Cluster 组成，每个 SIMT Core Cluster 由多个 SIMT Core 构成，SIMT Core 中有多个 Thread Block。
 
 ![SIMT 硬件结构](images/02SIMT_SIMD04.png)
 
@@ -124,7 +124,7 @@ GPU 的 SIMT 可以看作是一个特殊的 SIMD 结构，SIMT 硬件核心流�
 
 ## NVIDIA CUDA 实现
 
-回顾GPU的线程分级，在图形图像处理中会将图像进行切分，网格（Grid）表示要执行的任务，大的网格会被分成多个小的网格，每个网格中包含了很多相同线程（Threads）数量的块（Blocks），此时线程分层执行，块中的线程独立执行，对像素数据进行处理和计算，可以共享数据，同步数据交换。
+回顾 GPU 的线程分级，在图形图像处理中会将图像进行切分，网格（Grid）表示要执行的任务，大的网格会被分成多个小的网格，每个网格中包含了很多相同线程（Threads）数量的块（Blocks），此时线程分层执行，块中的线程独立执行，对像素数据进行处理和计算，可以共享数据，同步数据交换。
 
 ![图像处理中的网格切分与并行计算](images/02SIMT_SIMD07.png)
 
@@ -144,7 +144,7 @@ CUDA 并行编程模型基于单程序多数据（Single Program Mutiple Data，
 
 ![CUDA 跟 NVIDIA 硬件架构的关系](images/02SIMT_SIMD09.png)
 
-在 AI 框架的开发流程方面，首先会按照编程思想定义神经网络，然后根据 AI 框架编写对应的程序，AI 框架会自动构建计算正向图，根据自动微分原理构建反向图。其中在神经网络中比较重要的算子是矩阵乘，以 CUDA 代码为例实现$C = A × B$，使用 blockIdx.x 和 blockDim.x 来访问块索引和块维度。
+在 AI 框架的开发流程方面，首先会按照编程思想定义神经网络，然后根据 AI 框架编写对应的程序，AI 框架会自动构建计算正向图，根据自动微分原理构建反向图。其中在神经网络中比较重要的算子是矩阵乘，以 CUDA 代码为例实现 $C = A × B$，使用 blockIdx.x 和 blockDim.x 来访问块索引和块维度。
 
 ```c
 #include <stdio.h>
