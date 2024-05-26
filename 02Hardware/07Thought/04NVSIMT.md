@@ -84,7 +84,7 @@ AMD 的显卡也是有大量的计算单元和计算核心，为什么没有 SIM
 
 NVIDIA 的 H100 由 132 个流式多处理器 （SM）组成，作为一个大型统一的 GPU 呈现给程序员。计算通过 CUDA 程序分发到具体的核心（Cuda Core/Tensor Core），每个执行核心有 SIMD 执行单元，从而实现并行计算。
 
-![NVIDIA Hopper 架构](images/03SPMT20.png)
+![NVIDIA Hopper 架构](images/04NVSIMT10.png)
 
 ## 小结与思考
 
