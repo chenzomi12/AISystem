@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# NVLink 原理剖析
+# NVLink 原理剖析(DONE)
 
 随着人工智能技术的飞速发展，大型模型的参数量已经从亿级跃升至万亿级，这一变化不仅标志着人工智能能力的显著提升，也对支持这些庞大模型训练的底层硬件和网络架构提出了前所未有的挑战。为了有效地训练这些复杂的模型，需要依赖于大规模的 GPU 服务器集群，它们通过高速网络相互连接，以便进行快速、高效的数据交换。但是，即便是最先进的 GPU 也可能因为网络瓶颈而无法充分发挥其计算潜力，导致整个算力集群的性能大打折扣。这一现象凸显了在构建大规模 GPU 集群时，仅仅增加 GPU 数量并不能线性增加集群的总体算力。相反，随着集群规模的扩大，网络通信的额外开销也会成倍增加，严重影响计算效率。
 
@@ -20,7 +20,7 @@ NVIDIA 的 NVLink 技术则为 GPU 之间提供了更高速度的数据交换能
 
 随着新一代 GPU 性能的显著提升，它们处理数据的能力大幅增强，但如果互联带宽没有相应的提升，那么这些 GPU 就无法充分发挥其性能潜力。数据传输速度不足意味着 GPU 在处理完当前数据之前，需要等待下一批数据的到来，这导致了计算效率的显著下降。在这种情况下，即使是最先进的 GPU 也无法满足日益增长的计算需求，限制了大规模并行计算系统的整体性能。
 
-![PCle 互联](images/05.deep_NVLink_01.png)
+![PCle 互联](images/05DeepNvlink01.png)
 
 正是为了解决这一挑战，NVIDIA 开发了 NVLink 技术，它提供了比 PCIe 3.0 更高的数据传输速率，极大地减少了数据在 GPU 之间传输的时间。NVLink 通过提供更快的数据交换能力，使得多个 GPU 之间可以更高效地共享数据，从而提高了整体的计算性能和效率。
 
@@ -28,7 +28,7 @@ NVIDIA 的 NVLink 技术则为 GPU 之间提供了更高速度的数据交换能
 
 如图所示，在现代 GPU 架构中，单个 GPU 内部包含了多个流多处理器（SM）核心，这些核心是实现并行计算的基石。通过 CUDA（Compute Unified Device Architecture）技术，开发者能够编写程序来驱动这些硬件单元并行执行复杂的计算任务。CUDA 不仅为程序员提供了一种高效的方式来利用 GPU 的并行处理能力，还极大地简化了并行计算程序的开发过程。
 
-![现代 GPU 架构](images/05.deep_NVLink_02.png)
+![现代 GPU 架构](images/05DeepNvlink02.png)
 
 而在 GPU 内部，工作任务被划分并分配给每个图形处理簇（GPC）和流多处理器（SM）核心。这种工作分配机制确保了 GPU 的计算资源得到充分利用，每个核心都在执行计算任务，从而实现了高效的并行处理。为了支持这种高速计算，GPU 通常配备有高带宽内存（HBM），它为 GPC/SM 核心提供了快速访问大量数据的能力，从而保证了数据密集型任务的高效执行。
 
@@ -36,7 +36,7 @@ HBM（High Bandwidth Memory）是一种堆叠式内存技术，它通过宽接�
 
 从上面可以看出，在现代 GPU 架构中，主要涉及 GPU 之间的通信和数据交换通常涉及以下几个方面：
 
-![GPU 间 PCle 互联](images/05.deep_NVLink_03.png)
+![GPU 间 PCle 互联](images/05DeepNvlink03.png)
 
 1. PCIe 通信：当多个 GPU 在没有专用高速互连技术（如 NVLink）的系统中协同工作时，它们之间的通信通常是通过 PCI Express（PCIe）总线进行的。PCIe 是一种高速串行计算机扩展总线标准，用于连接主板上的硬件设备。但是，由于 PCIe 的带宽有限，它可能成为 GPU 之间高速数据传输的瓶颈。
 
@@ -46,7 +46,7 @@ HBM（High Bandwidth Memory）是一种堆叠式内存技术，它通过宽接�
 
 这就使得 PCIe 的带宽限制成为多 GPU 系统中一个限制因素。特别是当工作负载需要频繁的 GPU 间通信时，在数据传输密集型的应用中，这种限制可能导致性能下降。
 
-![GPU 间 NVLink 互联](images/05.deep_NVLink_04.png)
+![GPU 间 NVLink 互联](images/05DeepNvlink04.png)
 
 NVLink 的出现为 GPU 间的互联提供了一种革命性的方式，使得不同 GPU 之间的通信和数据共享变得更加高效和直接。
 
@@ -54,7 +54,7 @@ NVLink 的出现为 GPU 间的互联提供了一种革命性的方式，使得�
 
 此外，NVLink 不仅仅是一种点对点的通信协议，它还可以通过连接到 GPU 内部的交换机（XBARs）来实现更复杂的连接拓扑。这种能力使得多 GPU 系统中的每个 GPU 都能以极高的效率访问其他 GPU 的资源，包括内存和计算单元。而且，NVLink 并不是要取代 PCIe，而是作为一种补充和增强。在某些情况下，系统中可能同时使用 NVLink 和 PCIe，其中 NVLink 用于高速 GPU 间通信，而 PCIe 则用于 GPU 与其他系统组件（如 CPU、存储设备）之间的通信。这种设计允许系统根据不同的通信需求灵活选择最合适的技术，从而最大化整体性能和效率。
 
-![多 GPU 间 NVLink 互联](images/05.deep_NVLink_05.png)
+![多 GPU 间 NVLink 互联](images/05DeepNvlink05.png)
 
 如上图所示，NVLink 技术的引入不仅仅是为了加速 GPU 间的通信，它还极大地扩展了多 GPU 系统的潜力。
 
@@ -78,7 +78,7 @@ NVLink 的引入不仅仅是技术上的创新，它还代表了 NVIDIA 对未�
 
 第一代 NVLink 技术采用了一种精巧的设计，每条 NVLink 是由一对双工双路信道组成，通过巧妙地将 32 条配线组合起来，形成了 8 对不同的配对。这种独特的结构使得每个方向上能够实现高效的数据传输，具体来说，就是通过 2 位双向传输（2bi）乘以 8 对配对（8pair）再乘以 2 条线（2wire），最终形成了 32 条线（32wire）的配置。
 
-![第一代 NVLink 结构详析](images/05.deep_NVLink_06.png)
+![第一代 NVLink 结构详析](images/05DeepNvlink06.png)
 
 如上图所示，在 P100 GPU 上，NVIDIA 搭载了 4 条这样的 NVLink 通道，每条通道能够提供双向总共 40GB/s 的带宽。这意味着，整个 P100 芯片能够达到惊人的 160GB/s 的总带宽，为数据密集型的应用提供了强大的数据处理能力。
 
@@ -88,7 +88,7 @@ NVLink 的引入不仅仅是技术上的创新，它还代表了 NVIDIA 对未�
 
 下面我们来解析下 NVLink 连接的技术细节：
 
-![NVLink 连接](images/05.deep_NVLink_07.png)
+![NVLink 连接](images/05DeepNvlink07.png)
 
 首先，NVIDIA 的 P100 GPU 在其设计中融入了四条 NVLink 通道，这一创新不仅提升了数据传输的速度，还极大地增强了系统的整体性能。P100 通过这些高速通道，实现了高达 94%的带宽效率，这一数字在当时是非常令人印象深刻的，它意味着几乎所有的数据传输都能以极高的效率完成，极大地减少了数据在传输过程中的损耗。
 
@@ -100,13 +100,13 @@ NVLink 的引入不仅仅是技术上的创新，它还代表了 NVIDIA 对未�
 
 我们再深入 NVLink 协议的细节中进行分析。
 
-![NVLink 连接架构](images/05.deep_NVLink_08.png)
+![NVLink 连接架构](images/05DeepNvlink08.png)
 
 在 NVLink 的链接架构中，一个关键的概念是“Brick”，它指的是 NVLink 通道的基本单元。如上图所示，每个 NVLink 是一个双向接口，由 8 个差分对组成，总计 32 条线。这些差分对采用直流耦合（DC coupled）技术，并配置有 85 欧姆的差分终端，以优化信号传输质量。
 
 同时为了进一步提高设计的灵活性和兼容性，NVLink 引入了通道反转（Channel Reversal）和通道极性（Channel Polarity）的概念。这意味着，设备间的物理通道顺序和极性可以根据实际布线和设计需要进行调整，从而简化了物理布局和路由的复杂度。
 
-![NVLink 数据包](images/05.deep_NVLink_09.png)
+![NVLink 数据包](images/05DeepNvlink09.png)
 
 如上图所示，在数据传输方面，NVLink 采用了基于 flit（flow control digit）的数据包结构。一个单向的 NVLink 数据包可以包含 1 到 18 个 flit，每个 flit 包含 128 位。这种设计允许在单个数据包中传输不同大小的数据，从而提高了传输的灵活性和效率。例如，一个包含 1 个头部 flit（header flit）加上 16 个数据有效载荷 flit（Data payload flit）的数据包可以实现单向 256 字节的传输，达到 94.12%的峰值带宽利用率。而一个包含 1 个头部 flit 加上 4 个数据有效载荷 flit 的数据包，则可以实现单向 64 字节的传输，带宽利用率为 80%。
 
@@ -120,17 +120,17 @@ NVLink 协议通过 25 位 CRC 实现了错误检测，确保了数据传输的�
 
 为了实现 GPU 间的高效链接和协作计算，就需要基于 NVLink 系统配置和性能成本要求，来合理的配置 GPU 之间的 NVLink 通道的物理布局和连接方式。
 
-![NVLink 拓扑](images/05.deep_NVLink_11.png)
+![NVLink 拓扑](images/05DeepNvlink11.png)
 
 初代 DGX-1 通常采用了一种类似于上图的互联形式。不过，IBM 在其基于 Power8+微架构的 Power 处理器上引入了 NVLink 1.0 技术，这使得 NVIDIA 的 P100 GPU 可以直接通过 NVLink 与 CPU 相连，而无需经过 PCIe 总线。这一举措实现了 GPU 与 CPU 之间的高速、低延迟的直接通信，为深度学习和高性能计算提供了更强大的性能和效率。
 
 通过与最近的 Power8+ CPU 相连，每个节点的 4 个 GPU 可以配置成一种全连接的 mesh 结构。这种结构使得 GPU 之间可以直接交换数据，并在深度学习和计算密集型任务中实现更高效的数据传输和协作计算。
 
-![DGX1 NVLink 拓扑](images/05.deep_NVLink_12.png)
+![DGX1 NVLink 拓扑](images/05DeepNvlink12.png)
 
 如上图所示，DGX-1 集成了八块 P100 GPU 和两块志强 E5 2698v4 处理器。然而，由于每块 GPU 只有 4 条 NVLink 通道，因此 GPU 形成了一种混合的 cube-mesh 网络拓扑结构。在这种结构中，GPU 被分成两组，每组四块 GPU，并且在组内形成了一个 mesh 结构，在组间形成了一个 cube 结构。
 
-![P100 NVLink 拓扑](images/05.deep_NVLink_13.png)
+![P100 NVLink 拓扑](images/05DeepNvlink13.png)
 
 此外，由于 GPU 所需的 PCIe 通道数量超过了芯片组所能提供的数量，因此每一对 GPU 将连接到一组 PCIe 交换机上，然后再与志强处理器相连，如上图所示。随后，两块 Intel 处理器通过 QPI 总线相连。
 

@@ -1,5 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
-# NV Switch 深度解析
+
+# NV Switch 深度解析(DONE)
 
 在当今的高性能计算领域，英伟达（NVIDIA）的 GPU 技术无疑是一颗璀璨的明星。随着人工智能和机器学习技术的飞速发展，对于计算能力的需求日益增长，GPU 之间的互联互通变得尤为重要。在这样的背景下，英伟达推出了 NVLink 协议，以及基于此技术的多 GPU 互联解决方案——NV Switch。
 
@@ -9,7 +10,7 @@
 
 随着单个 GPU 的计算能力逐渐逼近物理极限，为了满足日益增长的计算需求，多 GPU 协同工作成为必然趋势。
 
-![PCle 互联](images/06.deep_nvswitch_01.png)
+![PCle 互联](images/06DeepNvswitch01.png)
 
 然而，要对其他 GPU 的 HBM2 进行访问，需要经过 PCIe 接口。如上图所示，传统的 PCIe 接口在数据传输速率和带宽上存在限制，这导致 GPU 间的通信通常会成为性能瓶颈。为了克服这一限制，英伟达开发了 NVLINK 技术，它提供了比 PCIe 高 10 倍的带宽，允许单个服务器内的 8 个 GPU 通过点对点网络连接在一起，形成所谓的混合立方体网格。
 
@@ -25,11 +26,11 @@ NV Switch 则是在此基础上进一步发展，支持完全无阻塞的全互�
 
 NVSwitch 的出现，犹如在数据传输的网络中架设了一座智能枢纽，它不仅支持更多的 NVLink 链路，还允许多个 GPU 之间实现全互联，极大地优化了数据交换的效率和灵活性。
 
-![NV Switch 演进](images/06.deep_nvswitch_02.png)
+![NV Switch 演进](images/06DeepNvswitch02.png)
 
 如上图所示，在 Volta 架构中，GPU to GPU 间的通信达到 300GB/s，而到 Hopper 架构中已经发展到 900GB/s。这一壮举的背后，是 NVLink 链路数的显著提升，从 Volta 的 6 路扩展至 Hopper 的 18 路，如同在原本的高速公路上增设了立交桥和环岛，使得数据流能够更加高效地穿梭于各个 GPU 之间，为高性能计算和大规模并行处理提供了强有力的支撑。
 
-![NVLink 与 NVSwitch 相关的服务器](images/06.deep_nvswitch_03.png)
+![NVLink 与 NVSwitch 相关的服务器](images/06DeepNvswitch03.png)
 
 上图展示的是 DGX 服务器 GPU 芯片互联的架构图，如图所示，在 DGX-1 P100 中有 8 张 GPU 卡，每张 GPU 卡支持 4 条 NVLink 链路，这些链路允许 GPU 之间进行高速通信。在 DGX-1 P100 中，GPU 卡被组织成两个 cube mesh，每个 cube 包含 4 个 GPU（GPU 0~3 和 GPU 4~7）。在每个 cube 内部，GPU 之间可以直接通过 NVLink 或通过 PCIe Switch 进行通信。然而，跨 cube 的通信（例如 GPU 0 和 GPU 4）需要通过其他 GPU 间接进行。
 
@@ -49,11 +50,11 @@ NVSwitch 的设计引入为英伟达创建一个完全无阻塞的全互联 GPU 
 
 在第一代 NVSwitch 其支持 18 路接口，NVSwitch 能够支持多达 16 个 GPU 的全互联，实现高效的数据共享和通信。
 
-![NVSwitch 互联](images/06.deep_nvswitch_04.png)
+![NVSwitch 互联](images/06DeepNvswitch04.png)
 
 如上图所示，在 V100 架构中，每块 GPU 拥有 6 条 NVLink 通道，这些通道可以连接到 NVSwitch 上，从而形成一个高带宽的通信网络。在 DGX-2 系统中，8 个 V100 GPU 通过这些 NVLink 通道与 6 个 NVSwitch 相连，构建了一个强大的基板。
 
-![V100 芯片基板](images/06.deep_nvswitch_05.png)
+![V100 芯片基板](images/06DeepNvswitch05.png)
 
 第一代的 NVSwitch 支持的 NVLink 2.0 技术，每个接口能够提供双通道，高达 50GB/s 的带宽。这意味着通过 NVSwitch，整个系统能够实现总计 900GB/s 的惊人带宽，极大地提升了数据传输速率和计算效率。
 
@@ -63,14 +64,14 @@ NVSwitch 的设计引入为英伟达创建一个完全无阻塞的全互联 GPU 
 
 其具体的参数如下表所示：
 
-![NV Switch 参数](images/06.deep_nvswitch_06.png)
+![NV Switch 参数](images/06DeepNvswitch06.png)
 
 从上表我看可看到，每个 NVLink 双向带宽高达 50GB/s，实际利用率最高能达到 80%。
 
 
 ### 初代 NVSwitch Block
 
-![NV Switch Block](images/06.deep_nvswitch_07.png)
+![NV Switch Block](images/06DeepNvswitch07.png)
 
 如上图所示，在左侧为 GPU XBAR，它是一个高度专业化的桥接设备，专门设计用于 NVLink 互连环境中，可以使得数据包能够在多个 GPU 之间流动和交换，同时对外呈现为单个 GPU。通过 GPU XBAR，客户端应用程序能够感知并利用多个 GPU 的集合性能，减少了客户端进行 GPU 间通信管理的复杂性。
 
@@ -79,7 +80,7 @@ NVSwitch 的设计引入为英伟达创建一个完全无阻塞的全互联 GPU 
 从 V100 GPU 开始，NVIDIA 重新使用了 NVLink 的 IP 块和 XBAR 设计，这不仅保证了不同代产品之间的兼容性，也使得 NVLink 技术能够不断迭代和优化，同时减少了开发成本和时间。
 
 
-![NV Switch 物理内存共享](images/06.deep_nvswitch_08.png)
+![NV Switch 物理内存共享](images/06DeepNvswitch08.png)
 
 如上图所示，我们结合整个 GPU 来看下 NVSwitch 和 GPU 之间是如何进行数据传输和分发的。
 
@@ -94,7 +95,7 @@ NVSwitch 作为 NVLink 的桥接设备，它不仅提供了高带宽的通信路
 
 1. 无 NVSwitch 的直接 GPU 间连接
 
-![无 NVSwitch 的直接 GPU 间连接](images/06.deep_nvswitch_09.png)
+![无 NVSwitch 的直接 GPU 间连接](images/06DeepNvswitch09.png)
 
 如上图所示，在没有 NVSwitch 的配置中，GPU 之间的连接通常是通过将 NVLinks 聚合成多个组（Gang）来实现的。这意味着多个 GPU 通过共享的 NVLink 链路进行通信。
 
@@ -102,7 +103,6 @@ NVSwitch 作为 NVLink 的桥接设备，它不仅提供了高带宽的通信路
 
 2. 引入 NVSwitch 后的改进
 
-![引入 NVSwitch 后的改进](images/06.deep_nvswitch_10.png)
 
 NVIDIA 的 NVSwitch 技术为 GPU 间的通信带来了革命性的改进。NVSwitch 作为一个高速交换机，允许所有链路上的数据进行交互。
 
@@ -133,7 +133,7 @@ NVSwitch 支持的网络拓扑结构为构建大型 GPU 集群提供了优化的
 
 ### 第三代 NVSwitch
 
-![第三代 NVSwitch](images/06.deep_nvswitch_11.png)
+![第三代 NVSwitch](images/06DeepNvswitch10.png)
 
 从上图可以看出，第三代 NVSwitch 采用了 TSMC 的 4N 工艺制造，即使在拥有大量晶体管和高带宽的情况下，也能保持较低的功耗。它提供了 64 个 NVLink 4 链路端口，允许构建包含大量 GPU 的复杂网络，同时保持每个 GPU 之间的高速通信。同时支持 3.2TB/s 的全双工带宽，显著提升了数据传输速率，使得大规模数据集的并行处理更加高效。
 
@@ -142,7 +142,7 @@ NVSwitch 支持的网络拓扑结构为构建大型 GPU 集群提供了优化的
 NVSwitch 集成了 NVIDIA SHARP 技术，包括 all_gather、reduce_scatter 和 broadcast atomics 等操作，为集群通信提供了硬件加速，进一步提升了性能。NVSwitch 3.0 的物理电气接口与 400 Gbps 以太网和 InfiniBand 兼容，提供了与现有网络技术的互操作性。
 
 
-![第三代 NVSwitch Block](images/06.deep_nvswitch_12.png)
+![第三代 NVSwitch Block](images/06DeepNvswitch11.png)
 
 NVIDIA 的第三代 NVSwitch 引入了多项创新特性，其中新 SHARP 模块和新 NVLink 模块的加入，为 GPU 间的高效通信和数据处理提供了显著的性能提升，如上图所示。
 
