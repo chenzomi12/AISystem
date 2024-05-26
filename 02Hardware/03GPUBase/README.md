@@ -13,10 +13,10 @@
 | 大纲 | 小节 | 链接 |
 |:--:|:--:|:--:|
 | 图形处理器 GPU | 01 GPU 工作原理 | [文章](./01Works.md), [PPT](./01Works.pdf), [视频](https://www.bilibili.com/video/BV1bm4y1m7Ki/) |
-| 图形处理器 GPU | 02 GPU 适用于 AI | [文章](./02Principle.md), [slide](./02Principle.pdf), [video](https://www.bilibili.com/video/BV1Ms4y1N7RL/)  |
-| 图形处理器 GPU | 03 GPU 架构与 CUDA 关系 | [文章](./03Concept.md), [slide](./03Concept.pdf), [video](https://www.bilibili.com/video/BV1Kk4y1Y7op/) |
-| 图形处理器 GPU | 04 GPU 架构回顾第一篇 | [文章](./04History.md), [slide](./04Fermi.pdf), [video](https://www.bilibili.com/video/BV1x24y1F7kY/) |
-| 图形处理器 GPU | 05 GPU 架构回顾第二篇 | [文章](./04History.md), [slide](./05Turing.pdf), [video](https://www.bilibili.com/video/BV1mm4y1C7fg/) |
+| 图形处理器 GPU | 02 GPU 适用于 AI | [文章](./02Principle.md), [PPT](./02Principle.pdf), [视频](https://www.bilibili.com/video/BV1Ms4y1N7RL/)  |
+| 图形处理器 GPU | 03 GPU 架构与 CUDA 关系 | [文章](./03Concept.md), [PPT](./03Concept.pdf), [视频](https://www.bilibili.com/video/BV1Kk4y1Y7op/) |
+| 图形处理器 GPU | 04 GPU 架构回顾第一篇 | [文章](./04History.md), [PPT](./04Fermi.pdf), [视频](https://www.bilibili.com/video/BV1x24y1F7kY/) |
+| 图形处理器 GPU | 05 GPU 架构回顾第二篇 | [文章](./04History.md), [PPT](./05Turing.pdf), [视频](https://www.bilibili.com/video/BV1mm4y1C7fg/) |
 
 ## 备注
 

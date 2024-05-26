@@ -51,7 +51,7 @@
 | Triton | TensorFlow/PyTorch等 | <https://github.com/triton-inference-server/server> | 2018 |
 | BentoML | TensorFlow/PyTorch等 | <https://github.com/bentoml/BentoML> | 2019 |
 | Kubeflow | TensorFlow/PyTorch等 | <https://github.com/kubeflow/kfserving> | 2019 |
-| Seldon Core | TensorFlow/PyTorch等 | <https://github.com/SeldonIO/seldon-core> | 2018 |
+| Seldon Core | TensorFlow/PyTorch等 | <https://github.com/SeldonIO/seldon-Core> | 2018 |
 
 ## NVIDIA Triton Inference Server
 

@@ -435,7 +435,7 @@ NVIDIA Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析�
 
 ![GPT-3 Inference Performance](images/04History38.jpg)
 
-## 总结
+## 小结与讨论
 
 本节主要回顾了从 2010 年到 2024 年 NVIDIA GPU 架构的发展，其中有几个比较重要的时间节点和事件：
 
@@ -455,7 +455,7 @@ NVIDIA Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析�
 
 ### CUDA Core & Tensor Core
 
-Cuda core 和 Tensor core 都是运算单元，与硬件相关。随着科学计算迅速发展，为了使用 GPU 的高算力，需要将科学计算任务适配成图形图像任务，Cuda core 属于全能通用型浮点运算单元，用于加、乘、乘加运算。随着 AI 迅速发展，对矩阵乘法的算力需求不断增大，Tensor core 专门为深度学习矩阵运算设计，适用于在高精度矩阵运算。以 Hopper 架构为例，每个 SM 有 128 个 CUDA Core，4 个 Tensor Core，Tensor Core 相比较支持的精度更多，而且 Tensor Core 是可编程的，除了使用 CUDA API 调用 Tensor Core，如 cublas、cudnn 等，还可以使用 WMMA (Warp-level Matrix Multiply Accumulate) API、MMA (Matrix Multiply Accumulate) PTX 进行编程。
+Cuda Core 和 Tensor Core 都是运算单元，与硬件相关。随着科学计算迅速发展，为了使用 GPU 的高算力，需要将科学计算任务适配成图形图像任务，Cuda Core 属于全能通用型浮点运算单元，用于加、乘、乘加运算。随着 AI 迅速发展，对矩阵乘法的算力需求不断增大，Tensor Core 专门为深度学习矩阵运算设计，适用于在高精度矩阵运算。以 Hopper 架构为例，每个 SM 有 128 个 CUDA Core，4 个 Tensor Core，Tensor Core 相比较支持的精度更多，而且 Tensor Core 是可编程的，除了使用 CUDA API 调用 Tensor Core，如 cublas、cudnn 等，还可以使用 WMMA (Warp-level Matrix Multiply Accumulate) API、MMA (Matrix Multiply Accumulate) PTX 进行编程。
 
 |  | Blackwell | Hopper | Ampere | Turing | Volta |
 | --- | --- | --- | --- | --- | --- |
@@ -486,10 +486,6 @@ NVSwitch 是 NVLink 交换机系统的关键使能器，它能够以 NVLink 速�
 | Architectures | Volta | Ampere  | Hopper | Blackwell |
 | Year | 2017 | 2020 | 2022 | 2024 |
 
-## 参考文献
-
-英伟达 GPU 架构白皮书：[https://www.NVIDIA.cn/technologies/](https://www.NVIDIA.cn/technologies/)
-
 ## 本节视频
 
 <html>
@@ -499,3 +495,7 @@ NVSwitch 是 NVLink 交换机系统的关键使能器，它能够以 NVLink 速�
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=698236135&bvid=BV1mm4y1C7fg&cid=1115170922&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
+
+## 参考文献
+
+英伟达 GPU 架构白皮书：[https://www.NVIDIA.cn/technologies/](https://www.NVIDIA.cn/technologies/)
