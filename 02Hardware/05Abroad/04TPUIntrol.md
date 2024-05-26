@@ -108,18 +108,15 @@ CPU 旨在执行各种计算任务，因此具备通用性。CPU 通过在寄存
 
 ![Alt text](images/TPUIntro09.png)
 
-下图的两个动图是脉动阵列的原理图示，我们可以看到，输入的数据在和权重矩阵相乘的流动中十分有节奏感，就像是心脏泵血一样，这就是为什么脉动阵列要这样命名（注：Systolic 一词专指“心脏收缩的”）
+下图的两个图展示了用脉动阵列做为输入向量和输入矩阵的数据流动，我们可以看到，输入的数据在和权重矩阵相乘的流动中十分有节奏感，就像是心脏泵血一样，这就是为什么脉动阵列要这样命名（注：Systolic 一词专指“心脏收缩的”）
 
-<div style="display: flex; justify-content: space-between;">
-  <div style="width: 48%;">
-    <img src="images/TPUIntro31.png" alt="Image 2" style="width: 100%;">
-    <p style="text-align: center; font-style: italic;">	用脉动阵列做输入向量和权重矩阵的矩阵乘法 </p>
-  </div>
-  <div style="width: 48%;">
-    <img src="images/TPUIntro32.png" alt="Image 2" style="width: 100%;">
-    <p style="text-align: center; font-style: italic;">用脉动阵列做输入矩阵和权重矩阵的矩阵乘法 </p>
-  </div>
-</div>
+用脉动阵列做输入向量和权重矩阵的矩阵乘法示意图：
+
+![Alt text](images/TPUIntro31.png)
+
+用脉动阵列做输入矩阵和权重矩阵的矩阵乘法示意图：
+
+![Alt text](images/TPUIntro32.png)
 
 MXU 的本质就是一个包含了$256 \times 256 = 65536$个 ALU 的超大的、每一个时钟周期可以处理 65536 个 INT8 加乘运算的脉动阵列。将这个数字和 TPU v1 的频率 700MHZ 相乘我们可以得出 TPU v1 可以每秒钟处理$65536 \times 7 \times 10^8 \approx 4.6 \times 10 ^{12} $个加乘运算。下图中我们可以看到，数据和权重由控制器控制传入 MXU，脉冲阵列中经过计算再产出最终的结果。
 
