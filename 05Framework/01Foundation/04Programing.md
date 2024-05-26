@@ -1,10 +1,10 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 框架编程范式
+# 框架编程范式(DONE)
 
 编程范式、编程范型、或程式設計法（Programming paradigm），是指软件工程中的一类典型的编程风格。常见的编程范型有：函数式编程、命令式编程、声明式编程、面向对象编程等等，编程范式提供并决定了开发者对程序执行的看法。在开发者使用 AI 框架进行编程的过程中，主要使用到的编程范式主要有 2 种：1）声明式编程与 2）命令式编程。
 
-![框架编程范式](./images/04Programing01.png)
+![框架编程范式](images/04Programing01.png)
 
 本节将会深入展开和介绍两种不同的编程范式对 AI 框架整体架构设计的影响，以及目前主流的 AI 框架在编程范式之间的差异。
 
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
 主流 AI 框架，无论 PyTorch 还是 Tensorflow 都使用都以 Python 为主的高层次语言为前端，提供脚本式的编程体验，后端用更低层次的编程模型和编程语言开发。后端高性能可复用模块与前端深度绑定，通过前端驱动后端方式执行。AI 框架为前端开发者提供声明式（declarative programming）和命令式（imperative programming）两种编程范式。
 
-![AI 框架一般性架构图](./images/04Programing02.png)
+![AI 框架一般性架构图](images/04Programing02.png)
 :width:`500px`
 
 在主流的 AI 框架中，TensorFlow 提供了声明式编程体验，PyTroch 提供了命令式的编程体验。但两种编程模型之间并不存在绝对的边界，multi-stage 编程和及时编译（Just-in-time, JIT）技术能够实现两种编程模式的混合。随着 AI 框架引入更多的编程模式和特性，例如 TensorFlow Eager 模式 和 PyTorch JIT 的加入，主流 AI 框架都选择了通过支持混合式编程以兼顾两者的优点。
