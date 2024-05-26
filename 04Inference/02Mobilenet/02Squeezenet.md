@@ -10,7 +10,7 @@
 
 ## SqueezeNet
 
-**SqueezeNet**：是轻量化主干网络中比较著名的，它发表于 ICLR 2017，在达到了 AlexNet 相同的精度的同时，只用了 AlexNet 1/50 的参数量。SqueezeNet 核心贡献在于使用 **Fire Module**(如下图所示)，即由 Squeeze 部分和 Expand 部分组成，Squeeze 部分是一组连续的 $1 \times 1$ 卷积组成，Expand 部分则是由一组连续的 $1 \times 1$ 卷积和 $3 \times 3$ 卷积 cancatnate 组成，在 Fire 模块中，Squeeze 部分的$1\times1$卷积的通道数记做 $s_{1x1}$，Expand 部分 $1 \times 1$ 卷积和 $3 \times 3$ 卷积的通道数分别记做 $e_{1x1}$ 和 $e_{3x3}$。
+**SqueezeNet**：是轻量化主干网络中比较著名的，它发表于 ICLR 2017，在达到了 AlexNet 相同的精度的同时，只用了 AlexNet 1/50 的参数量。SqueezeNet 核心贡献在于使用 **Fire Module**(如下图所示)，即由 Squeeze 部分和 Expand 部分组成，Squeeze 部分是一组连续的 $1 \times 1$ 卷积组成，Expand 部分则是由一组连续的 $1 \times 1$ 卷积和 $3 \times 3$ 卷积 cancatnate 组成，在 Fire 模块中，Squeeze 部分的 $1\times1$ 卷积的通道数记做 $s_{1x1}$，Expand 部分 $1 \times 1$ 卷积和 $3 \times 3$ 卷积的通道数分别记做 $e_{1x1}$ 和 $e_{3x3}$。
 
 在 Fire 中，建议 $s_{1x1}<e_{1x1}+e_{3x3}$，这么做相当于两个 $3 \times 3$ 卷积中加入了瓶颈层。
 
@@ -150,9 +150,9 @@ class Bottle(nn.Module):
 
 1. Two-stage Bottleneck modules
 
-    每一个卷积层中的参数数量正比于$C_{i}$和$C_{o}$的乘积。所以，减少输入通道的数量可以有效减少模型的大小。一种思路是使用分离卷积减少参数数量，但是某些嵌入式系统由于其用于计算的带宽的限制，分离卷积的性能较差。另一种思路是 squeezeNet 中提出的在$3 \times 3$卷积之前使用 squeeze 层以减少$3 \times3$卷积的输入通道数目。这里作者在 SqueezeNet 的基础上进行了演化，使用了如下图所示的两层 squeeze 层。
+    每一个卷积层中的参数数量正比于 $C_{i}$ 和 $C_{o}$ 的乘积。所以，减少输入通道的数量可以有效减少模型的大小。一种思路是使用分离卷积减少参数数量，但是某些嵌入式系统由于其用于计算的带宽的限制，分离卷积的性能较差。另一种思路是 squeezeNet 中提出的在 $3 \times 3$ 卷积之前使用 squeeze 层以减少 $3 \times3$ 卷积的输入通道数目。这里作者在 SqueezeNet 的基础上进行了演化，使用了如下图所示的两层 squeeze 层。
 
-    在 SqueezeNext 模块中，使用了两层 bottleneck，每一层都将通道数减小为原来的 1/2，然后使用了两个分离卷积层。最后使用了一层$1 \times 1$卷积的扩充层，进一步减少了分离卷积输出数据的通道数。
+    在 SqueezeNext 模块中，使用了两层 bottleneck，每一层都将通道数减小为原来的 1/2，然后使用了两个分离卷积层。最后使用了一层 $1 \times 1$ 卷积的扩充层，进一步减少了分离卷积输出数据的通道数。
 
     ![SqueezeNext block 结构](./images/02.squeezenet03.png)
 
