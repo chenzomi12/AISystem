@@ -102,7 +102,7 @@
 
 对于推理阶段，性能目标与训练阶段有所不同。 为了最大限度地减少网络的端到端响应时间（End to End Response Time），推理通常比训练批量输入更少的输入样本，也就是更小的批量大小，因为依赖推理工作的服务（例如，基于云的图像处理管道）需要尽可能的更快响应，因此用户不需要让系统累积样本形成更大的批量大小，从而避免了等待几秒钟的响应时间。在推理阶段，低延迟是更为关键的性能指标，而高吞吐量虽然在训练期间是重要的，但在推理时则相对次要。
 
-接下来，可以通过以下使用 Pytorch 实现的ResNet50模型在 TensorRT 的推理过程实例来了解模型推理的常见步骤。
+接下来，可以通过以下使用 Pytorch 实现的 ResNet50 模型在 TensorRT 的推理过程实例来了解模型推理的常见步骤。
 
 ```python
 import torch
@@ -112,38 +112,38 @@ import numpy as np
 import pycuda.driver as cuda
 import pycuda.autoinit
 
-# 步骤1：加载PyTorch模型并转换为ONNX格式
-model = models.resnet50(pretrained=True) # 加载预训练的ResNet50模型
+# 步骤 1：加载 PyTorch 模型并转换为 ONNX 格式
+model = models.resnet50(pretrained=True) # 加载预训练的 ResNet50 模型
 model.eval()
 dummy_input = torch.randn(1, 3, 224, 224) # 创建一个示例输入
-torch.onnx.export(model, dummy_input, "resnet50.onnx", opset_version=11) # 将模型导出为ONNX格式
+torch.onnx.export(model, dummy_input, "resnet50.onnx", opset_version=11) # 将模型导出为 ONNX 格式
 
-# 步骤2：使用TensorRT将ONNX模型转换为TensorRT引擎
-TRT_LOGGER = trt.Logger(trt.Logger.WARNING) # 创建一个Logger
-EXPLICIT_BATCH = 1 << int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH) # 如果是动态输入，需要显式指定EXPLICIT_BATCH
+# 步骤 2：使用 TensorRT 将 ONNX 模型转换为 TensorRT 引擎
+TRT_LOGGER = trt.Logger(trt.Logger.WARNING) # 创建一个 Logger
+EXPLICIT_BATCH = 1 << int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH) # 如果是动态输入，需要显式指定 EXPLICIT_BATCH
 with trt.Builder(TRT_LOGGER) as builder, builder.create_network(EXPLICIT_BATCH) as network, trt.OnnxParser(network, TRT_LOGGER) as parser:
-    # 创建一个Builder和Network
-    # builder创建计算图 INetworkDefinition
-    builder.max_workspace_size = 1 << 30  # 1GB ICudaEngine执行时GPU最大需要的空间
-    builder.max_batch_size = 1 # 执行时最大可以使用的batchsize
+    # 创建一个 Builder 和 Network
+    # builder 创建计算图 INetworkDefinition
+    builder.max_workspace_size = 1 << 30  # 1GB ICudaEngine 执行时 GPU 最大需要的空间
+    builder.max_batch_size = 1 # 执行时最大可以使用的 batchsize
 
     with open("resnet50.onnx", "rb") as model_file:
-        parser.parse(model_file.read())  # 解析ONNX文件
+        parser.parse(model_file.read())  # 解析 ONNX 文件
 
-    engine = builder.build_cuda_engine(network)  # 构建TensorRT引擎
+    engine = builder.build_cuda_engine(network)  # 构建 TensorRT 引擎
 
     with open("resnet50.trt", "wb") as f:
         # 将引擎保存到文件
         f.write(engine.serialize())
 
-# 步骤3：使用TensorRT引擎进行推理
+# 步骤 3：使用 TensorRT 引擎进行推理
 def load_engine(engine_file_path):
-    # 加载TensorRT引擎
+    # 加载 TensorRT 引擎
     with open(engine_file_path, "rb") as f, trt.Runtime(TRT_LOGGER) as runtime:
         return runtime.deserialize_cuda_engine(f.read())
 
 engine = load_engine("resnet50.trt")
-context = engine.create_execution_context() # 将引擎应用到不同的GPU上配置执行环境
+context = engine.create_execution_context() # 将引擎应用到不同的 GPU 上配置执行环境
 
 # 准备输入和输出缓冲区
 input_shape = (1, 3, 224, 224)
@@ -154,11 +154,11 @@ d_input = cuda.mem_alloc(input_size)
 d_output = cuda.mem_alloc(output_size)
 stream = cuda.Stream() # 创建流
 input_data = np.random.random(input_shape).astype(np.float32)# 创建输入数据
-cuda.memcpy_htod_async(d_input, input_data, stream) # 复制输入数据到GPU
+cuda.memcpy_htod_async(d_input, input_data, stream) # 复制输入数据到 GPU
 
 # 推理
 context.execute_async_v2(bindings=[int(d_input), int(d_output)], stream_handle=stream.handle)
-# 从GPU复制输出数据
+# 从 GPU 复制输出数据
 output_data = np.empty(output_shape, dtype=np.float32)
 cuda.memcpy_dtoh_async(output_data, d_output, stream) # 获取推理结果，并将结果拷贝到主存
 stream.synchronize() # 同步流
@@ -200,12 +200,12 @@ print("Predicted output:", output_data)
 
 | 优化目标 | 原因                                     | 相关策略                                                     |
 | :------: | ---------------------------------------- | ------------------------------------------------------------ |
-|  灵活性  | 支持多种框架，适应不同应用场景           | 使用模型转换工具，如ONNX；支持多种语言接口和逻辑应用         |
+|  灵活性  | 支持多种框架，适应不同应用场景           | 使用模型转换工具，如 ONNX；支持多种语言接口和逻辑应用         |
 |  延迟  | 减少用户查询后的等待时间                 | 模型压缩、剪枝、量化；优化数据预处理和后处理；分布式系统设计；预测性模型加载和初始化 |
 | 吞吐量 | 应对大量服务请求，确保服务及时性和高效性 | 多线程、多进程、分布式计算；服务网格；异步处理和消息队列；内存数据库和缓存 |
 |  高效率  | 降低推理服务成本，提升系统性能           | DVFS、低功耗模式；高效算法；智能调度算法                     |
-| 扩展性 | 应对不断增长的用户或设备需求             | Kubernetes部署平台；云计算资源弹性扩展；负载均衡器 |
-|  可靠性  | 保证推理服务稳定性和满足SLA要求          | 多服务副本和跨地域部署；故障转移机制；限流和降级策略；健康检查；数据一致性和准确性保障 |
+| 扩展性 | 应对不断增长的用户或设备需求             | Kubernetes 部署平台；云计算资源弹性扩展；负载均衡器 |
+|  可靠性  | 保证推理服务稳定性和满足 SLA 要求          | 多服务副本和跨地域部署；故障转移机制；限流和降级策略；健康检查；数据一致性和准确性保障 |
 
 #### 灵活性（Flexibility）
 
@@ -215,19 +215,19 @@ print("Predicted output:", output_data)
 
 此外，系统还应能与不同语言接口和逻辑的应用结合，例如在 Web 服务器或 IoT 设备上部署时，需采用相应的 API 接口和特定的操作处理。
 
-具体实现上，可以采用容器技术（如Docker）和微服务架构，将深度学习模型和推理服务打包成独立的容器，这样不仅便于跨平台和环境部署，也有助于实现与不同语言接口和逻辑的应用的集成。同时，为了与Web服务器或IoT设备集成，可以使用API网关和RESTful接口来提供标准的HTTP请求和响应，这样开发者就能在不同设备上轻松地调用和集成推理服务。
+具体实现上，可以采用容器技术（如 Docker）和微服务架构，将深度学习模型和推理服务打包成独立的容器，这样不仅便于跨平台和环境部署，也有助于实现与不同语言接口和逻辑的应用的集成。同时，为了与 Web 服务器或 IoT 设备集成，可以使用 API 网关和 RESTful 接口来提供标准的 HTTP 请求和响应，这样开发者就能在不同设备上轻松地调用和集成推理服务。
 
 #### 延迟（Latency）
 
 其次，低延迟是推理系统的重要考量指标，它直接影响用户查询后获取推理结果的等待时间。推理服务通常位于关键路径上，因此预测必须快速并满足有限的尾部延迟(Tail Latency)，实现次秒级别（Sub-second）的延迟，以满足服务等级协议（SLA），从而提供更优质的用户体验并增强商业竞争力。
 
-在实际操作中，会运用模型压缩、剪枝、量化等技术降低模型的复杂度和大小，从而减少推理时间。这些技术能有效减少模型所需的计算资源，提升推理速度。此外，还会对数据预处理和后处理步骤进行优化，以降低整个推理管道的延迟。例如，采用更快速的编解码器和图像处理库等方法。同时，分布式系统设计，如负载均衡、数据局部性优化等策略，也能有效提升系统整体性能和降低延迟。进一步地，通过分析用户行为模式，可以预测性地加载和初始化模型，从而减少用户请求时的延迟。最后，实施SLA监控和告警系统，可以实时监测系统的性能和延迟，确保系统达到预定的性能目标。
+在实际操作中，会运用模型压缩、剪枝、量化等技术降低模型的复杂度和大小，从而减少推理时间。这些技术能有效减少模型所需的计算资源，提升推理速度。此外，还会对数据预处理和后处理步骤进行优化，以降低整个推理管道的延迟。例如，采用更快速的编解码器和图像处理库等方法。同时，分布式系统设计，如负载均衡、数据局部性优化等策略，也能有效提升系统整体性能和降低延迟。进一步地，通过分析用户行为模式，可以预测性地加载和初始化模型，从而减少用户请求时的延迟。最后，实施 SLA 监控和告警系统，可以实时监测系统的性能和延迟，确保系统达到预定的性能目标。
 
 #### 吞吐量（Throughputs）
 
 再者，高吞吐量是确保系统能应对大量服务请求的关键。通过提升吞吐量，系统可以服务更多的请求和用户，确保服务的及时性和高效性。
 
-在实际操作中，可以采取多种策略来提升系统的吞吐量。首先，利用多线程、多进程或分布式计算技术，系统可以并行处理多个推理请求，显著提高处理能力。其次，服务网格（如Istio、Linkerd）和分布式系统设计能够有效管理和优化服务间的通信，进一步提升系统整体的吞吐量。此外，采用异步处理和消息队列技术可以解耦系统的不同组件，避免因等待某些操作完成而造成系统阻塞，从而提高吞吐量。使用内存数据库和缓存机制可以加快数据读写速度，减少数据访问延迟，进一步提升系统性能。同时，通过减少数据在网络中的传输次数和距离，以及使用高效的数据序列化格式（如Protocol Buffers）和压缩技术，可以降低网络延迟，提高吞吐量。
+在实际操作中，可以采取多种策略来提升系统的吞吐量。首先，利用多线程、多进程或分布式计算技术，系统可以并行处理多个推理请求，显著提高处理能力。其次，服务网格（如 Istio、Linkerd）和分布式系统设计能够有效管理和优化服务间的通信，进一步提升系统整体的吞吐量。此外，采用异步处理和消息队列技术可以解耦系统的不同组件，避免因等待某些操作完成而造成系统阻塞，从而提高吞吐量。使用内存数据库和缓存机制可以加快数据读写速度，减少数据访问延迟，进一步提升系统性能。同时，通过减少数据在网络中的传输次数和距离，以及使用高效的数据序列化格式（如 Protocol Buffers）和压缩技术，可以降低网络延迟，提高吞吐量。
 
 #### 高效率（Efficiency）
 
@@ -239,13 +239,13 @@ print("Predicted output:", output_data)
 
 然后，可扩展性是应对不断增长的用户或设备需求的基础。系统需要能够灵活扩展，以应对突发和持续增长的用户请求。通过自动部署更多解决方案，随着请求负载的增加，系统能够提升推理吞吐量，提供更高的推理吞吐和可靠性。
 
-借助底层 Kubernetes 部署平台，用户可以便捷地配置和自动部署多个推理服务副本，并通过前端负载均衡服务达到高扩展性和提升吞吐量，进一步增强推理服务的可靠性。另外，云计算平台如AWS、Azure、Google Cloud等提供了弹性的计算、存储和网络服务，这些服务可以根据需求快速扩展资源。使用负载均衡器（如Ingress控制器）可以分发进入网络的流量，确保请求均匀分配到不同的服务实例上，从而提高系统的吞吐量和可靠性。通过这些策略，系统能够在用户或设备需求不断增长的情况下保持高性能和稳定性，确保推理服务能够满足不断变化的市场需求。
+借助底层 Kubernetes 部署平台，用户可以便捷地配置和自动部署多个推理服务副本，并通过前端负载均衡服务达到高扩展性和提升吞吐量，进一步增强推理服务的可靠性。另外，云计算平台如 AWS、Azure、Google Cloud 等提供了弹性的计算、存储和网络服务，这些服务可以根据需求快速扩展资源。使用负载均衡器（如 Ingress 控制器）可以分发进入网络的流量，确保请求均匀分配到不同的服务实例上，从而提高系统的吞吐量和可靠性。通过这些策略，系统能够在用户或设备需求不断增长的情况下保持高性能和稳定性，确保推理服务能够满足不断变化的市场需求。
 
 #### 可靠性（Reliability）
 
 最后，可靠性是保障推理服务持续运行和用户体验的关键。系统需要具备对不一致数据、软件故障、用户配置错误以及底层执行环境故障等造成中断的弹性（Resilient）应对能力，以确保推理服务的稳定性和服务等级协议的达标。
 
-为了实现高可靠性，可以部署多个服务副本，并在多个数据中心或云区域进行跨地域部署，这样即使某些组件出现故障，系统也能持续运行。在设计系统时，应考虑故障转移机制，如采用主备或多活架构，确保在发生故障时能够迅速切换到备用系统。面对高负载或潜在的故障情况，系统应通过限流和降级策略来保护自身，防止因过载而导致的系统崩溃。使用健康检查机制（如Kubernetes的Liveness和Readiness探针）来监控应用的健康状态，并在检测到问题时自动重启或替换有问题的容器或服务。为了确保数据的一致性和准确性，可以采用分布式事务、数据校验和去重等技术。同时，使用Prometheus、Grafana等监控工具，并结合告警规则，可以在潜在问题发生时及时通知相关人员，以便快速响应和解决问题。通过这些措施，可以大大增强系统的可靠性，确保推理服务能够稳定运行，为用户提供持续不间断的服务体验。
+为了实现高可靠性，可以部署多个服务副本，并在多个数据中心或云区域进行跨地域部署，这样即使某些组件出现故障，系统也能持续运行。在设计系统时，应考虑故障转移机制，如采用主备或多活架构，确保在发生故障时能够迅速切换到备用系统。面对高负载或潜在的故障情况，系统应通过限流和降级策略来保护自身，防止因过载而导致的系统崩溃。使用健康检查机制（如 Kubernetes 的 Liveness 和 Readiness 探针）来监控应用的健康状态，并在检测到问题时自动重启或替换有问题的容器或服务。为了确保数据的一致性和准确性，可以采用分布式事务、数据校验和去重等技术。同时，使用 Prometheus、Grafana 等监控工具，并结合告警规则，可以在潜在问题发生时及时通知相关人员，以便快速响应和解决问题。通过这些措施，可以大大增强系统的可靠性，确保推理服务能够稳定运行，为用户提供持续不间断的服务体验。
 
 ### 设计约束
 
@@ -304,9 +304,9 @@ Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负
 
 ## 小节
 
-- AI生命周期流程，包括、数据准备、模型训练、推理以及模型部署这几个组成部分；
+- AI 生命周期流程，包括、数据准备、模型训练、推理以及模型部署这几个组成部分；
 
-- 推理系统是指整个AI模型部署和推理预测任务的执行环境；
+- 推理系统是指整个 AI 模型部署和推理预测任务的执行环境；
 
 - 推理引擎是这个系统中的核心组件，负责执行具体的模型推理任务。
 
@@ -338,6 +338,6 @@ Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负
 18. [Crazy Rockets-教你如何集成华为 HMS ML Kit 人脸检测和手势识别打造爆款小游戏](https://segmentfault.com/a/1190000037710505)
 19. [记录自己神经网络模型训练的全流程](https://zhuanlan.zhihu.com/p/465623148)
 20. [推理系统和推理引擎的整体架构](https://blog.csdn.net/weixin_45651194/article/details/132872588)
-21. [Pytorch-Onnx-Tensorrt模型转换教程案例](https://blog.csdn.net/weixin_44533869/article/details/125223704)
-22. [昇思MindSpore 基本介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc2/beginner/introduction.html)
+21. [Pytorch-Onnx-Tensorrt 模型转换教程案例](https://blog.csdn.net/weixin_44533869/article/details/125223704)
+22. [昇思 MindSpore 基本介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc2/beginner/introduction.html)
 23. [飞桨产品全景](https://www.paddlepaddle.org.cn/overview)

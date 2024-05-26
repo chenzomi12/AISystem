@@ -12,13 +12,13 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 计算体系 | 01 课程内容| [文章](./01Introduction.md), [slide](./01Introduction.pdf), [video](https://www.bilibili.com/video/BV1DX4y1D7PC/) |
-| AI 计算体系 | 02 AI 计算模式(上) | [文章](./02ArchSlim.md), [slide](./02.constraints.pdf), [video](https://www.bilibili.com/video/BV17x4y1T7Cn/) |
-| AI 计算体系 | 03 AI 计算模式(下) | [slide](./03.mobile_parallel.pdf), [video](https://www.bilibili.com/video/BV1754y1M78X/) |
-| AI 计算体系 | 04 关键设计指标| [slide](./04.metrics.pdf), [video](https://www.bilibili.com/video/BV1qL411o7S9/) |
-| AI 计算体系 | 05 核心计算：矩阵乘| [slide](./05.matrix.pdf), [video](https://www.bilibili.com/video/BV1ak4y1h7mp/) |
-| AI 计算体系 | 06 数据单位：比特位 | [slide](./06.bit_width.pdf), [video](https://www.bilibili.com/video/BV1WT411k724/) |
-| AI 计算体系 | 07 AI 计算体系总结| [slide](./07.summary.pdf), [video](https://www.bilibili.com/video/BV1j54y1T7ii/) |
+| AI 计算体系 | 01 课程内容| [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1DX4y1D7PC/) |
+| AI 计算体系 | 02 AI 计算模式(上) | [文章](./02ArchSlim.md), [PPT](./02.constraints.pdf), [视频](https://www.bilibili.com/video/BV17x4y1T7Cn/) |
+| AI 计算体系 | 03 AI 计算模式(下) | [文章](./03MobileParallel.md), [PPT](./03.mobile_parallel.pdf), [视频](https://www.bilibili.com/video/BV1754y1M78X/) |
+| AI 计算体系 | 04 关键设计指标| [文章](./04Metrics.md), [PPT](./04.metrics.pdf), [视频](https://www.bilibili.com/video/BV1qL411o7S9/) |
+| AI 计算体系 | 05 核心计算：矩阵乘| [文章](./05Matrix.md), [PPT](./05.matrix.pdf), [视频](https://www.bilibili.com/video/BV1ak4y1h7mp/) |
+| AI 计算体系 | 06 数据单位：比特位 | [文章](./06BitWidth.md), [PPT](./06.bit_width.pdf), [视频](https://www.bilibili.com/video/BV1WT411k724/) |
+| AI 计算体系 | 07 AI 计算体系总结| [文章](./07Summary.md), [PPT](./07.summary.pdf), [视频](https://www.bilibili.com/video/BV1j54y1T7ii/) |
 
 ## 备注
 

@@ -141,7 +141,7 @@ SIMT 相比 SIMD 在可编程性上最根本性的优势在于硬件层面解决
 
 在 GPU 宏观架构层面，GDDR 里面的数据通过内存控制器（Memory Controller）传输到片内总线（Interconnection Network），然后分发到具体的核心（Cuda Core/Tensor Core），在每个执行核心中会有 SIMD 执行单元，从而实现并行计算。
 
-![GPU数据存取与并行计算](images/03SPMT17.png)
+![GPU 数据存取与并行计算](images/03SPMT17.png)
 
 ## 总结
 

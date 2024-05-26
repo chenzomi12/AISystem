@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 import os
 
 """
-1. 本脚本文件会设置所有html文件，使得表格居中显示。
-2. 确保你已经安装了bs4, 具体可以通过pip install bs4 进行安装
+1. 本脚本文件会设置所有 html 文件，使得表格居中显示。
+2. 确保你已经安装了 bs4, 具体可以通过 pip install bs4 进行安装
 """
 
 root_path = "./"

@@ -92,7 +92,7 @@ SIMT 类似 CPU 上的多线程，有多个计算核心系统，每一个核心�
 
 ![SIMT 计算本质](images/02SIMT_SIMD03.png)
 
-具体到 SIMT 的硬件结构，SIMT 提供一个多核系统（SIMT Core Cluster），CPU 负责将算子（ Kernel）加载到 SIMT Core Cluster 中，每个 SIMT 核（SIMT Core）有独立的 RF（Register File）、ALU、Data Cache，但是只有一个指令计数寄存器（Program Counter）和一个指令译码寄存器，指令被同时广播给所有的 SIMT 核，从而执行具体的计算。GPU 则是由多个 SIMT Core Cluster 组成，每个 SIMT Core Cluster 由多个SIMT Core 构成，SIMT Core 中有多个 Thread Block。
+具体到 SIMT 的硬件结构，SIMT 提供一个多核系统（SIMT Core Cluster），CPU 负责将算子（ Kernel）加载到 SIMT Core Cluster 中，每个 SIMT 核（SIMT Core）有独立的 RF（Register File）、ALU、Data Cache，但是只有一个指令计数寄存器（Program Counter）和一个指令译码寄存器，指令被同时广播给所有的 SIMT 核，从而执行具体的计算。GPU 则是由多个 SIMT Core Cluster 组成，每个 SIMT Core Cluster 由多个 SIMT Core 构成，SIMT Core 中有多个 Thread Block。
 
 ![SIMT 硬件结构](images/02SIMT_SIMD04.png)
 
@@ -124,7 +124,7 @@ GPU 的 SIMT 可以看作是一个特殊的 SIMD 结构，SIMT 硬件核心流�
 
 ## NVIDIA CUDA 实现
 
-回顾GPU的线程分级，在图形图像处理中会将图像进行切分，网格（Grid）表示要执行的任务，大的网格会被分成多个小的网格，每个网格中包含了很多相同线程（Threads）数量的块（Blocks），此时线程分层执行，块中的线程独立执行，对像素数据进行处理和计算，可以共享数据，同步数据交换。
+回顾 GPU 的线程分级，在图形图像处理中会将图像进行切分，网格（Grid）表示要执行的任务，大的网格会被分成多个小的网格，每个网格中包含了很多相同线程（Threads）数量的块（Blocks），此时线程分层执行，块中的线程独立执行，对像素数据进行处理和计算，可以共享数据，同步数据交换。
 
 ![图像处理中的网格切分与并行计算](images/02SIMT_SIMD07.png)
 

@@ -2,9 +2,9 @@
 
 ## 章节编辑
 
-本书由超过40位人工智能系统（AI System）领域的学术专家和开发人员共同完成，其排名不分先后。以下为各个章节编辑：
+本书由超过 40 位人工智能系统（AI System）领域的学术专家和开发人员共同完成，其排名不分先后。以下为各个章节编辑：
 
-项目README: [ZOMI 酱](https://github.com/chenzomi12)
+项目 README: [ZOMI 酱](https://github.com/chenzomi12)
 
 序言&导读：[ZOMI 酱](https://github.com/chenzomi12)
 

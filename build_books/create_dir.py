@@ -74,7 +74,7 @@ def get_subfile(path, dir_path):
 	save_name = dir_path.split('/')[:-1]
 	save_path = '/'.join(save_name) + image_name
 	
-	## 找到所有的md并记录下来
+	## 找到所有的 md 并记录下来
 	for file in file_path:
 		fp = os.path.join(path, file)
 		if os.path.isfile(fp) and check_markdown(fp):
@@ -123,7 +123,7 @@ def getallfile(path):
 				get_subfile(fp, new_path)
 
 		elif os.path.isfile(fp):
-			# 遍历md文件，并复制到指定目录
+			# 遍历 md 文件，并复制到指定目录
 			if check_markdown(fp):
 				new_dir_name = fp.split('/')[-2]
 				new_path = create_dir(dir_paths, new_dir_name)
