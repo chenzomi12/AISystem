@@ -53,7 +53,7 @@
 | 1      | [AI 计算体系](./02Hardware/01Foundation/) | 神经网络等 AI 技术的计算模式和计算体系架构        |
 | 2      | [AI 芯片基础](./02Hardware/02ChipBase/)   | CPU、GPU、NPU 等芯片体系架构基础原理       |
 | 3      | [图形处理器 GPU](./02Hardware/03GPUBase/)  | GPU 的基本原理，英伟达 GPU 的架构发展         |
-| 4      | [英伟达 GPU 详解](./02Hardware/04NVIDIA/) | 英伟达 GPU 的 TensorCore、NVLink 深度剖析 |
+| 4      | [英伟达 GPU 详解](./02Hardware/04NVIDIA/) | 英伟达 GPU 的 Tensor Core、NVLink 深度剖析 |
 | 5      | [国外 AI 处理器](./02Hardware/05Abroad/)   | 谷歌、特斯拉等专用 AI 处理器核心原理        |
 | 6      | [国内 AI 处理器](./02Hardware/06Domestic/)   | 寒武纪、燧原科技等专用 AI 处理器核心原理        |
 | 7      | [AI 芯片黄金 10 年](./02Hardware/07Thought/)   | 对 AI 芯片的编程模式和发展进行总结        |

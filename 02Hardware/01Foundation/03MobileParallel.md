@@ -26,14 +26,14 @@
 
 比如使用 2 个 $3x3$ 卷积核来代替 $5x5$ 卷积核，这样做的主要目的是在保证具有相同感知野的条件下，提升了网络的深度，在一定程度上提升了神经网络的效果，并且模型参数可以由 $5 x 5 x Ci x Co$ 变成了 $3 x 3 x Ci x Co+3 x 3 x Ci x Co$，假设 $Ci = Co$, 该层参数可以减小为原来的 $18/25$。
 
-![](./images/02.arch.lightquant01.png)
+![](images/02.arch.lightquant01.png)
 =========== 补充论文中的截图并按规范命名
 
 2. **减少通道数的设计**
 
 MobileNet 系列的网络设计中，提出了深度可分离卷积的设计策略，其中通过 Depthwise 逐层卷积加 $1x1$ 的卷积核来实现一个正常的卷积操作（如下图所示），$1x1$ 的 Pointwise 卷积负责完成卷积核通道的缩减来减小模型参数量。
 
-![](./images/02.arch.lightquant03.png)
+![](images/02.arch.lightquant03.png)
 =========== 补充论文中的截图并按规范命名
 
 比如一个 $3x3$ 卷积核大小的卷积层，输入通道是 16， 输出通道是 32，正常的卷积模型参数是 $3x3x16x32=4608$，而将其模型替代设计为一个 $3x3$ 卷积核的 Depthwise 卷积，和 $1x1$ 卷积核的 Pointwise 卷积，模型参数为 $3x3x16+1x1x16x32=656$，可以看出模型参数量得到了很大的减少。
@@ -44,7 +44,7 @@ MobileNet 系列的网络设计中，提出了深度可分离卷积的设计策�
 
 如下图，对于 DenseNetV1 的结构设计来说，第 n 层的参数量由于复用了之前层的 Feature Map, 由 $kxkxCix(C1+C2)$ 变为了 $kxkxCixC2$，即为原来的 $C2/(C1+C2)$，而 C2 远小于 C1，其中 k 表示卷积核尺寸, C1 表示前 n-1 层的 Feature Map 个数，C2 表示第 n 层的输出 Feature Map 个数。
 
-![](./images/02.arch.lightquant02.png)
+![](images/02.arch.lightquant02.png)
 =========== 补充论文中的截图并按规范命名
 
 ### AI 计算模式思考
@@ -112,7 +112,7 @@ DDP 通常与深度学习框架（如 PyTorch）一起使用，这些框架提�
 
 Fully Sharded Data Parallelism (FSDP) 技术是 DP 和 DDP 技术的结合版本，可以实现更高效的模型训练和更好的横向扩展性。这种技术的核心思想是将神经网络的权重参数以及梯度信息进行分片（shard），并将这些分片分配到不同的设备或者计算节点上进行并行处理。FSDP 分享所有的模型参数，梯度，和优化状态。所以在计算的相应节点需要进行参数、梯度和优化状态数据的同步通信操作。
 
-![](./images/03.mobile_parallel05.png)
+![](images/03.mobile_parallel05.png)
 =========== 补充论文中的截图并按规范命名
 
 如上图是 FSDP 并行技术的示意图，可以看到不同的计算节点多了一些虚线链接的通信操作。
@@ -127,7 +127,7 @@ Fully Sharded Data Parallelism (FSDP) 技术是 DP 和 DDP 技术的结合版本
 
 如下图是一个矩阵乘算子的张量并行示意。X 作为激活输入，A 作为算子权重，将 A 按列切分。每个计算节点保留一份完整的 A 和部分 A，最后通过 All Gather 通信将两个计算节点的数据进行同步拼接为一份完整的 Y 输出，供下一层使用。
 
-![](./images/02.arch.parallm.01.png)
+![](images/02.arch.parallm.01.png)
 =========== 补充论文中的截图并按规范命名
 
 2. **流水并行**
@@ -136,7 +136,7 @@ Fully Sharded Data Parallelism (FSDP) 技术是 DP 和 DDP 技术的结合版本
 
 如下图是一个流水线并行示意过程。假设一个模型有 Forward，Backward 两个阶段，有 0-3 共 4 层网络设计，分布在 4 个计算设备处理，右图展示了在时间维度下，不同层不同阶段的执行顺序示意。为了减少每个设备等待的时间（即中间空白的区域，称为 Bubble），一个简单的优化设计就是增加 data parallelism，让每层数据切分为若干个 batch，来提高流水线并行设备利用率。
 
-![](./images/02.arch.parallm.02.png)
+![](images/02.arch.parallm.02.png)
 =========== 补充论文中的截图并按规范命名
 
 ### AI 计算模式思考

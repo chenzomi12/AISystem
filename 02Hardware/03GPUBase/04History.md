@@ -327,7 +327,7 @@ H100 一共有 8 组 GPC、66 组 TPC、132 组 SM，总计有 16896 个 CUDA �
 > 
 > 4. 作为美国海军的一名军官，她参与了多个计算机项目，包括 UNIVAC 和 Mark 系列计算机的开发，为军事和民用领域的计算机化做出了贡献。
 
-具体到 SM 结构，Hopper 赫柏架构 FP32 Core 和 FP64 Core 两倍于 Ampere 架构，同时采用 TensorCore4.0 使用新的 8 位浮点精度（FP8），可为万亿参数模型训练提供比 FP16 高 6 倍的性能。FP8 用于 Transformer 引擎，能够应用 FP8 和 FP16 的混合精度模式，大幅加速 Transformer 训练，同时兼顾准确性。FP8 还可大幅提升大型语言模型推理的速度，性能较 Ampere 提升高达 30 倍。新增 Tensor Memory Accelerator，专门针对张量进行数据传输，更好地加速大模型。
+具体到 SM 结构，Hopper 赫柏架构 FP32 Core 和 FP64 Core 两倍于 Ampere 架构，同时采用 Tensor Core4.0 使用新的 8 位浮点精度（FP8），可为万亿参数模型训练提供比 FP16 高 6 倍的性能。FP8 用于 Transformer 引擎，能够应用 FP8 和 FP16 的混合精度模式，大幅加速 Transformer 训练，同时兼顾准确性。FP8 还可大幅提升大型语言模型推理的速度，性能较 Ampere 提升高达 30 倍。新增 Tensor Memory Accelerator，专门针对张量进行数据传输，更好地加速大模型。
 
 | Hopper 赫柏架构 SM 硬件单元 | Hopper 赫柏架构每个 Process Block | 相比 Ampere 架构 |
 | --- | --- | --- |
@@ -335,7 +335,7 @@ H100 一共有 8 组 GPC、66 组 TPC、132 组 SM，总计有 16896 个 CUDA �
 | 128 个 FP32 Core（4 * 32） | 32 个 FP32 Core | x2 |
 | 64 个 INT32 Core（4 * 16） | 16 个 INT32 Core | 相同 |
 | 64 个 FP64 Core（4 * 16） | 16 个 FP32 Core | x2 |
-| 4 个 TensorCore4.0（4 * 1） | 1 个 TensorCore | TensorCore3.0 |
+| 4 个 Tensor Core4.0（4 * 1） | 1 个 Tensor Core | Tensor Core3.0 |
 | 32 个 LD/ST Unit（4 * 8） | 8 个 LD/ST Unit | 相同 |
 | 16 个 SFU（4 * 4） | 4 个 SFU | 相同 |
 | Tensor Memory Accelerator |  | 新增 |
