@@ -6,7 +6,7 @@
 
 ## 专用AI编译器架构回顾
 
-![专用AI编译器架构图](./images/architecture01.png)
+![专用AI编译器架构图](images/sources/architecture01.png)
 
 
 
