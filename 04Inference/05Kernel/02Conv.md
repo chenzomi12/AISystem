@@ -32,7 +32,7 @@ $$
 
 卷积计算在直觉上不易理解，其可视化后如下图所示。图中红色滑块在移动过程中与蓝色方块的积绘制成的三角图案即为卷积结果在各点上的取值：
 
-![卷积动图](images/02.conv01.gif) 
+![卷积可视化动图](images/02.conv01.gif) 
 
 更具体来说，解释卷积需要清楚“怎么卷”和”怎么积“两个步骤。
 
@@ -54,7 +54,7 @@ $$
 
 换言之，在卷积的过程中，函数 $f(x)$ 与 $g(y)$ 中 $x,y$ 取值受线性函数 $x+y=t$ 的约束。若令 $t=10$，则 $x,y$ 的取值序列有如下图所示的对应关系。直观上 $x,y$ 的取值有一种翻转对应的感觉。
 
-![取值的示例](images/02.conv09.png) 
+![卷积取值的示例](images/02.conv09.png) 
 
 2. ”积“的过程
 
@@ -68,42 +68,42 @@ $$
 
 下图（左）中 $t$ 的取值从上到下分别为-1，-0.5，0，0.5，1，令 $y=t-\tau,x=\tau$，左图中的红线为 $g(t-\tau)$ 的函数图像，蓝线为 $f(\tau)$ 的函数图像。黄色区域为不同 t 的取值条件下参与卷积的有效区间，黑色直线最右端的点的取值为卷积结果。
 
-![t 的变化的示例](images/02.conv10.png) 
+![t 不同取值情况下卷积的示例](images/02.conv10.png) 
 
 总结来说，积分的本质为可理解为求和的极限，卷积中“积”的过程即为相应的函数相乘和求积分的过程。
 
 ### 具体例子
 
-以信号处理的系统响应函数为例：
+以信号处理的系统响应函数为例(改编自[对卷积的定义和意义的通俗解释](https://blog.csdn.net/palet/article/details/88862647))：
 
 定义输入信号是 $f(t)$ ，随时间变化其数值保持不变。系统响应函数是 $g(t)$，图中的响应函数是随时间指数下降的，它的物理意义是说：如果在 $t=t_{1}$ 的时刻有一个输入，那么随着时间的流逝，这个输入将不断衰减。
 
-![x-t 坐标](images/02.conv08.png) 
+![系统随时间t的响应函数](images/02.conv08.png) 
 
 由于信号 $f(t)$ 是连续输入的，也就是说，每个时刻都有新的信号进来。同时，该时刻前面的输入对后面仍有影响，该影响以 $g(t)$ 的形式衰减。如下图所示，在 $t_{2}$ 时刻，系统的输入既包括 $t_{2}$ 时刻的新信号，也包括 $t_{1}$ 时刻衰减后的响应（黄色框中的红色虚线点）。所以可以推知，系统最终输出的是所有之前输入信号的累积效果。
 
-![x-t 坐标](images/02.conv12.png) 
+![任意时刻下系统的输入信号示意图](images/02.conv12.png) 
 
 如下图(左)所示，由于信号的响应随时间衰减，我们假定每个时刻的新信号产生的响应的影响范围为 5 个等距时间段 $T$，即在 $t_{0}$ 产生的新信号的响应影响至 $t_{5}$ 时刻。那么在 $T=t_{5}$ 时刻，输出结果跟图中绿色框的区域整体有关。
 
-![x-t 坐标](images/02.conv13.png) 
+![输出结果示意图](images/02.conv13.png) 
 
 其中，$f(t_{5})$ 因为是刚输入的，所以其输出结果应该是 $f(t_{5})g(t_{0})$，而时刻 $t_{4}$ 的输入 $f(t_{4})$，只经过了 1 个时间单位的衰减，所以产生的输出应该是 $f(t_{4})g(t_{1})$，如此类推，即图中虚线所描述的关系。这些对应点相乘然后累加，就是 $T=t_{5}$ 时刻的输出信号值，这个结果也是 $f$  和 $g$ 两个函数在 $T=t_{5}$ 时刻的卷积值。
 
 从上图来看 $f$ 和 $g$ 这种对应关系并不直观，因此对 $g$ 关于 $y$ 轴对称变换一下，变为 $g(-t_{i})$，变换后 $f$ 和 $g$ 的对应关系如下图所示。
 
-![x-t 坐标](images/02.conv14.png) 
+![对称变换后输出结果示意图](images/02.conv14.png) 
 
 进一步，将 $g(-t_{i})$ 图像右移 $T$ 个时间单位，得到 $g(T-t_{i})$:
 
-![x-t 坐标](images/02.conv15.png) 
+![平移后输出结果示意图](images/02.conv15.png) 
 
 这样我们就得到了 $f*g(T)=\int f(t)g(T-t)dt$ 的直观的图示表达。
 
 一般来讲，当我们用计算机处理数据时，时间会被离散化，传感器会定期地反馈数据。所以在上述例子中，假设传感器每秒反馈一次测量结果是比较现实的。这样，时刻 $t_{i}$ 只能取整数值，如果假设 $g$ 和 $f$ 都定义在整数时刻 $t_{i}$ 上，就可以定义上述条件下离散形式的卷积：
 
 $$
-g(T)=(f*g)(T)=\sum_{i=0}^{i=T} f(t_{i})g(T-t_{i})
+h(T)=(f*g)(T)=\sum_{i=0}^{i=T} f(t_{i})g(T-t_{i})
 $$
 
 ### 卷积的性质
@@ -177,7 +177,7 @@ $$
 
 如下图所示, 神经网络中的卷积计算过程可描述为：$3 * 3$ 的卷积核在 $8 * 8$ 的图像上进行滑动，每次滑动时，都把卷积核和对应位置的元素进行相乘再求和。青色区域为其感受野。
 
- ![卷积图](images/02.conv02.png) 
+ ![神经网络中卷积计算过程](images/02.conv02.png) 
 
 ### 名词解释
 
@@ -249,7 +249,7 @@ $$
 
 1,2 步骤的过程如下图所示。
 
-![卷积](images/02.conv16.png) 
+![卷积乘加过程](images/02.conv16.png) 
 
 3. 每个卷积核在图像上从左到右，从上到下滑动，依次计算特征图中的每一个像素点。根据特征图大小的计算公式，可知 $W_{f_{out}}=H_{f_{out}}=3$；本例中有 $N=6$ 个卷积核，输出 6 张特征图。
 
@@ -261,7 +261,7 @@ $$
 i=0,1,……,W_{f_{out}}-1;J=0,1,……,H_{f_{out}}-1;l=1,2,……,6;
 $$
 
-![卷积 2](images/02.conv17.png) 
+![卷积滑动求和过程](images/02.conv17.png) 
 
 每滑动一次，计算得到第 $l$ 个特征图上的一个像素点，如上图所示。其滑动的总次数即为特征图的像素点数量。
 
@@ -277,7 +277,7 @@ $$
 f_{out}^{l}(i,j)=f_{out}^{l}(i,j)_{C1}+f_{out}^{l}(i,j)_{C2}+f_{out}^{l}(i,j)_{C3}+b
 $$
 
-![卷积 3](images/02.conv05.png) 
+![卷积加偏置过程](images/02.conv05.png) 
 
 在卷积操作中卷积核是可学习的参数，其参数的更新由梯度下降算法确定。经过上面的介绍，可知每层卷积的参数量为 $C×K×K×N$。卷积层的参数较少，这也是由卷积层的**局部连接**和**共享权重**特性所决定。
 
@@ -425,7 +425,7 @@ NHWC 和 NCHW 是卷积神经网络(cnn)中广泛使用的数据格式。它们�
 
 ### Tensor 卷积运算
 
-![伪代码](images/02.conv18.png) 
+![张量卷积计算示意图](images/02.conv18.png) 
 
 当中张量的内存布局为 NHWC 时，卷积计算相应的伪代码如下。其中外三层循环遍历输出 C 的每个数据点，对于每个输出数据都需要经由内三层循环累加求和得到（点积）。
 
@@ -469,4 +469,6 @@ for (int oh = 0; oh < OH; oh++) {
 - [Fukushima, Kunihiko and Sei Miyake. “Neocognitron: A Self-Organizing Neural Network Model for a Mechanism of Visual Pattern Recognition.” (1982).](https://www.semanticscholar.org/paper/Neocognitron%3A-A-Self-Organizing-Neural-Network-for-Fukushima-Miyake/9b2541b8d8ca872149b4dabd2ccdc0cacc46ebf5)
 - [ Bouvrie J .Notes on Convolutional Neural Networks[J].neural nets, 2006.](https://www.semanticscholar.org/paper/Notes-on-Convolutional-Neural-Networks-Bouvrie/2a4393aa1bc3cb7fe2deecc88720bfb84dabb263)
 - [Krizhevsky A , Sutskever I , Hinton G .ImageNet Classification with Deep Convolutional Neural Networks[J].Advances in neural information processing systems, 2012, 25(2).DOI:10.1145/3065386.](https://dl.acm.org/doi/10.1145/3065386)
+- Goodfellow, I., Bengio, Y., & Courville, A. Deep Learning. MIT Press, 2016.
+
 

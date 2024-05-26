@@ -27,7 +27,7 @@
 
 ## Kernel 层介绍
 
-![01.introduction01.png](images/01.introduction01.png "01.introduction01") 
+![推理引擎架构](images/01.introduction01.png "推理引擎架构") 
 
 在推理引擎架构中，Runtime 层和 kernel 层是紧密相连的两个组件。Runtime 提供了一个执行环境，它管理整个推理过程，包括模型的加载、预处理、执行和后处理。它还负责资源管理，如内存分配和线程管理。其通常具有平台无关性，可以在不同的操作系统和硬件上运行，为上层应用提供 API 接口，使得用户能够轻松地集成和使用深度学习模型。Kernel 层包含了一系列的低级函数，它们直接在硬件上执行数学运算，如卷积、矩阵乘法和激活函数。其通常是硬件特定的，针对不同的处理器（如 CPU、GPU、TPU 等）有不同的实现。Kernel 层实现时，会进行各种优化，包括算法优化、内存访问优化、向量化、并行化和硬件特定的汇编优化。
 
@@ -39,14 +39,14 @@
 
 下面分别从 CPU 和 GPU 的角度介绍一下几种人工高性能算子和封装的高性能算子库：
 
-CPU 优化技术：
+CPU 优化：
 
 1. **NEON**： NEON 是 ARM 架构上的 SIMD（单指令多数据）扩展，用于提高多媒体处理和浮点运算的性能。推理引擎可以利用 NEON 指令集来优化 Kernel 层，特别是在移动设备和嵌入式设备上。
 2. **AVX**： AVX（Advanced Vector Extensions）是 Intel 处理器上的 SIMD 指令集，用于提高浮点运算和整数运算的性能。推理引擎可以利用 AVX 指令集来优化 Kernel 层，特别是在 Intel CPU 上。
 3. **Metal**： Metal 是苹果开发的低级图形和计算 API，用于优化在 Apple GPU 上的性能。推理引擎可以利用 Metal API 来优化 Kernel 层，特别是在 iOS 和 macOS 设备上。
 4. **TVM**： TVM（Tensor Virtual Machine）是一个开源的深度学习编译器框架，用于优化深度学习模型在各种硬件上的性能。它支持 CPU、GPU、TPU 和其他类型的硬件。
 
-GPU 优化技术：
+GPU 优化：
 
 1. **CUDA**： CUDA 是 NVIDIA 的并行计算平台和编程模型，用于在 NVIDIA GPU 上执行并行计算。推理引擎可以利用 CUDA 来优化 Kernel 层，特别是在大规模矩阵运算和卷积操作方面。
 2. **OpenCL**： OpenCL 是一个开放的标准，用于编写在异构系统上运行的程序。它允许开发者利用 CPU、GPU 和其他类型的处理器来加速计算密集型任务。推理引擎可以利用 OpenCL 来优化 Kernel 层，特别是在 GPU 上。
@@ -66,7 +66,7 @@ GPU 优化技术：
 
 ## 推理流程
 
-![01.introduction02.png](images/01.introduction02.png "01.introduction03") 
+![推理流程示意图](images/01.introduction02.png "推理流程示意图") 
 
 推理引擎的推理流程是指从加载模型到输出推理结果的一系列步骤。首先加载预先训练好的模型文件，这些文件可能是以特定格式（如 ONNX、TensorFlow SavedModel、PyTorch TorchScript 等）保存的。此外，对模型结构，包括层的类型、参数和拓扑结构进行解析。之后将模型转换或编译为推理引擎能够执行的格式，这其中可能包括优化模型结构、融合某些层以减少计算和内存访问、选择合适的 Kernel 实现等操作。对于支持硬件加速的推理引擎，这一步可能还包括为特定硬件（如 GPU、TPU 等）生成优化的执行代码。在上述离线模块生成的推理模型经过模型压缩（或者不压缩）后送入编译模块再次进行汇编层面的优化，完成优化后就可以真正在线执行推理。
 
@@ -76,9 +76,11 @@ GPU 优化技术：
 
 ## 开发推理程序
 
-![01.introduction03.png](images/01.introduction03.png "01.introduction03") 
+![开发推理程序示意图](images/01.introduction03.png "开发推理程序示意图") 
 
 Kernel 层所进行的优化一般蕴含在上图中的⑤进行执行，Runtime 会根据模型的操作和目标硬件选择合适的 Kernel 来执行计算。Kernel 层作为 Runtime 的一部分，被集成到整个推理流程中。其负责调用 Kernel 层提供的函数，传递必要的输入数据，并处理 Kernel 的输出结果。总的来说，Runtime 层的优化和 Kernel 层的优化共同决定了整个推理引擎的性能。Runtime 的决策（如算子融合、内存管理等）会影响到 Kernel 层的性能表现。
+
+## 本节视频
 
 <html>
 <iframe src="https://www.bilibili.com/video/BV1Ze4y1c7Bb/?spm_id_from=333.337.search-card.all.click&vd_source=096daa038c279ccda6e4f8c5eea82de7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
