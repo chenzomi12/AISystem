@@ -1,10 +1,10 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# GPU 工作原理
+# GPU 工作原理(DONE)
 
 前面的章节对 AI 计算体系和 AI 芯片基础进行讲解，在 AI 芯片基础中关于通用图形处理器 GPU 只是简单地讲解了主要概念，本章将从 GPU 硬件基础和英伟达 GPU 架构两个方面讲解 GPU 的工作原理。英伟达 GPU 有着很长的发展历史，整体架构从 Fermi 到 Blankwell 架构演变了非常多代，其中和 AI 特别相关的就有 Tensor Core 和 NVLink。
 
-本节首先讲解 CPU 和 GPU 架构的区别，之后以$AX+Y$这个例子来探究 GPU 是如何做并行计算的，为了更好地了解 GPU 并行计算，对并发和并行这两个概念进行了区分。此外会讲解 GPU 的缓存机制，因为这将涉及到 GPU 的缓存（Cache）和线程（Thread）。
+本节首先讲解 CPU 和 GPU 架构的区别，之后以 $AX+Y$ 这个例子来探究 GPU 是如何做并行计算的，为了更好地了解 GPU 并行计算，对并发和并行这两个概念进行了区分。此外会讲解 GPU 的缓存机制，因为这将涉及到 GPU 的缓存（Cache）和线程（Thread）。
 
 ## CPU vs GPU
 
@@ -99,7 +99,7 @@ CPU 和 GPU 的典型架构对比可知 GPU 可以比作一个大型的吞吐器
 
 ### 基本工作原理
 
-首先通过$AX+Y$这个加法运算的示例了解 GPU 的工作原理，$AX+Y$ 的示例代码如下：
+首先通过 $AX+Y$ 这个加法运算的示例了解 GPU 的工作原理，$AX+Y$ 的示例代码如下：
 
 ```c
 void demo(double alpha, double *x, double *y)
@@ -231,7 +231,7 @@ GPU 整体架构和单个 SM（Streaming Multiprocessor）的架构，SM 可以�
 | Active Threads  | 128    | 13,824  |
 | Waiting Threads | 1,920  | 207,360 |
 
-## 小结
+## 小结与讨论
 
 本节首先从架构层面分析了 CPU 和 GPU 的主要区别，因为 CPU 的设计目标是尽可能在低的延迟下执行任务，GPU 的设计目标是最大化吞吐量，因此决定了 CPU 适合处理顺序执行的任务，GPU 适合处理大规模并行计算的任务。
 

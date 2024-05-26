@@ -1,6 +1,8 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 训练后量化 PTQ 与部署
+# 训练后量化与部署
+
+=========== 内容还可以在网上找一找，然后自己再总结提炼一下，目前还不够细。特别是端侧量化推理部署部分哈。
 
 ## 动态离线量化
 
@@ -11,12 +13,12 @@
 - 权重量化成 INT16 类型，模型精度不受影响，模型大小为原始的 1/2。
 - 权重量化成 INT8 类型，模型精度会受到影响，模型大小为原始的 1/4。
 
-![动态离线量化算法流程](04.ptq01.png)
+![动态离线量化算法流程](./images/04PTQ01.png)
 
-动态离线量化将模型中特定 OP 的权重从 FP32 类型量化成 INT8 等类型，该方式的量化有两种预测方式：
+动态离线量化将模型中特定算子的权重从 FP32 类型量化成 INT8 等类型，该方式的量化有两种预测方式：
 
-1. 反量化预测方式，即是首先将 INT8/16 类型的权重反量化成 FP32 类型，然后再使用 FP32 浮运算运算进行预测。
-2. 量化预测方式，即是预测中动态计算量化 OP 输入的量化信息，基于量化的输入和权重进行 INT8 整形运算。
+1. 反量化推理方式，即是首先将 INT8/FP16 类型的权重反量化成 FP32 类型，然后再使用 FP32 浮运算运算进行推理。
+2. 量化推理方式，即是推理中动态计算量化算子输入的量化信息，基于量化的输入和权重进行 INT8 整形运算。
 
 ## 静态离线量化
 
@@ -34,7 +36,7 @@ $$
 2. 读取小批量样本数据，执行模型的前向推理，保存更新待量化算子的量化 scale 等信息；
 3. 将 FP32 模型转成 INT8 模型，进行保存。
 
-![静态离线量化流程](04.ptq02.png)
+![静态离线量化流程](./images/04PTQ02.png)
 
 一些常用的计算量化 scale 的方法：
 
@@ -46,19 +48,21 @@ $$
 
 ## KL 散度校准法
 
+下面以静态离线量化中的 KL 散度作为例子，看看静态离线量化的具体步骤。
+
 ### 原理
 
 KL 散度校准法也叫相对熵，其中 p 表示真实分布，q 表示非真实分布或 p 的近似分布：
 
 $$
-𝐷_{𝐾𝐿} (𝑃_f || 𝑄_𝑞)=\sum\limits^{N}_{i=1}𝑃(𝑖)*𝑙𝑜𝑔_2\frac{𝑃_𝑓(i)}{𝑄_𝑞(𝑖)}
+𝐷_{KL} (P_f || Q_q)=\sum\limits^{N}_{i=1}P(i)*log_2\frac{P_f(i)}{Q_q(𝑖)}
 $$
 
 相对熵，用来衡量真实分布与非真实分布的差异大小。目的就是改变量化域，实则就是改变真实的分布，并使得修改后得真实分布在量化后与量化前相对熵越小越好。
 
 ### 流程和实现
 
-1. 选取 validation 数据集中一部分具有代表的数据作为校准数据集 Calibration
+1. 选取 validation 数据集中一部分具有代表的数据作为校准数据集 Calibration；
 2. 对于校准数据进行 FP32 的推理，对于每一层：
      1. 收集 activation 的分布直方图
      2. 使用不同的 threshold 来生成一定数量的量化好的分布
@@ -99,11 +103,11 @@ threshold = (m+0.5) * (width of a bin)
 
 端侧量化推理的结构方式主要由 3 种，分别是下图 (a) Fp32 输入 Fp32 输出、(b) Fp32 输入 int8 输出、(c) int8 输入 int32 输出
 
-![端侧量化推理方式](04.ptq04.png)
+![端侧量化推理方式](./images/04PTQ04.png)
 
 INT8 卷积如下图所示，里面混合里三种不同的模式，因为不同的卷积通过不同的方式进行拼接。使用 INT8 进行 inference 时，由于数据是实时的，因此数据需要在线量化，量化的流程如图所示。数据量化涉及 Quantize，Dequantize 和 Requantize 等 3 种操作：
 
-![INT8 卷积示意图](04.ptq05.png)
+![INT8 卷积示意图](./images/04PTQ05.png)
 
 ### 量化过程
 
@@ -119,14 +123,12 @@ INT8 相乘、加之后的结果用 INT32 格式存储，如果下一 Operation 
 
 INT8 乘加之后的结果用 INT32 格式存储，如果下一层需要 INT8 格式数据作为输入，则通过 Requantize 重量化操作将 INT32 数据重量化为 INT8。重量化推导过程如下：
 
-
-
-## 参考
-
-- 8-bit Inference with TensorRT https://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf
-
 ## 本节视频
 
 <html>
 <iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
+
+## 参考
+
+- 8-bit Inference with TensorRT https://on-demand.GPUtechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf

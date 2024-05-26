@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# GPU 架构与 CUDA 关系
+# GPU 架构与 CUDA 关系(DONE)
 
 本节会讲解 NVIDIA GPU 硬件的基础概念，其次会讲解 CUDA（Compute Unified Device Architecture）并行计算平台和编程模型，详细讲解 CUDA 线程层次结构，最后将讲解 GPU 的算力是如何计算的，这将有助于计算大模型的算力峰值和算力利用率。
 
@@ -8,15 +8,15 @@
 
 A100 GPU 架构中 GPC（Graphic Processing Cluster）表示图像处理簇，一共有 8 个。共有两个 L2 Cache 并且可以互相实现数据同步，通过 Memory Controller 实现与高带宽存储器 HBM2（High Bandwidth Memory）进行数据交换。
 
-![A100 GPU 架构图](images/03base_concept01.png)
+![A100 GPU 架构图](images/03Concept01.png)
 
-每个 GPC 中包含 TPC（Texture processing cluster）表示纹理处理簇，每个处理簇被分为多个 SM（Streaming Multiprocessors）流处理器，SM 中包含多个 CUDA core 和 Tensor Core，用于处理图形图形和 AI 张量计算。
+每个 GPC 中包含 TPC（Texture processing cluster）表示纹理处理簇，每个处理簇被分为多个 SM（Streaming Multiprocessors）流处理器，SM 中包含多个 CUDA Core 和 Tensor Core，用于处理图形图形和 AI 张量计算。
 
-![A100 GPU GPC 架构图](images/03base_concept02.png)
+![A100 GPU GPC 架构图](images/03Concept02.png)
 
 SM（Streaming Multiprocessors）称作流式多处理器，核心组件包括 CUDA 核心、共享内存、寄存器等。SM 包含很多为线程执行数学运算的 core，是英伟达 GPU 的核心，在 CUDA 中可以执行数百个线程、一个 block 上线程放在同一个 SM 上执行，一个 SM 有限的 Cache 制约了每个 block 的线程数量。
 
-![A100 GPU SM 架构图](images/03base_concept03.png)
+![A100 GPU SM 架构图](images/03Concept03.png)
 
 SM 主要组成如表所示，以英伟达 GP 100 为例，一共有 64 个 CUDA Core，Register File 存储大小为 256 KB，Shared Memory 内存大小为 64 KB，Active Thread 总线程数量是 2048，Active Block 数量是 32，Active Grid 数量是 8。
 
@@ -32,15 +32,15 @@ SM 主要组成如表所示，以英伟达 GP 100 为例，一共有 64 个 CUDA
 
 SP（Streaming Processor）流处理器是最基本的处理单元，最后线程具体的指令和任务都是在 SP 上进行处理的，GPU 在进行并行计算时就是很多个 SP 同时处理。在 Fermi 架构之后，SP 被改称为 CUDA Core，通过 CUDA 来控制具体的指令执行。
 
-![SP 处理器更名为 CUDA Core](images/03base_concept04.png)
+![SP 处理器更名为 CUDA Core](images/03Concept04.png)
 
 在 Fermi 架构中，通过 CUDA 来控制具体的指令执行，是最小的运算执行单元。所以对于现在的 NVIDIA GPU 架构来讲，流处理器的数量就是 CUDA Core 的数量。一个 SM 中包含了 2 组各 16 个 CUDA Core，每个 CUDA Core 包含了一个整数运算单元 ALU（Arthmetic Logit Unit）和一个浮点运算单元 FPU（Floating Point Unit）。
 
-![Fermi 架构 CUDA Core](images/03base_concept05.png)
+![Fermi 架构 CUDA Core](images/03Concept05.png)
 
 Volta 架构取消 CUDA core，变为单独的 FP32 FPU 和 INT32 ALU，因为 FP32:INT32 是 1:1 的关系，因此还是可以将它们合并起来一起称为原来的 CUDA Core，这样做的好处是每个 SM 现在支持 FP32 和 INT32 的并发执行，同时新增了光线追踪 RT Core。
 
-![Fermi 架构 CUDA Core](images/03base_concept06.png)
+![Fermi 架构 CUDA Core](images/03Concept06.png)
 
 Warp 是线程束，逻辑上所有 Thread 并行执行，但是从硬件的角度讲并不是所有的 Thread 能够在同一时刻执行，因此引入 Warp。Warp 是 SM 基本执行单元，一个 Warp 包含 32 个并行 Thread（warp_size=32），这 32 个 Thread 执行 SIMT（Single Instruction Multiple Thread）指令模式。
 
@@ -52,11 +52,11 @@ Warp 是线程束，逻辑上所有 Thread 并行执行，但是从硬件的角�
 
 CUDA 编程模型允许开发人员在 GPU 上运行并行计算任务，基于 LLVM 构建了 CUDA 编译器，开发人员可以使用 CUDA C/C++语言编写并行程序，通过调用 CUDA API 将计算任务发送到 GPU 执行。CUDA 编程模型包括主机（CPU）和设备（GPU）之间的协作，此外还提供了对其它编程语言的支持，比如 C/C++，Python，Fortran 等语言，支持 OpenCL 和 DirectCompute 等应用程序接口。
 
-![CUDA-Compute Unified Device Architecture](images/03base_concept07.png)
+![CUDA-Compute Unified Device Architecture](images/03Concept07.png)
 
 CUDA 在软件方面由一个 CUDA 库、一个应用程序编程接口（API）及其运行库（Runtime）、两个较高级别的通用数学库，即 CUFFT 和 CUBLAS 组成。CUDA TOOLKIT 包括编译和 C++核，CUDA DRIVER 驱动 GPU 负责内存和图像管理。CUDA-X LIBRARIES 主要提供了机器学习（Meachine Learning）、深度学习（Deep Learning）和高性能（High Performance Computing）计算方面的加速库，APPS & FRAMEWORKS 主要对接 Tensorflow 和 Pytorch 等框架。
 
-![CUDA-Compute Unified Device Architecture](images/03base_concept08.png)
+![CUDA-Compute Unified Device Architecture](images/03Concept08.png)
 
 ## CUDA 线程层次结构
 
@@ -66,7 +66,7 @@ CUDA 最基本的执行单位是线程（Thread），图中每条曲线可视为
 
 CUDA 引入主机端（host）和设备（device）概念，CUDA 程序中既包含主机（host）程序也包含设备（device）程序，host 和 device 之间可以进行通信，以此来实现数据拷贝，主机负责管理数据和控制程序流程，设备负责执行并行计算任务。在 CUDA 编程中，Kernel 是在 GPU 上并行执行的函数，开发人员编写 Kernel 来描述并行计算任务，然后在主机上调用 Kernel 来在 GPU 上执行计算。
 
-![CUDA 使用主机端和设备端实现并行计算](images/03base_concept09.png)
+![CUDA 使用主机端和设备端实现并行计算](images/03Concept09.png)
 
 代码 cuda_host.cpp 是只使用 CPU 在 host 端实现两个矩阵的加法运算，其中在 CPU 上计算的 kernel 可看作是加法运算函数，代码中包含内存空间的分配和释放。
 
@@ -112,7 +112,7 @@ int main(void)
 
 在 CUDA 程序架构中，host 代码部分在 CPU 上执行，是普通的 C 代码。当遇到数据并行处理的部分，CUDA 会将程序编译成 GPU 能执行的程序，并传送到 GPU，这个程序在 CUDA 里称做核(kernel)。device 代码部分在 GPU 上执行，此代码部分在 kernel 上编写(.cu 文件)。
 
-kernel 用__global__符号声明，在调用时需要用<<<grid, block>>>来指定 kernel 要执行及结构。代码 cuda_device.cu 是使用 CUDA 编程实现 GPU 计算，代码涉及到 host（CPU）和 device（GPU）相关计算，使用__global__ 声明将 add 函数转变为 GPU 可执行的 kernel。
+kernel 用 `__global__` 符号声明，在调用时需要用 `<<<grid, block>>>` 来指定 kernel 要执行及结构。代码 `cuda_device.cu` 是使用 CUDA 编程实现 GPU 计算，代码涉及到 host（CPU）和 device（GPU）相关计算，使用__global__ 声明将 add 函数转变为 GPU 可执行的 kernel。
 
 ```c
 #include <iostream>
@@ -176,11 +176,11 @@ int main(void)
 
 - 线程层次结Ⅲ-Thread：CUDA 并行程序实际上会被多个 threads 执行，多个 threads 会被群组成一个线程 block，同一个 block 中 threads 可以同步，也可以通过 shared memory 通信。
 
-![CUDA Grid，Block，Thread 三个层次结构](images/03base_concept10.png)
+![CUDA Grid，Block，Thread 三个层次结构](images/03Concept10.png)
 
 因此 CUDA 和 NVIDIA 硬件架构有以下对应关系，从软件侧看到的是线程的执行，对应于硬件上的 CUDA Core，每个线程对应于 CUDA Core，软件方面线程数量是超配的，硬件上 CUDA Core 是固定数量的。Block 线程块只在一个 SM 上通过 Warp 进行调度，一旦在 SM 上调用了 Block 线程块，就会一直保留到执行完 kernel，SM 可以同时保存多个 Block 线程块，多个 SM 组成的 TPC 和 GPC 硬件实现了 GPU 并行计算。
 
-![CUDA 和 NVIDIA 硬件架构对应关系](images/03base_concept11.png)
+![CUDA 和 NVIDIA 硬件架构对应关系](images/03Concept11.png)
 
 ## 算力峰值计算
 
@@ -204,7 +204,7 @@ $$\text{Peak FLOPS} = F_{\text{clk}} \times N_{\text{SM}} \times F_{\text{req}}$
 
 - $F_{\text{clk}}$：GPU 时钟周期内指令执行数 (FLOPS/Cycle)
 - $N_{\text{SM}}$：SM（Streaming Multiprocessor）数量
-- $F_{\text{req}}$：Tensor Core 核心运行频率(GHz)
+- $F_{\text{req}}$：Tensor Core 核心运行频率（GHz）
 
 以 NVIDIA A100 为例，其中 FP32 Tensor Core 指令吞吐 64 FLOPS/Cycle ，核心运行频率为 1.41GHz ，SM 数量为 108 ，因此 GPU 的算力峰值是，19,491 GFLOPS，大约为 1.95 TFLOPS：
 
@@ -225,7 +225,7 @@ $$Peak FLOPS=1.41∗108∗64∗2=19,491 GFLOPS$$
 | 1 - Peak rates are based on GPU Boost Clock.|  |
 |2 - Effective TFLOPS/TOPS using the new Sparsity feature |  |
 
-## 小结
+## 小结与讨论
 
 本节主要对 NVIDIA GPU 硬件相关的基础概念进行了讲解，以 A100 GPU 为例，GPU 架构包括 GPC（图形处理簇，Graphics Processing Clusters）、GPC 包含 TPC（纹理处理簇，Texture Processing Clusters）、TPC 包含 SM（流多处理器，Stream Multiprocessors），SM 又包含 SP（流处理器，Streaming Processor，在 Fermi 架构之后，SP 被改称为 CUDA Core），Wrap 是 GPU 执行程序时的调度单位，SM 的基本执行单元。
 
