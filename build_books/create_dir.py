@@ -157,4 +157,7 @@ target_dir4 = '/Users/chenzhongming/Workplaces/AISysten_github/05Framework'
 dir_paths = '/Users/chenzhongming/Workplaces/AISystem_BOOK/source/'
 
 getallfile(target_dir1)
+getallfile(target_dir2)
+getallfile(target_dir3)
+getallfile(target_dir4)
 

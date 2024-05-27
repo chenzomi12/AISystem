@@ -6,9 +6,7 @@
 
 目前主流的深度学习框架都选择使用计算图来抽象神经网络计算，《计算图》实际上，AI 框架主要的职责是把深度学习的表达转换称为计算机能够识别的计算图，计算图作为 AI 框架中核心的数据结构，贯穿 AI 框架的大部分整个生命周期，于是计算图对于 AI 框架的前端核心技术就显得尤为重要。
 
-> 希望这个系列能够给大家、朋友们带来一些些帮助，也希望自己能够继续坚持完成所有内容哈！
-
-**内容大纲**
+## 内容大纲
 
 > `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/AISystem) 下载，网页课程版链接会失效哦~
 >
@@ -16,13 +14,13 @@
 
 | 小节 | 链接|
 |:--:|:--:|
-| 01 基本介绍 | [文章](./01.introduction.md), [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1cG411E7gV/), [字幕](./srt/01.srt) |
-| 02 什么是计算图 | [文章](./02.computegraph.md), [PPT](./02.computegraph.pdf), [视频](https://www.bilibili.com/video/BV1rR4y197HM/), [字幕](./srt/02.srt) |
-| 03 与自动微分关系 | [文章](./03.atuodiff.md), [PPT](./03.atuodiff.pdf), [视频](https://www.bilibili.com/video/BV1S24y197FU/), [字幕](./srt/03.srt) |
-| 04 图优化与图执行调度| [文章](./04.dispatch.md), [PPT](./04.dispatch.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/), [字幕](./srt/04.srt) |
-| 05 计算图控制流实现| [文章](./04.dispatch.md), [PPT](./05.control_flow.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](./srt/05.srt) |
-| 06 计算图实现动静统一| [文章](./06.future.md), [PPT](./06.static_graph.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/), [字幕](./srt/06.srt) |
-| 07 计算图的挑战与未来 |[文章](./07.future.md), [PPT](./07.future.pdf), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/), [字幕](./srt/07.srt) |
+| 01 基本介绍 | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1cG411E7gV/) |
+| 02 什么是计算图 | [文章](./02Computegraph.md), [PPT](./02Computegraph.pdf), [视频](https://www.bilibili.com/video/BV1rR4y197HM/) |
+| 03 与自动微分关系 | [文章](./03Atuodiff.md), [PPT](./03Atuodiff.pdf), [视频](https://www.bilibili.com/video/BV1S24y197FU/)|
+| 04 图优化与图执行调度| [文章](./04Dispatch.md), [PPT](./04Dispatch.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1k7Ty/) |
+| 05 计算图控制流实现| [文章](./05ControlFlow.md), [PPT](./05ControlFlow.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/)|
+| 06 计算图实现动静统一| [文章](./06StaticGraph.md), [PPT](./06StaticGraph.pdf), [视频](https://www.bilibili.com/video/BV17P41177Pk/)|
+| 07 计算图的挑战与未来 |[文章](./07Future.md), [PPT](./07Future.pdf), [视频](https://www.bilibili.com/video/BV1hm4y1A7Nv/) |
 
 ## 备注
 
