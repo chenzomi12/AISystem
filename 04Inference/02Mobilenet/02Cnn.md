@@ -41,7 +41,7 @@ SqueezeNet 通过更深的网络置换更多的参数，虽然有更低的参数
 
 - 采用 **two-stage bottleneck modules**来减少权值参数，即采用两个 1x1 的 Conv，使得参数显著减少。
 
-- **Low Rank Filters** 低秩分解的核心思想就是将大矩阵分解成多个小矩阵，这里使用 Canonical Polyadic Decomposition，将 KxK 卷积，参数量能从$k^2$降为 2K，在 SqueezeNext 中也加入了 Shortut Connection。
+- **Low Rank Filters** 低秩分解的核心思想就是将大矩阵分解成多个小矩阵，这里使用 Canonical Polyadic Decomposition，将 KxK 卷积，参数量能从 $k^2$ 降为 2K，在 SqueezeNext 中也加入了 Shortut Connection。
 
 ![SqueezeNext 结构](./images/02cnn/02CNN_04.png)
 

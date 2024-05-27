@@ -43,6 +43,12 @@ def check_markdown(file_name):
 	else:
 		return False
 
+def check_pdf(file_name):
+	root_ext = os.path.splitext(file_name)
+	if root_ext[1] == '.pdf':
+		return True
+	else:
+		return False
 
 def add2readme(file_path, string):
 	if file_path.split('/')[-1] == 'README.md':
@@ -70,6 +76,7 @@ def change_iamgepath_markdown(file_path):
 def get_subfile(path, dir_path):
 	file_path = os.listdir(path)
 	target_filenames = []
+	target_pdf_filenames = []
 	temp = TEMP
 	file_path.sort()
 	image_name = '/images/' + dir_path.split('/')[-1]
@@ -80,7 +87,7 @@ def get_subfile(path, dir_path):
 	for file in file_path:
 		fp = os.path.join(path, file)
 		if os.path.isfile(fp) and check_markdown(fp):
-			print("dealing with: ", fp)
+			print("dealing with MD: ", fp)
 			target_filenames.append(fp)
 
 			if fp.split('/')[-1] == 'README.md':
@@ -94,8 +101,15 @@ def get_subfile(path, dir_path):
 			shutil.copytree(fp, save_path, dirs_exist_ok = True)
 	temp += "```"
 
+	## 找到所有的 pdf 并记录下来
+	for file in file_path:
+		fp = os.path.join(path, file)
+		if os.path.isfile(fp) and check_pdf(fp):
+			print("dealing with PDF: ", fp)
+			target_pdf_filenames.append(fp)
+
 	## 迁移文件到新的地方
-	print("now we are going to move: ", target_filenames)
+	print("now we are going to move MD: ", target_filenames)
 	for filename in target_filenames:
 		shutil.copy(filename, dir_path)
 
@@ -107,6 +121,10 @@ def get_subfile(path, dir_path):
 		fp = os.path.join(dir_path, file)
 		add2readme(fp, temp)
 		change_iamgepath_markdown(fp)
+
+	print("now we are going to move PDF: ", target_pdf_filenames)
+	for filename in target_pdf_filenames:
+		shutil.copy(filename, dir_path)
 
 	return target_filenames
 

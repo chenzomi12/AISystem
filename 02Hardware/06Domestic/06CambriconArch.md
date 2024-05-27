@@ -10,13 +10,13 @@
 
 # 寒武纪 MLU 架构细节
 
-下面我们简单根据 zomi 的资料介绍一下 MLU core 的工作原理，再对照寒武纪官方文档来了解一下寒武纪产品的编程模型。
+下面我们简单根据 zomi 的资料介绍一下 MLU Core 的工作原理，再对照寒武纪官方文档来了解一下寒武纪产品的编程模型。
 
-## MLUv3 IPU （MLU core）
+## MLUv3 IPU （MLU Core）
 
-IPU 在官方文档中也叫作 MLU core，下面是示意图。
+IPU 在官方文档中也叫作 MLU Core，下面是示意图。
 
-![MLU core 核心模块](images/cambricon09.png)
+![MLU Core 核心模块](images/cambricon09.png)
 
 从 zomi 找到的资料图中，我们可以看到，Control Unit 比较重要，负责指令的读取、译码和发射。自研指令可以通过 Control Unit 被负责计算和访存的调度器 Dispatch 到 ALU、VFU、TFU、IO-DMA、Move-DMA 四个队列。IO-DMA 用来实现片外 DRAM 与 W/N-RAM 数据传输，也可以用于实现 Register 与片内 RAM 之间的 Load/Store 操作以及原子操作。Move-DMA 用于 IPU 中 W/N-RAM 与 MPU S-RAM 间数据传输和类型转换。I-Cache 顾名思义就是指令缓存，有 64KB，如 512bit 指令可以缓存 1024 条。VA-Cache(Vector Addressing)是离散数据访问指令的专用缓存。用于加速离散向量访问效率，减少对总线和存储单元读写次数。Neural-RAM（nram）是 768KB，需 16byte 对齐，存储 Input 和 Feature Map 数据。Weight-RAM（wram）是 1024KB，需 8byte 对齐，存储权重和优化器数据。
 
@@ -24,11 +24,11 @@ ALU 就是标量 Scale 数据的算术逻辑运算。GPR 是指一组位宽 48bi
 
 VFU/TFU 是计算单元，实现张量 Tensor 和向量 Vector 运算；输入输出：Vector 运算输入输出在 Neuron-RAM；Tensor 运算输入自 Neuron-RAM 和 Weight-RAM，输出根据调度情况到 Neuron-RAM 和 Weight-RAM。
 
-关于指令流水，那么 MLU core 有三类可以并行执行的指令队列：XFU-PIPE、 DMA-PIPE、ALU-PIPE。XFU-PIPE 可以执行向量和张量单元指令。DMA-PIPE 可以支持双流同时进行数据搬运执行。具体包括上述的 move-DMA 和 IO-DMA 两个流。ALU-PIPE 可以执行标量数据算术逻辑指令。各个指令队列的并行执行有助于让 IPU 的不同种类的操作互相掩盖。
+关于指令流水，那么 MLU Core 有三类可以并行执行的指令队列：XFU-PIPE、 DMA-PIPE、ALU-PIPE。XFU-PIPE 可以执行向量和张量单元指令。DMA-PIPE 可以支持双流同时进行数据搬运执行。具体包括上述的 move-DMA 和 IO-DMA 两个流。ALU-PIPE 可以执行标量数据算术逻辑指令。各个指令队列的并行执行有助于让 IPU 的不同种类的操作互相掩盖。
 
 ## MLUv3 MPU (cluster)
 
-MPU 的主要功能是单个 Cluster 内部 Shared-RAM 和多个 Cluster 间 Shared-RAM 的管理和通信。从下图可以看到，每一个 cluster 包含 4 个 MLU core（IPU）和一个 MPU。
+MPU 的主要功能是单个 Cluster 内部 Shared-RAM 和多个 Cluster 间 Shared-RAM 的管理和通信。从下图可以看到，每一个 cluster 包含 4 个 MLU Core（IPU）和一个 MPU。
 
 ![cluster 结构](images/cambricon11.png)
 
@@ -40,9 +40,9 @@ MPU 的主要功能是单个 Cluster 内部 Shared-RAM 和多个 Cluster 间 Sha
 
 这里所述的片内通信分为两种：cluster 内通信与 cluster 间通信。
 
-cluster 内通信中我们先看 IPU（MLU-core），其中 ICache 访问 Global-DRAM 读取指令并保存到 Icache 中，IO-DMA 还可以直接在 DRAM 和 W/N-RAM 之间搬运数据。Move-DMA 负责在 S/W/N-RAM 之间以及它们与 GPR 之间搬运数据。之所以要使用两种不同的 DMA 是为了方便两者之间的并行。
+cluster 内通信中我们先看 IPU（MLU-Core），其中 ICache 访问 Global-DRAM 读取指令并保存到 Icache 中，IO-DMA 还可以直接在 DRAM 和 W/N-RAM 之间搬运数据。Move-DMA 负责在 S/W/N-RAM 之间以及它们与 GPR 之间搬运数据。之所以要使用两种不同的 DMA 是为了方便两者之间的并行。
 
-![MLU core 通信](images/cambricon12.png)
+![MLU Core 通信](images/cambricon12.png)
 
 我们再看 MPU
 

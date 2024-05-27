@@ -111,7 +111,7 @@ $$
 k_{h}\times k_{w}\times c_{in}\times c_{out}\times H \times W
 $$
 
-其中$k_{h}$与$k_{w}$分别为卷积核的高宽,$c_{in}$与 $c_{out}$分别是输入输出维度。
+其中 $k_{h}$ 与 $k_{w}$ 分别为卷积核的高宽,$c_{in}$ 与 $c_{out}$ 分别是输入输出维度。
 
 ### Group 卷积
 

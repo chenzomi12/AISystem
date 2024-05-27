@@ -2,7 +2,7 @@
 
 - 《国内 AI 芯片》深入地解读国内 AI 初创芯片厂商如国内第一 AI 芯片上市公司寒武纪、国内造 GPU 声势最大的壁仞科技、腾讯重头的燧原科技等科技公司的 AI 芯片架构。
 
-**内容大纲**
+## 内容大纲
 
 > `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/AISystem) 下载，网页课程版链接会失效哦~
 >
@@ -10,12 +10,12 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 国外 AI 芯片 | 01 壁仞 BR100 产品介绍 | [slide](./01.BR100_System.pdf), [video](https://www.bilibili.com/video/BV1QW4y1S75Y)|
-| 国外 AI 芯片 | 02 壁仞 BR100 芯片架构 | [slide](./02.BR100_Detail.pdf), [video](https://www.bilibili.com/video/BV1G14y1275T)|
-| 国外 AI 芯片 | 03 燧原科技 AI 芯片 | [slide](./03.SUIYUAN_DTU.pdf), [video](https://www.bilibili.com/video/BV15W4y1Z7Hj)|
-| 国外 AI 芯片 | 04 寒武纪 AI 芯片第一股 | [slide](./04.cambricon_Product.pdf), [video](https://www.bilibili.com/video/BV1Y8411m7Cd)|
-| 国外 AI 芯片 | 05 寒武纪 AI 芯片架构剖析（上） | [slide](./05.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1op4y157Qf)|
-| 国外 AI 芯片 | 06 寒武纪 AI 芯片架构剖析（下） | [slide](./06.cambricon_Arch.pdf), [video](https://www.bilibili.com/video/BV1TV411j7Yx)|
+| 国外 AI 芯片 | 01 壁仞 BR100 产品介绍 | [PPT](./01.BR100_System.pdf), [视频](https://www.bilibili.com/video/BV1QW4y1S75Y)|
+| 国外 AI 芯片 | 02 壁仞 BR100 芯片架构 | [PPT](./02.BR100_Detail.pdf), [视频](https://www.bilibili.com/video/BV1G14y1275T)|
+| 国外 AI 芯片 | 03 燧原科技 AI 芯片 | [PPT](./03.SUIYUAN_DTU.pdf), [视频](https://www.bilibili.com/video/BV15W4y1Z7Hj)|
+| 国外 AI 芯片 | 04 寒武纪 AI 芯片第一股 | [PPT](./04.cambricon_Product.pdf), [视频](https://www.bilibili.com/video/BV1Y8411m7Cd)|
+| 国外 AI 芯片 | 05 寒武纪 AI 芯片架构剖析（上） | [PPT](./05.cambricon_Arch.pdf), [视频](https://www.bilibili.com/video/BV1op4y157Qf)|
+| 国外 AI 芯片 | 06 寒武纪 AI 芯片架构剖析（下） | [PPT](./06.cambricon_Arch.pdf), [视频](https://www.bilibili.com/video/BV1TV411j7Yx)|
 
 ## 备注
 

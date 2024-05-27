@@ -182,4 +182,4 @@ Pass 类是实现优化的主要资源。然而，我们从不直接使用它，
 
 1. https://llvm.org/docs/Passes.html
 
-2. https://getting-started-with-llvm-core-libraries-zh-cn.readthedocs.io/zh-cn/latest/ch04.html
+2. https://getting-started-with-llvm-Core-libraries-zh-cn.readthedocs.io/zh-cn/latest/ch04.html
