@@ -38,6 +38,98 @@ Fuse Reduction with Global Pooling：对一个三维 tensor 先后两次分别�
 
 ![其他图优化](image/graph/other_graph_optimize.png)
 
+### FlashAttention
+
+这里要特别提及的一篇工作是 FlashAttention。Transformer 结构已成为自然语言处理和图像分类等应用中最常用的架构。尽管 Transformer 在规模上不断增大和加深，但处理更长上下文仍然是一个挑战，因为核心的自注意力模块在序列长度上具有二次方的时间和内存复杂度。这导致在处理长序列时速度变慢且内存需求巨大。
+
+![flashAttention](image/graph/flash_attention.png)
+
+在传统算法中，一种方式是将Mask和SoftMax部分融合，以减少访存次数。然而，FlashAttention则更加激进，它将从输入 Q,K,V 到输出 O 的整个过程进行融合，以避免 S,P 矩阵的存储开销，实现端到端的延迟缩减。
+
+为了让计算过程的结果完全在SRAM中，摆脱对HBM的依赖，可以采用分片操作，每次进行部分计算，确保这些计算结果能在SRAM内进行交互，待得到对应的结果后再进行输出。
+
+代码实现：https://github.com/openai/triton/blob/main/python/tutorials/06-fused-attention.py#L17
+
+```python
+def _fwd_kernel(
+    Q, K, V, sm_scale,
+    L, M,
+    Out,
+    stride_qz, stride_qh, stride_qm, stride_qk,
+    stride_kz, stride_kh, stride_kn, stride_kk,
+    stride_vz, stride_vh, stride_vk, stride_vn,
+    stride_oz, stride_oh, stride_om, stride_on,
+    Z, H, N_CTX,
+    BLOCK_M: tl.constexpr, BLOCK_DMODEL: tl.constexpr,
+    BLOCK_N: tl.constexpr,
+):
+    start_m = tl.program_id(0)
+    off_hz = tl.program_id(1)
+    # initialize offsets
+    offs_m = start_m * BLOCK_M + tl.arange(0, BLOCK_M)
+    offs_n = tl.arange(0, BLOCK_N)
+    offs_d = tl.arange(0, BLOCK_DMODEL)
+    off_q = off_hz * stride_qh + offs_m[:, None] * stride_qm + offs_d[None, :] * stride_qk
+    off_k = off_hz * stride_qh + offs_n[None, :] * stride_kn + offs_d[:, None] * stride_kk
+    off_v = off_hz * stride_qh + offs_n[:, None] * stride_qm + offs_d[None, :] * stride_qk
+    # Initialize pointers to Q, K, V
+    q_ptrs = Q + off_q
+    k_ptrs = K + off_k
+    v_ptrs = V + off_v
+    # initialize pointer to m and l
+    m_prev = tl.zeros([BLOCK_M], dtype=tl.float32) - float("inf")
+    l_prev = tl.zeros([BLOCK_M], dtype=tl.float32)
+    acc = tl.zeros([BLOCK_M, BLOCK_DMODEL], dtype=tl.float32)
+    # load q: it will stay in SRAM throughout
+    q = tl.load(q_ptrs)
+    # loop over k, v and update accumulator
+    for start_n in range(0, (start_m + 1) * BLOCK_M, BLOCK_N):
+        # -- compute qk ----
+        k = tl.load(k_ptrs)
+        qk = tl.zeros([BLOCK_M, BLOCK_N], dtype=tl.float32)
+        qk += tl.dot(q, k)
+        qk *= sm_scale
+        qk = tl.where(offs_m[:, None] >= (start_n + offs_n[None, :]), qk, float("-inf"))
+        # compute new m
+        m_curr = tl.maximum(tl.max(qk, 1), m_prev)
+        # correct old l
+        l_prev *= tl.exp(m_prev - m_curr)
+        # attention weights
+        p = tl.exp(qk - m_curr[:, None])
+        l_curr = tl.sum(p, 1) + l_prev
+        # rescale operands of matmuls
+        l_rcp = 1. / l_curr
+        p *= l_rcp[:, None]
+        acc *= (l_prev * l_rcp)[:, None]
+        # update acc
+        p = p.to(Q.dtype.element_ty)
+        v = tl.load(v_ptrs)
+        acc += tl.dot(p, v)
+        # update m_i and l_i
+        l_prev = l_curr
+        m_prev = m_curr
+        # update pointers
+        k_ptrs += BLOCK_N * stride_kn
+        v_ptrs += BLOCK_N * stride_vk
+    # rematerialize offsets to save registers
+    start_m = tl.program_id(0)
+    offs_m = start_m * BLOCK_M + tl.arange(0, BLOCK_M)
+    # write back l and m
+    l_ptrs = L + off_hz * N_CTX + offs_m
+    m_ptrs = M + off_hz * N_CTX + offs_m
+    tl.store(l_ptrs, l_prev)
+    tl.store(m_ptrs, m_prev)
+    # initialize pointers to output
+    offs_n = tl.arange(0, BLOCK_DMODEL)
+    off_o = off_hz * stride_oh + offs_m[:, None] * stride_om + offs_n[None, :] * stride_on
+    out_ptrs = Out + off_o
+    tl.store(out_ptrs, acc)
+```
+
+FlashAttention在速度和内存占用方面都表现出明显的优势，并取得了良好的效果。目前，FlashAttention已经经过广泛验证, torch2.0中已提供flashattention的实现。
+
+FlashAttention的优点在于充分考虑了在计算任务中IO的重要性，并通过分块计算的方式开发了一种快速、节省显存、精确无近似的注意力实现方法。这使得我们更便于训练具有更长上下文的Transformer模型，并且为后续注意力算法的优化提供了一个基准。
+
 ### 其他图优化--layout and memory
 
 针对网络模型，特别是在处理算子（操作符）时。算子在这里可以理解为模型中完成特定任务的一种函数或者操作，例如卷积，矩阵乘法等。
