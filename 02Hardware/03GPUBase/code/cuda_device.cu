@@ -1,8 +1,8 @@
 #include <iostream>
 #include <math.h>
 // Kernel function to add the elements of two arrays
-// __global__ 变量声明符，作用是将add函数变成可以在GPU上运行的函数
-// __global__ 函数被称为kernel
+// __global__ 变量声明符，作用是将 add 函数变成可以在 GPU 上运行的函数
+// __global__ 函数被称为 kernel
 __global__
 void add(int n, float *x, float *y)
 {
@@ -16,7 +16,7 @@ int main(void)
   float *x, *y;
 
   // Allocate Unified Memory – accessible from CPU or GPU
-  // 内存分配，在GPU或者CPU上统一分配内存
+  // 内存分配，在 GPU 或者 CPU 上统一分配内存
   cudaMallocManaged(&x, N*sizeof(float));
   cudaMallocManaged(&y, N*sizeof(float));
 
@@ -31,7 +31,7 @@ int main(void)
   add<<<1, 1>>>(N, x, y);
 
   // Wait for GPU to finish before accessing on host
-  // CPU需要等待cuda上的代码运行完毕，才能对数据进行读取
+  // CPU 需要等待 cuda 上的代码运行完毕，才能对数据进行读取
   cudaDeviceSynchronize();
 
   // Free memory
