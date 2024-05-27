@@ -227,7 +227,7 @@ auto session_ = Ort::Session(env, "optimized_file_path", session_options)
 
 ## 计算图优化回顾
 
-## 小姐诶 
+## 小结
 
 本章节简要围绕计算图优化的基础内容进行了介绍，在了解当前挑战与架构的基础上，梳理了计算图优化的相关方式，同时结合示例描述了主流图优化方法 ONNX Runtime
 
