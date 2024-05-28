@@ -52,13 +52,19 @@ Fuse Const To Binary：Binary 折叠，Binary Op 第二个输入是标量 Const�
 
 ![Constant folding](image/graph/const_folding.png)
 
+如图所示，我们有两个常量输入，通过两个操作 Op1 和 Op2 进行处理。具体来说，Op1 接收两个常量作为输入，Opened 接收 Op1 的输出作为输入。在离线计算中，我们实际上可以预先计算出这两个常量的结果，然后把这个结果作为一个新的常量输入给Op2。这种预先计算并替换常量的策略即为常量折叠。
+
 (2) ExpandDims 折叠： ExpandDims Op 指定维度的输入是常量 Const，则把这个维度以参数的形式折叠到 ExpandDims 算子中。
 
 ![ExpandDims](image/graph/ExpandDims.png)
 
+在处理计算图优化的过程中，当ExpandDims操作的指定维度输入是常量时，我们可以直接将其堆叠进参数，并放在 ExpandDims 这个操作符内部。这样一来，我们就减少了一个操作符的使用。因为常量可能是一个操作符，或者可能占用一块内存空间。
+
 (3) Binary 折叠： Binary Op 第二个输入是标量 Const ，把这个标量以参数的形式折叠到 Binary Op 的属性中。
 
 ![Binary](image/graph/Binary.png)
+
+Binary折叠其原理与ExpandDims的折叠类似。在Binary折叠中，如果输入是标量，那么我们可以直接将标量作为Binary操作的一个参数，然后进行计算。这样做的结果是，我们减少了一个计算节点。对于计算过程来说，提高了计算效率，节省了计算资源。
 
 ## 计算图优化-冗余节点消除
 
