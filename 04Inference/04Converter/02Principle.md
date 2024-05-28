@@ -323,7 +323,7 @@ root_type Monster;
 
 MindSpore Lite提供了一套注册机制，允许用户基于转换工具进行能力扩展：包括节点解析扩展、模型解析扩展以及图优化扩展，用户可以根据自身的需要对模型实现自定义的解析与融合优化。节点解析扩展需要依赖flatbuffers和protobuf及三方框架的序列化文件。
 
-![FlatBuffers](image/converter05.png)
+![FlatBuffers](image/02Principle03.png)
 
 ### Protobuf VS FlatBuffers
 
