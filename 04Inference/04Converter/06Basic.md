@@ -282,11 +282,60 @@ Conv -> Linear After global pooling：在 Global Pooling 之后 Conv 算子转�
 
 Shuffle Channel Replace：Shuffle Channel Op 大部分框架缺乏单独实现，可以通过组合 Reshape + Permute实现
 
+```python
+import torch
+import torch.nn.functional as F
+
+def shuffle_channel(x, groups):
+    batchsize, num_channels, height, width = x.data.size()
+    channels_per_group = num_channels // groups
+
+    # reshape
+    x = x.view(batchsize, groups, channels_per_group, height, width)
+
+    # permute
+    x = x.permute(0, 2, 1, 3, 4).contiguous()
+
+    # flatten back
+    x = x.view(batchsize, -1, height, width)
+
+    return x
+```
+
 Pad Replace：将老版onnx的pad-2的pads从参数形式转成输入形式
+
+```python
+import torch.nn.functional as F
+
+def pad_replace(x, pads):
+    return F.pad(x, pads)
+```
 
 ShapeN Replace：将 ShapeN Op 通过组合多个 Shape 的方式实现
 
+```python
+def shape_n_replace(*xs):
+    return [x.shape for x in xs]
+```
+
 Group Conv Replace：把Group 卷积通过组合 Slice、Conv 实现
+
+```python
+import torch
+import torch.nn.functional as F
+
+def group_conv_replace(x, weight, bias, stride, padding, dilation, groups):
+    # slice input
+    xs = torch.chunk(x, groups, dim=1)
+
+    # apply conv for each slice
+    ys = [F.conv2d(xi, wi, bi, stride, padding, dilation, 1) for xi, wi, bi in zip(xs, weight, bias)]
+
+    # concat back
+    y = torch.cat(ys, dim=1)
+
+    return y
+```
 
 ![算子替换replace1vsn](image/graph/op_replace_1vsn.png)
 
