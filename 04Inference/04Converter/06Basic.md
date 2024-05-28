@@ -168,13 +168,61 @@ Common Subexpression Elimination：当模型当中出现了公共子图，如一
 
 示例一：
 
-Conv + BN + Act：Conv Op 后跟着的 Batch Normal 的算子可以把 BN 的参数融合到Conv里面
+1.Conv + BN + Act：Conv Op 后跟着的 Batch Normal 的算子可以把 BN 的参数融合到Conv里面
 
-Conv + Bias + Add：Conv Op 后跟着的 Add 可以融合到 Conv 里的 Bias 参数里面
+主要是基于以下数学原理：
 
-Conv + Scale + Act：Conv Op 后跟着的 Scale 可以融合到 Conv 里的 Weight 里面
+卷积操作（Conv）：这是一种线性操作，可以表示为 y=W*x+b，其中 W 代表权重，x 代表输入，b 代表偏置。
 
-Conv + MatMul + Act：Conv Op 后跟着的 MatMul 可以融合到 Conv 里的 Weight 里面
+批量归一化操作（Batch Normalization，BN）：BN 的基本形式为 y=(x-mean(x))/sqrt(var(x)+eps)*gamma+beta，其中 mean(x) 和 var(x) 分别是 x 的均值和方差，gamma和beta是学习的尺度和偏移参数。
+
+将 Conv 和 BN 进行融合，然后按照 y=W'*x+b' 的形式重新构造，就是将 BN 的参数 gamma 和 beta 融合到 Conv 的权重 W 和偏置 b 中，得到新的权重 W' 和偏置 b'。具体计算方式为：
+
+W' = gamma/sqrt(var(x)+eps) * W
+
+b' = beta - gamma/sqrt(var(x)+eps) * mean(x)
+
+这样，我们就可以将BN融合到Conv中，得到的新的权重W'和偏置b'可以直接用于Conv操作，从而减少了BN的计算。以下是一个简单的Python代码示例：
+
+```python
+def fuse_conv_bn(conv, bn):
+    # 计算新的权重和偏置
+    w = conv.weight
+    mean = bn.running_mean
+    var_sqrt = torch.sqrt(bn.running_var + bn.eps)
+
+    beta = bn.weight
+    gamma = bn.bias
+
+    w_prime = gamma / var_sqrt * w
+    b_prime = beta - gamma / var_sqrt * mean
+
+    # 更新Conv的权重和偏置
+    conv.weight.data = w_prime
+    conv.bias.data = b_prime
+
+    return conv
+```
+
+2.Conv + Bias + Add：Conv Op 后跟着的 Add 可以融合到 Conv 里的 Bias 参数里面
+
+在"Conv + Bias + Add"的操作中，假设我们的卷积输出为X，偏置值为b，Add操作的值为a。那么，这个操作序列的输出结果为：Output = X + b + a。注意到，加法操作满足交换律和结合律，所以我们可以将偏置值b和Add操作的值a进行相加，得到一个新的偏置值b' = b + a。那么，原本的操作序列就可以简化为 "Conv + Bias"，其中 Bias 的值为 b'。
+
+3.Conv + Scale + Act：Conv Op 后跟着的 Scale 可以融合到 Conv 里的 Weight 里面
+
+主要是基于以下的数学原理：
+
+尺度变换操作（Scale）：这是一种乘法操作，可以表示为y=x*alpha，其中alpha是需要学习的尺度参数。
+
+参考 Conv + BN + Act 的融合方式，将 Conv 和 Scale 进行融合，就是将 Scale 的参数 alpha 融合到 Conv 的权重 W 和偏置 b 中，得到新的权重 W' 和偏置 b'。具体计算方式为：
+
+W' = alpha * W
+
+b' = alpha * b
+
+这样，我们就可以将 Scale 融合到 Conv 中，得到的新的权重 W' 和偏置 b' 可以直接用于 Conv 操作，从而减少了 Scale 的计算。
+
+4.Conv + MatMul + Act：Conv Op 后跟着的 MatMul 可以融合到 Conv 里的 Weight 里面，原理与上述 scale 的融合相同
 
 ![算子融合conv](image/graph/op_fuse_conv.png)
 
