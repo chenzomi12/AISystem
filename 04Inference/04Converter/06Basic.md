@@ -228,17 +228,27 @@ b' = alpha * b
 
 示例二：
 
-Matmul + Add：使用 GEMM 代替矩阵乘 Matmul + Add
+1.Matmul + Add：使用 GEMM 代替矩阵乘 Matmul + Add
 
-Matmul + Scale：Matmul 前或者后接 Scale / Div 可以融合到 Matmul 的相乘系数 alpha 里
+2.Matmul + Add/Scale：Matmul 前或者后接 Add / Scale / Div 可以融合到 Matmul 中
 
-Mean + Add：使用 Mean 后面跟着 Add，使用 Layer Norm 代替
+(in*W+bias0) + bias1 = in*W + (bias0+bias1)
 
-Batch Norm + Scale：scale 的 s 和 b 可以直接融合到 BN Op 里
+(in*W+bias0) * sclae1 = in*(W*sclae1) + (bias0*sclae1)
 
-Matmul + Batch Norm：与 Conv + BN 相类似
+(in*W+bias0) / sclae2 = in*(W/sclae2) + (bias0/sclae2)
 
-Matmul + Add：全连接层后 Add 可以融合到全连接层的 bias 中
+因此可以一直往后融合下去。这个融合在性能上肯定是提升的，但是在精度上有可能会产生牺牲，特别是融合了 mul 算子。因为原来的矩阵乘 weight 和 bias 以及 scale 通常都是比较小的小于1的数值，把 scale 融合到 weight 和 bias 里面后，会导致 weight 和 bias 数值进一步降低，可能导致精度下降。
+
+3.Mean + Add：使用 Mean 后面跟着 Add，使用 Layer Norm 代替
+
+4.Batch Norm + Scale：scale 的 s 和 b 可以直接融合到 BN Op 里
+
+在 BN 操作后通常会有一个 Scale 操作，用于恢复数据的原始分布。具体来说，如果 `x` 是 BN 的输出，那么 Scale 操作就是 `y = s * x + b`，其中 `s` 和 `b` 是可学习的参数。
+
+将两个操作融合到一起，即直接在 BN 操作中包含 Scale 操作。这样做的优点是可以减少计算量和内存消耗，因为不需要单独存储 BN 的输出。同时，由于 BN 和 Scale 是连续的线性操作，它们的融合不会改变模型的表示能力。
+
+5.Matmul + Batch Norm：与 Conv + BN 相类似
 
 ![算子融合matmul](image/graph/op_fuse_matmul.png)
 
