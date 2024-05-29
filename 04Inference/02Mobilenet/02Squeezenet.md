@@ -8,7 +8,7 @@
 
 **SqueezeNet**：是轻量化主干网络中比较著名的，它发表于 ICLR 2017，在达到了 AlexNet 相同的精度的同时，只用了 AlexNet 1/50 的参数量。SqueezeNet 核心贡献在于使用 **Fire Module**(如下图所示)，即由 Squeeze 部分和 Expand 部分组成，Squeeze 部分是一组连续的 $1 \times 1$ 卷积组成，Expand 部分则是由一组连续的 $1 \times 1$ 卷积和 $3 \times 3$ 卷积 cancatnate 组成，在 Fire 模块中，Squeeze 部分的 $1\times1$ 卷积的通道数记做 $s_{1x1}$，Expand 部分 $1 \times 1$ 卷积和 $3 \times 3$ 卷积的通道数分别记做 $e_{1x1}$ 和 $e_{3x3}$。
 
-在Fire 中文章作者建议 $s_{1x1}<e_{1x1}+e_{3x3} $，这么做相当于两个 $3 \times 3$ 卷积中加入了瓶颈层。
+在Fire 中文章作者建议$s_{1\times 1}<e_{1 \times1}+e_{3 \times3}$，这么做相当于两个 $3 \times 3$ 卷积中加入了瓶颈层。
 
 ![](./images/02Squeezenet01.png)
 
