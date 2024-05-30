@@ -150,10 +150,10 @@ def getallfile(path):
 				shutil.copy(fp, new_path)
 
 
-target_dir1 = '/Users/chenzhongming/Workplaces/AISysten_github/02Hardware'
-target_dir2 = '/Users/chenzhongming/Workplaces/AISysten_github/03Compiler'
-target_dir3 = '/Users/chenzhongming/Workplaces/AISysten_github/04Inference'
-target_dir4 = '/Users/chenzhongming/Workplaces/AISysten_github/05Framework'
+target_dir1 = '/Users/chenzhongming/Workplaces/AISystem_github/02Hardware'
+target_dir2 = '/Users/chenzhongming/Workplaces/AISystem_github/03Compiler'
+target_dir3 = '/Users/chenzhongming/Workplaces/AISystem_github/04Inference'
+target_dir4 = '/Users/chenzhongming/Workplaces/AISystem_github/05Framework'
 dir_paths = '/Users/chenzhongming/Workplaces/AISystem_BOOK/source/'
 
 getallfile(target_dir1)

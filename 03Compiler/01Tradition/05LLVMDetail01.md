@@ -87,7 +87,7 @@ clang -S -emit-llvm .\test.c
 1. 在 LLVM IR（Intermediate Representation）中，指令以分号（;）开头表示注释。
 2. 全局表示以 @ 开头，局部变量以 % 开头
 3. 使用 define 关键字定义函数，在本例中定义了两个函数：@test 和 @main。
-4. alloca 指令用于在堆栈上分配内存，类似于C语言中的变量声明。
+4. alloca 指令用于在堆栈上分配内存，类似于 C 语言中的变量声明。
 5. store 指令用于将值存储到指定地址。
 6. load 指令用于加载指定地址的值。
 7. add 指令用于对两个操作数进行加法运算。
@@ -147,7 +147,7 @@ attributes #0 = { noinline nounwind optnone uwtable "min-legal-vector-width"="0"
 
 @test 函数接受两个整型参数并计算它们的和，将结果存储在一个局部变量中。
 
-@main 函数分配三个整型变量的内存空间，然后分别赋予初始值，并调用 @test 函数进行计算。最后@main函数返回整数值0。
+@main 函数分配三个整型变量的内存空间，然后分别赋予初始值，并调用 @test 函数进行计算。最后@main 函数返回整数值 0。
 
 程序的完整执行流程如下：
 
@@ -157,7 +157,7 @@ attributes #0 = { noinline nounwind optnone uwtable "min-legal-vector-width"="0"
 4. 然后加载 %3 和 %4 的值，进行加法操作，并将结果存储至 %5 中。 
 5. 最后，程序返回整数值 0。
 
-LLVM IR 的代码和C语言编译生成的代码在功能实现上具有完全相同的特性。.ll 文件作为 LLVM IR 的一种中间语言，可以通过 LLVM 编译器将其转换为机器码，从而实现计算机程序的执行。LLVM IR 提供了一种抽象层，使程序员可以更灵活地控制程序的编译和优化过程，同时保留了与硬件无关的特性。通过使用 LLVM IR，开发人员可以更好地理解程序的行为，提高代码的可移植性和性能优化的可能性。
+LLVM IR 的代码和 C 语言编译生成的代码在功能实现上具有完全相同的特性。.ll 文件作为 LLVM IR 的一种中间语言，可以通过 LLVM 编译器将其转换为机器码，从而实现计算机程序的执行。LLVM IR 提供了一种抽象层，使程序员可以更灵活地控制程序的编译和优化过程，同时保留了与硬件无关的特性。通过使用 LLVM IR，开发人员可以更好地理解程序的行为，提高代码的可移植性和性能优化的可能性。
 
 ### LLVM IR 基本语法
 
@@ -207,7 +207,7 @@ return:                                           ; preds = %if.else, %if.then
 
 icmp 指令是根据比较规则，比较两个操作数，将比较的结果以布尔值或者布尔值向量返回，且对于操作数的限定是操作数为整数或整数值向量、指针或指针向量。其中，eq 是比较规则，%rem 和 0 是操作数，i32 是操作数类型，比较 %rem 与 0 的值是否相等，将比较的结果存放到  %cmp 中。
 
-br 指令有两种形式，分别对应于条件分支和无条件分支。该指令的条件分支在形式上接受一个“i1”值和两个“label”值，用于将控制流传输到当前函数中的不同基本块，上面这条指令是条件分支，类似于 c 中的三目条件运算符< expression ？Statement ：statement>；无条件分支的话就是不用判断，直接跳转到指定的分支，类似于 c 中 goto ，比如说这个就是无条件分支br label %return。`br i1 %cmp, label %if.then, label %if.else`指令的意思是，i1类型的变量 %cmp 的值如果为真，执行 if.then，否则执行 if.else。
+br 指令有两种形式，分别对应于条件分支和无条件分支。该指令的条件分支在形式上接受一个“i1”值和两个“label”值，用于将控制流传输到当前函数中的不同基本块，上面这条指令是条件分支，类似于 c 中的三目条件运算符< expression ？Statement ：statement>；无条件分支的话就是不用判断，直接跳转到指定的分支，类似于 c 中 goto ，比如说这个就是无条件分支 br label %return。`br i1 %cmp, label %if.then, label %if.else`指令的意思是，i1 类型的变量 %cmp 的值如果为真，执行 if.then，否则执行 if.else。
 
 #### 循环体
 例如以下 c 程序代码：
@@ -258,7 +258,7 @@ while.end:                                        ; preds = %while.cond
 }
 ```
 
-对比 if 语句可以发现，while 中几乎没有新的指令出现，所以说所谓的 while 循环，也就是“跳转+分支”这一结构。同理，for循环 也可以由“跳转+分支”这一结构构成。
+对比 if 语句可以发现，while 中几乎没有新的指令出现，所以说所谓的 while 循环，也就是“跳转+分支”这一结构。同理，for 循环 也可以由“跳转+分支”这一结构构成。
 
 #### 指针
 例如以下 c 程序代码：
@@ -266,10 +266,10 @@ while.end:                                        ; preds = %while.cond
 int main(){
 	int i = 10;
 	int* pi = &i;
-	printf("i的值为：%d",i);
-	printf("*pi的值为：%d",*pi);
-	printf("&i的地址值为：",%d);
-	printf("pi的地址值为：",%d);
+	printf("i 的值为：%d",i);
+	printf("*pi 的值为：%d",*pi);
+	printf("&i 的地址值为：",%d);
+	printf("pi 的地址值为：",%d);
 }
 ```
 
@@ -303,7 +303,7 @@ declare i32 @printf(i8*, ...)
 
 对指针的操作就是指针的指针，开辟一块指针类型的内存，里面放个指针`%pi = alloca i32*, align 8`
 
-此外，c 语言中常见的操作还有对数组和结构体的操作，内置函数和外部函数的引用等，更深一步的内容可以参考[简单了解LLVM IR基本语法-CSDN博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
+此外，c 语言中常见的操作还有对数组和结构体的操作，内置函数和外部函数的引用等，更深一步的内容可以参考[简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
 
 ### LLVM IR 指令集
 
@@ -327,12 +327,12 @@ LLVM IR 的设计理念类似于精简指令集（RISC），这意味着它倾�
 每个三地址码指令都可以分解为一个四元组的形式：
 
 ```
-(运算符, 操作数1, 操作数2, 结果)
+(运算符, 操作数 1, 操作数 2, 结果)
 ```
 
 - **运算符**（Operator）：表示要执行的操作，例如加法（`+`）、减法（`-`）、乘法（`*`）、赋值（`=`）等。
-- **操作数1**（Operand1）：第一个输入操作数。
-- **操作数2**（Operand2）：第二个输入操作数（有些指令可能没有这个操作数）。
+- **操作数 1**（Operand1）：第一个输入操作数。
+- **操作数 2**（Operand2）：第二个输入操作数（有些指令可能没有这个操作数）。
 - **结果**（Result）：操作的输出结果存储的位置。
 
 ##### 3. 指令类型及其四元组表示
@@ -356,9 +356,9 @@ LLVM IR 的设计理念类似于精简指令集（RISC），这意味着它倾�
 - **优化潜力**：由于指令简单且结构固定，编译器可以容易地应用各种优化技术，如常量折叠、死代码消除和寄存器分配。
 - **独立性**：三地址码独立于具体机器，可以在不同平台之间移植。
 
-##### 5. LLVM IR中的三地址码
+##### 5. LLVM IR 中的三地址码
 
-LLVM IR（Intermediate Representation）是 LLVM 编译器框架使用的一种中间表示，采用了类似三地址码的设计理念。以下是LLVM IR的一些特点：
+LLVM IR（Intermediate Representation）是 LLVM 编译器框架使用的一种中间表示，采用了类似三地址码的设计理念。以下是 LLVM IR 的一些特点：
 
 - **虚拟寄存器**：LLVM IR 使用虚拟寄存器，而不是物理寄存器。这些寄存器以`%`字符开头命名。
 - **类型系统**：LLVM IR 使用强类型系统，每个值都有一个明确的类型。
@@ -379,7 +379,7 @@ LLVM IR（Intermediate Representation）是 LLVM 编译器框架使用的一种�
 以下是一个简单的 LLVM IR 示例，它展示了一个函数实现：
 
 ```llvm
-; 定义一个函数，接受两个32位整数参数并返回它们的和
+; 定义一个函数，接受两个 32 位整数参数并返回它们的和
 define i32 @add(i32 %a, i32 %b) {
 entry:
     %result = add i32 %a, %b
@@ -422,7 +422,7 @@ LLVM IR (Intermediate Representation) 是一种通用的、低级的虚拟指令
    - LLVM IR 设计为目标无关的中间表示，可以跨不同的硬件和操作系统使用。这种目标无关性简化了跨平台编译和优化【12†source】【13†source】。
 
 #### 8. **调试支持**
-   - LLVM IR 包含丰富的调试信息支持，可以生成调试符号和源代码映射，支持调试器如GDB和LLDB【12†source】。
+   - LLVM IR 包含丰富的调试信息支持，可以生成调试符号和源代码映射，支持调试器如 GDB 和 LLDB【12†source】。
 
 这些原则和最佳实践使 LLVM IR 成为一个强大且灵活的工具，用于编译器开发和代码优化。它的模块化设计、强类型系统、丰富的指令集和目标无关性使其适用于广泛的应用场景，从语言前端到高级优化和代码生成。
 
@@ -448,7 +448,7 @@ ret i32 %1
 
 1.每个值都由单一的赋值操作定义，这使得我们可以轻松地从值的使用点直接追溯到其定义的指令。这种特性极大地方便了编译器进行正向和反向的编译过程。
 
-2.此外，由于静态单赋值（SSA）形式构建了一个简单的使用-定义链，即一个值到达其使用点的定义列表，这极大地简化了代码优化过程。在SSA形式下，编译器可以更直观地识别和处理变量的依赖关系，从而提高优化的效率和效果。
+2.此外，由于静态单赋值（SSA）形式构建了一个简单的使用-定义链，即一个值到达其使用点的定义列表，这极大地简化了代码优化过程。在 SSA 形式下，编译器可以更直观地识别和处理变量的依赖关系，从而提高优化的效率和效果。
 
 ### LLVM IR 内存模型 
 
@@ -560,4 +560,4 @@ define dso_local void @test(i32 noundef %0, i32 noundef %1) #0 {
 3. https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
 4. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_ssa.html
 5. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/design_hints.html
-6. [简单了解LLVM IR基本语法-CSDN博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
+6. [简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)

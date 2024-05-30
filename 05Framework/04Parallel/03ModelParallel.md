@@ -129,7 +129,7 @@ class PipelineParallelResNet50(ModelParallelResNet50):
 
 3. 分布式自动梯度（Distributed Autograd）：分布式自动梯度将所有参与前向传播的节点的本地自动梯度引擎连接起来，并在反向传播时自动协调这些引擎以计算梯度。
 
-4. 分布式优化器（Distributed Optimizer）：分布式优化器的构造函数接受一个 Optimizer 实例（例如SGD、Adagrad等）和一组参数 RRef，可以在每个不同的 RRef 所有者节点上创建一个 Optimizer 实例，并在运行 step() 时相应地更新参数。
+4. 分布式优化器（Distributed Optimizer）：分布式优化器的构造函数接受一个 Optimizer 实例（例如 SGD、Adagrad 等）和一组参数 RRef，可以在每个不同的 RRef 所有者节点上创建一个 Optimizer 实例，并在运行 step() 时相应地更新参数。
 
 下面的展示了如何使用 RPC 实现 ResNet50 模型流水线并行。我们首先定义两个模型碎片，并使用 RPC 将其分布到不同的设备上，每个碎片包括 ResNet50 的一部分。
 
@@ -251,7 +251,7 @@ output_rref = model(input)
 
 ### MatMul 并行
 
-矩阵乘法（MatMul）是深度学习中最常见的操作之一。在张量并行中，可以将矩阵按列或者按行切分，然后在不同设备上并行执行部分计算。以矩阵乘法 $A \times B = C$ 为例，假设我们将矩阵 $B$ 按列切分成 $B_1$ 和 $B_2$，分别存储在设备 1 和设备 2 上。在这种情况下，设备1和设备2可以分别计算 $B_1 \times A$ 和 $B_2 \times A$，最终通过合并结果得到 $C$。
+矩阵乘法（MatMul）是深度学习中最常见的操作之一。在张量并行中，可以将矩阵按列或者按行切分，然后在不同设备上并行执行部分计算。以矩阵乘法 $A \times B = C$ 为例，假设我们将矩阵 $B$ 按列切分成 $B_1$ 和 $B_2$，分别存储在设备 1 和设备 2 上。在这种情况下，设备 1 和设备 2 可以分别计算 $B_1 \times A$ 和 $B_2 \times A$，最终通过合并结果得到 $C$。
 
 ![模型并行](images/03ModelParallel08.png)
 :width:`650px`
@@ -291,7 +291,7 @@ Cross Entropy Loss 并行可以分为以下几步：
 
 1. 数据拆分：将 logits (input) 按照 vocab 维度进行拆分，同时将不同部分分发到各设备，labels (target) 需要先进行 one hot 操作，然后 scatter 到各个设备上
 2. input(logits) 最大值同步：input(logits) 需要减去其最大值后求 softmax，All Reduce (Max) 操作保证了获取的是全局最大值，有效防止溢出。
-3. exp sum 与softmax 计算：exp sum 即 softmax 计算中的分母部分， All Reduce (Max) 操作保证了获取的是全局的和。
+3. exp sum 与 softmax 计算：exp sum 即 softmax 计算中的分母部分， All Reduce (Max) 操作保证了获取的是全局的和。
 4. 计算 Loss： input (logits) 与 one_hot 相乘并求和，得到 label 位置值 im ，并进行 all_reduce (Sum) 全局同步，最后计算 log softmax 操作并加上负号，得到分布式交叉熵的损失值 loss。
 
 ### 使用 DeviceMesh 进行张量并行简单实现
