@@ -51,9 +51,9 @@ The Indirect Convolution Algorithm（间接卷积算法）是QNNPACK中的核心
 
 量化公式即可以表示如下：
 
-给定一个浮点数 𝑟 和相应的缩放因子 scale 和零点 zero_point，量化过程可以表示为：
+给定一个浮点数 𝑟 和相应的缩放因子 scale 和零点 zeropoint，量化过程可以表示为：
 
-$$ q = round(r/scale) + zero_point $$
+$$ q = round(r/scale) + zeropoint $$
 
 其中，q 是量化后的整数值，round() 表示四舍五入操作。
 
@@ -65,17 +65,17 @@ $$ scale = (rmax - rmin)/(qmax - qmin) $$
 
 零点的计算公式如下。
 
-$$ zero_point = round(qmin - rmin/scale) $$
+$$ zeropoint = round(qmin - rmin/scale) $$
 
 在推理过程中，需要执行反量化过程，以便恢复接近原始的浮点表示。反量化过程的公式表达如下：
 
-$$ r = scale  × (q - zero_point) $$
+$$ r = scale  × (q - zeropoint) $$
 
 QNNPACK使用一种与Android神经网络API兼容的线性量化方案。它假设量化值q[i]用8位无符号整数表示，并且它们与实值表示r[i]的关系如下公式：
 
-$$ r[i] = scale × (q[i] − zero_point) $$
+$$ r[i] = scale × (q[i] − zeropoint) $$
 
-其中，scale是一个正的浮点数，zero_point是一个8位无符号整数，和q[i]一样。
+其中，scale是一个正的浮点数，zeropoint是一个8位无符号整数，和q[i]一样。
 
 ### 间接卷积算法的计算划分
 
