@@ -63,7 +63,7 @@ $$ q = round(r/scale) + zero_point $$
 
 $$ r = scale  × (q - zero_point) $$
 
-零点的计算公式如下：
+零点的计算公式如下。
 
 $$ \text{zero\_point} = \text{round}\left(q_{\min} - \frac{r_{\min}}{\text{scale}}\right) $$
 
