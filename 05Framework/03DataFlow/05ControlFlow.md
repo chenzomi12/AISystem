@@ -1,4 +1,4 @@
-# 计算图的控制流实现
+# 计算图的控制流实现(DONE)
 
 计算图在数学上作为一个有向无环图（DAG，Directed Acyclic Graph），能够把神经网络模型的概念抽象出来作为同一描述，不过在计算机的编程中，会遇到很多 if、else、while、for 等控制流语句，有向无环图改如何表示控制流变成了计算图中一个很重要的问题。好处在于，引入控制流之后，开发者可以向计算图中引入分支选择以及循环控制逻辑，进而构造出更加复杂的神经网络模型结构。
 
@@ -14,7 +14,7 @@ AI 框架作为一个可编程系统，在设计时一个首要设计选择是�
 
 在计算机科学中，控制流（Control Flow）定义了独立语句，指令，函数调用等执行或者求值的顺序。例如，根据函数 A 的输出值选择运行函数 B 或者 C 中的一个。
 
-![控制流表达](../images/023FW_DataFlow/control_flow01.png)
+![控制流表达](images/control_flow01.png)
 :width:`300px`
 :label:`dataflow_04_img1`
 
@@ -22,7 +22,7 @@ AI 框架把神经网络的计算过程，抽象为有向无环图。使用有�
 
 以 Transformer 结构的神经网络为例，来看看使用最自然地方式描述这些算法对 AI 框架会带来什么新的表示要求。Transformer 结构的神经网络算法中，图的左侧是一个通用 Transformer 结构的中关键步骤的计算示意图，通过堆叠 Transformer 结构使得网络模型层数更深，右侧对应了使用最自然的方式描述这一算法计算过程的伪代码。
 
-![Transformer 结构](../images/023FW_DataFlow/transformer01.png)
+![Transformer 结构](images/transformer01.png)
 
 Transformer 是一种基于注意力机制的神经网络结构，由多个 Encoder 和 Decoder 堆叠而成，可以应用于各种自然语言处理任务。在具体应用时，可以根据任务的特点和需求，选择不同的 Transformer 架构来构建模型。从伪代码描述中可以看到，想要以通用的方式，自然地描述出 Transformer 的算法框架，均依赖于循环控制逻辑 `for`。
 
@@ -119,7 +119,7 @@ TensorFlow 计算图中支持控制流的方案，主要分为 3 层。暴露给
 
 为了提高可理解性和编程效率避免开发者直接操作底层算子，这些计算图中的控制流原语会被封装为前端的控制流 API，下图是用户使用前端基础控制流 API 编写带条件和循环的计算，以及它们所对应的计算图表示。为了简化开发者识别计算图中的控制结构，TensorFlow 基于底层控制流原语，引入高层 Functional 控制流算子，同时添加高层控制流算子向底层控制流算子的转换逻辑。
 
-![TensorFlow 控制流 API 层](../images/023FW_DataFlow/control_flow02.png)
+![TensorFlow 控制流 API 层](images/control_flow02.png)
 
 
 下面以循环嵌套两个 for 循环代码，使用 TensorFlow 2.X 的 API 为例子：
@@ -153,7 +153,7 @@ execution frame：{
 
 如下图所示，TensorFlow 的原子操作集之中有五个控制流原语运算符，其中 Switch 和 Merge 组合起来可以实现条件控制。所有五个基元一起组合则可以实现 while 循环。
 
-![TensorFlow 控制流原语](../images/023FW_DataFlow/control_flow03.png)
+![TensorFlow 控制流原语](images/control_flow03.png)
 
 其中：
 
