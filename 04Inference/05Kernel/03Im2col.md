@@ -8,7 +8,7 @@ Im2Col 是计算机视觉领域中将图片转换成矩阵的矩阵列（column�
 
 在深度学习框架发展的早期，Caffe 使用 Im2Col 方法将三维张量转换为二维矩阵，从而充分利用已经优化好的 GEMM 库来为各个平台加速卷积计算。最后，再将矩阵乘得到的二维矩阵结果使用 Col2im 将转换为三维矩阵输出。其处理流程如下图所示。
 
-![Im2Col_1](images/02.Im2Col01.png "Im2Col_1")
+![Im2Col_1](images/02.im2col01.png "Im2Col_1")
 
 ## 数学原理
 
@@ -26,7 +26,7 @@ $$
 
 根据上述式子可知，每个窗口下对应的卷积计算和两个一维向量的点乘计算是等价的。由此可以推知，在未改变直接卷积计算的参数量和连接数的情况下，这种将每个窗口中的特征子矩阵展开成一维的行向量后再进行矩阵乘计算的思路，能够通过减少计算过程中的访存需求，优化整体的计算时间。
 
-![Im2Col_12](images/02.Im2Col12.png "Im2Col_12") 
+![Im2Col_12](images/02.im2col12.png "Im2Col_12") 
 
 Im2Col 算法就是在这样的基础上进行设计的。其将卷积通过矩阵乘法来计算，最后调用高性能的 Matmul (矩阵乘法)进行计算。该方法适应性强，支持各种卷积参数的优化，在通道数稍大的卷积中性能基本与 Matmul 持平，并且可以与其他优化方法形成互补。
 
@@ -38,43 +38,43 @@ Im2Col+Matmul 方法主要包括两个步骤：
 
 1. 使用 Im2Col 将输入矩阵展开一个大矩阵，矩阵每一列表示卷积核需要的一个输入数据，按行向量方式存储。
 
-![Im2Col_13](images/02.Im2Col13.png "Im2Col_13") 
+![Im2Col_13](images/02.im2col13.png "Im2Col_13") 
 
 2. 使用上面转换的矩阵进行 Matmul 运算，得到的数据就是最终卷积计算的结果。
 
-![Im2Col_14](images/02.Im2Col14.png "Im2Col_14") 
+![Im2Col_14](images/02.im2col14.png "Im2Col_14") 
 
 ### 卷积过程
 
 一般图像的三通道卷积，其输入为 3 维张量 $(H, W, 3)$，其中 $H$,$W$ 为输入图像的高和宽，3 为图像的通道数；卷积核为 4 维张量 $(N, C, KH, KW)$，其中 $N$ 为卷积核的个数,$KH$,$KW$ 为卷积核的高和宽，$C$ 为卷积核的通道数，卷积核的通道数应与输入图像的通道数一致；输出为 3 维张量 $(N, H, W)$,其中 $H$,$W$ 为输入图像的高和宽，$N$ 为输出图像的通道数，输出图的通道数应与卷积核个数一致。此段中 $H,W$ 只是代指，并不表示数值通用，输出图像的宽高具体数值需要按照公式另行计算。其卷积的一般计算方式为：
 
-![Im2Col_3](images/Im2Col03.png "Im2Col_3") 
+![Im2Col_3](images/im2col03.png "Im2Col_3") 
 
 在神经网络中，卷积默认采用数据排布方式为 $NHWC$，意为（样本数，高，宽，通道数）。输入图像/特征图为 4 维张量 $(N,IH,IW,IC)$，其中 $N$ 为输入图像的个数,也可以理解为单次训练的样本数，$IH$,$IW$ 为输入图像的高和宽，$IC$ 为通道数；卷积核为 4 维张量 $(OC,KH,KW,IC)$，卷积核的通道数应与输入图像的通道数一致，所以均为 $IC$，这里的 $OC$ 应与下图中卷积核个数 N 在数值上对应相等，表示卷积核的个数，其遵循一个卷积核计算得到一张特征图这样一一对应的规则。注意图中的 N 与输入图像的个数 $N$ 并不相关，数值也不一致，图中的 N 表示卷积核个数。输出为 4 维张量 $(N,OH,OW,OC)$，这里的 $N$ 等价于前述输入图像的个数，$OC$ 表示输出特征图的个数，也就是每个样本卷积后的输出的通道数。卷积的一般计算方式为：
 
-![Im2Col_4](images/02.Im2Col04.png "Im2Col_4") 
+![Im2Col_4](images/02.im2col04.png "Im2Col_4") 
 
 ### Im2Col 算法原理
 
 Im2Col 算法的核心是改变了数据在内存中的排列存储方式，将卷积操作转换为矩阵相乘，对 Kernel 和 Input 进行重新排列。将输入数据按照卷积窗进行展开并存储在矩阵的列中，多个输入通道的对应的窗展开之后将拼接成最终输出 Matrix 的一列。其过程如下图所示，卷积核被转化为一个 $N×(KW*KH*C)$ 的二维矩阵，输入被转化为一个 $(KW*KH*C)×(OH*OW)$ 的矩阵，输入矩阵的列数由卷积核在输入图像上的滑动次数所决定，具体数值可由特征图的尺寸 $(OH*OW)$ 计算得到，这两个数值根据上一节特征图的公式进行计算。
 
-![Im2Col_5](images/02.Im2Col05.png "02.Im2Col_05")
+![Im2Col_5](images/02.im2col05.png "02.Im2Col_05")
 
 1. Input 重排
 
 对 Input 进行重排，得到的矩阵见下图右侧，矩阵的行数对应输出 $OH*OW$ 个数，也就是卷积核在 Input 上的滑动次数；每个行向量里，先排列计算一个输出点所需要输入上第一个通道的 $KH*KW$ 个数据，根据卷积窗的大小逐行拼接成一段行向量，排完当前通道的数据后，以同样模式再按次序排列之后的通道的数据，直到第 $IC$ 个通道，最终构成前述完整的一个行向量。
 
-![Im2Col_6](images/02.Im2Col06.png "Im2Col_6") 
+![Im2Col_6](images/02.im2col06.png "Im2Col_6") 
 
 2. 权重数据重排
 
 对权重数据进行重排，将 $N$ 个卷积核展开为权重矩阵的一行，因此共有 $N$ 行，每个行向量上先排列第一个输入通道上 $KH*KW$ 数据，根据卷积窗的大小逐行拼接成一段行向量，排完当前通道的数据后，以同样模式再依次排列后面的通道数据直到 $IC$。
 
-![Im2Col_7](images/02.Im2Col07.png "Im2Col_7")
+![Im2Col_7](images/02.im2col07.png "Im2Col_7")
 
 通过数据重排，完成 Im2Col 的操作之后会得到一个输入矩阵，卷积的 Weights 也可以转换为一个矩阵，卷积的计算就可以转换为两个矩阵相乘的求解，得到最终的卷积计算结果。
 
-![Im2Col_8](images/02.Im2Col08.png "Im2Col_8") 
+![Im2Col_8](images/02.im2col08.png "Im2Col_8") 
 
 3. 推理引擎中的数据重排
 
@@ -138,11 +138,11 @@ Im2Col 是一种比较朴素的卷积优化算法，在没有精心处理的情�
 
 以分块卷积为例，如图所示在空间上将输出、输入划分为四份：
 
-![Im2Col_9](images/02.Im2Col09.png "Im2Col_9") 
+![Im2Col_9](images/02.im2col09.png "Im2Col_9") 
 
 划分后，大卷积计算被拆分为若干个小卷积进行计算，小卷积块的大小必须与卷积核的大小相匹配。划分过程中计算总量不变，但计算小矩阵时访存局部性更好，可以借由计算机存储层次结构获得性能提升。
 
-![Im2Col_10](images/02.Im2Col10.png "Im2Col_10")
+![Im2Col_10](images/02.im2col10.png "Im2Col_10")
 
 在传统的卷积操作中，输入特征和卷积核的每个通道都需要参与计算，这导致内存访问模式复杂，难以优化。而分组卷积将通道分成多个组，每个组内的通道数减少，使得内存访问更加规则和局部化，有利于提高缓存利用率。此外，这种基于分治法的分解策略，有助于提高并行处理的效率。在分组卷积中，每个组内的卷积核是独立的，这意味着不同组之间的权重和激活可以共享内存空间。这种共享可以减少内存占用，尤其是在使用大量卷积核的网络结构中。
 
@@ -156,7 +156,7 @@ $$
 
 这里的 $2(KH−1)$  和 $ 2(KW−1)$ 遵循 Padding 规则。规则为 VALID 时，可以忽略；规则为 SAME 时，位于 Input  Tensor 边界一边 Padding 补 0，不在 Input  Tensor 边界 Padding 使用邻居张量值。也就是说，在真正使用这种方法的时候，可以通过重叠数据块来减少边缘效应和填充（padding）的需求。这种方法可以减少计算量，但可能会增加内存访问的复杂性。
 
-![Im2Col_11](images/02.Im2Col11.png "Im2Col_11") 
+![Im2Col_11](images/02.im2col11.png "Im2Col_11") 
 
 ### 算法问题点
 
@@ -193,10 +193,14 @@ GPU 优化技术：
 
 这些优化方法和技术可以根据具体的硬件平台和模型需求来选择和组合，以提高推理引擎在 Kernel 层的性能。在实际应用中，开发者需要根据目标设备和性能要求来选择最合适的优化策略。
 
-![Im2Col_15](images/02.Im2Col15.png "Im2Col_15") 
+![Im2Col_15](images/02.im2col15.png "Im2Col_15") 
+
+## 参考资料
+
+- [卷积神经网络优化算法](https://zhenhuaw.me/blog/2019/convolution-neural-networks-optimization.html)
 
 ## 本节视频
 
 <html>
-<iframe src="[https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0](https://www.bilibili.com/video/BV1Ys4y1o7XW/?spm_id_from=333.788&vd_source=096daa038c279ccda6e4f8c5eea82de7)" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://www.bilibili.com/video/BV1Ys4y1o7XW/?spm_id_from=333.788&vd_source=096daa038c279ccda6e4f8c5eea82de7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
