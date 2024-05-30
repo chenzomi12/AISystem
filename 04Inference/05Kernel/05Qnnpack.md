@@ -61,15 +61,15 @@ $$ q = round(r/scale) + zero_point $$
 
 缩放因子的计算公式如下：
 
-$$ r = scale  × (q - zero_point) $$
+$$ scale = (rmax - rmin)/(qmax - qmin) $$
 
 零点的计算公式如下。
 
-$$ \text{zero\_point} = \text{round}\left(q_{\min} - \frac{r_{\min}}{\text{scale}}\right) $$
+$$ zero_point = round(qmin - rmin/scale) $$
 
 在推理过程中，需要执行反量化过程，以便恢复接近原始的浮点表示。反量化过程的公式表达如下：
 
-$$ r = \text{scale} \times (q - \text{zero\_point}) $$
+$$ r = scale  × (q - zero_point) $$
 
 QNNPACK使用一种与Android神经网络API兼容的线性量化方案。它假设量化值q[i]用8位无符号整数表示，并且它们与实值表示r[i]的关系如下公式：
 
