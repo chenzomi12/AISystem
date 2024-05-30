@@ -2,7 +2,7 @@
 
 # 谷歌 TPU 历史发展
 
-======== 图片命名要规范，本节叫做04TPUIntrol.md，那么图片命名是04TPUIntrol01/02/xxx.png
+======== 图片命名要规范，本节叫做04TPUIntrol.md，那么图片命名是04TPUIntrol01/02/xxx.png，如果用不到的图片，记得删掉哦。
 
 在本章节中，我们将深入探讨谷歌的 Tensor Processing Unit（TPU）的发展历程及其在深度学习和人工智能领域的应用。TPU 是谷歌为加速机器学习任务而设计的专用集成电路（ASIC），自首次推出以来，TPU 经历了多次迭代升级，包括 TPU v1、v2、v3 和 v4，以及 Edge TPU 和 Google Tensor 等产品。
 
