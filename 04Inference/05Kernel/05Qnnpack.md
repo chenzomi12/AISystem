@@ -51,7 +51,7 @@ The Indirect Convolution Algorithm（间接卷积算法）是QNNPACK中的核心
 
 量化公式即可以表示如下：
 
-给定一个浮点数 𝑟 和相应的缩放因子 scale 和零点 zero_point，量化过程可以表示为：
+给定一个浮点数 𝑟 和相应的缩放因子 scale 和零点 zero_point，量化过程可以表示为：$q = \text{round}\left(\frac{r}{\text{scale}}\right) + \text{zero\_point}$
 
 $$ q = \text{round}\left(\frac{r}{\text{scale}}\right) + \text{zero\_point} $$
 
