@@ -90,27 +90,27 @@ LLVM IR 会变成和后端非常很接近的一些指令、函数、全局变量
 
 ### 代码输出 Code Emission
 
-Code Emission（代码生成）是LLVM后端的重要阶段，其目标是将中间表示（Intermediate Representation, IR）转化为高效的目标机器代码。LLVM的Code Emission阶段由多个组件协同工作，并使用多种优化技术来生成高质量的代码。
+Code Emission（代码生成）是 LLVM 后端的重要阶段，其目标是将中间表示（Intermediate Representation, IR）转化为高效的目标机器代码。LLVM 的 Code Emission 阶段由多个组件协同工作，并使用多种优化技术来生成高质量的代码。
 
 #### LLVM Code Emission 阶段的优化技术
 
-1. **延迟槽填充（Delay Slot Filling）** 在某些处理器架构（如MIPS）中，分支指令后的指令会有一个延迟槽。LLVM通过将不影响程序正确性的指令填充到这些延迟槽中，避免处理器空转，提高指令执行效率。延迟槽填充在LLVM的指令调度器中完成。
+1. **延迟槽填充（Delay Slot Filling）** 在某些处理器架构（如 MIPS）中，分支指令后的指令会有一个延迟槽。LLVM 通过将不影响程序正确性的指令填充到这些延迟槽中，避免处理器空转，提高指令执行效率。延迟槽填充在 LLVM 的指令调度器中完成。
     
-2. **指令融合（Instruction Fusion）** LLVM利用指令融合技术将多条简单指令合并为一条复杂指令，减少指令数量和调度开销。例如，可以将两个相邻的加载和加法指令融合为一个加载并加法的指令。这种优化通常在指令选择器或指令调度器中完成。
+2. **指令融合（Instruction Fusion）** LLVM 利用指令融合技术将多条简单指令合并为一条复杂指令，减少指令数量和调度开销。例如，可以将两个相邻的加载和加法指令融合为一个加载并加法的指令。这种优化通常在指令选择器或指令调度器中完成。
     
-3. **启发式优化（Heuristic Optimization）** 在LLVM的指令选择和调度过程中，使用启发式算法快速找到接近最优的解决方案。启发式算法通过评估指令组合的代价和收益，选择出最适合当前上下文的指令序列。LLVM使用基于图形的调度算法，如DAG（Directed Acyclic Graph）调度器，来实现启发式优化。
+3. **启发式优化（Heuristic Optimization）** 在 LLVM 的指令选择和调度过程中，使用启发式算法快速找到接近最优的解决方案。启发式算法通过评估指令组合的代价和收益，选择出最适合当前上下文的指令序列。LLVM 使用基于图形的调度算法，如 DAG（Directed Acyclic Graph）调度器，来实现启发式优化。
     
-4. **Profile-Guided Optimization（PGO）** Profile-Guided Optimization是LLVM中的一种基于性能数据的优化技术。PGO通过收集程序运行时的性能数据（如热点函数和分支预测信息），指导编译器在代码生成阶段进行优化，使生成的代码在实际运行时更高效。LLVM在前端使用`llvm-profdata`工具收集性能数据，在后端的指令选择和调度过程中利用这些数据进行优化。
+4. **Profile-Guided Optimization（PGO）** Profile-Guided Optimization 是 LLVM 中的一种基于性能数据的优化技术。PGO 通过收集程序运行时的性能数据（如热点函数和分支预测信息），指导编译器在代码生成阶段进行优化，使生成的代码在实际运行时更高效。LLVM 在前端使用`llvm-profdata`工具收集性能数据，在后端的指令选择和调度过程中利用这些数据进行优化。
     
-5. **Loop Optimization** LLVM在代码生成阶段对循环结构进行多种优化，包括：
+5. **Loop Optimization** LLVM 在代码生成阶段对循环结构进行多种优化，包括：
     
     - **循环展开（Loop Unrolling）**：通过展开循环体，减少循环控制开销，提高指令流水线效率。
     - **循环交换（Loop Exchange）**：调整嵌套循环的顺序，提高数据局部性。
-    - **循环合并（Loop Fusion）**：将多个循环合并为一个循环，减少循环开销。 这些优化在LLVM的循环优化器（Loop Optimizer）中实现，优化后的循环结构会在代码生成阶段进一步优化。
+    - **循环合并（Loop Fusion）**：将多个循环合并为一个循环，减少循环开销。 这些优化在 LLVM 的循环优化器（Loop Optimizer）中实现，优化后的循环结构会在代码生成阶段进一步优化。
 
 #### LLVM Code Emission 的实现
 
-在LLVM中，Code Emission 由以下组件共同完成：
+在 LLVM 中，Code Emission 由以下组件共同完成：
 
 1. **指令选择器（Instruction Selector）** 指令选择器负责从 LLVM IR 中选择合适的目标机器指令。LLVM 使用多种指令选择算法，包括基于树模式匹配的`SelectionDAG`和基于表格驱动的`GlobalISel`。指令选择器将中间表示转化为机器指令的中间表示。
     
@@ -166,7 +166,7 @@ Youtube 上 LLVM 之父 Chris Lattner：编译器的黄金时代[<sup>1</sup>](#
 
 ![Pipeline](images/llvm_ir20.png)
 
-随后，Chris Lattner创立了 Modular[<sup>2</sup>](#ref2)，旨在重塑全球机器学习基础设施，涵盖编译器、运行时、异构计算，以及从边缘到数据中心的全方位支持，并特别注重可用性。Modular旨在提升开发人员的效率，使他们能够更高效地开展工作。
+随后，Chris Lattner 创立了 Modular[<sup>2</sup>](#ref2)，旨在重塑全球机器学习基础设施，涵盖编译器、运行时、异构计算，以及从边缘到数据中心的全方位支持，并特别注重可用性。Modular 旨在提升开发人员的效率，使他们能够更高效地开展工作。
 
 2. XLA：优化机器学习编译器[<sup>3</sup>](#ref3)
 

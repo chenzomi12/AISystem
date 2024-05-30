@@ -8,7 +8,7 @@
 
 **SqueezeNet**：是轻量化主干网络中比较著名的，它发表于 ICLR 2017，在达到了 AlexNet 相同的精度的同时，只用了 AlexNet 1/50 的参数量。SqueezeNet 核心贡献在于使用 **Fire Module**(如下图所示)，即由 Squeeze 部分和 Expand 部分组成，Squeeze 部分是一组连续的 $1 \times 1$ 卷积组成，Expand 部分则是由一组连续的 $1 \times 1$ 卷积和 $3 \times 3$ 卷积 cancatnate 组成，在 Fire 模块中，Squeeze 部分的 $1\times1$ 卷积的通道数记做 $s_{1\times 1}$，Expand 部分 $1 \times 1$ 卷积和 $3 \times 3$ 卷积的通道数分别记做 $e_{1 \times 1}$ 和 $e_{3 \times 3}$。
 
-在Fire 中文章作者建议$s_{1\times 1}$<$e_{1 \times 1}$+$e_{3 \times 3}$，这么做相当于两个 $3 \times 3$ 卷积中加入了瓶颈层。
+在 Fire 中文章作者建议 $s_{1\times 1}$<$e_{1 \times 1}$+$e_{3 \times 3}$，这么做相当于两个 $3 \times 3$ 卷积中加入了瓶颈层。
 
 ![](./images/02Squeezenet01.png)
 
@@ -115,10 +115,10 @@ SqueezeNext 在比 MobeilNet 参数数量少 1.3 倍的情况下取得了比其�
 
 #### Bottle 模块
 
-Bottle模块，加入Shortcut ,Bottleneck module 和 Low Rank Filter 。改进如下:
+Bottle 模块，加入 Shortcut ,Bottleneck module 和 Low Rank Filter 。改进如下:
 
-- 将 expand 层的3x3 卷积替换为1x3 + 3x1 卷积，同时移除了 expand 层的拼接 1x1 卷积、添加了1x1 卷积来恢复通道数。
-- 通过两阶段的 squeeze 得到更激进的通道缩减，每个阶段的squeeze 都将通道数减半。
+- 将 expand 层的 3x3 卷积替换为 1x3 + 3x1 卷积，同时移除了 expand 层的拼接 1x1 卷积、添加了 1x1 卷积来恢复通道数。
+- 通过两阶段的 squeeze 得到更激进的通道缩减，每个阶段的 squeeze 都将通道数减半。
 
 
 
@@ -127,7 +127,7 @@ class Bottle(nn.Module):
     def __init__(self,in_channel,out_channel, stride):
         super(Bottle, self).__init__()
         '''
-        3x3 卷积替换为1x3 + 3x1 卷积，同时移除了 expand 层的拼接 1x1 卷积、添加了1x1 卷积来恢复通道数。
+        3x3 卷积替换为 1x3 + 3x1 卷积，同时移除了 expand 层的拼接 1x1 卷积、添加了 1x1 卷积来恢复通道数。
         '''
         self.block = nn.Sequential(
             CONV_BN_RELU(in_channel, in_channel // 2, kernel_size=1,stride = stride,padding=0),
@@ -153,7 +153,7 @@ class Bottle(nn.Module):
         return x
 ```
 
-#### 两阶段Bottleneck 模块
+#### 两阶段 Bottleneck 模块
 
 每一个卷积层中的参数数量正比于 $C_{i}$ 和 $C_{o}$ 的乘积。所以，减少输入通道的数量可以有效减少模型的大小。一种思路是使用分离卷积减少参数数量，但是某些嵌入式系统由于其用于计算的带宽的限制，分离卷积的性能较差。另一种思路是 squeezeNet 中提出的在 $3 \times 3$ 卷积之前使用 squeeze 层以减少 $3 \times3$ 卷积的输入通道数目。这里作者在 SqueezeNet 的基础上进行了演化，使用了如下图所示的两层 squeeze 层。
 

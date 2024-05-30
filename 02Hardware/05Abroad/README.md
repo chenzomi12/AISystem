@@ -1,4 +1,4 @@
-# 国外 AI 芯片
+# 国外 AI 芯片(DONE)
 
 - 《国外 AI 芯片》深入地剖析国外 Google TPU 和特斯拉 DOJO 相关 AI 芯片的架构，以 TPU 为主主要使用了数据流（Data FLow）的方式的脉动阵列来加速矩阵的运算，而特斯拉则使用了近存计算（Near Memory）两种不同的产品形态。
 
@@ -10,19 +10,18 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 国外 AI 芯片 | 01 特斯拉 DOJO 架构 | [slide](./01.DOJOArch.pdf), [video](https://www.bilibili.com/video/BV1Ro4y1M7n8/) |
-| 国外 AI 芯片 | 02 特斯拉 DOJO 细节 | [slide](./02.DOJODetail.pdf), [video](https://www.bilibili.com/video/BV17o4y1N7Yn/) |
-| 国外 AI 芯片 | 03 特斯拉 DOJO 存算系统 | [slide](./03.DOJOSystem.pdf), [video](https://www.bilibili.com/video/BV1Ez4y1e7zo/) |
-|:--:|:--:|:--:|
-| 国外 AI 芯片 | 04 谷歌 TPU 芯片发展 | [slide](./04.TPUIntrol.pdf), [video](https://www.bilibili.com/video/BV1Dp4y1V7PF/) |
-| 国外 AI 芯片 | 05 谷歌 TPU1 脉动阵列 | [slide](./05.TPU1.pdf), [video](https://www.bilibili.com/video/BV12P411W7YC/) |
-| 国外 AI 芯片 | 06 谷歌 TPU2 推理到训练 | [slide](./06.TPU2.pdf), [video](https://www.bilibili.com/video/BV1x84y1f7Ex/) |
-| 国外 AI 芯片 | 07 谷歌 TPU3 POD 超节点 | [slide](./07.TPU3.pdf), [video](https://www.bilibili.com/video/BV1Pm4y1g7MG/) |
-| 国外 AI 芯片 | 08 谷歌 TPU4 AI 集群 | [slide](./08.TPU4.pdf), [video](https://www.bilibili.com/video/BV1QH4y1X77U) |
-| 国外 AI 芯片 | 08 谷歌 OCS 光交换机  | [slide](./08.TPU4.pdf), [video](https://www.bilibili.com/video/BV1yc411o7cQ) |
-|:--:|:--:|:--:|
-| 国外 AI 芯片 | 09 TPU 创世人发布 Groq 芯片  | [slide](./09.Groq.pdf), [video](https://www.bilibili.com/video/BV1jx421C7mG) |
-|:--:|:--:|:--:|
+| 国外 AI 芯片 | 01 特斯拉 DOJO 架构 | [PPT](./01DOJOArch.pdf), [视频](https://www.bilibili.com/video/BV1Ro4y1M7n8/) |
+| 国外 AI 芯片 | 02 特斯拉 DOJO 细节 | [PPT](./02DOJODetail.pdf), [视频](https://www.bilibili.com/video/BV17o4y1N7Yn/) |
+| 国外 AI 芯片 | 03 特斯拉 DOJO 存算系统 | [PPT](./03DOJOSystem.pdf), [视频](https://www.bilibili.com/video/BV1Ez4y1e7zo/) |
+| | | |
+| 国外 AI 芯片 | 04 谷歌 TPU 芯片发展 | [文章](./04TPUIntrol.md), [PPT](./04TPUIntrol.pdf), [视频](https://www.bilibili.com/video/BV1Dp4y1V7PF/) |
+| 国外 AI 芯片 | 05 谷歌 TPU1 脉动阵列 | [文章](./05TPU1.md), [PPT](./05TPU1.pdf), [视频](https://www.bilibili.com/video/BV12P411W7YC/) |
+| 国外 AI 芯片 | 06 谷歌 TPU2 推理到训练 | [文章](./06TPU2.md), [PPT](./06TPU2.pdf), [视频](https://www.bilibili.com/video/BV1x84y1f7Ex/) |
+| 国外 AI 芯片 | 07 谷歌 TPU3 POD 超节点 | [文章](./07TPU3.md), [PPT](./07TPU3.pdf), [视频](https://www.bilibili.com/video/BV1Pm4y1g7MG/) |
+| 国外 AI 芯片 | 08 谷歌 TPU4 AI 集群 | [文章](./08TPU4.md), [PPT](./08TPU4.pdf), [视频](https://www.bilibili.com/video/BV1QH4y1X77U) |
+| 国外 AI 芯片 | 08 谷歌 OCS 光交换机  | [文章](./08TPU4.md), [PPT](./08TPU4.pdf), [视频](https://www.bilibili.com/video/BV1yc411o7cQ) |
+| | | |
+| 国外 AI 芯片 | 09 宇宙第一 Groq 芯片  | [PPT](./09Groq.pdf), [视频](https://www.bilibili.com/video/BV1jx421C7mG) |
 
 ## 备注
 

@@ -2,7 +2,7 @@
 
 # 算子融合/替换/前移
 
-Basic: 基础优化涵盖了所有保留计算图语义的修改，如：O1常量折叠、O2冗余节点消除和O3有限数量的算子融合。
+Basic: 基础优化涵盖了所有保留计算图语义的修改，如：O1 常量折叠、O2 冗余节点消除和 O3 有限数量的算子融合。
 
 Extended: 扩展优化仅在运行特定后端，如 CPU、CUDA、NPU  后端执行提供程序时适用。其针对硬件进行特殊且复杂的 Kernel 融合策略和方法。
 
@@ -26,15 +26,15 @@ Layout & Memory: 布局转换优化，主要是不同 AI 框架，在不同的�
 
 这时，如果推理引擎实现了该 Op，就可以把这些组合转成这个 Op，能够使得网络图更加简明清晰。具体示例如下：
 
-Fuse Layer Norm：组合实现的 Norm Op 直接转换成一个Op
+Fuse Layer Norm：组合实现的 Norm Op 直接转换成一个 Op
 
-Fuse PReLU：组合实现的 PReLU Op 直接转换成一个Op
+Fuse PReLU：组合实现的 PReLU Op 直接转换成一个 Op
 
-Fuse Matmul Transpose：有些框架的矩阵乘法Matmul层自身是不带转置操作的，当需要转置的矩阵乘法时需要前面加一个transpose层。如 Onnx 的 Matmul 自身有是否转置的参数，因此可以将前面的transpose层转换为参数即可
+Fuse Matmul Transpose：有些框架的矩阵乘法 Matmul 层自身是不带转置操作的，当需要转置的矩阵乘法时需要前面加一个 transpose 层。如 Onnx 的 Matmul 自身有是否转置的参数，因此可以将前面的 transpose 层转换为参数即可
 
-Fuse Binary Eltwise：x3 = x1 *b1+x2 *b2，把 BinaryOp Add 转换成 Eltwise Sum，而 Eltwise Sum是有参数 coeffs，可以完成上述乘法的效果，因此把两个 BinaryOp Mul 的系数融合到Eltwise Sum 的参数 coeffs
+Fuse Binary Eltwise：x3 = x1 *b1+x2 *b2，把 BinaryOp Add 转换成 Eltwise Sum，而 Eltwise Sum 是有参数 coeffs，可以完成上述乘法的效果，因此把两个 BinaryOp Mul 的系数融合到 Eltwise Sum 的参数 coeffs
 
-Fuse Reduction with Global Pooling：对一个三维 tensor 先后两次分别进行w维度的 reduction mean 和h维度的reducetion mean，最终只剩下c这个维度，就等于进行了一次global_mean_pooling
+Fuse Reduction with Global Pooling：对一个三维 tensor 先后两次分别进行 w 维度的 reduction mean 和 h 维度的 reducetion mean，最终只剩下 c 这个维度，就等于进行了一次 global_mean_pooling
 
 ![其他图优化](image/graph/other_graph_optimize.png)
 
@@ -44,9 +44,9 @@ Fuse Reduction with Global Pooling：对一个三维 tensor 先后两次分别�
 
 ![flashAttention](image/graph/flash_attention.png)
 
-在传统算法中，一种方式是将Mask和SoftMax部分融合，以减少访存次数。然而，FlashAttention则更加激进，它将从输入 Q,K,V 到输出 O 的整个过程进行融合，以避免 S,P 矩阵的存储开销，实现端到端的延迟缩减。
+在传统算法中，一种方式是将 Mask 和 SoftMax 部分融合，以减少访存次数。然而，FlashAttention 则更加激进，它将从输入 Q,K,V 到输出 O 的整个过程进行融合，以避免 S,P 矩阵的存储开销，实现端到端的延迟缩减。
 
-为了让计算过程的结果完全在SRAM中，摆脱对HBM的依赖，可以采用分片操作，每次进行部分计算，确保这些计算结果能在SRAM内进行交互，待得到对应的结果后再进行输出。
+为了让计算过程的结果完全在 SRAM 中，摆脱对 HBM 的依赖，可以采用分片操作，每次进行部分计算，确保这些计算结果能在 SRAM 内进行交互，待得到对应的结果后再进行输出。
 
 代码实现：https://github.com/openai/triton/blob/main/python/tutorials/06-fused-attention.py#L17
 
@@ -126,9 +126,9 @@ def _fwd_kernel(
     tl.store(out_ptrs, acc)
 ```
 
-FlashAttention在速度和内存占用方面都表现出明显的优势，并取得了良好的效果。目前，FlashAttention已经经过广泛验证, torch2.0中已提供flashattention的实现。
+FlashAttention 在速度和内存占用方面都表现出明显的优势，并取得了良好的效果。目前，FlashAttention 已经经过广泛验证, torch2.0 中已提供 flashattention 的实现。
 
-FlashAttention的优点在于充分考虑了在计算任务中IO的重要性，并通过分块计算的方式开发了一种快速、节省显存、精确无近似的注意力实现方法。这使得我们更便于训练具有更长上下文的Transformer模型，并且为后续注意力算法的优化提供了一个基准。
+FlashAttention 的优点在于充分考虑了在计算任务中 IO 的重要性，并通过分块计算的方式开发了一种快速、节省显存、精确无近似的注意力实现方法。这使得我们更便于训练具有更长上下文的 Transformer 模型，并且为后续注意力算法的优化提供了一个基准。
 
 ### 其他图优化--layout and memory
 
@@ -146,7 +146,7 @@ FlashAttention的优点在于充分考虑了在计算任务中IO的重要性，�
 
 内存优化是一种计算机系统优化技术，主要目的是提高系统的运行性能，通过更有效地使用和管理内存资源来达到这个目的。
 
-Inplace operation：是一种内存优化手段，它在当前的内存块上直接进行操作，而不需要额外开辟新的内存。如果一块内存不再需要，且下一个操作是element-wise（元素级操作，比如加法、乘法等），我们就可以使用原地操作，直接在原内存上进行计算，覆盖原有的数据。这样做的好处是可以节省内存，减少内存的分配和回收开销，从而提高程序的运行效率。
+Inplace operation：是一种内存优化手段，它在当前的内存块上直接进行操作，而不需要额外开辟新的内存。如果一块内存不再需要，且下一个操作是 element-wise（元素级操作，比如加法、乘法等），我们就可以使用原地操作，直接在原内存上进行计算，覆盖原有的数据。这样做的好处是可以节省内存，减少内存的分配和回收开销，从而提高程序的运行效率。
 
 Memory sharing：是另一种内存优化策略。它在内存使用上进行优化，当两个数据的内存大小相同，且有一个数据参与计算后不再需要时，我们可以让后一个数据直接覆盖前一个数据的内存。这样做的好处是可以减少内存的开销，节省内存空间，提高内存的使用效率。
 

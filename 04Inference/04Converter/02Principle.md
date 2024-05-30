@@ -26,11 +26,11 @@
 
 1. 跨平台跨语言通用序列化方法
 
-常用的序列化主要有四种格式：XML（一种可扩展标记语言，非常适合存储和传输结构化数据），JSON（一种轻量级的数据交换格式），Protocol Buffers（Google 开发的语言中立、平台中立、可扩展的序列化结构数据格式）和Flatbuffer（Google 开发的另一种高效序列化库，与Protobuffer类似）。前两种是文本格式，人和机器都可以理解，后两种是二进制格式，只有机器能理解，但在存储传输解析上有很大的速度优势。使用最广泛为 Protobuffer。
+常用的序列化主要有四种格式：XML（一种可扩展标记语言，非常适合存储和传输结构化数据），JSON（一种轻量级的数据交换格式），Protocol Buffers（Google 开发的语言中立、平台中立、可扩展的序列化结构数据格式）和 Flatbuffer（Google 开发的另一种高效序列化库，与 Protobuffer 类似）。前两种是文本格式，人和机器都可以理解，后两种是二进制格式，只有机器能理解，但在存储传输解析上有很大的速度优势。使用最广泛为 Protobuffer。
 
-下图中的[ONNX](https://onnx.ai/)使用的就是 Protobuf这个序列化数据结构去存储神经网络的权重信息。ONNX（Open Neural Network Exchange）是一个开放格式，用于机器学习模型的跨平台共享。通过使用 Protobuf，ONNX 能够在不同的深度学习框架之间高效地传输模型数据。
+下图中的[ONNX](https://onnx.ai/)使用的就是 Protobuf 这个序列化数据结构去存储神经网络的权重信息。ONNX（Open Neural Network Exchange）是一个开放格式，用于机器学习模型的跨平台共享。通过使用 Protobuf，ONNX 能够在不同的深度学习框架之间高效地传输模型数据。
 
-[CoreML](https://developer.apple.com/cn/documentation/coreml/)既是一种文件格式，又是一个强大的机器学习运行时环境，它使用了 Protocol Buffers 的二进制序列化格式，并在所有苹果操作系统平台上提供了高效的推理和重新训练功能。CoreML允许开发者轻松地将机器学习模型集成到iOS、macOS、watchOS 和tvOS应用中，利用苹果设备的硬件加速特性实现高效的模型推理。
+[CoreML](https://developer.apple.com/cn/documentation/coreml/)既是一种文件格式，又是一个强大的机器学习运行时环境，它使用了 Protocol Buffers 的二进制序列化格式，并在所有苹果操作系统平台上提供了高效的推理和重新训练功能。CoreML 允许开发者轻松地将机器学习模型集成到 iOS、macOS、watchOS 和 tvOS 应用中，利用苹果设备的硬件加速特性实现高效的模型推理。
 
 ![Protobuffer](image/02Principle02.png)
 
@@ -40,7 +40,7 @@
 
 **文本格式：** 这类自定义方法通常采用类似 JSON 或 XML 的格式，方便调试和分析。例如，一些机器学习模型会输出人类可读的文本文件，包含模型参数和结构信息。
 
-**二进制格式：** 与Protobuf 和Flatbuffer类似，这类自定义方法采用高效的二进制格式，提升存储和解析速度。例如，TensorFlow 的 Checkpoint 文件和 PyTorch 的模型文件都是专门设计的二进制格式，能快速存取大量模型参数。
+**二进制格式：** 与 Protobuf 和 Flatbuffer 类似，这类自定义方法采用高效的二进制格式，提升存储和解析速度。例如，TensorFlow 的 Checkpoint 文件和 PyTorch 的模型文件都是专门设计的二进制格式，能快速存取大量模型参数。
 
 自定义的序列化方法可以是语言专有或者跨语言跨平台的格式：
 
@@ -54,10 +54,10 @@
 
 **Python:**
 
-- [pickle](https://docs.python.org/3/library/pickle.html)：Python内置的对象序列化库，支持序列化几乎所有 Python 对象。其 C 实现版本 cPickle 提供了更高的序列化速度。以下是使用pickle保存和加载训练模型的简单示例：
+- [pickle](https://docs.python.org/3/library/pickle.html)：Python 内置的对象序列化库，支持序列化几乎所有 Python 对象。其 C 实现版本 cPickle 提供了更高的序列化速度。以下是使用 pickle 保存和加载训练模型的简单示例：
   
 ```python
-import pickle  # 导入pickle模块，用于序列化对象
+import pickle  # 导入 pickle 模块，用于序列化对象
 
 # 训练模型并保存模型的代码段
 model.fit(x_data, y_data)  # 使用训练数据 x_data 和标签 y_data 来训练模型
@@ -112,32 +112,32 @@ model.eval()
 
 `torch.nn.Module.load_state_dict` 使用反序列化的 state_dict 加载模型的参数字典 。在 PyTorch 中，模型的可学习参数（即权重和偏差） `torch.nn.Module` 包含在模型的参数中 （通过访问 `model.parameters()`）。
 
-`state_dict`只是一个Python字典对象，它将每个层映射到其参数张量。请注意，只有具有可学习参数的层（卷积层、线性层等）和注册缓冲区（batchnorm 的 running_mean）在模型的`state_dict`中具有条目。
+`state_dict`只是一个 Python 字典对象，它将每个层映射到其参数张量。请注意，只有具有可学习参数的层（卷积层、线性层等）和注册缓冲区（batchnorm 的 running_mean）在模型的`state_dict`中具有条目。
 
-优化器对象 `torch.optim` 还有一个`state_dict`，其中包含有关优化器状态以及所使用的超参数的信息。由于 state_dict 对象是Python字典，因此可以轻松保存、更新、更改和恢复它们，从而为 PyTorch 模型和优化器添加大量模块化功能。
+优化器对象 `torch.optim` 还有一个`state_dict`，其中包含有关优化器状态以及所使用的超参数的信息。由于 state_dict 对象是 Python 字典，因此可以轻松保存、更新、更改和恢复它们，从而为 PyTorch 模型和优化器添加大量模块化功能。
 
-当训练的模型在GPU中时，`torch.save`函数将其存储到磁盘中。当再次加载该模型时，会将该模型从磁盘先加载 CPU中，再移动到指定的GPU中。但是，当重新加载的机器不存在 GPU 时，模型加载可能会出错。要将在GPU上训练的模型加载到CPU内存中，可以使用PyTorch库的`.to()`方法将模型转移到CPU设备。以下是一个示例代码：
+当训练的模型在 GPU 中时，`torch.save`函数将其存储到磁盘中。当再次加载该模型时，会将该模型从磁盘先加载 CPU 中，再移动到指定的 GPU 中。但是，当重新加载的机器不存在 GPU 时，模型加载可能会出错。要将在 GPU 上训练的模型加载到 CPU 内存中，可以使用 PyTorch 库的`.to()`方法将模型转移到 CPU 设备。以下是一个示例代码：
 
 ```python
 import torch
 import torchvision.models as models
 
-# 在GPU上训练模型
+# 在 GPU 上训练模型
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = models.resnet50().to(device)
 # 训练模型...
 
-# 将模型加载到CPU内存中
+# 将模型加载到 CPU 内存中
 model = model.to("cpu")
 ```
 
-在这个示例中，首先检查是否有可用的cuda设备，然后将模型移动到cuda设备上进行训练。最后，使用`.to("cpu")`将模型加载到CPU内存中。将模型从GPU移动到CPU可能会导致一些性能损失，因为GPU设备通常比CPU设备更适合进行大规模并行计算。所以在通常情况下，在需要使用模型进行推理时再将其移动到CPU上。
+在这个示例中，首先检查是否有可用的 cuda 设备，然后将模型移动到 cuda 设备上进行训练。最后，使用`.to("cpu")`将模型加载到 CPU 内存中。将模型从 GPU 移动到 CPU 可能会导致一些性能损失，因为 GPU 设备通常比 CPU 设备更适合进行大规模并行计算。所以在通常情况下，在需要使用模型进行推理时再将其移动到 CPU 上。
 
 2. [ONNX](https://pytorch.org/docs/master/onnx.html)
 
-PyTorch提供了内置支持，可以使用`torch.onnx.export`方法将PyTorch模型导出为ONNX格式。
+PyTorch 提供了内置支持，可以使用`torch.onnx.export`方法将 PyTorch 模型导出为 ONNX 格式。
 
-以下代码将预训练的AlexNet导出到名为`alexnet.onnx`的 ONNX 文件。调用 `torch.onnx.export` 运行模型一次以跟踪其执行情况，然后将跟踪的模型导出到指定文件。
+以下代码将预训练的 AlexNet 导出到名为`alexnet.onnx`的 ONNX 文件。调用 `torch.onnx.export` 运行模型一次以跟踪其执行情况，然后将跟踪的模型导出到指定文件。
 
 ```python
 import torch
@@ -278,9 +278,9 @@ tf.io.decode_proto(
 #### 编码模式
 
 计算机里一般常用的是二进制编码，如 int 类型由 32 位组成，每位代表数值 2 的 n 次方，n 的范围
-是 0-31。Protobuf 采用 TLV 编码模式，即把一个信息按照 tag-length-value 的模式进行编码。tag 和 value 部分类似于字典的 key 和 value，tag标识字段的类型和唯一性，它是一个整数，表示字段号和数据类型。Protobuf 中，Tag 是通过字段号和数据类型组合编码的。length 表示 value 的长度，对于定长数据类型（如整数、浮点数），Length可以省略，因为值的长度是已知的。对于可变长数据类型（如字符串、字节数组），Length表示值的字节数。Value是实际的数据内容。根据 Tag 和 Length，可以正确解析和理解 Value 部分。
+是 0-31。Protobuf 采用 TLV 编码模式，即把一个信息按照 tag-length-value 的模式进行编码。tag 和 value 部分类似于字典的 key 和 value，tag 标识字段的类型和唯一性，它是一个整数，表示字段号和数据类型。Protobuf 中，Tag 是通过字段号和数据类型组合编码的。length 表示 value 的长度，对于定长数据类型（如整数、浮点数），Length 可以省略，因为值的长度是已知的。对于可变长数据类型（如字符串、字节数组），Length 表示值的字节数。Value 是实际的数据内容。根据 Tag 和 Length，可以正确解析和理解 Value 部分。
 
-在 Protobuf 中，Tag 的编码结合了字段号和数据类型，具体采用 Varint 编码方式：字段号（Field Number）唯一标识消息中的字段，值为正整数。线类型（Wire Type）表示字段的数据类型，如整数、浮点数、长度前缀的字符串等。Protobuf使用3位来表示线类型（Wire Type），其余部分表示字段号（Field Number）。编码格式如下：
+在 Protobuf 中，Tag 的编码结合了字段号和数据类型，具体采用 Varint 编码方式：字段号（Field Number）唯一标识消息中的字段，值为正整数。线类型（Wire Type）表示字段的数据类型，如整数、浮点数、长度前缀的字符串等。Protobuf 使用 3 位来表示线类型（Wire Type），其余部分表示字段号（Field Number）。编码格式如下：
 
 ```Tag = (Field Number << 3) | Wire Type```
 
@@ -288,9 +288,9 @@ tf.io.decode_proto(
 
 Protobuf 的编解码过程是基于其 TLV 结构进行的。解析根消息（Root Message）时，会逐个解析其包含的字段。以下是具体的步骤：
 
-**编码过程：** 首先构建消息结构，根据`.proto`文件定义的消息结构，构建消息对象；然后对逐个字段进行编码，编码Tag（将字段号和线类型编码成Tag）、Length（对于可变长数据类型，计算并编码值的长度）、Value（将实际数据编码成二进制格式）；然后将 Tag、Length 和 Value 组合成二进制格式的数据块，最后将所有字段的二进制数据块组合成完整的消息二进制流。
+**编码过程：** 首先构建消息结构，根据`.proto`文件定义的消息结构，构建消息对象；然后对逐个字段进行编码，编码 Tag（将字段号和线类型编码成 Tag）、Length（对于可变长数据类型，计算并编码值的长度）、Value（将实际数据编码成二进制格式）；然后将 Tag、Length 和 Value 组合成二进制格式的数据块，最后将所有字段的二进制数据块组合成完整的消息二进制流。
 
-**解码过程：** 根 message 由多个 TLV 形式的 field 组成，解析 message 的时候逐个去解析 field。由于 field 是 TLV 形式，因此可以知道每个 field 的长度，然后通过偏移上一个 field 长度找到下一个 field 的起始地址。其中field的value有可能是一个嵌套的 message，这时候需要递归地应用相同的解析方法。在解析 field 时，首先解析其 tag，以获取 field_num（属性 ID）和 type。field_num 标识了该属性的唯一标识，而 type 则指示了用于解码 value 的编码算法。
+**解码过程：** 根 message 由多个 TLV 形式的 field 组成，解析 message 的时候逐个去解析 field。由于 field 是 TLV 形式，因此可以知道每个 field 的长度，然后通过偏移上一个 field 长度找到下一个 field 的起始地址。其中 field 的 value 有可能是一个嵌套的 message，这时候需要递归地应用相同的解析方法。在解析 field 时，首先解析其 tag，以获取 field_num（属性 ID）和 type。field_num 标识了该属性的唯一标识，而 type 则指示了用于解码 value 的编码算法。
 
 ### FlatBuffers
 
@@ -298,7 +298,7 @@ FlatBuffers 是一个开源的、跨平台的、高效的、提供了多种语�
 
 FlatBuffers 主要针对部署和对性能有要求的应用。相对于 Protocol Buffers，FlatBuffers 不需要解析，只通过序列化后的二进制 buffer 即可完成数据访问。
 
-FlatBuffers具有数据访问不需要解析（将数据序列化成二进制 buffer，之后的数据访问直接读取这个 buffer）、内存高效且速度快（数据访问只在序列化后的二进制 buffer，不需额外的内存分配，数据访问速度接近原生的 struct，只多了一次解引用）、生成的代码量小（只需依赖一个头文件）、可扩展性强（支持灵活的 schema 定义，可以方便地扩展数据结构）、支持强类型检测（提供编译时的类型检查，确保数据结构的安全性和正确性）和易于使用（提供多种语言接口）等特点。
+FlatBuffers 具有数据访问不需要解析（将数据序列化成二进制 buffer，之后的数据访问直接读取这个 buffer）、内存高效且速度快（数据访问只在序列化后的二进制 buffer，不需额外的内存分配，数据访问速度接近原生的 struct，只多了一次解引用）、生成的代码量小（只需依赖一个头文件）、可扩展性强（支持灵活的 schema 定义，可以方便地扩展数据结构）、支持强类型检测（提供编译时的类型检查，确保数据结构的安全性和正确性）和易于使用（提供多种语言接口）等特点。
 
 与 Protocol Buffers 类似，使用 FlatBuffers 需要先定义一个 schema 文件，用于描述要序列化的数据结构的组织关系。以下是一个简单的示例：
 
@@ -321,13 +321,13 @@ root_type Monster;
 
 **[MindSpore Lite](https://www.mindspore.cn/lite/en):**  一种适用于端边云场景的新型开源深度学习训练/推理框架，提供离线转换模型功能的工具，支持多种类型的模型转换，转换后的模型可用于推理。除了基本的模型转换功能之外，还支持用户对模型进行自定义的优化与构建，生成用户自定义算子的模型。
 
-MindSpore Lite提供了一套注册机制，允许用户基于转换工具进行能力扩展：包括节点解析扩展、模型解析扩展以及图优化扩展，用户可以根据自身的需要对模型实现自定义的解析与融合优化。节点解析扩展需要依赖flatbuffers和protobuf及三方框架的序列化文件。
+MindSpore Lite 提供了一套注册机制，允许用户基于转换工具进行能力扩展：包括节点解析扩展、模型解析扩展以及图优化扩展，用户可以根据自身的需要对模型实现自定义的解析与融合优化。节点解析扩展需要依赖 flatbuffers 和 protobuf 及三方框架的序列化文件。
 
 ![FlatBuffers](image/02Principle03.png)
 
 ### Protobuf VS FlatBuffers
 
-下面的表格从支持的语言、版本、协议文件、代码生成工具及协议字段类型几个方面比较了 ProtoBufers 和 Flatbuffers两种格式：
+下面的表格从支持的语言、版本、协议文件、代码生成工具及协议字段类型几个方面比较了 ProtoBufers 和 Flatbuffers 两种格式：
 
 |        | Proto Bufers                                                                                                           | Flatbuffers                                                                                   |
 | ------ | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
@@ -361,5 +361,5 @@ MindSpore Lite提供了一套注册机制，允许用户基于转换工具进行
 8. [深入浅出 FlatBuffers 之 Schema](https://halfrost.com/flatbuffers_schema/)
 9. [FlatBuffers，MNN 模型存储结构基础 ---- 无法解读 MNN 模型文件的秘密](https://www.jianshu.com/p/8eb153c12a4b)
 10. [华为昇思 MindSpore 详细教程（一）](https://blog.csdn.net/m0_37605642/article/details/125691987)
-11. [如何将在GPU上训练的模型加载到CPU（系统）内存中？](https://www.volcengine.com/theme/9557712-R-7-1)
+11. [如何将在 GPU 上训练的模型加载到 CPU（系统）内存中？](https://www.volcengine.com/theme/9557712-R-7-1)
 12. [11 模型的保存加载¶](http://121.199.45.168:13007/01-PyTorch%E4%BD%BF%E7%94%A8/11-%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BF%9D%E5%AD%98%E5%8A%A0%E8%BD%BD.html)
