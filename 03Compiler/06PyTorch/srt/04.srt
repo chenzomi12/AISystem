@@ -1700,15 +1700,15 @@ My Compiler called with FX
 
 426
 00:12:08,440 --> 00:12:10,440
-可以看到 OP core 有 placeholder
+可以看到 OP Core 有 placeholder
 
 427
 00:12:10,440 --> 00:12:11,080
-有 core function
+有 Core function
 
 428
 00:12:11,080 --> 00:12:11,840
-core method
+Core method
 
 429
 00:12:11,840 --> 00:12:12,520
@@ -1716,7 +1716,7 @@ core method
 
 430
 00:12:12,520 --> 00:12:14,440
-这边也有一个 OP core 的
+这边也有一个 OP Core 的
 
 431
 00:12:14,440 --> 00:12:16,040
