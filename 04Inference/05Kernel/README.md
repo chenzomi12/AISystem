@@ -12,14 +12,14 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| Kernel 优化 | 01 Kernel 优化架构 | [slide](./01.introduction.pdf), [video](https://www.bilibili.com/video/BV1Ze4y1c7Bb/) |
-| Kernel 优化 | 02 卷积操作基础原理 | [slide](./02.conv.pdf),[video](https://www.bilibili.com/video/BV1No4y1e7KX/) |
-| Kernel 优化 | 03 Im2Col 算法 | [slide](./03.im2col.pdf),[video](https://www.bilibili.com/video/BV1Ys4y1o7XW/) |
-| Kernel 优化 | 04 Winograd 算法 | [slide](./04.winograd.pdf),[video](https://www.bilibili.com/video/BV1vv4y1Y7sc/) |
-| Kernel 优化 | 05 QNNPack 算法| [slide](./05.qnnpack.pdf),[video](https://www.bilibili.com/video/BV1ms4y1o7ki/) |
-| Kernel 优化 | 06 推理内存布局 | [slide](./06.memory.pdf),[video](https://www.bilibili.com/video/BV1eX4y1X7mL/) |
-| Kernel 优化 | 07 nc4hw4 内存排布 | [slide](./07.nc4hw4.pdf) |
-| Kernel 优化 | 08 汇编与循环优化| [slide](./08.others.pdf) |
+| Kernel 优化 | 01 Kernel 优化架构 | [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1Ze4y1c7Bb/) |
+| Kernel 优化 | 02 卷积操作基础原理 | [PPT](./02.conv.pdf),[视频](https://www.bilibili.com/video/BV1No4y1e7KX/) |
+| Kernel 优化 | 03 Im2Col 算法 | [PPT](./03.im2col.pdf),[视频](https://www.bilibili.com/video/BV1Ys4y1o7XW/) |
+| Kernel 优化 | 04 Winograd 算法 | [PPT](./04.winograd.pdf),[视频](https://www.bilibili.com/video/BV1vv4y1Y7sc/) |
+| Kernel 优化 | 05 QNNPack 算法| [PPT](./05.qnnpack.pdf),[视频](https://www.bilibili.com/video/BV1ms4y1o7ki/) |
+| Kernel 优化 | 06 推理内存布局 | [PPT](./06.memory.pdf),[视频](https://www.bilibili.com/video/BV1eX4y1X7mL/) |
+| Kernel 优化 | 07 nc4hw4 内存排布 | [PPT](./07.nc4hw4.pdf) |
+| Kernel 优化 | 08 汇编与循环优化| [PPT](./08.others.pdf) |
 
 ## 备注
 
