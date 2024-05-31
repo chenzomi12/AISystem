@@ -66,7 +66,7 @@
 
 ### 人脸 Landmark
 
-![人脸 landmark 的应用](./images/example01.gif)
+![人脸 landmark 的应用](images/example01.gif)
 
 如上图所示，这款应用在移动终端上实现了精准的人脸 landmark 识别功能。它通过先进的算法技术，能够迅速捕捉并准确识别拍摄者脸部的轮廓、五官位置等关键面部信息。这些信息被实时处理并以一种直观且易于理解的方式显示出来，使用户能够清晰地看到自己脸部的各个特征点。
 
@@ -76,9 +76,9 @@
 
 ### 人脸检测与手势识别
 
-![利用华为 HMS Core 实现人脸检测](./images/example02.gif?raw=true)
+![利用华为 HMS Core 实现人脸检测](images/example02.gif?raw=true)
 
-![利用华为 HMS Core 实现手势检测](./images/example03.gif?raw=true)
+![利用华为 HMS Core 实现手势检测](images/example03.gif?raw=true)
 
 上面这两张图也是应用于移动终端上的推理系统，左图是使用华为 HMS Core 实现人脸检测，具体来说是使用人脸检测来获取人脸的位置，然后利用这个坐标来控制游戏中的飞船进行移动。而右图是华为 HMS Core 实现手势检测，与左图类似，右图是将左图的面部坐标换成了手的坐标进行飞船的移动，并配合手势去做相应的动作。
 

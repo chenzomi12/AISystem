@@ -14,7 +14,7 @@
 
 利用`Ghost Module`生成与普通卷积层相同数量的特征图，我们可以轻松地将`Ghost Module`替换卷积层，集成到现有设计好的神经网络结构中，以减少计算成本。第一、先通过普通的 conv 生成一些特征图。 第二、对生成的特征图进行 cheap 操作生成冗余特征图，这步使用的卷积是 DW 卷积。 第三 将 conv 生成的特征图与 cheap 操作生成的特征图进行 concat 操作。 如下图（b）所示，展示了 Ghost 模块和普通卷积的过程。
 
-![GhostModule](./images/08.ghostnet_01.png)
+![GhostModule](images/08.ghostnet_01.png)
 
 深度卷积神经网络通常引用由大量卷积组成的卷积神经网络，导致大量的计算成本。尽管最近的工作，例如 MobileNet 和 ShuffleNet 引入了深度卷积或混洗操作，以使用较小的卷积核（浮点运算）来构建有效的 CNN，其余 1×1 卷积层仍将占用大量内存和 FLOPs。鉴于主流 CNN 计算出的中间特征图中存在大量的冗余，作者提出减少所需的资源，即用于生成它们的卷积核。实际上，给定输入数据 $X∈R^{cxhxw}$，其中 c 是输入通道数，h 和 w 是高度，输入数据的宽度，分别用于生成 n 个特征图的任意卷积层的运算可表示为:
 $$
@@ -83,7 +83,7 @@ Ghost bottleneck 与 ResNet 中的基本残差块(Basic Residual Block)结构相
 
 Ghost bottleneck 主要由两个堆叠的 Ghost Module 组成。第一个 Ghost Module 用于增加通道数。第二个 Ghost Module 用于减少通道数，以与 shortcut 路径匹配。然后，使用 shortcut 连接这两个 Ghost Module 的输入和输出。这里借鉴了 MobileNetV2，第二个 Ghost Module 之后不使用 ReLU 激活函数，其他层在每层之后都应用了批量归一化（BN）和 ReLU 非线性激活。作者设计了 2 种 Ghost bottleneck。如下图所示，分别对应着 stride=1 和 stride=2 的情况。Ghost bottleNeck 结构如下图所示：
 
-![Ghost bottleneck](./images/08.ghostnet_02.png)
+![Ghost bottleneck](images/08.ghostnet_02.png)
 
 左图中，主干通路用两 Ghost Module 串联组成，其中第一个 Ghost Module 扩大通道数，第二个 Ghost Module 将通道数降低到与输入通道数一致；残差边部分与 ResNet 一样。由于 Stride=1，因此不会对输入特征图的高和宽进行压缩，其功能为加深网络的深度。
 
@@ -153,7 +153,7 @@ $$
 
 其中，$F^{H}$ 和 $F^{W}$ 是变换的权重。输入原始特征 Z，并依次应用公式(2)和公式(3)，分别提取沿两个方向的长距离依赖关系。 作者将此操作称为解耦全连接注意力(decoupled fully connected attention，DFC attention)，其信息流如下图所示：
 
-![Ghost bottleneck](./images/08.ghostnet_03.png)
+![Ghost bottleneck](images/08.ghostnet_03.png)
 
 由于水平和垂直方向变换的解耦，注意力模块的计算复杂度可以降低到 $\mathcal{O}(H^{2}W+HW^{2})$ 对于 full attention （公式 1），正方形区域内的所有 patches 直接参与被聚合 patch 的计算。在 DFC attention 中，一个 patch 直接由其垂直方向和水平方向的 patch 进行聚合，而其他 patch 参与垂直线/水平线上的 patch 的生成，与被聚合的 token 有间接关系。因此，一个 patch 的计算也涉及到正方形区域的所有 patchs。
 
@@ -232,7 +232,7 @@ $$
 
 其中，$\odot$ 表示 element-wise multiplication，$A$ 是 attention map，Sigmoid 是归一化函数以缩放到 ( 0 , 1 )  范围。$ \mathcal{V}()$ 表示 Ghost Module，$X $ 为输入特征。则信息聚合过程如下图所示：
 
-![Ghost bottleneck](./images/08.ghostnet_04.png)
+![Ghost bottleneck](images/08.ghostnet_04.png)
 
 使用相同的输入特征，Ghost Module 和 DFC attention 是两个从不同角度提取信息的并行分支。输出特征是它们逐元素的信息，其中包含来自 Ghost Module 的特性和 DFC attention 的信息。每个 attention value 涉及到大范围的 patches，以便输出的特征可以包含这些 patches 的信息。
 
@@ -240,7 +240,7 @@ $$
 
 为了减小 DFC attention 模块所消耗的计算量，本文对 DFC 这条支路上的特征进行下采样，在更小的特征图上执行一系列变换。同时，本文发现，对一个逆 bottleneck 结构而言，增强“expressiveness”（bottleneck 中间层）比“capacity”（bottleneck 输出层）更加有效，因此在 GhostNetV2 只对中间特征做了增强。GhostNetV2 的 bottleneck 如下图所示。
 
-![Ghost bottleneck](./images/08.ghostnet_05.png)
+![Ghost bottleneck](images/08.ghostnet_05.png)
 
 **代码**
 

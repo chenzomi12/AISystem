@@ -26,7 +26,7 @@
 
 ### 课程脑图
 
-![本章脑图](./images/Architecture.png)
+![本章脑图](images/Architecture.png)
 
 ## 备注
 

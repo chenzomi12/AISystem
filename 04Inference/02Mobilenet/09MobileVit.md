@@ -15,11 +15,11 @@
 
 标准卷积涉及三个操作：展开+局部处理+折叠，利用 Transformer 将卷积中的局部建模替换为全局建模，这使得 MobileViT 具有 CNN 和 ViT 的性质。MobileViT Block 如下图所示:
 
-![MobileVit](./images/09.mobilevit_01.png)
+![MobileVit](images/09.mobilevit_01.png)
 
  从上面的模型可以看出，首先将特征图通过一个卷积层，卷积核大小为 $n\times n$，然后再通过一个卷积核大小为 $1\times 1$ 的卷积层进行通道调整，接着依次通过 Unfold、Transformer、Fold 结构进行全局特征建模，然后再通过一个卷积核大小为 $1\times 1$ 的卷积层将通道调整为原始大小，接着通过 shortcut 捷径分支与原始输入特征图按通道 concat 拼接，最后再通过一个卷积核大小为 $n\times n$ 的卷积层进行特征融合得到最终的输出。这里可能会对 folod 和 unfold 感到迷惑，所以这个地方的核心又落到了 global representation 部分(图中中间蓝色字体部分)。
 
-![MobileVit](./images/09.mobilevit_02.png)
+![MobileVit](images/09.mobilevit_02.png)
 
 我们以单通道特征图来分析 global representation 这部分做了什么，假设 patch 划分的大小为 $2\times 2$，实际中可以根据具体要求自己设置。在 Transformer 中对于输入的特征图，我们一般是将他整体展平为一维向量，在输入到 Transformer 中，在 self-attention 的时候，每个图中的每个像素和其他的像素进行计算，这样计算量就是：
 $$
@@ -37,7 +37,7 @@ $$
 
 我们再来介绍下 unfold 和 fold 到底是什么意思。unfold 就是将颜色相同的部分拼成一个序列输入到 Transformer 进行建模。最后再通过 fold 是拼回去。如下图所示：
 
-![MobileVit](./images/09.mobilevit_03.png)
+![MobileVit](images/09.mobilevit_03.png)
 
 Local representations 表示输入信息的局部表达。在这个部分，输入 MobileViT Block 的数据会经过一个 $n \times n$ 的卷积块和一个 $1 \times 1$ 的卷积块。
 
@@ -270,13 +270,13 @@ class MobileViTBlock(nn.Module):
 
 例如，YOLOv2 在每 10 次迭代时从预定义的集合中采样一个新的空间分辨率，并在训练期间在不同的 gpu 上使用相同的分辨率。这导致 GPU 利用率不足和训练速度变慢，因为在所有分辨率中使用相同的批大小(使用预定义集中的最大空间分辨率确定)。
 
-![MobileVit](./images/09.mobilevit_04.png)
+![MobileVit](images/09.mobilevit_04.png)
 
 ### 网络结构
 
 在论文中，关于 MobileViT 作者提出了三种不同的配置，分别是 MobileViT-S(small)，MobileViT-XS(extra small)和 MobileViT-XXS(extra extra small)。三者的主要区别在于特征图的通道数不同。下图为 MobileViT 的整体框架，最开始的 3x3 卷积层以及最后的 1x1 卷积层、全局池化、全连接层不去赘述，主要看下图中的标出的 Layer1~5，这里是根据源码中的配置信息划分的。下面只列举了部分配置信息。
 
-![MobileVit](./images/09.mobilevit_05.png)
+![MobileVit](images/09.mobilevit_05.png)
 
 组成部分（从左至右）：
 
@@ -395,7 +395,7 @@ $$
 
 其中 $W_{Q}^{i} \in R^{d \times d_{h}}$,$W_{K}^{i} \in R^{d \times d_{h}}$,$W_{V}^{i} \in R^{d \times d_{h}}$ 是第 i 个线性层的(或头部)分别在 Q、K 和 V 分支中的权重。符号<.,.>表示点积运算。
 
-![MobileVit](./images/09.mobilevit_06.png)
+![MobileVit](images/09.mobilevit_06.png)
 
 可分离自注意力的结构则受到了 MHA 的启发。与 MHA 类似，输入 x 使用三个分支处理，即输入 I、键 K 和值 V。输入分支 I 映射上图 b 中的每个 d 维潜在节点 L。该线性映射是内积运算，并使用权重 $W_{I} \in R^{d}$ 的线性层将 x 中的 tokens 计算为标量。权重 $W_{I}$ 用作潜在 token L 和 x 之间的距离，从而产生一个 k 维向量。然后将 softmax 操作应用于这个 k 维向量以产生上下文分数 $c_{s} \in R^{k}$。与针对所有 k 个 tokens 计算每个 tokens 的注意力（或上下文）分数的 Transformer 不同，所提出的方法仅计算关于潜在 tokens L 的上下文分数。这降低了计算注意力（或上下文）分数的成本 $O(k^{2})$ 到 O(k)。
 
@@ -417,7 +417,7 @@ $$
 
 与自注意力方法的比较。下图将所提出的方法与 Transformer 和 Linformer 进行了比较。由于自注意力方法的时间复杂度没有考虑用于实现这些方法的操作成本，因此某些操作可能会成为资源受限设备的瓶颈。为了整体理解，除了理论指标外，还测量了具有不同 k 的单个 CPU 内核上的模块级延迟。与 Transformer 和 Linformer 中的 MHA 相比，所提出的可分离自注意力快速且高效。
 
-![MobileVit](./images/09.mobilevit_07.png)
+![MobileVit](images/09.mobilevit_07.png)
 
 除了这些模块级结果之外，当我们用 MobileViT 架构中提出的可分离自注意力替换 Transformer 中的 MHA 时，我们观察到在 ImageNet-1k 数据集上具有相似性能的推理速度提高了 3 倍（表 1）。这些结果显示了所提出的可分离自注意力在架构级别的有效性。请注意，Transformer 和 Linformer 中的自注意力对 MobileViT 产生了类似的结果。这是因为与语言模型相比，MobileViT 中的 tokens k 数量更少（k ≤ 1024），其中 Linformer 明显快于 Transformer。
 
@@ -534,7 +534,7 @@ class LinearSelfAttention(nn.Module):
 
 在ＭobileViTv2 体系结构中删除了融合块，并使用了线性复杂度的 Transformer 得到了比 MobileViTv1 更好的性能。将本文提出的融合块添加到 MobileViTv2 中，以创建 MobileViTv3-0.5,0.75 和 1.0 模型，如下图所示。
 
-![MobileVit](./images/09.mobilevit_08.png)
+![MobileVit](images/09.mobilevit_08.png)
 
 **1、 融合块中用 1x1 卷积层替换 3x3 卷积层。**优势就在于 1x1 卷积核 会使用更少的权重参数数量。在输入尺寸不发生改变的情况下而增加了非线性，所以会增加整个网络的表达能力。
 

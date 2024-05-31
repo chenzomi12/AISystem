@@ -12,7 +12,7 @@
 
 大多数现有方法通过从服务器 GPU 获得的计算复杂性（MAC）或吞吐量（图像/秒）来优化 Transformer 的推理速度。但是这些指标不能反映实际的设备延迟。为了清楚地了解哪些操作和设计选择会减慢边缘设备上 VIT 的推断，在下图中作者作者对不同模型在端侧运行进行了一些分析，主要是分为 ViT 对图像进行分块的 Patch Embedding、Transformer 中的 Attention 和 MLP，另外还有 LeViT 提出的 Reshape 和一些激活等。提出了下面几个猜想。
 
-![EfficientFormer](./images/11.efficientformer_01.png)
+![EfficientFormer](images/11.efficientformer_01.png)
 
 **观察 1：在移动设备上，具有大核和步长的 patch 嵌入是一个速度瓶颈。**
 
@@ -43,7 +43,7 @@ patch 嵌入通常使用一个不重叠的卷积层来实现，该层具有较�
 
 #### EfficientFormer 结构
 
-![EfficientFormer](./images/11.efficientformer_02.png)
+![EfficientFormer](images/11.efficientformer_02.png)
 
 基于延迟分析，作者提出了 EfficientFormer 的设计，如上图所示。该网络由 patch 嵌入（PatchEmbed）和 meta transformer 块堆栈组成，表示为 MB：
 $$
@@ -316,7 +316,7 @@ class EfficientFormerStage(nn.Module):
 
 EfficientFormerV2 相对于 EfficientFormer 的主要改进如下图所示。
 
-![EfficientFormer](./images/11.efficientformer_03.png)
+![EfficientFormer](images/11.efficientformer_03.png)
 
 **重新思考混合 Transformer 网络**
 
