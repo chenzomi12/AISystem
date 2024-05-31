@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 编译器基础介绍
+# 编译器基础介绍(DONE)
 
 随着深度学习的不断发展，AI 模型结构在快速演化，底层计算硬件技术更是层出不穷，对于广大开发者来说不仅要考虑如何在复杂多变的场景下有效的将算力发挥出来，还要应对 AI 框架的持续迭代。AI 编译器就成了应对以上问题广受关注的技术方向，让用户仅需专注于上层模型开发，降低手工优化性能的人力开发成本，进一步压榨硬件性能空间。
 
@@ -18,7 +18,7 @@
 
 编译器可以将整个程序转换为目标代码(object code)，这些目标代码通常存储在文件中。目标代码也被称为二进制代码，在进行链接后可以被机器直接执行。典型的编译型程序语言有 C 和 C++。
 
-![编译器](images/compiler01.png)
+![编译器](images/01Introduction01.png)
 :width:`650px`
 
 下面来打开看看编译器的几个重要的特点：
@@ -34,7 +34,7 @@
 
 解释器能够直接执行程序或脚本语言中编写的指令，而不需要预先将这些程序或脚本语言转换成目标代码或者机器码。典型的解释型语言有 Python、PHP 和 Matlab。
 
-![解释器](images/interpreter.png)
+![解释器](images/01Introduction02.png)
 :width:`650px`
 
 下面来打开看看解释器的几个重要的特点：
@@ -98,15 +98,13 @@ AOT 程序的典型代表是用 C/C++ 开发的应用，其必须在执行前编
 
 1）推理引擎，在训练的之后 AI 编译器把网络模型提前固化下来，然后在推理场景直接使用提前编译好的模型结构，进行推理部署；2）静态图生成，通过 AI 编译器对神经网络模型表示称为统一的 IR 描述，接着在真正运行时执行编译后的内容。
 
-![AOT 编译方式](images/compiler_aot.png)
-:width:`650px`
+![AOT 编译方式](images/01Introduction03.png)
 
 另一方面，**动态解释**的程序则是对代码程序边翻译边运行，称为 JIT（Just in time），即即时编译。典型的代表有：
 
 1）PyTorch 框架中的 JIT 特性，可以将 Python 代码实时编译成本地机器代码，实现对深度学习模型的优化和加速。2）清华发布的计图（Jittor），完全基于动态编译 JIT，内部使用创新的元算子和统一计算图的深度学习框架，元算子和 Numpy 一样易于使用，并且超越 Numpy 能够实现更复杂更高效的操作。基于元算子开发的深度学习模型，可以被计图实时的自动优化并且运行在指定的硬件上。
 
-![JIT 编译方式](images/compiler_jit.png)
-:width:`650px`
+![JIT 编译方式](images/01Introduction04.png)
 
 ## Pass 和中间表示 IR
 
@@ -120,7 +118,7 @@ AOT 程序的典型代表是用 C/C++ 开发的应用，其必须在执行前编
 
 如图所示，现代编译器中，一般会采用分层、分段的结构模式，不管是在中间层还是后端，都存在若干条优化的 Pipeline，而这些 Pipeline，则是由一个个 Pass 组成的，对于这些 Pass 的管理，则是由 PassManager 完成的。
 
-![LLVM 架构图中的 IR](images/compiler_pass.png)
+![LLVM 架构图中的 IR](images/01Introduction05.png)
 
 在编译器 LLVM 中提供的 Pass 分为三类：Analysis pass、Transform pass 和 Utility pass。
 
@@ -140,14 +138,14 @@ IR（Intermediate Representation）中间表示，是编译器中很重要的一
 
 如图所示，在编译原理中，通常将编译器分为前端和后端。其中，前端会对所输入的程序进行词法分析、语法分析、语义分析，然后生成中间表达形式 IR。后端会对 IR 进行优化，然后生成目标代码。
 
-![IR 示例图](images/compiler_ir.png)
+![IR 示例图](images/01Introduction06.png)
 :width:`550px`
 
 例如：LLVM 把前端和后端给拆分出来，在中间层明确定义一种抽象的语言，这个语言就叫做 IR。定义了 IR 以后，前端的任务就是负责最终生成 IR，优化器则是负责优化生成的 IR，而后端的任务就是把 IR 给转化成目标平台的语言。LLVM 的 IR 使用 LLVM assembly language 或称为 LLVM language 来实现 LLVM IR 的类型系统，就指的是 LLVM assembly language 中的类型系统。
 
 因此，编译器的前端，优化器，后端之间，唯一交换的数据结构类型就是 IR，通过 IR 来实现不同模块的解耦。有些 IR 还会为其专门起一个名字，比如：Open64 的 IR 通常叫做 WHIRL IR，方舟编译器的 IR 叫做 MAPLE IR，LLVM 则通常就称为 LLVM IR。
 
-![LLVM 架构图中的 IR](images/llvm_ir03.png)
+![LLVM 架构图中的 IR](images/01Introduction07.png)
 :width:`550px`
 
 - **IR 的定义**
@@ -182,9 +180,9 @@ LIR（Low IR），依赖于底层具体硬件架构做优化和代码生成。�
 
 如在 LLVM 编译器里，会根据抽象层次从高到低，采用了前后端分离的三段结构，这样在为编译器添加新的语言支持或者新的目标平台支持的时候，就十分方便，大大减小了工程开销。而 LLVM IR 在这种前后端分离的三段结构之中，主要分开了三层 IR，IR 在整个编译器中则起着重要的承上启下作用。从便于开发者编写程序代码的理解到便于硬件机器的理解。
 
-![LLVM 架构图中三层 IR](images/llvm_ir07.png)
+![LLVM 架构图中三层 IR](images/01Introduction08.png)
 
-## 总结
+## 小结与思考
 
 - 解释器是一种计算机程序，将每个高级程序语句转换成机器代码
 

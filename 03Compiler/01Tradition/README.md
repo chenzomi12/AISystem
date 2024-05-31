@@ -19,9 +19,9 @@
 | 02 开源编译器的发展 | [文章](./02History.md), [PPT](./02History.pdf), [视频](https://www.bilibili.com/video/BV1sM411C7Vr/), [字幕](./srt/02.srt) |
 | 03 GCC 编译过程和原理 | [文章](./03GCC.md), [PPT](./03GCC.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./srt/03.srt) |
 | 04 LLVM 设计架构 | [文章](./04LLVM.md), [PPT](./04LLVM.pdf), [视频](https://www.bilibili.com/video/BV1CG4y1V7Dn/), [字幕](./srt/04.srt) |
-| 05 LLVM IR 详解 | [文章](./05LLVMDetail01.md), [PPT](./05LLVMDetail01.pdff), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./srt/05.srt) |
-| 06 LLVM 前端和优化层 | [文章](./05LLVMDetail02.md), [PPT](./05LLVMDetail02.pdf), [视频](https://www.bilibili.com/video/BV1vd4y1t7vS), [字幕](./srt/06.srt) |
-| 07 LLVM 后端代码生成 | [文章](./05LLVMDetail03.md), [PPT](./05LLVMDetail03.pdf), [视频](https://www.bilibili.com/video/BV1cd4y1b7ho), [字幕](./srt/07.srt) |
+| 05 LLVM IR 详解 | [文章](./05LLVMIR.md.md), [文章](./06LLVMDetail.md), [PPT](./05LLVMDetail01.pdff), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./srt/05.srt) |
+| 06 LLVM 前端和优化层 | [文章](./07LLVMFrontend.md), [PPT](./05LLVMDetail02.pdf), [视频](https://www.bilibili.com/video/BV1vd4y1t7vS), [字幕](./srt/06.srt) |
+| 07 LLVM 后端代码生成 | [文章](./08LLVMBackend.md), [PPT](./05LLVMDetail03.pdf), [视频](https://www.bilibili.com/video/BV1cd4y1b7ho), [字幕](./srt/07.srt) |
 
 ## 备注
 
