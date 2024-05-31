@@ -12,10 +12,10 @@
 
 | 小节 | 链接|
 |:--|:--|
-| 01 为什么需要 AI 编译器| [PPT](./01Appear.pdf), [视频](https://www.bilibili.com/video/BV1pM41167KP), [文章](./01Appear.md), [字幕](./srt/01.srt) |
-| 02 AI 编译器的发展阶段| [PPT](./02Stage.pdf), [视频](https://www.bilibili.com/video/BV1QK411R7iy/), [文章](./02Stage.md), [字幕](./srt/02.srt) |
-| 03 AI 编译器的通用架构| [PPT](./03Architecture.pdf), [视频](https://www.bilibili.com/video/BV1qD4y1Y73e/), [文章](./03Architecture.md), [字幕](./srt/03.srt) |
-| 04 AI 编译器的挑战与思考 | [PPT](./04Future.pdf),[视频](https://www.bilibili.com/video/BV1Hv4y1R7uc/), , [文章](./04Future.md), [字幕](./srt/04.srt) |
+| 01 为什么需要 AI 编译器| [PPT](./01Appear.pdf), [视频](https://www.bilibili.com/video/BV1pM41167KP), [文章](./01Appear.md) |
+| 02 AI 编译器的发展阶段| [PPT](./02Stage.pdf), [视频](https://www.bilibili.com/video/BV1QK411R7iy/), [文章](./02Stage.md) |
+| 03 AI 编译器的通用架构| [PPT](./03Architecture.pdf), [视频](https://www.bilibili.com/video/BV1qD4y1Y73e/), [文章](./03Architecture.md) |
+| 04 AI 编译器的挑战与思考 | [PPT](./04Future.pdf),[视频](https://www.bilibili.com/video/BV1Hv4y1R7uc/), , [文章](./04Future.md) |
 
 ## 备注
 
