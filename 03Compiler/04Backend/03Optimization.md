@@ -19,7 +19,7 @@ Roofline模型是一种用于评估和分析高性能计算平台性能的有效
 
 -   带宽决定“房檐”的斜率（红色线段）
 
-    ![img](images/03optimization_01.jpg)
+    ![img](images/03optimization01.jpg)
 
 -   Compute-Bound:  当算子的计算强度大于计算平台的计算强度上限时，算子在当前计算平台上处于计算瓶颈。从充分利用计算平台算力的角度来看，此时算子已经利用了计算平台的全部算力。
 
@@ -27,7 +27,7 @@ Roofline模型是一种用于评估和分析高性能计算平台性能的有效
 
 在（3,224,224）的输入下，VGG16模型的前向传播计算量为15GFLOPs，访存量大约为600MB，则计算强度为25FLOPSs/Byte。MobileNet计算量为0.5GFLOPs，访存量为74MB，那么它的计算强度只有7FLOPs/Byte。在1080Ti GPU上，其算力为11.3TFLOP/s，带宽为484GB/s，因此该平台的最大计算强度约为24。
 
-![img](images/03optimization_02.webp)
+![img](images/03optimization02.webp)
 
 由上图可以看出，MobileNet处于Memory-Bound区域，在1080Ti上的理论性能只有3.3TFLOPs，VGG处于Compute-Bound区域，完全利用1080Ti的全部算力。通过Roofline模型，我们可以清晰地看到，当计算量和访存量增加时，性能提升会受到硬件算力和带宽的限制。这种分析对于优化计算密集型和内存带宽密集型应用至关重要，因为它可以帮助开发者识别性能瓶颈，并作出相应的优化策略。
 
@@ -171,13 +171,13 @@ TVM当前被多个加速器厂商采用，进行了适应自家硬件的定制�
 
     希姆计算基于TVM的AI编译器端到端支持希姆一代二代芯片，实现了自定义算子方案，其模型性能接近手写极致。
 
-![image-20240526203405335](images/03optimization_03.png)
+![image-20240526203405335](images/03optimization03.png)
 
 +   华为TBE张量加速引擎
 
     TBE（Tensor Boost Engine）负责执行昇腾AI处理器中运行在AI Core上的算子，TBE提供了基于TVM框架的自定义算子开发能力，通过TBE提供的API可以完成相应神经网络算子的开发。
 
-    ![image-20240526203607467](images/03optimization_04.png)
+    ![image-20240526203607467](images/03optimization04.png)
 
 ### Triton
 
@@ -185,7 +185,7 @@ Triton是OpenAI研发的专为深度学习和高性能计算任务设计的编�
 
 Triton的核心理念是基于分块的编程范式可以有效促进神经网络的高性能计算核心的构建。CUDA的编程模型是传统的SIMT（Single Instruction Multi Thread）GPU执行模型，在线程的细粒度上进行编程，Triton 是在分块的细粒度上进行编程。例如，在矩阵乘法的情况下，CUDA和Triton有以下不同。
 
-![img](images/03optimization_05.webp)
+![img](images/03optimization05.webp)
 
 可以看出 triton 在循环中是逐块进行计算的。这种方法的一个关键优势是，它导致了块结构的迭代空间，相较于现有的DSL，为程序员在实现稀疏操作时提供了更多的灵活性，同时允许编译器为数据局部性和并行性进行积极的优化。下面是一个使用Triton实现矩阵乘法的例子：
 
