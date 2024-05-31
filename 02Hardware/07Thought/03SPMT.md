@@ -87,7 +87,7 @@ SISD、SIMD 和 SIMT 按照时间轴的执行方式如下所示。
 
 - DSA：具体的特殊硬件架构，NPU/TPU 等专门针对 AI 的特殊硬件架构，应用于大规模数据处理、分布式存储等场景。
 
-值得注意的是，NVIDAI 在 GPU 架构设计中加入 Tensor Core，专门用于神经网络矩阵计算，同时支持混合精度计算，因此 NVIDIA GPU 也变成 SIMT+DSA 的模式。
+值得注意的是，NVIDIA 在 GPU 架构设计中加入 Tensor Core，专门用于神经网络矩阵计算，同时支持混合精度计算，因此 NVIDIA GPU 也变成 SIMT+DSA 的模式。
 
 | 方式 | 硬件架构 or 执行模型 | 方式 |
 | --- | --- | --- |
@@ -97,7 +97,7 @@ SISD、SIMD 和 SIMT 按照时间轴的执行方式如下所示。
 
 ## 小结与思考
 
-本节主要从硬件执行模型和编程模型两个方面介绍了实现并行计算的指令执行方式，主要对比传统 SIMD（Traditional SIMD）和基于 Warp 的 SIMD（Warp-base SIMD(SIMT)），同时讲解了在英伟达 GPU 上实际采用的 SPMD 编程模型
+本节主要从硬件执行模型和编程模型两个方面介绍了实现并行计算的指令执行方式，主要对比传统 SIMD（Traditional SIMD）和基于 Warp 的 SIMD（Warp-base SIMD(SIMT)），同时讲解了在英伟达 GPU 上实际采用的 SPMD 编程模型。
 
 ## 本节视频
 
