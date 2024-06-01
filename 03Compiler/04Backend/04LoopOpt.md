@@ -8,11 +8,11 @@
 
 数据的局部性与计算机存储层次有关，计算机有速度由慢到快，容量由大到小的多层次存储器，以最优的控制调度算法和合理的成本，构成存储系统。最上层的寄存器一般在 CPU 芯片内，直接参与运算，它们的速度最快但是价格最高、容量最小。主存存放运行中的程序与数据，但是其速度与 CPU 差距较大，为了匹配它们之间的速度差异，在主存与 CPU 之间插入了一种比主存速度更快、容量更小的高速缓冲存储器即 Cache。主存与 Cache 之间的数据迁移由硬件自动完成，对于程序员来说是透明的、无法直接编程控制的。
 
-![内存层级](images/storage_level.png)
+![内存层级](./images/04LoopOpt01.png)
 
 在现代多核 CPU 架构中，Cache 也是分为三层即 L1、L2、L3 级 Cache，对计算机运算速度影响最大的是 L3 Cache，因为该级 Cache 的不命中将导致片外访存。L3 Cache 的大小一般在几 MB 至几十 MB 之间，其容量也较小，因此无法把所有的数据都放到 Cache 里，Cache 里应该放 CPU 最有可能会对它进行处理的数据。
 
-![多核 cpu 架构](images/cpu_level.png)
+![多核 cpu 架构](./images/04LoopOpt02.png)
 
 在这里有两个著名的程序运行时局部性原理，诠释了什么样的数据很可能会被 CPU 处理：
 
@@ -43,13 +43,13 @@ for i in range(n):
 
 在 window 可以通过任务管理器查看内核与逻辑处理器数量。逻辑处理器就是用超线程技术模拟的，能让处理器在同一时间段内同时处理多个线程，从而实现更好的多任务处理能力。
 
-![cpu 信息](images/show_cpu.png)
+![cpu 信息](./images/04LoopOpt03.png)
 
 向量化是一种数据级并行优化。向量化即“批量操作”，在计算机中常见执行模型是单指令多数据（SIMD，Single Instruction Multiple Data）。通过对批量数据同时进行相同计算以提高效率。向量体系结构获取在存储器中散布的数据集，将多个数据元素放在大型的顺序寄存器堆即向量寄存器中，对整个寄存器进行操作从而同时计算了多个数据元素。向量本身可以容纳不同大小数据，因此如果一个向量寄存器可以容纳 64 个 64 bit 元素，那么也可以容纳 128 个 32 bit 元素或者 512 个 8 bit 元素。凭借这种硬件上的多样性，向量化特别适合用于多媒体应用和科学计算。
 
 传统的执行方式为单指令单数据（SISD，Single Instruction Single Data），硬件不支持并行计算。现代 CPU 几乎都支持 SIMD 指令集，如 Intel 的 SSE（Streaming SIMD Extensions）和 AVX（Advanced Vector Extensions）系列指令集。
 
-![SIMD](images/simd.png)
+![SIMD](./images/04LoopOpt04.png)
 
 ## 循环优化
 
@@ -67,7 +67,7 @@ for i in range(n):
 
 原始的数据存储访问模式和分块后的存储访问模式见下图：
 
-![循环分块访存模式](images/loop_tiling.png)
+![循环分块访存模式](./images/04LoopOpt05.png)
 
 以这个代码为例，分析其 Cache 利用率：
 
@@ -157,7 +157,7 @@ for i in range(m-3, m):
 
 循环重排序（reorder）是矩阵乘法常见的优化方式，指的是对程序中的循环结构重新排列顺序，以优化数据访问模式，特别是在 CNN 中卷积层的应用。通过改变循环的嵌套顺序或者循环内部的迭代顺序，可以改善数据的局部性，减少缓存失效。如下图循环重排序示意图，在矩阵乘法计算中，B 是逐列访问的，在行优先的存储模式下访问模式很不友好。切换内层的循环顺序可以使得所有元素按顺序读取和写入。一次计算输出的一行，得到的是中间结果，全部累加即可得到结果矩阵的一行最终结果，这种方式利用的是内存的空间局部性。
 
-![循环重排访存模式](images/loop_reorder.png)
+![循环重排访存模式](./images/04LoopOpt06.png)
 
 ### 循环融合
 
@@ -278,7 +278,6 @@ for i in range(N):
 <html>
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1r14y1w7hG&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
 
 ## 参考文献
 
