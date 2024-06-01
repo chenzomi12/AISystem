@@ -1,6 +1,6 @@
 <!--适用于[License](https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
 
-# 动手实现 PyTorch 微分
+# 动手实现 PyTorch 微分(DONE)
 
 这里记录一下使用操作符重载（OO）编程方式的自动微分，其中数学实现模式则是使用反向模式（Reverse Mode），综合起来就叫做反向 OO 实现 AD 啦。
 
@@ -47,7 +47,7 @@ FADBAD++ 库（Bendtsen 和 Stauning，1996 年）使用模板和运算符重载
 
 从下图可以看出来，reverse mode 和 forward mode 是一对相反过程，reverse mode 从最终结果开始求导，利用最终输出对每一个节点进行求导。下图虚线就是反向模式。
 
-![反向模式](./images/06ReversedMode01.png)
+![反向模式](images/06ReversedMode01.png)
 :width:`600px`
 
 前向和后向两种模式的过程表达如下，表的左列浅色为前向计算函数值的过程，与前向计算时相同，右面列深色为反向计算导数值的过程。
@@ -300,7 +300,7 @@ print(f)
 
 从 `print(f)` 可以看到是下面图中的左边正向运算，计算出前向的结果。下面的代码 `grad(f, [x, y])` 就是利用前向最终的结果，通过 Tape 一个个反向的求解。得到最后的结果啦。
 
-![](./images/06ReversedMode02.png)
+![](images/06ReversedMode02.png)
 
 ```python
 dx, dy = grad(f, [x, y])

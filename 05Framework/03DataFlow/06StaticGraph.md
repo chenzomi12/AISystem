@@ -1,10 +1,10 @@
-# 动态图与静态图转换
+# 动态图与静态图转换(DONE)
 
 从 TensorFlow、PyTorch，到 PaddlePaddle、MindSpore、MegEngine，主流的 AI 框架动静态图转换，经历了动静分离、动静结合到动静统一的发展过程。兼顾动态图易用性和静态图执行性能高效两方面优势，均具备动态图转静态图的功能，支持使用动态图编写代码，框架自动转换为静态图网络结构执行计算。
 
 短短七八年时间，动静态图互相转换的技术在 AI 系统领域发展迅速，大大提升了 AI 算法/模型的开发效率，提高了 AI 产品应用的便利性，实现了计算效率和灵活性的平衡。 
 
-![控制流表达](../images/023FW_DataFlow/framework_trend02.png)
+![控制流表达](images/framework_trend02.png)
 
 > 更详细的具体实现将会在 AI 编译器里面的 PyTorch 动态图转静态图的尝试路径讲解。
 
@@ -76,7 +76,7 @@ loss.backward()
 
 Tracing 模式的**难点**在于：通过 Tracing 的方式获取的计算图，实际上不是一个有向无环图（DAG），而是一个平铺算子执行流，所以很难处理控制流的情况。比如循环 `while、Loop、for`，对于 Tracing 的方式来说就是展开循环体，但是有些情况下循环体无法有效展开，如循环条件根据训练的收敛情况/算子的执行结果而改变等。因此上面的图产生的计算图有 2 种可能性：
 
-![控制流表达](../images/023FW_DataFlow/control_flow05.png)
+![控制流表达](images/control_flow05.png)
 :width:`500px`
 
 总结如下：
@@ -117,7 +117,7 @@ def foo2(s: Tensor) -> Tensor:
 
 上面的代码片断是使用了 PyTroch 的 Script 模式（基于源代码解析）将动态图转换为静态图执行，下面是 PyTorch 背后的处理过程。
 
-![TorchScript 基于源代码转换的动态图转静态图](../images/023FW_DataFlow/control_flow04.png)
+![TorchScript 基于源代码转换的动态图转静态图](images/control_flow04.png)
 :width:`750px`
 
 基于源码转换的**难点**在于：AI 框架是从前端宿主语言 Python 进行 AST 转换而来，好处是控制流和神经网络模型的属性信息都可以保留下来，但是挑战是 Python 的大部分语法和数据结构都要转换为静态图的表达，更难的是 Python 是动态类型语言，所以从 AST 到静态图的转换中需要一个复杂的类型/值推导过程，导致实现困难与复杂。

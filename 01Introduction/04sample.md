@@ -6,8 +6,6 @@
 
 本节我们将从一个具体的 PyTorch 实现一个 LeNet5 神经网络模型作为实例开始，启发读者和后面 AI 系统的每一层和各个章节构建起桥梁与联系。
 
-![](images/04Sample01.png)
-
 ## 神经网络样例
 
 ### AI 训练流程原理
@@ -57,19 +55,18 @@ $$\theta = \theta - \alpha \delta_{\theta}Loss(\theta)$$
 
 2. 开始训练，遍历一个批大小（Batch Size）的数据，设置计算的 NPU/GPU 资源数量，执行前向传播计算，计算损失值（Loss），通过反向传播实现优化器计算，从而更新权重。
 
-现在使用 PyTorch 在 MNIST 数据集上训练一个卷积神经网络 [LeNet](http://yann.lecun.com/exdb/lenet/)[<sup>[1]</sup>](#lenet) 的代码实例。
+现在使用 PyTorch 在 MNIST 数据集上训练一个卷积神经网络 [LeNet](http://yann.lecun.com/exdb/lenet/) 的代码实例。
 
-```
-...
+```python
 import torch
 import torch_npu
-...
 
 # 如果模型层数多，权重多到无法在单 GPU 显存放置，我们需要通过模型并行方式进行训练
 class LeNet(nn.Module):
     def __init__(self):
         super(LeNet, self).__init__()
-        # 通过循环 Loop 实现卷积理解卷积的执行逻辑，可以深入思考其中编译和硬件执行问题。我们将会在第二章、第三章详细展开计算到芯片的关系
+        # 通过循环 Loop 实现卷积理解卷积的执行逻辑，可以深入思考其中编译和硬件执行问题
+        # 我们将会在第二章、第三章详细展开计算到芯片的关系
         self.conv1 = nn.Conv2d(3, 6, 5)
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.fc1 = nn.Linear(16*5*5, 120)
@@ -77,7 +74,8 @@ class LeNet(nn.Module):
         self.fc2 = nn.Linear(84, 10)
 
     def forward(self, x):
-    	  # 具体的执行 API 单位是算子，实际编译器或者硬件执行的是 Kernel。我们将会在第四章推理引擎 Kernel 优化详细介绍算子计算执行的方式
+    	  # 具体的执行 API 单位是算子，实际编译器或者硬件执行的是 Kernel
+          # 我们将会在第四章推理引擎 Kernel 优化详细介绍算子计算执行的方式
         out = F.relu(self.conv1(x))
         out = F.max_pool2d(out, 2)
         out = F.relu(self.conv2(out))
@@ -90,7 +88,8 @@ class LeNet(nn.Module):
 
 
 def train(args, model, device, train_loader, optimizer, epoch):
-    # 如何进行高效的训练，运行时 Runtime 是如何执行的？我们将在第五章 AI 框架基础进行介绍
+    # 如何进行高效的训练，运行时 Runtime 是如何执行的
+    # 我们将在第五章 AI 框架基础进行介绍
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
@@ -108,22 +107,25 @@ def test(model, device, test_loader):
     with torch.no_grad():
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
-            # 推理系统如何高效进行模型推理？我们将在第思章 AI 推理系统进行介绍
+            # 推理系统如何高效进行模型推理
+            # 我们将在第思章 AI 推理系统进行介绍
             output = model(data)
             ...
 
 
 def main():
     ...
-    # 当前语句决定了使用哪种 AI 加速芯片，可以通过第二章的 AI 芯片基础去了解不同 AI 加速芯片的体系结构及芯片计算的底层原理。
+    # 当前语句决定了使用哪种 AI 加速芯片
+    # 可以通过第二章的 AI 芯片基础去了解不同 AI 加速芯片的体系结构及芯片计算底层原理
     device = torch.device("npu" if use_cuda else "cpu")
     
-    # 如果 batch size 过大，造成单 NPU/GPU HBM 内存无法容纳模型及中间激活的张量，读者可以参考第六章的分布式训练算法，进行了解如何分布式训练
+    # 如果 batch size 过大，造成单 NPU/GPU HBM 内存无法容纳模型及中间激活的张量
+    # 读者可以参考第分布式训练算法，进行了解如何分布式训练
     train_kwargs = {'batch_size': args.batch_size}
     test_kwargs = {'batch_size': args.test_batch_size}
     ...
     
-    # 如果数据量过大，那么可以使用分布式数据并行进行处理，利用集群的资源，可以通过第六章去了解其中的内容
+    # 如果数据量过大，那么可以使用分布式数据并行进行处理，利用集群的资源
     dataset1 = datasets.MNIST('../data', train=True, download=True, transform=transform)
     dataset2 = datasets.MNIST('../data', train=False, transform=transform)
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
@@ -134,11 +136,11 @@ def main():
     
     for epoch in range(1, args.epochs + 1):
         train(args, model, device, train_loader, optimizer, epoch)
-        # 训练完成需要部署，如何压缩和量化后再部署？可以参考第四章推理系统进行了解
+        # 训练完成需要部署，如何压缩和量化后再部署
+        # 可以参考第四章推理系统进行了解
         test(model, device, test_loader)
         ... 
 
-# 如果用户提交多个这样的训练作业，系统如何调度和管理资源？读者可以参考第 7 章异构计算集群调度与资源管理系统"进行了解
 if __name__ == '__main__':
     main()
 ```
@@ -151,7 +153,7 @@ if __name__ == '__main__':
 
 下图的卷积层实例中，每次选取输入数据一层的一个窗口（和卷积核一样的宽高），然后和对应的卷积核（$5 \times 5$ 卷积核代表高 5 维宽 5 维的矩阵）进行 [矩阵内积（Dot Product）](https://en.wikipedia.org/wiki/Dot_product) 运算，最后将所有的计算结果与偏置项 $b$ 相加后输出。
 
-```
+```python
 import torch
 
 class LeNet(nn.Module):
@@ -176,7 +178,7 @@ class LeNet(nn.Module):
 
 示例的卷积计算，最终在程序上表达为多层嵌套循环，为简化计算过程，循环展开中没有呈现维度（Dimension）的形状推导（Shape Inference）。以 Conv2D 转换为如下 7 层循环进行 Kerenl 计算的代码：
 
-```
+```C++
 # 批尺寸维度 batch_size
 for n in range(batch_size):
    # 输出张量通道维度 output_channel
@@ -200,19 +202,19 @@ for n in range(batch_size):
 
 在实际 Kernel 的计算过程中有很多有趣的问题：
 
-- 硬件加速： 通用矩阵乘是计算机视觉和自然语言处理模型中的主要的计算方式，同时 NPU/GPU，如 TPU 脉动阵列的矩阵乘单元等其他专用人工智能芯片 ASIC 是否会针对矩阵乘作为底层支持？（第二章 AI 芯片体系结构相关内容）
+- **硬件加速**： 通用矩阵乘是计算机视觉和自然语言处理模型中的主要的计算方式，同时 NPU/GPU，如 TPU 脉动阵列的矩阵乘单元等其他专用人工智能芯片 ASIC 是否会针对矩阵乘作为底层支持？（第二章 AI 芯片体系结构相关内容）
 
-- 片上内存：其中参与计算的输入、权重和输出张量能否完全放入 NPU/GPU 缓存（L1、L2、Cache）？如果不能放入则需要通过循环块（Loop Tile）编译优化进行切片。（第二章 AI 芯片体系结构相关内容）
+- **片上内存**：其中参与计算的输入、权重和输出张量能否完全放入 NPU/GPU 缓存（L1、L2、Cache）？如果不能放入则需要通过循环块（Loop Tile）编译优化进行切片。（第二章 AI 芯片体系结构相关内容）
 
-- 局部性：循环执行的主要计算语句是否有局部性可以利用？空间局部性（缓存线内相邻的空间是否会被连续访问）以及时间局部性（同一块内存多久后还会被继续访问），这样我们可以通过预估后，尽可能的通过编译调度循环执行。（第三章 AI 编译器相关内容）
+- **局部性**：循环执行的主要计算语句是否有局部性可以利用？空间局部性（缓存线内相邻的空间是否会被连续访问）以及时间局部性（同一块内存多久后还会被继续访问），这样我们可以通过预估后，尽可能的通过编译调度循环执行。（第三章 AI 编译器相关内容）
 
-- 内存管理与扩展（Scale Out）：AI 系统工程师或者 AI 编译器会提前计算每一层的输出（Output）、输入（Input）和内核（Kernel）张量大小，进而评估需要多少计算资源、内存管理策略设计，以及换入换出策略等。（第三章 AI 编译器相关内容）
+- **内存管理与扩展（Scale Out）**：AI 系统工程师或者 AI 编译器会提前计算每一层的输出（Output）、输入（Input）和内核（Kernel）张量大小，进而评估需要多少计算资源、内存管理策略设计，以及换入换出策略等。（第三章 AI 编译器相关内容）
 
-- 运行时调度：当算子与算子在运行时按一定调度次序执行，框架如何进行运行时管理？（第四章推理引擎相关内容）
+- **运行时调度**：当算子与算子在运行时按一定调度次序执行，框架如何进行运行时管理？（第四章推理引擎相关内容）
 
-- 算法变换：从算法来说，当前多层循环的执行效率无疑是很低的，是否可以转换为更加易于优化和高效的矩阵计算？（第四章推理引擎相关内容）
+- **算法变换**：从算法来说，当前多层循环的执行效率无疑是很低的，是否可以转换为更加易于优化和高效的矩阵计算？（第四章推理引擎相关内容）
 
-- 编程方式：通过哪种编程方式可以让神经网络模型的程序开发更快？如何才能减少或者降低算法工程师的开发难度，让其更加聚焦 AI 算法的创新？（第五章 AI 框架相关内容）
+- **编程方式**：通过哪种编程方式可以让神经网络模型的程序开发更快？如何才能减少或者降低算法工程师的开发难度，让其更加聚焦 AI 算法的创新？（第五章 AI 框架相关内容）
 
 ## AI 系统执行具体计算
 
@@ -228,11 +230,11 @@ for n in range(batch_size):
 
 我们继续以上面的例子作为介绍。
 
-![](images/04Sample05.png)
-
 ### AI 框架层
 
-如果没有 AI 框架，只将算子 for 循环抽象提供算子库（例如，cuDNN）的调用，算法工程师只能通过 NPU/GPU 厂商提供的底层 API 编写神经网络模型。例如，通过 CUDA + cuDNN 库书写卷积神经网络，如 [cuDNN 书写的卷积神经网络 LeNet 实例](https://github.com/tbennun/cudnn-training)。
+如果没有 AI 框架，只将算子 for 循环抽象提供算子库（例如，cuDNN）的调用，算法工程师只能通过 NPU/GPU 厂商提供的底层 API 编写神经网络模型。例如，通过 CUDA + cuDNN 库书写卷积神经网络，如 [cuDNN 书写的卷积神经网络 LeNet 实例](https://github.com/tbennun/cudnn-training)。因此如图分为不同的步骤和处理流程。
+
+![](images/04Sample05.png)
 
 1. 通过 cuDNN + CUDA API 编程实现 LeNet
  
@@ -348,7 +350,7 @@ AI 训练和推理对性能和时延都非常敏感，所以大量使用专用�
 
 如果没有 AI 框架、AI 编译器和算子库的支持，算法工程师进行简单的神经网络模型设计与开发都会举步维艰，所以应该看到 AI 算法本身飞速发展的同时，也要看到底层系统对提升整个算法研发的生产力起到了不可或缺的作用。
 
-# 本节总结
+# 小结与讨论
 
 本章主要通过 PyTorch 的实例启发大家建立 AI 系统各个章节之间的联系，由于系统的多层抽象造成 AI 实践和算法创新的过程中已经无法感知底层系统的运行机制。希望能够结合后面章节的学习后，看到 AI System 底层的作用和复杂性，从而指导上层 AI 作业、算法、代码更加高效的执行和编写。
 
