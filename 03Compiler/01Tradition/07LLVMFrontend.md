@@ -1,4 +1,5 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # LLVM 前端和优化层
 
 在上一节讲到了 LLVM 的 IR 贯穿了 LLVM 编译器的全生命周期，里面的每一个箭头都是一个 IR 的过程，这个就是整体 LLVM 最重要的核心概念。
@@ -151,17 +152,17 @@ TranslationUnitDecl 0x1c08a71cf28 <<invalid sloc>> <invalid sloc>
       `-IntegerLiteral 0x1c08c25a028 <col:12> 'int' 0
 ```
 
-以上输出结果反映了对源代码进行语法分析后得到的抽象语法树（AST）。AST是对源代码结构的一种抽象表示，其中各种节点代表了源代码中的不同语法结构，如声明、定义、表达式等。这些节点包括：
+以上输出结果反映了对源代码进行语法分析后得到的抽象语法树（AST）。AST 是对源代码结构的一种抽象表示，其中各种节点代表了源代码中的不同语法结构，如声明、定义、表达式等。这些节点包括：
 
-- TypedefDecl：用于定义新类型的声明，如__int128和char。
-- RecordType：描述了记录类型，例如struct __NSConstantString_tag。
-- FunctionDecl：表示函数声明，包括函数名称、返回类型和参数信息。
-- ParmVarDecl：参数变量的声明，包括参数名称和类型。
-- CompoundStmt：表示由多个语句组成的语句块。
+- `TypedefDecl`：用于定义新类型的声明，如 `__int128` 和 `char`。
+- `RecordType`：描述了记录类型，例如 `struct __NSConstantString_tag`。
+- `FunctionDecl`：表示函数声明，包括函数名称、返回类型和参数信息。
+- `ParmVarDecl`：参数变量的声明，包括参数名称和类型。
+- `CompoundStmt`：表示由多个语句组成的语句块。
 - 函数调用表达式、声明引用表达式和隐式类型转换表达式等，用于描述不同的语法结构。
-- 各种属性信息，如内联属性和DLL导入属性，用于描述代码的特性和行为。
+- 各种属性信息，如内联属性和 DLL 导入属性，用于描述代码的特性和行为。
 
-这些节点之间通过边相连，反映了它们在源代码中的关系和层次。AST为进一步的语义分析和编译过程提供了基础，是编译器理解和处理源代码的重要工具。
+这些节点之间通过边相连，反映了它们在源代码中的关系和层次。AST 为进一步的语义分析和编译过程提供了基础，是编译器理解和处理源代码的重要工具。
 
 下图是 AST 的图形视图，可用下面的命令得到：
 
@@ -236,7 +237,8 @@ LLVM 优化层在输入的时候是一个 AST 语法树，输出的时候已经�
 
 优化过程需要执行以下代码： 
 
-首先我们需要生成 hello.bc文件：
+首先我们需要生成 hello.bc 文件：
+
 ```shell
 clang -emit-llvm -c hello.c -o hello.bc
 ```
@@ -277,11 +279,11 @@ DominatorTree &DT getAnalysis<DominatorTree>(Func);
 
 Pass 类是实现优化的主要资源。然而，我们从不直接使用它，而是通过清楚的子类使用它。当实现一个 Pass 时，你应该选择适合你的 Pss 的最佳粒度，适合此粒度的最佳子类，例如基于函数、模块、循环、强联通区域，等等。常见的这些子类如下：
 
-- ModulePass：这是最通用的 Pass；它一次分析整个模块，函数的次序不确定。它不限定使用者的行为，允许删除函数和其它修改。为了使用它，你需要写一个类继承 `ModulePass`，并重载 `runOnModule()` 方法。
+- `ModulePass`：这是最通用的 Pass；它一次分析整个模块，函数的次序不确定。它不限定使用者的行为，允许删除函数和其它修改。为了使用它，你需要写一个类继承 `ModulePass`，并重载 `runOnModule()` 方法。
 
-- FunctionPass：这个子类允许一次处理一个函数，处理函数的次序不确定。这是应用最多的 Pass 类型。它禁止修改外部函数、删除函数、删除全局变量。为了使用它，需要写一个它的子类，重载 `runOnFunction()` 方法。
+- `FunctionPass`：这个子类允许一次处理一个函数，处理函数的次序不确定。这是应用最多的 Pass 类型。它禁止修改外部函数、删除函数、删除全局变量。为了使用它，需要写一个它的子类，重载 `runOnFunction()` 方法。
 
-- BasicBlockPass：这个类的粒度是基本块。`FunctionPass` 类禁止的修改在这里也是禁止的。它还禁止修改或者删除外部基本块。使用者需要写一个类继承 `BasicBlockPass`，并重载它的 `runOnBasicBlock()` 方法。
+- `BasicBlockPass`：这个类的粒度是基本块。`FunctionPass` 类禁止的修改在这里也是禁止的。它还禁止修改或者删除外部基本块。使用者需要写一个类继承 `BasicBlockPass`，并重载它的 `runOnBasicBlock()` 方法。
 
 ## 小结与思考
 

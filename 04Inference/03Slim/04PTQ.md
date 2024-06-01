@@ -25,7 +25,6 @@
 $$
 uint8 = round(float/scale) - offset
 $$
-:eqlabel:`04PTQ_eq1`
 
 静态离线量化的目标是求取量化比例因子，主要通过对称量化、非对称量化方式来求，而找最大值或者阈值的方法又有 MinMax、KL 散度、ADMM、EQ，MSE 等方法。
 
@@ -49,11 +48,11 @@ $$
 
 量化参数可以针对层的整个权重张量计算，也可以针对每个通道分别计算。在逐张量量化中，同一剪切范围将应用于层中的所有通道。在模型量化过程中分为权重量化和激活量化：
 
-- 权重量化：即需要对网络中的权重执行量化操作。可以选择逐张量（per-tensor）或者逐通道（per-channel）的量化粒度，也就是说每个通道选取一个量化scale。对于卷积神经网络，per- channel通常对应通道轴。在任何一种情况下，量化因子的精度都是FP32。per-channel的量化粒度比per-tensor的更细粒度，模型效果更好，但带来的是推理过程中的计算复杂度增加。需要注意的是部分部署硬件有可能不支持per-channel量化推理。
+- 权重量化：即需要对网络中的权重执行量化操作。可以选择逐张量（per-tensor）或者逐通道（per-channel）的量化粒度，也就是说每个通道选取一个量化 scale。对于卷积神经网络，per- channel 通常对应通道轴。在任何一种情况下，量化因子的精度都是 FP32。per-channel 的量化粒度比 per-tensor 的更细粒度，模型效果更好，但带来的是推理过程中的计算复杂度增加。需要注意的是部分部署硬件有可能不支持 per-channel 量化推理。
 
-- 激活量化：即对网络中不含权重的激活类算子进行量化。一般采用逐张量（per-tensor）的粒度，也可以选择逐token（per-token）的量化粒度。
+- 激活量化：即对网络中不含权重的激活类算子进行量化。一般采用逐张量（per-tensor）的粒度，也可以选择逐 token（per-token）的量化粒度。
 
-![per-tensor和per-channel量化粒度](./images/04PTQ03.png)
+![per-tensor 和 per-channel 量化粒度](./images/04PTQ03.png)
 
 ## KL 散度校准法
 
@@ -66,7 +65,6 @@ KL 散度校准法也叫相对熵，其中 p 表示真实分布，q 表示非真
 $$
 𝐷_{KL} (P_f || Q_q)=\sum\limits^{N}_{i=1}P(i)*log_2\frac{P_f(i)}{Q_q(𝑖)}
 $$
-:eqlabel:`04PTQ_eq2`
 
 相对熵，用来衡量真实分布与非真实分布的差异大小。目的就是改变量化域，实则就是改变真实的分布，并使得修改后得真实分布在量化后与量化前相对熵越小越好。
 
@@ -128,22 +126,18 @@ INT8 卷积如下图所示，里面混合里三种不同的模式，因为不同
 $$
 scale = (x_{max}-x_{min})/(Q_{max}-Q{min})
 $$
-:eqlabel:`04PTQ_eq3`
 
 $$
 offset = Q_{min}-round(\frac{x_{min}}{scale})
 $$
-:eqlabel:`04PTQ_eq4`
 
 $$
 uint8 = round(\frac{float}{scale})-offset
 $$
-:eqlabel:`04PTQ_eq5`
 
 $$
 float=scale \times (uint+offset)
 $$
-:eqlabel:`04PTQ_eq6`
 
 #### 反量化
 
@@ -159,7 +153,6 @@ y &= x \cdot w \\
 &\approx (x_{\text{scale}} \cdot w_{\text{scale}}) \cdot INT32_{result}
 \end{align*}
 $$
-:eqlabel:`04PTQ_eq7`
 
 #### 重量化
 
@@ -173,31 +166,28 @@ y &= x \cdot w \\
 &= (x_{\text{scale}} \cdot w_{\text{scale}}) \cdot \text{INT32\_result}
 \end{align*}
 $$
-:eqlabel:`04PTQ_eq8`
 
 其中 y 为下一个节点的输入，即 $y=x_{next}$:
 
 $$
 y=y_{scale}*(y_{int}+y_{offset})
 $$
-:eqlabel:`04PTQ_eq9`
 
-这里是对$y$进行量化，$x_{next int}=y_{int}$,有：
+这里是对 $y$ 进行量化，$x_{next int}=y_{int}$,有：
 
 $$
 x_{next int}=\frac{x_{scale} \cdot w_{scale}}{x_{next scale}}\cdot INT32_{result}-x_{next offset}
 $$
-:eqlabel:`04PTQ_eq10`
 
-因此重量化需要本算子输入input和weight的scale，以及下一个算子的input输入数据的scale和offset。
+因此重量化需要本算子输入 input 和 weight 的 scale，以及下一个算子的 input 输入数据的 scale 和 offset。
 
 ## 训练后量化的技巧
 
 ### 对权重使用每通道（per-channel）粒度，对激活使用每张量（per-tensor）粒度
 
-权重张量在不同通道中的值分布差异很大，如果使用单一的缩放因子进行量化，可能会导致较大的精度损失。通过对权重使用每通道粒度，可以在量化过程中更好地保留每个通道内的值分布。此外，推理框架会将每通道的缩放因子整合到kernel中，因此在推理过程中不会增加计算开销。由于神经网络通常会使用权重衰减，通道内的权重分布一般较为集中，因此使用最大校准器来捕捉所有动态范围对权重进行量化是有益的。
+权重张量在不同通道中的值分布差异很大，如果使用单一的缩放因子进行量化，可能会导致较大的精度损失。通过对权重使用每通道粒度，可以在量化过程中更好地保留每个通道内的值分布。此外，推理框架会将每通道的缩放因子整合到 kernel 中，因此在推理过程中不会增加计算开销。由于神经网络通常会使用权重衰减，通道内的权重分布一般较为集中，因此使用最大校准器来捕捉所有动态范围对权重进行量化是有益的。
 
-另一方面，激活在不同通道之间通常较为一致，但会包含来自不同输入数据的异常值。对每层激活张量使用单一的缩放因子，有助于减小异常值的影响，特别是使用基于直方图的方法。此外，由于这些缩放因子不能整合到kernel中，仅对每个张量使用一个缩放因子可以减少计算开销。
+另一方面，激活在不同通道之间通常较为一致，但会包含来自不同输入数据的异常值。对每层激活张量使用单一的缩放因子，有助于减小异常值的影响，特别是使用基于直方图的方法。此外，由于这些缩放因子不能整合到 kernel 中，仅对每个张量使用一个缩放因子可以减少计算开销。
 
 ### 通过替换块分别量化残差连接
 
