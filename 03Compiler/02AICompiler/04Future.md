@@ -109,12 +109,12 @@ Python 第二个静态化的方案是通过修饰符。目前 AI 框架静态化
 第一个路线是函数提取静态分析，即 Tracing Based 方法，常用 PyTorch 中的 PyTorch.fx 方法。PyTorch.fx 是 PyTorch 中的一个模块，其中 fx 代表“Function Extraction”。其可以执行函数提取工作，即将 PyTorch 模型中的函数提取出来，形成一个独立的函数图（Function Graph），这个图描述了函数之间的调用关系和数据流动情况；同时也可以对提取出的函数图进行静态分析，识别函数之间的依赖关系和数据流动路径，以及执行过程中的优化机会。在变量前加上此修饰符，可以逐句进行跟踪并做出翻译，例如下图所示代码操作。
 
 ![fx 方法](images/Future11.png)
-======== 代码不要用图，直接贴代码，用markdown表示代码的方法。
+======== 代码不要用图，直接贴代码，用 markdown 表示代码的方法。
 
 第二个路线是源码转换，即 AST Transform 方法，常用 PyTorch 中的 PyTorch.jit.trace 方法。torch.jit.trace 是 PyTorch 中用于函数追踪的一个函数。它用于将给定的 Python 函数或者模块转换为 Torch Script，从而允许在静态图上执行函数，以提高执行效率和部署性能。在用户自定义的函数前加上此修饰符，即可对函数进行一个源码转换，例如下图所示代码操作。
 
 ![AST 方法](images/Future12.png)
-======== 代码不要用图，直接贴代码，用markdown表示代码的方法。
+======== 代码不要用图，直接贴代码，用 markdown 表示代码的方法。
 
 虽然 PyTorch 提出了诸如 JIT 虚拟机以及修饰符等针对 Python 静态化的方案，但都存在瑕疵。下面罗列一些当前 AI 编译器在 Python 静态化上面临的挑战。
 
