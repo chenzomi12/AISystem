@@ -1,6 +1,5 @@
+<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 # LLVM 前端和优化层
-
-========= 内容要更加细致地深入一下，特别是对例子的解释和输出。把 images 目录里面没有用到的图片文件删掉哈，目录改完统一命名哈，看其他，按照 md 的文件名命名。
 
 在上一节讲到了 LLVM 的 IR 贯穿了 LLVM 编译器的全生命周期，里面的每一个箭头都是一个 IR 的过程，这个就是整体 LLVM 最重要的核心概念。
 
@@ -12,7 +11,7 @@ LLVM 的前端其实是把源代码也就是 C、C++、Python 这些高级语言
 
 这个阶段属于代码生成之前的过程，和硬件与目标无关，所以在前端的最后一个环节是 IR 的生成
 
-![编译器](images/llvm_ir10.png)
+![编译器](images/07LLVMFrontend01.png)
 
 Clang 是一个强大的编译器工具，作为 LLVM 的前端承担着将 C、C++ 和 Objective-C 语言代码转换为 LLVM 中间表示（IR）的任务。
 
@@ -24,7 +23,7 @@ Clang 是一个强大的编译器工具，作为 LLVM 的前端承担着将 C、
 
 - 语义分析阶段则确保语法树的各部分之间的关系和含义是正确的，比如类型匹配、变量声明的范围等，以确保程序的正确性和可靠性。
 
-![编译器](images/llvm_ir21.png)
+![编译器](images/07LLVMFrontend02.png)
 
 每个编程语言前端都会有自己的词法分析器、语法分析器和语义分析器，它们的任务是将程序员编写的源代码转换为通用的抽象语法树（AST），这样可以为后续的处理步骤提供统一的数据结构表示。AST 是程序的一个中间表示形式，它便于进行代码分析、优化和转换。
 
@@ -50,14 +49,34 @@ int main() {
 clang -cc1 -dump-tokens hello.c
 ```
 
-============ 不要用图片，自己运行一下，深入到细节里面，去看看里面的内容哦。
-![编译器](images/llvm_ir11.png)
+词法分析输出如下：
 
-编译器会将每一个符号、每一个括号、每一个字符都进行分解，并记录它们出现的位置，每个标记都包含一个 `SourceLocation` 类的实例，例如通过类似 `Loc=<hello.c:6:11>` 这样的标记来表示在 hello.c  文件的第 6 行第 11 个位置。通过这样的方式，编译器能够准确地确定每个符号的位置，然后将它们切分成一个个语言的原子，以便进行下一步的分析。
+```
+int 'int'        [StartOfLine]  Loc=<hello.c:5:1>
+identifier 'main'        [LeadingSpace] Loc=<hello.c:5:5>
+l_paren '('             Loc=<hello.c:5:9>
+void 'void'             Loc=<hello.c:5:10>
+r_paren ')'             Loc=<hello.c:5:14>
+l_brace '{'             Loc=<hello.c:5:15>
+identifier 'printf'      [StartOfLine] [LeadingSpace]   Loc=<hello.c:6:5>
+l_paren '('             Loc=<hello.c:6:11>
+l_paren '('             Loc=<hello.c:6:12 <Spelling=hello.c:3:19>>
+string_literal '"hello world\n"'                Loc=<hello.c:6:12 <Spelling=hello.c:3:20>>
+r_paren ')'             Loc=<hello.c:6:12 <Spelling=hello.c:3:35>>
+r_paren ')'             Loc=<hello.c:6:21>
+semi ';'                Loc=<hello.c:6:22>
+return 'return'  [StartOfLine] [LeadingSpace]   Loc=<hello.c:7:5>
+numeric_constant '0'     [LeadingSpace] Loc=<hello.c:7:12>
+semi ';'                Loc=<hello.c:7:13>
+r_brace '}'      [StartOfLine]  Loc=<hello.c:8:1>
+eof ''          Loc=<hello.c:8:2>
+```
 
-在这个过程中，编译器实际上在对代码进行解析和分析的同时，也在建立起符号与位置的映射关系，这有助于后续的语法分析和语义分析。通过精准记录每个字符的位置信息，编译器能够更好地理解代码的结构，进而更有效地进行编译和优化。
+编译器通过词法分析过程将源代码解析为一系列符号，并准确记录它们在源文件中的位置。每个符号都被赋予一个 `SourceLocation` 类的实例，以便表示其在源文件中的确切位置，例如 `Loc=<hello.c:6:11>` 表示该符号出现在文件 hello.c 的第 6 行第 11 个位置。这种位置信息的精确记录为后续的语法分析和语义分析提供了重要的基础。
 
-这种精细的位置记录和符号切分过程是编译器中至关重要的一部分，它为编译过程的后续阶段奠定了坚实的基础，也为程序员提供了更准确的编译器信息反馈，帮助他们更好地理解和调试代码。
+词法分析过程同时也在建立符号与位置之间的映射关系。这种精细的位置记录有助于编译器更好地理解代码的结构，并能够更有效地进行编译和优化。此外，它为程序员提供了更准确的编译器信息反馈，帮助他们更好地理解和调试代码。
+
+在编译器的工作流程中，这种精准的位置记录和符号切分过程至关重要，为后续阶段的处理提供了可靠的基础，也为代码分析提供了更深层次的支持。
 
 ### 语法分析
 
@@ -71,18 +90,86 @@ clang -cc1 -dump-tokens hello.c
 clang -fsyntax-only -Xclang -ast-dump hello.c
 ```
 
-============ 不要用图片，自己运行一下，深入到细节里面，去看看里面的内容哦。
-![编译器](images/llvm_ir12.png)
+语法分析输出如下：
 
-抽象语法树（AST）的每一个节点都有自己的定义，每个节点代表源代码中的一个语法结构，如表达式、语句或声明，节点之间的边表示这些语法结构之间的关系。
+```shell
+TranslationUnitDecl 0x1c08a71cf28 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x1c08a71d750 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x1c08a71d4f0 '__int128'
+|-TypedefDecl 0x1c08a71d7c0 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x1c08a71d510 'unsigned __int128'
+|-TypedefDecl 0x1c08a71dac8 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x1c08a71d8a0 'struct __NSConstantString_tag'
+|   `-Record 0x1c08a71d818 '__NSConstantString_tag'
+|-TypedefDecl 0x1c08a71db60 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x1c08a71db20 'char *'
+|   `-BuiltinType 0x1c08a71cfd0 'char'
+|-TypedefDecl 0x1c08a71dbd0 <<invalid sloc>> <invalid sloc> implicit referenced __builtin_va_list 'char *'
+| `-PointerType 0x1c08a71db20 'char *'
+|   `-BuiltinType 0x1c08a71cfd0 'char'
+|-TypedefDecl 0x1c08a71dcc0 <D:/package/mingw64/x86_64-w64-mingw32/include/vadefs.h:24:3, col:29> col:29 referenced __gnuc_va_list '__builtin_va_list':'char *'
+| `-ElaboratedType 0x1c08a71dc80 '__builtin_va_list' sugar
+|   `-TypedefType 0x1c08a71dc50 '__builtin_va_list' sugar
+|     |-Typedef 0x1c08a71dbd0 '__builtin_va_list'
+|     `-PointerType 0x1c08a71db20 'char *'
+|       `-BuiltinType 0x1c08a71cfd0 'char'
+|-TypedefDecl 0x1c08a71dd90 <line:31:3, col:26> col:26 referenced va_list '__gnuc_va_list':'char *'
+| `-ElaboratedType 0x1c08a71dd50 '__gnuc_va_list' sugar
+|   `-TypedefType 0x1c08a71dd20 '__gnuc_va_list' sugar
+|     |-Typedef 0x1c08a71dcc0 '__gnuc_va_list'
+|     `-ElaboratedType 0x1c08a71dc80 '__builtin_va_list' sugar
+|       `-TypedefType 0x1c08a71dc50 '__builtin_va_list' sugar
+|         |-Typedef 0x1c08a71dbd0 '__builtin_va_list'
+|         `-PointerType 0x1c08a71db20 'char *'
+|           `-BuiltinType 0x1c08a71cfd0 'char'
+|-FunctionDecl 0x1c08c19e690 <D:/package/mingw64/x86_64-w64-mingw32/include/_mingw.h:580:1, col:31> col:14 __debugbreak 'void (void) __attribute__((cdecl))':'void (void)'
+|-FunctionDecl 0x1c08c19e848 prev 0x1c08c19e690 <line:90:31, line:592:1> line:581:36 __debugbreak 'void (void) __attribute__((cdecl))':'void (void)' extern inline
+| |-CompoundStmt 0x1c08c19ea20 <line:582:1, line:592:1>
+| | `-GCCAsmStmt 0x1c08c19e9c8 <line:584:3, col:35>
+| |-AlwaysInlineAttr 0x1c08c19e8f0 <line:90:64> always_inline
+| `-GNUInlineAttr 0x1c08c19e948 <col:82>
+
+...
+
+|-FunctionDecl 0x1c08c259c58 <col:24, D:/package/mingw64/x86_64-w64-mingw32/include/sec_api/stdio_s.h:870:117> col:26 _fread_nolock_s 'size_t (void *, size_t, size_t, size_t, FILE *) __attribute__((cdecl))':'size_t (void *, size_t, size_t, size_t, FILE *)'
+| |-ParmVarDecl 0x1c08c259990 <col:42, col:48> col:48 _DstBuf 'void *'
+| |-ParmVarDecl 0x1c08c259a08 <col:56, col:63> col:63 _DstSize 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x1c08c259a80 <col:72, col:79> col:79 _ElementSize 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x1c08c259af8 <col:92, col:99> col:99 _Count 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x1c08c259b78 <col:106, col:112> col:112 _File 'FILE *'
+| `-DLLImportAttr 0x1c08c259d28 <D:/package/mingw64/x86_64-w64-mingw32/include/_mingw.h:52:40>
+`-FunctionDecl 0x1c08c259e20 <hello.c:5:1, line:8:1> line:5:5 main 'int (void)'
+  `-CompoundStmt 0x1c08c25a058 <col:15, line:8:1>
+    |-CallExpr 0x1c08c259fd0 <line:6:5, col:21> 'int'
+    | |-ImplicitCastExpr 0x1c08c259fb8 <col:5> 'int (*)(const char *, ...)' <FunctionToPointerDecay>
+    | | `-DeclRefExpr 0x1c08c259ec8 <col:5> 'int (const char *, ...)' Function 0x1c08c1bb9d8 'printf' 'int (const char *, ...)'
+    | `-ImplicitCastExpr 0x1c08c25a010 <line:3:19, col:35> 'const char *' <NoOp>
+    |   `-ImplicitCastExpr 0x1c08c259ff8 <col:19, col:35> 'char *' <ArrayToPointerDecay>
+    |     `-ParenExpr 0x1c08c259f50 <col:19, col:35> 'char[13]' lvalue
+    |       `-StringLiteral 0x1c08c259f28 <col:20> 'char[13]' lvalue "hello world\n"
+    `-ReturnStmt 0x1c08c25a048 <line:7:5, col:12>
+      `-IntegerLiteral 0x1c08c25a028 <col:12> 'int' 0
+```
+
+以上输出结果反映了对源代码进行语法分析后得到的抽象语法树（AST）。AST是对源代码结构的一种抽象表示，其中各种节点代表了源代码中的不同语法结构，如声明、定义、表达式等。这些节点包括：
+
+- TypedefDecl：用于定义新类型的声明，如__int128和char。
+- RecordType：描述了记录类型，例如struct __NSConstantString_tag。
+- FunctionDecl：表示函数声明，包括函数名称、返回类型和参数信息。
+- ParmVarDecl：参数变量的声明，包括参数名称和类型。
+- CompoundStmt：表示由多个语句组成的语句块。
+- 函数调用表达式、声明引用表达式和隐式类型转换表达式等，用于描述不同的语法结构。
+- 各种属性信息，如内联属性和DLL导入属性，用于描述代码的特性和行为。
+
+这些节点之间通过边相连，反映了它们在源代码中的关系和层次。AST为进一步的语义分析和编译过程提供了基础，是编译器理解和处理源代码的重要工具。
 
 下图是 AST 的图形视图，可用下面的命令得到：
 
 ```shell
-clang -fsyntax-only -Xclang -ast-view min.c
+clang -fsyntax-only -Xclang -ast-view hello.c
 ```
 
-![编译器](images/llvm_ir13.png)
+![编译器](images/07LLVMFrontend03.png)
 
 AST 节点 CompoundStmt 包含 `if` 和 `return` 语句，`IfStmt` 和 `ReturnStmt`。每次对 a 和 b 的使用都生成一个到 int 类型的 `ImplicitCastExpr`，如 C 标准的要求。
 
@@ -96,8 +183,19 @@ AST 节点 CompoundStmt 包含 `if` 和 `return` 语句，`IfStmt` 和 `ReturnSt
 
 语义分析报错案例：
 
-============ 不要用图片，自己运行一下，深入到细节里面，去看看里面的内容哦。
-![编译器](images/llvm_ir14.png)
+```c
+#include <stdio.h>
+
+#define HELLOWORD ("hello world\n")
+
+int a[4];
+int a[5];
+
+int main(void){
+    printf(HELLOWORD);
+    return 0;
+}
+```
 
 执行
 ```shell
@@ -106,8 +204,15 @@ clang -c hello.c
 
 这里的错误源于两个不同的变量用了相同的名字，它们的类型不同。这个错误必须在语义分析时被发现，相应地 Clang 报告了这个问题：
 
-============ 不要用图片，自己运行一下，深入到细节里面，去看看里面的内容哦。
-![编译器](images/llvm_ir15.png)
+```shell
+hello.c:6:5: error: redefinition of 'a' with a different type: 'int[5]' vs 'int[4]'
+    6 | int a[5];
+      |     ^
+hello.c:5:5: note: previous definition is here
+    5 | int a[4];
+      |     ^
+1 error generated.
+```
 
 语义分析的主要任务是检查代码的语义是否正确，并确保代码的类型正确。语义分析器检查代码的类型是否符合语言的类型系统，并确保代码的语义正确。
 
@@ -129,14 +234,18 @@ LLVM 优化层在输入的时候是一个 AST 语法树，输出的时候已经�
 
 分析 Pass 用于收集信息和了解程序的行为，而转换 Pass 则用于修改程序以实现优化或修改功能。在 LLVM 中，这两种 Pass 通常结合使用，以实现对程序进行全面优化和改进。
 
-优化过程需要执行以下代码：  
+优化过程需要执行以下代码： 
+
+首先我们需要生成 hello.bc文件：
+```shell
+clang -emit-llvm -c hello.c -o hello.bc
+```
+然后执行优化过程：
 
 ```shell
-opt hello.bc -instcount -time-passes -domtree -o hello-tmp.bc -stats
+opt -passes='instcount,adce,mdgc' -o hello-tmp.bc hello.bc -stats
 ```
-
-============ 不要用图片，自己运行一下，深入到细节里面，去看看里面的内容哦。
-![编译器](images/llvm_ir16.png)
+就可以生成 hello-tmp.bc 文件，其中包含了优化后的 IR。
 
 在上述过程中有很多不同阶段的 pass。
 
