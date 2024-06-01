@@ -108,7 +108,7 @@ FPGA 作为一种可重构的硬件，在 AI 加速领域也有广泛的应用�
 
 下图为 FPGA 架构概略图：
 
-![NPU22](images/06NPUbase22.png)
+![NPU22](images/06NPUBase22.png)
 
 ### ASIC
 
