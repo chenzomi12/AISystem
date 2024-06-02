@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 谷歌 TPU 历史发展
+# 谷歌 TPU 历史发展(DONE)
 
 在本章节中，我们将深入探讨谷歌的 Tensor Processing Unit（TPU）的发展历程及其在深度学习和人工智能领域的应用。TPU 是谷歌为加速机器学习任务而设计的专用集成电路（ASIC），自首次推出以来，TPU 经历了多次迭代升级，包括 TPU v1、v2、v3 和 v4，以及 Edge TPU 和 Google Tensor 等产品。
 
@@ -39,7 +39,7 @@
 
 ![ALL TPU](images/04TPUIntro01.png)
 
-从TPU v2 开始谷歌也推出了自己的超级计算集群 TPU Pod，下图是几个不同角度去观察的TPU Pod的图片，比较有代表性的是左上角的 TPU v2 Pod，右上角的 TPU v3 Pod 和左下角的 TPU v4 Pod。
+从 TPU v2 开始谷歌也推出了自己的超级计算集群 TPU Pod，下图是几个不同角度去观察的 TPU Pod 的图片，比较有代表性的是左上角的 TPU v2 Pod，右上角的 TPU v3 Pod 和左下角的 TPU v4 Pod。
 
 ![ALL TPU](images/04TPUIntro02.png)
 
@@ -154,8 +154,8 @@ TPU v2 和 v1 的架构差距很小，而主要的架构不同体现在训练场
 
 ![Alt text](images/04TPUIntro10.png)
 
-在 TPU v2 这一代，也是谷歌第一次引入Pod的概念。下面是 TPU v2 Pod 的形态。实际上Pod就是多个TPU互联搭建成的集群，通过提高芯片间的带宽，谷歌将256块TPU
-v2芯片互联，从而推出了这个超大的计算集群。
+在 TPU v2 这一代，也是谷歌第一次引入 Pod 的概念。下面是 TPU v2 Pod 的形态。实际上 Pod 就是多个 TPU 互联搭建成的集群，通过提高芯片间的带宽，谷歌将 256 块 TPU
+v2 芯片互联，从而推出了这个超大的计算集群。
 
 ![Alt text](images/04TPUIntro11.png)
 
@@ -167,8 +167,6 @@ TPU v3 相较于其前身 TPU v2 有了显著的提升。这一代 TPU 在晶体
 此外，TPU v3 的一个显著改进是其 2D torus 互连结构，它从 TPU v2 的 256 个芯片扩展到了 TPU v3 的 1,024 个芯片，这使得 Pod 超算型号的处理能力提升了 10.7 倍，计算理论峰值从 12 petaflops 跃升至 126 petaflops（BF16）。[<sup>[2]</sup>](#ref5)
 
 ![Alt text](images/04TPUIntro12.png)
-
-========== 这个图要换的，记给ZOMI
 
 ### TPU v4 概览
 
@@ -190,7 +188,9 @@ TPU 自 2016 年推出第一代 TPU 以来，谷歌不断推进 TPU 技术的发
 
 ## 本节视频
 
-<iframe src="https://player.bilibili.com/player.html?aid=569330788&bvid=BV1tv4y1V72f&cid=1075822112&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<html>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=956806991&bvid=BV1Dp4y1V7PF&cid=1221252549&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</html>
 
 ## 参考文献
 
