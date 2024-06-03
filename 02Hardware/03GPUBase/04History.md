@@ -72,7 +72,7 @@ Fermi 架构支持新的并行线程执行 PTX 2.0（Parallel Thread Execution�
 
 Kepler 架构支持动态并行（Dynnamic Parallelism），在不需要 CPU 支持的情况下自动同步，在程序执行过程中灵活动态地提供并行数量和形式。Hyper-Q 使多个 CPU 核使用单个 GPU 执行工作，提高 GPU 利用率并显着减少 CPU 空闲时间，允许 32 个同时进行的硬件管理连接，允许从多个 CUDA 流处理，多个消息传递进程中分离出单个进程。使用网格管理单元（Grid Management Unit，GMU）启用动态并行和调度控制，比如挂起或暂停网格和队列直到执行的环境准备好。
 
-NVIDIA GPUDirect 可以使单个计算机内的 GPU 或位于网络上不同服务器中的 GPU 直接交换数据，而无需转到 CPU/系统内存，RDMA 特性允许第三方设备直接访问同一系统内多个 GPU 上的内存，减少了对系统内存带宽的需求，释放 GPU DMA 引擎供其它 CUDA 任务使用。
+NVIDIA GPUDirect 可以使单个计算机内的 GPU 或位于网络上不同服务器中的 GPU 直接交换数据，而无需转到 CPU 系统内存，RDMA 特性允许第三方设备直接访问同一系统内多个 GPU 上的内存，减少了对系统内存带宽的需求，释放 GPU DMA 引擎供其它 CUDA 任务使用。
 
 ## Maxwell 架构
 

@@ -10,12 +10,12 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 国外 AI 芯片 | 01 壁仞 BR100 产品介绍 | [PPT](./01.BR100_System.pdf), [视频](https://www.bilibili.com/video/BV1QW4y1S75Y)|
-| 国外 AI 芯片 | 02 壁仞 BR100 芯片架构 | [PPT](./02.BR100_Detail.pdf), [视频](https://www.bilibili.com/video/BV1G14y1275T)|
-| 国外 AI 芯片 | 03 燧原科技 AI 芯片 | [PPT](./03.SUIYUAN_DTU.pdf), [视频](https://www.bilibili.com/video/BV15W4y1Z7Hj)|
-| 国外 AI 芯片 | 04 寒武纪 AI 芯片第一股 | [PPT](./04.cambricon_Product.pdf), [视频](https://www.bilibili.com/video/BV1Y8411m7Cd)|
-| 国外 AI 芯片 | 05 寒武纪 AI 芯片架构剖析（上） | [PPT](./05.cambricon_Arch.pdf), [视频](https://www.bilibili.com/video/BV1op4y157Qf)|
-| 国外 AI 芯片 | 06 寒武纪 AI 芯片架构剖析（下） | [PPT](./06.cambricon_Arch.pdf), [视频](https://www.bilibili.com/video/BV1TV411j7Yx)|
+| 国外 AI 芯片 | 01 壁仞 BR100 产品介绍 | [PPT](./01BR100System.pdf), [视频](https://www.bilibili.com/video/BV1QW4y1S75Y)|
+| 国外 AI 芯片 | 02 壁仞 BR100 芯片架构 | [PPT](./02BR100Detail.pdf), [视频](https://www.bilibili.com/video/BV1G14y1275T)|
+| 国外 AI 芯片 | 03 燧原科技 AI 芯片 | [PPT](./03SuiyuanDTU.pdf), [视频](https://www.bilibili.com/video/BV15W4y1Z7Hj)|
+| 国外 AI 芯片 | 04 寒武纪 AI 芯片第一股 | [PPT](./04CambriconProduct.pdf), [视频](https://www.bilibili.com/video/BV1Y8411m7Cd)|
+| 国外 AI 芯片 | 05 寒武纪 AI 芯片架构剖析（上） | [PPT](./05CambriconArch.pdf), [视频](https://www.bilibili.com/video/BV1op4y157Qf)|
+| 国外 AI 芯片 | 06 寒武纪 AI 芯片架构剖析（下） | [PPT](./06CambriconArch.pdf), [视频](https://www.bilibili.com/video/BV1TV411j7Yx)|
 
 ## 备注
 

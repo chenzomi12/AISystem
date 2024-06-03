@@ -6,7 +6,7 @@
 
 随着深度学习的不断发展，AI 模型结构在快速演化，底层计算硬件技术更是层出不穷，对于广大开发者来说不仅要考虑如何在复杂多变的场景下有效的将算力发挥出来，还要应对计算框架的持续迭代。AI 编译器就成了应对以上问题广受关注的技术方向，让用户仅需专注于上层模型开发，降低手工优化性能的人力开发成本，进一步压榨硬件性能空间。我们先了解通用编译器的概念，然后通过编译器的历史回顾知道编译器近几十年的发展，最后开始深入传统编译器的流程和原理。
 
-**内容大纲**
+## 内容大纲
 
 > `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/AISystem) 下载，网页课程版链接会失效哦~
 >
@@ -14,14 +14,14 @@
 
 | 小节 | 链接|
 |:--:|:--:|
-| 01 编译器基础概念 | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1D84y1y73v/), [字幕](./srt/01.srt) |
+| 01 编译器基础概念 | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1D84y1y73v/) |
 |  |  |
-| 02 开源编译器的发展 | [文章](./02History.md), [PPT](./02History.pdf), [视频](https://www.bilibili.com/video/BV1sM411C7Vr/), [字幕](./srt/02.srt) |
-| 03 GCC 编译过程和原理 | [文章](./03GCC.md), [PPT](./03GCC.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./srt/03.srt) |
-| 04 LLVM 设计架构 | [文章](./04LLVM.md), [PPT](./04LLVM.pdf), [视频](https://www.bilibili.com/video/BV1CG4y1V7Dn/), [字幕](./srt/04.srt) |
-| 05 LLVM IR 详解 | [文章](./05LLVMDetail01.md), [PPT](./05LLVMDetail01.pdff), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/), [字幕](./srt/05.srt) |
-| 06 LLVM 前端和优化层 | [文章](./05LLVMDetail02.md), [PPT](./05LLVMDetail02.pdf), [视频](https://www.bilibili.com/video/BV1vd4y1t7vS), [字幕](./srt/06.srt) |
-| 07 LLVM 后端代码生成 | [文章](./05LLVMDetail03.md), [PPT](./05LLVMDetail03.pdf), [视频](https://www.bilibili.com/video/BV1cd4y1b7ho), [字幕](./srt/07.srt) |
+| 02 开源编译器的发展 | [文章](./02History.md), [PPT](./02History.pdf), [视频](https://www.bilibili.com/video/BV1sM411C7Vr/) |
+| 03 GCC 编译过程和原理 | [文章](./03GCC.md), [PPT](./03GCC.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/) |
+| 04 LLVM 设计架构 | [文章](./04LLVM.md), [PPT](./04LLVM.pdf), [视频](https://www.bilibili.com/video/BV1CG4y1V7Dn/ |
+| 05 LLVM IR 详解 | [文章](./05LLVMIR), [文章](./06LLVMDetail.md), [PPT](./05LLVMDetail01.pdff), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/) |
+| 06 LLVM 前端和优化层 | [文章](./07LLVMFrontend.md), [PPT](./05LLVMDetail02.pdf), [视频](https://www.bilibili.com/video/BV1vd4y1t7vS) |
+| 07 LLVM 后端代码生成 | [文章](./08LLVMBackend.md), [PPT](./05LLVMDetail03.pdf), [视频](https://www.bilibili.com/video/BV1cd4y1b7ho) |
 
 ## 备注
 

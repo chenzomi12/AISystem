@@ -14,7 +14,7 @@
 
 Mobile-Former 将 MobileNet 和 Transformer 并行化，并通过双向交叉注意力连接（下见图）。Mobile（指 MobileNet）采用图像作为输入（$X\in R^{HW \times 3}$），并应用反向瓶颈块提取局部特征。Former（指 Transformers）将可学习的参数（或 tokens）作为输入，表示为 $Z\in R^{M\times d}$,其中 M 和 d 分别是 tokens 的数量和维度，这些 tokens 随机初始化。与视觉 Transformer（ViT）不同，其中 tokens 将局部图像 patch 线性化，Former 的 tokens 明显较少（M≤6），每个代表图像的全局先验知识。这使得计算成本大大降低。
 
-![MobileFormer](./images/10.mobileformer_01.png)
+![MobileFormer](images/10.mobileformer_01.png)
 
 #### 低成本双线桥
 
@@ -37,7 +37,7 @@ $$
 
 Mobile-Former 由 Mobile-Former 块组成。每个块包含四部分：Mobile 子块、Former 子块以及双向交叉注意力 Mobile←Former 和 Mobile→Former（如下图所示）。
 
-![MobileFormer](./images/10.mobileformer_02.png)
+![MobileFormer](images/10.mobileformer_02.png)
 
 输入和输出：Mobile-Former 块有两个输入：(a) 局部特征图 $X\in R^{HW\times C}$，为 C 通道、高度 H 和宽度 W，以及(b) 全局 tokens $Z\in R^{M\times d}$，其中 M 和 d 是分别是 tokens 的数量和维度，M 和 d 在所有块中一样。Mobile-Former 块输出更新的局部特征图 $X$ 和全局 tokens$Z$，用作下一个块的输入。
 

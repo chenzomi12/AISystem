@@ -20,13 +20,13 @@ $$\underset {a∈A}{min}  \underset {w_{a}}{min} L(a,w_{a}) \tag{1}$$
 
 给定结构空间 A，寻找最优的结构 $a∈A$，在训练好权值后 $w_{a}$，可以满足最小化损失 $L(a,w_{a})$，论文主要集中于 3 个因素：搜索空间、考虑实际时延的损失函数以及高效的搜索算法。
 
-![DNAS](./images/03cnn/03CNN_07_1.png)
+![DNAS](images/03cnn/03CNN_07_1.png)
 
 #### 搜索空间
 
 之前的方法大都搜索单元结构，然后堆叠成完整的网络，但实际上，相同的单元结构在不同的层对网络的准确率和时延的影响是大不相同的。为此，论文构造了整体网络结构(macro-architecture)固定的 layer-wise 搜索空间，每层可以选择不同结构的 block，整体网络结构如表 1 所示，前一层和后三层的结构是固定的，其余层的结构需要进行搜索。前面的层由于特征分辨率较大，人工设定了较小的核数量以保证网络的轻量性。layer-wise 搜索空间如下图所示，基于 MobileNetV2 和 ShuffleNet 的经典结构设计，通过设定不同的卷积核大小(3 或 5)、扩展率以及分组数来构造成不同的候选 block。若 block 的输入和输出分辨率一致，则添加 element-wise 的 shortcut，而若使用了分组卷积，则需要对卷积输出进行 channel shuffle。
 
-![搜索空间结构](./images/03cnn/03CNN_07.png)
+![搜索空间结构](images/03cnn/03CNN_07.png)
 
 #### Latency-Aware 损失函数
 
@@ -140,7 +140,7 @@ class MixedOperation(nn.Module):
 FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。 它采用受 MobileNetv2 启发的基本类型图像模型块，该模型利用深度卷积和反向残差结构（请参阅组件，见下图）。其中，FBNet-A 和 FBNet-B、FBNet-C 的区别在于最后一个卷积的输出 channel 不一样
 
 
-![FBNet](./images/06.fpnet_03.png)
+![FBNet](images/06.fpnet_03.png)
 
 
 ## FBNet V2
@@ -153,7 +153,7 @@ FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。 它�
 
 把不同的 channel 加入搜索空间，之前的 DNAS 方法就是把不同的选项融进超网，这样会带来接近 o(N2)种选择的可能。为了减少搜索 channel 时候的计算量，作者构造了 channel masking 的机制，把不同 channel 的最终输出，表征为和一个 mask 相乘的形式，如下图所示。
 
-![FBNet](./images/06.fpnet_04.png)
+![FBNet](images/06.fpnet_04.png)
 
 其中右边那个灰色的长方体表示一个 shape 为(c, h, w)的 tensor，和左边的 mask 向量 M 相乘的结果。M 可以拆解为多个 mask，m1，m2，m3...和对应 3 的 Gumbel Softmax 的系数 g1，g2，g3...的乘积和。通过调节左边的 mask，就能得到等价的不同 channel 的结果。相当于对一个大的 tensor，mask 掉额外的 channel，得到相应的别的 channel 的结果。
 
@@ -181,7 +181,7 @@ $$
 
 这种近似只需要一个正向传递和一个特征映射，除了等式 3 中可忽略的 M 项之外，不会引起额外的 FLOP 或存储器成本。(图 Channel Masking for channel search（DMaskingNAS），通道屏蔽)。此外，这种近似并不等价，只是因为权重是共享的，这在 DNAS 被证明可以减少训练时间和提高准确性[Single-path nas: Device-aware efficient convnet design]。这使本文能够搜索任何模块的输出通道数，包括相关的架构决策，如反向残差模块中的扩展速率。
 
-![FBNet](./images/06.fpnet_05.png)
+![FBNet](images/06.fpnet_05.png)
 
 #### 输入分辨率搜索
 
@@ -207,11 +207,11 @@ E:为了保留所有搜索到的输入分辨率的感受域，在卷积之前必
 
 上面说了在 channel 维度的做法。 在空间 维度的做法也是类似的，作者也想构造一种加权和的形式表征不同分辨率的特征图。如图 A 所示，不同分辨率的 tensor 不能直接相加。图 B 说明了在边缘 padding 的方式不行，像素无法对齐。图 C 这种方式会又带来感受野错位 的问题：如图 D 所示，Interspersing zero-padding 之后，一个 3x3 的 kenel 有效感受野变成了 2x2。所以图 E 才是作者最终的解决方法：和 F 运算完之后再 padding。
 
-![FBNetV2](./images/06.fpnet_06.png)
+![FBNetV2](images/06.fpnet_06.png)
 
 为了处理像素错位，进行零填充，使零点在空间上分散(上图 c)。这种零填充模式是统一的；除了零，这是最近邻上采样。例如，大小增加 2 倍将涉及每隔一行和一列进行零填充。补零而不是上采样可以最大限度地减少输入分辨率的“像素污染”(下图)。
 
-![FBNetV2](./images/06.fpnet_07.png)
+![FBNetV2](images/06.fpnet_07.png)
 
 在最左边，本文有原始的 8×8 特征图。蓝色的 4×4 是使用最近邻进行二次采样的特征图，并且均匀地进行零填充。黄色的 2 × 2 也是二次抽样和零填充。将 2 × 2 与 4 × 4 相加得到最右边的组合特征图。只有角落中的绿色像素保存两种特征地图大小的值；这些绿色值被较低分辨率的特征图“污染"。
 
@@ -272,11 +272,11 @@ $$
 
 首先使用 DMaskingNAS 寻找低计算预算的紧凑模型(见下图):
 
-![FBNetV2](./images/06.fpnet_08.png)
+![FBNetV2](images/06.fpnet_08.png)
 
 搜索出来的 FBNetV2 架构，颜色表示不同的内核大小，高度表示不同的膨胀率。高度是按比例绘制的。模型范围为 50 MFLOPs 至 300 MFLOPs，如下图所示。搜索到的 FBNetV2s 优于所有现有网络。
 
-![FBNetV2](./images/06.fpnet_09.png)
+![FBNetV2](images/06.fpnet_09.png)
 
 **代码**
 
@@ -422,7 +422,7 @@ A，h，Ω分别表示网络架构、训练策略以及搜索空间；$g_{i}(A)$
 
 预测器的结构如下图所示，包含一个结构编码器以及两个 head，分别为辅助的代理 head 以及准确率 head。代理 head 预测网络的属性(FLOPs 或参数量等)，主要在编码器预训练时使用，准确率 head 根据训练参数以及网络结构预测准确率，使用代理 head 预训练的编码器在迭代优化过程中进行 fine-tuned。
 
-![FBNetV2](./images/06.fpnet_10.png)
+![FBNetV2](images/06.fpnet_10.png)
 
 Neural Acquisition Function，即预测器，见上图。它包含编码架构与两个 head：
 

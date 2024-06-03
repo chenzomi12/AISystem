@@ -142,7 +142,7 @@ CUDA 并行编程模型基于单程序多数据（Single Program Mutiple Data，
 
 回顾英伟达 GPU 软件和硬件之间的对应关系，线程对应于 CUDA Core，线程以线程块为单位被分配到 SM 上，SM 维护线程块和线程 ID，SM 管理和调度线程执行。每个线程块又按照每个 Warp 中共 32 个线程执行，Warp 是 SM 的调度单位，Warp 里的线程执行 SIMD。Block 线程块只在一个 SM 上通过 Wrap 进行调度，一旦在 SM 上调用了 Block 线程块，就会一直保留到执行完 Kernel。SM 可以同时保存多个 Block 线程块，块间并行的执行。
 
-![CUDA 跟 NVIDIA 硬件架构的关系](images/02SIMT_SIMD09.png)
+![CUDA 跟 NVIDIA 硬件架构的关系](images/02SIMT_SIMD10.png)
 
 在 AI 框架的开发流程方面，首先会按照编程思想定义神经网络，然后根据 AI 框架编写对应的程序，AI 框架会自动构建计算正向图，根据自动微分原理构建反向图。其中在神经网络中比较重要的算子是矩阵乘，以 CUDA 代码为例实现 $C = A × B$，使用 `blockIdx.x` 和 `blockDim.x` 来访问块索引和块维度。
 

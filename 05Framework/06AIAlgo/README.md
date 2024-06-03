@@ -9,11 +9,11 @@
 | 编号  | 名称    | 名称                | 备注                                                                                       |
 | --- | ----- | ----------------- | ---------------------------------------------------------------------------------------- |
 |     |       |                   |                                                                                          |
-|     | 分布式集群 | 01 基本介绍           | [silde](./01.introduction.pdf), [video](https://www.bilibili.com/video/BV1ge411L7mi/)   |
-|     | 分布式集群 | 02 AI 集群服务器架构      | [silde](./02.architecture.pdf), [video](https://www.bilibili.com/video/BV1fg41187rc/)   |
-|     | 分布式集群 | 03 AI 集群软硬件通信      | [silde](./03.communication.pdf), [video](https://www.bilibili.com/video/BV14P4y1S7u4/)  |
-|     | 分布式集群 | 04 集合通信原语         | [silde](./04.primitive.pdf), [video](https://www.bilibili.com/video/BV1te4y1e7vz/)      |
-|     | 分布式算法 | 05 AI 框架分布式功能      | [silde](./05.system.pdf), [video](https://www.bilibili.com/video/BV1n8411s7f3/)         |
+|     | 分布式集群 | 01 基本介绍           | [silde](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1ge411L7mi/)   |
+|     | 分布式集群 | 02 AI 集群服务器架构      | [silde](./02.architecture.pdf), [视频](https://www.bilibili.com/video/BV1fg41187rc/)   |
+|     | 分布式集群 | 03 AI 集群软硬件通信      | [silde](./03.communication.pdf), [视频](https://www.bilibili.com/video/BV14P4y1S7u4/)  |
+|     | 分布式集群 | 04 集合通信原语         | [silde](./04.primitive.pdf), [视频](https://www.bilibili.com/video/BV1te4y1e7vz/)      |
+|     | 分布式算法 | 05 AI 框架分布式功能      | [silde](./05.system.pdf), [视频](https://www.bilibili.com/video/BV1n8411s7f3/)         |
 |     |       |                   |                                                                                          |
 
 ## 备注

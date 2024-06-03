@@ -10,12 +10,12 @@ PyTorch 2.0 是 PyTorch 捐献给 Linux 基金会的第一个版本。从 PyTorc
 
 | 小节 | 链接|
 |:--:|:--:|
-| 01 PyTorch2.0 特性串讲| [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1p84y1675B/), [文章](./01.introduction.md), [字幕](./srt/01.srt) |
-| 02 TorchScript 静态图尝试| [PPT](./02.torchscript.pdf), [视频](https://www.bilibili.com/video/BV1JV4y1P7gB/), [文章](./02.torchscript.md), [字幕](./srt/02.srt) |
-| 03 Torch FX 与 LazyTensor 特性 | [PPT](./03.torchfx_lazy.pdf), [视频](https://www.bilibili.com/video/BV1944y1m7fU/), [文章](./03.torchfx_lazy.md), [字幕](./srt/03.srt) |
-| 04 TorchDynamo 来啦 | [PPT](./04.torchdynamo.pdf), [视频](https://www.bilibili.com/video/BV1Hv4y1R7uc/), [文章](./04.torchdynamo.md), [字幕](./srt/04.srt) |
-| 05 AOTAutograd 原理 | [PPT](./05.aotatuograd.pdf), [视频](https://www.bilibili.com/video/BV1Me4y1V7Ke/), [文章](./05.aotatuograd.md), [字幕](./srt/05.srt) |
-| 06 Dispatch 机制| [PPT](./06.dispatch.pdf), [视频](https://www.bilibili.com/video/BV1L3411d7SM/), [文章](./06.dispatch.md), [字幕](./srt/06.srt) |
+| 01 PyTorch2.0 特性串讲 | [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1p84y1675B/)  |
+| 02 TorchScript 静态图尝试 | [PPT](./02.torchscript.pdf), [视频](https://www.bilibili.com/video/BV1JV4y1P7gB/) |
+| 03 Torch FX 与 LazyTensor 特性 | [PPT](./03.torchfx_lazy.pdf), [视频](https://www.bilibili.com/video/BV1944y1m7fU/) |
+| 04 TorchDynamo 来啦 | [PPT](./04.torchdynamo.pdf), [视频](https://www.bilibili.com/video/BV1Hv4y1R7uc/)  |
+| 05 AOTAutograd 原理 | [PPT](./05.aotatuograd.pdf), [视频](https://www.bilibili.com/video/BV1Me4y1V7Ke/) |
+| 06 Dispatch 机制| [PPT](./06.dispatch.pdf), [视频](https://www.bilibili.com/video/BV1L3411d7SM/) |
 
 ## 备注
 
