@@ -10,13 +10,13 @@
 
 AI 系统概述：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12)
 
-AI 硬件体系结构：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12), [@刘军](), [@张晓天](), [@李明慧](https://github.com/xxx), [@张圣航](), [@刘纬恒](), [@李宗泽](),  [@赵文千]()
+AI 硬件体系结构：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12), [@刘军](https://github.com/AI-LJ), [@张晓天](), [@李明慧](https://github.com/xxx), [@张圣航](), [@刘纬恒](), [@李宗泽](),  [@赵文千]()
 
-AI 编译原理：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12), [@史家兴](), [@宋一帆](), [@韩昊知](), [@李行](), [@武震卿](), [@张浩](), [@陈庚天](), 
+AI 编译原理：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12), [@史家兴](), [@宋一帆](https://github.com/sfs999), [@韩昊知](), [@李行](), [@武震卿](), [@张浩](), [@陈庚天](), 
 
 推理引擎系列：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12), [高鑫淼](), [何伟](), [刘旭斌](), [杨璇](), [徐宏博](), [栾少](), [谢迎](), [刘欣楠](), [李行](), [江典恒]()
 
-AI 框架：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12), [金傲群]()
+AI 框架：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12), [金傲群](https://github.com/AoqunJin)
 
 附录：机器学习介绍：[苏统华老师](), [ZOMI 酱](https://github.com/chenzomi12)
 

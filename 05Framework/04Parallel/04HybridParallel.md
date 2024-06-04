@@ -36,7 +36,7 @@
 
 ## 使用 Torch RPC 实现 DP+PP
 
-我们需要初始化 RPC 框架，以便在不同设备之间进行远程过程调用。代码中使用 `rpc.init_rpc` 来启动 RPC 框架，并配置了 `TensorPipeRpcBackendOptions` 以支持不同的传输和通道方式。这里，`tmpfile` 用于指定初始化方法。
+我们可以使用 Torch RPC 实现 DP+PP 的简单实现。我们需要初始化 RPC 框架，以便在不同设备之间进行远程过程调用。代码中使用 `rpc.init_rpc` 来启动 RPC 框架，并配置了 `TensorPipeRpcBackendOptions` 以支持不同的传输和通道方式。这里，`tmpfile` 用于指定初始化方法。
 
 ```python
 # In 'run_worker'
@@ -137,7 +137,7 @@ model_tp = parallelize_module(model, tp_mesh, tp_plan)
 model_2d = FSDP(model_tp, device_mesh=dp_mesh, use_orig_params=True, ...)
 ```
 
-我们定义模型，并创建一个张量并行计划（Tensor Parallel Plan），该计划指示模型的哪些部分需要并行化。通过 `parallelize_module` 函数，我们可以在 `tp_mesh` 上应用张量并行，从而在主机内实现模型的并行化。在 `dp_mesh` 上应用完全分片数据并行（Fully Sharded Data Parallel, FSDP）。FSDP 通过自动分片和重组模型参数，进一步优化跨主机的模型训练。通过将 `model_tp` 传递给 `FSDP`，就可以进行简单的 DP+PP 并行了。
+我们定义模型，并创建一个张量并行计划（Tensor Parallel Plan），该计划指示模型的哪些部分需要并行化，具体配置可以参考上一节使用 Device Mesh 进行张量并行的内容。通过 `parallelize_module` 函数，我们可以在 `tp_mesh` 上应用张量并行，从而在主机内实现模型的并行化。在 `dp_mesh` 上应用完全分片数据并行（Fully Sharded Data Parallel, FSDP）。FSDP 通过自动分片和重组模型参数，进一步优化跨主机的模型训练。通过将 `model_tp` 传递给 `FSDP`，就可以进行简单的 DP+PP 并行了。
 
 ## 本节视频
 
