@@ -279,7 +279,7 @@ Triton 推理服务器通过其精心设计的架构，将推理服务的复杂�
 
 接下来，我们分析 LoadBackendLibrary() 方法的实现：
 
-```
+```C++
 Status TritonBackend::LoadBackendLibrary()
 {
     RETURN_IF_ERROR(OpenLibraryHandle(libpath_, &dlhandle_));
