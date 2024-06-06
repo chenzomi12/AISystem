@@ -4,7 +4,7 @@
 
 本书由超过 40 位人工智能系统（AI System）领域的学术专家和开发人员共同完成，其排名不分先后。以下为各个章节编辑：
 
-项目 README: [ZOMI 酱](https://github.com/chenzomi12)
+课程 README: [ZOMI 酱](https://github.com/chenzomi12)
 
 序言&导读：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12)
 
@@ -22,6 +22,6 @@ AI 框架：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱]
 
 ## 加入我们
 
-我们创建了 AISystem 社区来讨论人工智能系统项目的参与方式。
+我们创建了 AISystem 社区来讨论人工智能系统课程的参与方式。
 
 如果希望加入我们，可以 B 站或者 Youtube 私信 ZOMI（加的时候请介绍自己，并说明希望参与 AISystem 哪方面工作）。

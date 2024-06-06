@@ -117,7 +117,7 @@
 
 2009 年，李飞飞教授团队在佛罗里达州举行的 2009 年计算机视觉和模式识别 (CVPR) 会议上首次以海报的形式展示了他们的 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)[<sup>[11]</sup>] 数据库，之后大量计算机视觉领域的经典模型在此数据库上进行验证，评测并演进。李飞飞于 2006 年产生想法并开始研究 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)[<sup>[11]</sup>] 。
 
-2007 年，李飞飞与 WordNet 的创始人之一普林斯顿大学教授克里斯蒂安·费尔鲍姆会面，之后从 WordNet 的单词数据库开始构建 ImageNet，并使用了它的许多功能。作为普林斯顿大学的助理教授，李博士组建了一个研究团队，致力于 ImageNet 项目，其通过众包平台 [Amazon Mechanical Turk](https://www.mturk.com/) 的工作人员来进行标记。
+2007 年，李飞飞与 WordNet 的创始人之一普林斯顿大学教授克里斯蒂安·费尔鲍姆会面，之后从 WordNet 的单词数据库开始构建 ImageNet，并使用了它的许多功能。作为普林斯顿大学的助理教授，李博士组建了一个研究团队，致力于 ImageNet 课程，其通过众包平台 [Amazon Mechanical Turk](https://www.mturk.com/) 的工作人员来进行标记。
 
 ### 突破驱动繁荣期（约 2010s）
 

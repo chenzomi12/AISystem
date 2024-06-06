@@ -996,7 +996,7 @@ PTQ Post Training Quantization
 
 250
 00:10:03,460 --> 00:10:05,360
-在 MindSpore 里面做的其中一个项目
+在 MindSpore 里面做的其中一个课程
 
 251
 00:10:05,360 --> 00:10:07,360
