@@ -225,15 +225,13 @@ $$Peak FLOPS=1.41∗108∗64∗2=19,491 GFLOPS$$
 | 1 - Peak rates are based on GPU Boost Clock.|  |
 |2 - Effective TFLOPS/TOPS using the new Sparsity feature |  |
 
-## 小结与讨论
+## 小结与思考
 
-本节主要对 NVIDIA GPU 硬件相关的基础概念进行了讲解，以 A100 GPU 为例，GPU 架构包括 GPC（图形处理簇，Graphics Processing Clusters）、GPC 包含 TPC（纹理处理簇，Texture Processing Clusters）、TPC 包含 SM（流多处理器，Stream Multiprocessors），SM 又包含 SP（流处理器，Streaming Processor，在 Fermi 架构之后，SP 被改称为 CUDA Core），Wrap 是 GPU 执行程序时的调度单位，SM 的基本执行单元。
+- CUDA 与 GPU 硬件的结合：CUDA 是 NVIDIA 推出的编程模型，它与 GPU 硬件紧密结合，允许开发者利用 GPU 上的 CUDA 核心和张量核心执行并行计算任务。
 
-CUDA 提出的通用并行计算架构和编程模型将 GPU 用作通用并行计算设备，加速各种计算任务，CUDA 编程模型包括主机（CPU）和设备（GPU）之间的协作，支持多种编程语言，在软件方面由 CUDA 库、应用程序编程接口（API）及其运行库（Runtime）和通用数学库构成。
+- CUDA 的线程层次结构：CUDA 通过线程、块和网格的层次化结构组织并行任务，实现了高效的数据并行处理和线程间同步。
 
-CUDA 利用 Grid，Block 和 Thread 三个线程层次结构，将并行计算任务分为多个线程，这些线程被组织为块，块可以进一步组织为网格，每个线程都可以独立执行计算任务。在 CUDA 编程中，Kernel 是在 GPU 上并行执行的函数，开发人员编写 Kernel 来描述并行计算任务，然后在主机上调用 Kernel 来在 GPU 上执行计算。软件方面的线程 Thread 对应硬件 CUDA Core，Thread Block 对应硬件 SM，多个 Block 组成的 Grid 组成了 TPC 和 GPC 硬件，从而实现了并行计算。
-
-GPU 的算力峰值与 CUDA 核心数量、核心频率、每个核心的计算能力和并行度相关，计算 GPU 的算力峰值可以帮助开发人员了解其在理论上的最大性能，并进行性能预测和优化。
+- GPU 算力峰值的计算：通过考虑 CUDA 核心数量、核心频率和指令执行效率，可以估算 GPU 的最大理论计算性能，这对于预测和优化计算密集型应用至关重要。
 
 ## 本节视频
 

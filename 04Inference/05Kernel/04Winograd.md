@@ -1,12 +1,12 @@
 # Winograd 算法
 
-在上一节的介绍中，介绍了Im2col技术，它通过将三维张量重新排列成矩阵形式，然后利用基于内存访问局部性的优化库如GEMM（通用矩阵乘法库）加速计算。随后，还探讨了空间组合优化，这一种利用局部性原理来提升效率的技术。
+在上一节的介绍中，介绍了 Im2col 技术，它通过将三维张量重新排列成矩阵形式，然后利用基于内存访问局部性的优化库如 GEMM（通用矩阵乘法库）加速计算。随后，还探讨了空间组合优化，这一种利用局部性原理来提升效率的技术。
 
-在本节将重点介绍winograd优化算法，它是矩阵乘优化方法中 Coppersmith–Winograd 算法的一种应用，按照 winograd 算法的原理将卷积的运算进行转换，从而减少卷积运算中乘法的计算总量。其主要是通过将卷积中的乘法使用加法来替换，并把一部分替换出来的加法放到卷积权重的提前处理阶段中，从而实现卷积计算的加速。winograd 算法的优化局限于一些特定的常用卷积参数，这限制了其在更广泛场景下的应用。尽管存在这些局限性，winograd算法仍然是深度学习领域中的重要优化手段之一，对于提高卷积神经网络运行效率具有显著作用。
+在本节将重点介绍 winograd 优化算法，它是矩阵乘优化方法中 Coppersmith–Winograd 算法的一种应用，按照 winograd 算法的原理将卷积的运算进行转换，从而减少卷积运算中乘法的计算总量。其主要是通过将卷积中的乘法使用加法来替换，并把一部分替换出来的加法放到卷积权重的提前处理阶段中，从而实现卷积计算的加速。winograd 算法的优化局限于一些特定的常用卷积参数，这限制了其在更广泛场景下的应用。尽管存在这些局限性，winograd 算法仍然是深度学习领域中的重要优化手段之一，对于提高卷积神经网络运行效率具有显著作用。
 
 ## winograd 的算法原理
 
-winograd 算法最早是 1980 年由 Shmuel Winograd 提出的《Arithmetic complexity of computations》，当时并没有引起太大的轰动。在 CVPR 2016 会议上，Lavin 等人在《Fast algorithms for convolutional neural networks》中提出了利用 winograd 加速卷积运算，于是 winograd 加速卷积在算法圈里火了起来，并从此 winograd 算法在包括Mindspore Lite，MMN等推理引擎中被广泛应用。那 winograd 为什么能加速卷积运算呢，简单来说就是用更多的加法计算来减少乘法计算，从而降低计算量，接下来就进一步了解如何使用 winograd 加速卷积运算。
+winograd 算法最早是 1980 年由 Shmuel Winograd 提出的《Arithmetic complexity of computations》，当时并没有引起太大的轰动。在 CVPR 2016 会议上，Lavin 等人在《Fast algorithms for convolutional neural networks》中提出了利用 winograd 加速卷积运算，于是 winograd 加速卷积在算法圈里火了起来，并从此 winograd 算法在包括 Mindspore Lite，MMN 等推理引擎中被广泛应用。那 winograd 为什么能加速卷积运算呢，简单来说就是用更多的加法计算来减少乘法计算，从而降低计算量，接下来就进一步了解如何使用 winograd 加速卷积运算。
 
 ### winograd 加速一维卷积计算
 
@@ -65,7 +65,7 @@ $$
 
 其中，$m_1=(d_0-d_2)g_0$，$m_2=(d_1+d_2)\frac{g_0+g_1+g_2}{2}$，$m_3=(d_2-d_1)\frac{g_0-g_1+g_2}{2}$，$m_4=(d_1-d_3)g_2$。
 
-因为在推理阶段卷积核上的元素是固定的，所以上式 $m_1$，$m_2$，$m_3$，$m_4$ 的式子中和$g$相关的式子可以提前计算好，在预测阶段只需要计算一次，因此计算次数可以忽略。而在计算 $m_1$，$m_2$，$m_3$，$m_4$ 需要通过 4 次乘法操作与4次加法操作，然后基于计算好的$m_1$，$m_2$，$m_3$，$m_4$的值，需要通过使用 4 次加法操作得到结果，所以这里一共需要 4 次乘法操作和 8 次加法操作。由于乘法操作比加法操作消耗的时间多，因此 winograd 的 4 次乘法和 8 次加法是要比一般的矩阵乘法的 6 次乘法和 4 次加法要快的。
+因为在推理阶段卷积核上的元素是固定的，所以上式 $m_1$，$m_2$，$m_3$，$m_4$ 的式子中和$g$相关的式子可以提前计算好，在预测阶段只需要计算一次，因此计算次数可以忽略。而在计算 $m_1$，$m_2$，$m_3$，$m_4$ 需要通过 4 次乘法操作与 4 次加法操作，然后基于计算好的$m_1$，$m_2$，$m_3$，$m_4$的值，需要通过使用 4 次加法操作得到结果，所以这里一共需要 4 次乘法操作和 8 次加法操作。由于乘法操作比加法操作消耗的时间多，因此 winograd 的 4 次乘法和 8 次加法是要比一般的矩阵乘法的 6 次乘法和 4 次加法要快的。
 
 而 winograd 加速卷积计算的具体推导过程如下，由上面的式子可以得知：
 
@@ -135,7 +135,7 @@ $$
 
 其中，
 
-- $\odot$ 表示element-wise multiplication（Hadamard product），即对应位置相乘操作；
+- $\odot$ 表示 element-wise multiplication（Hadamard product），即对应位置相乘操作；
 - $g$ 表示卷积核；$d$ 表示输入特征图（输入信号）；
 - $G$ 表示卷积核变换矩阵，尺寸为 $(u+k-1) \times k$；
 - $B^T$ 表示输入变换矩阵，尺寸为 $(u+k-1)\times (u+k-1)$；
@@ -239,14 +239,14 @@ $$
 
 ## winograd 的实现步骤
 
-基于上文的介绍，winograd算法的实现可以细分为四个主要步骤：
+基于上文的介绍，winograd 算法的实现可以细分为四个主要步骤：
 
 1. 对输入卷积核的变换：$𝑈=𝐺𝑔𝐺^𝑇$，其中$G$表示为卷积核变换矩阵，$g$表示卷积核
 2. 对输入数据的变换：$𝑉=𝐵^𝑇 𝑑𝐵$，其中$B$表示为输入数据的变换矩阵，$d$表示输入的特征图
-3. 对中间矩阵M的计算：$M = \sum U \odot V$
+3. 对中间矩阵 M 的计算：$M = \sum U \odot V$
 4. 卷积结果的计算：$𝑌=𝐴^𝑇𝑀𝐴$，其中$A$表示输出变换矩阵
 
-winograd算法的工作流程可以用以下图示来说明：
+winograd 算法的工作流程可以用以下图示来说明：
 
 ![winograd03](images/04.winograd03.png "winograd03")
 
@@ -256,7 +256,7 @@ winograd算法的工作流程可以用以下图示来说明：
 
 ![winograd04](images/04.winograd04.png "winograd04")
 
-如下图所示，在输入数据的转换过程中，首先将输入数据切分成$4 \times 4$的小块（tile）。接着，通过 winograd 算法中输入数据的变换矩阵 $B$ 和 $B^T$ 将每个小块转换为 $4 \times 4$ 的矩阵形式。完成矩阵转换后，每个小块的数据按照与卷积核转换过程中类似的重新排布方法，转换成16 个维度是小块数$nr\ tiles \times$ 输入通道数$IC$ 的输入数据矩阵$V$。
+如下图所示，在输入数据的转换过程中，首先将输入数据切分成$4 \times 4$的小块（tile）。接着，通过 winograd 算法中输入数据的变换矩阵 $B$ 和 $B^T$ 将每个小块转换为 $4 \times 4$ 的矩阵形式。完成矩阵转换后，每个小块的数据按照与卷积核转换过程中类似的重新排布方法，转换成 16 个维度是小块数$nr\ tiles \times$ 输入通道数$IC$ 的输入数据矩阵$V$。
 
 ![winograd05](images/04.winograd05.png "winograd05")
 
@@ -272,7 +272,7 @@ winograd算法的工作流程可以用以下图示来说明：
 
 首先，当应用 winograd 算法处理单个小局部的二维卷积时，该算法不能直接应用于这样的计算当中，因为产生的辅助矩阵规模过大，可能会对实际效果产生负面影响。另外，不同规模的卷积需要不同规模的辅助矩阵，实时计算出这些辅助矩阵不现实，如果都存储起来会导致规模膨胀。
 
-winograd算法虽然通过减少乘法次数来提高计算速度，但加法运算的数量却相应增加，同时还需要额外的转换计算和存储转换矩阵。随着卷积核和分块尺寸的增大，加法运算、转换计算和存储的开销也随之增加。此外，分块尺寸越大，转换矩阵也越大，计算精度的损失也会进一步加剧。因此，winograd算法仅适用于较小的卷积核和分块尺寸。在实际工程应用中，winograd 算法通常只用于处理一些特定的 $3 \times 3$ 卷积，而 $1 \times 1$ 和 $7 \times 7$ 、 $5 \times 5$ 的卷积则不会采用 winograd 这个 kernel。因此，在 runtime 中需要根据具体情况进行决策，选择合适的 kernel。
+winograd 算法虽然通过减少乘法次数来提高计算速度，但加法运算的数量却相应增加，同时还需要额外的转换计算和存储转换矩阵。随着卷积核和分块尺寸的增大，加法运算、转换计算和存储的开销也随之增加。此外，分块尺寸越大，转换矩阵也越大，计算精度的损失也会进一步加剧。因此，winograd 算法仅适用于较小的卷积核和分块尺寸。在实际工程应用中，winograd 算法通常只用于处理一些特定的 $3 \times 3$ 卷积，而 $1 \times 1$ 和 $7 \times 7$ 、 $5 \times 5$ 的卷积则不会采用 winograd 这个 kernel。因此，在 runtime 中需要根据具体情况进行决策，选择合适的 kernel。
 
 在实际应用中，通常会将所有可以固定的数据在网络运行前预先确定。在算法程序的设计中，希望尽可能提前计算出可以固定的数据，因此会有一个预编译阶段或离线模块转换阶段，以便提前计算出一些可预知的结果。在推理引擎中，主要处理的是一些常见或通用的算法问题，以及一些通用的网络模型结构。对于一些特定的网络模型结构，如果$G$是固定的，那么可以将特定网络的$G$提前计算出来，这样在下次运行时，就不需要重新计算。例如，在设计基于 winograd 算法的特定网络结构时，如果 $G$ 和 $g$ 是固定的，那么 $U=GgG^T$ 可以在网络运行前预先确定。
 
@@ -282,10 +282,10 @@ winograd算法虽然通过减少乘法次数来提高计算速度，但加法运
 
 在本节中主要是介绍了以下几点内容：
 
-1. 什么是 winograd优化算法，winograd算法的由来；
+1. 什么是 winograd 优化算法，winograd 算法的由来；
 2. winograd 优化算法是如何加速一维卷积与二维卷积的，并通过公式推理的方式进一步了解整个优化的过程；
 3. 具体介绍了在实际应用场景中，winograd 优化算法是如何实现的；
-4. 在本小节的最后，还介绍了winograd的约束与缺点，并介绍了一些相应的解决办法；
+4. 在本小节的最后，还介绍了 winograd 的约束与缺点，并介绍了一些相应的解决办法；
 
 ## 本节视频
 
@@ -301,11 +301,11 @@ winograd算法虽然通过减少乘法次数来提高计算速度，但加法运
 4. [video: Fast Algorithms for Convolutional Neural Networks by Andrew Lavin and Scott Gray](https://www.bilibili.com/video/av50718398)
 5. [video: Even Faster CNNs Exploring the New Class of Winograd Algorithms](https://www.bilibili.com/video/av53072685)
 6. [Understanding ‘Winograd Fast Convolution’](https://medium.com/@dmangla3/understanding-winograd-fast-convolution-a75458744ff)
-7. [详解卷积中的Winograd加速算法](https://zhuanlan.zhihu.com/p/260109670)
+7. [详解卷积中的 Winograd 加速算法](https://zhuanlan.zhihu.com/p/260109670)
 8. [一文看懂 winograd 卷积加速算法](https://juejin.cn/post/7061244517789368333)
-9. [详解Winograd变换矩阵生成原理](https://zhuanlan.zhihu.com/p/102351953)
-10. [AI算法基础 [4]：Winograd算法原理](https://no5-aaron-wu.github.io/2021/11/16/AI-Algorithm-4-Winograd/)
-11. [[DL]Winograd快速卷积算法](https://martin20150405.github.io/2019/11/13/dl-winograd-kuai-su-juan-ji-suan-fa/)
+9. [详解 Winograd 变换矩阵生成原理](https://zhuanlan.zhihu.com/p/102351953)
+10. [AI 算法基础 [4]：Winograd 算法原理](https://no5-aaron-wu.github.io/2021/11/16/AI-Algorithm-4-Winograd/)
+11. [[DL]Winograd 快速卷积算法](https://martin20150405.github.io/2019/11/13/dl-winograd-kuai-su-juan-ji-suan-fa/)
 12. [MegEngine Inference 卷积优化之 Im2col 和 winograd 优化](https://www.cnblogs.com/megengine/p/16405753.html)
 13. [Winograd 卷积的纯 Python 实现](https://ajz34.readthedocs.io/zh-cn/latest/ML_Notes/winograd6x3/cnn_winograd.html)
 14. [Winograd 优化算法](https://zhenhuaw.me/blog/2019/convolution-neural-networks-optimization.html#winograd-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95c)

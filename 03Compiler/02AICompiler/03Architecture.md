@@ -170,7 +170,7 @@ DL 编译器（如 TVM、nGraph 和 TC）在代码生成阶段可以生成对这
 
 来到最顶层，则是一众深度学习的框架。包括稍早期的 Caffe、TensorFlow，以及目前较为主流的 PyTorch、MindSpore、JX、OneFlow，还包括国内诸多厂商自研的深度学习框架例如 Jittor、PaddlePaddle 等。
 
-## 小结与讨论
+## 小结与思考
 
 ======= 接总结几个要点，如 - XXXX：XXXX 一句话形式。
 

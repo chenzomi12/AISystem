@@ -180,11 +180,13 @@ TPU v3 相较于其前身 TPU v2 有了显著的提升。这一代 TPU 在晶体
 
 ![Alt text](images/04TPUIntro14.png)
 
-## 小结与讨论
+## 小结与思考
 
-TPU 自 2016 年推出第一代 TPU 以来，谷歌不断推进 TPU 技术的发展，以满足日益增长的计算需求和提高数据处理效率。从最初的 TPU v1，谷歌便展示了其在低精度计算和高效矩阵运算方面的创新。随着 TPU v2 和 v3 的推出，谷歌不仅提升了计算性能，还优化了内存带宽和互连结构，使得 TPU 能够更好地处理大规模并行计算任务。到了 TPU v4，谷歌更是采用了先进的 7 纳米制程技术，并引入了 3D torus 互联方式，大幅提高了 TPU 的计算能力和能效比。
+- 谷歌 TPU 是专为深度学习和人工智能任务设计的专用集成电路（ASIC），自 2016 年推出以来，已经经历了多次迭代升级，显著提升了性能和能效。
 
-在后面的课程中，我们会更加细致地去讲解 TPUv1 到 v4 的演化史，并深入探讨每一代 TPU 在架构设计、性能提升以及应用场景上的创新与突破。
+- TPU 通过采用低精度计算、脉动阵列和专用硬件设计等技术，实现了高效的矩阵运算加速，同时简化的硬件架构降低了成本和提高了良品率。
+
+- 谷歌不仅在数据中心部署了 TPU 技术，还将其应用于移动设备，如 Pixel 手机中的 Pixel Neural Core，展现了谷歌在推动移动 AI 计算体验方面的决心和成果。
 
 ## 本节视频
 
@@ -195,7 +197,7 @@ TPU 自 2016 年推出第一代 TPU 以来，谷歌不断推进 TPU 技术的发
 ## 参考文献
 
 1. [In-Datacenter Performance Analysis of a Tensor Processing Unit](https://arxiv.org/abs/1704.04760)
-2. [An in-depth look at 谷歌’s first Tensor Processing Unit (TPU)](https://cloud.谷歌.com/blog/products/ai-machine-learning/an-in-depth-look-at-谷歌s-first-tensor-processing-unit-tpu)
+2. [An in-depth look at 谷歌’s first Tensor Processing Unit (TPU)](https://cloud.谷歌.com/blog/products/ai-machine-learning/an-in-depth-look-at-谷歌 s-first-tensor-processing-unit-tpu)
 3. [谷歌 Tensor G3: The new chip that gives your Pixel an AI upgrade](https://blog.谷歌/products/pixel/谷歌-tensor-g3-pixel-8/)
 4. [Wikipedia-Tensor Processing Unit](https://en.wikipedia.org/wiki/Tensor_Processing_Unit#cite_note-TPU_memory-15)
 5. [A Domain-Specific Supercomputer for Training Deep Neural Networks](https://cacm.acm.org/research/a-domain-specific-supercomputer-for-training-deep-neural-networks/)

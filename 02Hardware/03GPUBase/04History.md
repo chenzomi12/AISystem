@@ -435,7 +435,7 @@ NVIDIA Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析�
 
 ![GPT-3 Inference Performance](images/04History38.jpg)
 
-## 小结与讨论
+## 小结与思考
 
 本节主要回顾了从 2010 年到 2024 年 NVIDIA GPU 架构的发展，其中有几个比较重要的时间节点和事件：
 
@@ -485,6 +485,14 @@ NVSwitch 是 NVLink 交换机系统的关键使能器，它能够以 NVLink 速�
 | Total aggregate bandwidth | 2.4TB/s | 4.8TB/s | 7.2TB/s | 1PB/s |
 | Architectures | Volta | Ampere  | Hopper | Blackwell |
 | Year | 2017 | 2020 | 2022 | 2024 |
+
+## 小结与思考
+
+- NVIDIA GPU 架构发展：NVIDIA GPU 架构自 2010 年以来经历了从 Fermi 到 Blackwell 的多代演进，引入了 CUDA Core、Tensor Core、NVLink 和 NVSwitch 等关键技术，显著提升了 GPU 的计算能力和能效。
+
+- Tensor Core 的持续创新：Tensor Core 作为专为深度学习矩阵运算设计的加速器，从第一代发展到第五代，不断增加支持的精度类型和提升性能，以适应 AI 的快速发展。
+
+- NVLink 和 NVSwitch 的技术演进：NVLink 和 NVSwitch 作为 GPU 间和 GPU 与 CPU 间的高速互连技术，其带宽和连接能力随架构代数增加而显著提升，为大规模并行计算和异构计算提供了强大支持。
 
 ## 本节视频
 

@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
 ## 算子融合案例
 
-Batch-Normalization (BN)是一种让神经网络训练更快、更稳定的方法(faster and more stable)。它计算每个mini-batch的均值和方差，并将其拉回到均值为0方差为1的标准正态分布。BN层通常在nonlinear function的前面/后面使用。
+Batch-Normalization (BN)是一种让神经网络训练更快、更稳定的方法(faster and more stable)。它计算每个 mini-batch 的均值和方差，并将其拉回到均值为 0 方差为 1 的标准正态分布。BN 层通常在 nonlinear function 的前面/后面使用。
 
 下面我们以 Conv-BN-ReLU 的算子融合作为例子。
 
@@ -226,7 +226,7 @@ TVM 提供了 4 种融合规则，具体如下：
 
 ![TVM 示意图](images/03OPFusion12.png)
 
-## 总结
+## 小结与思考
 
 1. 算子的融合方式有横向融合和纵向融合，但根据 AI 模型结构和算子的排列，可以衍生出更多不同的融合方式；
 2. 通过 Conv-BN-ReLU 算子融合例子，了解到如何对算子进行融合和融合后的计算，可以减少对于对访存的压力；
