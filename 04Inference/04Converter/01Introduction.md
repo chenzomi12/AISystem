@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 基本介绍
+# 基本介绍(DONE)
 
 模型转换的主要任务是实现模型在不同框架之间的流转。随着深度学习技术的发展，训练框架和推理框架的功能逐渐分化。训练框架通常侧重于易用性和研究人员的算法设计，提供了分布式训练、自动求导、混合精度等功能，旨在让研究人员能够更快地生成高性能模型。
 
@@ -270,12 +270,18 @@ Converter 转换模块由前端转换部分 Frontends 和图优化部分 Graph O
 
 ## 小结与思考
 
-本节主要介绍了推理引擎优化阶段的模型转换工具，它由转换模块和图优化模块组成。我们还介绍了转换模块和优化模块的挑战和目标，并简要介绍了其架构和工作流程。具体的流程细节和优化策略将在后续文章中介绍。
+- 模型转换：将不同深度学习框架训练得到的模型统一转换为推理引擎能够理解和执行的中间表示（IR），以实现跨框架的模型部署。
+
+- 推理引擎架构：包含优化阶段和运行阶段，优化阶段负责模型转换和图优化，运行阶段则涉及模型的实际加载与执行，包括调度与执行两层。
+
+- 转换模块挑战：包括AI框架算子的统一、不同框架模型文件格式的支持、主流网络结构的适配，以及各类输入输出的兼容。
+
+- 优化模块目标：通过消除结构冗余、精度冗余、算法冗余和读写冗余，提高模型的效率和性能，同时保持模型的准确性和功能性。
 
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1724y1z7ep/?spm_id_from=333.880.my_history.page.click&vd_source=57ec244afa109ba4ee6346389a5f32f7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=693376207&bvid=BV1724y1z7ep&cid=981227754&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
 ## 参考文章

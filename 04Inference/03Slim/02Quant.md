@@ -128,10 +128,8 @@
 量化可以分为线性量化和非线性量化，目前主流的方法是线性量化。线性量化可以分为对称量化和非对称量化。要弄懂模型量化的原理就是要弄懂这种数据映射关系，浮点与定点数据的转换公式如下：
 
 $$Q=R/S+Z$$
-:eqlabel:`02Quant_eq1`
 
 $$R=(Q-Z)*S$$
-:eqlabel:`02Quant_eq2`
 
 其中，$R$ 表示输入的浮点数据，$Q$ 表示量化之后的定点数据，$Z$ 表示零点（Zero Point）的数值，$S$ 表示缩放因子（Scale）的数值。
 
@@ -144,12 +142,10 @@ $$R=(Q-Z)*S$$
 $$
 int = round[\frac{float}{scale}]
 $$
-:eqlabel:`02Quant_eq3`
 
 $$
 scale = \frac{(2·max(|x_{min}|,x_{max}))}{Q_{max}-Q_{min}}
 $$
-:eqlabel:`02Quant_eq4`
 
 其中，threshold 是阈值, 可以理解为 Tensor 的范围是 $[-threshold, threshold]$。一般来说，对于激活值，$scale=threshold/128$。对于权重，$scale=threshold/127$。
 
@@ -164,12 +160,10 @@ $$
 $$
 S = \frac{R_{max}-R_{min}} {Q_{max}-Q_{min}}
 $$
-:eqlabel:`02Quant_eq5`
 
 $$
 Z = Q_{max}- \frac{R_{max}}{S}
 $$
-:eqlabel:`02Quant_eq6`
 
 其中，$R_{max}$ 表示输入浮点数据中的最大值，$R_{min}$​ 表示输入浮点数据中的最小值，$Q_{max}$ 表示最大的定点值（127 / 255），$Q_{min}$ 表示最小的定点值（-128 / 0）。
 
@@ -178,33 +172,39 @@ $$
 $$
 float = scale \times (unit8-offset)
 $$
-:eqlabel:`02Quant_eq7`
 
 确定后通过原始 float32 高精度数据计算得到 uint8 数据的转换即为如下公式所示:
 
 $$
 uint8 = round(\frac{float}{scale})+offset
 $$
-:eqlabel:`02Quant_eq8`
 
 若待量化数据的取值范围为 $[X_{min}, X_{max}]$，则 $scale$ 的计算公式如下:
 
 $$
 scale = \frac{X_{max}-X_{min}}{Q_{max}-Q_{min}}
 $$
-:eqlabel:`02Quant_eq9`
 
 offset 的计算方式如下：
 
 $$
 offset = Q_{min}-round(\frac{x_{min}}{scale})
 $$
-:eqlabel:`02Quant_eq10`
 
 当量化到 INT8 时, $Q_{max}=127$,$Q_{min}=-128$; UINT8 时, $Q_{max}=255,Q_{min}=0$。
+
+## 小结与思考
+
+- 低比特量化原理：将浮点数表示的模型参数转换为低比特整数（如INT8或INT4）以减少模型大小、内存消耗和推理延迟，尽管可能会牺牲一定精度。
+
+- 神经网络量化优势：量化可以显著减少模型参数量，加速计算，节省内存，并降低能耗和芯片面积需求，适合推理场景。
+
+- 量化落地挑战：量化技术在实际部署时面临精度损失、硬件支持程度和软件算法加速能力的挑战，需要综合考虑量化策略和硬件特性。
+
+- 量化方法分类：量化方法主要包括量化训练（QAT）、动态离线量化（PTQ Dynamic）和静态离线量化（PTQ Static），各有适用场景和优缺点。
 
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=735671964&bvid=BV1VD4y1n7AR&cid=974812144&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

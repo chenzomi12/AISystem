@@ -131,7 +131,11 @@ $$\mathcal{L}_{hard} = -\sum_j c_j log(q_j)$$
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=778337476&bvid=BV1My4y197Tf&cid=979176124&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</html>
+
+<html>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=308275683&bvid=BV1vA411d7MF&cid=980464383&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
 ## 参考文献

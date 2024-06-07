@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 推理文件格式
+# 推理文件格式(DONE)
 
 在训练好一个模型后，需要将其保存下来，以便在需要时重新加载并进行推理或进一步的训练。为了实现这一目标，需要一种有效的方式来将模型的参数、结构等保存起来。
 
@@ -186,7 +186,7 @@ Protobuf 最初是由谷歌的工程师开发的，他们需要一种有效的�
 ```shell
 // 字段规则数据类型名称 = 域值 [选项 = 选项值]
 
-message Net{      // message 属于 Net 域；
+message Net{ // message 属于 Net 域；
   optional string name = 'conv_1*1_0_3';
   repeated Layer layer = 2;
 }
@@ -329,24 +329,28 @@ MindSpore Lite 提供了一套注册机制，允许用户基于转换工具进�
 
 下面的表格从支持的语言、版本、协议文件、代码生成工具及协议字段类型几个方面比较了 ProtoBufers 和 Flatbuffers 两种格式：
 
-|        | Proto Bufers                                                                                                           | Flatbuffers                                                                                   |
-| ------ | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| 支持语言   | C/C++, C#, Go, Java, Python, Ruby, Objective-C, Dart                                                                   | C/C++, C#, Go, Java, JavaScript, TypeScript, Lua, PHP, Python, Rust, Lobster                  |
-| 版本     | 2.x/3.x，不相互兼容                                                                                                          | 1.x                                                                                           |
-| 协议文件   | .proto，需指定协议文件版本                                                                                                       | .fbs                                                                                          |
-| 代码生成工具 | 有（生成代码量较多）                                                                                                             | 有（生成代码量较少）                                                                                    |
+| | Proto Bufers  | Flatbuffers |
+| -- | -- | --------------------------------------------------------------------------------------------- |
+| 支持语言   | C/C++, C#, Go, Java, Python, Ruby, Objective-C, Dart    | C/C++, C#, Go, Java, JavaScript, TypeScript, Lua, PHP, Python, Rust, Lobster    |
+| 版本     | 2.x/3.x，不相互兼容 | 1.x |
+| 协议文件   | .proto，需指定协议文件版本     | .fbs |
+| 代码生成工具 | 有（生成代码量较多）    | 有（生成代码量较少） |
 | 协议字段类型 | bool, bytes, int32, int64, uint32, uint64, sint32, sint64, fixed32, fixed64, sfixed32, sfixed64, float, double, string | bool, int8, uint8, int16, uint16, int32, uint32, int64, uint64, float, double, string, vector |
 
 ## 小结
 
-本文介绍了模型的序列化与反序列化过程，以及不同的序列化方法和文件格式。在训练好一个模型后，为了将其保存以便在需要时重新加载并进行推理或进一步的训练，需要将模型的参数、结构等保存起来。选择合适的序列化方法和文件格式对于系统的性能和效率至关重要，需要考虑系统的性能、跨平台兼容性和部署需求等因素。
+- 模型序列化：模型序列化是将训练好的模型从内存中保存到硬盘上，以供将来使用的必要步骤，涉及将模型的参数、结构等信息存储到文件中。
 
-在需要跨平台、跨语言的场景下，可以选择 Protobuf，因为它具有良好的兼容性和高效的数据传输速度。如果系统对性能要求很高，特别是在移动端或嵌入式设备上部署模型时，可以考虑使用 FlatBuffers，它在序列化后不需要转换/解包的操作就可以获得原数据，反序列化消耗的时间极短，且生成的代码量较少，运行比较轻量，CPU 占用较低，内存占用较少。
+- 序列化分类：序列化方法分为跨平台跨语言通用序列化方法（如XML、JSON、Protocol Buffers和Flatbuffers）、模型本身提供的自定义序列化方法、语言级通用序列化方法（如Python的pickle和joblib、R的rda）以及用户自定义序列化方法。
+
+- Pytorch模型序列化：PyTorch提供了基于内部格式和ONNX的序列化方法。内部格式通过torch.save和torch.load实现模型状态的保存与加载，而ONNX通过torch.onnx.export导出模型，支持不同框架和平台之间的模型转换与部署。
+
+- 目标文件格式：Protobuf和FlatBuffers是两种流行的目标文件格式。Protobuf是一种高效、与语言无关的数据序列化机制，而FlatBuffers提供了无需解析即可直接访问序列化数据的能力，适合性能要求高的应用场景。
 
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV13P4y167sr/?vd_source=57ec244afa109ba4ee6346389a5f32f7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=905905415&bvid=BV13P4y167sr&cid=983223956&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
 ## 参考文章

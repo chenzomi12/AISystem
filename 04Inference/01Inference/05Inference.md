@@ -438,12 +438,14 @@ Runtime，即推理引擎的执行引擎，负责将中间表达形式的模型�
 算子执行是指将优化后的算子在硬件上执行的过程。不同的硬件平台有不同的执行方式。
 
 1. **CPU 执行**
-   在 CPU 上执行算子时，通常会利用 CPU 的 SIMD（单指令多数据流）指令集来加速计算。SIMD 指令集允许 CPU 同时处理多个数据元素，通过并行执行相同的操作来显著提高计算速度。常见的 SIMD 指令集包括 Intel 的 AVX 和 ARM 的 NEON 等。这些指令集可以极大地提升矩阵运算、图像处理等任务的执行效率。通过优化算子以充分利用这些指令集，我们可以在 CPU 上实现更快的计算速度。
+
+在 CPU 上执行算子时，通常会利用 CPU 的 SIMD（单指令多数据流）指令集来加速计算。SIMD 指令集允许 CPU 同时处理多个数据元素，通过并行执行相同的操作来显著提高计算速度。常见的 SIMD 指令集包括 Intel 的 AVX 和 ARM 的 NEON 等。这些指令集可以极大地提升矩阵运算、图像处理等任务的执行效率。通过优化算子以充分利用这些指令集，我们可以在 CPU 上实现更快的计算速度。
 
 2. **GPU 执行**
-   在 GPU 上执行算子时，通常会使用 CUDA、OpenCL 或 Metal 等接口来编写并行计算代码。这些接口提供了丰富的并行计算功能和高效的内存访问机制，使得开发者能够轻松地在 GPU 上实现大规模并行计算。通过利用 GPU 的并行计算能力，我们可以显著加速深度学习模型的训练和推理过程。
 
-   与 CPU 相比，GPU 在并行计算方面具有明显的优势。GPU 拥有更多的计算核心和更高的内存带宽，能够同时处理更多的数据。此外，GPU 还支持更高级别的并行性，如线程级并行和指令级并行等。这使得 GPU 在执行深度学习算子时，能够更充分地利用硬件资源，实现更高的计算效率。
+在 GPU 上执行算子时，通常会使用 CUDA、OpenCL 或 Metal 等接口来编写并行计算代码。这些接口提供了丰富的并行计算功能和高效的内存访问机制，使得开发者能够轻松地在 GPU 上实现大规模并行计算。通过利用 GPU 的并行计算能力，我们可以显著加速深度学习模型的训练和推理过程。
+
+与 CPU 相比，GPU 在并行计算方面具有明显的优势。GPU 拥有更多的计算核心和更高的内存带宽，能够同时处理更多的数据。此外，GPU 还支持更高级别的并行性，如线程级并行和指令级并行等。这使得 GPU 在执行深度学习算子时，能够更充分地利用硬件资源，实现更高的计算效率。
 
 #### 算子调度
 
@@ -451,11 +453,11 @@ Runtime，即推理引擎的执行引擎，负责将中间表达形式的模型�
 
 1. **异构调度**
 
-   异构调度是一种智能的算子调度策略，它根据算子的类型、复杂度和计算需求，结合不同硬件的特性（如 CPU、GPU、FPGA 等），将算子分配到最适合其执行的硬件上。例如，对于计算密集型算子，可能会优先将其调度到 GPU 上执行，因为 GPU 拥有更多的计算核心和更高的并行计算能力；而对于需要频繁内存访问的算子，可能会选择在 CPU 上执行，因为 CPU 在内存访问方面更具优势。通过异构调度，可以充分发挥不同硬件的优势，实现计算资源的最大化利用，从而提高整体的计算效率。
+异构调度是一种智能的算子调度策略，它根据算子的类型、复杂度和计算需求，结合不同硬件的特性（如 CPU、GPU、FPGA 等），将算子分配到最适合其执行的硬件上。例如，对于计算密集型算子，可能会优先将其调度到 GPU 上执行，因为 GPU 拥有更多的计算核心和更高的并行计算能力；而对于需要频繁内存访问的算子，可能会选择在 CPU 上执行，因为 CPU 在内存访问方面更具优势。通过异构调度，可以充分发挥不同硬件的优势，实现计算资源的最大化利用，从而提高整体的计算效率。
 
 2. **流水线调度**
 
-   流水线调度是一种高效的算子调度策略，它将多个算子按照一定的逻辑顺序排列，形成一条计算流水线。在流水线上，每个算子都有自己的处理单元和缓冲区，可以独立地进行计算，而无需等待前一个算子完成全部计算。当第一个算子完成一部分计算并将结果传递给下一个算子时，第一个算子可以继续处理新的数据，从而实现连续的、并发的计算。流水线调度可以极大地提高计算速度，减少等待时间，使得整个系统的吞吐量得到显著提升。
+流水线调度是一种高效的算子调度策略，它将多个算子按照一定的逻辑顺序排列，形成一条计算流水线。在流水线上，每个算子都有自己的处理单元和缓冲区，可以独立地进行计算，而无需等待前一个算子完成全部计算。当第一个算子完成一部分计算并将结果传递给下一个算子时，第一个算子可以继续处理新的数据，从而实现连续的、并发的计算。流水线调度可以极大地提高计算速度，减少等待时间，使得整个系统的吞吐量得到显著提升。
 
 ## 推理流程
 
@@ -479,72 +481,81 @@ Runtime，即推理引擎的执行引擎，负责将中间表达形式的模型�
 
 1. **模型转换**
 
-   首先，需要将训练得到的模型转换为推理引擎能够理解的格式。这一步骤通常由模型转换工具完成，形成一个统一表达的格式。
+首先，需要将训练得到的模型转换为推理引擎能够理解的格式。这一步骤通常由模型转换工具完成，形成一个统一表达的格式。
 
 2. **配置推理选项**
 
-   这通常涉及到设置模型路径、选择运行的设备（如 CPU、GPU 等）、以及是否开启计算图优化等。一个深度学习框架会提供相关的 API 来设置这些选项,并在模型加载时自动应用。
+这通常涉及到设置模型路径、选择运行的设备（如 CPU、GPU 等）、以及是否开启计算图优化等。一个深度学习框架会提供相关的 API 来设置这些选项,并在模型加载时自动应用。
 
-   ```C++
-   Config config;
-   config.setModelPath("path_to_model");
-   config.setDeviceType("GPU");
-   config.setOptimizeGraph(true); 
-   config.setFusion(true);       // 开启算子融合
-   config.setMemoryOptimization(true); // 开启内存优化
-   ```
+```C++
+Config config;
+config.setModelPath("path_to_model");
+config.setDeviceType("GPU");
+config.setOptimizeGraph(true); 
+config.setFusion(true);       // 开启算子融合
+config.setMemoryOptimization(true); // 开启内存优化
+```
 
 3. **创建推理引擎对象**
-   一旦配置选项设置完毕，下一步就是创建推理引擎对象。这个对象将负责管理整个推理过程，包括加载模型、执行推理等。创建推理引擎对象通常需要传递配置对象作为参数。
 
-   ```C++
-   Predictor predictor(config);
-   ```
+一旦配置选项设置完毕，下一步就是创建推理引擎对象。这个对象将负责管理整个推理过程，包括加载模型、执行推理等。创建推理引擎对象通常需要传递配置对象作为参数。
+
+```C++
+Predictor predictor(config);
+```
 
 4. **准备输入数据**
 
-   在执行推理之前，必须准备好输入数据。这包括对原始数据进行预处理，比如减去均值、缩放等，以满足模型的输入要求。然后，需要获取模型所有输入 Tensor 的名称，并通过推理引擎获取每个输入 Tensor 的指针，最后将预处理后的数据复制到这些 Tensor 中。
+在执行推理之前，必须准备好输入数据。这包括对原始数据进行预处理，比如减去均值、缩放等，以满足模型的输入要求。然后，需要获取模型所有输入 Tensor 的名称，并通过推理引擎获取每个输入 Tensor 的指针，最后将预处理后的数据复制到这些 Tensor 中。
 
-   ```C++
-   // 预处理数据
-   auto preprocessed_data = preprocess(raw_data);
+```C++
+// 预处理数据
+auto preprocessed_data = preprocess(raw_data);
 
-   // 获取输入 Tensor 名称和指针
-   auto input_names = predictor->GetInputNames();
-   for (const auto& name : input_names) {
-      auto tensor = predictor->GetInputTensor(name);
-      tensor->copy(preprocessed_data);
-   }
-   ```
+// 获取输入 Tensor 名称和指针
+auto input_names = predictor->GetInputNames();
+for (const auto& name : input_names) {
+   auto tensor = predictor->GetInputTensor(name);
+   tensor->copy(preprocessed_data);
+}
+```
 
 5. **执行推理**
 
-   一旦输入数据准备好，就可以执行推理了。这通常涉及到调用推理引擎的 Run 方法，该方法会启动模型的推理过程。
+一旦输入数据准备好，就可以执行推理了。这通常涉及到调用推理引擎的 Run 方法，该方法会启动模型的推理过程。
 
-   ```C++
-   predictor->Run();
-   ```
+```C++
+predictor->Run();
+```
 
 6. **获得推理结果并进行后处理**
 
-   推理执行完成后，需要获取输出 Tensor，并将推理结果复制出来。然后，根据模型的输出进行后处理，比如在目标检测任务中，需要根据检测框的位置来裁剪图像。
+推理执行完成后，需要获取输出 Tensor，并将推理结果复制出来。然后，根据模型的输出进行后处理，比如在目标检测任务中，需要根据检测框的位置来裁剪图像。
 
-   ```C++
-   // 获取输出 Tensor 名称和指针
-   auto out_names = predictor->GetOutputNames();
-   std::vector<ProcessedOutput> results;
-   for (const auto& name : out_names) {
-      auto tensor = predictor->GetOutputTensor(name);
-      ProcessedOutput data;
-      tensor->copy(data);
-      results.push_back(processOutput(data));
-   }
+```C++
+// 获取输出 Tensor 名称和指针
+auto out_names = predictor->GetOutputNames();
+std::vector<ProcessedOutput> results;
+for (const auto& name : out_names) {
+   auto tensor = predictor->GetOutputTensor(name);
+   ProcessedOutput data;
+   tensor->copy(data);
+   results.push_back(processOutput(data));
+}
 
-   // 后处理，例如裁剪图像等
-   for (auto& result : results) {
-      postprocess(result);
-   }
-   ```
+// 后处理，例如裁剪图像等
+for (auto& result : results) {
+   postprocess(result);
+}
+```
+
+## 小节与思考
+
+- 推理引擎特点：推理引擎需具备轻量、通用、易用和高效四大特点，以确保其在多种硬件平台上的高效运行和易部署性。
+
+- 技术挑战：推理引擎在设计和实现过程中面临需求复杂性与程序大小的权衡、算力需求与资源碎片化的矛盾，以及执行效率与模型精度的双重要求等挑战。
+
+- 整体架构：推理引擎的整体架构包括优化阶段和运行阶段，涉及模型转换工具、模型压缩、端侧学习、性能对比与集成模块、中间表达和 Runtime 等关键组件，共同确保模型的高效推理。
 
 ## 本节视频
 
