@@ -8,10 +8,7 @@
 
 **MobileVit  V1** :MobileViT 是一种基于 ViT（Vision Transformer）架构的轻量级视觉模型，旨在适用于移动设备和嵌入式系统。ViT 是一种非常成功的深度学习模型，用于图像分类和其他计算机视觉任务，但通常需要大量的计算资源和参数。MobileViT 的目标是在保持高性能的同时，减少模型的大小和计算需求，以便在移动设备上运行，据作者介绍，这是第一次基于轻量级 CNN 网络性能的轻量级 ViT 工作，性能 SOTA。性能优于 MobileNetV3、CrossviT 等网络。
 
-
-### 设计思路
-
-####  Mobile ViT 块
+###  Mobile ViT 块
 
 标准卷积涉及三个操作：展开+局部处理+折叠，利用 Transformer 将卷积中的局部建模替换为全局建模，这使得 MobileViT 具有 CNN 和 ViT 的性质。MobileViT Block 如下图所示:
 
@@ -47,11 +44,11 @@ Transformers as Convolutions (global representations)
 
 Transformers as Convolutions (global representations) 表示输入信息的全局表示。在 Transformers as Convolutions 中首先通过 Unfold 对数据进行转换，转化为 Transformer 可以接受的 1D 数据。然后将数据输入到 Transformer 块中。最后通过 Fold 再将数据变换成原有的样子。
 
-Fusion
+**Fusion 融合**
 
 在 Fusion 中，经过 Transformers as Convolutions 得到的信息与原始输入信息 $(A ∈ R^{H\times W\times C}) $ 进行合并，然后使用另一个 $n\times n$ 卷积层来融合这些连接的特征。这里得到的信息指的是全局表征 $X_{F}\in R^{H\times W\times C}$
 
-**代码**
+**代码实现**
 
 ```python
 #Mobile Vit 块的实现
@@ -256,13 +253,9 @@ class MobileViTBlock(nn.Module):
 
         fm = self.fusion(torch.cat((res, fm), dim=1))
         return fm
-
 ```
 
-
-
-
-####  多尺度采样训练
+###  多尺度采样训练
 
 在基于 ViT 的模型中，学习多尺度表示的标准方法是微调。例如，在不同尺寸上对经过 224×224 空间分辨率训练的 DeiT 模型进行了独立微调。由于位置嵌入需要根据输入大小进行插值，而网络的性能受插值方法的影响，因此这种学习多尺度表示的方法对 vit 更有利。与 CNN 类似，MobileViT 不需要任何位置嵌入，它可以从训练期间的多尺度输入中受益。
 
@@ -382,12 +375,11 @@ class InvertedResidual(nn.Module):
 
 ** MobileVit V2 **:MobileViT 的主要效率瓶颈是 Transformer 中的多头自注意力（MHA），它需要相对于 tokens（或 patches）数量 k 的时间复杂度。此外，MHA 需要昂贵的操作来计算自注意力，从而影响资源受限设备的延迟。MobileVit V2 则是一种具有 O(k)线性复杂度的可分离的自注意力方法。所提出方法的一个简单而有效的特征是它使用元素操作来计算自注意力，使其成为资源受限设备的不错选择。
 
-### 设计思路
-
-#### 可分离的自注意力
+### 可分离的自注意力
 
 MHA（下图 a）允许 Transformer 对 tokens 间的关系进行编码。具体来说，MHA 将输入喂到三个分支，即查询 Q、键 K 和值 V。每个分支（Q、K 和 V）由输入 $x\in R^{k \times d}$ 组成，其中包含 k 个 d 维 tokens（或 patches）嵌入。每个分支包含(Q、K 和 V)包含 h 个头（或层），可以使 Transformer 学习输入的多个视角。然后将输入 x 馈入所有 h 个头，然后进行 softmax 操作 σ 以在 Q 和 K 的线性层的输出之间产生注意力（或上下文映射）点积，然后同时计算矩阵 
- $a\in R^{k\times k \times h}$。然后在 a 和 V 线性层的输出之间计算另一个点积，以产生加权和输出 $y_{w}\in R^{k\times d_{h}\times h}$,其中 $d_{h}=\frac{d}{h}$ 是头部尺寸。这 h 个头的输出被连接起来产生一个带有 k 个 d 维 tokens 的张量， 馈送到另一个具有权重 $W_{o}\in R^{d \times d}$ 的线性层以产生 MHA $y \in R^{k \times d}$ 的输出。然后在数学上，这个操作可以描述为：
+ $a\in R^{k\times k \times h}$。然后在 a 和 V 线性层的输出之间计算另一个点积，以产生加权和输出 $y_{w}\in R^{k\times d_{h}\times h}$，其中 $d_{h}=\frac{d}{h}$ 是头部尺寸。这 h 个头的输出被连接起来产生一个带有 k 个 d 维 tokens 的张量， 馈送到另一个具有权重 $W_{o}\in R^{d \times d}$ 的线性层以产生 MHA $y \in R^{k \times d}$ 的输出。然后在数学上，这个操作可以描述为：
+
 $$
 y=Concat\Bigg(\underbrace{<σ(<xW_{Q}^{0},xW_{k}^{0}>),xW_{v}^{0}>}_{a^{0} \in R^{k \times k}}..., \underbrace{<σ(<xW_{Q}^{h},xW_{k}^{h}>),xW_{v}^{h}>}_{a^{h} \in R^{k \times k}}
 \Bigg)W_{o}\tag{1}
@@ -408,12 +400,12 @@ $$
 上下文向量 $c_{v}$ 在某种意义上类似等式(1)中的注意力矩阵 a,它也编码输入 x 中所有 tokens 的信息，但计算成本较低。
 
 $c_{v}$ 中编码的上下文信息与 x 中的所有 tokens 共享。为此，输入 x 然后通过广播的逐元素乘法运算传播到 $x_{V}$。结果输出后跟 ReLU 激活函数以产生输出 $x_{V} \in R^{k\times d }$。$c_{v}$ 中的上下文信息使用权重 $W_{v} \in R^{d\times d}$ 的值分支 V 线性映射到 d 维空间， 然后将其馈送到权重 $W_{o} \in R^{d \times d}$ 的另一个线性层以产生最终输出 $y \in R^{k \times d}$。在数学上，可分离自注意力可以定义为:
+
 $$
 y = \Bigg( \underbrace{\sum \bigg( \overbrace{σ(xW_{I})}^{c_{s}\in R^{k}} *xW_{K} \bigg)}_{c_{v} \in R^{d}}*ReLU(xW_{V})       \Bigg )
 $$
 
 其中*和 $\sum$ 分别是可广播的逐元素乘法和求和运算。
-
 
 与自注意力方法的比较。下图将所提出的方法与 Transformer 和 Linformer 进行了比较。由于自注意力方法的时间复杂度没有考虑用于实现这些方法的操作成本，因此某些操作可能会成为资源受限设备的瓶颈。为了整体理解，除了理论指标外，还测量了具有不同 k 的单个 CPU 内核上的模块级延迟。与 Transformer 和 Linformer 中的 MHA 相比，所提出的可分离自注意力快速且高效。
 
@@ -520,17 +512,11 @@ class LinearSelfAttention(nn.Module):
         return out
 ```
 
-
-
 ## MobileVit V3
-
-**MobileVit V3**:
 
 虽然 Mobilevit V1 具有竞争力的最先进的结果，但 Mobilevit v1 块中的融合模块比较复杂难以学习。在 MobileVit V3 版本则提出对融合块进行简单有效的修改，以创建 mobilevitv3 块，解决了伸缩问题，简化了学习任务。
 
-### 设计思路
-
-####　MobileViTV3 模块
+###　MobileViTV3 模块
 
 在ＭobileViTv2 体系结构中删除了融合块，并使用了线性复杂度的 Transformer 得到了比 MobileViTv1 更好的性能。将本文提出的融合块添加到 MobileViTv2 中，以创建 MobileViTv3-0.5,0.75 和 1.0 模型，如下图所示。
 
@@ -691,15 +677,11 @@ class MobileViT_v3_Block(Layer):
         final = x + fused
 
         return final
-
 ```
-
-
 
 ## 小结
 
 MobileVit-V1 是比较早的 CNN 与 Transformer 混合结构，结合了 CNN 与 Transformer 的优点，成为了轻量级、低延迟和满足设备资源约束的精确模型。V2 版本则在 V1 的基础上进行了改进，主要针对多头自注意力，保持了比 V1 版本更快的速度与精确度。V3 版本则是创新性地融合了本地，全局合输入特征来提升模型精度。总之，V1,V2,V3 在 Transformer 模型轻量化以及与 CNN 结合方面给大家提供了更多思考的空间与改进方向。
-
 
 ## 本节视频
 

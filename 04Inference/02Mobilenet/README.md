@@ -31,3 +31,40 @@
 > 欢迎大家使用的过程中发现 bug 或者勘误直接提交 PR 到开源社区哦！
 >
 > 请大家尊重开源和 ZOMI 的努力，引用 PPT 的内容请规范转载标明出处哦！
+
+## 参考文献
+
+1.[Khalid Ashraf, Bichen Wu, Forrest N. Iandola, Matthew W. Moskewicz, and Kurt Keutzer. Shallow networks for high-accuracy road object-detection. arXiv:1606.01561, 2016.](https://arxiv.org/abs/1606.01561v1)
+
+2.[Vijay Badrinarayanan, Alex Kendall, and Roberto Cipolla. SegNet: A deep convolutional encoderdecoder architecture for image segmentation. arxiv:1511.00561, 2015.](https://arxiv.org/pdf/1807.10221v1.pdf)
+
+3.[Tianqi Chen, Mu Li, Yutian Li, Min Lin, Naiyan Wang, Minjie Wang, Tianjun Xiao, Bing Xu,
+Chiyuan Zhang, and Zheng Zhang. Mxnet: A flexible and efficient machine learning library for
+heterogeneous distributed systems. arXiv:1512.01274, 2015a.](https://arxiv.org/abs/1512.01274)
+
+4.[Jeff Donahue, Yangqing Jia, Oriol Vinyals, Judy Hoffman, Ning Zhang, Eric Tzeng, and Trevor
+Darrell. Decaf: A deep convolutional activation feature for generic visual recognition.
+arXiv:1310.1531, 2013.](https://arxiv.org/abs/1310.1531v1)
+
+5.[Song Han, Jeff Pool, Sharan Narang, Huizi Mao, Shijian Tang, Erich Elsen, Bryan Catanzaro, John Tran, and William J. Dally. Dsd: Regularizing deep neural networks with dense-sparse-dense training flow. arXiv:1607.04381, 2016b](https://arxiv.org/abs/1607.04381v1)
+
+6.[C. Farabet, B. Martini, B. Corda, P. Akselrod, E. Culurciello, and Y. LeCun. Neuflow: A runtime reconfigurable dataflow processor for vision. In Computer Vision and Pattern Recognition Workshops (CVPRW),2011 IEEE Computer Society Conference on, pages109–116, 2011.](https://ieeexplore.ieee.org/document/5981829/)
+
+7.[M. Jaderberg, A. Vedaldi, and A. Zisserman. Speeding up convolutional neural networks with low rank expansions. arXiv preprint arXiv:1405.3866, 2014.](https://arxiv.org/pdf/1405.3866.pdf)
+
+8.[M. Rastegari, V. Ordonez, J. Redmon, and A. Farhadi.Xnor-net: Imagenet classification using binary convolutional neural networks. In European Conference on Computer Vision, pages 525–542, 2016.](http://allenai.org/plato/xnornet)
+
+9.[ S. Williams, A. Waterman, and D. Patterson. Roofline:an insightful visual performance model for multicore architectures. Communications of the ACM, 52(4):65–76, 2009.](https://dl.acm.org/doi/10.1145/1498765.1498785)
+
+10.[B. Wu, A. Wan, X. Yue, and K. Keutzer. Squeezeseg: Convolutional neural nets with recurrent crf for real-time road-object segmentation from 3d lidar point cloud. arXiv preprint arXiv:1710.07368, 2017.](https://arxiv.org/abs/1710.07368)
+
+11.[K. Simonyan and A. Zisserman. Very deep convolutional networks for large-scale image recognition.arXiv preprint arXiv:1409.1556, 2014.](https://arxiv.org/abs/1409.1556)
+
+12.[K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 770–778, 2016.](https://arxiv.org/abs/1512.03385)
+
+13.[S. Ioffe and C. Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift. In International conference on machine
+learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
+
+14.[S. Han, H. Mao, and W. J. Dally. Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding. International Conference on Learning Representations(ICLR), 2016.](https://arxiv.org/pdf/1510.00149.pdf)
+
+15.[A. G. Howard, M. Zhu, B. Chen, D. Kalenichenko,W. Wang, T. Weyand, M. Andreetto, and H. Adam.Mobilenets: Efficient convolutional neural networks for mobile vision applications. arXiv preprint arXiv:1704.04861, 2017.](https://arxiv.org/pdf/1704.04861.pdf)

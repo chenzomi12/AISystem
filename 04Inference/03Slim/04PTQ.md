@@ -52,7 +52,7 @@ $$
 
 - 激活量化：即对网络中不含权重的激活类算子进行量化。一般采用逐张量（per-tensor）的粒度，也可以选择逐 token（per-token）的量化粒度。
 
-![per-tensor 和 per-channel 量化粒度](./images/04PTQ03.png)
+![per-tensor 和 per-channel 量化粒度](images/04PTQ03.png)
 
 ## KL 散度校准法
 

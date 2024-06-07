@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 引言
+# 引言(DONE)
 
 在深入探究 AI 编译原理之后，将进一步迈向一个与日常生活紧密相连的新领域。这个领域无处不在，无论是日常使用的购物应用、观看在线视频的平台，还是钟爱的游戏，它们都与这个领域息息相关。该领域，便是推理系统与推理引擎。
 
@@ -66,9 +66,7 @@
 
 ### 人脸 Landmark
 
-![人脸 landmark 的应用](images/example01.gif)
-
-如上图所示，这款应用在移动终端上实现了精准的人脸 landmark 识别功能。它通过先进的算法技术，能够迅速捕捉并准确识别拍摄者脸部的轮廓、五官位置等关键面部信息。这些信息被实时处理并以一种直观且易于理解的方式显示出来，使用户能够清晰地看到自己脸部的各个特征点。
+如图所示，这款应用在移动终端上实现了精准的人脸 landmark 识别功能。它通过先进的算法技术，能够迅速捕捉并准确识别拍摄者脸部的轮廓、五官位置等关键面部信息。这些信息被实时处理并以一种直观且易于理解的方式显示出来，使用户能够清晰地看到自己脸部的各个特征点。
 
 人脸 landmark 识别技术是人脸识别领域的重要组成部分，它在多个方面发挥着关键作用。首先，在人脸对齐方面，通过识别面部特征点，可以实现对人脸图像的精确对齐，从而提高后续人脸处理和分析的准确性。其次，在人脸重建方面，landmark 信息为三维人脸模型的构建提供了重要依据，使得能够以更真实的方式还原人脸的形态和细节。此外，人脸 landmark 还在身份鉴别、人脸编辑以及人脸 AR 等领域发挥着重要作用，为这些应用提供了精确、可靠的人脸特征数据。
 
@@ -76,11 +74,9 @@
 
 ### 人脸检测与手势识别
 
-![利用华为 HMS Core 实现人脸检测](images/example02.gif?raw=true)
+面这两张图也是应用于移动终端上的推理系统，左图是使用华为 HMS Core 实现人脸检测，具体来说是使用人脸检测来获取人脸的位置，然后利用这个坐标来控制游戏中的飞船进行移动。而右图是华为 HMS Core 实现手势检测，与左图类似，右图是将左图的面部坐标换成了手的坐标进行飞船的移动，并配合手势去做相应的动作。
 
-![利用华为 HMS Core 实现手势检测](images/example03.gif?raw=true)
-
-上面这两张图也是应用于移动终端上的推理系统，左图是使用华为 HMS Core 实现人脸检测，具体来说是使用人脸检测来获取人脸的位置，然后利用这个坐标来控制游戏中的飞船进行移动。而右图是华为 HMS Core 实现手势检测，与左图类似，右图是将左图的面部坐标换成了手的坐标进行飞船的移动，并配合手势去做相应的动作。
+![](01Introduction01.png)
 
 上面这两张图也是展示在移动终端上应用推理系统的实际案例，通过华为 HMS Core 实现的人脸检测和手势检测功能，为用户带来了新颖而富有互动性的体验。
 
@@ -89,6 +85,40 @@
 右图则展示了华为 HMS Core 实现手势检测的应用场景。与左图类似，这一应用也是通过推理系统来实时捕捉和识别用户的手势。不同的是，这次是将手势的坐标信息用于控制游戏中的飞船移动。用户可以通过不同的手势来执行不同的动作，如前进、发射导弹等，从而实现更加自然和直观的游戏控制。这种手势控制的方式不仅使得游戏操作更加便捷，还为用户带来了更加丰富和多样的交互体验。
 
 这两张图所展示的应用案例充分展示了推理系统在移动终端上的强大功能和广泛应用前景。通过利用华为 HMS Core 提供的 AI 能力，可以轻松地实现各种复杂的人脸和手势检测功能，并将其应用于各种实际场景中，为用户带来更加智能、便捷和富有创新性的体验。
+
+### 人工客服应用
+
+推理引擎或推理系统在人工客服和人工智能对话方面有广泛的应用。以下是一些相关的内容：
+
+智能客服：推理引擎可以用于实现智能客服系统，能够理解用户的问题并提供准确的答案。通过对大量的语料库和知识库进行训练，推理引擎可以学习到不同的问题模式和解决方案，从而能够快速准确地回答用户的问题。
+
+对话管理：在人工智能对话中，推理引擎可以帮助系统理解用户的意图和需求，并根据这些信息来引导对话的流向。它可以根据用户的输入和历史对话记录，预测用户可能的问题和需求，并提供相应的回答和建议。
+
+情感分析：推理引擎可以对用户的语言进行情感分析，判断用户的情绪状态。这对于人工客服来说非常重要，因为它可以帮助客服人员更好地理解用户的需求和问题，并提供更合适的解决方案。
+
+知识图谱：结合知识图谱，推理引擎可以利用实体和关系的信息来进行更深入的推理和回答。它可以根据用户的问题，从知识图谱中检索相关的信息，并以更自然和准确的方式呈现给用户。
+
+多轮对话：推理引擎可以支持多轮对话，使系统能够与用户进行连续的交互。它可以根据用户的回答和反馈，动态地调整对话策略和回答内容，以提供更个性化和有效的服务。
+
+实时响应：推理引擎需要具备快速的推理能力，以实现实时响应。它可以在短时间内处理用户的输入，并给出及时的回答，提高用户体验和满意度。
+
+优化和改进：通过对推理引擎的性能进行评估和分析，可以不断优化和改进系统的回答准确性和效率。通过收集用户的反馈和评价，系统可以不断学习和改进，以提供更好的服务。
+
+以下是一个具体的应用场景示例：
+
+- 用户：我的订单显示已发货，但我还没有收到货物。
+
+- 智能客服系统：好的，我可以帮您查询订单状态。请告诉我您的订单号。
+
+- 用户：[订单号]
+
+- 智能客服系统：根据您提供的订单号，我查询到您的订单已于[发货日期]发货，预计在[预计送达日期]到达。请您耐心等待。
+
+- 用户：好的，谢谢。
+
+如图所示，在这个示例中，智能客服系统通过推理引擎理解用户的问题，并根据订单号查询相关的订单信息，然后给出准确的回答。推理引擎的应用使得智能客服能够快速、准确地回答用户的问题，提供高效的服务。
+
+![](01Introduction02.png)
 
 ## 推理系统思考点
 
@@ -104,30 +134,10 @@
 
 总之，维护推理系统需要综合考虑多个方面的问题，从 API 接口设计、数据生成、网络延迟优化、硬件加速资源利用、服务稳定性保障、冗灾与扩容措施，到新模型上线与测试等方面，都需要进行深入研究与精心规划。
 
+## 小结与思考
+
 ## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1J8411K7pj&as_wide=1&high_quality=1&danmaku=0&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. [Deep Learning Inference in Meta Data Centers: Characterization, Performance Optimizations and Hardware Implications](https://arxiv.org/abs/1811.09886)
-2. [Clipper: A Low-Latency Online Prediction Serving System](https://www.usenix.org/system/files/conference/nsdi17/nsdi17-crankshaw.pdf)
-3. [TFX: A TensorFlow-Based Production-Scale Machine Learning Platform](https://www.kdd.org/kdd2017/papers/view/tfx-a-TensorFlow-based-production-scale-machine-learning-platform)
-4. [TensorFlow-Serving: Flexible, High-Performance ML Serving](https://arxiv.org/abs/1712.06139)
-5. [Optimal Aggregation Policy for Reducing Tail Latency of Web Search](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/samehe-2015sigir.optimalaggregation.pdf)
-6. [A Survey of Model Compression and Acceleration for Deep Neural Networks](https://arxiv.org/pdf/1710.09282.pdf)
-7. [CSE 599W: System for ML - Model Serving](http://dlsys.cs.washington.edu/pdf/lecture12.pdf)
-8. [https://developer.NVIDIA.com/deep-learning-performance-training-inference](https://developer.NVIDIA.com/deep-learning-performance-training-inference)
-9. [DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING](https://arxiv.org/pdf/1510.00149.pdf)
-10. [Learning both Weights and Connections for Efficient Neural Networks](https://pdfs.semanticscholar.org/1ff9/a37d766e3a4f39757f5e1b235a42dacf18ff.pdf)
-11. [DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT](http://on-demand.GPUtechconf.com/gtcdc/2017/presentation/dc7172-shashank-prasanna-deep-learning-deployment-with-NVIDIA-tensorrt.pdf)
-12. [Halide: A Language and Compiler for Optimizing Parallelism,Locality, and Recomputation in Image Processing Pipelines](https://people.csail.mit.edu/jrk/halide-pldi13.pdf)
-13. [TVM: An Automated End-to-End Optimizing Compiler for Deep Learning](https://www.usenix.org/system/files/osdi18-chen.pdf)
-14. [8-bit Inference with TensorRT](http://on-demand.GPUtechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)
-15. [https://github.com/microsoft/AI-System](https://github.com/microsoft/AI-System)
-16. [推理系统&引擎](https://chenzomi12.github.io/040Inference/README.html) 
-17. [NCNN、OpenVino、 TensorRT、MediaPipe、ONNX，各种推理部署架构，到底哪家强？](https://zhuanlan.zhihu.com/p/423551635)
-18. [【AI System】第 8 章：深度学习推理系统](https://zhuanlan.zhihu.com/p/665146747)
-19. [【AI】推理系统和推理引擎的整体架构](https://blog.csdn.net/weixin_45651194/article/details/132872588)

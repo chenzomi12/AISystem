@@ -1,6 +1,6 @@
 <!--Copyright © XcodeHw 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# ShuffleNet
+# ShuffleNet 系列
 
 本章节会介绍 ShuffleNet，重点在于其模型结构的轻量化设计，涉及如何降低深度网络计算量的论文，在本节中会着重会讲解逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算。
 
@@ -24,11 +24,9 @@ ShuffleNet 网络结构同样沿袭了稀疏连接的设计理念。作者通过
 
 ![Shuffle 部分结构](images/03.shufflenet01.png)
 
-### 网络结构
+### 逐点分组卷积
 
-#### 逐点分组卷积(Pointwise group convolution)
-
-pointwise group convolutions，其实就是带分组的卷积核为 $1x1$ 的卷积，也就是说 pointwise convolution 是卷积核为 $1x1$ 的卷积。在 ResNeXt 中主要是对 $3x3$ 的卷积做分组操作，但是在 ShuffleNet 中，作者是对 $1x1$ 的卷积做分组的操作，因为作者认为 $1x1$ 的卷积操作的计算量不可忽视。
+逐点分组卷积 pointwise group convolutions，其实就是带分组的卷积核为 $1x1$ 的卷积，也就是说 pointwise convolution 是卷积核为 $1x1$ 的卷积。在 ResNeXt 中主要是对 $3x3$ 的卷积做分组操作，但是在 ShuffleNet 中，作者是对 $1x1$ 的卷积做分组的操作，因为作者认为 $1x1$ 的卷积操作的计算量不可忽视。
 
 那什么叫做分组？就是将输入与输出的通道分成几组，比如输出与输入的通道数都是 4 个且分成 2 组，那第 1、2 通道的输出只使用第 1、2 通道的输入，同样那第 3、4 通道的输出只使用第 1、2 通道的输入。
 
@@ -44,9 +42,9 @@ $$
 Computation=C_{out}/g\times H_{out}\times W_{out} \times(C_{in}/g\times K_{h}\times K_{w}/g )^{2}
 $$
 
-#### 通道重排(channel shuffle)
+### 通道重排
 
-可以看到，不同组之间是没有任何联系的，即得到的特征图只和对应组别的输入有关系。论文中也有这样的描述，这种分组因不同组之间没有任何联系，学习到的特征会非常有限，也很容易导致信息丢失，因此论文提出了 channel shuffle。
+可以看到，不同组之间是没有任何联系的，即得到的特征图只和对应组别的输入有关系。论文中也有这样的描述，这种分组因不同组之间没有任何联系，学习到的特征会非常有限，也很容易导致信息丢失，因此论文提出了通道重排 channel shuffle。
 
 channel shuffle 的思想如上面图中所示。一般卷积操作中输入特征图的数量比如是 N，该卷积层的卷积核数量是 M，那么 M 个卷积核中的每一个卷积核都要和 N 个特征图的某个区域做卷积，然后相加作为一个卷积的结果。
 
@@ -56,7 +54,7 @@ channel shuffle 的思想如上面图中所示。一般卷积操作中输入特�
 
 即某个输出 channel 仅仅来自输入 channel 的一小部分。这种计算方式使得网络模型学习得到的特征会非常局限。于是就有了 channel shuffle 来解决这个问题，先看上图 b，在进行 GConv2 之前，对其输入图做一个分配，也就是每个组分成几个次组，然后将不同组的下面的组作为 GConv2 的一个组的输入，使得 GConv2 的每一个组都能卷积输入的所有组的特征图，这和图 c 的 channel shuffle 的思想是一样的。
 
-#### ShuffleNet Unit
+### ShuffleNet 模块
 
 基于残差块（residual block）和通道洗牌（channel shuffle）设计的 `ShuffleNet Unit` ：
 
@@ -407,7 +405,7 @@ class ShuffleNetV2(nn.Module):
 
 ======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
 
-## 小结
+## 小结与思考
 
 ShuffleNet v1 的核心就是用一系列的新颖结构达到了减少计算量和提高准确率的目的。ShuffleNet v2 则在 v1 的基础进行了更深入的思考，对于轻量级网络设计应该考虑直接评价指标（速度），而不是间接的指标（ FLOPs）。
 

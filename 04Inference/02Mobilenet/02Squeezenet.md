@@ -1,8 +1,8 @@
 <!--Copyright © XcodeHw 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# SqueezeNet 系列
+# SqueezeNet 系列(DONE)
 
-本节将介绍 SqueezeNet 系列网络，在轻量化模型这个范畴中，Squeezenet 是最早的研究了。主要针对了一些组件进行轻量化。与以往的网络都只讲网络如何设计不同。SqueezeNext 则从硬件角度分析如何加速，从而更全面地了解网络结构的设计。
+本节将介绍 SqueezeNet 系列网络，在轻量化模型这个范畴中，Squeezenet 是最早的研究。主要针对了一些组件进行轻量化。与以往的网络都只讲网络如何设计不同。SqueezeNext 则从硬件角度分析如何加速，从而更全面地了解网络结构的设计。
 
 ## SqueezeNet
 
@@ -12,9 +12,7 @@
 
 ![](images/02Squeezenet01.png)
 
-### 设计思路
-
-#### 压缩策略
+### 压缩策略
 
 SqueezeNet 算法的主要目标是构建轻量参数的 CNN 架构，同时不损失精度。为了实现这一目标，作者总共采用了三种策略来设计 CNN 架构，具体如下：
 
@@ -22,7 +20,7 @@ SqueezeNet 算法的主要目标是构建轻量参数的 CNN 架构，同时不�
 2. 减少卷积通道：减少 3×3 卷积通道数，一个 3×3 卷积的计算量是 3 × 3 × M × N ，通过将 M 和 N 减少以降低参数数量；
 3. 下采样延后：将下采样操作延后，这样卷积层就有了大的激活图，保留更多信息。
 
-#### Fire 模块
+### Fire 模块
 
 **Fire 模块**组成：主要包括挤压层（squeeze） 和拓展层（expand）；
 
@@ -111,9 +109,7 @@ class SQUEEZENET(nn.Module):
 
 SqueezeNext 在比 MobeilNet 参数数量少 1.3 倍的情况下取得了比其更好的 Top-5 分类精度，同时也没有使用在很多移动式设备上不足够高效的分离卷积。作者在相比 SqueezeNet/AlexNet 没有精度损失的情况下，设计出了比其运算速度快 2.59/8.26 倍的网络，且耗能比原来少 2.25/7.5 倍。
 
-### 设计思路
-
-#### Bottle 模块
+### Bottle 模块
 
 Bottle 模块，加入 Shortcut ,Bottleneck module 和 Low Rank Filter 。改进如下:
 
@@ -153,7 +149,7 @@ class Bottle(nn.Module):
         return x
 ```
 
-#### 两阶段 Bottleneck 模块
+### 两阶段 Bottleneck
 
 每一个卷积层中的参数数量正比于 $C_{i}$ 和 $C_{o}$ 的乘积。所以，减少输入通道的数量可以有效减少模型的大小。一种思路是使用分离卷积减少参数数量，但是某些嵌入式系统由于其用于计算的带宽的限制，分离卷积的性能较差。另一种思路是 squeezeNet 中提出的在 $3 \times 3$ 卷积之前使用 squeeze 层以减少 $3 \times3$ 卷积的输入通道数目。这里作者在 SqueezeNet 的基础上进行了演化，使用了如下图所示的两层 squeeze 层。
 
@@ -161,7 +157,7 @@ class Bottle(nn.Module):
 
 ![](images/02Squeezenet03.png)
 
-#### 低秩过滤器
+### 低秩过滤器
 
 假设网络第 $i$ 层的输入为 $x∈R^{H\times W \times C_{i}}$，卷积核大小为 $K \times K$，输出大小为 $y∈R^{H\times W \times C_{o}}$，这里假设输入和输出的空间尺寸相同，输入和输出的通道数分别是 $C_{i}$ 和 $C_{o}$。该层的总的参数数量为 $K^{2}C_{i}C_{o}$，即 $C_{o}$ 个大小为 $K \times K \times C_{i}$ 的卷积核。
 
@@ -171,14 +167,14 @@ class Bottle(nn.Module):
 
 另外一种思路是使用低秩参数矩阵 $\hat{W}$ 重新设计网络，这也是本文作者所采用的方法。作者所作的第一个变化是将 $K \times K$ 的矩阵分解为两个独立的 $1 \times K$ 和 $ K \times 1$ 卷积。这样做有效地将参数数量从 $K^2$ 减少成了 2K，同时增加了网络的深度。两个卷积层后都使用了 ReLu 激活函数和 BN 层。
 
-#### 全连接层
+### 全连接层
 
 AlexNet96%的参数来自于全连接层，SqueezeNet 和 ResNet 中都只包含一个全连接层。假设输入数据为 $H \times W \times C_{i}$ ，那么最后的全连接层的参数数量为 $H \times W \times C_{i} \times L_{i}$，L 表示输出的类别数。SqueezeNext 在最后一个全连接层之前使用了一个 bottleneck 层，进一步减少了参数数量。
 
 ![SqueezeNext block 结构](images/02Squeezenet04.png)
 
 
-### 网络结构
+### 网络结构与实现
 
 SqueezeNext 的设计就是不断的堆叠上图的 block，在模拟硬件性能实验结果中发现，维度越低，计算性能也越低效，于是将更多的层操作集中在维度较高的 block。
 
@@ -186,7 +182,7 @@ SqueezeNext-23 结构如下图所示:
 
 ![SqueezeNext 结构](images/02Squeezenet05.png)
 
-### 代码
+其代码实现具体如下所示：
 
 ```python
 import torch
@@ -249,49 +245,14 @@ class SQUEEZENEXT(nn.Module):
         return x
 ```
 
-## 小结
+## 小结与思考
 
-SqueezeNet 系列是比较早期且经典的轻量级网络，SqueezeNet 使用 Fire 模块进行参数压缩，而 SqueezeNext 则在此基础上加入分离卷积进行改进。虽然 SqueezeNet 系列不如 MobieNet 使用广泛，但其架构思想和实验结论还是可以值得借鉴的。
+- SqueezeNet 系列是比较早期且经典的轻量级网络，其使用 Fire 模块进行参数压缩，而 SqueezeNext 则在此基础上加入分离卷积进行改进。
+
+- 虽然 SqueezeNet 系列不如 MobieNet 使用广泛，但其架构思想和实验结论还是可以值得借鉴的。
 
 ## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1Y84y1b7xj&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1.[Khalid Ashraf, Bichen Wu, Forrest N. Iandola, Matthew W. Moskewicz, and Kurt Keutzer. Shallow networks for high-accuracy road object-detection. arXiv:1606.01561, 2016.](https://arxiv.org/abs/1606.01561v1)
-
-2.[Vijay Badrinarayanan, Alex Kendall, and Roberto Cipolla. SegNet: A deep convolutional encoderdecoder architecture for image segmentation. arxiv:1511.00561, 2015.](https://arxiv.org/pdf/1807.10221v1.pdf)
-
-3.[Tianqi Chen, Mu Li, Yutian Li, Min Lin, Naiyan Wang, Minjie Wang, Tianjun Xiao, Bing Xu,
-Chiyuan Zhang, and Zheng Zhang. Mxnet: A flexible and efficient machine learning library for
-heterogeneous distributed systems. arXiv:1512.01274, 2015a.](https://arxiv.org/abs/1512.01274)
-
-4.[Jeff Donahue, Yangqing Jia, Oriol Vinyals, Judy Hoffman, Ning Zhang, Eric Tzeng, and Trevor
-Darrell. Decaf: A deep convolutional activation feature for generic visual recognition.
-arXiv:1310.1531, 2013.](https://arxiv.org/abs/1310.1531v1)
-
-5.[Song Han, Jeff Pool, Sharan Narang, Huizi Mao, Shijian Tang, Erich Elsen, Bryan Catanzaro, John Tran, and William J. Dally. Dsd: Regularizing deep neural networks with dense-sparse-dense training flow. arXiv:1607.04381, 2016b](https://arxiv.org/abs/1607.04381v1)
-
-6.[C. Farabet, B. Martini, B. Corda, P. Akselrod, E. Culurciello, and Y. LeCun. Neuflow: A runtime reconfigurable dataflow processor for vision. In Computer Vision and Pattern Recognition Workshops (CVPRW),2011 IEEE Computer Society Conference on, pages109–116, 2011.](https://ieeexplore.ieee.org/document/5981829/)
-
-7.[M. Jaderberg, A. Vedaldi, and A. Zisserman. Speeding up convolutional neural networks with low rank expansions. arXiv preprint arXiv:1405.3866, 2014.](https://arxiv.org/pdf/1405.3866.pdf)
-
-8.[M. Rastegari, V. Ordonez, J. Redmon, and A. Farhadi.Xnor-net: Imagenet classification using binary convolutional neural networks. In European Conference on Computer Vision, pages 525–542, 2016.](http://allenai.org/plato/xnornet)
-
-9.[ S. Williams, A. Waterman, and D. Patterson. Roofline:an insightful visual performance model for multicore architectures. Communications of the ACM, 52(4):65–76, 2009.](https://dl.acm.org/doi/10.1145/1498765.1498785)
-
-10.[B. Wu, A. Wan, X. Yue, and K. Keutzer. Squeezeseg: Convolutional neural nets with recurrent crf for real-time road-object segmentation from 3d lidar point cloud. arXiv preprint arXiv:1710.07368, 2017.](https://arxiv.org/abs/1710.07368)
-
-11.[K. Simonyan and A. Zisserman. Very deep convolutional networks for large-scale image recognition.arXiv preprint arXiv:1409.1556, 2014.](https://arxiv.org/abs/1409.1556)
-
-12.[K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 770–778, 2016.](https://arxiv.org/abs/1512.03385)
-
-13.[S. Ioffe and C. Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift. In International conference on machine
-learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
-
-14.[S. Han, H. Mao, and W. J. Dally. Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding. International Conference on Learning Representations(ICLR), 2016.](https://arxiv.org/pdf/1510.00149.pdf)
-
-15.[A. G. Howard, M. Zhu, B. Chen, D. Kalenichenko,W. Wang, T. Weyand, M. Andreetto, and H. Adam.Mobilenets: Efficient convolutional neural networks for mobile vision applications. arXiv preprint arXiv:1704.04861, 2017.](https://arxiv.org/pdf/1704.04861.pdf)

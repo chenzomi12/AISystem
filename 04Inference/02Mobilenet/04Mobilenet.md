@@ -4,17 +4,13 @@
 
 本章节会介绍 MobileNet v1，重点在于其模型结构的轻量化设计，主要介绍详细的轻量化设计原则，基于这原则，MobileNetV1 是如何设计成一个小型，低延迟，低功耗的参数化模型，可以满足各种用例的资源约束。可以更方便的实现分类，检测，嵌入和分割等功能。
 
-======= 同样合并 MoblieNet 系列到总体总结哈
-
 ## MobileNet V1
 
 MobileNet v1 是一种体积较小、计算量较少、适用于移动设备的卷积神经网络。mobileNet V1 的主要创新点是用深度可分离卷积(depthwise separable convolution)代替普通的卷积，并使用宽度乘数(width multiply)减少参数量，在 ImageNet 图像分类、Stanford Dog 细粒度图像分类、目标检测、人脸属性识别、人脸编码、以图搜地等计算机视觉任务上，结合知识蒸馏进行评估，MobileNet 表现出极致的轻量化和速度性能。
 
-### 设计思路
+### 逐通道卷积
 
-#### 逐通道卷积（Depthwise Convolution）
-
-Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一个通道只被一个卷积核卷积，这个过程产生的 feature map 通道数和输入的通道数完全一样，如下图所示：
+逐通道卷积（Depthwise Convolution）的一个卷积核只有一个通道，输入信息的一个通道只被一个卷积核卷积，这个过程产生的 feature map 通道数和输入的通道数完全一样，如下图所示：
 
 ![Depthwise Convolution 结构](images/04.mobilenet_01.png)
 
@@ -26,9 +22,9 @@ Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一�
 
 其中 $D_{k}$ 为卷积核尺寸，$D_{f}$ 为特征图尺寸，M 为输入通道数，输出通道数为 1。
 
-#### 逐点卷积 Pointwise Convolution
+### 逐点卷积
 
-Pointwise Convolution 的本质就是 $1\times 1$ 的卷积，它的卷积核的尺寸为 $1\times 1\times M$，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
+逐点卷积（Pointwise Convolution）的本质就是 $1\times 1$ 的卷积，它的卷积核的尺寸为 $1\times 1\times M$，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
 ![Pointwise Convolution 结构](images/04.mobilenet_02.png)
 
 参数量:$1\times 1\times M\times N$
@@ -49,7 +45,7 @@ $$
 \frac{D_{k}\cdot D_{k}\cdot M\cdot D_{F}\cdot D_{F} + M\cdot N\cdot D_{F}\cdot D_{F}}{D_{k}\cdot D_{k}\cdot M\cdot N\cdot D_{F}\cdot D_{F}}=\frac{1}{N}+\frac{1}{D_{k}^{2}}
 $$
 
-#### 宽度乘子（α）和分辨率乘子（ρ）
+### 宽度&分辨率乘子
 
 宽度和分辨率调整系数用于调整模型的大小和计算复杂性。
 
@@ -144,9 +140,7 @@ class MobileNetV1(nn.Module):
 
 MobileNet-v2 的主要思想就是在 v1 的基础上引入了线性瓶颈 (Linear Bottleneck)和逆残差 (Inverted Residual)来提高网络的表征能力，同样也是一种轻量级的卷积神经网络。
 
-### 设计思路
-
-#### Linear Bottlenecks(线性瓶颈层)
+### Linear Bottlenecks
 
 MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“瘦身”，这样特征信息就能更集中在缩减后的通道中。但研究人员发现深度可分离卷积中有大量卷积核为 0，即有很多卷积核没有参与实际计算。研究后发现是 ReLU 激活函数的问题，认为 ReLU 这个激活函数，在低维空间运算中会损失很多信息，而在高维空间中会保留较多有用信息 。ReLU 会对维度较低的张量造成较大的信息损耗。
 
@@ -160,7 +154,7 @@ MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“
 
 实验证据表明，使用线性层至关重要，因为它可以防止非线性破坏太多的信息。
 
-#### 可分离卷积块的演化
+### 可分离卷积块的演化
 
 可分离卷积块的演化如下图所示：
 
@@ -171,9 +165,9 @@ MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“
 
 ![Conv](images/04.mobilenet_05.png)
 
-#### Inverted residuals 反向残差
+### 反向残差
 
-反向残差如下图所示
+反向残差（Inverted residuals ）如下图所示：
 
 ![反向残差](images/04.mobilenet_06.png)
 
@@ -185,7 +179,7 @@ Residual block 先用 1x1 卷积降通道过 ReLU，再 3x3 卷积过 ReLU，最
 
 在 Inverted Residual block 中，3x3 卷积变成 Depthwise 了，计算量很少了，所以通道数可以多一点，效果更好，所以通过 1x1 卷积先提升通道数，再 Depthwise3x3 卷积，最后用 1x1 卷积降低通道数。两端的通道数都很小，所以 1x1 卷积升通道和降通道计算量都并不大，而中间的通道数虽然多，但是 Depthwise 的卷积计算量也不。
 
-#### 关于 ReLU6
+### ReLU6 激活
 
 卷积之后通常会接一个 ReLU 非线性激活，在 MobileNet 中使用 ReLU6。ReLU6 在普通的 ReLU 基础上限制最大输出为 6，这是为了在移动端设备 float16/int8 的低精度的时候也能有很好的数值分辨率。
 
@@ -338,7 +332,7 @@ MobileNetV3 在移动端图像分类、目标检测、语义分割等任务上�
 
 ![新结构](images/04.mobilenet_08.png)
 
-#### 重新设计激活函数
+### 重新设计激活函数
 
 引入新的非线性激活函数：h-swish。swish 公式：
 
@@ -358,7 +352,7 @@ $$
 
 在网络结构搜索中，作者结合两种技术：资源受限的 NAS（platform-aware NAS）与 NetAdapt，前者用于在计算和参数量受限的前提下搜索网络的各个模块，所以称之为模块级的搜索（Block-wise Search） ，后者用于对各个模块确定之后网络层的微调。
 
-#### NAS 搜索全局结构（Block-wise Search）
+### NAS 搜索全局结构（Block-wise Search）
 
 采用 NSA 方法来搜寻全局网络结构，另外需要针对轻量模型进行优化，用一个多目标奖励。
 
@@ -368,7 +362,7 @@ $$
 
 来近似 pareto 最优解，根据目标延迟 TAR 为每个模型 m 平衡模型精度 ACC(m)和延迟 LAT(m)。用较小的权重因子 w =-0.15 来弥补不同的延迟的更大精度变化。从头训练了一个新的架构搜索，找到了初始的 seed 模型，然后应用 NetAdapt 和其他优化来获得最终的 MobilenetV3-Small 模型。
 
-#### NetAdapt 搜索层结构（Layer-wise Search）
+### NetAdapt 搜索层结构（Layer-wise Search）
 
 $$
 \frac{ΔACC}{ΔLatency}
@@ -445,7 +439,9 @@ class ConvBNActivation(nn.Sequential):
                                                norm_layer(out_planes),   # BN 层
                                                activation_layer(inplace=True))
 
-# 注意力机制模块（SE 模块，即两个全连接层）   该模块的基本流程是：先进行自适应平均池化(1x1)———>1x1 的卷积层———>relu 激活层———>1x1 的卷积池化———>hardsigmoid()激活函数激活
+# 注意力机制模块（SE 模块，即两个全连接层）
+# 该模块的基本流程是：
+# 先进行自适应平均池化(1x1)———>1x1 的卷积层———>relu 激活层———>1x1 的卷积池化———>hardsigmoid()激活函数激活
 class SqueezeExcitation(nn.Module):
     def __init__(self, input_c: int, squeeze_factor: int = 4):
         super(SqueezeExcitation, self).__init__()
@@ -708,8 +704,6 @@ def mobilenet_v3_small(num_classes: int = 1000,
     return MobileNetV3(inverted_residual_setting=inverted_residual_setting,
                        last_channel=last_channel,
                        num_classes=num_classes)
-
-
 ```
 
 ======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
@@ -750,9 +744,7 @@ MobileNet V4 具有以下原则:
 
 这些原则使得 MobileNetV4 在所有评估的硬件上大多数情况下都是帕累托最优的。
 
-### 网络结构
-
-#### Hardware-Independent Pareto Efficiency
+### Hardware-Independent Pareto Efficiency
 
 屋顶线模型：为了使一个模型在普遍情况下都高效，它必须能够在其理论的计算复杂度与实际硬件性能之间找到平衡。
 
@@ -786,7 +778,7 @@ $$
 
 在高脊点硬件上，数据移动是瓶颈，所以 MAC 不会显著减慢模型速度，但可以增加模型容量（如 MobileNetV1-1.5x）。因此，为低脊点优化的模型在高脊点上运行缓慢，因为内存密集和低 MAC 的全连接（FC）层受到内存带宽的限制，不能利用高可用的峰值 MAC。
 
-#### Universal Inverted Bottlenecks
+### Universal Inverted Bottlenecks
 
 作者提出了通用逆瓶颈（UniversalInvertedBottleneck, UIB）模块，这是一个适用于高效网络设计的可适应构建块，它具有灵活地适应各种优化目标的能力，而不会使搜索复杂度爆炸性增长。
 
@@ -810,7 +802,7 @@ ExtraDW 是本文提出的一种新变体，它允许廉价地增加网络的深
 
 FFN 是由两个 1x1 的点状卷积（PW）堆叠而成，并在它们之间加入激活和标准化层。PW 是最受加速器友好的操作之一，但最好与其他模块一起使用。
 
-#### MobileMQA
+### MobileMQA
 
 在本节中，作者介绍了 MobileMQA，这是一个专门为加速器优化的新型注意力块，它能提供超过 39%的推理速度提升。
 
@@ -836,7 +828,7 @@ $$
 
 其中 SR 表示空间缩减，在作者设计中是指步长为 2 的深度可分离卷积（DW），或者在未使用空间缩减的情况下的恒等函数。结合非对称空间下采样可以在极小的精度损失（-0.06%）情况下，带来超过 20%的效率提升。
 
-#### Refining NAS for Enhanced Architectures
+### Refining NAS for Enhanced Architectures
 
 为了有效地实例化 UIB 块，作者采用了针对性能改进定制的 TuNAS。
 
@@ -1089,7 +1081,7 @@ MODEL_SPECS = {
 }
 ```
 
-
+====== 断开要介绍下对应代码
 
 ```python
 from typing import Any, Callable, Dict, List, Mapping, Optional, Tuple, Union
@@ -1275,7 +1267,7 @@ class MobileNetV4(nn.Module):
 
 ======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
 
-## 小结
+## 小结与思考
 
 MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动设备和嵌入式系统。其主要特点包括采用深度可分离卷积技术、具有宽度和分辨率调整系数、低延迟、低计算资源占用，以及广泛应用于多种计算机视觉任务。MobileNet V2 是在 V1 基础上提出的升级版轻量级深度学习卷积神经网络（CNN）架构。
 
