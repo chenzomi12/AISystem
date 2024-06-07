@@ -54,7 +54,7 @@ CUDA 编程模型允许开发人员在 GPU 上运行并行计算任务，基于 
 
 ![CUDA-Compute Unified Device Architecture](images/03Concept07.png)
 
-CUDA 在软件方面由一个 CUDA 库、一个应用程序编程接口（API）及其运行库（Runtime）、两个较高级别的通用数学库，即 CUFFT 和 CUBLAS 组成。CUDA TOOLKIT 包括编译和 C++核，CUDA DRIVER 驱动 GPU 负责内存和图像管理。CUDA-X LIBRARIES 主要提供了机器学习（Meachine Learning）、深度学习（Deep Learning）和高性能（High Performance Computing）计算方面的加速库，APPS & FRAMEWORKS 主要对接 Tensorflow 和 Pytorch 等框架。
+CUDA 在软件方面由一个 CUDA 库、一个应用程序编程接口（API）及其运行库（Runtime）、两个较高级别的通用数学库，即 CUFFT 和 CUBLAS 组成。CUDA TOOLKIT 包括编译和 C++核，CUDA DRIVER 驱动 GPU 负责内存和图像管理。CUDA-X LIBRARIES 主要提供了机器学习（Meachine Learning）、深度学习（Deep Learning）和高性能（High Performance Computing）计算方面的加速库，APPS & FRAMEWORKS 主要对接 TensorFlow 和 Pytorch 等框架。
 
 ![CUDA-Compute Unified Device Architecture](images/03Concept08.png)
 

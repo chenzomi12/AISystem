@@ -31,7 +31,7 @@
 | 框架         | 导出方式         | 导出成功率 | 算子数（不完全统计） | 冗余度 |
 |:----------:|:------------:|:-----:|:----------:|:---:|
 | Caffe      | Caffe        | 高     | 52         | 低   |
-| Tensorflow | I.X          | 高     | 1566       | 高   |
+| TensorFlow | I.X          | 高     | 1566       | 高   |
 |            | Tflite       | 中     | 141        | 低   |
 |            | Self         | 中     | 1200+      | 高   |
 | Pytorch    | Onnx         | 中     | 165        | 低   |
@@ -45,7 +45,7 @@
 
 2. 支持不同框架的模型文件格式
 
-主流的 PyTorch、MindSpore、PaddlePaddle、Tensorflow、Keras 等框架导出的模型文件格式不同，不同的 AI 框架训练出来的网络模型、算子之间是有差异的。同一框架的不同版本间也存在算子的增改。
+主流的 PyTorch、MindSpore、PaddlePaddle、TensorFlow、Keras 等框架导出的模型文件格式不同，不同的 AI 框架训练出来的网络模型、算子之间是有差异的。同一框架的不同版本间也存在算子的增改。
 
 这些模型文件格式通常包含了网络结构、权重参数、优化器状态等信息，以便于后续的模型部署和推理。以下是一些主流框架的模型文件格式示例：
 
@@ -286,12 +286,12 @@ Converter 转换模块由前端转换部分 Frontends 和图优化部分 Graph O
 4. [【AI】推理引擎的模型转换模块](https://blog.csdn.net/weixin_45651194/article/details/132921090)
 5. [Pytorch 和 TensorFlow 在 padding 实现上的区别](https://zhuanlan.zhihu.com/p/535729752)
 6. [训练模型到推理模型的转换及优化](https://openmlsys.github.io/chapter_model_deployment/model_converter_and_optimizer.html)
-7. [使用 Grappler 优化 TensorFlow 计算图](https://www.tensorflow.org/guide/graph_optimization?hl=zh-cn)
+7. [使用 Grappler 优化 TensorFlow 计算图](https://www.TensorFlow.org/guide/graph_optimization?hl=zh-cn)
 8. [死代码消除](https://decaf-lang.gitbook.io/decaf-book/rust-kuang-jia-fen-jie-duan-zhi-dao/pa4-zhong-jian-dai-ma-you-hua/si-dai-ma-xiao-chu)
 9. [AI 编译器之前端优化-下（笔记）](https://zhuanlan.zhihu.com/p/599949051)
 10. [PyTorch 官方教程中文版](https://pytorch123.com/ThirdSection/SaveModel/)
 11. [MindSpore 教程](https://www.mindspore.cn/tutorial/zh-CN/r1.2/save_load_model.html)
-12. [TensorFlow Core](https://www.tensorflow.org/tutorials/keras/save_and_load?hl=zh-cn)
-13. [保存和加载 Keras 模型](https://www.tensorflow.org/guide/keras/save_and_serialize?hl=zh-cn)
+12. [TensorFlow Core](https://www.TensorFlow.org/tutorials/keras/save_and_load?hl=zh-cn)
+13. [保存和加载 Keras 模型](https://www.TensorFlow.org/guide/keras/save_and_serialize?hl=zh-cn)
 14. [探索 ONNX 模型：动态输入尺寸的实践与解决方案](https://cloud.baidu.com/article/3251524)
 15. [Pytorch 复习笔记--导出 Onnx 模型为动态输入和静态输入](https://blog.csdn.net/weixin_43863869/article/details/128638397)

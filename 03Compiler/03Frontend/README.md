@@ -19,12 +19,12 @@ AI 编译器主要是分为前端优化、后端优化，部分还会有中间�
 | 03 算子融合策略| [PPT](./03OPFusion.pdf), [视频](https://www.bilibili.com/video/BV1P24y1D7RV/), [文章](./03OPFusion.md)  |
 | 04 布局转换原理 | [PPT](./04LayoutPrinc.pdf), [视频](https://www.bilibili.com/video/BV1xK411z7Uw/), [文章](./04LayoutPrinc.md) |
 | 05 布局转换算法 | [PPT](./05LayoutAlgo.pdf), [视频](https://www.bilibili.com/video/BV1gd4y1Y7dc/), [文章](./05LayoutAlgo.md)  |
-| 06 内存分配算法| [PPT](./06.memory.pdf), [视频](https://www.bilibili.com/video/BV1nM411879s/), [文章](./06.memory.md)  |
-| 07 常量折叠原理| [PPT](./07.constant_fold.pdf), [视频](https://www.bilibili.com/video/BV1P8411W7dY/), [文章](./07.constant_fold.md)  |
-| 08 公共表达式消除 | [PPT](./08.cse.pdf), [视频](https://www.bilibili.com/video/BV1rv4y1Q7tp/), [文章](./08.cse.md)  |
-| 09 死代码消除 | [PPT](./09.dce.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1h7nh/), [文章](./09.dce.md)  |
-| 10 代数简化| [PPT](./10.algebraic.pdf), [视频](https://www.bilibili.com/video/BV1g24y1Q7qC/), [文章](./10.algebraic.md)  |
-| 11 优化 Pass 排序| [PPT](./11.summary.pdf), [视频](https://www.bilibili.com/video/BV1L14y1P7ku/), [文章](./11.summary.md)  |
+| 06 内存分配算法| [PPT](./06Memory.pdf), [视频](https://www.bilibili.com/video/BV1nM411879s/), [文章](./06Memory.md)  |
+| 07 常量折叠原理| [PPT](./07ConstantFold.pdf), [视频](https://www.bilibili.com/video/BV1P8411W7dY/), [文章](./07ConstantFold.md)  |
+| 08 公共表达式消除 | [PPT](./08CSE.pdf), [视频](https://www.bilibili.com/video/BV1rv4y1Q7tp/), [文章](./08CSE.md)  |
+| 09 死代码消除 | [PPT](./09DCE.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1h7nh/), [文章](./09DCE.md)  |
+| 10 代数简化| [PPT](./10Algebraic.pdf), [视频](https://www.bilibili.com/video/BV1g24y1Q7qC/), [文章](./10Algebraic.md)  |
+| 11 优化 Pass 排序| [PPT](./11Summary.pdf), [视频](https://www.bilibili.com/video/BV1L14y1P7ku/)  |
 
 ## 备注
 
