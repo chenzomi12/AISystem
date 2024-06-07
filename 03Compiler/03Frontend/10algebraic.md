@@ -192,5 +192,6 @@ $$
 
 ## 本节视频
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=691534433&bvid=BV1g24y1Q7qC&cid=931474080&p=1" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
+<html>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=691534433&bvid=BV1g24y1Q7qC&cid=931474080&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</html>

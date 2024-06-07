@@ -1,4 +1,6 @@
-# 算子循环优化
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# 算子循环优化(DONE)
 
 在具体硬件执行计算的时候，实际会大量地使用 for 等循环指令不断地去读取不同的数据执行重复的指令（SIMT/SIMD），因此循环优化主要是为了提升数据的局部性或者计算的并行性，从而提升整体算子性能，当然这二者都需要 AI 芯片硬件的支持。
 
@@ -267,16 +269,18 @@ for i in range(N):
 
 这样做可以提升数组 E 的局部性，减少 Cache miss。
 
-## 小结
+## 小结与思考
 
 - 因为 Cache 的容量小的特点，一次只能容纳一部分数据，因此需要分析计算的时间局部性和空间局部性。
 
 - 循环的优化方案针对不同的数据局部性和计算并行性，有循环分块、循环展开、循环重排、循环融合、循环拆分等方案。
 
+- 循环优化的目的是提升数据的局部性或计算的并行性，以提高整体算子性能。其挑战包括数据局部性和计算并行性。
+
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1r14y1w7hG&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=776857139&bvid=BV1r14y1w7hG&cid=937441251&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
 ## 参考文献

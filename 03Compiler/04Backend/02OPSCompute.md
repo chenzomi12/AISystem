@@ -1,4 +1,6 @@
-# 计算与调度
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# 计算与调度(DONE)
 
 上一节我们了解了什么是算子，神经网络模型中由大量的算子来组成，但是算子之间是如何执行的？组成算子的算法逻辑跟具体的硬件指令代码之间的调度是如何配合？这些内容将会在本节进行深入介绍。
 
@@ -273,7 +275,7 @@ Func blur_3x3(Func input) {
 
 ![调度搜索](./images/02OPScompute06.png)
 
-## 小结
+## 小结与思考
 
 - 计算：描述实现算法的具体逻辑，而不关心具体的代码实现。
 
@@ -284,5 +286,5 @@ Func blur_3x3(Func input) {
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1K84y1x7Be&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=606736296&bvid=BV1K84y1x7Be&cid=934475979&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

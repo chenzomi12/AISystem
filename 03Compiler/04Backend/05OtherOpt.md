@@ -1,4 +1,6 @@
-# 指令和存储优化
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# 指令和存储优化(DONE)
 
 除了应用极广的循环优化，在 AI 编译器底层还存在指令和存储这两种不同优化。
 
@@ -159,7 +161,7 @@ NPU 的内存管理机制包括：
 
 - 专用内存控制器：NPU 可能具有专用的内存控制器，用于优化数据流和减少延迟。
 
-## 小结
+## 小结与思考
 
 - 向量化允许并行处理数据，张量化则进一步扩展该概念，通过将数据组织成更高维度结构来实现更大规模的并行计算。
 
@@ -168,5 +170,5 @@ NPU 的内存管理机制包括：
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV11d4y1a7J6&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=391822054&bvid=BV11d4y1a7J6&cid=939552772&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

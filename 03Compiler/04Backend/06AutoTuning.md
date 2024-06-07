@@ -1,4 +1,6 @@
-# Auto-Tuning 原理
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# Auto-Tuning 原理(DONE)
 
 在硬件平台驱动算子运行需要使用各种优化方式来提高性能，然而传统的手工编写算子库面临各种窘境，衍生出了自动生成高性能算子的的方式，称为自动调优。在本节我们首先分析传统算子库面临的挑战，之后介绍基于 TVM 的业界领先的三个自动调优系统。
 
@@ -221,16 +223,18 @@ Meta Schedule 提供了多种内置的探索策略，可以详尽或高效地进
 
 在 Meta scheduler 中，成本模型、数据库、特征提取器、程序运行器等都是可定制、易于扩展的。
 
-## 小结
+## 小结与思考
 
-- TVM 中三代自动调优器的发展，从无模板、有模板、API 统一，发展趋势是编译器降低自动调优中人工参与比重，增大自动化。
+- 高性能算子面临优化手段多样、通用性差和软硬件更迭快的挑战。
 
-- 自动调优领域仍是个不断发展的领域，新硬件、新指令集、稀疏模型等仍需支持。
+- 自动调优通过性能分析、参数搜索、性能评估和反馈学习等步骤，自动调整和优化代码执行参数。
+
+- TVM 的三代自动调优系统分别是 AutoTVM、Ansor 和 Meta Scheduler，它们在调优方式和性能上各有特点。
 
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1uA411D7JF&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=307179697&bvid=BV1uA411D7JF&cid=949212038&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
 ## 参考文献
