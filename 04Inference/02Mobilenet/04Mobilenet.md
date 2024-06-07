@@ -1307,7 +1307,7 @@ MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动�
 
 11.[ Jonathan Huang, Vivek Rathod, Chen Sun, Menglong Zhu, Anoop Korattikara, Alireza Fathi,Ian Fischer, Zbigniew Wojna, Yang Song, Sergio Guadarrama, et al. Speed/accuracy trade-offs for modern convolutional object detectors. In CVPR,2017. 7](https://openaccess.thecvf.com/content_cvpr_2017/html/Huang_SpeedAccuracy_Trade-Offs_for_CVPR_2017_paper.html)
 
-12.[Wei Liu, Dragomir Anguelov, Dumitru Erhan,Christian Szegedy, Scott Reed, Cheng-Yang Fu,and Alexander C Berg. Ssd: Single shot multibox detector. In ECCV, 2016.]()
+12.Wei Liu, Dragomir Anguelov, Dumitru Erhan,Christian Szegedy, Scott Reed, Cheng-Yang Fu,and Alexander C Berg. Ssd: Single shot multibox detector. In ECCV, 2016.
 
 13.[Jonathan Huang, Vivek Rathod, Derek Chow,Chen Sun, and Menglong Zhu. TensorFlow object detection api, 2017. 7](https://arxiv.longhoe.net/abs/1512.02325)
 

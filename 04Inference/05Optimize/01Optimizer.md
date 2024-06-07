@@ -76,7 +76,7 @@ Basic: 基础优化涵盖了所有保留计算图语义的修改，如：O1 常
 
 ```python
 #Before optimization
-x = 2，y = 3，z = x * y
+x = 2, y = 3, z = x * y
 #After constant folding
 z = 6
 ```
@@ -85,7 +85,7 @@ z = 6
 
 ```python
 #Before optimization
-x = a + b，y = c + d，z = x
+x = a + b, y = c + d, z = x
 #After constant folding
 z = a + b
 ```
@@ -94,7 +94,7 @@ z = a + b
 
 ```python
 #Before optimization
-x = a + b，y = x * c
+x = a + b, y = x * c
 #After constant folding
 y = (a + b) * c
 ```

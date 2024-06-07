@@ -92,7 +92,7 @@ $$
 
 KL 散度校准法的伪代码实现：
 
-```python
+```
 Input: FP32 histogram H with 2048 bins: bin[0], … , bin[2047]
 
 For i in range(128, 2048):

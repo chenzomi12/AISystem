@@ -14,7 +14,7 @@
 
 - **运行阶段：** 实际的推理引擎，负责 AI 模型的加载与执行，可分为调度与执行两层。
 
-![推理引擎架构](image/01Introduction03.png)
+![推理引擎架构](images/01Introduction03.png)
 
 模型转换工具模块有两个部分：
 
@@ -215,7 +215,7 @@ output2.shape:  (8, 256, 512, 512)
 
 Converter 转换模块由前端转换部分 Frontends 和图优化部分 Graph Optimize 构成。前者 Frontends 负责支持不同的 AI 训练框架；后者 Graph Optimize 通过算子融合、算子替代、布局调整等方式优化计算图。
 
-![转换模块架构](image/01Introduction01.png)
+![转换模块架构](images/01Introduction01.png)
 
 1. 格式转换
 
@@ -266,7 +266,7 @@ Converter 转换模块由前端转换部分 Frontends 和图优化部分 Graph O
   - 内存布局计算：优化数据在内存中的布局，以提高数据访问的局部性和缓存命中率。这可以通过重新组织内存中的数据结构来实现。例如，在矩阵乘法中，使用块状存储（blocking），将大矩阵分成小块存储和计算，以提高缓存利用率。
   - 重复算子合并：识别计算图中重复的算子，并将其合并为一个算子，以减少冗余计算和内存访问。例如计算图中有多个相同的卷积操作，可以合并为一个共享的卷积操作。
 
-![转换模块的工作流程](image/01Introduction02.png)
+![转换模块的工作流程](images/01Introduction02.png)
 
 ## 小结与思考
 

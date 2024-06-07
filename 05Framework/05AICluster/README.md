@@ -8,17 +8,11 @@
 
 | 编号  | 名称    | 名称                | 备注                                                                                       |
 | --- | ----- | ----------------- | ---------------------------------------------------------------------------------------- |
-|     |       |                   |                                                                                          |
-|     | 分布式集群 | 01 基本介绍           | [silde](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1ge411L7mi/)   |
-|     | 分布式集群 | 02 AI 集群服务器架构      | [silde](./02.architecture.pdf), [视频](https://www.bilibili.com/video/BV1fg41187rc/)   |
-|     | 分布式集群 | 03 AI 集群软硬件通信      | [silde](./03.communication.pdf), [视频](https://www.bilibili.com/video/BV14P4y1S7u4/)  |
-|     | 分布式集群 | 04 集合通信原语         | [silde](./04.primitive.pdf), [视频](https://www.bilibili.com/video/BV1te4y1e7vz/)      |
-|     | 分布式算法 | 05 AI 框架分布式功能      | [silde](./05.system.pdf), [视频](https://www.bilibili.com/video/BV1n8411s7f3/)         |
-|     |       |                   |                                                                                          |
-| 5   | 分布式算法 | 06 大模型训练的挑战       | [silde](./06.challenge.pdf), [视频](https://www.bilibili.com/video/BV1Y14y1576A/)      |
-|     | 分布式算法 | 07 算法：大模型算法结构     | [silde](./07.algorithm_arch.pdf), [视频](https://www.bilibili.com/video/BV1Mt4y1M7SE/) |
-|     | 分布式算法 | 08 算法：亿级规模 SOTA 大模型 | [silde](./08.algorithm_sota.pdf), [视频](https://www.bilibili.com/video/BV1em4y1F7ay/) |
-|     |       |                   |                                                                                          |
+|     | 分布式集群 | 01 基本介绍           | [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1ge411L7mi/)   |
+|     | 分布式集群 | 02 AI 集群服务器架构      | [PPT](./02Architecture.pdf), [视频](https://www.bilibili.com/video/BV1fg41187rc/)   |
+|     | 分布式集群 | 03 AI 集群软硬件通信      | [PPT](./03Communication.pdf), [视频](https://www.bilibili.com/video/BV14P4y1S7u4/)  |
+|     | 分布式集群 | 04 集合通信原语         | [PPT](./04Primitive.pdf), [视频](https://www.bilibili.com/video/BV1te4y1e7vz/)      |
+|     | 分布式算法 | 05 AI 框架分布式功能      | [PPT](./05System.pdf), [视频](https://www.bilibili.com/video/BV1n8411s7f3/)         |
 
 ## 备注
 

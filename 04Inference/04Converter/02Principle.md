@@ -16,7 +16,7 @@
 
 这个过程被称为模型的保存和加载，或者说是序列化和反序列化。在这个过程中，模型的参数、结构和其他相关信息会被保存到硬盘上的文件中，以便在需要时重新加载到内存中。
 
-![序列化和反序列化](image/02Principle01.png)
+![序列化和反序列化](images/02Principle01.png)
 
 - 模型序列化：模型序列化是模型部署的第一步，如何把训练好的模型存储起来，以供后续的模型预测使用，是模型部署的首先要考虑的问题。
 
@@ -32,7 +32,7 @@
 
 [CoreML](https://developer.apple.com/cn/documentation/coreml/)既是一种文件格式，又是一个强大的机器学习运行时环境，它使用了 Protocol Buffers 的二进制序列化格式，并在所有苹果操作系统平台上提供了高效的推理和重新训练功能。CoreML 允许开发者轻松地将机器学习模型集成到 iOS、macOS、watchOS 和 tvOS 应用中，利用苹果设备的硬件加速特性实现高效的模型推理。
 
-![Protobuffer](image/02Principle02.png)
+![Protobuffer](images/02Principle02.png)
 
 2. 模型本身提供的自定义序列化方法
    
@@ -323,7 +323,7 @@ root_type Monster;
 
 MindSpore Lite 提供了一套注册机制，允许用户基于转换工具进行能力扩展：包括节点解析扩展、模型解析扩展以及图优化扩展，用户可以根据自身的需要对模型实现自定义的解析与融合优化。节点解析扩展需要依赖 flatbuffers 和 protobuf 及三方框架的序列化文件。
 
-![FlatBuffers](image/02Principle03.png)
+![FlatBuffers](images/02Principle03.png)
 
 ### Protobuf VS FlatBuffers
 

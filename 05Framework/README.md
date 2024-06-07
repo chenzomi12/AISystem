@@ -14,7 +14,7 @@ AI 系统里面，其实大部分开发者并不关心 AI 框架或者 AI 框架
 
 ## 课程脑图
 
-![AI 系统全栈](images/Architecture.png)
+![AI 系统全栈](images/Architecture05.png)
 
 ## 备注
 

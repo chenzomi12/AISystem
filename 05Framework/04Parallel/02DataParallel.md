@@ -376,12 +376,12 @@ class DistributedSampler(Sampler[T_co]):
 
 这里使用了两张 V100-SXM2-16GB 作为设备并使用 NV-Link 连接，通过 CIFAR10 训练 ResNet50 网络。
 
-![DDP 性能分析](images\02DataParallel04.png)
+![DDP 性能分析](images/02DataParallel04.png)
 :width:`650px`
 
 从 `profile` 对 ResNet50 的性能分析结果可以看到，计算与通信的重叠几乎覆盖了整个反向传播的过程（反向传播的计算时间约为前向传播的两倍，图中重叠的部分约为只计算部分的两倍，只通信的部分可以忽略不记）
 
-![DDP 性能分析](images\02DataParallel05.png)
+![DDP 性能分析](images/02DataParallel05.png)
 :width:`650px`
 
 同样，在追踪视图中，我们可以看到反向传播的主要计算函数 `autograd::engine::evaluate_function:ConvolutionBackward0` 与集合通信的函数 `nccl:all_reduce` 执行是重叠的。
@@ -808,14 +808,14 @@ def fsdp_main(args):
 
 前面的介绍都是基于**同步的数据并行**的，同步的数据并行特别适用于计算资源相对均衡的情况。在同步数据并行中，每个设备都处理数据的一个子集，并独立地计算梯度。在每次迭代中，所有设备都将它们的梯度汇总，并通过一致的规则来更新模型参数。这样，所有设备上的模型都保持一致，不会出现不同步的情况。由于所有设备在每个训练步骤中都执行相同的更新操作，模型的收敛性更容易得到保证。且所有设备都参与到梯度更新的计算中，整体计算效率也相对较高。此外，同步数据并行还易于实现，因为所有设备的操作都是同步的，不需要复杂的同步机制。
 
-![数据并行](images\02DataParallel14.png)
+![数据并行](images/02DataParallel14.png)
 :width:`650px`
 
 但是同步数据并行也有一些局限性。当集群中的某些设备性能较差或者出现故障时，整体的训练效率会受到影响，所有设备都需要等待最慢的设备完成计算。又或是当设备数量过多时，集合通信的时间可能会成为训练的瓶颈，从而限制整体的扩展性。
 
 **异步的数据并行（Asynchronous Data Parallelism, ADP）** 可以在一定程度上解决这些问题。在异步数据并行中，不同设备的计算过程相互独立，不再需要等待其他设备完成计算。每个设备都按照自己的速度进行前向和反向传播，随时将计算得到的梯度更新到模型参数中。这样，快速的设备不再受到慢速设备的影响，整体计算效率得到提高。异步数据并行的步骤为：
 
-![数据并行](images\02DataParallel15.png)
+![数据并行](images/02DataParallel15.png)
 :width:`650px`
 
 - **前向传播**：将 mini-batch 数据平均分配到每个设备上。接下来进行分布式初始化，将模型和优化器复制到每个设备上，保证各设备的模型、优化器完全相同。初始化完成后，各设备根据分配到的数据和模型同时进行前向传播。
@@ -848,7 +848,7 @@ Elastic Agent 是 Torch Elastic 的控制面板。它是一个进程，负责启
 
 最简单的 Agent 部署在每个节点上，管理本地进程。更高级的 Agent 可以远程启动和管理工作进程。Agent 可以完全去中心化，根据其管理的工作进程独立做出决策，也可以通过与其他管理同一作业的 Agent 协作，做出集体决策。
 
-![数据并行](images\02DataParallel16.png)
+![数据并行](images/02DataParallel16.png)
 :width:`650px`
 
 以上是一个管理本地工作进程组的 Agent 的示意图。每个 Agent 都会管理多个 Worker，并运行一个 Rendezvous 模块，用于在分布式环境中实现节点的同步和发现，阻塞会持续到至少 Min 个 Elastic Agent 加入后返回。当有新的节点加入或现有节点退出时（即成员变更），Rendezvous 过程会重新开始。Rendezvous 过程包括两个关键步骤：屏障操作（barrier）和排名分配（rank assignment）。屏障操作确保所有节点在达到最小节点数量之前都处于等待状态，并在达到最大节点数量后立即完成。排名分配则为每个节点分配一个唯一的 rank，确保每个节点在分布式训练中的 rank 是明确的。
@@ -894,7 +894,7 @@ rdzv_handler = DynamicRendezvousHandler.from_backend(
 
 下面是描述 Rendezvous 工作流程的状态图。
 
-![数据并行](images\02DataParallel17.png)
+![数据并行](images/02DataParallel17.png)
 :width:`650px`
 
 1. **Version Counter**：在流程开始时，Rendezvous 机制会创建一个版本号（如果不存在则创建初始值为“0”）。这个版本号由 /rdzv/version_counter 跟踪，并使用原子操作 fetch-add(1) 来确保版本号的唯一性和一致性。当新的节点加入或现有节点重新启动时，版本号会递增，从而标识新的 Rendezvous 过程。

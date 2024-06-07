@@ -10,7 +10,7 @@
 >
 > 建议优先下载 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~
 
-| 大纲 | 小节 | 链接|
+| 大纲 | 小节 | 链接 |
 |:--:|:--:|:--:|
 | 模型转换&优化| 01 基本介绍 | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1724y1z7ep/) |
 | 模型转换模块 | 02 架构与文件格式| [文章](./02Principle.md), [PPT](./02Principle.pdf), [视频](https://www.bilibili.com/video/BV13P4y167sr/) |

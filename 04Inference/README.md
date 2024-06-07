@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 推理系统&引擎概述
+# 推理系统&引擎概述(DONE)
 
 训练过程通过设定数据处理方式，并设计合适的网络模型结构以及损失函数和优化算法，在此基础上将数据集以小批量（mini-batch）反复进行前向计算并计算损失，然后反向计算梯度利用特定的优化函数来更新模型，来使得损失函数达到最优的结果。训练过程最重要的就是梯度的计算和反向传播。
 
@@ -24,7 +24,7 @@
 
 ## 课程脑图
 
-![本章脑图](images/Architecture.png)
+![本章脑图](images/Architecture04.png)
 
 ## 备注
 

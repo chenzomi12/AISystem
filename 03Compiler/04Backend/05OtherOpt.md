@@ -1,5 +1,3 @@
-<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
-
 # 指令和存储优化(DONE)
 
 除了应用极广的循环优化，在 AI 编译器底层还存在指令和存储这两种不同优化。
@@ -32,7 +30,7 @@ for (int i = 0; i < n; i += 4) {
 
 要实现加速，需要将其转换为硬件提供的向量化指令，例如：
 
-```python
+```
 # Intel SSE
 _mm_add_ps：将两个单精度浮点向量的对应元素相加。
 _mm_mul_ps：将两个单精度浮点向量的对应元素相乘。

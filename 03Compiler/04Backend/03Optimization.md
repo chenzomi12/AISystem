@@ -1,5 +1,3 @@
-<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
-
 # 算子手工优化(DONE)
 
 在上一节中，探讨了算子计算和调度的概念，并强调了高效调度策略在释放硬件性能和降低延迟方面的重要性。本节，我们将深入讨论手写算子调度时需要考虑的关键因素，并介绍一些著名的高性能算子库。
@@ -22,7 +20,7 @@
 
 ### Roofline 模型
 
-Roofline 模型是一种用于评估和分析高性能计算平台性能的有效工具。它通过分析计算量和访存量来确定在特定算力和带宽条件下，计算任务所能达到的理论性能上限。[^1]。Roofline 模型的核心在于，它能够揭示硬件资源的限制，并帮助开发者和研究人员理解在现有计算平台的约束下，他们的应用程序能够实现的理论性能上限。
+Roofline 模型是一种用于评估和分析高性能计算平台性能的有效工具。它通过分析计算量和访存量来确定在特定算力和带宽条件下，计算任务所能达到的理论性能上限。Roofline 模型的核心在于，它能够揭示硬件资源的限制，并帮助开发者和研究人员理解在现有计算平台的约束下，他们的应用程序能够实现的理论性能上限。
 
 - 算力决定“屋顶”的高度（绿色线段）
 
@@ -238,7 +236,7 @@ Triton 的前端是基于 Python 实现的，这使得用户的学习成本大�
 
 - 优化 Pass：主要包括了 NVIDIA GPU 计算 kernel 优化的一些常见技巧，包括用于辅助向量化访存的[coalescing](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Coalesce.cpp)、用于缓解计算访存差异的[pipeline](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Pipeline.cpp)/[prefetch](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Prefetch.cpp)，用于避免 shared memory 访问 bank-conflict 的[swizzling](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/include/triton/Dialect/TritonGPU/IR/TritonGPUAttrDefs.td%23L47)。用户在开发 Kernel 时，主要关注其业务逻辑，而底层硬件优化的细节由 Trition 编译器实现。对于一些十分精细的优化，使用 Triton 可能就无法实现。
 
-在应用场景上，Triton 已经被集成进了多个著名的课程中[^2]：
+在应用场景上，Triton 已经被集成进了多个著名的课程中：
 
 - [jax-ml/jax-triton](https://github.com/jax-ml/jax-triton)：JAX 是一个用于加速数值计算的 Python 库，使用 Triton 编写可以嵌入到 JAX 程序中的自定义 GPU 内核。在 JAX 中可以使用 triton_call 方便的调用 Triton kernel。
 

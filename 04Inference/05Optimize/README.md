@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 模型优化(DONE)
+# 模型优化
 
 《模型优化》在这一节当中分为模型转换和模型优化，在整体架构图中属于离线模型转换模块。一方面，推理引擎需要把不同 AI 框架训练得到的模型进行转换；另外一方面需要对转换后的模型进行图优化等技术。
 
@@ -12,10 +12,10 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 图优化模块| 01 计算图优化策略| [文章](./01Optimizer.md), [PPT](./05Optimizer.pdff), [视频](https://www.bilibili.com/video/BV1g84y1L7tF/) |
-| 图优化模块| 02 常量折叠&冗余节点消除| [文章](./02Basic.md), [PPT](./06Basic.pdf), [视频](https://www.bilibili.com/video/BV1fA411r7hr/) |
-| 图优化模块| 03 算子融合/替换/前移 | [文章](./02Basic.md), [PPT](./06Basic.pdf), [视频](https://www.bilibili.com/video/BV1Qj411T7Ef/) |
-| 图优化模块| 04 数据布局转换&内存优化| [文章](./03Extend.md), [PPT](./07Extend.pdf), [视频](https://www.bilibili.com/video/BV1Ae4y1N7u7/) |
+| 图优化模块| 01 计算图优化策略| [文章](./01Optimizer.md), [PPT](./01Optimizer.pdf), [视频](https://www.bilibili.com/video/BV1g84y1L7tF/) |
+| 图优化模块| 02 常量折叠&冗余节点消除| [文章](./02Basic.md), [PPT](./02Basic.pdf), [视频](https://www.bilibili.com/video/BV1fA411r7hr/) |
+| 图优化模块| 03 算子融合/替换/前移 | [文章](./02Basic.md), [PPT](./02Basic.pdf), [视频](https://www.bilibili.com/video/BV1Qj411T7Ef/) |
+| 图优化模块| 04 数据布局转换&内存优化| [文章](./03Extend.md), [PPT](./03Extend.pdf), [视频](https://www.bilibili.com/video/BV1Ae4y1N7u7/) |
 
 ## 备注
 
