@@ -26,7 +26,7 @@
 
 1. 跨平台跨语言通用序列化方法
 
-常用的序列化主要有四种格式：XML（一种可扩展标记语言，非常适合存储和传输结构化数据），JSON（一种轻量级的数据交换格式），Protocol Buffers（Google 开发的语言中立、平台中立、可扩展的序列化结构数据格式）和 Flatbuffer（Google 开发的另一种高效序列化库，与 Protobuffer 类似）。前两种是文本格式，人和机器都可以理解，后两种是二进制格式，只有机器能理解，但在存储传输解析上有很大的速度优势。使用最广泛为 Protobuffer。
+常用的序列化主要有四种格式：XML（一种可扩展标记语言，非常适合存储和传输结构化数据），JSON（一种轻量级的数据交换格式），Protocol Buffers（谷歌开发的语言中立、平台中立、可扩展的序列化结构数据格式）和 Flatbuffer（谷歌开发的另一种高效序列化库，与 Protobuffer 类似）。前两种是文本格式，人和机器都可以理解，后两种是二进制格式，只有机器能理解，但在存储传输解析上有很大的速度优势。使用最广泛为 Protobuffer。
 
 下图中的[ONNX](https://onnx.ai/)使用的就是 Protobuf 这个序列化数据结构去存储神经网络的权重信息。ONNX（Open Neural Network Exchange）是一个开放格式，用于机器学习模型的跨平台共享。通过使用 Protobuf，ONNX 能够在不同的深度学习框架之间高效地传输模型数据。
 
@@ -177,14 +177,14 @@ print(onnx.helper.printable_graph(model.graph))
 
 **Protobuf**是 “Protocol Buffers” 的缩写，是一种高效、与语言无关的数据序列化机制。它使开发人员能够在文件中定义结构化数据`.proto`，然后使用该文件生成可以从不同数据流写入和读取数据的源代码。
 
-Protobuf 最初是由 Google 的工程师开发的，他们需要一种有效的方法来跨各种内部服务序列化结构化数据。其特点是语言无关、平台无关；比 XML 更小更快更为简单；扩展性、兼容性好。
+Protobuf 最初是由谷歌的工程师开发的，他们需要一种有效的方法来跨各种内部服务序列化结构化数据。其特点是语言无关、平台无关；比 XML 更小更快更为简单；扩展性、兼容性好。
 
 #### 文件语法详解
 
-- **基本语法：** 字段规则 数据类型 名称 = 域值 [选项 = 选项值]
+- **基本语法：** 字段规则数据类型名称 = 域值 [选项 = 选项值]
 
 ```shell
-// 字段规则 数据类型 名称 = 域值 [选项 = 选项值]
+// 字段规则数据类型名称 = 域值 [选项 = 选项值]
 
 message Net{      // message 属于 Net 域；
   optional string name = 'conv_1*1_0_3';
@@ -247,7 +247,7 @@ message Net{      // message 属于 Net 域；
 
 池化层、全连接层等内容可以参考[Training LeNet on MNIST with Caffe](https://github.com/BVLC/caffe/blob/master/examples/mnist/readme.md)。
 
-#### Tensorflow 编码和解码
+#### TensorFlow 编码和解码
 
 ```
 // 将给定的 Protocol Buffer 对象编码为字节字符串
@@ -294,7 +294,7 @@ Protobuf 的编解码过程是基于其 TLV 结构进行的。解析根消息（
 
 ### FlatBuffers
 
-FlatBuffers 是一个开源的、跨平台的、高效的、提供了多种语言接口的序列化工具库。实现了与 Protocal Buffers 类似的序列化格式。主要由 Wouter van Oortmerssen 编写，并由 Google 开源。
+FlatBuffers 是一个开源的、跨平台的、高效的、提供了多种语言接口的序列化工具库。实现了与 Protocal Buffers 类似的序列化格式。主要由 Wouter van Oortmerssen 编写，并由谷歌开源。
 
 FlatBuffers 主要针对部署和对性能有要求的应用。相对于 Protocol Buffers，FlatBuffers 不需要解析，只通过序列化后的二进制 buffer 即可完成数据访问。
 
@@ -355,7 +355,7 @@ MindSpore Lite 提供了一套注册机制，允许用户基于转换工具进�
 2. [开源 AI 模型序列化总结](https://github.com/aipredict/ai-models-serialization)
 3. [ONNX 学习笔记](https://zhuanlan.zhihu.com/p/346511883)
 4. [深入 CoreML 模型定义](https://blog.csdn.net/volvet/article/details/85013830)
-5. [Swift loves TensorFlow and CoreML](https://medium.com/@JMangiaswift-loves-tensorflow-and-coreml-2a11da25d44)
+5. [Swift loves TensorFlow and CoreML](https://medium.com/@JMangiaswift-loves-TensorFlow-and-coreml-2a11da25d44)
 6. [什么是 Protobuf？](https://blog.postman.com/what-is-protobuf/)
 7. [Protobuf 语法指南](https://colobu.com/2015/01/07/Protobuf-language-guide/)
 8. [深入浅出 FlatBuffers 之 Schema](https://halfrost.com/flatbuffers_schema/)

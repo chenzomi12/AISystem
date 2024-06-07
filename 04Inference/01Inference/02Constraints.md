@@ -239,7 +239,7 @@ print("Predicted output:", output_data)
 
 然后，可扩展性是应对不断增长的用户或设备需求的基础。系统需要能够灵活扩展，以应对突发和持续增长的用户请求。通过自动部署更多解决方案，随着请求负载的增加，系统能够提升推理吞吐量，提供更高的推理吞吐和可靠性。
 
-借助底层 Kubernetes 部署平台，用户可以便捷地配置和自动部署多个推理服务副本，并通过前端负载均衡服务达到高扩展性和提升吞吐量，进一步增强推理服务的可靠性。另外，云计算平台如 AWS、Azure、Google Cloud 等提供了弹性的计算、存储和网络服务，这些服务可以根据需求快速扩展资源。使用负载均衡器（如 Ingress 控制器）可以分发进入网络的流量，确保请求均匀分配到不同的服务实例上，从而提高系统的吞吐量和可靠性。通过这些策略，系统能够在用户或设备需求不断增长的情况下保持高性能和稳定性，确保推理服务能够满足不断变化的市场需求。
+借助底层 Kubernetes 部署平台，用户可以便捷地配置和自动部署多个推理服务副本，并通过前端负载均衡服务达到高扩展性和提升吞吐量，进一步增强推理服务的可靠性。另外，云计算平台如 AWS、Azure、谷歌 Cloud 等提供了弹性的计算、存储和网络服务，这些服务可以根据需求快速扩展资源。使用负载均衡器（如 Ingress 控制器）可以分发进入网络的流量，确保请求均匀分配到不同的服务实例上，从而提高系统的吞吐量和可靠性。通过这些策略，系统能够在用户或设备需求不断增长的情况下保持高性能和稳定性，确保推理服务能够满足不断变化的市场需求。
 
 #### 可靠性（Reliability）
 
@@ -318,9 +318,9 @@ Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负
 
 ## 参考文献
 
-1. [Deep Learning Inference in Facebook Data Centers: Characterization, Performance Optimizations and Hardware Implications](https://arxiv.org/abs/1811.09886)
+1. [Deep Learning Inference in Meta Data Centers: Characterization, Performance Optimizations and Hardware Implications](https://arxiv.org/abs/1811.09886)
 2. [Clipper: A Low-Latency Online Prediction Serving System](https://www.usenix.org/system/files/conference/nsdi17/nsdi17-crankshaw.pdf)
-3. [TFX: A TensorFlow-Based Production-Scale Machine Learning Platform](https://www.kdd.org/kdd2017/papers/view/tfx-a-tensorflow-based-production-scale-machine-learning-platform)
+3. [TFX: A TensorFlow-Based Production-Scale Machine Learning Platform](https://www.kdd.org/kdd2017/papers/view/tfx-a-TensorFlow-based-production-scale-machine-learning-platform)
 4. [TensorFlow-Serving: Flexible, High-Performance ML Serving](https://arxiv.org/abs/1712.06139)
 5. [Optimal Aggregation Policy for Reducing Tail Latency of Web Search](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/samehe-2015sigir.optimalaggregation.pdf)
 6. [A Survey of Model Compression and Acceleration for Deep Neural Networks](https://arxiv.org/pdf/1710.09282.pdf)

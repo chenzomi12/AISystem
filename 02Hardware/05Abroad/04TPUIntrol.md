@@ -2,7 +2,7 @@
 
 # 谷歌 TPU 历史发展(DONE)
 
-在本章节中，我们将深入探讨谷歌的 Tensor Processing Unit（TPU）的发展历程及其在深度学习和人工智能领域的应用。TPU 是谷歌为加速机器学习任务而设计的专用集成电路（ASIC），自首次推出以来，TPU 经历了多次迭代升级，包括 TPU v1、v2、v3 和 v4，以及 Edge TPU 和 Google Tensor 等产品。
+在本章节中，我们将深入探讨谷歌的 Tensor Processing Unit（TPU）的发展历程及其在深度学习和人工智能领域的应用。TPU 是谷歌为加速机器学习任务而设计的专用集成电路（ASIC），自首次推出以来，TPU 经历了多次迭代升级，包括 TPU v1、v2、v3 和 v4，以及 Edge TPU 和谷歌 Tensor 等产品。
 
 这些 TPU 芯片在制程技术、芯片大小、内存容量、时钟速度、内存带宽和热设计功耗等方面都有显著的提升，为数据中心和边缘设备提供了强大的计算能力。
 
@@ -22,7 +22,7 @@
 
 以下表格是不同 TPU 芯片型号的具体参数和规格，我们的 TPU 系列会主要围绕 v1, v2, v3, v4 这一系统去展开。
 
-| TPU 比较              | TPUv1       | TPUv2       | TPUv3       | Edge TPU v1 | Pixel Neural Core | TPUv4i      | TPUv4       | Google Tensor |
+| TPU 比较              | TPUv1       | TPUv2       | TPUv3       | Edge TPU v1 | Pixel Neural Core | TPUv4i      | TPUv4       | 谷歌 Tensor |
 |------------------------|-------------|-------------|-------------|-------------|-------------------|-------------|-------------|---------------|
 | 推出日期              | 2016 年     | 2017 年     | 2018 年     | 2018 年     | 2019 年           | 2020 年     | 2021 年     | 2021 年       |
 | 制程技术              | 28nm        | 16nm        | 16nm        | -           | -                 | 7nm         | 7nm         | -             |
@@ -64,9 +64,9 @@
 
 随着时间的推移，谷歌不仅在大型数据中心部署了先进技术，还洞察到将这些技术应用于消费电子产品，尤其是智能手机市场的巨大潜力。于是在 2017 年，谷歌在 Pixel 2 和 Pixel 3 上便搭载了谷歌针对消费类产品的首个定制图像芯片 —— Pixel Visual Core。之后，谷歌基于 Edge TPU 的框架研发了继任芯片 —— Pixel Neural Core，在 2019 年 10 月发布的 Pixel 4 上首次搭载。之后，谷歌在 Pixel 产品线上对于 TPU 的依赖也一直延续到了今天。
 
-在这个 AI 爆发的大时代，谷歌在移动端的 AI 掷下豪赌，对于最新发布的 Tensor G3，Google Silicon 的高级总监 Monika Gupta 是这样评价的：“我们的合作与 Tensor 一直不仅仅局限于追求速度和性能这样的传统评价标准。我们的目标是推动移动计算体验的进步。
+在这个 AI 爆发的大时代，谷歌在移动端的 AI 掷下豪赌，对于最新发布的 Tensor G3，谷歌 Silicon 的高级总监 Monika Gupta 是这样评价的：“我们的合作与 Tensor 一直不仅仅局限于追求速度和性能这样的传统评价标准。我们的目标是推动移动计算体验的进步。
 
-在最新的 Tensor G3 芯片中，我们对每个关键的系统组件都进行了升级，以便更好地支持设备上的生成式人工智能技术。这包括最新型号的 ARM 中央处理器、性能更强的图形处理器、全新的图像信号处理器和图像数字信号处理器，以及我们最新研发的，专门为运行 Google 的人工智能模型而量身打造的 TPU。”[<sup>[3]</sup>](#ref3)
+在最新的 Tensor G3 芯片中，我们对每个关键的系统组件都进行了升级，以便更好地支持设备上的生成式人工智能技术。这包括最新型号的 ARM 中央处理器、性能更强的图形处理器、全新的图像信号处理器和图像数字信号处理器，以及我们最新研发的，专门为运行谷歌的人工智能模型而量身打造的 TPU。”[<sup>[3]</sup>](#ref3)
 
 ![Alt text](images/04TPUIntro03.png)
 
@@ -195,7 +195,7 @@ TPU 自 2016 年推出第一代 TPU 以来，谷歌不断推进 TPU 技术的发
 ## 参考文献
 
 1. [In-Datacenter Performance Analysis of a Tensor Processing Unit](https://arxiv.org/abs/1704.04760)
-2. [An in-depth look at Google’s first Tensor Processing Unit (TPU)](https://cloud.google.com/blog/products/ai-machine-learning/an-in-depth-look-at-googles-first-tensor-processing-unit-tpu)
-3. [Google Tensor G3: The new chip that gives your Pixel an AI upgrade](https://blog.google/products/pixel/google-tensor-g3-pixel-8/)
+2. [An in-depth look at 谷歌’s first Tensor Processing Unit (TPU)](https://cloud.谷歌.com/blog/products/ai-machine-learning/an-in-depth-look-at-谷歌s-first-tensor-processing-unit-tpu)
+3. [谷歌 Tensor G3: The new chip that gives your Pixel an AI upgrade](https://blog.谷歌/products/pixel/谷歌-tensor-g3-pixel-8/)
 4. [Wikipedia-Tensor Processing Unit](https://en.wikipedia.org/wiki/Tensor_Processing_Unit#cite_note-TPU_memory-15)
 5. [A Domain-Specific Supercomputer for Training Deep Neural Networks](https://cacm.acm.org/research/a-domain-specific-supercomputer-for-training-deep-neural-networks/)

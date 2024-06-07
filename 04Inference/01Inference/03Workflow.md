@@ -177,7 +177,7 @@
 
 ## 参考文献
 
-1. Deep Learning Inference in Facebook Data Centers: Characterization, Performance Optimizations and Hardware Implications
+1. Deep Learning Inference in Meta Data Centers: Characterization, Performance Optimizations and Hardware Implications
 2. Clipper: A Low-Latency Online Prediction Serving System
 3. TFX: A TensorFlow-Based Production-Scale Machine Learning Platform
 4. TensorFlow-Serving: Flexible, High-Performance ML Serving

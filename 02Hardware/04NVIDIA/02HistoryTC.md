@@ -52,7 +52,7 @@ Volta SM 的结构揭示了其内部工作机制的细节。SM 顶部的 L1 指�
 
 ![Volta Sub Core 微架构](images/02HistoryTC05.png)
 
-然而，当调用 WMMA 相关的 API 或指令时，Warp Scheduler 会直接触发 Tensor Core 中的计算，每个 Tensor Core 内含有两个 4x4x4 的矩阵，在每个时钟周期内并行进行计算，最终将结果存回 Register File 寄存器中。寄存器通过 MIO 的 Data Pipeline 与 Shared Memory 进行通讯。
+然而，当调用 WMMA 相关的 API 或指令时，Warp Scheduler 会直接触发 Tensor Core 中的计算，每个 Tensor Core 内含有两个 4x4x4 的矩阵，在每个时钟周期内并行进行计算，最终将结果存回 Register File 寄存器中。寄存器通过 MIO 的 Data Pipeline 与 Shared Memory 进行通信。
 
 另外，在 Volta 架构中相比 P100 有一个重要改进，即将 L1 缓存和共享内存合并为同一块空间，其中的共享内存 SMEM 为整个 SM 提供了 96KB 的存储空间。对 L2 Cache 也进行了更新，性能提升了 5%到 15%。
 

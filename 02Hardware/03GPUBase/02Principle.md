@@ -149,7 +149,7 @@ $$\text{Arithmetic Intensity} = \frac{2N^3 - N^2}{3N^2}≈O(N)$$
 
 > NLP transformer 模型
 > 
-> - NLP transformer 是一种基于 transformer 架构的自然语言处理模型。它是由 Google 研究团队提出的一种革命性的模型，被证明在处理自然语言任务中取得了很大的成功。
+> - NLP transformer 是一种基于 transformer 架构的自然语言处理模型。它是由谷歌研究团队提出的一种革命性的模型，被证明在处理自然语言任务中取得了很大的成功。
 > 
 > - 核心是自注意力机制（self-attention mechanism），能够在输入序列中建立全局依赖关系的机制。通过自注意力机制，模型能够同时考虑输入序列中所有位置之间的关系，而不是像传统的循环神经网络（RNN）或卷积神经网络（CNN）一样逐步处理序列。
 > 

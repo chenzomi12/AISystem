@@ -134,7 +134,7 @@
 
 - **MACE**：MACE 是小米推出的移动端 AI 计算引擎，全称为 Mobile AI Compute Engine。MACE 设计用于优化在移动设备上的深度学习模型推理效率，支持 CPU、GPU 和 DSP 等多种硬件加速。它提供了一套完整的模型转换工具链，能够将 Caffe、TensorFlow、PyTorch 等框架训练的模型转换成 MACE 的运行格式。MACE 通过高度优化的内核库和硬件加速，实现模型在移动端的高效运行，特别关注功耗和性能的平衡。
 
-- **TF-Lite**：TF-Lite 是 Google TensorFlow 团队推出的一个轻量级解决方案，专为移动和嵌入式设备设计。它是 TensorFlow 框架的一个子集，专注于模型的推理部分，旨在提供低延迟和低功耗的机器学习推理。TF-Lite 支持模型量化和自定义算子，能够显著减少模型体积和提高运行效率。它支持 CPU、GPU 和 NNAPI（Android 神经网络 API）等多种后端，便于开发者根据设备特性选择最佳推理策略。
+- **TF-Lite**：TF-Lite 是谷歌 TensorFlow 团队推出的一个轻量级解决方案，专为移动和嵌入式设备设计。它是 TensorFlow 框架的一个子集，专注于模型的推理部分，旨在提供低延迟和低功耗的机器学习推理。TF-Lite 支持模型量化和自定义算子，能够显著减少模型体积和提高运行效率。它支持 CPU、GPU 和 NNAPI（Android 神经网络 API）等多种后端，便于开发者根据设备特性选择最佳推理策略。
 
 - **CoreML**：CoreML 是 Apple 为 iOS 设备设计的机器学习框架，支持在 iPhone 和 iPad 上运行预先训练好的机器学习模型，无需互联网连接。CoreML 不仅限于神经网络，还支持多种机器学习模型，如支持向量机、决策树等。它紧密集成于 iOS、macOS、watchOS 和 tvOS 生态系统中，提供了非常低的延迟和高效的推理性能，特别适合苹果生态内的应用开发。
 

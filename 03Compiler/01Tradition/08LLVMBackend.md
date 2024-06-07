@@ -186,7 +186,7 @@ Youtube 上 LLVM 之父 Chris Lattner：编译器的黄金时代
 
 2. XLA：优化机器学习编译器
 
-XLA(加速线性代数)是 Google 推出的一种针对特定领域的线性代数编译器，能够加快 TensorFlow 模型的运行速度，而且可能完全不需要更改源代码。
+XLA(加速线性代数)是谷歌推出的一种针对特定领域的线性代数编译器，能够加快 TensorFlow 模型的运行速度，而且可能完全不需要更改源代码。
 
 TensorFlow 中大部分代码和算子都是通过 XLA 编译的，XLA 的底层就是 LLVM，所以 XLA 可以利用到 LLVM 的很多特性，比如优化、代码生成、并行计算等。
 
@@ -228,6 +228,6 @@ TensorFlow 可以更好的应用于工业生产环境，因为它可以利用到
 2. https://www.modular.com
 3. https://scottamain.github.io/xla
 4. https://jax.readthedocs.io
-5. https://www.tensorflow.org
+5. https://www.TensorFlow.org
 6. https://tvm.apache.org/
 7. https://julialang.org/

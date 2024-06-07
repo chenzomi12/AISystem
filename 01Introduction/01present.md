@@ -22,7 +22,7 @@
 
 - 物体检测与跟踪：深度学习算法已用于各种应用，例如自动驾驶汽车、无人机和安全摄像头的实时检测和跟踪对象。例如，自动驾驶汽车使用深度学习来识别和跟踪周围环境中的车辆、行人和其他物体。同样，配备深度学习算法的无人机可以实时检测和跟踪感兴趣的物体，例如野生动物或车辆。
 
-- 图像与视频识别：深度学习模型可以非常准确地识别和分类图像和视频，从而支持图像搜索引擎、内容审核和推荐系统等应用。例如，Google 和 Bing 等搜索引擎使用深度学习算法，根据图像查询提供准确且相关的搜索结果。同样，Facebook 和 YouTube 等内容审核平台使用深度学习来自动标记和删除不当内容。
+- 图像与视频识别：深度学习模型可以非常准确地识别和分类图像和视频，从而支持图像搜索引擎、内容审核和推荐系统等应用。例如，谷歌和 Bing 等搜索引擎使用深度学习算法，根据图像查询提供准确且相关的搜索结果。同样，Meta 和 YouTube 等内容审核平台使用深度学习来自动标记和删除不当内容。
 
 - 面部识别：深度学习算法可以高精度识别和匹配人脸，实现安全访问控制、监控甚至个性化营销等应用。例如，出于安全目的，机场和政府大楼使用面部识别来筛查乘客和员工。同样，零售商使用面部识别来分析客户行为和偏好，并提供个性化的购物体验。
 
@@ -125,13 +125,13 @@
 
 此深度神经网络的训练任务是通过分布式系统（其设计了适合当前作业的张量切片与放置以及通信协调策略以加速训练）部署在多台配置有 NVIDIA Tesla GPGPU 服务器，通过几百小时的分布式训练才得以完成。论文在最后致谢中提到 “Our special thanks go to Ajith Jayamohan and Igor Kouzminykh of the MSR Extreme Computing Group for access to a Tesla server farm, without which this work would not have been possible.”，由此看到在 AI 领域算法团队与系统团队协作已经由来已久，算法与系统的协同设计将以往不可能完成的计算任务变为了可能，上层应用负载需求驱动系统发展与演化，系统支撑上层应用负载取得新的突破。
 
-2012 年 1 月，Google 的神经网络从 1000 万张 YouTube 视频的静止画面中学会了[识别猫](https://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html)。Google 的科学家通过连接 16,000 个计算机处理器创建了最大的机器学习神经网络之一，他们在互联网上将这些处理器松散开来自行学习，正是大规模系统互联更大的算力支撑了当时相比以往更大的数据和模型的训练。此工作 “[Building high-level features using large scale unsupervised learning](https://dl.acm.org/doi/10.5555/3042573.3042641)” [<sup>[13]</sup>] 发表在 ICML '12 会议上。
+2012 年 1 月，谷歌的神经网络从 1000 万张 YouTube 视频的静止画面中学会了[识别猫](https://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html)。谷歌的科学家通过连接 16,000 个计算机处理器创建了最大的机器学习神经网络之一，他们在互联网上将这些处理器松散开来自行学习，正是大规模系统互联更大的算力支撑了当时相比以往更大的数据和模型的训练。此工作 “[Building high-level features using large scale unsupervised learning](https://dl.acm.org/doi/10.5555/3042573.3042641)” [<sup>[13]</sup>] 发表在 ICML '12 会议上。
 
 2012 年 9 月，Alex Krizhevsky，Ilya Sutskever 和 Geoffrey Hinton，团队通过设计 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)[<sup>[14]</sup>] 赢得 ImageNet 竞赛，深度神经网络开始再次流行。首次采用 ReLU 激活函数，扩展了 LeNet5 结构，添加 Dropout 层减小过拟合，LRN 层增强泛化能力/减小过拟合。这些新的模型结构和训练方法影响着后续的模型设计和系统优化，例如：激活函数和卷积层的内核融合计算等。其花费 5 到 6 天，采用 2 块 NVIDIA GTX 580 3GB GPUs 对计算进行加速，进而形成 AI 系统以 GPU 等加速器为主要计算单元的架构。
 
 ![](images/01Present09.png)
 
-截至到 2012 年这个时间点，基础架构的线索中，以英伟达（NVIDIA）为代表的芯片厂商已经连续发布了 Tesla，Fermi，[Kepler](https://en.wikipedia.org/wiki/Kepler_(microarchitecture)) 架构系列商用 GPU 和多款消费级 GPU，这些 GPU 已经开始被研究工作引用加速 AI 算法与模型的研究，被业界公司用于人工智能产品。但同时从 AlexNet 工作中看到，作还基于 CUDA API 进行编程实现了[cuda-convnet](https://code.google.com/archive/p/cuda-convnet)，AI 系统与工具伴随着 AI 算法与模型的突破与需求呼之欲出，在后面的章节中将会总结和展望 AI 系统本身的脉络，现状与发展。
+截至到 2012 年这个时间点，基础架构的线索中，以英伟达（NVIDIA）为代表的芯片厂商已经连续发布了 Tesla，Fermi，[Kepler](https://en.wikipedia.org/wiki/Kepler_(microarchitecture)) 架构系列商用 GPU 和多款消费级 GPU，这些 GPU 已经开始被研究工作引用加速 AI 算法与模型的研究，被业界公司用于人工智能产品。但同时从 AlexNet 工作中看到，作还基于 CUDA API 进行编程实现了[cuda-convnet](https://code.谷歌.com/archive/p/cuda-convnet)，AI 系统与工具伴随着 AI 算法与模型的突破与需求呼之欲出，在后面的章节中将会总结和展望 AI 系统本身的脉络，现状与发展。
 
 在之后的时间里，以 [ImageNet](https://www.image-net.org/)，等公开的各领域（例如，计算机视觉，自然语言处理）数据集为代表的各个应用领域的公开数据集或基准测试，驱动着以卷积神经网络 CNN，循环神经网络 RNN，Transformer，图神经网络 GNN 为代表的 AI 模型网络结构的发展和创新。
 
@@ -161,7 +161,7 @@
 
 5. [Minsky, M., Papert, S. (1969). Perceptrons: An Introduction to Computational Geometry. Cambridge, MA, USA: MIT Press.](https://www.amazon.com/Perceptrons-Introduction-Computational-Geometry-Expanded/dp/0262631113)
 
-6. [Werbos, Paul J.. “Beyond Regression : "New Tools for Prediction and Analysis in the Behavioral Sciences.” (1974).](https://books.google.com/books/about/Beyond_Regression.html?id=z81XmgEACAAJ)
+6. [Werbos, Paul J.. “Beyond Regression : "New Tools for Prediction and Analysis in the Behavioral Sciences.” (1974).](https://books.谷歌.com/books/about/Beyond_Regression.html?id=z81XmgEACAAJ)
 
 7. [Rina Dechter. 1986. Learning while searching in constraint-satisfaction-problems. In Proceedings of the Fifth AAAI National Conference on Artificial Intelligence (AAAI'86). AAAI Press, 178–183.](https://dl.acm.org/doi/abs/10.5555/2887770.2887799)
 

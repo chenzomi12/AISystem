@@ -18,7 +18,7 @@ ShuffleNet 网络结构同样沿袭了稀疏连接的设计理念。作者通过
 
 受 ResNeXt 的启发，作者提出使用分组逐点卷积（group pointwise convolution）来代替原来的结构。通过将卷积运算的输入限制在每个组内，模型的计算量取得了显著的下降。
 
-然而这样做也带来了明显的问题：在多层逐点卷积堆叠时，模型的信息流被分割在各个组内，组与组之间没有信息交换（如下 图(a)所示）。这将可能影响到模型的表示能力和识别精度。
+然而这样做也带来了明显的问题：在多层逐点卷积堆叠时，模型的信息流被分割在各个组内，组与组之间没有信息交换（如下图(a)所示）。这将可能影响到模型的表示能力和识别精度。
 
 因此，在使用分组逐点卷积的同时，需要引入组间信息交换的机制。也就是说，对于第二层卷积而言，每个卷积核需要同时接收各组的特征作为输入，如下图 (b)所示。作者指出，通过引入“通道重排”（channel shuffle，见下图 (c)）可以很方便地实现这一机制；并且由于通道重排操作是可导的，因此可以嵌在网络结构中实现端到端的学习。
 
@@ -50,7 +50,7 @@ $$
 
 channel shuffle 的思想如上面图中所示。一般卷积操作中输入特征图的数量比如是 N，该卷积层的卷积核数量是 M，那么 M 个卷积核中的每一个卷积核都要和 N 个特征图的某个区域做卷积，然后相加作为一个卷积的结果。
 
-假设你引入分组操作，设组数 为 g，那么 N 个输入特征图就被分成 g 个组，M 个卷积核就被分成 g 个组，然后在做卷积操作的时候，第一个组的 M/g 个卷积核中的每一个都和第一个组的 N/g 个输入特征图做卷积得到结果，第二组同理，直到最后一组，如上图 a。不同的颜色代表不同的组，图中有三个组。
+假设你引入分组操作，设组数为 g，那么 N 个输入特征图就被分成 g 个组，M 个卷积核就被分成 g 个组，然后在做卷积操作的时候，第一个组的 M/g 个卷积核中的每一个都和第一个组的 N/g 个输入特征图做卷积得到结果，第二组同理，直到最后一组，如上图 a。不同的颜色代表不同的组，图中有三个组。
 
 这种操作可以大大减少计算量，因为你每个卷积核不再是和输入的全部特征图做卷积，而是和一个组的特征图做卷积。但是如果多个组操作叠加在一起，如上图 a 的两个卷积层都有组操作，显然就会产生边界效应。
 
@@ -58,7 +58,7 @@ channel shuffle 的思想如上面图中所示。一般卷积操作中输入特�
 
 #### ShuffleNet Unit
 
-基于残差块（residual block）和 通道洗牌（channel shuffle）设计的 `ShuffleNet Unit` ：
+基于残差块（residual block）和通道洗牌（channel shuffle）设计的 `ShuffleNet Unit` ：
 
 - **深度卷积 **。
 
@@ -200,7 +200,7 @@ class ShuffleNet(nn.Module):
 
 ShuffleNet v2 是一种深度神经网络架构，与 ShuffleNet v1 和 MobileNet v2 相比，在计算复杂度为 40M FLOPs 的情况下，精度分别比 ShuffleNet v1 和 MobileNet v2 高 3.5%和 3.7%。ShuffleNet v2 的框架与 ShuffleNet v1 基本相同，都包括 Conv1、Maxpool、Stage 2~5、Global pool 和 FC 等部分。
 
-唯一的不同是 ShuffleNet v2 比 ShuffleNet v1 多了一个 1x1 Conv5。ShuffleNet v2 最大的贡献在于看到了 GPU 访存带宽（内存访问代价 MAC）对于模型推理时间的影响，而不仅仅是模型复杂度，也就是 FLOPs 和参数量 Params 对于推理时间的影响，并由此提出了 4 个轻量级网络设计的原则和一个新颖的 卷积 block 架构 ShuffleNet v2。
+唯一的不同是 ShuffleNet v2 比 ShuffleNet v1 多了一个 1x1 Conv5。ShuffleNet v2 最大的贡献在于看到了 GPU 访存带宽（内存访问代价 MAC）对于模型推理时间的影响，而不仅仅是模型复杂度，也就是 FLOPs 和参数量 Params 对于推理时间的影响，并由此提出了 4 个轻量级网络设计的原则和一个新颖的卷积 block 架构 ShuffleNet v2。
 
 ### 设计思路
 
@@ -230,13 +230,13 @@ ShuffleNet v2 是一种深度神经网络架构，与 ShuffleNet v1 和 MobileNe
 
 最后，对两个分支的结果进行拼接（concatnate），这样对于卷积 block 来说，输入输出通道数是一样的，符合 G1 原则。和 ShuffleNet v1 一样都使用通道打乱（channel shuffle）操作来保证两个分支的信息进行交互。
 
-通道打乱之后的输出，就是下一个单元的输入。ShuffleNet v1 的 “Add” 操作不再使用，逐元素操作算子如：ReLU 和 DW 卷积 只存在于在右边的分支。
+通道打乱之后的输出，就是下一个单元的输入。ShuffleNet v1 的 “Add” 操作不再使用，逐元素操作算子如：ReLU 和 DW 卷积只存在于在右边的分支。
 
 与此同时，我们将三个连续的逐元素操作算子：拼接（“Concat”）、通道打乱（“Channel Shuffle”）和通道拆分（“Channel Split”）合并成一个逐元素算子。根据 G4 原则，这些改变是有利的。
 
 针对需要进行空间下采样的 block，卷积单元（block）进行了修改，通道切分算子被移除，然后 block 的输出通道数变为两倍，详细信息如下图(d) 所示。
 
-图 c,d 显示的卷积 block 叠加起来即组成了最后的 ShuffleNet v2 模型，这样堆叠后的网络是类似 ShuffleNet v1 模型的，v1 和 v2 block 的区别在于，v2 在全局平均池化层（global averaged pooling）之前添加了一个 卷积来混合特征（mix up features），而 v1 没有。
+图 c,d 显示的卷积 block 叠加起来即组成了最后的 ShuffleNet v2 模型，这样堆叠后的网络是类似 ShuffleNet v1 模型的，v1 和 v2 block 的区别在于，v2 在全局平均池化层（global averaged pooling）之前添加了一个卷积来混合特征（mix up features），而 v1 没有。
 
 和 v1 一样，v2 的 block 的通道数是按照 0.5x 1x 等比例进行缩放，以生成不同复杂度的 ShuffleNet v2 网络，并标记为 ShuffleNet v2 0.5×、ShuffleNet v2 1× 等模型。
 

@@ -178,7 +178,7 @@ void box_filter_3x3(const Mat &in, Mat &blury)
 Var x("x"), y("y"); //定义两个变量
 Func gradient("gradient");  //定义一个待执行的 function
 gradient(x, y) = x + y;
-// realize 即为实现这个操作 到了这一步才会对上述的操作进行编译并执行
+// realize 即为实现这个操作到了这一步才会对上述的操作进行编译并执行
 Buffer<int> output = gradient.realize(4, 4);
 ```
 

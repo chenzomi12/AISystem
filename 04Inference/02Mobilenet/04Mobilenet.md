@@ -138,7 +138,7 @@ class MobileNetV1(nn.Module):
 
 ## MobileNet V2
 
-在上一章节中介绍了 MobileNetV1 版本，主要是将普通卷积转成逐点和逐通道卷积，也讲到了用于调整模型的大小和计算复杂性的宽度和分辨率因子。在本章节中主要会讲解基于 V1 构建的更高效更 轻量的网络结构。 
+在上一章节中介绍了 MobileNetV1 版本，主要是将普通卷积转成逐点和逐通道卷积，也讲到了用于调整模型的大小和计算复杂性的宽度和分辨率因子。在本章节中主要会讲解基于 V1 构建的更高效更轻量的网络结构。 
 
 ### 贡献概述
 
@@ -211,7 +211,7 @@ def _make_divisible(ch, divisor=8, min_ch=None):
     This function is taken from the original tf repo.
     It ensures that all layers have a channel number that is divisible by 8
     It can be seen here:
-    https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
+    https://github.com/TensorFlow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
     """
     if min_ch is None:
         min_ch = divisor
@@ -328,7 +328,7 @@ class MobileNetV2(nn.Module):
 
 在本章节会主要介绍 MobileNetV3 相对于 V1，V2 的改进之处，除了介绍更轻量的网络结构外，还会给大家带来新的技术，什么是神经网络结构搜索(Nas)，以及 Nas 如何与 MobileNet 进行结合。
 
-MobileNetV3 是由 google 团队在 2019 年提出的轻量化网络模型，传统的卷积神经网络，内容需求大，运算量大，无法再移动设备以及嵌入式设备上运行，为了解决这一问题，MobileNet 网络应运而生。
+MobileNetV3 是由谷歌团队在 2019 年提出的轻量化网络模型，传统的卷积神经网络，内容需求大，运算量大，无法再移动设备以及嵌入式设备上运行，为了解决这一问题，MobileNet 网络应运而生。
 
 MobileNetV3 在移动端图像分类、目标检测、语义分割等任务上均取得了优秀的表现。MobileNetV3 采用了很多新的技术，包括针对通道注意力的 Squeeze-and-Excitation 模块、NAS 搜索方法等，这些方法都有利于进一步提升网络的性能。
 
@@ -410,7 +410,7 @@ def _make_divisible(ch, divisor=8, min_ch=None):
     This function is taken from the original tf repo.
     It ensures that all layers have a channel number that is divisible by 8
     It can be seen here:
-    https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
+    https://github.com/TensorFlow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
     """
     if min_ch is None:
         min_ch = divisor
@@ -581,11 +581,11 @@ class MobileNetV3(nn.Module):
 
         # building last several layers
         lastconv_input_c = inverted_residual_setting[-1].out_c  # 最后的 bneckblock 的输出 channel
-        lastconv_output_c = 6 * lastconv_input_c    # lastconv_output_c 与 最后的 bneckblock 的输出 channel 数是六倍的关系
+        lastconv_output_c = 6 * lastconv_input_c    # lastconv_output_c 与最后的 bneckblock 的输出 channel 数是六倍的关系
 
         # 定义最后一层的卷积层
         layers.append(ConvBNActivation(lastconv_input_c,   # 最后的 bneckblock 的输出 channel 数
-                                       lastconv_output_c,   # lastconv_output_c 与 最后的 bneckblock 的输出 channel 数是六倍的关系
+                                       lastconv_output_c,   # lastconv_output_c 与最后的 bneckblock 的输出 channel 数是六倍的关系
                                        kernel_size=1,
                                        norm_layer=norm_layer,
                                        activation_layer=nn.Hardswish))
@@ -760,7 +760,7 @@ MobileNet V4 具有以下原则:
 
 为此，作者使用了屋顶线模型，该模型估计给定工作负载的性能，并预测它是受内存瓶颈还是计算瓶颈的限制。简而言之，它忽略了特定的硬件细节，只考虑工作负载的操作强度 LayerMACs/(WeightBytes + ActivationBytes) 与硬件处理器和内存系统的理论极限之间的关系。
 
-内存和计算操作大致是并行发生的，因此两个中较慢的那个大约决定了延迟瓶颈。为了将屋顶线模型应用于以 为索引的神经网络层，作者可以以下述方式计算模型推理延迟：
+内存和计算操作大致是并行发生的，因此两个中较慢的那个大约决定了延迟瓶颈。为了将屋顶线模型应用于以为索引的神经网络层，作者可以以下述方式计算模型推理延迟：
 
 $$
 MACTime_{i}=\frac{LayerMAC_{s_{i}}}{PeakMA_{s}}
@@ -1107,7 +1107,7 @@ def make_divisible(
     ) -> int:
     """
     This function is copied from here 
-    "https://github.com/tensorflow/models/blob/master/official/vision/modeling/layers/nn_layers.py"
+    "https://github.com/TensorFlow/models/blob/master/official/vision/modeling/layers/nn_layers.py"
     
     This is to ensure that all layers have channels that are divisible by 8.
 
@@ -1242,7 +1242,7 @@ class MobileNetV4(nn.Module):
         """Params to initiate MobilenNetV4
         Args:
             model : support 5 types of models as indicated in 
-            "https://github.com/tensorflow/models/blob/master/official/vision/modeling/backbones/mobilenet.py"        
+            "https://github.com/TensorFlow/models/blob/master/official/vision/modeling/backbones/mobilenet.py"        
         """
         super().__init__()
         assert model in MODEL_SPECS.keys()
@@ -1293,7 +1293,7 @@ MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动�
 
 ## 参考文献
 
-1.[M. Abadi, A. Agarwal, P. Barham, E. Brevdo, Z. Chen,C. Citro, G. S. Corrado, A. Davis, J. Dean, M. Devin, et al.Tensorflow: Large-scale machine learning on heterogeneous  systems, 2015. Software available from tensorflow. org, 1,2015.](https://arxiv.org/abs/1603.04467)
+1.[M. Abadi, A. Agarwal, P. Barham, E. Brevdo, Z. Chen,C. Citro, G. S. Corrado, A. Davis, J. Dean, M. Devin, et al.TensorFlow: Large-scale machine learning on heterogeneous  systems, 2015. Software available from TensorFlow. org, 1,2015.](https://arxiv.org/abs/1603.04467)
 
 2.[I. Hubara, M. Courbariaux, D. Soudry, R. El-Yaniv, and Y. Bengio. Quantized neural networks: Training neural networks with low precision weights and activations. arXiv preprint arXiv:1609.07061, 2016. 2](https://arxiv.org/pdf/1609.07061.pdf)
 
@@ -1317,7 +1317,7 @@ MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动�
 
 12.[Wei Liu, Dragomir Anguelov, Dumitru Erhan,Christian Szegedy, Scott Reed, Cheng-Yang Fu,and Alexander C Berg. Ssd: Single shot multibox detector. In ECCV, 2016.]()
 
-13.[Jonathan Huang, Vivek Rathod, Derek Chow,Chen Sun, and Menglong Zhu. Tensorflow object detection api, 2017. 7](https://arxiv.longhoe.net/abs/1512.02325)
+13.[Jonathan Huang, Vivek Rathod, Derek Chow,Chen Sun, and Menglong Zhu. TensorFlow object detection api, 2017. 7](https://arxiv.longhoe.net/abs/1512.02325)
 
 14.[Liang-Chieh Chen, George Papandreou, Florian Schroff, and Hartwig Adam. Rethinking atrous convolution for semantic image segmentation. CoRR, abs/1706.05587, 2017. 7](https://arxiv.org/abs/1706.05587)
 

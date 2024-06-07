@@ -44,11 +44,11 @@
 
 ![TF Serving 架构图](images/04System01.png)
 
-一个早期的服务化框架是 Google 在 2016 年针对 TensorFlow 推出的 TensorFlow Serving，它能够把 TensorFlow 模型以 web 服务的方式对外暴露接口，通过网络请求方式接受来自客户端（Client）的请求数据，计算得到前向推理结果并返回。这成为了模型服务化的重要里程碑。除此之外，业界还涌现了许多其他优秀的服务化框架，如 TorchServe、Triton、BentoML、Kubeflow 和 Seldon Core 等。
+一个早期的服务化框架是谷歌在 2016 年针对 TensorFlow 推出的 TensorFlow Serving，它能够把 TensorFlow 模型以 web 服务的方式对外暴露接口，通过网络请求方式接受来自客户端（Client）的请求数据，计算得到前向推理结果并返回。这成为了模型服务化的重要里程碑。除此之外，业界还涌现了许多其他优秀的服务化框架，如 TorchServe、Triton、BentoML、Kubeflow 和 Seldon Core 等。
 
 | 服务框架 | 支持的模型 | 开源仓库地址 | 开源时间 |
 | --------- | ----------- | ------------- | --------- |
-| TensorFlow Serving | TensorFlow | <https://github.com/tensorflow/serving> | 2016 |
+| TensorFlow Serving | TensorFlow | <https://github.com/TensorFlow/serving> | 2016 |
 | TorchServe | PyTorch | <https://github.com/pytorch/serve> | 2020 |
 | Triton | TensorFlow/PyTorch 等 | <https://github.com/triton-inference-server/server> | 2018 |
 | BentoML | TensorFlow/PyTorch 等 | <https://github.com/bentoml/BentoML> | 2019 |
@@ -103,7 +103,7 @@ HTTP/REST 是一种广泛使用的网络通信协议，它基于 HTTP 协议，�
 
 #### GRPC 协议支持
 
-GRPC 是一个高性能、开源和通用的 RPC 框架，由 Google 主导开发。它使用 Protocol Buffers 为接口定义语言，支持多种编程语言。Triton 通过支持 GRPC 协议，提供了一种高效的通信机制，特别适用于需要高性能和低延迟的场景。
+GRPC 是一个高性能、开源和通用的 RPC 框架，由谷歌主导开发。它使用 Protocol Buffers 为接口定义语言，支持多种编程语言。Triton 通过支持 GRPC 协议，提供了一种高效的通信机制，特别适用于需要高性能和低延迟的场景。
 
 - **优点**：
 
@@ -173,7 +173,7 @@ Triton 的模型仓库是一个用于存储和管理机器学习模型的地方�
 
 #### 云模型仓库
 
-云模型仓库指的是将模型文件存储在云服务提供商的存储服务上，如 Google Cloud Platform (GCP)的 Cloud Storage 或 Amazon Web Services (AWS) 的 S3。
+云模型仓库指的是将模型文件存储在云服务提供商的存储服务上，如谷歌 Cloud Platform (GCP)的 Cloud Storage 或 Amazon Web Services (AWS) 的 S3。
 
 - **优点**：
   - 云存储服务通常提供良好的扩展性，可以根据需要轻松调整存储容量。
@@ -435,7 +435,7 @@ Status TritonBackend::LoadBackendLibrary()
 
 ## 参考文献
 
-1. Deep Learning Inference in Facebook Data Centers: Characterization, Performance Optimizations and Hardware Implications
+1. Deep Learning Inference in Meta Data Centers: Characterization, Performance Optimizations and Hardware Implications
 2. Clipper: A Low-Latency Online Prediction Serving System
 3. TFX: A TensorFlow-Based Production-Scale Machine Learning Platform
 4. TensorFlow-Serving: Flexible, High-Performance ML Serving

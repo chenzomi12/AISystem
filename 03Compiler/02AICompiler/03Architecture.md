@@ -160,11 +160,11 @@ DL 编译器（如 TVM、nGraph 和 TC）在代码生成阶段可以生成对这
 
 ### Kernel Level
 
-拥有了计算加速硬件，现在需要把算法编译到硬件上真正地去执行。Kernel 层需要提供一些真正能执行的算子，本层包括了各个厂商推出的异构计算架构，包括 Facebook AI Research 的 Tensor Comprehensions、Apache 的 TVM、Cambricon Technologies 的 AutoKernel、华为昇腾的 CANN 以及 NVIDIA 的 cuDNN 等。Kernel 层编译器均直接作用于硬件，是直接给硬件赋能的一层，需要尽可能释放硬件的全部潜力。
+拥有了计算加速硬件，现在需要把算法编译到硬件上真正地去执行。Kernel 层需要提供一些真正能执行的算子，本层包括了各个厂商推出的异构计算架构，包括 Meta AI Research 的 Tensor Comprehensions、Apache 的 TVM、Cambricon Technologies 的 AutoKernel、华为昇腾的 CANN 以及 NVIDIA 的 cuDNN 等。Kernel 层编译器均直接作用于硬件，是直接给硬件赋能的一层，需要尽可能释放硬件的全部潜力。
 
 ### Graph Level
 
-再往上层走，来到计算图层的 IR 或者编译器，包括 FaceBook 的 Glow、Intel 的 N-Graph、谷歌的 XLA、Apache 的 TVM 以及华为的 MindSpore 等。
+再往上层走，来到计算图层的 IR 或者编译器，包括 Meta 的 Glow、Intel 的 N-Graph、谷歌的 XLA、Apache 的 TVM 以及华为的 MindSpore 等。
 
 ### DL Models
 

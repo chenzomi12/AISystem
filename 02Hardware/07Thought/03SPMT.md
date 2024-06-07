@@ -107,7 +107,7 @@ SISD、SIMD 和 SIMT 按照时间轴的执行方式如下所示。
 
 ## 参考文献
 
-[1] 未名超算队. "北大未名超算队 高性能计算入门讲座（一）:概论." Bilibili, [https://www.bilibili.com/video/BV1814y1g7YC/]
+[1] 未名超算队. "北大未名超算队高性能计算入门讲座（一）:概论." Bilibili, [https://www.bilibili.com/video/BV1814y1g7YC/]
 
 [2] 专用架构与 AI 软件栈（1）. Zhihu, [https://zhuanlan.zhihu.com/p/387269513]
 

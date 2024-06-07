@@ -24,7 +24,7 @@ SqueezeNet 算法的主要目标是构建轻量参数的 CNN 架构，同时不�
 
 #### Fire 模块
 
-**Fire 模块**组成：主要包括 挤压层（squeeze） 和 拓展层（expand）；
+**Fire 模块**组成：主要包括挤压层（squeeze） 和拓展层（expand）；
 
 - **Squeeze**：只有 1×1 卷积滤波器 ；
 - **Expand**：混合有 1×1 和 3×3 卷积滤波器 ；
@@ -57,7 +57,7 @@ class fire(nn.Module):
 
 ### 网络结构
 
-在**Fire Module**的基础上搭建 SqueezeNet 神经网络，结构如下图所示。以卷积层开始，后面是 8 个 Fire Module，最后以卷积层结束，激活函数默认使用 ReLU，每个 Fire Module 中的通道数目逐渐增加，另外网络在 conv1、fire4、fire8、conv10 的后面使用了 最大池化。
+在**Fire Module**的基础上搭建 SqueezeNet 神经网络，结构如下图所示。以卷积层开始，后面是 8 个 Fire Module，最后以卷积层结束，激活函数默认使用 ReLU，每个 Fire Module 中的通道数目逐渐增加，另外网络在 conv1、fire4、fire8、conv10 的后面使用了最大池化。
 
 相同分辨率的 Fire Module 数量前面要少一点，后面要多一点，通道数通常以 32 或 64 的倍数增加。在通道数相同的层之间，添加旁路相加结构（short-cut）可以明显提升准确性（top-1 和 top-5 分别提升 2.9% 和 2.2%）。带有卷积的旁路结构可以在任意层之间添加（1*1 卷积调控 depth），准确性提升较小，模型增大。
 
@@ -85,7 +85,7 @@ class SQUEEZENET(nn.Module):
             if i in [3,6]:
                 self.block1.append(nn.MaxPool2d(kernel_size=3,stride=2))
         self.block1.append(self.block(channels[-2],channels[-1]))
-        #Dropout 1x1 卷积 激活函数
+        #Dropout 1x1 卷积激活函数
         self.conv10 = nn.Sequential(
             nn.Dropout(0.5),
             nn.Conv2d(channels[-1],classses,kernel_size=1,stride=1),

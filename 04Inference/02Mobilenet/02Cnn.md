@@ -27,7 +27,7 @@ SqueezeNet 算法的主要目标是构建轻量参数的 CNN 架构，同时不�
 
 ### 网络结构
 
-在**Fire Module**的基础上搭建 SqueezeNet 神经网络，构如下图所示。它以卷积层开始，后面是 8 个 Fire Module，最后以卷积层结束，每个 Fire Module 中的通道数目逐渐增加，另外网络在 conv1、fire4、fire8、conv10 的后面使用了 最大池化。
+在**Fire Module**的基础上搭建 SqueezeNet 神经网络，构如下图所示。它以卷积层开始，后面是 8 个 Fire Module，最后以卷积层结束，每个 Fire Module 中的通道数目逐渐增加，另外网络在 conv1、fire4、fire8、conv10 的后面使用了最大池化。
 
 ![SqueezeNet 结构](images/02cnn/02CNN_03.png)
 
@@ -83,7 +83,7 @@ SqueezeNext 使用标准卷积，对网络整体结构的进行了优化，但�
 
 #### ShuffleNet Unit
 
-基于残差块（residual block）和 通道洗牌（channel shuffle）设计的 `ShuffleNet Unit` ：
+基于残差块（residual block）和通道洗牌（channel shuffle）设计的 `ShuffleNet Unit` ：
 
 - **深度卷积 **。
 

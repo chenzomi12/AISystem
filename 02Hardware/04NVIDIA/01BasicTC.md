@@ -104,7 +104,7 @@ Im2col 算法计算卷积的过程，具体简化过程如下:
 
 ### Tensor Core 工作原理
 
-在具体的运算过程中，Tensor Core 采用融合乘法加法（FMA）的方式来高效地处理计算任务。每个 Tensor Core 每周期能执行 **4x4x4 GEMM**，64 个 浮点乘法累加（FMA）运算。
+在具体的运算过程中，Tensor Core 采用融合乘法加法（FMA）的方式来高效地处理计算任务。每个 Tensor Core 每周期能执行 **4x4x4 GEMM**，64 个浮点乘法累加（FMA）运算。
 
 ![CNN 转换为 GEMM 计算](images/01BasicTC06.png)
 

@@ -88,7 +88,7 @@ print_id("我是 ZOMI")
 
 - 第五阶段：20 世纪 90 年代，出现了互联网和移动设备等新兴平台，以及支持跨平台和动态特性的语言和编译器，如 Java、C#、Python 等，编译技术也开始关注程序的安全性和效率。
 
-- 第六阶段：21 世纪第一个 10 年，出现了以 Lua 为首的 Torch 框架，用于解决爆炸式涌现的 AI 应用和 AI 算法研究，之后又推出 TensorFLow、PyTorch、MindSpore、Paddle 等 AI 框架，随着 AI 框架和 AI 产业的发展，出现了如 AKG、MLIR 等 AI 编译器。
+- 第六阶段：21 世纪第一个 10 年，出现了以 Lua 为首的 Torch 框架，用于解决爆炸式涌现的 AI 应用和 AI 算法研究，之后又推出 TensorFlow、PyTorch、MindSpore、Paddle 等 AI 框架，随着 AI 框架和 AI 产业的发展，出现了如 AKG、MLIR 等 AI 编译器。
 
 ![历史涌现的编译器](images/02History05.png)
 
@@ -170,7 +170,7 @@ GCC、LLVM 和 Clang 都是常见的编译器，用于将高级语言代码转�
 
 > GCC（GNU Compiler Collection，GNU 编译器套装），是一套由 GNU 开发的编程语言编译器。它是一套以 GPL 及 LGPL 许可证所发布的自由软件，也是 GNU 课程的关键部分，亦是自由的类 Unix 及苹果电脑 Mac OS X 操作系统的标准编译器。GCC（特别是其中的 C 语言编译器）也常被认为是跨平台编译器的事实标准。
 
-上面提到的 GNU 名称来自 Gnu's Not Unix"的缩写，一个类 UNIX 的操作系统，由 GNU 计划推动，目标在于创建一个完全兼容于 UNIX 的 自由软件环境。由于 UNIX 系统是商业收费软件，而且有一部分源码是没有开放的，所以在 1983 年，理查德·斯托曼提出 GN 计划，希望发展出一套完整的开放源代码操作系统来取代 Unix，计划中的操作系统，名为 GNU。
+上面提到的 GNU 名称来自 Gnu's Not Unix"的缩写，一个类 UNIX 的操作系统，由 GNU 计划推动，目标在于创建一个完全兼容于 UNIX 的自由软件环境。由于 UNIX 系统是商业收费软件，而且有一部分源码是没有开放的，所以在 1983 年，理查德·斯托曼提出 GN 计划，希望发展出一套完整的开放源代码操作系统来取代 Unix，计划中的操作系统，名为 GNU。
 
 ![GUN](images/02History07.png)
 

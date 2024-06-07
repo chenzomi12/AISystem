@@ -18,7 +18,7 @@
 
 MLU370-X8 智能加速卡是全面升级的数据中心训推一体 AI 加速卡，基于寒武纪全新一代思元 370 芯片，接口为 PCIe 4.0 X16，是全高全长双宽（FHFL-Dual-Slot）的标准 PCIe 加速卡，适用于业内最新的 CPU 平台，可轻松搭载于最先进的人工智能服务器，快速实现 AI 算力的部署。MLU370-X8 加速卡功耗为 250W，可为计算机视觉、自然语言处理、语音等多样化的人工智能应用提供强大算力支持。
 
-MLU370-X8 通过 MLU-Link™高速网络，组建大规模训练集群，并实现芯片间互联。新一代 MLU-Link™，不仅支持板卡上 2 个思元 370 芯片间通过 MLU-Link™进行通讯，同时也可以通过 MLU-Link™桥接卡对外互联，板卡间 MLU-Link 互联双向总带宽为 200GB/s，满足大型 AI 模型训练的需要。
+MLU370-X8 通过 MLU-Link™高速网络，组建大规模训练集群，并实现芯片间互联。新一代 MLU-Link™，不仅支持板卡上 2 个思元 370 芯片间通过 MLU-Link™进行通信，同时也可以通过 MLU-Link™桥接卡对外互联，板卡间 MLU-Link 互联双向总带宽为 200GB/s，满足大型 AI 模型训练的需要。
 
 关于芯粒技术，芯粒英文是 Chiplet，是指预先制造好、具有特定功能、可组合集成的晶片（Die），Chiplet 也有翻译为“小芯片”，中科院计算所韩银和等 2020 年时建议将 Chiplet 翻译为“芯粒”。在集成电路领域，我们的发展水平和国外存在差距，“卡脖子”成了很突出的问题。按摩尔定律去发展、去追赶是一条路，但也可以另辟蹊径。
 芯粒集成就是这样的前沿技术。芯粒是指按特定功能进行分解的小芯片，芯粒集成技术则是把制程代际和功能不同的芯粒像搭积木一样组合形成一个芯片去使用。
@@ -151,7 +151,7 @@ CNCL 提供了操作通信子的相关接口，用户可以管理（创建、销
 
 通信原语的接口正确返回并不一定表示通信完成，这与接口是同步语义还是异步语义有关。
 
-### Pytorch and Tensorflow
+### Pytorch and TensorFlow
 
 #### Pytorch
 
@@ -167,7 +167,7 @@ Cambricon PyTorch 借助 PyTorch 自身提供的设备扩展接口将 MLU 后端
 
 寒武纪采用 Python 扩展包形式对原生 PyTorch 进行支持。寒武纪将与 MLU 相关的操作都放在一个单独的 Python 包中，然后将该包导入到原生 PyTorch 以支持在 MLU 上的运算。
 
-#### Tensorflow
+#### TensorFlow
 
 Cambricon TensorFlow 集成了寒武纪软件栈，扩展了社区 TensorFlow 对 MLU 设备的支持，同时屏蔽硬件的细节，允许用户使用原生 TensorFlow API 进行开发。用户在使用 Cambricon TensorFlow 进行开发、部署时，可以获得与使用 CPU、GPU 一致的体验。
 
@@ -183,7 +183,7 @@ Cambricon DeepSpeed 扩展了原生 DeepSpeed，支持使用 MLU 设备进行模
 
 ### CNCodec
 
-CNCodec-V3（Cambricon Codec Library，寒武纪编解码库）是一个基于第三代寒武纪硬件视频编解码加速单元，并针对 MLU 加速卡特点进行优化的硬件 编解码加速库。在继承第二代 CNCodec 设计基础上，CNCodec-V3 针对新的硬件特性，将视频编解码与图像编解码接口融合，为用户提供简洁、高效、通用、灵活并且可扩展的接口。
+CNCodec-V3（Cambricon Codec Library，寒武纪编解码库）是一个基于第三代寒武纪硬件视频编解码加速单元，并针对 MLU 加速卡特点进行优化的硬件编解码加速库。在继承第二代 CNCodec 设计基础上，CNCodec-V3 针对新的硬件特性，将视频编解码与图像编解码接口融合，为用户提供简洁、高效、通用、灵活并且可扩展的接口。
 
 ### CNStream
 
@@ -193,7 +193,7 @@ CNStream 是面向寒武纪开发平台的数据流处理 SDK，基于模块化�
 
 CNServing 是一款可部署 MagicMind 序列化模型的高性能服务系统，专为生产环境而设计。将任意框架模型通过 MagicMind 生成序列化模型后，使用 CNServing 可将其方便快捷地部署在 MLU 服务器上。可同时部署在多张 MLU 板卡上，也可以部署多个序列化模型，为客户端提供高性能服务。
 
-CNServing 基于 TensorFlow Serving 架构开发。相比 TensorFlow Serving，CNServing 拥有更好的性能表现，并且 CNServing 的 client 端 API 仍然使用 tensorflow_serving_api，这样使用 TensorFlow Serving 部署模型的用户无需修改 client 端任何代码即可轻松切换到 CNServing 上。
+CNServing 基于 TensorFlow Serving 架构开发。相比 TensorFlow Serving，CNServing 拥有更好的性能表现，并且 CNServing 的 client 端 API 仍然使用 TensorFlow_serving_api，这样使用 TensorFlow Serving 部署模型的用户无需修改 client 端任何代码即可轻松切换到 CNServing 上。
 
 ## 本节视频
 
