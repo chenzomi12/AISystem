@@ -16,7 +16,7 @@ MobileNet v1 是一种体积较小、计算量较少、适用于移动设备的�
 
 Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一个通道只被一个卷积核卷积，这个过程产生的 feature map 通道数和输入的通道数完全一样，如下图所示：
 
-![Depthwise Convolution 结构](./images/04.mobilenet_01.png)
+![Depthwise Convolution 结构](images/04.mobilenet_01.png)
 
 深度分离卷积把输入特征图的所有通道进行分离，每个通道对应的一个卷积核对该通道的特征图进行单独的卷积操作(也就是说，第 m 个深度卷积核作用在输入的第 m 个通道上，得到输出结果的第 m 个通道)。在深度分离卷积中，每个卷积核的深度固定为 1。
 
@@ -24,18 +24,18 @@ Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一�
 
 计算量 :$D_{k}\times  D_{k}\times M\times D_{f}\times D_{f}$
 
-其中$D_{k}$为卷积核尺寸，$D_{f}$为特征图尺寸，M 为输入通道数，输出通道数为 1。
+其中 $D_{k}$ 为卷积核尺寸，$D_{f}$ 为特征图尺寸，M 为输入通道数，输出通道数为 1。
 
 #### 逐点卷积 Pointwise Convolution
 
 Pointwise Convolution 的本质就是 $1\times 1$ 的卷积，它的卷积核的尺寸为 $1\times 1\times M$，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
-![Pointwise Convolution 结构](./images/04.mobilenet_02.png)
+![Pointwise Convolution 结构](images/04.mobilenet_02.png)
 
 参数量:$1\times 1\times M\times N$
 
 计算量:$1\times 1\times M\times N\times D_{f}\times D_{f}$
 
-其中卷积核尺寸是 $1\times1$，$D_{f}$ 为特征图尺寸，$M$为输入通道数，$N$为输出通道数。
+其中卷积核尺寸是 $1\times1$，$D_{f}$ 为特征图尺寸，$M$ 为输入通道数，$N$ 为输出通道数。
 
 因此计算一次深度可分离卷积的总体计算量为:
 
@@ -73,7 +73,7 @@ $$
 
 MBconv 由 Depthwise Convolution，BN，ReLU 组成，基本结构如下图右面所示：
 
-![MBconv 结构](./images/04.mobilenet_03.png)
+![MBconv 结构](images/04.mobilenet_03.png)
 
 ====== 模型结构介绍太少了，融合进去代码哈
 
@@ -152,7 +152,7 @@ MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“
 
 维度越低，损失信息越多。（如下图 2 和 3 已经没有螺旋的样子了）；维度越高，损失信息越少（当原始输入维度数增加到 15 以后再加 ReLU，基本不会丢失太多的信息，接近输入）。
 
-![ReLu](./images/04.mobilenet_04.png)
+![ReLu](images/04.mobilenet_04.png)
 
 如果"manifold of interest"（兴趣流形）都为非零值，则经过 ReLU 相当于只做了一个线性变换，没有信息丢失，维度足够多时，ReLU 能够保留"manifold of interest"（兴趣流形）的完整信息。
 
@@ -169,13 +169,13 @@ MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“
 3. linear bottleneck，(高维后)relu6-dw-relu6-pw，降维-升维-；
 4. 和图(c)等效，(线性激活后)pw 升维-relu6-dw-relu6-pw，降维-线性激活；
 
-![Conv](./images/04.mobilenet_05.png)
+![Conv](images/04.mobilenet_05.png)
 
 #### Inverted residuals 反向残差
 
 反向残差如下图所示
 
-![反向残差](./images/04.mobilenet_06.png)
+![反向残差](images/04.mobilenet_06.png)
 
 - Original residual block：reduce – transfer – expand （中间窄两头宽）
 
@@ -197,7 +197,7 @@ v2 的加入了 1×1 升维，引入 Shortcut 并且去掉了最后的 ReLU，�
 
 将 input 与 output 相加，形成残差结构。步长为 2 时，因为 input 与 output 的尺寸不符，因此不添加 shortcut 结构。整个结构由 v2 block 堆叠而成。
 
-![v2block](./images/04.mobilenet_07.png)
+![v2block](images/04.mobilenet_07.png)
 
 ### 代码
 
@@ -336,7 +336,7 @@ MobileNetV3 在移动端图像分类、目标检测、语义分割等任务上�
 
 首先，减少网络第一个卷积层的卷积核个数，从 32 减到 16，然后精简了最后的 Stage，将原来搜索到的最后阶段的人工精简，删除了多余的卷积层，将延迟较少了 7 毫秒，将近全部运行时间的 11%，并减少了 3000 万的乘加操作次数，几乎没有损失准确性。
 
-![新结构](./images/04.mobilenet_08.png)
+![新结构](images/04.mobilenet_08.png)
 
 #### 重新设计激活函数
 
@@ -354,7 +354,7 @@ $$
 
 替换前后能够对 swish 进行一个很好的近似，如下图所示:
 
-![h-swish](./images/04.mobilenet_09.png)
+![h-swish](images/04.mobilenet_09.png)
 
 在网络结构搜索中，作者结合两种技术：资源受限的 NAS（platform-aware NAS）与 NetAdapt，前者用于在计算和参数量受限的前提下搜索网络的各个模块，所以称之为模块级的搜索（Block-wise Search） ，后者用于对各个模块确定之后网络层的微调。
 
@@ -386,13 +386,13 @@ $$
 
 首先使用一个全局池化层将每个通道变成一个具体的数值，然后接两个全连接层，最后通过一个 H-Sigmoid 函数获取最终的权重，赋值给最初的特征图。
 
-![SE 结构](./images/04.mobilenet_10.png)
+![SE 结构](images/04.mobilenet_10.png)
 
 #### MobileNet v3 block
 
 核心模块，也是网络的基本模块。主要实现了通道可分离卷积+SE 通道注意力机制+残差连接。结构图如下：
 
-![v3 block 结构](./images/04.mobilenet_11.png)
+![v3 block 结构](images/04.mobilenet_11.png)
 
 ### 代码
 
@@ -778,7 +778,7 @@ $$
 
 如下图 2,3 所示，作者从 RP 预期的最低值（0MAC/字节）扫描到最高值（500MACs/字节）。屋顶线模型仅依赖于数据传输与计算的比率，因此具有相同 RP 的所有硬件通过延迟对工作负载的排名是相同的。3 这意味着，如果新目标的 RP 包含在扫描范围内，那么扫描-RP 的屋顶线分析（见下一段）同样适用于未来的硬件和软件。
 
-![RP 图](./images/04.mobilenet_12.png)
+![RP 图](images/04.mobilenet_12.png)
 
 脊点扫描分析：如图 2 和图 3 所示，屋顶线模型揭示了 MobileNetV4 模型如何与其他卷积 MobileNets 相比，实现硬件独立的几乎帕累托最优性能。在低脊点硬件（例如 CPU）上，模型更可能受计算限制而非内存限制。
 
@@ -796,7 +796,7 @@ $$
 
 作者在倒瓶颈块中引入了两个可选的 DW，一个在扩展层之前，另一个在扩展层和投影层之间。这些 DW 的存在与否是神经网络架构搜索（NAS）优化过程的一部分，从而产生新的架构。尽管这种修改很简单，但作者的新构建块很好地统一了几个重要现有块，包括原始的 IB 块、ConvNext 块以及 ViT 中的 FFN 块。此外，UIB 还引入了一种新的变体：额外的深度卷积 IB（ExtraDW）块。
 
-![RP 图](./images/04.mobilenet_13.png)
+![RP 图](images/04.mobilenet_13.png)
 
 除了在神经网络架构搜索（NAS）过程中允许灵活的中间层（IB）结构外，作者还避免了任何人为设计的缩放规则，比如在 EfficientNet 中使用的那种，而是为每个模型大小单独优化结构。
 

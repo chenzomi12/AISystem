@@ -19,8 +19,8 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 向量数据库 | 01 大模型遇到 AI Agent | [slide](./01Introduction.pdf), [video](https://www.bilibili.com/video/BV11w411p7dW/) |
-| 向量数据库 | 02 AI Agent 具体组成 | [slide](./02Component.pdf), [video](https://www.bilibili.com/video/BV11u4y1P73P/) |
+| 向量数据库 | 01 大模型遇到 AI Agent | [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV11w411p7dW/) |
+| 向量数据库 | 02 AI Agent 具体组成 | [PPT](./02Component.pdf), [视频](https://www.bilibili.com/video/BV11u4y1P73P/) |
 
 ## 备注
 

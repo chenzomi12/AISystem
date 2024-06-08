@@ -5,7 +5,7 @@
 
 本章将介绍一些常见的 CNN 小型化结构，如：SqueezeNet 系列(2016)，ShuffleNet 系列(2017)，MobileNet 系列(2017)，ESPNet 系列(2018)，FBNet 系列(2018)，EfficientNet 系列(2019)，GhostNet 系列(2019)。
 
-![CNN 模型发展](./images/02cnn/02CNN_01.png)
+![CNN 模型发展](images/02cnn/02CNN_01.png)
 
 ## SqueezeNet 系列(2016)
 
@@ -13,7 +13,7 @@
 
 **SqueezeNet**:是轻量化主干网络中比较著名的，它发表于 ICLR 2017，在达到了 AlexNet 相同的精度的同时，只用了 AlexNet 1/50 的参数量。SqueezeNet 核心贡献在于使用 **Fire Module**(如下图所示)，即使用 1x1 卷积降低通道数目(squeeze)，然后用 1x1 和 3x3 卷积提升通道数(expand)。
 
-![Fire Module 结构](./images/02cnn/02CNN_02.png)
+![Fire Module 结构](images/02cnn/02CNN_02.png)
 
 ### 设计思路
 
@@ -29,7 +29,7 @@ SqueezeNet 算法的主要目标是构建轻量参数的 CNN 架构，同时不�
 
 在**Fire Module**的基础上搭建 SqueezeNet 神经网络，构如下图所示。它以卷积层开始，后面是 8 个 Fire Module，最后以卷积层结束，每个 Fire Module 中的通道数目逐渐增加，另外网络在 conv1、fire4、fire8、conv10 的后面使用了 最大池化。
 
-![SqueezeNet 结构](./images/02cnn/02CNN_03.png)
+![SqueezeNet 结构](images/02cnn/02CNN_03.png)
 
 ### 总结
 
@@ -41,9 +41,9 @@ SqueezeNet 通过更深的网络置换更多的参数，虽然有更低的参数
 
 - 采用 **two-stage bottleneck modules**来减少权值参数，即采用两个 1x1 的 Conv，使得参数显著减少。
 
-- **Low Rank Filters** 低秩分解的核心思想就是将大矩阵分解成多个小矩阵，这里使用 Canonical Polyadic Decomposition，将 KxK 卷积，参数量能从$k^2$降为 2K，在 SqueezeNext 中也加入了 Shortut Connection。
+- **Low Rank Filters** 低秩分解的核心思想就是将大矩阵分解成多个小矩阵，这里使用 Canonical Polyadic Decomposition，将 KxK 卷积，参数量能从 $k^2$ 降为 2K，在 SqueezeNext 中也加入了 Shortut Connection。
 
-![SqueezeNext 结构](./images/02cnn/02CNN_04.png)
+![SqueezeNext 结构](images/02cnn/02CNN_04.png)
 
 SqueezeNext 的 block，下图所示
 
@@ -51,7 +51,7 @@ SqueezeNext 的 block，下图所示
 
 - **3x3 卷积变成 1x3 卷积与 3x1 卷积的组合**。
 
-![SqueezeNet block 结构](./images/02cnn/02CNN_05.png)
+![SqueezeNet block 结构](images/02cnn/02CNN_05.png)
 
 ### 总结
 
@@ -79,7 +79,7 @@ SqueezeNext 使用标准卷积，对网络整体结构的进行了优化，但�
 
 一般采用更稀疏的通道策略来解决 1x1 卷积带来的计算量问题，比如在 1x1 卷积内部也使用分组卷积。但由于 1x1 卷积的输出会是下一层 block 的输入，当在 1x1 卷积中使用分组策略，则 1x1 瓶颈层的输出特征的每个通道并没有接收其他前面的所有输入(如图 a)。为了解决图 a 中的问题，将每个组再细分，细分后放入不同的组内(图 b)，这个过程可以叫做 Channel Shuffle，打乱后如图 c 所示。
 
-![Pointwise Group Convolution 与 Channel Shuffle 结构](./images/02cnn/02CNN_06.png)
+![Pointwise Group Convolution 与 Channel Shuffle 结构](images/02cnn/02CNN_06.png)
 
 #### ShuffleNet Unit
 
@@ -91,7 +91,7 @@ SqueezeNext 使用标准卷积，对网络整体结构的进行了优化，但�
 
 - **逐点分组卷积 ( stride=2 )**。
 
-![ShuffleNet Unit 结构](./images/02cnn/02CNN_07.png)
+![ShuffleNet Unit 结构](images/02cnn/02CNN_07.png)
 
 ### 总结
 
@@ -113,7 +113,7 @@ SqueezeNext 使用标准卷积，对网络整体结构的进行了优化，但�
 
 ShuffleNet V2 中提出了 Channel Split，如图 c、d 所示。在每个单元的开始将通道拆分为 2 个分支，一个分支做恒等映射，另一个分支经过多层卷积保证输入通道数与输出通道数相同。不同于 ShuffleNet V1 ，ShuffleNet V2 的 1×1 没有再使用分组卷积，两条分支最后使用通道级联 concatenate 操作，没有使用 TensorAdd。
 
-![Channel Split 结构](./images/02cnn/02CNN_08.png)
+![Channel Split 结构](images/02cnn/02CNN_08.png)
 
 ### 总结
 
@@ -138,16 +138,16 @@ ShuffleNet V2 中提出了 Channel Split，如图 c、d 所示。在每个单元
 
 Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一个通道只被一个卷积核卷积，这个过程产生的 feature map 通道数和输入的通道数完全一样，如下图所示：
 
-![Depthwise Convolution 结构](./images/02cnn/02CNN_09.png)
+![Depthwise Convolution 结构](images/02cnn/02CNN_09.png)
 
 ##### 逐点卷积（Pointwise Convolution）
 Pointwise Convolution 的本质就是 1X1 的卷积，它的卷积核的尺寸为 1×1×M，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
-![Pointwise Convolution 结构](./images/02cnn/02CNN_10.png)
+![Pointwise Convolution 结构](images/02cnn/02CNN_10.png)
 
 ##### MBconv
 
 MBconv 由 Depthwise Convolution，BN，ReLU 组成，基本结构如下图右面所示：
-![MBconv 结构](./images/02cnn/02CNN_11.png)
+![MBconv 结构](images/02cnn/02CNN_11.png)
 
 整体网络就是通过不断堆叠 MBconv 组件，这种深度可分离卷积的操作方式在减少计算量的同时保持了模型的表达能力。
 
@@ -173,13 +173,13 @@ MBconv 由 Depthwise Convolution，BN，ReLU 组成，基本结构如下图右�
 
 在 Inverted Residual block 中，3x3 卷积变成 Depthwise 了，计算量更少了，通过 1x1 卷积先提升通道数，再 Depthwise 3x3 卷积，最后用 1x1 卷积降低通道数。两端的通道数都很小，所以整体计算量并不大。
 
-![倒残差结构](./images/02cnn/02CNN_12.png)
+![倒残差结构](images/02cnn/02CNN_12.png)
 
 #### Linear Bottleneck
 
 Linear Bottlnecks 上面的 Inverted Residuals block 中的 bottleneck 处的 ReLU 去掉。整体的网络模型就是由堆叠下图右图的 Bottlenecks 搭建成的。
 
-![Linear Bottleneck 结构](./images/02cnn/02CNN_13.png)
+![Linear Bottleneck 结构](images/02cnn/02CNN_13.png)
 
 #### 关于 ReLU6
 
@@ -205,13 +205,13 @@ MobileNetV3 的整体架构基本沿用了 MobileNetV2 的设计，采用了轻�
 
 首先使用一个全局池化层将每个通道变成一个具体的数值，然后接两个全连接层，最后通过一个 H-Sigmoid 函数获取最终的权重，赋值给最初的特征图。
 
-![SE 结构](./images/02cnn/02CNN_14.png)
+![SE 结构](images/02cnn/02CNN_14.png)
 
 #### 重新设计耗时层结构
 
 首先，减少网络第一个卷积层的卷积核个数，从 32 减到 16，然后精简了最后的 Stage，将原来搜索到的最后阶段的人工精简，删除了多余的卷积层，将延迟较少了 7 毫秒，将近全部运行时间的 11%，并减少了 3000 万的乘加操作次数，几乎没有损失准确性。
 
-![新结构](./images/02cnn/02CNN_15.png)
+![新结构](images/02cnn/02CNN_15.png)
 
 #### 重新设计激活函数
 

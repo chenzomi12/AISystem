@@ -82,7 +82,7 @@
 
 ![](images/01Present06.jpg)
 
-**萌芽兴奋期（约 1950s）**
+### 萌芽兴奋期（约 1950s）
 
 1943 年，神经科学家和控制论专家 Warren McCulloch 和逻辑学家 Walter Pitts 基于数学和阈值逻辑算法创造了一种神经网络计算模型。并发表文章 "A Logical Calculus of the ideas Imminent in Nervous Activity"[<sup>[3]</sup>]。
 
@@ -103,13 +103,13 @@
 
 1974 年，Paul Werbos 在博士论文 “Beyond regression : new tools for prediction and analysis in the behavioral sciences”[<sup>[7]</sup>] 中提出了用误差反向传播来训练人工神经网络，使得训练多层神经网络成为可能，有效解决了异或回路问题。这个工作奠定了之后 AI 的训练方式，AI 训练系统中最为重要的执行步骤就是在不断的进行反向传播训练。同时 AI 的编程语言和框架为了支持反向传播训练，默认都提供自动微分（Automatic Differentiation）的功能。
 
-**蓬勃发展期（约 1980s）**
+### 蓬勃发展期（约 1980s）
 
 1986 年，AI（Deep Learning）一词由 Rina Dechter 于 1986 年 AAAI 论文“LEARNING WHILE SEARCHING IN CONSTRAINT-SATISFACTION-PROBLEMS”[<sup>[8]</sup>] 引入机器学习社区。目前常常所说的人工智能系统主要以 AI 系统为代表性系统。
 
 1989 年，Yann LeCun 在论文“Backpropagation Applied to Handwritten Zip Code Recognition”[<sup>[9]</sup>] 提出了一种用反向传导进行更新的卷积神经网络，称为 LeNet 。启发了后续卷积神经网络的研究与发展。卷积神经网络为 AI 系统的重要负载，大多数的 AI 系统都需要在卷积神经网络上验证性能，在未来会看到很多 AI 系统的基准测试中也会引入大量的卷积神经网络。
 
-20 世纪 90 年代中期统计学习登场，支持向量机开始成为主流，进入第二个低谷。
+20 世纪 90 年代中期统计学习登场，支持向量机 SVM 开始成为主流，进入第二个低谷。
 
 2006 年，Geoff Hinton、Ruslan Salakhutdinov、Osindero 的论文 “Reducing the Dimensionality of Data with Neural Networks”[<sup>[10]</sup>] 表明，多层前馈神经网络可以一次有效地预训练一层，依次将每一层视为无监督受限的玻尔兹曼（Boltzmann）机，然后使用监督反向传播对其进行微调，其论文主要研究深度信念网络（Deep Belief Nets）的学习。
 
@@ -119,7 +119,7 @@
 
 2007 年，李飞飞与 WordNet 的创始人之一普林斯顿大学教授克里斯蒂安·费尔鲍姆会面，之后从 WordNet 的单词数据库开始构建 ImageNet，并使用了它的许多功能。作为普林斯顿大学的助理教授，李博士组建了一个研究团队，致力于 ImageNet 项目，其通过众包平台 [Amazon Mechanical Turk](https://www.mturk.com/) 的工作人员来进行标记。
 
-**突破驱动的繁荣期（约 2010s）**
+### 突破驱动繁荣期（约 2010s）
 
 2011 年 8 月，微软研究院 Frank Seide, Gang Li, Dong Yu 在 Interspeech 的论文 " Conversational speech transcription using context-dependent deep neural networks."[<sup>[12]</sup>] 首次介绍了如何通过深度神经网络模型在会话语音转录（Conversational Speech Transcription）上实现突破性进展。文章介绍了模型的的设计和实验结果，“其在单通道非特定人识别（Single-pass Speaker-independent Recognition）基准测试上将相对错误率由 27.4% 降低到 18.5% ，相对错误率降低 33%，在其他 4 类任务中相对错误率降低 22–28%。
 
@@ -139,7 +139,7 @@
 
 基准测试的好处是研究者从繁杂的应用问题建模和数据预处理工作跳出，能够在给定数据集上尽可能排除其他因素干扰，更为公平对比已有工作，并研发创新模型结构。在当前的社区工作中可以观察到，AI 模型网络结构越来越深，新结构层出不穷，同时不断驱动 AI 系统的演化。模型作为上层应用负载，是驱动系统演化的驱动力之一。关注模型结构和 AI 的应用场景变化，能够让系统研究者和工程师把握系统发展的趋势，并设计出符合潮流和应对未来变化的系统。
 
-**大模型带来的机遇期（约 2020s）**
+### 大模型带来新机遇（约 2020s）
 
 随着人工智能模型结构向更深的网络结构，更多的参数演进，出现了各种基于预训练模型进行参数微调的特大参数模型。2021 年 8 月份，著名人工智能教授李飞飞和 100 多位学者联名发表一份 200 多页的研究报告《[On the Opportunities and Risk of Foundation Models](https://arxiv.org/pdf/2108.07258)》，深度地综述了当前大规模预训练模型面临的机遇和挑战，文中将这种基于深度神经网络和自监督学习技术，在大规模、广泛来源数据集上训练的 AI 模型称为大模型。
 
@@ -147,7 +147,7 @@
 
 ## 小结与讨论
 
-本章主要围绕 AI 的历史现状和发展展开，对 AI 系统研究，需要要深刻理解上层 AI 计算应用负载特点，历史和趋势，才能将找到系统设计的真实需求问题和优化机会。那么当前 AI 模型之间有何差异，对系统的要求会有什么挑战？
+本章主要围绕 AI 的历史现状和发展展开，对 AI 系统研究，需要要深刻理解上层 AI 计算应用负载特点，历史和趋势，才能将找到系统设计的真实需求问题和优化机会。那么当前 AI 领域不同算法模型之间有何差异，对 AI 系统的要求会有什么新的挑战？
 
 ## 参考文献
 

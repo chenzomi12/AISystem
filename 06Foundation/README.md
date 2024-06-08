@@ -28,51 +28,51 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 大模型全流程 | 01 大模型整体介绍(上) | [slide](./01_introduction.pdf), [video](https://www.bilibili.com/video/BV1a34y137zi/) |
-| 大模型全流程 | 02 大模型整体介绍(下) | [slide](./02_introduction.pdf), [video](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
+| 大模型全流程 | 01 大模型整体介绍(上) | [PPT](./01_introduction.pdf), [视频](https://www.bilibili.com/video/BV1a34y137zi/) |
+| 大模型全流程 | 02 大模型整体介绍(下) | [PPT](./02_introduction.pdf), [视频](https://www.bilibili.com/video/BV1F34y1G7Fz/) |
 
 ### [《AI 集群简介》](./02AICluster/)
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 集群简介 | 03 大模型训练效率 | [slide](./03efficiency.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
-| AI 集群简介 | 04 AI 集群硬件组成 | [slide](./04Hardware.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
-| AI 集群简介 | 05 集群服务器架构 | [slide](./05ClusterArch.pdf), [video](https://www.bilibili.com/video/BV1384y127iP) |
-| AI 集群简介 | 05 大模型训练显存分析 | [slide](./06TrainingMemory.pdf), [video](https://www.bilibili.com/video/BV15Q4y147Uo) |
-| AI 集群简介 | 06 大模型推理显存分析 | [slide](./07InferenceMemory.pdf), [video](https://www.bilibili.com/video/BV1Rc411S7jj) |
+| AI 集群简介 | 03 大模型训练效率 | [PPT](./03efficiency.pdf), [视频](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| AI 集群简介 | 04 AI 集群硬件组成 | [PPT](./04Hardware.pdf), [视频](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| AI 集群简介 | 05 集群服务器架构 | [PPT](./05ClusterArch.pdf), [视频](https://www.bilibili.com/video/BV1384y127iP) |
+| AI 集群简介 | 05 大模型训练显存分析 | [PPT](./06TrainingMemory.pdf), [视频](https://www.bilibili.com/video/BV15Q4y147Uo) |
+| AI 集群简介 | 06 大模型推理显存分析 | [PPT](./07InferenceMemory.pdf), [视频](https://www.bilibili.com/video/BV1Rc411S7jj) |
 
 ### [《AI 集群存储》](./03Storage/)
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 集群存储 | 01 存储遇到大模型介绍 | [slide](./01Introduce.pdf), [video](https://www.bilibili.com/video/BV1H94y1J7wq) |
-| 集群存储 | 02 存储硬件介质组成 | [slide](./02Hardware.pdf), [video](https://www.bilibili.com/video/BV1fw411P7FY) |
-| 集群存储 | 03 存储集群连接方式 | [slide](./03Connect.pdf), [video](https://www.bilibili.com/video/BV1SQ4y147b3) |
-| 集群存储 | 04 数据存储的类型 | [slide](./04Object.pdf), [video](https://www.bilibili.com/video/BV1fa4y1Z76n) |
-| 集群存储 | 05 存储遇到大模型的挑战 | [slide](./05Challenge.pdf), [video](https://www.bilibili.com/video/BV1UG411i7SM) |
-| 集群存储 | 06 训练存储优化方案(上) | [slide](./06Optimizer.pdf), [video](https://www.bilibili.com/video/BV1uw411h7B7) |
-| 集群存储 | 07 训练存储优化方案(下) | [slide](./07Checkpoint.pdf), [video](https://www.bilibili.com/video/BV11u4y1c7Pu) |
-| 集群存储 | 08 大模型 CKPT 优化手段 | [slide](./07Checkpoint.pdf), [video](https://www.bilibili.com/video/BV1wM411d7cc) |
-| 集群存储 | 09 存算架构思考 | [slide](./08Future.pdf), [video](https://www.bilibili.com/video/BV1kw411h74p/) |
+| 集群存储 | 01 存储遇到大模型介绍 | [PPT](./01Introduce.pdf), [视频](https://www.bilibili.com/video/BV1H94y1J7wq) |
+| 集群存储 | 02 存储硬件介质组成 | [PPT](./02Hardware.pdf), [视频](https://www.bilibili.com/video/BV1fw411P7FY) |
+| 集群存储 | 03 存储集群连接方式 | [PPT](./03Connect.pdf), [视频](https://www.bilibili.com/video/BV1SQ4y147b3) |
+| 集群存储 | 04 数据存储的类型 | [PPT](./04Object.pdf), [视频](https://www.bilibili.com/video/BV1fa4y1Z76n) |
+| 集群存储 | 05 存储遇到大模型的挑战 | [PPT](./05Challenge.pdf), [视频](https://www.bilibili.com/video/BV1UG411i7SM) |
+| 集群存储 | 06 训练存储优化方案(上) | [PPT](./06Optimizer.pdf), [视频](https://www.bilibili.com/video/BV1uw411h7B7) |
+| 集群存储 | 07 训练存储优化方案(下) | [PPT](./07Checkpoint.pdf), [视频](https://www.bilibili.com/video/BV11u4y1c7Pu) |
+| 集群存储 | 08 大模型 CKPT 优化手段 | [PPT](./07Checkpoint.pdf), [视频](https://www.bilibili.com/video/BV1wM411d7cc) |
+| 集群存储 | 09 存算架构思考 | [PPT](./08Future.pdf), [视频](https://www.bilibili.com/video/BV1kw411h74p/) |
 
 ### [AI 智能体](./12Agent/)
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 智能体 | 01 大模型遇到 AI Agent | [slide](./12Agent/01Introduction.pdf), [video](https://www.bilibili.com/video/BV11w411p7dW/) |
-| AI 智能体 | 02 AI Agent 具体组成 | [slide](./12Agent/02Component.pdf), [video](https://www.bilibili.com/video/BV11u4y1P73P/) |
-| AI 智能体 | 03 Planning 与 Prompt 关系 | [slide](./12Agent/03Planning.pdf), [video](https://www.bilibili.com/video/BV1kM411f7Gb/) |
-| AI 智能体 | 04 AI Agent 应用原理剖析 | [slide](./12Agent/04Application.pdf), [video](https://www.bilibili.com/video/BV1zM411f7n2/) |
-| AI 智能体 | 05 AI Agent 问题与未来思考 | [slide](./12Agent/05Summary.pdf), [video](https://www.bilibili.com/video/BV1KC4y1S7ZG/) |
+| AI 智能体 | 01 大模型遇到 AI Agent | [PPT](./12Agent/01Introduction.pdf), [视频](https://www.bilibili.com/video/BV11w411p7dW/) |
+| AI 智能体 | 02 AI Agent 具体组成 | [PPT](./12Agent/02Component.pdf), [视频](https://www.bilibili.com/video/BV11u4y1P73P/) |
+| AI 智能体 | 03 Planning 与 Prompt 关系 | [PPT](./12Agent/03Planning.pdf), [视频](https://www.bilibili.com/video/BV1kM411f7Gb/) |
+| AI 智能体 | 04 AI Agent 应用原理剖析 | [PPT](./12Agent/04Application.pdf), [视频](https://www.bilibili.com/video/BV1zM411f7n2/) |
+| AI 智能体 | 05 AI Agent 问题与未来思考 | [PPT](./12Agent/05Summary.pdf), [视频](https://www.bilibili.com/video/BV1KC4y1S7ZG/) |
 
 ### [大模型热点剖析](./13Application/)
 | 名称        | 名称               | 备注                                                                              |
 | --------- | ---------------- | ------------------------------------------------------------------------------- |
-| ChatGPT 狂飙 | 01 GPT 系列详解       | [silde](./13chatGPT/chatGPT01.pdf), [video](https://www.bilibili.com/video/BV1kv4y1s7V7/) |
-| ChatGPT 狂飙 | 02 RLHF 强化学习 PPO   | [silde](./13chatGPT/chatGPT02.pdf), [video](https://www.bilibili.com/video/BV1w8411M7YB/) |
-| ChatGPT 狂飙 | 03 InstructGPT 解读 | [silde](./13chatGPT/chatGPT03.pdf), [video](https://www.bilibili.com/video/BV1e24y1s7k8/) |
-| 视频生成模型 | 01 OpenAI SORA | [silde](./13chatGPT/SORA01.pdf), [video](https://www.bilibili.com/video/BV1jx421C7mG/) |
-| 世界模型 | 01 World Model | [silde](./13chatGPT/WorldModel01.pdf), [video]() |
+| ChatGPT 狂飙 | 01 GPT 系列详解       | [silde](./13chatGPT/chatGPT01.pdf), [视频](https://www.bilibili.com/video/BV1kv4y1s7V7/) |
+| ChatGPT 狂飙 | 02 RLHF 强化学习 PPO   | [silde](./13chatGPT/chatGPT02.pdf), [视频](https://www.bilibili.com/video/BV1w8411M7YB/) |
+| ChatGPT 狂飙 | 03 InstructGPT 解读 | [silde](./13chatGPT/chatGPT03.pdf), [视频](https://www.bilibili.com/video/BV1e24y1s7k8/) |
+| 视频生成模型 | 01 OpenAI SORA | [silde](./13chatGPT/SORA01.pdf), [视频](https://www.bilibili.com/video/BV1jx421C7mG/) |
+| 世界模型 | 01 World Model | [silde](./13chatGPT/WorldModel01.pdf), [视频]() |
 
 ## 备注
 

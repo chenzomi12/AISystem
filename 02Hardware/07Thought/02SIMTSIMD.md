@@ -1,4 +1,4 @@
-# SIMD/SIMT 与 AI 芯片的关系
+# SIMD & SIMT 与芯片架构
 
 为了进一步探讨 SIMD/SIMT 与 AI 芯片之间的关系，本节将详细介绍 SIMD 单指令多数据和 SIMT 单指令多线程的计算本质，以及对 NVIDIA CUDA 底层实现 SIMD/SIMT 的原理进行讲解。
 
@@ -24,7 +24,7 @@ $$C[0: 3] = A[0: 3] × B[0: 3]$$
 
 - **优点**：在一定程度上可以提升计算性能，利用内存数据总线带宽，多个数据可以同时从内存读和写。如 $C[0: 3] = A[0: 3] × B[0: 3]$ 操作在使用 SIMD 之后，代码量为原来的 1/4，执行周期也相应降为原来的 1/4。
 
-以$C[0: 3] = A[0: 3] × B[0: 3]$ 计算为例，以下是计算机在没有使用 SIMD 时实际执行的指令，可以看出总共有 4 个 ST，可以实现对四个元素进行逐元素相加或相乘。
+以 $C[0: 3] = A[0: 3] × B[0: 3]$ 计算为例，以下是计算机在没有使用 SIMD 时实际执行的指令，可以看出总共有 4 个 ST，可以实现对四个元素进行逐元素相加或相乘。
 
 ```c
 t1 = LD B, i
@@ -92,7 +92,7 @@ SIMT 类似 CPU 上的多线程，有多个计算核心系统，每一个核心�
 
 ![SIMT 计算本质](images/02SIMT_SIMD03.png)
 
-具体到 SIMT 的硬件结构，SIMT 提供一个多核系统（SIMT Core Cluster），CPU 负责将算子（ Kernel）加载到 SIMT Core Cluster 中，每个 SIMT 核（SIMT Core）有独立的 RF（Register File）、ALU、Data Cache，但是只有一个指令计数寄存器（Program Counter）和一个指令译码寄存器，指令被同时广播给所有的 SIMT 核，从而执行具体的计算。GPU 则是由多个 SIMT Core Cluster 组成，每个 SIMT Core Cluster 由多个SIMT Core 构成，SIMT Core 中有多个 Thread Block。
+具体到 SIMT 的硬件结构，SIMT 提供一个多核系统（SIMT Core Cluster），CPU 负责将算子（ Kernel）加载到 SIMT Core Cluster 中，每个 SIMT 核（SIMT Core）有独立的 RF（Register File）、ALU、Data Cache，但是只有一个指令计数寄存器（Program Counter）和一个指令译码寄存器，指令被同时广播给所有的 SIMT 核，从而执行具体的计算。GPU 则是由多个 SIMT Core Cluster 组成，每个 SIMT Core Cluster 由多个 SIMT Core 构成，SIMT Core 中有多个 Thread Block。
 
 ![SIMT 硬件结构](images/02SIMT_SIMD04.png)
 
@@ -124,7 +124,7 @@ GPU 的 SIMT 可以看作是一个特殊的 SIMD 结构，SIMT 硬件核心流�
 
 ## NVIDIA CUDA 实现
 
-回顾GPU的线程分级，在图形图像处理中会将图像进行切分，网格（Grid）表示要执行的任务，大的网格会被分成多个小的网格，每个网格中包含了很多相同线程（Threads）数量的块（Blocks），此时线程分层执行，块中的线程独立执行，对像素数据进行处理和计算，可以共享数据，同步数据交换。
+回顾 GPU 的线程分级，在图形图像处理中会将图像进行切分，网格（Grid）表示要执行的任务，大的网格会被分成多个小的网格，每个网格中包含了很多相同线程（Threads）数量的块（Blocks），此时线程分层执行，块中的线程独立执行，对像素数据进行处理和计算，可以共享数据，同步数据交换。
 
 ![图像处理中的网格切分与并行计算](images/02SIMT_SIMD07.png)
 
@@ -136,15 +136,15 @@ CUDA 并行编程模型基于单程序多数据（Single Program Mutiple Data，
 
 将多个线程块组合在一起就会组成一个 Grid 线程组，因此线程块就可以看作是 SM 的基本调度单元，SM 对应着具体的硬件单元，线程块则是编程所抽象出来的概念。因为有多个线程块进行组合，同时存在硬件计算单元在横向和纵向两个维度的排布，因此线程索引通常由块索引（Block Index）和线程内索引（Thread Index Within Block）组成。其中，块索引用于标识当前线程所在的块（Block），而线程内索引用于标识当前线程在所属块中的位置。
 
-使用 blockIdx.x 和 blockDim.x 来访问块索引和块维度（Block Dimension）中的 x 分量。blockIdx.x 表示当前线程所在的块的 x 方向索引，在 CUDA 中，块索引是一个三维的向量，包括 x、y 和 z 三个分量。blockDim.x 表示当前块的 x 方向维度大小，在 CUDA 中，块维度也是一个三维的向量，包括 x、y 和 z 三个分量。通过 blockIdx.x 和 blockDim.x，可以方便地获取当前线程所在的块的 x 方向索引和当前块在 x 方向上的线程数量，从而进行相应的计算和操作。
+使用 `blockIdx.x` 和 `blockDim.x` 来访问块索引和块维度（Block Dimension）中的 x 分量。`blockIdx.x` 表示当前线程所在的块的 x 方向索引，在 CUDA 中，块索引是一个三维的向量，包括 x、y 和 z 三个分量。`blockDim.x` 表示当前块的 x 方向维度大小，在 CUDA 中，块维度也是一个三维的向量，包括 x、y 和 z 三个分量。通过 `blockIdx.x` 和 `blockDim.x`，可以方便地获取当前线程所在的块的 x 方向索引和当前块在 x 方向上的线程数量，从而进行相应的计算和操作。
 
 ![多个线程块组合时线程索引](images/02SIMT_SIMD09.png)
 
 回顾英伟达 GPU 软件和硬件之间的对应关系，线程对应于 CUDA Core，线程以线程块为单位被分配到 SM 上，SM 维护线程块和线程 ID，SM 管理和调度线程执行。每个线程块又按照每个 Warp 中共 32 个线程执行，Warp 是 SM 的调度单位，Warp 里的线程执行 SIMD。Block 线程块只在一个 SM 上通过 Wrap 进行调度，一旦在 SM 上调用了 Block 线程块，就会一直保留到执行完 Kernel。SM 可以同时保存多个 Block 线程块，块间并行的执行。
 
-![CUDA 跟 NVIDIA 硬件架构的关系](images/02SIMT_SIMD09.png)
+![CUDA 跟 NVIDIA 硬件架构的关系](images/02SIMT_SIMD10.png)
 
-在 AI 框架的开发流程方面，首先会按照编程思想定义神经网络，然后根据 AI 框架编写对应的程序，AI 框架会自动构建计算正向图，根据自动微分原理构建反向图。其中在神经网络中比较重要的算子是矩阵乘，以 CUDA 代码为例实现$C = A × B$，使用 blockIdx.x 和 blockDim.x 来访问块索引和块维度。
+在 AI 框架的开发流程方面，首先会按照编程思想定义神经网络，然后根据 AI 框架编写对应的程序，AI 框架会自动构建计算正向图，根据自动微分原理构建反向图。其中在神经网络中比较重要的算子是矩阵乘，以 CUDA 代码为例实现 $C = A × B$，使用 `blockIdx.x` 和 `blockDim.x` 来访问块索引和块维度。
 
 ```c
 #include <stdio.h>
@@ -213,7 +213,7 @@ int main() {
 }
 ```
 
-## 编程本质 vs 硬件执行本质
+## 编程 vs 硬件执行本质
 
 编程模型（Programming Model）是程序员用来编写程序的抽象概念，它定义了程序员如何组织和控制计算机程序的方式。编程模型提供了一种简化的视图，使程序员能够专注于程序的逻辑结构而不必考虑底层硬件细节。编程模型通常包括编程语言、数据结构、算法和并发机制等方面，用于描述程序的行为和交互。
 
@@ -225,7 +225,7 @@ int main() {
 
 编程模型最终会通过编译器转换为硬件执行模型，因此二者在概念层面有明显的差异。
 
-## 总结
+## 小结与思考
 
 本节主要对 SIMD、SIMT 进行了讲解，SIMD 计算本质是一次加法运算操作完成多个元素的加法，因此在硬件层面需要增加 ALU 单元的数量，同时需要增加数据通路提升计算的吞吐量。SIMT 硬件结构是一个多核系统，指令会被同时广播给所有的 SIMT Core，每个 SIMT Core 中有多个线程块（Thread Block）实现并行，同时多个 SIMT Core Cluster 组成整个 GPU Core。SIMT 是 SIMD 的一种推广，在编程模式上更加灵活。
 
