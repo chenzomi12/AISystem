@@ -112,7 +112,7 @@ int main(void)
 
 在 CUDA 程序架构中，host 代码部分在 CPU 上执行，是普通的 C 代码。当遇到数据并行处理的部分，CUDA 会将程序编译成 GPU 能执行的程序，并传送到 GPU，这个程序在 CUDA 里称做核(kernel)。device 代码部分在 GPU 上执行，此代码部分在 kernel 上编写(.cu 文件)。
 
-kernel 用 `__global__` 符号声明，在调用时需要用 `<<<grid, block>>>` 来指定 kernel 要执行及结构。代码 `cuda_device.cu` 是使用 CUDA 编程实现 GPU 计算，代码涉及到 host（CPU）和 device（GPU）相关计算，使用__global__ 声明将 add 函数转变为 GPU 可执行的 kernel。
+kernel 用 `__global__` 符号声明，在调用时需要用 `<<<grid, block>>>` 来指定 kernel 要执行及结构。代码 `cuda_device.cu` 是使用 CUDA 编程实现 GPU 计算，代码涉及到 host（CPU）和 device（GPU）相关计算，使用 `__global__` 声明将 add 函数转变为 GPU 可执行的 kernel。
 
 ```c
 #include <iostream>

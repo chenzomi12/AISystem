@@ -40,7 +40,7 @@ Fermi 架构采用第三代流处理器，每个 SM 有 16 个加载/存储单�
 
 每个 SM 有两个 warp 调度器和两个指令调度单元，允许同时发出和执行两个 warp。并行计算主要在 CUDA 中进行处理，每个 CUDA 处理器都有一个完整的流水线整数算术逻辑单元（ALU）和浮点单元（FPU），可以选择 FP 32 或者 INT 8 执行计算，但是 FP Unit 和 INT Unit 的执行不是并行的。
 
-![Fermi 架构单个 SM 结构](images/03base_concept05.png)
+![Fermi 架构单个 SM 结构](images/03Concept05.png)
 
 Fermi 架构支持新的并行线程执行 PTX 2.0（Parallel Thread Execution）指令集架构。一个 CUDA 程序被称作并行的 Kernel，线程分为三级，包含线程（Threads）、块（Blocks）和网格（Grid），每个层次结构对应硬件，Thread 可以共享局部内存（Local memory），线程块使用共享内存（Shared Memory），Grid 共享全局内存（Global Memory），具有相应的每个线程专用、每个块共享和每个应用程序全局内存空间。
 
@@ -439,9 +439,9 @@ NVIDIA Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析�
 
 本节主要回顾了从 2010 年到 2024 年 NVIDIA GPU 架构的发展，其中有几个比较重要的时间节点和事件：
 
-- 2010 年提出 Fermi 架构，开启了架构演进的进程，属于首个完整的 GPU 计算架构，里面提出的新概念一直沿用至今；
+- 2010 年提出 Fermi 架构，开启了架构演进的进程，属于首个完整的 GPU 计算架构，里面提出的新概念一直沿用至今。
 
-- 2016 年提出 Pascal 架构，首次提出 NVLink，双向互联带宽达到 160 GB/s 对 AI 领域产生重大影响，是具有历史性意义的里程碑架构；
+- 2016 年提出 Pascal 架构，首次提出 NVLink，双向互联带宽达到 160 GB/s 对 AI 领域产生重大影响，是具有历史性意义的里程碑架构。
 
 - 2017 年提出 Volt 架构，首次提出张量核心（Tensor Core），专门针对神经网络矩阵卷积运算进行加速的第一代核心，同时提出 NVSwitch1.0，提高 GPU 之间的通信效率和性能。
 
