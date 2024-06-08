@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 推理流程全景
+# 推理流程全景(DONE)
 
 本节介绍深度学习模型在部署态中的两种方式：云侧部署和边缘侧部署。其中，云侧部署适用于云服务器等具备强大计算能力和存储空间的环境，可以实现高吞吐量和集中的数据管理，但可能面临高成本、网络延迟和数据隐私等挑战。
 
@@ -45,9 +45,9 @@
 
 - 模型更容易在云端得到保护。云服务商通常具备完善的安全防护机制，如防火墙、身份验证、加密技术等，有助于保护数据安全和满足合规性要求。同时，云端部署有利于实施集中式安全策略和审计。
 
-- 深度学习模型的执行平台和 AI 框架统一。云端环境通常提供标准化的基础设施和服务，支持广泛使用的深度学习框架（如 TensorFlow、PyTorch、MXNet 等）。开发者可以利用这些通用平台，无需顾虑底层硬件差异，直接部署训练好的模型，实现模型执行平台和 AI 框架的高度统一。这种一致性不仅简化了模型迁移和部署流程，还促进了跨团队、跨项目的协作与资源共享。
+- 深度学习模型的执行平台和 AI 框架统一。云端环境通常提供标准化的基础设施和服务，支持广泛使用的深度学习框架（如 TensorFlow、PyTorch、MXNet 等）。开发者可以利用这些通用平台，无需顾虑底层硬件差异，直接部署训练好的模型，实现模型执行平台和 AI 框架的高度统一。这种一致性不仅简化了模型迁移和部署流程，还促进了跨团队、跨课程的协作与资源共享。
 
-云端部署推理系统的确具备诸多显著优点，使其成为众多企业和项目首选的部署方式。然而，云端部署并非万能解决方案，也伴随着一些特定的挑战。
+云端部署推理系统的确具备诸多显著优点，使其成为众多企业和课程首选的部署方式。然而，云端部署并非万能解决方案，也伴随着一些特定的挑战。
 
 - 人工智能的服务成本非常高昂。因为需要云端的服务你就需要大量的机器，大量的容灾，大量的各种设备维护机房，所以它整体的成本是很高的。
 
@@ -165,32 +165,14 @@
 
 最后一种方式是利用 DNN 独特的层的结构，让一些层在边缘设备上计算，一些层由边缘服务器或云端计算。这种方法可以通过利用其他边缘设备的计算周期来潜在地提供延迟减少，但是还需要注意的是，在 DNN 分区点传递中间结果的延迟会影响总体的收益。
 
-## 小结
+## 小结与思考
 
-====== 加一段自己的个人理解
+- 云端部署：在云服务器上进行AI模型推理，具有高吞吐量和集中管理的优势，但需要解决网络延迟、高成本和数据隐私保护的问题。
+
+- 边缘侧部署：在边缘设备上执行AI模型推理，以降低延迟和节省带宽，面临硬件资源有限、数据分散和安全性风险等挑战。
 
 ## 本节视频
 
 <html>
 <iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. Deep Learning Inference in Facebook Data Centers: Characterization, Performance Optimizations and Hardware Implications
-2. Clipper: A Low-Latency Online Prediction Serving System
-3. TFX: A TensorFlow-Based Production-Scale Machine Learning Platform
-4. TensorFlow-Serving: Flexible, High-Performance ML Serving
-5. Optimal Aggregation Policy for Reducing Tail Latency of Web Search
-6. A Survey of Model Compression and Acceleration for Deep Neural Networks
-7. CSE 599W: System for ML - Model Serving
-8. https://developer.NVIDIA.com/deep-learning-performance-training-inference 
-9. DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING
-10. Learning both Weights and Connections for Efficient Neural Networks
-11. DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT
-12. Halide: A Language and Compiler for Optimizing Parallelism,Locality, and Recomputation in Image Processing Pipelines
-13. TVM: An Automated End-to-End Optimizing Compiler for Deep Learning
-14. 8-bit Inference with TensorRT
-15. https://github.com/microsoft/AI-System
-17. J. Mao, X. Chen, K. W. Nixon, C. Krieger, and Y. Chen, “MoDNN: Local distributed mobilecomputing system for deep neural network,” in Proc. Design, Autom. Test Eur. Conf. Exhibit.(DATE), Mar. 2017, pp. 1396–1401.
-18. Z. Zhao, K. M. Barijough, and A. Gerstlauer, “Deepthings: Distributed adaptive deep learning inference on resource-constrained iot edge clusters,” IEEE Trans. Comput.-Aided Design Integr. Circuits Syst., vol. 37, no. 11, pp. 2348–2359, Nov. 2018.

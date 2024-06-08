@@ -145,7 +145,7 @@ Fully Sharded Data Parallelism (FSDP) 技术是 DP 和 DDP 技术的结合版本
 
 4. **端到端的优化**：AI 芯片需要支持端到端的优化，包括模型设计、算法优化、系统设计等方面。通过综合考虑各个环节的优化策略，可以实现高效的大型模型分布式并行计算。比如 Transformer 是很多大模型结构的基础组件，可以提供专用高速 Transformer 引擎设计。
 
-## 小结与讨论
+## 小结与思考
 
 通过以上我们对 AI 算法几个角度的研究进展分析，下面我们对 AI 特有计算模式做一个总结，这些特点将会对 AI 芯片的硬件设计具有很强的指导意义。
 
@@ -172,10 +172,3 @@ AI 模型压缩是提高模型推理部署性能的有效方法，压缩的方�
 </html>
 <iframe src="https://player.bilibili.com/player.html?aid=865754482&bvid=BV1754y1M78X&cid=1049051877&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. https://www.knime.com/blog/a-friendly-introduction-to-deep-neural-networks
-2. https://machine-learning.paperspace.com/wiki/activation-function
-3. https://developer.nvidia.com/blog/accelerating-ai-training-with-tf32-tensor-cores/
-4. https://arxiv.org/pdf/1704.04861

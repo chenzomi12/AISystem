@@ -32,11 +32,11 @@
 
 模型并行是三种策略中通信开销最大的，所以优先将模型并行组放置在一个节点中，以利用较大的节点内带宽。其次，流水线并行通信量最低，因此在不同节点之间调度流水线，这将不受通信带宽的限制。最后，若张量并行没有跨节点，则数据并行也不需要跨节点；否则数据并行组也需要跨节点。
 
-值得注意的是 ZeRO，它是 DP 的超级可伸缩增强版，我们在完全分片的数据并行一节中已经讨论过了。通常它是一个独立的功能，不需要 PP 或 TP。但它也可以与 PP、TP 结合使用。当 ZeRO-DP 与 PP (以及 TP) 结合时，它通常只启用 ZeRO 阶段 1，只对优化器状态进行分片（ZeRO 阶段 2 还会对梯度进行分片，阶段 3 也对模型权重进行分片）。虽然理论上可以将 ZeRO 阶段 2 与 流水线并行 一起使用，但它会对性能产生不良影响。每个 micro batch 都需要一个额外的 reduce-scatter 通信来在分片之前聚合梯度，这会增加潜在的显著通信开销。根据流水线并行的性质，一般会使用小的 micro batch ，并把重点放在算术强度 (micro batch size) 与最小化流水线气泡 (micro batch 的数量) 两者间折衷。因此，增加的通信开销会损害流水线并行。
+值得注意的是 ZeRO，它是 DP 的超级可伸缩增强版，我们在完全分片的数据并行一节中已经讨论过了。通常它是一个独立的功能，不需要 PP 或 TP。但它也可以与 PP、TP 结合使用。当 ZeRO-DP 与 PP (以及 TP) 结合时，它通常只启用 ZeRO 阶段 1，只对优化器状态进行分片（ZeRO 阶段 2 还会对梯度进行分片，阶段 3 也对模型权重进行分片）。虽然理论上可以将 ZeRO 阶段 2 与流水线并行一起使用，但它会对性能产生不良影响。每个 micro batch 都需要一个额外的 reduce-scatter 通信来在分片之前聚合梯度，这会增加潜在的显著通信开销。根据流水线并行的性质，一般会使用小的 micro batch ，并把重点放在算术强度 (micro batch size) 与最小化流水线气泡 (micro batch 的数量) 两者间折衷。因此，增加的通信开销会损害流水线并行。
 
 ## 使用 Torch RPC 实现 DP+PP
 
-我们需要初始化 RPC 框架，以便在不同设备之间进行远程过程调用。代码中使用 `rpc.init_rpc` 来启动 RPC 框架，并配置了 `TensorPipeRpcBackendOptions` 以支持不同的传输和通道方式。这里，`tmpfile` 用于指定初始化方法。
+我们可以使用 Torch RPC 实现 DP+PP 的简单实现。我们需要初始化 RPC 框架，以便在不同设备之间进行远程过程调用。代码中使用 `rpc.init_rpc` 来启动 RPC 框架，并配置了 `TensorPipeRpcBackendOptions` 以支持不同的传输和通道方式。这里，`tmpfile` 用于指定初始化方法。
 
 ```python
 # In 'run_worker'
@@ -137,7 +137,7 @@ model_tp = parallelize_module(model, tp_mesh, tp_plan)
 model_2d = FSDP(model_tp, device_mesh=dp_mesh, use_orig_params=True, ...)
 ```
 
-我们定义模型，并创建一个张量并行计划（Tensor Parallel Plan），该计划指示模型的哪些部分需要并行化。通过 `parallelize_module` 函数，我们可以在 `tp_mesh` 上应用张量并行，从而在主机内实现模型的并行化。在 `dp_mesh` 上应用完全分片数据并行（Fully Sharded Data Parallel, FSDP）。FSDP 通过自动分片和重组模型参数，进一步优化跨主机的模型训练。通过将 `model_tp` 传递给 `FSDP`，就可以进行简单的 DP+PP 并行了。
+我们定义模型，并创建一个张量并行计划（Tensor Parallel Plan），该计划指示模型的哪些部分需要并行化，具体配置可以参考上一节使用 Device Mesh 进行张量并行的内容。通过 `parallelize_module` 函数，我们可以在 `tp_mesh` 上应用张量并行，从而在主机内实现模型的并行化。在 `dp_mesh` 上应用完全分片数据并行（Fully Sharded Data Parallel, FSDP）。FSDP 通过自动分片和重组模型参数，进一步优化跨主机的模型训练。通过将 `model_tp` 传递给 `FSDP`，就可以进行简单的 DP+PP 并行了。
 
 ## 本节视频
 

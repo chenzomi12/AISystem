@@ -2,7 +2,7 @@
 
 # ESPNet 系列
 
-本章节将会介绍 ESPNet 系列，该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块（ESP Module）；而在 ESPNet V2 上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
+本节将会介绍 ESPNet 系列，该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块（ESP Module）；而在 ESPNet V2 上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
 
 ## ESPNet V1
 
@@ -325,36 +325,3 @@ ESPNet V2 网络使用 EESP 模块构建。在每个空间级别，ESPNet V2 重
 ## 本节视频
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-## 参考文献
-
-1.[Zhao, H., Shi, J., Qi, X., Wang, X., Jia, J.: Pyramid scene parsing network. In: CVPR. (2017)](https://arxiv.org/pdf/1612.01105.pdf)
-
-2.[He, K., Zhang, X., Ren, S., Sun, J.: Spatial pyramid pooling in deep convolutional networks for visual recognition. In: ECCV. (2014)]( https://arxiv.org/abs/1406.4729)
-
-3.[Ess, A., Muller, T., Grabner, H., Van Gool, L.J.: Segmentation-based urban traffic scene understanding. In: BMVC. (2009)](https://www.bmva.org/bmvc/2009/Papers/Paper350/Abstract350.pdf)
-
-4.[Menze, M., Geiger, A.: Object scene flow for autonomous vehicles. In: CVPR. (2015)](https://ieeexplore.ieee.org/document/7298925/)
-
-5.[Xiang, Y., Fox, D.: DA-RNN: Semantic mapping with data associated recurrent neural networks. Robotics: Science and Systems (RSS) (2017)](https://arxiv.org/abs/1703.03098v1)
-
-6.[Chollet, F.: Xception: Deep learning with depthwise separable convolutions. CVPR (2017)](https://arxiv.org/abs/1610.02357)
-
-7.[Yu, F., Koltun, V.: Multi-scale context aggregation by dilated convolutions. ICLR (2016)](https://arxiv.org/pdf/1511.07122.pdf)
-
-8.[Yu, F., Koltun, V., Funkhouser, T.: Dilated residual networks. CVPR (2017)](https://arxiv.org/pdf/1705.09914.pdf )
-
-9.[Zhao, H., Qi, X., Shen, X., Shi, J., Jia, J.: Icnet for real-time semantic segmentation on high-resolution images. arXiv preprint arXiv:1704.08545 (2017)](https://arxiv.org/abs/1704.08545)
-
-10.[Dai, J., He, K., Sun, J.: Convolutional feature masking for joint object and stuff segmentation.In: CVPR. (2015)](https://arxiv.org/abs/1412.1283v2)
-
-11.[Tao Lei, Yu Zhang, and Yoav Artzi. Training rnns as fast as cnns. In EMNLP, 2018. 8](https://arxiv.org/pdf/1709.02755)
-
-12.[Ilya Loshchilov and Frank Hutter. Sgdr: Stochastic gradient descent with warm restarts. In ICLR, 2017. 5](https://arxiv.org/abs/1608.03983)
-
-13.[Bharath Hariharan, Pablo Arbelaez, Lubomir Bourdev, Subhransu Maji, and Jitendra Malik. Semantic contours from inverse detectors. In ICCV, 2011. 6](https://www.mendeley.com/catalogue/7ff08f6f-384f-3129-9f54-b7327bdd4276/)
-
-14.[Barret Zoph and Quoc V Le. Neural architecture search with reinforcement learning. arXiv preprint arXiv:1611.01578,2016.2](https://ieeexplore.ieee.org/document/6126343)
-
-15.[M. Siam, M. Gamal, M. Abdel-Razek, S. Yogamani, and M.Jagersand. rtseg: Real-time semantic segmentation comparative study. In 2018 25th IEEE International Conference on Image Processing (ICIP).7](https://arxiv.org/pdf/1803.02758v4)
-

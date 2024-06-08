@@ -138,7 +138,7 @@ Code Emission（代码生成）是 LLVM 后端的重要阶段，其目标是将�
 
 ![Pipeline](images/08LLVMBackend03.png)
 
-通过上述图像分别展示了 LLVM 的各个流程，和代码在不同流程下的状态，在本章的最后我们再回顾一下各个阶段所代表的功能和内容。
+通过上述图像分别展示了 LLVM 的各个流程，和代码在不同流程下的状态，在本节的最后我们再回顾一下各个阶段所代表的功能和内容。
 
 1. 前端阶段
 
@@ -170,7 +170,7 @@ Pass 管理：
 
 在编译器的每个模块和 Pass 均可通过 Pass manager 进行管理，可以动态添加、删除或调整 Pass 来优化编译过程中的各个阶段。
 
-## 基于 LLVM 项目
+## 基于 LLVM 课程
 
 1. Modular
 
@@ -186,7 +186,7 @@ Youtube 上 LLVM 之父 Chris Lattner：编译器的黄金时代
 
 2. XLA：优化机器学习编译器
 
-XLA(加速线性代数)是 Google 推出的一种针对特定领域的线性代数编译器，能够加快 TensorFlow 模型的运行速度，而且可能完全不需要更改源代码。
+XLA(加速线性代数)是谷歌推出的一种针对特定领域的线性代数编译器，能够加快 TensorFlow 模型的运行速度，而且可能完全不需要更改源代码。
 
 TensorFlow 中大部分代码和算子都是通过 XLA 编译的，XLA 的底层就是 LLVM，所以 XLA 可以利用到 LLVM 的很多特性，比如优化、代码生成、并行计算等。
 
@@ -208,13 +208,13 @@ TensorFlow 可以更好的应用于工业生产环境，因为它可以利用到
 
 ![Pipeline](images/08LLVMBackend06.png)
 
-## 小结与讨论
+## 小结与思考
 
 - LLVM 后端的作用是将优化后的代码生成目标代码，可以是汇编语言或机器码。
 - 生成过程包括指令选择、寄存器分配、指令调度、代码输出等步骤，可被不同后端实现。
 - LLVM 后端的可扩展性支持新硬件架构和指令集发展，推动编译器技术和工具链进步。
 - 前端和优化层提供统一的编译器前端，实现跨平台开发和优化。
-- 基于 LLVM 的项目有 Modular、XLA、JAX、TensorFlow、TVM、Julia 等。
+- 基于 LLVM 的课程有 Modular、XLA、JAX、TensorFlow、TVM、Julia 等。
 
 ## 本节视频
 
@@ -228,6 +228,6 @@ TensorFlow 可以更好的应用于工业生产环境，因为它可以利用到
 2. https://www.modular.com
 3. https://scottamain.github.io/xla
 4. https://jax.readthedocs.io
-5. https://www.tensorflow.org
+5. https://www.TensorFlow.org
 6. https://tvm.apache.org/
 7. https://julialang.org/

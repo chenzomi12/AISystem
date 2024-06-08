@@ -88,7 +88,7 @@ print_id("我是 ZOMI")
 
 - 第五阶段：20 世纪 90 年代，出现了互联网和移动设备等新兴平台，以及支持跨平台和动态特性的语言和编译器，如 Java、C#、Python 等，编译技术也开始关注程序的安全性和效率。
 
-- 第六阶段：21 世纪第一个 10 年，出现了以 Lua 为首的 Torch 框架，用于解决爆炸式涌现的 AI 应用和 AI 算法研究，之后又推出 TensorFLow、PyTorch、MindSpore、Paddle 等 AI 框架，随着 AI 框架和 AI 产业的发展，出现了如 AKG、MLIR 等 AI 编译器。
+- 第六阶段：21 世纪第一个 10 年，出现了以 Lua 为首的 Torch 框架，用于解决爆炸式涌现的 AI 应用和 AI 算法研究，之后又推出 TensorFlow、PyTorch、MindSpore、Paddle 等 AI 框架，随着 AI 框架和 AI 产业的发展，出现了如 AKG、MLIR 等 AI 编译器。
 
 ![历史涌现的编译器](images/02History05.png)
 
@@ -96,15 +96,15 @@ print_id("我是 ZOMI")
 
 ### 基本构成
 
-目前主流如 LLVM 和 GCC 等经典的开源编译器，通常分为三个部分，前端(frontEnd)，优化器(Optimizer)和后端(backEnd)。
+目前主流如 LLVM 和 GCC 等经典的开源编译器，通常分为三个部分，前端(Frontend)，优化器(Optimizer)和后端(Backend)。
 
-1. Front-End：主要负责词法和语法分析，将源代码转化为抽象语法树，即将程序划分为基本的组成部分，检查代码的语法、语义和语法，然后生成中间代码
+1. Frontend：主要负责词法和语法分析，将源代码转化为抽象语法树，即将程序划分为基本的组成部分，检查代码的语法、语义和语法，然后生成中间代码
 
 2. Optimizer：优化器则是在前端的基础上，对得到的中间代码进行优化（如去掉冗余代码、子表达式消除等工作），使代码更加高效
 
-3. Back-end：后端则是将已经优化的中间代码，针对具体的硬件生成目标代码，转换成为包括代码优化器和代码生成器
+3. Backend：后端则是将已经优化的中间代码，针对具体的硬件生成目标代码，转换成为包括代码优化器和代码生成器
 
-![编译器](images/GCC_process03.png)
+![编译器](images/02History11.png)
 
 ## 编译体系
 
@@ -168,9 +168,9 @@ GCC、LLVM 和 Clang 都是常见的编译器，用于将高级语言代码转�
 
 ### GCC
 
-> GCC（GNU Compiler Collection，GNU 编译器套装），是一套由 GNU 开发的编程语言编译器。它是一套以 GPL 及 LGPL 许可证所发布的自由软件，也是 GNU 项目的关键部分，亦是自由的类 Unix 及苹果电脑 Mac OS X 操作系统的标准编译器。GCC（特别是其中的 C 语言编译器）也常被认为是跨平台编译器的事实标准。
+> GCC（GNU Compiler Collection，GNU 编译器套装），是一套由 GNU 开发的编程语言编译器。它是一套以 GPL 及 LGPL 许可证所发布的自由软件，也是 GNU 课程的关键部分，亦是自由的类 Unix 及苹果电脑 Mac OS X 操作系统的标准编译器。GCC（特别是其中的 C 语言编译器）也常被认为是跨平台编译器的事实标准。
 
-上面提到的 GNU 名称来自 Gnu's Not Unix"的缩写，一个类 UNIX 的操作系统，由 GNU 计划推动，目标在于创建一个完全兼容于 UNIX 的 自由软件环境。由于 UNIX 系统是商业收费软件，而且有一部分源码是没有开放的，所以在 1983 年，理查德·斯托曼提出 GN 计划，希望发展出一套完整的开放源代码操作系统来取代 Unix，计划中的操作系统，名为 GNU。
+上面提到的 GNU 名称来自 Gnu's Not Unix"的缩写，一个类 UNIX 的操作系统，由 GNU 计划推动，目标在于创建一个完全兼容于 UNIX 的自由软件环境。由于 UNIX 系统是商业收费软件，而且有一部分源码是没有开放的，所以在 1983 年，理查德·斯托曼提出 GN 计划，希望发展出一套完整的开放源代码操作系统来取代 Unix，计划中的操作系统，名为 GNU。
 
 ![GUN](images/02History07.png)
 
@@ -178,7 +178,7 @@ GCC、LLVM 和 Clang 都是常见的编译器，用于将高级语言代码转�
 
 GNU 工程十几年以来已经成为一个对软件开发主要的影响力量，创造了无数的重要的工具，例如：GCC 编译器，甚至一个全功能的 Linux 操作系统。GNU 计划采用了部分当时已经可自由使用的软件，例如 TeX 排版系统和 X Window 视窗系统等。不过 GNU 计划也开发了大批其他的自由软件，这些软件也被移植到其他操作系统平台上，例如 Microsoft Windows、 BSD 家族、 Solaris 及 Mac OS。
 
-GCC 作为 GNU 工程的其中一个项目，原名为 GNU C 语言编译器（GNU C Compiler），因为它原本只能处理 C 语言。GCC 很快地扩展，变得可处理 C++。之后也变得可处理 Fortran、Pascal、Objective-C、Java、Ada，以及 Go 与其他语言。
+GCC 作为 GNU 工程的其中一个课程，原名为 GNU C 语言编译器（GNU C Compiler），因为它原本只能处理 C 语言。GCC 很快地扩展，变得可处理 C++。之后也变得可处理 Fortran、Pascal、Objective-C、Java、Ada，以及 Go 与其他语言。
 
 ![GCC](images/02History08.png)
 
@@ -196,13 +196,13 @@ GNU 计划本来是为了开发一个自由系统来取代 UNIX 的，但是由�
 
 > Clang 是一个 C、 C++、 Objective-C 和 Objective-C++ 编程语言的编译器前端。它采用了底层虚拟机（LLVM）作为其后端。
 
-Clang 项目在 2005 年由苹果电脑发起，是 LLVM 编译器工具集的前端（front-end），目的是输出代码对应的抽象语法树（Abstract Syntax Tree, AST），并将代码编译成 LLVM Bitcode。接着在后端（back-end）使用 LLVM 编译成平台相关的机器语言。它的目标是提供一个 GNU 编译器套装（GCC）的替代品。Clang 项目包括 Clang 前端和 Clang 静态分析器等。
+Clang 课程在 2005 年由苹果电脑发起，是 LLVM 编译器工具集的前端（front-end），目的是输出代码对应的抽象语法树（Abstract Syntax Tree, AST），并将代码编译成 LLVM Bitcode。接着在后端（back-end）使用 LLVM 编译成平台相关的机器语言。它的目标是提供一个 GNU 编译器套装（GCC）的替代品。Clang 课程包括 Clang 前端和 Clang 静态分析器等。
 
 Clang 本身性能优异，其生成的 AST 所耗用掉的内存仅仅是 GCC 的 20% 左右。FreeBSD 10 将 Clang/LLVM 作为默认编译器。测试证明 Clang 编译 Objective-C 代码时速度为 GCC 的 3 倍，还能针对用户发生的编译错误准确地给出建议。 
 
 - Clang 历史
     
-Apple 吸收 Chris Lattner 的目的要比改进 GCC 代码优化宏大得多，GCC 系统庞大而笨重，而 Apple 在 MAC 系统大量使用的 Objective-C 在 GCC 的项目支持优先级中比较低。此外 GCC 作为一个纯粹的编译系统，与 IDE 配合得很差。
+Apple 吸收 Chris Lattner 的目的要比改进 GCC 代码优化宏大得多，GCC 系统庞大而笨重，而 Apple 在 MAC 系统大量使用的 Objective-C 在 GCC 的课程支持优先级中比较低。此外 GCC 作为一个纯粹的编译系统，与 IDE 配合得很差。
 
 加之许可证方面的要求，Apple 无法使用 LLVM 继续改进 GCC 的代码质量。于是，Apple 决定从零开始写 C、C++、Objective-C 语言的前端 Clang，完全替代掉 GCC。
 
@@ -228,7 +228,7 @@ Apple 一直使用 GCC 作为官方的编译器。GCC 作为开源世界的编�
 
 另一方面，GCC 的代码耦合度太高，不好独立，而且越是后期的版本，代码质量越差，但 Apple 想做的很多功能（比如更好的 IDE 支持）需要模块化的方式来调用 GCC，但 GCC 一直没有实现，从根本上限制了 LLVM-GCC 的开发。
 
-所以，这种不和让 Apple 一直在寻找一个高效的、模块化的、协议更放松的开源替代品，于是 Apple 请来了编译器高材生 Chris Lattner，主持实现 LLVM 项目。
+所以，这种不和让 Apple 一直在寻找一个高效的、模块化的、协议更放松的开源替代品，于是 Apple 请来了编译器高材生 Chris Lattner，主持实现 LLVM 课程。
 
 ![编译器](images/02History10.png)
 
@@ -259,7 +259,7 @@ Apple 一直使用 GCC 作为官方的编译器。GCC 作为开源世界的编�
 
 - **调试支持**：GCC 有一个优秀的 GDB 调试器。GDB 历经时间考验，性能优异。Clang 则将 LLDB 调试器构建为 LLVM 上的一组可重用组件。
 
-GCC 是一个功能强大的编译器集合，支持多种编程语言，广泛应用于各种开源项目和商业软件。LLVM 是一个灵活的编译器基础设施，提供了通用的编译器工具和库，被用于构建自定义编译器。
+GCC 是一个功能强大的编译器集合，支持多种编程语言，广泛应用于各种开源课程和商业软件。LLVM 是一个灵活的编译器基础设施，提供了通用的编译器工具和库，被用于构建自定义编译器。
 
 Clang 是基于 LLVM 的主要支持 C、C++、Objective-C 和 Objective-C++ 编译器，具有快速的编译速度和低内存占用，Clang 的底层框架 LLVM 具有足够的可扩展性，可以支持 Julia 和 Swift 等较新的语言。
 
@@ -285,7 +285,7 @@ Clang 是基于 LLVM 的主要支持 C、C++、Objective-C 和 Objective-C++ 编
 
 反之，在底层平台逐步扩大的同时，上层的语言也变得能够扩张到任何平台，比如 Java、Kotlin 最初在 JVM 上运行，到可以编译为原生机器码或者 WASM 在 WebAssembly 平台上运行。
 
-## 小结与讨论
+## 小结与思考
 
 - 编译技术是计算机科学皇冠上的一颗明珠，作为基础软件中的核心技术
 

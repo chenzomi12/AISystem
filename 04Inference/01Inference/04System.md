@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 推理系统架构
+# 推理系统架构(DONE)
 
 推理系统架构是人工智能领域中的一个关键组成部分，它负责将训练好的模型应用于实际问题，从而实现智能决策和自动化。在构建一个高效的推理系统时，我们不仅需要考虑其性能和准确性，还需要确保系统的可扩展性、灵活性以及对不同业务需求的适应性。在本节中，我们将主要以 NVIDIA Triton Inference Server 为基础深入探讨推理系统架构的各个方面。
 
@@ -44,18 +44,18 @@
 
 ![TF Serving 架构图](images/04System01.png)
 
-一个早期的服务化框架是 Google 在 2016 年针对 TensorFlow 推出的 TensorFlow Serving，它能够把 TensorFlow 模型以 web 服务的方式对外暴露接口，通过网络请求方式接受来自客户端（Client）的请求数据，计算得到前向推理结果并返回。这成为了模型服务化的重要里程碑。除此之外，业界还涌现了许多其他优秀的服务化框架，如 TorchServe、Triton、BentoML、Kubeflow 和 Seldon Core 等。
+一个早期的服务化框架是谷歌在 2016 年针对 TensorFlow 推出的 TensorFlow Serving，它能够把 TensorFlow 模型以 web 服务的方式对外暴露接口，通过网络请求方式接受来自客户端（Client）的请求数据，计算得到前向推理结果并返回。这成为了模型服务化的重要里程碑。除此之外，业界还涌现了许多其他优秀的服务化框架，如 TorchServe、Triton、BentoML、Kubeflow 和 Seldon Core 等。
 
 | 服务框架 | 支持的模型 | 开源仓库地址 | 开源时间 |
 | --------- | ----------- | ------------- | --------- |
-| TensorFlow Serving | TensorFlow | <https://github.com/tensorflow/serving> | 2016 |
+| TensorFlow Serving | TensorFlow | <https://github.com/TensorFlow/serving> | 2016 |
 | TorchServe | PyTorch | <https://github.com/pytorch/serve> | 2020 |
 | Triton | TensorFlow/PyTorch 等 | <https://github.com/triton-inference-server/server> | 2018 |
 | BentoML | TensorFlow/PyTorch 等 | <https://github.com/bentoml/BentoML> | 2019 |
 | Kubeflow | TensorFlow/PyTorch 等 | <https://github.com/kubeflow/kfserving> | 2019 |
 | Seldon Core | TensorFlow/PyTorch 等 | <https://github.com/SeldonIO/seldon-Core> | 2018 |
 
-## NVIDIA Triton Inference Server
+## NVIDIA Triton 推理服务
 
 NVIDIA Triton Inference Server（简称 Triton）是一个高性能、可扩展的开源推理框架，由 NVIDIA 等公司推出。Triton 旨在为用户提供云和边缘推理的部署解决方案，支持多种深度学习模型和框架。
 
@@ -83,7 +83,7 @@ Triton 通过提供多种接入方式，支持不同场景下的模型推理需�
 
 ![Triton 接入层](images/04System03.png)
 
-#### HTTP/REST 协议支持
+1. HTTP/REST 协议支持
 
 HTTP/REST 是一种广泛使用的网络通信协议，它基于 HTTP 协议，使用 RESTful 架构风格。Triton 通过支持 HTTP/REST 协议，允许用户通过标准的 HTTP 请求来调用模型推理服务。
 
@@ -101,9 +101,9 @@ HTTP/REST 是一种广泛使用的网络通信协议，它基于 HTTP 协议，�
 
   - 不如 GRPC 灵活，特别是在处理复杂数据结构时。
 
-#### GRPC 协议支持
+2. GRPC 协议支持
 
-GRPC 是一个高性能、开源和通用的 RPC 框架，由 Google 主导开发。它使用 Protocol Buffers 为接口定义语言，支持多种编程语言。Triton 通过支持 GRPC 协议，提供了一种高效的通信机制，特别适用于需要高性能和低延迟的场景。
+GRPC 是一个高性能、开源和通用的 RPC 框架，由谷歌主导开发。它使用 Protocol Buffers 为接口定义语言，支持多种编程语言。Triton 通过支持 GRPC 协议，提供了一种高效的通信机制，特别适用于需要高性能和低延迟的场景。
 
 - **优点**：
 
@@ -119,7 +119,7 @@ GRPC 是一个高性能、开源和通用的 RPC 框架，由 Google 主导开�
 
   - 需要特定的客户端库支持。
 
-#### 共享内存 IPC 通信机制
+3. 共享内存 IPC 通信机制
 
 共享内存是一种进程间通信（IPC）方式，允许多个进程共享同一块内存区域。Triton 通过支持共享内存 IPC，可以显著提高数据传输效率，特别是在高负载和大数据量的场景中。
 
@@ -155,7 +155,7 @@ Triton 的模型仓库是一个用于存储和管理机器学习模型的地方�
 
 ![Triton 模型仓库](images/04System05.png)
 
-#### 本地模型仓库
+1. 本地模型仓库
 
 本地模型仓库指的是将模型文件存储在物理服务器或虚拟机的磁盘上。这种方式的优点是简单、直接，并且可以提供快速的模型访问速度。
 
@@ -171,9 +171,9 @@ Triton 的模型仓库是一个用于存储和管理机器学习模型的地方�
 
   - 如果物理硬件发生故障，可能会影响模型的可用性。
 
-#### 云模型仓库
+2. 云模型仓库
 
-云模型仓库指的是将模型文件存储在云服务提供商的存储服务上，如 Google Cloud Platform (GCP)的 Cloud Storage 或 Amazon Web Services (AWS) 的 S3。
+云模型仓库指的是将模型文件存储在云服务提供商的存储服务上，如谷歌 Cloud Platform (GCP)的 Cloud Storage 或 Amazon Web Services (AWS) 的 S3。
 
 - **优点**：
   - 云存储服务通常提供良好的扩展性，可以根据需要轻松调整存储容量。
@@ -197,7 +197,7 @@ Triton 模型预编排允许用户在模型部署之前，通过定义模型的�
 
 Pre-Model Scheduler Queues 是模型编排的核心工作区，负责解析请求的 URL，并根据解析结果从模型仓库中查询到编排信息，然后执行模型编排。
 
-#### Pre-Model Scheduler Queues 的工作流程
+**Pre-Model Scheduler Queues 的工作流程**
 
 - **请求解析**：当一个推理请求到达 Triton Server 时，首先通过调度器进行初步处理。调度器会解析请求的 URL，提取出请求所指定的模型及其版本信息，这是预编排流程的起点。
 
@@ -219,7 +219,7 @@ Triton 的一大亮点在于其高度灵活且强大的推理引擎支持体系�
 
 - **资源高效利用**：多后端架构使得 Triton 能够根据模型特性和硬件资源情况智能选择最合适的推理引擎。例如，对于某些模型，使用 TensorRT 可能比原生 TensorFlow 提供更好的性能；而对于复杂的 PyTorch 模型，直接利用 PyTorch Backend 可能更为合适。这种动态适配策略有助于最大化资源利用率。
 
-#### 启动时的模型加载与管理
+1. 启动时的模型加载与管理
 
 Triton 在其初始化序列中采用了一套精细且高效的模型管理机制，远超简单的模型加载范畴。这一过程深入到了模型生命周期管理的核心，确保了从模型仓库到生产环境的无缝过渡。
 
@@ -231,7 +231,7 @@ Triton 在其初始化序列中采用了一套精细且高效的模型管理机�
 
 为了加速首次推理请求的响应时间，Triton 会在模型加载后执行一系列预推理操作，即所谓的“热身”。这个过程会生成并缓存执行计划，包括计算图的优化布局、内存分配方案等，确保后续请求能够直接利用这些预计算结果，从而显著减少冷启动延迟。
 
-#### 动态服务与资源管理
+2. 动态服务与资源管理
 
 Triton 的动态服务能力进一步扩展了其灵活性和响应速度，使模型部署和调整成为持续优化的过程，而非一次性配置。
 
@@ -245,7 +245,7 @@ Triton 的返回与监控功能为用户提供了强大的支持，确保了模�
 
 ![Triton 返回与监控](images/04System08.png)
 
-#### Inference Response 机制
+1. Inference Response 机制
 
 Triton 推理响应（Inference Response）机制是连接模型推理结果与最终用户的关键环节，其设计旨在保障数据的高效、准确传递。这一过程不仅涉及结果数据的组织与封装，还融入了对性能优化和错误处理的考量。
 
@@ -255,7 +255,7 @@ Triton 推理响应（Inference Response）机制是连接模型推理结果与�
 
 考虑到延迟敏感的应用场景，Triton 在设计推理响应流程时，特别注重减少不必要的处理延迟。通过异步 IO、批处理技术和高效的序列化/反序列化算法，即使是高并发请求也能获得快速响应。此外，对于连续的推理任务，Triton 支持会话（Session）管理，进一步减少了客户端与服务端之间的握手和认证开销。
 
-#### Status/Health Metrics Export
+2. Status/Health Metrics Export
 
 Triton 提供了与 Prometheus 监控系统集成的能力，通过标准化的指标导出接口，使得模型服务的健康状态、性能指标和资源使用情况变得一目了然。这一特性对于维护大规模部署尤其重要。
 
@@ -265,7 +265,7 @@ Triton 导出的指标既包括了通用的系统级健康状态（如服务是�
 
 集成 Prometheus 后，运维人员可以设置阈值告警，一旦关键指标超出预设范围，立即触发通知或自动化的修复动作。例如，当 GPU 内存使用率达到高危水平时，系统可以自动调度任务，平衡负载，或甚至动态扩展资源，保障服务稳定性。
 
-### 基于 Triton 集成推理引擎
+### 集成推理引擎
 
 本小节将介绍如何基于 Triton 开发自己的 Backend 推理引擎。
 
@@ -279,7 +279,7 @@ Triton 推理服务器通过其精心设计的架构，将推理服务的复杂�
 
 接下来，我们分析 LoadBackendLibrary() 方法的实现：
 
-```
+```C++
 Status TritonBackend::LoadBackendLibrary()
 {
     RETURN_IF_ERROR(OpenLibraryHandle(libpath_, &dlhandle_));
@@ -345,7 +345,7 @@ Status TritonBackend::LoadBackendLibrary()
 
 因此，自定义的后端推理引擎必须实现上述 7 个 API。接下来，我们将详细讲解如何开发自定义的后端推理引擎。
 
-#### 自定义 Backend 推理引擎编码
+1. 自定义 Backend 推理引擎编码
 
 要开始开发自定义的 Triton 后端推理引擎，首先需要获取官方提供的后端代码模板库。这可以通过访问 Triton Inference Server GitHub 仓库（<https://github.com/triton-inference-server/backend>）来完成。下载后，需要清理 src/ 和 include/ 目录，删除其中的所有文件，但要保留 src/backend_common.cc 文件，因为它是必需的。
 
@@ -375,13 +375,13 @@ Status TritonBackend::LoadBackendLibrary()
 
 为了帮助开发者编写自己的后端，Triton 官方在仓库的 src/backends/backend/examples 目录下提供了多个后端示例代码。这些示例对于理解如何开发自定义后端非常有帮助。
 
-#### 编译和部署
+2. 编译和部署
 
-编译和部署自定义 Triton 后端时，官方提供的后端代码模板库中包含了一个结构精良的 CMake 文件，它为编译过程提供了便利。大多数情况下，开发者仅需要替换 add_library() 函数中的参数，将其指向自己编写的 C 或 C++ 源文件。如果项目结构较为复杂，或者需要对安装过程进行定制，那么需要自行对 CMake 文件进行相应的修改来满足特定的构建和部署需求。
+编译和部署自定义 Triton 后端时，官方提供的后端代码模板库中包含了一个结构精良的 CMake 文件，它为编译过程提供了便利。大多数情况下，开发者仅需要替换 add_library() 函数中的参数，将其指向自己编写的 C 或 C++ 源文件。如果课程结构较为复杂，或者需要对安装过程进行定制，那么需要自行对 CMake 文件进行相应的修改来满足特定的构建和部署需求。
 
 ## 模型生命周期管理
 
-模型版本管理是机器学习和深度学习项目中不可或缺的一部分。它允许开发者跟踪、比较和部署不同版本的模型。版本管理可能会产生于不同需求，比如随着数据的积累和算法的改进，模型需要不断迭代以提高性能；或是在模型开发过程中，需要记录不同实验的结果，以便比较和选择最佳模型；如果新部署的模型表现不佳，需要能够快速回滚到之前的稳定版本；而在团队中，往往需支持并行开发，即允许多个团队或个人同时在不同版本上进行开发，而不互相干扰。
+模型版本管理是机器学习和深度学习课程中不可或缺的一部分。它允许开发者跟踪、比较和部署不同版本的模型。版本管理可能会产生于不同需求，比如随着数据的积累和算法的改进，模型需要不断迭代以提高性能；或是在模型开发过程中，需要记录不同实验的结果，以便比较和选择最佳模型；如果新部署的模型表现不佳，需要能够快速回滚到之前的稳定版本；而在团队中，往往需支持并行开发，即允许多个团队或个人同时在不同版本上进行开发，而不互相干扰。
 
 ![模型生命周期管理工作流实例](images/04System10.png)
 
@@ -427,27 +427,17 @@ Status TritonBackend::LoadBackendLibrary()
 
   - **稳定性保障**：确保服务的稳定性和可靠性，保护用户免受缺陷影响。
 
+## 小结与思考
+
+- 推理系统架构是实现机器学习模型从训练到实际应用的关键桥梁，涉及推理、部署和服务化三个重要环节。
+
+- NVIDIA Triton Inference Server 是一个高性能、可扩展的开源推理框架，支持多种深度学习模型和框架，提供丰富的模型管理和优化功能。
+
+- 模型生命周期管理包括金丝雀策略和回滚策略，确保模型的持续迭代和稳定性，降低新版本部署风险，快速应对可能的问题。
+
 ## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1Gv4y1i7Tw&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
-## 参考文献
-
-1. Deep Learning Inference in Facebook Data Centers: Characterization, Performance Optimizations and Hardware Implications
-2. Clipper: A Low-Latency Online Prediction Serving System
-3. TFX: A TensorFlow-Based Production-Scale Machine Learning Platform
-4. TensorFlow-Serving: Flexible, High-Performance ML Serving
-5. Optimal Aggregation Policy for Reducing Tail Latency of Web Search
-6. A Survey of Model Compression and Acceleration for Deep Neural Networks
-7. CSE 599W: System for ML - Model Serving
-8. [Deep Learning Performance Training Inference](https://developer.nvidia.com/deep-learning-performance-training-inference)
-9. DEEP COMPRESSION: COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING
-10. Learning both Weights and Connections for Efficient Neural Networks
-11. DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT
-12. Halide: A Language and Compiler for Optimizing Parallelism, Locality, and Recomputation in Image Processing Pipelines
-13. TVM: An Automated End-to-End Optimizing Compiler for Deep Learning
-14. 8-bit Inference with TensorRT
-15. [Microsoft AI System](https://github.com/microsoft/AI-System)
-16. [模型推理服务化之 Triton：如何基于 Triton 开发自己的推理引擎？](https://zhuanlan.zhihu.com/p/354058294)

@@ -121,9 +121,9 @@ class PipelineParallelResNet50(ModelParallelResNet50):
 
 ###  使用 RPC 进行 Gpipe 流水线简单并行实现
 
-分布式 RPC 框架提供了一套机制，用于多机模型训练，通过一系列原语实现远程通信，并提供高级 API 以自动处理跨多机的模型差异化。这个框架简化了在分布式环境中运行函数、引用远程对象以及在 RPC 边界间进行反向传播和参数更新的过程。分布式 RPC 框架主要包含以下四类 API：
+我们也可以使用 RPC 框架，实现流水线并行。分布式 RPC 框架提供了一套机制，用于多机模型训练，通过一系列原语实现远程通信，并提供高级 API 以自动处理跨多机的模型差异化。这个框架简化了在分布式环境中运行函数、引用远程对象以及在 RPC 边界间进行反向传播和参数更新的过程。分布式 RPC 框架主要包含以下四类 API：
 
-1. 远程过程调用（RPC）：RPC 支持在指定目标节点上运行函数，并返回结果值或创建结果值的引用。主要有 **rpc_sync()** 同步调用、**rpc_async()** 异步调用和**remote()** 异步调用。
+1. 远程过程调用（RPC）：RPC 支持在指定目标节点上运行函数，并返回结果值或创建结果值的引用。主要有 **rpc_sync()** 同步调用、 **rpc_async()** 异步调用和 **remote()** 异步调用。
 
 2. 远程引用（RRef）：RRef 是一个指向本地或远程对象的分布式共享指针，可以与其他节点共享，并自动处理引用计数。每个 RRef 只有一个所有者，对象仅存在于所有者节点。
 
@@ -223,7 +223,7 @@ if __name__ == "__main__":
 
 ### 使用 Pipe 进行模型并行
 
-我们需要初始化 RPC（Remote Procedure Call）框架。这是因为 Pipe 依赖于 RPC 来管理不同设备之间的通信。在初始化 RPC 框架时，我们设置了主节点的地址和端口，并调用 `torch.distributed.rpc.init_rpc` 函数来启动 RPC。
+同样，我们可以使用 Pytorch 提供的 `torch.distributed.pipeline.sync` 的 `Pipe` 类来简单快捷的实现，Pipe 依赖于 RPC 来管理不同设备之间的通信。我们来看一个简单的示例：首先初始化 RPC（Remote Procedure Call）框架。初始化 RPC 框架时，我们设置了主节点的地址和端口，并调用 `torch.distributed.rpc.init_rpc` 函数来启动 RPC。
 
 ```python
 from torch.distributed.pipeline.sync import Pipe
@@ -263,7 +263,7 @@ output_rref = model(input)
 ![模型并行](images/03ModelParallel09.png)
 :width:`650px`
 
-对于多层感知机（MLP），我们对 A 采用列切割，对 B 采用行切割，在初始时使用函数 f 复制 X，结束时使用函数 g 通过 All-Reduce 汇总 Z，这样设计的原因是，尽量保证各设备上的计算相互独立，减少通讯量。对 A 来说，需要做一次 GELU 计算，而 GELU 函数是非线形的，$GeLU(X + Y) \not = GeLU(X) + GeLU(Y)$，对 A 采用列切割，那每块设备就可以继续独立计算了。对于自注意力（Self-Attention）对三个参数矩阵 Q K V，按照列切割。对线性层 B，按照行切割，切割的方式和 MLP 层基本一致。
+对于多层感知机（MLP），我们对 A 采用列切割，对 B 采用行切割，在初始时使用函数 f 复制 X，结束时使用函数 g 通过 All-Reduce 汇总 Z，这样设计的原因是，尽量保证各设备上的计算相互独立，减少通信量。对 A 来说，需要做一次 GELU 计算，而 GELU 函数是非线形的，$GeLU(X + Y) \not = GeLU(X) + GeLU(Y)$，对 A 采用列切割，那每块设备就可以继续独立计算了。对于自注意力（Self-Attention）对三个参数矩阵 Q K V，按照列切割。对线性层 B，按照行切割，切割的方式和 MLP 层基本一致。
 
 需要注意的是在使用 dropout 时两个设备独立计算，第一个 dropout 在初始化时需要用不同的随机种子，这样才等价于对完整的 dropout 做初始化，然后再切割。最后一个 dropout 需要用相同的随机种子，保证一致性。
 
@@ -296,7 +296,7 @@ Cross Entropy Loss 并行可以分为以下几步：
 
 ### 使用 DeviceMesh 进行张量并行简单实现
 
-PyTorch 的张量并行应用程序接口（PyTorch Tensor Parallel APIs）提供了一套模块级原语，用于为模型的各个层配置分片功能。它利用 PyTorch DTensor 进行分片张量封装，DeviceMesh 抽象进行设备管理和分片。它们分为：
+我们可以通过 PyTorch DeviceMesh 进行多维度并行的实现。PyTorch 的张量并行应用程序接口（PyTorch Tensor Parallel APIs）提供了一套模块级原语，用于为模型的各个层配置分片功能。它利用 PyTorch DTensor 进行分片张量封装，DeviceMesh 抽象进行设备管理和分片。它们分为：
 
 - ColwiseParallel 和 RowwiseParallel：以列或行方式对 Linear 和 Embedding 层进行分片。
 

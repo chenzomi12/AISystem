@@ -18,15 +18,15 @@ LLVM IR 提供了一种抽象层，使程序员可以更灵活地控制程序的
 
 目前常见的编译器都分为了三个部分，前端（Frontend），优化层（Optimizeation）以及后端（Backend），每一部分都承担了不同的功能：
 
-- 前端：负责将高级源语言代码转换为LLVM的中间表示（IR），为后续的编译阶段打下基础。
+- 前端：负责将高级源语言代码转换为 LLVM 的中间表示（IR），为后续的编译阶段打下基础。
 
-- 优化层：对生成的中间表示IR进行深入分析和优化，提升代码的性能和效率。
+- 优化层：对生成的中间表示 IR 进行深入分析和优化，提升代码的性能和效率。
 
-- 后端：将优化后的中间表示IR转换成目标机器的特定语言，确保代码能够在特定硬件上高效运行。
+- 后端：将优化后的中间表示 IR 转换成目标机器的特定语言，确保代码能够在特定硬件上高效运行。
 
 这种分层的方法不仅提高了编译过程的模块化，还使得编译器能够更灵活地适应不同的编程语言和目标平台。同理，LLVM 也是按照这一结构设计进行架构设计：
 
-![编译器](images/llvm_ir07.png)
+![编译器](images/05LLVMDetail01.png)
 
 在 LLVM 中不管是前端、优化层、还是后端都有大量的 IR，使得 LLVM 的模块化程度非常高，可以大量的复用一些相同的代码，非常方便的集成到不同的 IDE 和编译器当中。
 
@@ -38,7 +38,7 @@ LLVM IR 提供了一种抽象层，使程序员可以更灵活地控制程序的
 
 值得注意的是，LLVM 并非使用单一的 IR 进行表达，前端传给优化层时传递的是一种抽象语法树（Abstract Syntax Tree，AST）的 IR。因此 IR 是一种抽象表达，没有固定的形态。
 
-![编译器](images/llvm_ir01.png)
+![编译器](images/05LLVMDetail02.png)
 
 抽象语法树的作用在于牢牢抓住程序的脉络，从而方便编译过程的后续环节（如代码生成）对程序进行解读。AST 就是开发者为语言量身定制的一套模型，基本上语言中的每种结构都与一种 AST 对象相对应。
 
@@ -277,7 +277,7 @@ while.end:                                        ; preds = %while.cond
 }
 ```
 
-对比 if 语句可以发现，while 中几乎没有新的指令出现，所以说所谓的 while 循环，也就是“跳转+分支”这一结构。同理，for 循环 也可以由“跳转+分支”这一结构构成。
+对比 if 语句可以发现，while 中几乎没有新的指令出现，所以说所谓的 while 循环，也就是“跳转+分支”这一结构。同理，for 循环也可以由“跳转+分支”这一结构构成。
 
 3. 指针
 
@@ -323,9 +323,7 @@ entry:
 declare i32 @printf(i8*, ...)
 ```
 
-对指针的操作就是指针的指针，开辟一块指针类型的内存，里面放个指针`%pi = alloca i32*, align 8`
-
-此外，c 语言中常见的操作还有对数组和结构体的操作，内置函数和外部函数的引用等，更深一步的内容可以参考[简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
+对指针的操作就是指针的指针，开辟一块指针类型的内存，里面放个指针`%pi = alloca i32*, align 8
 
 ## 小结与思考
     
@@ -343,11 +341,3 @@ declare i32 @printf(i8*, ...)
 <iframe src="https://player.bilibili.com/player.html?aid=305431124&bvid=BV1PP411u7NR&cid=900781834&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
-## 引用
-
-1. https://zh.wikipedia.org/wiki/三位址碼
-2. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_quick_primer.html
-3. https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
-4. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_ssa.html
-5. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/design_hints.html
-6. [简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
