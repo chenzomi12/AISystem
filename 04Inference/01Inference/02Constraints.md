@@ -315,29 +315,3 @@ Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负
 <html>
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1nY4y1f7G5&as_wide=1&high_quality=2&danmaku=0&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. [Deep Learning Inference in Meta Data Centers: Characterization, Performance Optimizations and Hardware Implications](https://arxiv.org/abs/1811.09886)
-2. [Clipper: A Low-Latency Online Prediction Serving System](https://www.usenix.org/system/files/conference/nsdi17/nsdi17-crankshaw.pdf)
-3. [TFX: A TensorFlow-Based Production-Scale Machine Learning Platform](https://www.kdd.org/kdd2017/papers/view/tfx-a-TensorFlow-based-production-scale-machine-learning-platform)
-4. [TensorFlow-Serving: Flexible, High-Performance ML Serving](https://arxiv.org/abs/1712.06139)
-5. [Optimal Aggregation Policy for Reducing Tail Latency of Web Search](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/samehe-2015sigir.optimalaggregation.pdf)
-6. [A Survey of Model Compression and Acceleration for Deep Neural Networks](https://arxiv.org/pdf/1710.09282.pdf)
-7. [CSE 599W: System for ML - Model Serving](http://dlsys.cs.washington.edu/pdf/lecture12.pdf)
-8. [https://developer.nvidia.com/deep-learning-performance-training-inference](https://developer.nvidia.com/deep-learning-performance-training-inference)
-9. [DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING](https://arxiv.org/pdf/1510.00149.pdf)
-10. [Learning both Weights and Connections for Efficient Neural Networks](https://pdfs.semanticscholar.org/1ff9/a37d766e3a4f39757f5e1b235a42dacf18ff.pdf)
-11. [DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT](http://on-demand.GPUtechconf.com/gtcdc/2017/presentation/dc7172-shashank-prasanna-deep-learning-deployment-with-nvidia-tensorrt.pdf)
-12. [Halide: A Language and Compiler for Optimizing Parallelism,Locality, and Recomputation in Image Processing Pipelines](https://people.csail.mit.edu/jrk/halide-pldi13.pdf)
-13. [TVM: An Automated End-to-End Optimizing Compiler for Deep Learning](https://www.usenix.org/system/files/osdi18-chen.pdf)
-14. [8-bit Inference with TensorRT](http://on-demand.GPUtechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)
-15. [https://github.com/microsoft/AI-System](https://github.com/microsoft/AI-System)
-16. [【AI System】第 8 章：深度学习推理系统](https://zhuanlan.zhihu.com/p/665146747)
-17. [Tengine-Kit 人脸检测及关键点](https://blog.csdn.net/qq_21370465/article/details/109740949)
-18. [Crazy Rockets-教你如何集成华为 HMS ML Kit 人脸检测和手势识别打造爆款小游戏](https://segmentfault.com/a/1190000037710505)
-19. [记录自己神经网络模型训练的全流程](https://zhuanlan.zhihu.com/p/465623148)
-20. [推理系统和推理引擎的整体架构](https://blog.csdn.net/weixin_45651194/article/details/132872588)
-21. [Pytorch-Onnx-Tensorrt 模型转换教程案例](https://blog.csdn.net/weixin_44533869/article/details/125223704)
-22. [昇思 MindSpore 基本介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc2/beginner/introduction.html)
-23. [飞桨产品全景](https://www.paddlepaddle.org.cn/overview)

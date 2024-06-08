@@ -462,13 +462,3 @@ for (int oh = 0; oh < OH; oh++) {
 <html>
 <iframe src="https://www.bilibili.com/video/BV1No4y1e7KX/?spm_id_from=333.337.search-card.all.click&vd_source=096daa038c279ccda6e4f8c5eea82de7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-- [Lecun Y , Bottou L .Gradient-based learning applied to document recognition[J].Proceedings of the IEEE, 1998, 86(11):2278-2324.DOI:10.1109/5.726791.](https://ieeexplore.ieee.org/document/726791)
-- [Fukushima, Kunihiko and Sei Miyake. “Neocognitron: A Self-Organizing Neural Network Model for a Mechanism of Visual Pattern Recognition.” (1982).](https://www.semanticscholar.org/paper/Neocognitron%3A-A-Self-Organizing-Neural-Network-for-Fukushima-Miyake/9b2541b8d8ca872149b4dabd2ccdc0cacc46ebf5)
-- [ Bouvrie J .Notes on Convolutional Neural Networks[J].neural nets, 2006.](https://www.semanticscholar.org/paper/Notes-on-Convolutional-Neural-Networks-Bouvrie/2a4393aa1bc3cb7fe2deecc88720bfb84dabb263)
-- [Krizhevsky A , Sutskever I , Hinton G .ImageNet Classification with Deep Convolutional Neural Networks[J].Advances in neural information processing systems, 2012, 25(2).DOI:10.1145/3065386.](https://dl.acm.org/doi/10.1145/3065386)
-- Goodfellow, I., Bengio, Y., & Courville, A. Deep Learning. MIT Press, 2016.
-
-

@@ -250,18 +250,6 @@ PCLe 桥传输的速率，属于设备外的传输。
 
 本节主要是介绍深度学习网络结构中基本组件，同时对网络结构参数、硬件算力参数进行初步的介绍，了解相关概念后才能更好理解网络轻量化设计的原理。
 
-## 参考文献
-
-1.[Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. ImageNet Classification with Deep Convolutional Neural Networks. In NIPS, 2012](https://dl.acm.org/doi/10.1145/3065386)
-
-2.[Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. 2017. ImageNet classification with deep convolutional neural networks. Commun. ACM 60, 6 (June 2017), 84–90. https://doi.org/10.1145/3065386](https://dl.acm.org/doi/10.1145/3065386)
-
-3.[Silver, D., Huang, A., Maddison, C. et al. Mastering the game of Go with deep neural networks and tree search. Nature 529, 484–489 (2016). https://doi.org/10.1038/nature16961](https://www.nature.com/articles/nature16961)
-
-4.[Karen Simonyan and Andrew Zisserman. Very deep convolutional networks for large-scale image recognition. arXiv:1409.1556, 2014.](https://arxiv.org/abs/1409.1556)
-
-5.[Mohamed S Abdelfattah, David Han, Andrew Bitar, Roberto DiCecco, Shane O’Connell,Nitika Shanker, Joseph Chu, Ian Prins, Joshua Fender, Andrew C Ling, et al. Dla: Compiler and fpga overlay for neural network inference acceleration. In International Conference on Field Programmable Logic and Applications, pages 411–4117. IEEE, 2018.](https://arxiv.org/abs/1807.06434)
-
 ## 本节视频
 
 <html>

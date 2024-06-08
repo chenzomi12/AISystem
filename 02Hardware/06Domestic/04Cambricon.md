@@ -382,23 +382,6 @@ __mlu_global__ void MatmulKernel(float* dst/*C*/, int16_t* src0/*A*/, int8_t* sr
 
 至此，我们有关于寒武纪芯片的内容就介绍完毕了。本教程源自互联网已公开的资料，感谢寒武纪公司提供的技术文档，感谢读者的阅读。
 
-## 参考文献
-
-[1] Chen T , Du Z , Sun N ,et al.DianNao: a small-footprint high-throughput accelerator for ubiquitous machine-learning[C]//International Conference on Architectural Support for Programming Languages & Operating Systems.ACM, 2014.DOI:10.1145/2541940.2541967.
-
-[2] Chen Y , Luo T , Liu S ,et al.DaDianNao: A Machine-Learning Supercomputer[C]//2014 47th Annual IEEE/ACM International Symposium on Microarchitecture.0[2024-04-14].DOI:10.1109/MICRO.2014.58.
-
-[3] Du, Z., Fasthuber, R., Chen, T., Ienne, P., Li, L., Luo, T., Feng, X., Chen, Y., Temam, O., 2015. ShiDianNao: shifting vision processing closer to the sensor, in: Proceedings of the 42nd Annual International Symposium on Computer Architecture. Presented at the ISCA ’15: The 42nd Annual International Symposium on Computer Architecture, ACM, Portland Oregon, pp. 92–104. https://doi.org/10.1145/2749469
-
-[4] Liu, D., Chen, T., Liu, S., Zhou, J., Zhou, S., Teman, O., Feng, X., Zhou, X., Chen, Y., 2015. PuDianNao: A Polyvalent Machine Learning Accelerator, in: Proceedings of the Twentieth International Conference on Architectural Support for Programming Languages and Operating Systems. Presented at the ASPLOS ’15: Architectural Support for Programming Languages and Operating Systems, ACM, Istanbul Turkey, pp. 369–381. https://doi.org/10.1145/2694344
-
-[5] Liu S, Du Z, Tao J, et al. Cambricon: An Instruction Set Architecture for Neural Networks[C]// Acm/ieee International Symposium on Computer Architecture. 2016.
-
-[6] [寒武纪 CAMBRICON BANG C/C++ 编程指南](https://www.cambricon.com/docs/sdk_1.15.0/cntoolkit_3.7.2/programming_guide_1.7.0/hardware_implementation/index.html#)
-
-[7] 陈云霁，李玲，李威，郭崎，杜子东，2020. 《智能计算系统》, 机械工业出版社
-
-
 ## 本节视频
 
 <html>

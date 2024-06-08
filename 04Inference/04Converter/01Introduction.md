@@ -283,21 +283,3 @@ Converter 转换模块由前端转换部分 Frontends 和图优化部分 Graph O
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=693376207&bvid=BV1724y1z7ep&cid=981227754&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文章
-
-1. [AI 框架部署方案之模型转换](https://zhuanlan.zhihu.com/p/396781295)
-2. [AI 技术方案（个人总结）](https://zhuanlan.zhihu.com/p/658734035)
-3. [人工智能系统 System for AI   课程介绍 Lecture Introduction](https://microsoft.github.io/AI-System/SystemforAI-9-Compilation%20and%20Optimization.pdf)
-4. [【AI】推理引擎的模型转换模块](https://blog.csdn.net/weixin_45651194/article/details/132921090)
-5. [Pytorch 和 TensorFlow 在 padding 实现上的区别](https://zhuanlan.zhihu.com/p/535729752)
-6. [训练模型到推理模型的转换及优化](https://openmlsys.github.io/chapter_model_deployment/model_converter_and_optimizer.html)
-7. [使用 Grappler 优化 TensorFlow 计算图](https://www.TensorFlow.org/guide/graph_optimization?hl=zh-cn)
-8. [死代码消除](https://decaf-lang.gitbook.io/decaf-book/rust-kuang-jia-fen-jie-duan-zhi-dao/pa4-zhong-jian-dai-ma-you-hua/si-dai-ma-xiao-chu)
-9. [AI 编译器之前端优化-下（笔记）](https://zhuanlan.zhihu.com/p/599949051)
-10. [PyTorch 官方教程中文版](https://pytorch123.com/ThirdSection/SaveModel/)
-11. [MindSpore 教程](https://www.mindspore.cn/tutorial/zh-CN/r1.2/save_load_model.html)
-12. [TensorFlow Core](https://www.TensorFlow.org/tutorials/keras/save_and_load?hl=zh-cn)
-13. [保存和加载 Keras 模型](https://www.TensorFlow.org/guide/keras/save_and_serialize?hl=zh-cn)
-14. [探索 ONNX 模型：动态输入尺寸的实践与解决方案](https://cloud.baidu.com/article/3251524)
-15. [Pytorch 复习笔记--导出 Onnx 模型为动态输入和静态输入](https://blog.csdn.net/weixin_43863869/article/details/128638397)

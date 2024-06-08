@@ -503,7 +503,3 @@ NVSwitch 是 NVLink 交换机系统的关键使能器，它能够以 NVLink 速�
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=698236135&bvid=BV1mm4y1C7fg&cid=1115170922&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-英伟达 GPU 架构白皮书：[https://www.NVIDIA.cn/technologies/](https://www.NVIDIA.cn/technologies/)

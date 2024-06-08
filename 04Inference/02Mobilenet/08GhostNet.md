@@ -317,35 +317,3 @@ V2 的结构主要就是一些 Ghost bottleneckV2 组合而成，基本结构与
 ## 本节视频
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-## 参考文献
-
-1.[Han Cai, Ligeng Zhu, and Song Han. Proxylessnas: Direct neural architecture search on target task and hardware. In ICLR, 2019.](https://arxiv.org/abs/1812.00332)
-
-2.[Hanting Chen, Yunhe Wang, Chang Xu, Zhaohui Yang,Chuanjian Liu, Boxin Shi, Chunjing Xu, Chao Xu, and Qi Tian. Data-free learning of student networks. In ICCV, 2019.](https://arxiv.org/abs/1904.01186)
-
-3.[Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos,Kevin Murphy, and Alan L Yuille. Semantic image segmentation with deep convolutional nets and fully connected crfs. In ICLR, 2016.](https://arxiv.org/abs/1412.7062v4)
-
-4.[Xinyu Gong, Shiyu Chang, Yifan Jiang, and Zhangyang Wang. Autogan: Neural architecture search for generative adversarial networks. In ICCV, 2019.](https://arxiv.org/pdf/1908.03835v1)
-
-5.[Kai Han, Jianyuan Guo, Chao Zhang, and Mingjian Zhu.Attribute-aware attention model for fine-grained representation learning. In ACM MM, 2018.](https://arxiv.org/pdf/1901.00392)
-
-6.[Tsung-Yi Lin, Piotr Doll´ar, Ross Girshick, Kaiming He, Bharath Hariharan, and Serge Belongie. Feature pyramid networks for object detection. In CVPR, 2017.](https://arxiv.org/abs/1612.03144v1)
-
-7.[Zhuang Liu, Mingjie Sun, Tinghui Zhou, Gao Huang, and Trevor Darrell. Rethinking the value of network pruning. In ICLR, 2019.](https://arxiv.org/pdf/1810.05270)
-
-8.[Mingzhu Shen, Kai Han, Chunjing Xu, and Yunhe Wang. Searching for accurate binary neural architectures. In ICCV Workshops, 2019.](https://arxiv.org/abs/1909.07378)
-
-9.[Barret Zoph, Vijay Vasudevan, Jonathon Shlens, and Quoc V Le. Learning transferable architectures for scalable image recognition. In CVPR, pages 8697–8710, 2018.](https://arxiv.org/pdf/1707.07012)
-
-10.[Shan You, Chang Xu, Chao Xu, and Dacheng Tao. Learning from multiple teacher networks. In SIGKDD, 2017.](https://dl.acm.org/doi/abs/10.1145/3097983.3098135)
-
-11.[Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, et al. An image is worth 16x16 words: Transformers for image recognition at scale. arXiv preprint arXiv:2010.11929, 2020.](https://arxiv.org/abs/2010.11929v1)
-
-12.[Jie Hu, Li Shen, and Gang Sun. Squeeze-and-excitation networks. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages 7132–7141, 2018.](https://arxiv.org/pdf/1709.01507)
-
-13.[Ningning Ma, Xiangyu Zhang, Hai-Tao Zheng, and Jian Sun. Shufflenet v2: Practical guidelines for efficient cnn architecture design. In Proceedings of the European conference on computer vision (ECCV),pages 116–131, 2018.](https://arxiv.org/abs/1807.11164)
-
-14.[Sachin Mehta and Mohammad Rastegari. Mobilevit: light-weight, general-purpose, and mobile-friendly vision transformer. arXiv preprint arXiv:2110.02178, 2021.](https://arxiv.org/pdf/2110.02178.pdf )
-
-15.[Cheng Tai, Tong Xiao, Yi Zhang, Xiaogang Wang, et al. Convolutional neural networks with low-rank regularization. arXiv preprint arXiv:1511.06067, 2015.](https://arxiv.org/abs/1511.06067)

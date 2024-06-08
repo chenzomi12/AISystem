@@ -189,7 +189,3 @@ AI 编译器的优化策略更专注于提高性能和效率，而传统编译�
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=520719563&bvid=BV1pM41167KP&cid=911851506&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考资料
-1. https://learning.acm.org/techtalks/computerarchitecture
-2. https://segmentfault.com/a/1190000041739045

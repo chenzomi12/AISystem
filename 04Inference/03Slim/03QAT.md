@@ -117,18 +117,3 @@ $$
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=223192791&bvid=BV1s8411w7b9&cid=982178790&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考
-
-- Learning Accurate Low-Bit Deep Neural Networks with Stochastic Quantization
-- Differentiable Soft Quantization: Bridging Full-Precision and Low-Bit Neural Networks（ICCV 2019）
-- IR-Net: Forward and Backward Information Retention for Highly Accurate Binary Neural Networks（CVPR 2020）
-- Towards Unified INT8 Training for Convolutional Neural Network（CVPR 2020）
-- Rotation Consistent Margin Loss for Efficient Low-bit Face Recognition（CVPR 2020）
-- DMS: Differentiable diMension Search for Binary Neural Networks（ICLR 2020 Workshop）
-- Nagel, Markus, et al. "A white paper on neural network quantization." arXiv preprint arXiv:2106.08295 (2021).
-- Krishnamoorthi, Raghuraman. "Quantizing deep convolutional networks for efficient inference: A whitepaper." arXiv preprint arXiv:1806.08342 (2018)
-- 全网最全-网络模型低比特量化 https://zhuanlan.zhihu.com/p/453992336
-- [Practical Quantization in PyTorch](https://pytorch.org/blog/quantization-in-practice/)
-- Jacob, Benoit, et al. "Quantization and training of neural networks for efficient integer-arithmetic-only inference." Proceedings of the IEEE conference on computer vision and pattern recognition. 2018.
-- Wu, Hao, et al. "Integer quantization for deep learning inference: Principles and empirical evaluation." arXiv preprint arXiv:2004.09602 (2020).

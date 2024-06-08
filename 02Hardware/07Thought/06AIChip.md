@@ -117,9 +117,3 @@ GPU 中存储单元主要有 HBM 和 SRAM，HBM 容量大但是访问速度慢�
 <html>
 <iframe src="////player.bilibili.com/player.html?aid=237147839&bvid=BV1te411y7UC&cid=1367020095&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-[1] "David Patterson: A Decade of Machine Learning Accelerators:Lessons Learned and Carbon Footprint" YouTube, [https://www.youtube.com/watch?v=PLK3pGELbSs]
-
-[2] "TPU 演进十年：谷歌的十大经验教训" 知乎, [https://zhuanlan.zhihu.com/p/573794328]

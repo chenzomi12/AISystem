@@ -195,10 +195,6 @@ GPU 优化技术：
 
 ![Im2Col_15](images/02.Im2Col15.png "Im2Col_15") 
 
-## 参考资料
-
-- [卷积神经网络优化算法](https://zhenhuaw.me/blog/2019/convolution-neural-networks-optimization.html)
-
 ## 本节视频
 
 <html>

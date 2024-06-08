@@ -193,11 +193,3 @@ TPU v3 相较于其前身 TPU v2 有了显著的提升。这一代 TPU 在晶体
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=956806991&bvid=BV1Dp4y1V7PF&cid=1221252549&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. [In-Datacenter Performance Analysis of a Tensor Processing Unit](https://arxiv.org/abs/1704.04760)
-2. [An in-depth look at 谷歌’s first Tensor Processing Unit (TPU)](https://cloud.谷歌.com/blog/products/ai-machine-learning/an-in-depth-look-at-谷歌 s-first-tensor-processing-unit-tpu)
-3. [谷歌 Tensor G3: The new chip that gives your Pixel an AI upgrade](https://blog.谷歌/products/pixel/谷歌-tensor-g3-pixel-8/)
-4. [Wikipedia-Tensor Processing Unit](https://en.wikipedia.org/wiki/Tensor_Processing_Unit#cite_note-TPU_memory-15)
-5. [A Domain-Specific Supercomputer for Training Deep Neural Networks](https://cacm.acm.org/research/a-domain-specific-supercomputer-for-training-deep-neural-networks/)

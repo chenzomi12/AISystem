@@ -97,13 +97,3 @@ CUDA 作为软件生态的标杆，从软件库的覆盖面、 AI 框架和算�
 <html>
 <iframe src="//player.bilibili.com/player.html?aid=282100205&bvid=BV16c41117vp&cid=1361312451&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-[1] 未名超算队. "北大未名超算队高性能计算入门讲座（一）:概论." Bilibili, [https://www.bilibili.com/video/BV1814y1g7YC/]
-
-[2] 专用架构与 AI 软件栈（1）. Zhihu, [https://zhuanlan.zhihu.com/p/387269513]
-
-[3] "AMD’s CDNA 3 Compute Architecture." Chips and Cheese, [https://chipsandcheese.com/2023/12/17/amds-cdna-3-compute-architecture/]
-
-[4] CUDA 生态才是英伟达 AI 霸主护城河-深度分析 2024. WeChat, [https://mp.weixin.qq.com/s/VGej8Jjags5v0JsHIuf_tQ]

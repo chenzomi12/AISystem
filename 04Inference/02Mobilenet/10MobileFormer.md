@@ -2,7 +2,7 @@
 
 # MobileFormer
 
-在本章节中，将介绍一种新的网络-MobileFormer，它实现了 Transformer 全局特征与 CNN 局部特征的融合，在较低的成本内，创造一个高效的网络。通过本章节，让大家去了解如何将 CNN 与 Transformer 更好的结合起来，同时实现模型的轻量化。
+在本节中，将介绍一种新的网络-MobileFormer，它实现了 Transformer 全局特征与 CNN 局部特征的融合，在较低的成本内，创造一个高效的网络。通过本节，让大家去了解如何将 CNN 与 Transformer 更好的结合起来，同时实现模型的轻量化。
 
 ## MobileFormer
 
@@ -225,35 +225,3 @@ class MobileFormerBlock(nn.Module):
 <html>
 <iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1.[Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko. End-to end object detection with transformers. In ECCV, 2020. 2,4, 5, 7, 8](https://arxiv.longhoe.net/abs/2005.12872)
-
-2.[Yinpeng Chen, Xiyang Dai, Mengchen Liu, Dongdong Chen, Lu Yuan, and Zicheng Liu. Dynamic relu. In ECCV,2020. 2, 3, 4, 6](https://arxiv.longhoe.net/abs/2003.10027)
-
-3.[Ekin D. Cubuk, Barret Zoph, Dandelion Mane, Vijay Va sudevan, and Quoc V. Le. Autoaugment: Learning augmen tation strategies from data. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition(CVPR), June 2019. 5](https://openaccess.thecvf.com/content_CVPR_2019/html/Cubuk_AutoAugment_Learning_Augmentation_Strategies_From_Data_CVPR_2019_paper.html)
-
-4.[St´ephane d’Ascoli, Hugo Touvron, Matthew Leavitt, Ari Morcos, Giulio Biroli, and Levent Sagun. Convit: Improving vision transformers with soft convolutional inductive biases.arXiv preprint arXiv:2103.10697, 2021. 2, 3, 5, 6](https://arxiv.longhoe.net/abs/2103.10697)
-
-5.[Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li,and Li Fei-Fei. Imagenet: A large-scale hierarchical image database. In 2009 IEEE conference on computer vision and pattern recognition, pages 248–255. Ieee, 2009. 5, 6, 12](https://store.computer.org/csdl/proceedings-article/cvpr/2009/05206848/12OmNxWcH55)
-
-6.[Xiaoyi Dong, Jianmin Bao, Dongdong Chen, Weiming Zhang, Nenghai Yu, Lu Yuan, Dong Chen, and Baining Guo. Cswin transformer: A general vision transformer backbone with cross-shaped windows. arXiv preprint arXiv:2107.00652, 2021. 2](https://arxiv.longhoe.net/abs/2107.00652)
-
-7.[Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov,Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner,Mostafa Dehghani, Matthias Minderer, Georg Heigold, Syl vain Gelly, Jakob Uszkoreit, and Neil Houlsby. An image is worth 16x16 words: Transformers for image recognition at scale. In International Conference on Learning Representations, 2021. 1, 2, 3](https://arxiv.longhoe.net/abs/2010.11929)
-
-8.[Benjamin Graham, Alaaeldin El-Nouby, Hugo Touvron,Pierre Stock, Armand Joulin, Herv´ e J´ egou, and Matthijs Douze. Levit: a vision transformer in convnet’s clothing for faster inference. arXiv preprint arXiv:22104.01136, 2021. 1,2, 3, 6](https://arxiv.longhoe.net/abs/2104.01136)
-
-9.[Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and patter recognition, pages 770–778, 2016. 3, 7, 8](https://arxiv.longhoe.net/abs/1512.03385)
-
-10.[Geoffrey E. Hinton. How to represent part-whole hierarchies in a neural network. CoRR, abs/2102.12627, 2021. 2](https://ui.adsabs.harvard.edu/abs/2021arXiv210212627H/abstract)
-
-11.[Andrew Howard, Mark Sandler, Grace Chu, Liang-Chieh Chen, Bo Chen, Mingxing Tan, Weijun Wang, Yukun Zhu,Ruoming Pang, Vijay Vasudevan, Quoc V. Le, and Hartwig Adam. Searching for mobilenetv3. In Proceedings of the IEEE/CVF International Conference on Computer Vision(ICCV), October 2019. 1, 2, 4, 5, 6, 7, 8, 11, 12](https://arxiv.longhoe.net/abs/1905.02244)
-
-12.[Andrew G Howard, Menglong Zhu, Bo Chen, Dmitry Kalenichenko, Weijun Wang, Tobias Weyand, Marco An dreetto, and Hartwig Adam. Mobilenets: Efficient convolutional neural networks for mobile vision applications. arXiv preprint arXiv:1704.04861, 2017. 1, 2](https://arxiv.longhoe.net/abs/1704.04861)
-
-13.[Jie Hu, Li Shen, and Gang Sun. Squeeze-and-excitation networks. In The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), June 2018. 2](https://arxiv.longhoe.net/abs/1709.01507)
-
-14.[Haiping Wu, Bin Xiao, Noel Codella, Mengchen Liu,Xiyang Dai, Lu Yuan, and Lei Zhang. Cvt: Introducing convolutions to vision transformers, 2021. 1, 2, 3](https://arxiv.longhoe.net/abs/2103.15808)
-
-15.[DaquanZhou, Qi-BinHou, Y.Chen, Jiashi Feng, and S. Yan.Rethinking bottleneck structure for efficient mobile network design. In ECCV, August 2020. 2](https://arxiv.longhoe.net/abs/2007.02269)

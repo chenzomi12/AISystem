@@ -137,12 +137,3 @@ $$\mathcal{L}_{hard} = -\sum_j c_j log(q_j)$$
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=308275683&bvid=BV1vA411d7MF&cid=980464383&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. Jianping Gou et al. Knowledge Distillation: A Survey. https://doi.org/10.1007/s11263-021-01453-z
-2. Hinton et al. Distilling the Knowledge in a Neural Network. http://arxiv.org/abs/1503.02531
-3. Longhui Wei et al. Circumventing outlier of autoaugment with knowledge distillation.  https://doi.org/10.1007/978-3-030-58580-8_36
-4. Caruana et al. Model compression. https://doi.org/10.1145/1150402.1150464
-5. 模型压缩（上）--知识蒸馏（Distilling Knowledge）https://www.jianshu.com/p/a6d87b338bcf
-6. DeiT：注意力也能蒸馏 https://www.cnblogs.com/ZOMI/p/16496326.html

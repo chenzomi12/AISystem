@@ -280,9 +280,3 @@ for i in range(N):
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=776857139&bvid=BV1r14y1w7hG&cid=937441251&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-[^1]:刘松，卫国，博，.面向局部性和并行优化的循环分块技术[J].计算机研究与发展, 2015, 52(005):1160-1176.DOI:10.7544/issn1000-1239.2015.20131387.
-[^2]: 张鹏. 基于 GCC 编译器的循环展开关键技术研究[D]. 湖南:国防科学技术大学,2015.
-

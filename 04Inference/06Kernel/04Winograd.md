@@ -292,20 +292,3 @@ winograd 算法虽然通过减少乘法次数来提高计算速度，但加法�
 <html>
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1vv4y1Y7sc&as_wide=1&high_quality=2&danmaku=0&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. [Winograd, Shmuel. Arithmetic complexity of computations. Vol. 33. Siam, 1980.](https://epubs.siam.org/doi/book/10.1137/1.9781611970364)
-2. [Lavin, Andrew, and Scott Gray. "Fast algorithms for convolutional neural networks." Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.](https://arxiv.org/abs/1509.09308)
-3. [A simple python module for computing minimal Winograd convolution algorithms for use with convolutional neural networks](https://github.com/andravin/wincnn)
-4. [video: Fast Algorithms for Convolutional Neural Networks by Andrew Lavin and Scott Gray](https://www.bilibili.com/video/av50718398)
-5. [video: Even Faster CNNs Exploring the New Class of Winograd Algorithms](https://www.bilibili.com/video/av53072685)
-6. [Understanding ‘Winograd Fast Convolution’](https://medium.com/@dmangla3/understanding-winograd-fast-convolution-a75458744ff)
-7. [详解卷积中的 Winograd 加速算法](https://zhuanlan.zhihu.com/p/260109670)
-8. [一文看懂 winograd 卷积加速算法](https://juejin.cn/post/7061244517789368333)
-9. [详解 Winograd 变换矩阵生成原理](https://zhuanlan.zhihu.com/p/102351953)
-10. [AI 算法基础 [4]：Winograd 算法原理](https://no5-aaron-wu.github.io/2021/11/16/AI-Algorithm-4-Winograd/)
-11. [[DL]Winograd 快速卷积算法](https://martin20150405.github.io/2019/11/13/dl-winograd-kuai-su-juan-ji-suan-fa/)
-12. [MegEngine Inference 卷积优化之 Im2col 和 winograd 优化](https://www.cnblogs.com/megengine/p/16405753.html)
-13. [Winograd 卷积的纯 Python 实现](https://ajz34.readthedocs.io/zh-cn/latest/ML_Notes/winograd6x3/cnn_winograd.html)
-14. [Winograd 优化算法](https://zhenhuaw.me/blog/2019/convolution-neural-networks-optimization.html#winograd-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95c)

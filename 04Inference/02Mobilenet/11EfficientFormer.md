@@ -792,25 +792,3 @@ EfficientFormerV1 证明了视觉的 Transformer 可以在移动设备上以 Mob
 <html>
 <iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1.[Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. arXiv preprint arXiv:1711.05101, 2017. 6, 8](https://arxiv.org/abs/1711.05101v3)
-
-2.[Hugo Touvron, Matthieu Cord, and Herve J ´ egou. Deit iii: ´Revenge of the vit. arXiv preprint arXiv:2204.07118, 2022.13](https://arxiv.org/abs/2204.07118)
-
-3.[Zizheng Pan, Jianfei Cai, and Bohan Zhuang. Fast vision transformers with hilo attention. arXiv preprint arXiv:2205.13213, 2022. 1](https://arxiv.org/abs/2205.13213)
-
-4.[Noam Shazeer, Zhenzhong Lan, Youlong Cheng, Nan Ding, and Le Hou. Talking-heads attention. arXiv preprint arXiv:2003.02436, 2020. 4](https://arxiv.org/abs/2003.02436v1)
-
-5.[Chenyang Si, Weihao Yu, Pan Zhou, Yichen Zhou, Xinchao Wang, and Shuicheng Yan. Inception transformer. arXiv preprint arXiv:2205.12956, 2022. 1, 2, 4](https://arxiv.org/abs/2205.12956)
-
-6.[Wenqiang Zhang, Zilong Huang, Guozhong Luo, Tao Chen,Xinggang Wang, Wenyu Liu, Gang Yu, and Chunhua Shen.Topformer: Token pyramid transformer for mobile semantic segmentation, 2022. 2](https://arxiv.org/pdf/2204.05525)
-
-7.[Zizhao Zhang, Han Zhang, Long Zhao, Ting Chen, Sercan Arik, and Tomas Pfister. Nested hierarchical transformer:Towards accurate, data-efficient and interpretable visual understanding. 2022. 2](https://arxiv.org/abs/2105.12723)
-
-8.[Weihao Yu, Mi Luo, Pan Zhou, Chenyang Si, Yichen Zhou, Xinchao Wang, Jiashi Feng,and Shuicheng Yan. Metaformer is actually what you need for vision. arXiv preprint arXiv:2111.11418, 2021](https://arxiv.org/abs/2111.11418)
-
-9.[Sebastian Jaszczur, Aakanksha Chowdhery, Afroz Mohiuddin, Lukasz Kaiser, Wojciech Gajewski, Henryk Michalewski, and Jonni Kanerva. Sparse is enough in scaling transformers. Advances in Neural Information Processing Systems, 34:9895–9907, 2021.](https://arxiv.org/pdf/2111.12763)
-
-10.[Sachin Mehta and Mohammad Rastegari. Mobilevit: Light-weight, general-purpose, and mobile-friendly vision transformer. arXiv preprint arXiv:2110.02178, 2021.](https://arxiv.org/abs/2110.02178)

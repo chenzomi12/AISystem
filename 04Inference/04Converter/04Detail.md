@@ -214,15 +214,3 @@ else:
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=436059900&bvid=BV13341197zU&cid=985638392&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文章
-
-1. [【AI】推理引擎的模型转换模块](https://blog.csdn.net/weixin_45651194/article/details/132921090)
-2. [深度学习模型转换](https://blog.csdn.net/jasonaidm/article/details/90522615)
-3. [deep-learning-model-convertor](https://github.com/ysh329/deep-learning-model-convertor)
-4. [hb_mapper_tools_guide](https://developer.horizon.ai/api/v1/fileData/doc/ddk_doc/navigation/ai_toolchain/docs_cn/hb_mapper_tools_guide/01_model_conversion_details.html)
-5. [模型转换：由 Pytorch 到 TFlite](https://zhuanlan.zhihu.com/p/363317178)
-6. [AI 框架部署方案之模型转换](https://zhuanlan.zhihu.com/p/396781295)
-7. [Open Neural Network Exchange Intermediate Representation (ONNX IR) Specification](https://github.com/onnx/onnx/blob/main/docs/IR.md)
-8. [模型部署入门教程（一）：模型部署简介](https://zhuanlan.zhihu.com/p/477743341)
-9. [模型部署入门教程（三）：PyTorch 转 ONNX 详解](https://zhuanlan.zhihu.com/p/498425043)

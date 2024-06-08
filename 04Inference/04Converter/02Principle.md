@@ -245,8 +245,6 @@ message Net{ // message 属于 Net 域；
   }
 ```
 
-池化层、全连接层等内容可以参考[Training LeNet on MNIST with Caffe](https://github.com/BVLC/caffe/blob/master/examples/mnist/readme.md)。
-
 #### TensorFlow 编码和解码
 
 ```
@@ -352,18 +350,3 @@ MindSpore Lite 提供了一套注册机制，允许用户基于转换工具进�
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=905905415&bvid=BV13P4y167sr&cid=983223956&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文章
-
-1. [PyTorch 学习—19.模型的加载与保存（序列化与反序列化）](https://blog.csdn.net/weixin_46649052/article/details/119763872)
-2. [开源 AI 模型序列化总结](https://github.com/aipredict/ai-models-serialization)
-3. [ONNX 学习笔记](https://zhuanlan.zhihu.com/p/346511883)
-4. [深入 CoreML 模型定义](https://blog.csdn.net/volvet/article/details/85013830)
-5. [Swift loves TensorFlow and CoreML](https://medium.com/@JMangiaswift-loves-TensorFlow-and-coreml-2a11da25d44)
-6. [什么是 Protobuf？](https://blog.postman.com/what-is-protobuf/)
-7. [Protobuf 语法指南](https://colobu.com/2015/01/07/Protobuf-language-guide/)
-8. [深入浅出 FlatBuffers 之 Schema](https://halfrost.com/flatbuffers_schema/)
-9. [FlatBuffers，MNN 模型存储结构基础 ---- 无法解读 MNN 模型文件的秘密](https://www.jianshu.com/p/8eb153c12a4b)
-10. [华为昇思 MindSpore 详细教程（一）](https://blog.csdn.net/m0_37605642/article/details/125691987)
-11. [如何将在 GPU 上训练的模型加载到 CPU（系统）内存中？](https://www.volcengine.com/theme/9557712-R-7-1)
-12. [11 模型的保存加载¶](http://121.199.45.168:13007/01-PyTorch%E4%BD%BF%E7%94%A8/11-%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BF%9D%E5%AD%98%E5%8A%A0%E8%BD%BD.html)

@@ -415,35 +415,3 @@ EfficientNet 系列的研究方式应该是以后发展的一个重要方向，�
 ## 本节视频
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-## 参考文献
-
-1.[Huang, G., Liu, Z., Van Der Maaten, L., and Weinberger,K. Q. Densely connected convolutional networks. CVPR,2017.](https://arxiv.org/abs/1608.06993v2)
-
-2.[Kornblith, S., Shlens, J., and Le, Q. V. Do better imagenet models transfer better? CVPR, 2019.](https://arxiv.org/pdf/1805.08974)
-
-3.[Krizhevsky, A. and Hinton, G. Learning multiple layers of features from tiny images. Technical Report, 2009.](https://core.ac.uk/display/21817232)
-
-4.[Lin, H. and Jegelka, S. Resnet with one-neuron hidden layers is a universal approximator. NeurIPS, pp. 6172 6181, 2018.](https://arxiv.org/pdf/1806.10909)
-
-5.[Ma, N., Zhang, X., Zheng, H.-T., and Sun, J. Shufflenet v2:Practical guidelines for efficient cnn architecture design.ECCV, 2018.](https://arxiv.longhoe.net/abs/1807.11164)
-
-6.[Zoph, B., Vasudevan, V., Shlens, J., and Le, Q. V. Learning transferable architectures for scalable image recognition.CVPR, 2018.](https://store.computer.org/csdl/proceedings-article/cvpr/2018/642000i697/17D45Xtvpcc)
-
-7.[Zagoruyko, S. and Komodakis, N. Wide residual networks.BMVC, 2016.](https://arxiv.longhoe.net/abs/1605.07146)
-
-8.[Zhou, B., Khosla, A., Lapedriza, A., Oliva, A., and Torralba,A. Learning deep features for discriminative localization.CVPR, pp. 2921–2929, 2016.](https://arxiv.longhoe.net/abs/1512.04150)
-
-9.[Karras, T., Aila, T., Laine, S., and Lehtinen, J. Progressive growing of gans for improved quality, stability, and variation. ICLR, 2018.](https://arxiv.longhoe.net/abs/1710.10196)
-
-10.[Krizhevsky, A. and Hinton, G. Learning multiple layers of features from tiny images. Technical Report, 2009.](https://www.cs.utoronto.ca/~kriz/learning-features-2009-TR.pdf)
-
-11.[Xie, Q., Luong, M.-T., Hovy, E., and Le, Q. V. Self  training with noisy student improves imagenet classification. CVPR, 2020.](https://arxiv.longhoe.net/abs/1911.04252)
-
-12.[Zhang, H., Cisse, M., Dauphin, Y. N., and Lopez-Paz, D.Mixup: Beyond empirical risk minimization. ICLR, 2018.](https://arxiv.longhoe.net/abs/1710.09412)
-
-13.[ Ridnik, T., Lawen, H., Noy, A., Baruch, E. B., Sharir,G., and Friedman, I. Tresnet: High performance gpu dedicated architecture. arXiv preprint arXiv:2003.13630,2020.](https://arxiv.longhoe.net/abs/2003.13630)
-
-14.[Sandler, M., Howard, A., Zhu, M., Zhmoginov, A., and Chen, L.-C. Mobilenetv2: Inverted residuals and linear bottlenecks. CVPR, 2018.](https://arxiv.longhoe.net/abs/1801.04381)
-
-15.[Lu, Z., Pu, H., Wang, F., Hu, Z., and Wang, L. The expressive power of neural networks:   A view from the width.NeurIPS, 2018. Lu, Z., Pu, H., Wang, F., Hu, Z., and Wang, L.The expressive power of neural networks: A view from the width.NeurIPS, 2018.](https://arxiv.longhoe.net/abs/1709.02540)

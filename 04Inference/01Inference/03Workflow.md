@@ -176,23 +176,3 @@
 <html>
 <iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. Deep Learning Inference in Meta Data Centers: Characterization, Performance Optimizations and Hardware Implications
-2. Clipper: A Low-Latency Online Prediction Serving System
-3. TFX: A TensorFlow-Based Production-Scale Machine Learning Platform
-4. TensorFlow-Serving: Flexible, High-Performance ML Serving
-5. Optimal Aggregation Policy for Reducing Tail Latency of Web Search
-6. A Survey of Model Compression and Acceleration for Deep Neural Networks
-7. CSE 599W: System for ML - Model Serving
-8. https://developer.NVIDIA.com/deep-learning-performance-training-inference 
-9. DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING
-10. Learning both Weights and Connections for Efficient Neural Networks
-11. DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT
-12. Halide: A Language and Compiler for Optimizing Parallelism,Locality, and Recomputation in Image Processing Pipelines
-13. TVM: An Automated End-to-End Optimizing Compiler for Deep Learning
-14. 8-bit Inference with TensorRT
-15. https://github.com/microsoft/AI-System
-17. J. Mao, X. Chen, K. W. Nixon, C. Krieger, and Y. Chen, “MoDNN: Local distributed mobilecomputing system for deep neural network,” in Proc. Design, Autom. Test Eur. Conf. Exhibit.(DATE), Mar. 2017, pp. 1396–1401.
-18. Z. Zhao, K. M. Barijough, and A. Gerstlauer, “Deepthings: Distributed adaptive deep learning inference on resource-constrained iot edge clusters,” IEEE Trans. Comput.-Aided Design Integr. Circuits Syst., vol. 37, no. 11, pp. 2348–2359, Nov. 2018.
