@@ -1,4 +1,6 @@
-# 卷积操作原理
+<!--Copyright ©  适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# 卷积操作原理(DONE)
 
 卷积是神经网络里面的核心计算之一，它是一种特殊的线性运算。而卷积神经网络（CNN）是针对图像领域任务提出的神经网络，其受猫的视觉系统启发，堆叠使用卷积层和池化层提取特征。它在 CV 领域方面的突破性进展引领了深度学习的热潮。
 
@@ -454,11 +456,16 @@ for (int oh = 0; oh < OH; oh++) {
 
 ## 小结与思考
 
-本篇介绍了卷积计算的数学原理及其在 CNN 的应用过程。可以观察到，当卷积核在图像上滑动的时候，可训练参数量较少，但产生的连接计算量庞大，且部分参数在不同连接中进行了重复计算，造成了算力资源的浪费。为解决此问题，诸多研究者了各种各样的卷积优化算法，该部分将于后续文章进行详细介绍。
+- 卷积操作是深度学习中用于提取特征的关键数学运算，涉及两个函数的元素乘积与累加。
 
+- 卷积在不同领域具有不同的物理意义，如信号处理中的系统响应和图像处理中的特征提取。
+
+- 优化卷积计算对于提高深度学习模型效率至关重要，包括算法、内存访问、汇编和调度优化。
+
+- 张量运算和内存布局（如NHWC与NCHW）对卷积性能有显著影响，是实现高效卷积计算的关键策略。
 
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1No4y1e7KX/?spm_id_from=333.337.search-card.all.click&vd_source=096daa038c279ccda6e4f8c5eea82de7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=395040992&bvid=BV1No4y1e7KX&cid=1027996262&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
