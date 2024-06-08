@@ -2,7 +2,7 @@
 
 #  EfficientNet 系列
 
-本章节主要介绍 EffiicientNet 系列，在之前的文章中，一般都是单独增加图像分辨率或增加网络深度或单独增加网络的宽度，来提高网络的准确率。而在 EfficientNet 系列论文中，会介绍使用网络搜索技术(NAS)去同时探索网络的宽度(width)，深度(depth)，分辨率(resolution)对模型准确率的影响。以及如何加速训练推理速度。
+本节主要介绍 EffiicientNet 系列，在之前的文章中，一般都是单独增加图像分辨率或增加网络深度或单独增加网络的宽度，来提高网络的准确率。而在 EfficientNet 系列论文中，会介绍使用网络搜索技术(NAS)去同时探索网络的宽度(width)，深度(depth)，分辨率(resolution)对模型准确率的影响。以及如何加速训练推理速度。
 
 ## EfficientNet V1
 
