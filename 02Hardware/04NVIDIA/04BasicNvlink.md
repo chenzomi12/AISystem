@@ -90,7 +90,7 @@
 
 2. **PCIe（Peripheral Component Interconnect Express）**：PCIe 总线是连接计算设备的一种标准接口，通常用于连接 GPU、加速器卡或其他外部设备。通过 PCIe 总线，数据可以在不同的计算设备之间传输，以实现分布式计算。
 
-3. **NVLink**：NVLink 是一种由 NVIDIA 开发的高速互连技术，可实现 GPU 之间的直接通信。NVLink 可以提供比 PCIe 更高的带宽和更低的延迟，适用于要求更高通信性能的任务。
+3. **NVLink**：NVLink 是一种由英伟达开发的高速互连技术，可实现 GPU 之间的直接通信。NVLink 可以提供比 PCIe 更高的带宽和更低的延迟，适用于要求更高通信性能的任务。
 
 在机器间通信方面，常见的硬件包括：
 
@@ -98,7 +98,7 @@
 
 2. **RDMA（Remote Direct Memory Access）网络**：RDMA 是一种高性能网络通信技术，它允许在不涉及 CPU 的情况下直接从一个内存区域传输数据到另一个内存区域。RDMA 网络通常用于构建高性能计算集群，提供低延迟和高吞吐量的数据传输。
 
-在了解硬件之后，实现通信不可或缺的是提供集合通信功能的库。其中，最常用的集合通信库之一是 MPI（Message Passing Interface），在 CPU 上被广泛应用。而在 NVIDIA GPU 上，最常用的集合通信库则是 NCCL（NVIDIA Collective Communications Library）。
+在了解硬件之后，实现通信不可或缺的是提供集合通信功能的库。其中，最常用的集合通信库之一是 MPI（Message Passing Interface），在 CPU 上被广泛应用。而在英伟达 GPU 上，最常用的集合通信库则是 NCCL（NVIDIA Collective Communications Library）。
 
 ![NVLink&NVSwitch](images/04BasicNvlink03.png)
 
@@ -138,7 +138,7 @@ NVLink 和 NVSwitch 是英伟达推出的两项革命性技术，它们正在重
 
 ![NVLink 发展](images/04BasicNvlink05.png)
 
-如上图所示，从 Pascal 架构到 Hoppe 架构，NVLink 已经经过了四代的发展演进。在 2024 年的 GTC 大会上，NVIDIA 发布了 Blackwell 架构，其中 NVLink 再次更新，发布了第五代 NVLink，其中互联带宽达到了 1800GB/s。每一层 NVLink 的更新，其每个 GPU 的互联带宽都是在不断的提升，其中 NVLink 之间能够互联的 GPU 数，也从第一代的 4 路到第四代的 18 路。最新的 Blackwell 架构其最大互联 GPU 数，仍是 18 路并未增加。
+如上图所示，从 Pascal 架构到 Hoppe 架构，NVLink 已经经过了四代的发展演进。在 2024 年的 GTC 大会上，英伟达发布了 Blackwell 架构，其中 NVLink 再次更新，发布了第五代 NVLink，其中互联带宽达到了 1800GB/s。每一层 NVLink 的更新，其每个 GPU 的互联带宽都是在不断的提升，其中 NVLink 之间能够互联的 GPU 数，也从第一代的 4 路到第四代的 18 路。最新的 Blackwell 架构其最大互联 GPU 数，仍是 18 路并未增加。
 
 ![NVLink 发展](images/04BasicNvlink06.png)
 

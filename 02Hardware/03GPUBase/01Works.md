@@ -66,7 +66,7 @@ GPU 和 CPU 在架构方面的主要区别包括以下几点：
 
 以三款芯片为例，对比在硬件限制的情况下，一般能够执行多少个线程，对比结果增加了线程的请求（Threads required）、线程的可用数（Threads available）和线程的比例（Thread Ration），主要对比到底需要多少线程才能够解决内存时延的问题。从表中可以看到几个关键的数据：
 
-- GPU（NVIDIA A100）的时延比 CPU （AMD Rome 7742，Intel Xeon 8280）高出好几个倍数；
+- GPU（英伟达 A100）的时延比 CPU （AMD Rome 7742，Intel Xeon 8280）高出好几个倍数；
 
 - GPU 的线程数是 CPU 的二三十倍；
 
@@ -119,7 +119,7 @@ void demo(double alpha, double *x, double *y)
 
 ![内存总线 99.86%时间处于空闲状态](images/01Works04.png)
 
-不同处理器计算 $AX+Y$ 时的内存利用率，不管是 AMD Rome 7742、Intel Xeon 8280 还是 NVIDIA A100，对于 $AX+Y$ 这段程序的内存利用率都非常低，基本 ≤0.14%。
+不同处理器计算 $AX+Y$ 时的内存利用率，不管是 AMD Rome 7742、Intel Xeon 8280 还是英伟达 A100，对于 $AX+Y$ 这段程序的内存利用率都非常低，基本 ≤0.14%。
 
 |                        | AMD Rome 7742 | Intel Xeon 8280 | NVIDIA A100 |
 | ---------------------- | ------------- | --------------- | ----------- |
@@ -179,17 +179,17 @@ void fun_axy(int n, double alpha, double *x, double *y)
 
 ### GPU 缓存机制
 
-在 GPU 工作过程中希望尽可能的去减少内存的时延、内存的搬运、还有内存的带宽等一系列内存相关的问题，其中缓存对于内存尤为重要。NVIDIA Ampere A100 内存结构中 HBM Memory 的大小是 80G，也就是 A100 的显存大小是 80G。
+在 GPU 工作过程中希望尽可能的去减少内存的时延、内存的搬运、还有内存的带宽等一系列内存相关的问题，其中缓存对于内存尤为重要。英伟达 Ampere A100 内存结构中 HBM Memory 的大小是 80G，也就是 A100 的显存大小是 80G。
 
 其中寄存器（Register）文件也可以视为缓存，寄存器靠近 SM（Streaming Multiprocessors）执行单元，从而可以快速地获取执行单元中的数据，同时也方便读取 L1 Cache 缓存中的数据。此外 L2 Cache 更靠近 HBM Memory，这样方便 GPU 把大量的数据直接搬运到 cache 中，因此为了同时实现上面两个目标，GPU 设计了多级缓存。80G 的显存是一个高带宽的内存，L2 Cache 大小为 40M，所有 SM 共享同一个 L2 Cache，L1 Cache 大小为 192kB，每个 SM 拥有自己独立的 Cache，同样每个 SM 拥有自己独立的 Register，每个寄存器大小为 256 kB，因为总共有 108 个 SM 流处理器，因此寄存器总共的大小是 27MB，L1 Cache 总共的大小是 20 MB。
 
-![NVIDIA Ampere A100 内存结构](images/01Works05.png)
+![英伟达 Ampere A100 内存结构](images/01Works05.png)
 
 GPU 和 CPU 内存带宽和时延进行比较，在 GPU 中如果把主内存（HBM Memory）作为内存带宽（B/W, bandwidth）的基本单位，L2 缓存的带宽是主内存的 3 倍，L1 缓存的带宽是主存的 13 倍。在真正计算的时候，希望缓存的数据能够尽快的去用完，然后读取下一批数据，此时就会遇到时延（Lentency）的问题。如果将 L1 缓存的延迟作为基本单位，L2 缓存的延迟是 L1 的 5 倍，HBM 的延迟将是 L1 的 15 倍，因此 GPU 需要有单独的显存。
 
 假设使用 CPU 将 DRAM（Dynamic Random Access Memory）中的数据传入到 GPU 中进行计算，较高的时延（25 倍）会导致数据传输的速度远小于计算的速度，因此需要 GPU 有自己的高带宽内存 HBM（High Bandwidth Memory），GPU 和 CPU 之间的通信和数据传输主要通过 PCIe 来进行。
 
-![NVIDIA Ampere A100 存储延迟对比](images/01Works06.png)
+![英伟达 Ampere A100 存储延迟对比](images/01Works06.png)
 
 > DRAM 动态随机存取存储器（Dynamic Random Access Memory）
 > 

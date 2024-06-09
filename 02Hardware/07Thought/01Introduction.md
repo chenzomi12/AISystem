@@ -34,9 +34,9 @@ SISD 系统中每个指令部件每次仅译码一条指令，而且在执行时
 
 ![SIMD](images/01introduction02.png)
 
-NVIDIA GPU 架构围绕可扩展的多线程流式多处理器 (Streaming Multiprocessors，SM) 阵列构建，当主机 CPU 上的 CUDA 程序调用内核网格时，网格的块被枚举并分发到具有可用执行能力的多处理器。一个线程块的线程在一个 SM 上并发执行，多个线程块可以在一个 SM 上并发执行，当线程块终止时，新块在空出的 SM 上启动，SM 使 GPU 同时执行数百个线程。
+英伟达 GPU 架构围绕可扩展的多线程流式多处理器 (Streaming Multiprocessors，SM) 阵列构建，当主机 CPU 上的 CUDA 程序调用内核网格时，网格的块被枚举并分发到具有可用执行能力的多处理器。一个线程块的线程在一个 SM 上并发执行，多个线程块可以在一个 SM 上并发执行，当线程块终止时，新块在空出的 SM 上启动，SM 使 GPU 同时执行数百个线程。
 
-为了管理如此大量的线程，NVIDIA GPU 实际上采用了 SIMT（Single-Instruction Multiple-Thread，单指令多线程）架构，SIMT 体系结构属于 SIMD 中的一种特殊形态，但是 SIMT 使程序员能够为独立的标量线程编写线程级并行代码，以及为协调线程编写数据并行代码。
+为了管理如此大量的线程，英伟达 GPU 实际上采用了 SIMT（Single-Instruction Multiple-Thread，单指令多线程）架构，SIMT 体系结构属于 SIMD 中的一种特殊形态，但是 SIMT 使程序员能够为独立的标量线程编写线程级并行代码，以及为协调线程编写数据并行代码。
 
 ## AI 计算方式与硬件模型
 

@@ -18,7 +18,7 @@ $$
 D_{0,0} = A_{0,0} * B_{0,0} + A_{0,1} * B_{1,0} + A_{0,2} * B_{2,0} + A_{0,3} * B_{3,0} + C_{0,0}
 $$
 
-然而在 NVIDIA 的 GPU Tensor Core 中并不是一行一行的计算，而是整个矩阵进行计算，我们可以看看官方给出的 Tensor Core 的计算模拟图。
+然而在英伟达的 GPU Tensor Core 中并不是一行一行的计算，而是整个矩阵进行计算，我们可以看看官方给出的 Tensor Core 的计算模拟图。
 
 ![Tensor Core FMA](images/03DeepTC02.png)
 
@@ -70,7 +70,7 @@ $$
 
 ## 线程执行
 
-在整体 CUDA 软件设计方面，其目的是与 GPU 计算和存储分层结构相匹配。NVIDIA CUDA 对于 Tensor Core 的定义主要是通过 CUDA 提供一种通用的编程范式，即所谓的 General Programming。为了更高效地利用 Tensor Core，CUDA 允许开发者利用通用编程模型来调用 Tensor Core 的硬件功能，以实现高效的并行计算。
+在整体 CUDA 软件设计方面，其目的是与 GPU 计算和存储分层结构相匹配。英伟达 CUDA 对于 Tensor Core 的定义主要是通过 CUDA 提供一种通用的编程范式，即所谓的 General Programming。为了更高效地利用 Tensor Core，CUDA 允许开发者利用通用编程模型来调用 Tensor Core 的硬件功能，以实现高效的并行计算。
 
 假设我们 Tensor Core 中的 D = A * B + C 计算，简化为 C = A * B。在实际应用中，由于 Tensor Core 只能处理 4x4 的简单计算，不可能直接将整个大矩阵载入 Tensor Core 中进行运算。因此，需要将矩阵切片，并将其分配到 Thread Block（线程块）中。
 
@@ -131,7 +131,7 @@ for (int mb = O; mb < M; mb += Mtile)
 
 在 Tensor Core 里面并行执行的就是上述的形式，矩阵 A 乘以矩阵 B 等于 C 矩阵这么一个简单最核心操作。
 
-Tensor Core 是 NVIDIA GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-level Matrix Multiply-Accumulate）API，这个 API 是专门为 Tensor Core 设计的，它允许开发者在 CUDA 程序中直接利用 Tensor Core 的硬件加速能力。通过 WMMA API，开发者可以执行矩阵乘法累积操作，并管理数据的加载、存储和同步。
+Tensor Core 是英伟达 GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-level Matrix Multiply-Accumulate）API，这个 API 是专门为 Tensor Core 设计的，它允许开发者在 CUDA 程序中直接利用 Tensor Core 的硬件加速能力。通过 WMMA API，开发者可以执行矩阵乘法累积操作，并管理数据的加载、存储和同步。
 
 在 GEMM（General Matrix Multiply，通用矩阵乘法）的软硬件分层中，数据复用是一个非常重要的概念。由于矩阵通常很大，包含大量的数据，因此有效地复用这些数据可以显著提高计算效率。在每一层中，都会通过不同的内存层次结构（如全局内存、共享内存和寄存器）来管理和复用数据。
 

@@ -2,7 +2,7 @@
 
 # NV Switch 深度解析(DONE)
 
-在当今的高性能计算领域，英伟达（NVIDIA）的 GPU 技术无疑是一颗璀璨的明星。随着人工智能和机器学习技术的飞速发展，对于计算能力的需求日益增长，GPU 之间的互联互通变得尤为重要。在这样的背景下，英伟达推出了 NVLink 协议，以及基于此技术的多 GPU 互联解决方案——NV Switch。
+在当今的高性能计算领域，英伟达的 GPU 技术无疑是一颗璀璨的明星。随着人工智能和机器学习技术的飞速发展，对于计算能力的需求日益增长，GPU 之间的互联互通变得尤为重要。在这样的背景下，英伟达推出了 NVLink 协议，以及基于此技术的多 GPU 互联解决方案——NV Switch。
 
 本节将深入探讨 NV Switch 的发展历程、工作原理以及其在构建高性能服务器集群中的关键作用，为读者揭开这一技术背后神秘的面纱。
 
@@ -22,7 +22,7 @@ NV Switch 则是在此基础上进一步发展，支持完全无阻塞的全互�
 
 ## NV Switch 的出现
 
-在 NVIDIA 的技术演进历程中，Pascal 架构首次引入了 NVLink，这一创新如同开辟了一条高速通道，极大地提升了 GPU 之间的通信效率。然而，真正的技术飞跃发生在下一代的 Volta 架构中，伴随着 NVSwitch 的诞生。
+在英伟达的技术演进历程中，Pascal 架构首次引入了 NVLink，这一创新如同开辟了一条高速通道，极大地提升了 GPU 之间的通信效率。然而，真正的技术飞跃发生在下一代的 Volta 架构中，伴随着 NVSwitch 的诞生。
 
 NVSwitch 的出现，犹如在数据传输的网络中架设了一座智能枢纽，它不仅支持更多的 NVLink 链路，还允许多个 GPU 之间实现全互联，极大地优化了数据交换的效率和灵活性。
 
@@ -42,7 +42,7 @@ DGX-H100 使用的是第三代 NVSwitch 和第四代 NVLink 技术，其中每�
 
 ## NV Switch 详解
 
-NVIDIA 的 NVSwitch 技术是实现高效 GPU 间通信的关键组件，特别是在构建高性能计算(HPC)和 AI 加速器系统中。
+英伟达的 NVSwitch 技术是实现高效 GPU 间通信的关键组件，特别是在构建高性能计算(HPC)和 AI 加速器系统中。
 
 ### 初代 NVSwitch
 
@@ -74,7 +74,7 @@ NVSwitch 的设计引入为英伟达创建一个完全无阻塞的全互联 GPU 
 
 此外，GPU XBAR 利用基于静态随机存取存储器（SRAM）的缓冲技术，实现非阻塞的数据传输。这种缓冲机制保证了数据传输的连续性和效率，即使在高负载情况下也能保持高性能。
 
-从 V100 GPU 开始，NVIDIA 重新使用了 NVLink 的 IP 块和 XBAR 设计，这不仅保证了不同代产品之间的兼容性，也使得 NVLink 技术能够不断迭代和优化，同时减少了开发成本和时间。
+从 V100 GPU 开始，英伟达重新使用了 NVLink 的 IP 块和 XBAR 设计，这不仅保证了不同代产品之间的兼容性，也使得 NVLink 技术能够不断迭代和优化，同时减少了开发成本和时间。
 
 ![NV Switch 物理内存共享](images/06DeepNvswitch08.png)
 
@@ -96,7 +96,7 @@ NVSwitch 作为 NVLink 的桥接设备，它不仅提供了高带宽的通信路
 
 2. 引入 NVSwitch 后的改进
 
-NVIDIA 的 NVSwitch 技术为 GPU 间的通信带来了革命性的改进。NVSwitch 作为一个高速交换机，允许所有链路上的数据进行交互。
+英伟达的 NVSwitch 技术为 GPU 间的通信带来了革命性的改进。NVSwitch 作为一个高速交换机，允许所有链路上的数据进行交互。
 
 在 NVSwitch 架构中，任意一对 GPU 都可以直接互联，且只要不超过六个 NVLink 的总带宽，单个 GPU 的流量就可以实现非阻塞传输。这也就意味着，NVSwitch 支持的全互联架构意味着系统可以轻松扩展，以支持更多的 GPU，而不会牺牲性能。每个 GPU 都能利用 NVLink 提供的高带宽，实现快速的数据交换。
 
@@ -130,11 +130,11 @@ NVSwitch 支持的网络拓扑结构为构建大型 GPU 集群提供了优化的
 
 在信号技术方面，采用了 50 Gbaud PAM4 信号技术，每个差分对提供 100 Gbps 的带宽，保持了信号的高速传输和低延迟特性。
 
-NVSwitch 集成了 NVIDIA SHARP 技术，包括 all_gather、reduce_scatter 和 broadcast atomics 等操作，为集群通信提供了硬件加速，进一步提升了性能。NVSwitch 3.0 的物理电气接口与 400 Gbps 以太网和 InfiniBand 兼容，提供了与现有网络技术的互操作性。
+NVSwitch 集成了英伟达 SHARP 技术，包括 all_gather、reduce_scatter 和 broadcast atomics 等操作，为集群通信提供了硬件加速，进一步提升了性能。NVSwitch 3.0 的物理电气接口与 400 Gbps 以太网和 InfiniBand 兼容，提供了与现有网络技术的互操作性。
 
 ![第三代 NVSwitch Block](images/06DeepNvswitch11.png)
 
-NVIDIA 的第三代 NVSwitch 引入了多项创新特性，其中新 SHARP 模块和新 NVLink 模块的加入，为 GPU 间的高效通信和数据处理提供了显著的性能提升，如上图所示。
+英伟达的第三代 NVSwitch 引入了多项创新特性，其中新 SHARP 模块和新 NVLink 模块的加入，为 GPU 间的高效通信和数据处理提供了显著的性能提升，如上图所示。
 
 - 新 SHARP 模块
 

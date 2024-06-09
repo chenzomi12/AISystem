@@ -52,7 +52,7 @@ Ops Optimizer 接收到 Tensor IR 后，其会针对每个算子进行具体的�
 
 编译器后端（Compiler Backend）负责将优化后的计算图转换为特定硬件平台的低层次表示，并进行硬件特定优化和代码生成。
 
-编译器后端的组成集中展示再上图中间靠右部分。首先进行硬件特定的优化，包括内在映射、内存分配、内存延迟隐藏、循环优化、并行化等；这些优化通过自动调度（如多面体模型）和手动调度（如 Halide）进行；自动调优模块包含参数化、成本模型和参数搜索，旨在进一步优化性能；后端还利用内核库（如 Intel DNNL、NV cuDNN/TensorRT、AMD MIOpen 等）来提高效率；低级 IR/操作符 IR（设备相关）采用 Halide、多面体模型等独特的 IR 实现；编译方案支持即时（Just-In-Time）和提前（Ahead-Of-Time）编译；最终，代码生成模块将生成 LLVM、CUDA、OpenCL、OpenGL 等代码，以支持各种目标平台，包括 CPU（X86、ARM、RISC-V）、GPU（NVIDIA、AMD）、ASIC（TPU、Inferentia、NNP 等）和 DSP 等，从而适配越来越多的加速器。
+编译器后端的组成集中展示再上图中间靠右部分。首先进行硬件特定的优化，包括内在映射、内存分配、内存延迟隐藏、循环优化、并行化等；这些优化通过自动调度（如多面体模型）和手动调度（如 Halide）进行；自动调优模块包含参数化、成本模型和参数搜索，旨在进一步优化性能；后端还利用内核库（如 Intel DNNL、NV cuDNN/TensorRT、AMD MIOpen 等）来提高效率；低级 IR/操作符 IR（设备相关）采用 Halide、多面体模型等独特的 IR 实现；编译方案支持即时（Just-In-Time）和提前（Ahead-Of-Time）编译；最终，代码生成模块将生成 LLVM、CUDA、OpenCL、OpenGL 等代码，以支持各种目标平台，包括 CPU（X86、ARM、RISC-V）、GPU（英伟达、AMD）、ASIC（TPU、Inferentia、NNP 等）和 DSP 等，从而适配越来越多的加速器。
 
 **Hardware Specific Optimizations（硬件特定优化）**：针对特定硬件的优化技术，包括：Intrinsic mapping（内在映射）、Memory allocation（内存分配）、Memory latency hiding（内存延迟隐藏）、Loop oriented optimization（面向循环的优化）以及 Parallelization（并行化）等。
 
@@ -68,7 +68,7 @@ Ops Optimizer 接收到 Tensor IR 后，其会针对每个算子进行具体的�
 
 **Code Generation（代码生成）**：生成适用于特定硬件平台的代码，如：LLVM、CUDA、OpenCL、OpenGL 等。
 
-**Target Platforms（目标平台）**：最终生成的代码可以在多种硬件平台上运行。例如能在 x86、ARM、RISC-V 等架构的 CPU 上运行；或在 NVIDIA、AMD 的 GPU 上运行；亦可在 ASIC（应用专用集成电路）上运行，例如 TPU、Inferentia、NNP 等；也可在 DSP（数字信号处理器）上运行；同时也需要对越来越多新出现的 Accelerators（加速器）拥有一定的兼容性。
+**Target Platforms（目标平台）**：最终生成的代码可以在多种硬件平台上运行。例如能在 x86、ARM、RISC-V 等架构的 CPU 上运行；或在英伟达、AMD 的 GPU 上运行；亦可在 ASIC（应用专用集成电路）上运行，例如 TPU、Inferentia、NNP 等；也可在 DSP（数字信号处理器）上运行；同时也需要对越来越多新出现的 Accelerators（加速器）拥有一定的兼容性。
 
 在介绍完通用 AI 编译器架构的基本组成后，将继续深入，从 IR、前端优化以及后端优化三个层面更加细致地对通用架构进行分析。
 
@@ -138,7 +138,7 @@ Ops Optimizer 接收到 Tensor IR 后，其会针对每个算子进行具体的�
 
 ### 优化内核库
 
-各厂商会针对自己的加速硬件优化本厂商提供的特定优化内核库。在 The Deep Learning Compiler: A Comprehensive Survey 文中提到了几个常用的核心库，例如英特尔的 DNNL、NVIDIA 的 cuDNN、AMD 的 MIOpen 等。这些库针对计算密集型和内存带宽受限的基本操作进行了高度优化，如卷积、矩阵乘法（GEMM）、循环神经网络（RNN）、批量归一化、池化等。同时根据硬件特性（如 AVX-512 ISA、张量核心等），针对不同硬件架构进行了优化。
+各厂商会针对自己的加速硬件优化本厂商提供的特定优化内核库。在 The Deep Learning Compiler: A Comprehensive Survey 文中提到了几个常用的核心库，例如英特尔的 DNNL、英伟达的 cuDNN、AMD 的 MIOpen 等。这些库针对计算密集型和内存带宽受限的基本操作进行了高度优化，如卷积、矩阵乘法（GEMM）、循环神经网络（RNN）、批量归一化、池化等。同时根据硬件特性（如 AVX-512 ISA、张量核心等），针对不同硬件架构进行了优化。
 
 这些库支持可定制的数据布局，使其易于集成到深度学习应用程序中，避免频繁的数据布局转换。支持低精度训练和推断，包括 FP32、FP16、INT8 和非 IEEE 浮点格式（如 bfloat16）。
 
@@ -160,7 +160,7 @@ DL 编译器（如 TVM、nGraph 和 TC）在代码生成阶段可以生成对这
 
 ### Kernel Level
 
-拥有了计算加速硬件，现在需要把算法编译到硬件上真正地去执行。Kernel 层需要提供一些真正能执行的算子，本层包括了各个厂商推出的异构计算架构，包括 Meta AI Research 的 Tensor Comprehensions、Apache 的 TVM、Cambricon Technologies 的 AutoKernel、华为昇腾的 CANN 以及 NVIDIA 的 cuDNN 等。Kernel 层编译器均直接作用于硬件，是直接给硬件赋能的一层，需要尽可能释放硬件的全部潜力。
+拥有了计算加速硬件，现在需要把算法编译到硬件上真正地去执行。Kernel 层需要提供一些真正能执行的算子，本层包括了各个厂商推出的异构计算架构，包括 Meta AI Research 的 Tensor Comprehensions、Apache 的 TVM、Cambricon Technologies 的 AutoKernel、华为昇腾的 CANN 以及英伟达的 cuDNN 等。Kernel 层编译器均直接作用于硬件，是直接给硬件赋能的一层，需要尽可能释放硬件的全部潜力。
 
 ### Graph Level
 

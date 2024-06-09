@@ -65,7 +65,7 @@
 
 推理引擎需要有丰富 Demo 和 Benchmark，展示如何使用推理引擎加载和执行不同的网络结构，并通过 Benchmark 来评估推理引擎在处理不同网络结构时的性能，提供主流模型性能和功能基准，来保证推理引擎的可用性。
 
-以 Nvidia 的 TensorRT 为例，[TensorRT Demos](https://github.com/jkjung-avt/tensorrt_demos)提供了一些示例，展示了如何使用 TensorRT 优化 Caffe、TensorFlow、DarkNet 和 PyTorch 模型。[MLPerf Benchmarks](https://www.nvidia.com/en-us/data-center/resources/mlperf-benchmarks/)提供了一套全面的基准测试，能够评估不同硬件、软件和服务在机器学习任务上的性能。MLPerf 测试套件包括多种工作负载和场景，如图像分类、自然语言处理、推荐系统、目标检测、医学图像分割等，覆盖了从云端到边缘计算的多样化需求。
+以英伟达的 TensorRT 为例，[TensorRT Demos](https://github.com/jkjung-avt/tensorrt_demos)提供了一些示例，展示了如何使用 TensorRT 优化 Caffe、TensorFlow、DarkNet 和 PyTorch 模型。[MLPerf Benchmarks](https://www.nvidia.com/en-us/data-center/resources/mlperf-benchmarks/)提供了一套全面的基准测试，能够评估不同硬件、软件和服务在机器学习任务上的性能。MLPerf 测试套件包括多种工作负载和场景，如图像分类、自然语言处理、推荐系统、目标检测、医学图像分割等，覆盖了从云端到边缘计算的多样化需求。
 
 4. 支持各类输入输出
 

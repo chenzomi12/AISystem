@@ -68,7 +68,7 @@ MLU370-X8 通过 MLU-Link™高速网络，组建大规模训练集群，并实�
 
 ## 寒武纪软件栈
 
-寒武纪有自己的一套对标 NVIDIA 的软件栈，对标 CUDA C 的编程语言 BANG C，对标 CuDNN CuBLAS 的算子库 CNNL，对标 NCCL 的通信库 CNCL，对标 TensorRT 的推理引擎 MagicMind，对标 cuda-gdb 的调试器 cngdb 等等。
+寒武纪有自己的一套对标英伟达的软件栈，对标 CUDA C 的编程语言 BANG C，对标 CuDNN CuBLAS 的算子库 CNNL，对标 NCCL 的通信库 CNCL，对标 TensorRT 的推理引擎 MagicMind，对标 cuda-gdb 的调试器 cngdb 等等。
 
 ![软件栈](images/cambricon20.jpg)
 
@@ -199,7 +199,7 @@ Cambricon DeepSpeed 扩展了原生 DeepSpeed，支持使用 MLU 设备进行模
 
 ### CNCodec
 
-CNCodec-V3（Cambricon Codec Library，寒武纪编解码库）是一个基于第三代寒武纪硬件视频编解码加速单元，并针对 MLU 加速卡特点进行优化的硬件 编解码加速库。在继承第二代 CNCodec 设计基础上，CNCodec-V3 针对新的硬件特性，将视频编解码与图像编解码接口融合，为用户提供简洁、高效、通用、灵活并且可扩展的接口。
+CNCodec-V3（Cambricon Codec Library，寒武纪编解码库）是一个基于第三代寒武纪硬件视频编解码加速单元，并针对 MLU 加速卡特点进行优化的硬件编解码加速库。在继承第二代 CNCodec 设计基础上，CNCodec-V3 针对新的硬件特性，将视频编解码与图像编解码接口融合，为用户提供简洁、高效、通用、灵活并且可扩展的接口。
 
 ### CNStream
 

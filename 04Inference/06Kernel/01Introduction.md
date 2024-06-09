@@ -75,17 +75,17 @@ CPU 优化：
 
 GPU 优化：
 
-1. **CUDA**：CUDA 是 NVIDIA 的并行计算平台和编程模型，用于在 NVIDIA GPU 上执行并行计算。推理引擎可以利用 CUDA 来优化 Kernel 层，特别是在大规模矩阵运算和卷积操作方面。
+1. **CUDA**：CUDA 是英伟达的并行计算平台和编程模型，用于在英伟达 GPU 上执行并行计算。推理引擎可以利用 CUDA 来优化 Kernel 层，特别是在大规模矩阵运算和卷积操作方面。
 2. **OpenCL**：OpenCL 是一个开放的标准，用于编写在异构系统上运行的程序。它允许开发者利用 CPU、GPU 和其他类型的处理器来加速计算密集型任务。推理引擎可以利用 OpenCL 来优化 Kernel 层，特别是在 GPU 上。
 3. **Vulkan**：Vulkan 是新一代的图形和计算 API，用于在各种 GPU 上执行并行计算。推理引擎可以利用 Vulkan API 来优化 Kernel 层，特别是在高性能计算和图形处理方面。
-4. **Tensor Cores**：Tensor Cores 是 NVIDIA GPU 上的一种特殊类型的核心，专门用于加速矩阵乘法和卷积操作。推理引擎可以利用 Tensor Cores 来优化 Kernel 层，特别是在执行大规模的矩阵运算时。
+4. **Tensor Cores**：Tensor Cores 是英伟达 GPU 上的一种特殊类型的核心，专门用于加速矩阵乘法和卷积操作。推理引擎可以利用 Tensor Cores 来优化 Kernel 层，特别是在执行大规模的矩阵运算时。
 
 此外，封装的高性能算子库有：
 
-1. **cuDNN（CUDA Deep Neural Network Library）**：由 NVIDIA 开发，为 GPU 优化的深度神经网络算子库，包括卷积、池化、归一化、激活函数等。
+1. **cuDNN（CUDA Deep Neural Network Library）**：由英伟达开发，为 GPU 优化的深度神经网络算子库，包括卷积、池化、归一化、激活函数等。
 2. **MKL-DNN（Intel Math Kernel Library for Deep Neural Networks）**：由 Intel 开发，为 CPU 优化的深度神经网络算子库，现在发展成为 oneDNN，支持多种 Intel 处理器。
 3. **MIOpen**：由 AMD 开发，为 GPU 优化的深度学习算子库，特别针对 AMD 的 GPU 架构进行了优化。
-4. **TensorRT**：NVIDIA 的深度学习推理优化器，它提供了 C++和 Python 接口，可以对模型进行优化并生成高性能的推理引擎。
+4. **TensorRT**：英伟达的深度学习推理优化器，它提供了 C++和 Python 接口，可以对模型进行优化并生成高性能的推理引擎。
 5. **ONNX Runtime**：支持 ONNX 模型的跨平台推理引擎，包括了对多种硬件平台的高性能算子实现。
 6. **ACL（ARM Compute Library）**：由 ARM 开发，为 ARM 架构的 CPU 和 GPU 提供优化的算子库，包括卷积、池化、全连接层等。
 

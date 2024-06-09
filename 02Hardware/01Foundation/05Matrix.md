@@ -83,7 +83,7 @@ $$
 
 1. **让每个指令执行更多的 MACs 计算。**比如 CPU 上的 SIMD/Vector 指令，GPU 上的 SIMT/Tensor 指令，NPU 上 SIMD/Tensor,Vector 指令的设计。
 
-2. **在不增加内存带宽的前提下，单时钟周期内执行更多的 MACs。**比如 NVIDIA 的 Tensor Core 中支持低比特计算的设计，对每个 cycle 执行 512bit 数据的带宽前提下，可以执行 64 个 8bit 的 MACs，大于执行 16 个 32bit 的 MACs。
+2. **在不增加内存带宽的前提下，单时钟周期内执行更多的 MACs。**比如英伟达的 Tensor Core 中支持低比特计算的设计，对每个 cycle 执行 512bit 数据的带宽前提下，可以执行 64 个 8bit 的 MACs，大于执行 16 个 32bit 的 MACs。
 
 ## 小结与思考
 

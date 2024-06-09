@@ -2,7 +2,7 @@
 
 # GPU 架构与 CUDA 关系(DONE)
 
-本节会讲解 NVIDIA GPU 硬件的基础概念，其次会讲解 CUDA（Compute Unified Device Architecture）并行计算平台和编程模型，详细讲解 CUDA 线程层次结构，最后将讲解 GPU 的算力是如何计算的，这将有助于计算大模型的算力峰值和算力利用率。
+本节会讲解英伟达 GPU 硬件的基础概念，其次会讲解 CUDA（Compute Unified Device Architecture）并行计算平台和编程模型，详细讲解 CUDA 线程层次结构，最后将讲解 GPU 的算力是如何计算的，这将有助于计算大模型的算力峰值和算力利用率。
 
 ## GPU 硬件基础概念
 
@@ -34,7 +34,7 @@ SP（Streaming Processor）流处理器是最基本的处理单元，最后线�
 
 ![SP 处理器更名为 CUDA Core](images/03Concept04.png)
 
-在 Fermi 架构中，通过 CUDA 来控制具体的指令执行，是最小的运算执行单元。所以对于现在的 NVIDIA GPU 架构来讲，流处理器的数量就是 CUDA Core 的数量。一个 SM 中包含了 2 组各 16 个 CUDA Core，每个 CUDA Core 包含了一个整数运算单元 ALU（Arthmetic Logit Unit）和一个浮点运算单元 FPU（Floating Point Unit）。
+在 Fermi 架构中，通过 CUDA 来控制具体的指令执行，是最小的运算执行单元。所以对于现在的英伟达 GPU 架构来讲，流处理器的数量就是 CUDA Core 的数量。一个 SM 中包含了 2 组各 16 个 CUDA Core，每个 CUDA Core 包含了一个整数运算单元 ALU（Arthmetic Logit Unit）和一个浮点运算单元 FPU（Floating Point Unit）。
 
 ![Fermi 架构 CUDA Core](images/03Concept05.png)
 
@@ -48,7 +48,7 @@ Warp 是线程束，逻辑上所有 Thread 并行执行，但是从硬件的角�
 
 ## CUDA 基本概念
 
-2006 年 11 月，NVIDIA 推出 CUDA（Compute Unified Device Architecture），通用并行计算架构（Parallel Computing Architecture）和编程模型（Programming Model），利用 GPU 的并行处理能力，将 GPU 用作通用并行计算设备，以加速各种计算任务，而不仅限于图形处理。
+2006 年 11 月，英伟达推出 CUDA（Compute Unified Device Architecture），通用并行计算架构（Parallel Computing Architecture）和编程模型（Programming Model），利用 GPU 的并行处理能力，将 GPU 用作通用并行计算设备，以加速各种计算任务，而不仅限于图形处理。
 
 CUDA 编程模型允许开发人员在 GPU 上运行并行计算任务，基于 LLVM 构建了 CUDA 编译器，开发人员可以使用 CUDA C/C++语言编写并行程序，通过调用 CUDA API 将计算任务发送到 GPU 执行。CUDA 编程模型包括主机（CPU）和设备（GPU）之间的协作，此外还提供了对其它编程语言的支持，比如 C/C++，Python，Fortran 等语言，支持 OpenCL 和 DirectCompute 等应用程序接口。
 
@@ -178,9 +178,9 @@ int main(void)
 
 ![CUDA Grid，Block，Thread 三个层次结构](images/03Concept10.png)
 
-因此 CUDA 和 NVIDIA 硬件架构有以下对应关系，从软件侧看到的是线程的执行，对应于硬件上的 CUDA Core，每个线程对应于 CUDA Core，软件方面线程数量是超配的，硬件上 CUDA Core 是固定数量的。Block 线程块只在一个 SM 上通过 Warp 进行调度，一旦在 SM 上调用了 Block 线程块，就会一直保留到执行完 kernel，SM 可以同时保存多个 Block 线程块，多个 SM 组成的 TPC 和 GPC 硬件实现了 GPU 并行计算。
+因此 CUDA 和英伟达硬件架构有以下对应关系，从软件侧看到的是线程的执行，对应于硬件上的 CUDA Core，每个线程对应于 CUDA Core，软件方面线程数量是超配的，硬件上 CUDA Core 是固定数量的。Block 线程块只在一个 SM 上通过 Warp 进行调度，一旦在 SM 上调用了 Block 线程块，就会一直保留到执行完 kernel，SM 可以同时保存多个 Block 线程块，多个 SM 组成的 TPC 和 GPC 硬件实现了 GPU 并行计算。
 
-![CUDA 和 NVIDIA 硬件架构对应关系](images/03Concept11.png)
+![CUDA 和英伟达硬件架构对应关系](images/03Concept11.png)
 
 ## 算力峰值计算
 
@@ -206,7 +206,7 @@ $$\text{Peak FLOPS} = F_{\text{clk}} \times N_{\text{SM}} \times F_{\text{req}}$
 - $N_{\text{SM}}$：SM（Streaming Multiprocessor）数量
 - $F_{\text{req}}$：Tensor Core 核心运行频率（GHz）
 
-以 NVIDIA A100 为例，其中 FP32 Tensor Core 指令吞吐 64 FLOPS/Cycle ，核心运行频率为 1.41GHz ，SM 数量为 108 ，因此 GPU 的算力峰值是，19,491 GFLOPS，大约为 1.95 TFLOPS：
+以英伟达 A100 为例，其中 FP32 Tensor Core 指令吞吐 64 FLOPS/Cycle ，核心运行频率为 1.41GHz ，SM 数量为 108 ，因此 GPU 的算力峰值是，19,491 GFLOPS，大约为 1.95 TFLOPS：
 
 $$Peak FLOPS=1.41∗108∗64∗2=19,491 GFLOPS$$
 
@@ -227,7 +227,7 @@ $$Peak FLOPS=1.41∗108∗64∗2=19,491 GFLOPS$$
 
 ## 小结与思考
 
-- CUDA 与 GPU 硬件的结合：CUDA 是 NVIDIA 推出的编程模型，它与 GPU 硬件紧密结合，允许开发者利用 GPU 上的 CUDA 核心和张量核心执行并行计算任务。
+- CUDA 与 GPU 硬件的结合：CUDA 是英伟达推出的编程模型，它与 GPU 硬件紧密结合，允许开发者利用 GPU 上的 CUDA 核心和张量核心执行并行计算任务。
 
 - CUDA 的线程层次结构：CUDA 通过线程、块和网格的层次化结构组织并行任务，实现了高效的数据并行处理和线程间同步。
 

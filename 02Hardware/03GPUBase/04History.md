@@ -2,7 +2,7 @@
 
 # GPU 架构回顾(DONE)
 
-1999 年，英伟达发明了 GPU（graphics processing unit），本节将介绍 NVIDIA GPU 从 Fermi 到 Blankwell 共 9 代架构，时间跨度从 2010 年至 2024 年，具体包括费米（Feimi）、开普勒（Kepler）、麦克斯韦（Maxwell）、帕斯卡（Pashcal）、伏特（Volt）、图灵（Turing）、安培（Ampere）和赫柏（Hopper）和布莱克韦尔（Blackwell）架构。经过 15 年的发展，CUDA 已成为 NVIDIA 的技术“护城河”，Tensor Core5.0，NVLink5.0，NVswitch4.0，Transformer Engine2.0 等技术迭代更新，正如英伟达公司官方宣传语所言：“人工智能计算领域的领导者，推动了 AI、HPC、游戏、创意设计、自动驾驶汽车和机器人开发领域的进步。”
+1999 年，英伟达发明了 GPU（graphics processing unit），本节将介绍英伟达 GPU 从 Fermi 到 Blankwell 共 9 代架构，时间跨度从 2010 年至 2024 年，具体包括费米（Feimi）、开普勒（Kepler）、麦克斯韦（Maxwell）、帕斯卡（Pashcal）、伏特（Volt）、图灵（Turing）、安培（Ampere）和赫柏（Hopper）和布莱克韦尔（Blackwell）架构。经过 15 年的发展，CUDA 已成为英伟达的技术“护城河”，Tensor Core5.0，NVLink5.0，NVswitch4.0，Transformer Engine2.0 等技术迭代更新，正如英伟达公司官方宣传语所言：“人工智能计算领域的领导者，推动了 AI、HPC、游戏、创意设计、自动驾驶汽车和机器人开发领域的进步。”
 
 | **架构名称** | **中文名字** | **发布时间** | **核心参数** | **特点&优势** | **纳米制程** | **代表型号** |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -18,13 +18,13 @@
 
 ## Fermi 架构
 
-2006 年 NVIDIA 提出 G80 架构，使开发者可以基于 C 语言在 GPU 上进行开发。2008 年基于 G80 架构提出 GT200，增加了流处理器核的数量，更高的精度和并行能力使 GPU 进行科学计算和高性能计算成为可能。
+2006 年英伟达提出 G80 架构，使开发者可以基于 C 语言在 GPU 上进行开发。2008 年基于 G80 架构提出 GT200，增加了流处理器核的数量，更高的精度和并行能力使 GPU 进行科学计算和高性能计算成为可能。
 
-2010 年 NVIDIA 提出 Feimi 架构，最大可支持 16 个 SMs，每个 SM 有 32 个 CUDA Core，一共 512 个 CUDA Core，架构设计主要是以当时游戏用户的需求为主，因此整个 GPU 有多个 GPC（图形处理簇），单个 GPC 包含一个光栅引擎（Raster Engine）和 4 个 SM。
+2010 年英伟达提出 Feimi 架构，最大可支持 16 个 SMs，每个 SM 有 32 个 CUDA Core，一共 512 个 CUDA Core，架构设计主要是以当时游戏用户的需求为主，因此整个 GPU 有多个 GPC（图形处理簇），单个 GPC 包含一个光栅引擎（Raster Engine）和 4 个 SM。
 
 GPU 拥有 6 个 64 位内存分区，总共是 384 位内存，最多支持 6 GB GDDR5 DRAM 内存。主机接口通过 PCI-Express 连接 GPU 和 CPU。GigaThread 全局调度器将线程块分配给 SM 线程调度器。因为计算核心较多，因此将 L2 Cache 放在处理器中间位置，使得数据可以在 CUDA Core 之间快速传输。
 
-![NVIDIA Feimi 架构](images/04History01.png)
+![英伟达 Feimi 架构](images/04History01.png)
 
 > 恩里科·费米（Enrico Fermi）是意大利裔美国物理学家，20 世纪最重要的物理学家之一，被誉为“原子能时代之父”。他在核物理、量子力学和统计力学等领域做出了重要贡献。主要成就包括：
 > 
@@ -48,7 +48,7 @@ Fermi 架构支持新的并行线程执行 PTX 2.0（Parallel Thread Execution�
 
 ## Kepler 架构
 
-2012 年 NVIDIA 提出 Kepler 架构，由 7.1 亿个晶体管组成的 Kepler GK110 将提供超过 1 TFlop 的双精度吞吐量，采用台积电 28 nm 制程，每瓦的性能是费米架构的 3 倍。由 15 个 SMX 单元和 6 个 64 bit 内存控制器，内存子系统提供额外的缓存功能，在每个层次结构的存储器有更大的带宽，实现更快的 DRAM I/O，同时为编程模型提供硬件支持。
+2012 年英伟达提出 Kepler 架构，由 7.1 亿个晶体管组成的 Kepler GK110 将提供超过 1 TFlop 的双精度吞吐量，采用台积电 28 nm 制程，每瓦的性能是费米架构的 3 倍。由 15 个 SMX 单元和 6 个 64 bit 内存控制器，内存子系统提供额外的缓存功能，在每个层次结构的存储器有更大的带宽，实现更快的 DRAM I/O，同时为编程模型提供硬件支持。
 
 ![Kepler 架构](images/04History03.png)
 
@@ -72,11 +72,11 @@ Fermi 架构支持新的并行线程执行 PTX 2.0（Parallel Thread Execution�
 
 Kepler 架构支持动态并行（Dynnamic Parallelism），在不需要 CPU 支持的情况下自动同步，在程序执行过程中灵活动态地提供并行数量和形式。Hyper-Q 使多个 CPU 核使用单个 GPU 执行工作，提高 GPU 利用率并显着减少 CPU 空闲时间，允许 32 个同时进行的硬件管理连接，允许从多个 CUDA 流处理，多个消息传递进程中分离出单个进程。使用网格管理单元（Grid Management Unit，GMU）启用动态并行和调度控制，比如挂起或暂停网格和队列直到执行的环境准备好。
 
-NVIDIA GPUDirect 可以使单个计算机内的 GPU 或位于网络上不同服务器中的 GPU 直接交换数据，而无需转到 CPU 系统内存，RDMA 特性允许第三方设备直接访问同一系统内多个 GPU 上的内存，减少了对系统内存带宽的需求，释放 GPU DMA 引擎供其它 CUDA 任务使用。
+英伟达 GPUDirect 可以使单个计算机内的 GPU 或位于网络上不同服务器中的 GPU 直接交换数据，而无需转到 CPU 系统内存，RDMA 特性允许第三方设备直接访问同一系统内多个 GPU 上的内存，减少了对系统内存带宽的需求，释放 GPU DMA 引擎供其它 CUDA 任务使用。
 
 ## Maxwell 架构
 
-2014 年 NVIDIA 提出 Maxwell 架构，麦克斯韦架构相比上一代架构没有太大改进，其中 SM 又使用了原来的名称，整体的核心个数变为 128 个，因为核心数不需要太多，可以通过超配线程数来提升 GPU 并行计算的能力。
+2014 年英伟达提出 Maxwell 架构，麦克斯韦架构相比上一代架构没有太大改进，其中 SM 又使用了原来的名称，整体的核心个数变为 128 个，因为核心数不需要太多，可以通过超配线程数来提升 GPU 并行计算的能力。
 
 ![Maxwell 麦克斯韦架构](images/04History05.png)
 
@@ -121,7 +121,7 @@ SMM 使用基于象限的设计，其中每个 SMM 有四个共 32 核处理块�
 
 ## Pascal 架构
 
-2016 年 NVIDIA 提出 Pascal 架构，相比之前的架构，Pascal 帕斯卡架构在应用场景、内存带宽和制程工艺等多个方面做出了创新。将系统内存 GDDR5 换成 HBM2，能够在更高的带宽下处理更大的工作数据集，提高效率和计算吞吐量，并减少从系统内存传输的频率，而且 HBM2 原生支持数据纠错（Error correcting Code, ECC）。采用 16nm FinFET 工艺，拥有 15.3 亿个晶体管，相同功耗下算力提升提升一个数量级。同时提出第一代 NVLink，提升单机卡间通信之外扩展多机之间的带宽。支持统一内存，允许在 GPU 和 CPU 的完整虚拟地址空间之间透明迁移数据，降低了并行编程的门槛。支持计算抢占和针对 Pascal 架构优化的人工智能算法，可应用于高性能计算、深度学习和 GPU 计算密集型领域。
+2016 年英伟达提出 Pascal 架构，相比之前的架构，Pascal 帕斯卡架构在应用场景、内存带宽和制程工艺等多个方面做出了创新。将系统内存 GDDR5 换成 HBM2，能够在更高的带宽下处理更大的工作数据集，提高效率和计算吞吐量，并减少从系统内存传输的频率，而且 HBM2 原生支持数据纠错（Error correcting Code, ECC）。采用 16nm FinFET 工艺，拥有 15.3 亿个晶体管，相同功耗下算力提升提升一个数量级。同时提出第一代 NVLink，提升单机卡间通信之外扩展多机之间的带宽。支持统一内存，允许在 GPU 和 CPU 的完整虚拟地址空间之间透明迁移数据，降低了并行编程的门槛。支持计算抢占和针对 Pascal 架构优化的人工智能算法，可应用于高性能计算、深度学习和 GPU 计算密集型领域。
 
 ![Pascal 帕斯卡架构主要创新](images/04History07.png)
 
@@ -151,7 +151,7 @@ Pascal 架构在 SM 内部作了进一步精简，整体思路是 SM 内部包�
 
 ## Volta 架构
 
-2017 年 NVIDIA 提出 Volta 架构，GV100 GPU 有 21.1 亿个晶体管，使用 TSMC 12 nm 工艺。伏特架构做了以下创新：
+2017 年英伟达提出 Volta 架构，GV100 GPU 有 21.1 亿个晶体管，使用 TSMC 12 nm 工艺。伏特架构做了以下创新：
 
 （1）CUDA Core 拆分，分离 FPU 和 ALU，取消 CUDA Core 整体的硬件概念，一条指令可以同时执行不同计算，同时对 CUDA 应用程序并行线程更进一步，提高了 CUDA 平台的灵活性、生产力和可移植性；
 
@@ -163,7 +163,7 @@ Pascal 架构在 SM 内部作了进一步精简，整体思路是 SM 内部包�
 
 （5）提出 MPS 概念，在多个应用程序单独未充分利用 GPU 执行资源时，允许多个应用程序同时共享 GPU 执行资源，使得多进程服务可以更好的适配到云厂商进行多用户租赁，客户端数量从 Pascal 上的 16 个增加到 Volta 上的 48 个，支持多个单独的推理任务并发地提交给 GPU，提高 GPU 的总体利用率；
 
-（6）结合 Volta 架构新特性优化 GPU 加速库版本，如 cuDNN、cuBLAS 和 TensorRT，为深度学习推理和高性能计算（HPC）应用程序提供更高的性能。NVIDIA CUDA 9.0 版本提供了新的 API 支持 Volta 特性，更简单的可编程性。NVIDIA TensorRT 是一款用于高性能深度学习推理的 SDK，包含深度学习推理优化器和运行时，可为推理应用程序提供低延迟和高吞吐量。
+（6）结合 Volta 架构新特性优化 GPU 加速库版本，如 cuDNN、cuBLAS 和 TensorRT，为深度学习推理和高性能计算（HPC）应用程序提供更高的性能。英伟达 CUDA 9.0 版本提供了新的 API 支持 Volta 特性，更简单的可编程性。英伟达 TensorRT 是一款用于高性能深度学习推理的 SDK，包含深度学习推理优化器和运行时，可为推理应用程序提供低延迟和高吞吐量。
 
 ![Volta 伏特架构主要改进](images/04History11.png)
 
@@ -185,7 +185,7 @@ Volta 伏特架构 SM 结构相比前几代架构，SM 的数目明显增多，S
 
 新的张量核心使 Volta 架构得以训练大型神经网络，GPU 并行模式可以实现深度学习功能的通用计算，最常见卷积/矩阵乘（Conv/GEMM）操作，依旧被编码成融合乘加运算 FMA（Fused Multiply Add），硬件层面还是需要把数据按照：寄存器-ALU-寄存器-ALU-寄存器方式来回来回搬运数据，因此专门设计 Tensor Core 实现矩阵乘计算。
 
-NVIDIA 计算硬件模型从 SIMT 发展成为了 SIMT+DSA 的混合，每个张量核心单时钟周期内执行 64 个浮点 FMA 操作，而 SM 中的 8 个张量核心单时钟周期总共执行 512 个 FMA 操作（或 1024 个单独的浮点操作）。每个张量核心在一个 4x4 矩阵上操作，并执行计算：$D=A×B+C$，输入 A 和 B 矩阵是 FP16，而计算结果矩阵 C 和 D 可以是 FP16 或 FP32 矩阵，极大地减少了系统内存的开销，一个时钟周期内可以执行更多的矩阵运算，使得 GPU 在能耗上更有优势。CUDA 9 C++ API 有专门的矩阵乘和存储操作，有效地使用 CUDA-C++程序中的张量核心，同时 cuBLAS 和 cuDNN 库利用张量核进行深度学习研究。
+英伟达计算硬件模型从 SIMT 发展成为了 SIMT+DSA 的混合，每个张量核心单时钟周期内执行 64 个浮点 FMA 操作，而 SM 中的 8 个张量核心单时钟周期总共执行 512 个 FMA 操作（或 1024 个单独的浮点操作）。每个张量核心在一个 4x4 矩阵上操作，并执行计算：$D=A×B+C$，输入 A 和 B 矩阵是 FP16，而计算结果矩阵 C 和 D 可以是 FP16 或 FP32 矩阵，极大地减少了系统内存的开销，一个时钟周期内可以执行更多的矩阵运算，使得 GPU 在能耗上更有优势。CUDA 9 C++ API 有专门的矩阵乘和存储操作，有效地使用 CUDA-C++程序中的张量核心，同时 cuBLAS 和 cuDNN 库利用张量核进行深度学习研究。
 
 ![Volta 伏特架构 Tensor Core 计算](images/04History14.png)
 
@@ -197,7 +197,7 @@ NVIDIA 计算硬件模型从 SIMT 发展成为了 SIMT+DSA 的混合，每个张
 
 ![12 个 NVSwitch 1.0 连接 16 个 V100](images/04History16.png)
 
-NVIDIA Tesla V100 将深度学习的新架构特性与 GPU 计算性能相结合，提供了更高的神经网络训练和推理性能。NVLink 使多 GPU 系统提供了性能可伸缩性，同时 CUDA 编程的灵活性允许新算法快速开发和部署，满足了人工智能、深度学习系统和算法的训练和推断的持续需求。
+英伟达 Tesla V100 将深度学习的新架构特性与 GPU 计算性能相结合，提供了更高的神经网络训练和推理性能。NVLink 使多 GPU 系统提供了性能可伸缩性，同时 CUDA 编程的灵活性允许新算法快速开发和部署，满足了人工智能、深度学习系统和算法的训练和推断的持续需求。
 
 ## Turing 架构
 
@@ -219,7 +219,7 @@ TU102 GPU 包括 6 个图形处理集群（GPCs）、36 个纹理处理集群（
 > 
 > 4. 在逻辑学领域，他提出了图灵判定问题，对计算机可解性和不可解性做出了重要贡献。
 
-随着神经网络模型的量化部署逐渐成熟，Turing 架构中的 Tensor Core（张量核心）增加了对 INT8/INT4/Binary 的支持，加速神经网络训练和推理函数的矩阵乘法核心。一个 TU102 GPU 包含 576 个张量核心，每个张量核心可以使用 FP16 输入在每个时钟执行多达 64 个浮点融合乘法加法（FMA）操作。SM 中 8 个张量核心在每个时钟中总共执行 512 次 FP16 的乘法和累积运算，或者在每个时钟执行 1024 次 FP 运算，新的 INT8 精度模式以两倍的速率工作，即每个时钟进行 2048 个整数运算。Tensor Core 用于加速基于人工智能的 NVIDIA NGX 功能，增强图形、渲染和其它类型的客户端应用程序，包括 DLSS（深度学习超级采样）、人工智能绘画、AI Super Rez（图像/视频超分辨率）和 AI Slow-Mo（视频流插帧）。
+随着神经网络模型的量化部署逐渐成熟，Turing 架构中的 Tensor Core（张量核心）增加了对 INT8/INT4/Binary 的支持，加速神经网络训练和推理函数的矩阵乘法核心。一个 TU102 GPU 包含 576 个张量核心，每个张量核心可以使用 FP16 输入在每个时钟执行多达 64 个浮点融合乘法加法（FMA）操作。SM 中 8 个张量核心在每个时钟中总共执行 512 次 FP16 的乘法和累积运算，或者在每个时钟执行 1024 次 FP 运算，新的 INT8 精度模式以两倍的速率工作，即每个时钟进行 2048 个整数运算。Tensor Core 用于加速基于人工智能的英伟达 NGX 功能，增强图形、渲染和其它类型的客户端应用程序，包括 DLSS（深度学习超级采样）、人工智能绘画、AI Super Rez（图像/视频超分辨率）和 AI Slow-Mo（视频流插帧）。
 
 每个 SMs 分别有 64 个 FP32 核和 64 个 INT32 核，还包括 8 个混合精度的张量核（Tensor Core），每个 SM 被分为四个块，每个块包括一个新的 L0 指令缓存和一个 64 KB 的寄存器文件。四个块共享一个 96 KB L1 数据缓存/共享内存。传统的图形工作负载将 96 KB 的 L1/共享内存划分为 64 KB 的专用图形着色器 RAM 和 32 KB 的用于纹理缓存和寄存器文件溢出区域。计算工作负载可以将 96 KB 划分为 32 KB 共享内存和 64 KB L1 缓存，或者 64 KB 共享内存和 32 KB L1 缓存。
 
@@ -237,13 +237,13 @@ RT Core 主要用于三角形与光线求交点，并通过 BVH（Bounding Volum
 
 ![RT Core 效果对比](images/04History20.png)
 
-除了为高端游戏和专业图形带来革命性的新功能外，Turing 还提供了多精度计算，随着 NVIDIA 深度学习平台的持续推进，如 TensorRT 5.0 和 CUDA 10 技术的进步，基于 NVIDIA GPU 的推理解决方案显著降低了数据中心的成本、规模和功耗。
+除了为高端游戏和专业图形带来革命性的新功能外，Turing 还提供了多精度计算，随着英伟达深度学习平台的持续推进，如 TensorRT 5.0 和 CUDA 10 技术的进步，基于英伟达 GPU 的推理解决方案显著降低了数据中心的成本、规模和功耗。
 
 ## Ampere 架构
 
 2020 年 Ampere 安培架构发布，Ampere 架构主要有以下特性：
 
-1）超过 540 亿个晶体管，使其成为 2020 年世界上最大的 7 nm 处理器（NVIDIA A100）；
+1）超过 540 亿个晶体管，使其成为 2020 年世界上最大的 7 nm 处理器（英伟达 A100）；
 
 2）提出 Tensor Core3.0，新增 TF32（TensorFloat-32）包括针对 AI 的扩展，可使 FP32 精度的 AI 性能提高 20 倍；
 
@@ -265,7 +265,7 @@ RT Core 主要用于三角形与光线求交点，并通过 BVH（Bounding Volum
 > 
 > 4. 对电磁学和热力学等领域都有重要贡献，被认为是 19 世纪最杰出的物理学家之一。
 
-NVIDIA A100 GPU 包括 8 个 GPC，每个 GPC 包含 8 个 TPC，每个 TPC 包含 2S 个 SMs/，每个 GPC 包含 16 个 SM/GPC，整个 GPU 拥有 128 个 SMs。每个 SM 有 64 个 FP32 CUDA 核心，总共 8192 FP32 CUDA 核心。Tensor Core3.0，总共 512 个。6 个 HBM2 存储栈，12 个 512 位内存控制器，内存可达到 40 GB。第三代 NVLink，GPU 和服务器双向带宽为 4.8 TB/s，GPU 之间的互联速度为 600 GB/s。A100 SM 拥有 192 KB 共享内存和 L1 数据缓存，比 V100 SM 大 1.5 倍。
+英伟达 A100 GPU 包括 8 个 GPC，每个 GPC 包含 8 个 TPC，每个 TPC 包含 2S 个 SMs/，每个 GPC 包含 16 个 SM/GPC，整个 GPU 拥有 128 个 SMs。每个 SM 有 64 个 FP32 CUDA 核心，总共 8192 FP32 CUDA 核心。Tensor Core3.0，总共 512 个。6 个 HBM2 存储栈，12 个 512 位内存控制器，内存可达到 40 GB。第三代 NVLink，GPU 和服务器双向带宽为 4.8 TB/s，GPU 之间的互联速度为 600 GB/s。A100 SM 拥有 192 KB 共享内存和 L1 数据缓存，比 V100 SM 大 1.5 倍。
 
 ![Ampere 安培架构](images/04History22.png)
 
@@ -277,7 +277,7 @@ A100 FP32 FFMA，INT8、INT4 和 Binary 分别提高了 32x、64x 和 256x，与
 
 ![Ampere 架构 A100 支持精度](images/04History24.png)
 
-Tensor Core 除了执行乘法和加法操作之外还可以支持稀疏化结构矩阵（Sparse Tensor），实现细粒度的结构化稀疏，支持一个 2:4 的结构化稀疏矩阵与另一个稠密矩阵直接相乘。一种常见的方法是利用稀疏矩阵的结构特点，只对非零元素进行计算，从而减少计算量。一个训练得到的稠密矩阵在推理阶段经过剪枝之后会变成一个稀疏化矩阵，然后 NVIDIA 架构对矩阵进行压缩后变成一个稠密的数据矩阵和一个 indices，索引压缩过的数据方便检索记录，最后进行矩阵乘。
+Tensor Core 除了执行乘法和加法操作之外还可以支持稀疏化结构矩阵（Sparse Tensor），实现细粒度的结构化稀疏，支持一个 2:4 的结构化稀疏矩阵与另一个稠密矩阵直接相乘。一种常见的方法是利用稀疏矩阵的结构特点，只对非零元素进行计算，从而减少计算量。一个训练得到的稠密矩阵在推理阶段经过剪枝之后会变成一个稀疏化矩阵，然后英伟达架构对矩阵进行压缩后变成一个稠密的数据矩阵和一个 indices，索引压缩过的数据方便检索记录，最后进行矩阵乘。
 
 ![Ampere 架构稀疏化流程](images/04History25.png)
 
@@ -291,11 +291,11 @@ DGX A100 是英伟达专门构建的第三代人工智能系统，在单个系�
 
 ## Hopper 架构
 
-2022 年 Hopper 赫柏架构发布，NVIDIA Grace Hopper Superchip 架构将 NVIDIA Hopper GPU 的突破性性能与 NVIDIA Grace CPU 的多功能性结合在一起，在单个超级芯片中与高带宽和内存一致的 NVIDIA NVLink Chip-2-Chip（C2C）互连，并且支持新的 NVIDIA NVLink 切换系统，CPU 和 GPU、GPU 和 GPU 之间通过 NVLink 进行连接，数据的传输速率高达 900 GB/s，解决了 CPU 和 GPU 之间数据的时延问题，跨机之间通过 PCIe5 进行连接。
+2022 年 Hopper 赫柏架构发布，英伟达 Grace Hopper Superchip 架构将英伟达 Hopper GPU 的突破性性能与英伟达 Grace CPU 的多功能性结合在一起，在单个超级芯片中与高带宽和内存一致的英伟达 NVLink Chip-2-Chip（C2C）互连，并且支持新的英伟达 NVLink 切换系统，CPU 和 GPU、GPU 和 GPU 之间通过 NVLink 进行连接，数据的传输速率高达 900 GB/s，解决了 CPU 和 GPU 之间数据的时延问题，跨机之间通过 PCIe5 进行连接。
 
 ![Inside NVIDIA’s First GPU-CPU Superchip](images/04History28.png)
 
-Hopper 架构是第一个真正的异构加速平台，适用于高性能计算（HPC）和 AI 工作负载。NVIDIA Grace CPU 和 NVIDIA Hopper GPU 实现 NVIDIA NVLink-C2C 互连，高达 900 GB/s 的总带宽的同时支持 CPU 内存寻址为 GPU 内存。NVLink4.0 连接多达 256 个 NVIDIA Grace Hopper 超级芯片，最高可达 150 TB 的 GPU 可寻址内存。
+Hopper 架构是第一个真正的异构加速平台，适用于高性能计算（HPC）和 AI 工作负载。英伟达 Grace CPU 和英伟达 Hopper GPU 实现英伟达 NVLink-C2C 互连，高达 900 GB/s 的总带宽的同时支持 CPU 内存寻址为 GPU 内存。NVLink4.0 连接多达 256 个英伟达 Grace Hopper 超级芯片，最高可达 150 TB 的 GPU 可寻址内存。
 
 | H100 | 参数 |
 | --- | --- |
@@ -342,7 +342,7 @@ H100 一共有 8 组 GPC、66 组 TPC、132 组 SM，总计有 16896 个 CUDA �
 
 ![Hopper 赫柏架构 SM](images/04History30.png)
 
-NVIDIA Quantum-2 Infiniband 是 NVIDIA 推出的一种高性能互连技术，用于数据中心和高性能计算环境中的互连网络，具有高性能、低延迟、高可靠性和支持异构计算等特点，主要用于连接计算节点、存储系统和其他关键设备，以实现高速数据传输和低延迟通信。
+NVIDIA Quantum-2 Infiniband 是英伟达推出的一种高性能互连技术，用于数据中心和高性能计算环境中的互连网络，具有高性能、低延迟、高可靠性和支持异构计算等特点，主要用于连接计算节点、存储系统和其他关键设备，以实现高速数据传输和低延迟通信。
 
 NVIDIA BlueField-3 DPU（Data Processing Unit）是一种数据处理单元，提供数据中心的网络、存储和安全加速功能。BlueField-3 DPU 结合了网络接口控制器（NIC）、存储控制器、加密引擎和智能加速器等功能于一体，为数据中心提供了高性能、低延迟的数据处理解决方案。
 
@@ -352,7 +352,7 @@ NVIDIA CUDA 平台针对 NVIDIA Grace CPU，NVIDIA Grace Hopper Superchip 和 NV
 
 ![NVIDIA CUDA Platform and its ecosystem](images/04History32.png)
 
-基于 Hopper 架构，NVIDIA 推出 NVIDIA H100 高性能计算加速器，旨在为各种规模的计算工作负载提供出色的性能和效率。在单服务器规模下，结合主流服务器使用 H100 加速卡可以提供强大的计算能力，加速各种计算密集型工作负载。在多服务器规模下，组成 GPU 集群的多块 H100 加速卡可以构建高性能计算集群，支持分布式计算和并行计算，提高整体计算效率。而在超级计算规模下，大量 H100 加速卡组成的超级计算集群可以处理极端规模的计算任务，支持复杂的科学计算和研究。
+基于 Hopper 架构，英伟达推出 NVIDIA H100 高性能计算加速器，旨在为各种规模的计算工作负载提供出色的性能和效率。在单服务器规模下，结合主流服务器使用 H100 加速卡可以提供强大的计算能力，加速各种计算密集型工作负载。在多服务器规模下，组成 GPU 集群的多块 H100 加速卡可以构建高性能计算集群，支持分布式计算和并行计算，提高整体计算效率。而在超级计算规模下，大量 H100 加速卡组成的超级计算集群可以处理极端规模的计算任务，支持复杂的科学计算和研究。
 
 从单服务器到多服务器再到超级计算规模（Mainstream Servers to DGX to DGX SuperPOD），NVIDIA H100 在不同层次和规模下展现出色的计算性能和效率，满足各种计算需求和业务目标。企业可以根据自身需求和预算选择适合的 NVIDIA H100 解决方案，加速其计算任务和推动人工智能领域的发展。
 
@@ -364,17 +364,17 @@ NVIDIA CUDA 平台针对 NVIDIA Grace CPU，NVIDIA Grace Hopper Superchip 和 NV
 
 - **新型 AI 超级芯片**：Blackwell 架构 GPU 具有 2080 亿个晶体管，采用专门定制的台积电 4NP 工艺制造。所有 Blackwell 产品均采用双倍光刻极限尺寸的裸片，通过 10 TB/s 的片间互联技术连接成一块统一的 GPU。
 
-- **第二代 Transformer 引擎**：将定制的 Blackwell Tensor Core 技术与 NVIDIA TensorRT-LLM 和 NeMo 框架创新相结合，加速大语言模型 (LLM) 和专家混合模型 (MoE) 的推理和训练。
+- **第二代 Transformer 引擎**：将定制的 Blackwell Tensor Core 技术与英伟达 TensorRT-LLM 和 NeMo 框架创新相结合，加速大语言模型 (LLM) 和专家混合模型 (MoE) 的推理和训练。
 
 - **第五代 NVLink**：为了加速万亿参数和混合专家模型的性能，新一代 NVLink 为每个 GPU 提供 1.8TB/s 双向带宽，支持多达 576 个 GPU 间的无缝高速通信，适用于复杂大语言模型。
 
 - **RAS 引擎**：Blackwell 通过专用的可靠性、可用性和可服务性 (RAS) 引擎增加了智能恢复能力，以识别早期可能发生的潜在故障，从而更大限度地减少停机时间。
 
-- **安全 AI**：内置 NVIDIA 机密计算技术，可通过基于硬件的强大安全性保护敏感数据和 AI 模型，使其免遭未经授权的访问。
+- **安全 AI**：内置英伟达机密计算技术，可通过基于硬件的强大安全性保护敏感数据和 AI 模型，使其免遭未经授权的访问。
 
-- **解压缩引擎**：拥有解压缩引擎以及通过 900GB/s 双向带宽的高速链路访问 NVIDIA Grace CPU 中大量内存的能力，可加速整个数据库查询工作流，从而在数据分析和数据科学方面实现更高性能。
+- **解压缩引擎**：拥有解压缩引擎以及通过 900GB/s 双向带宽的高速链路访问英伟达 Grace CPU 中大量内存的能力，可加速整个数据库查询工作流，从而在数据分析和数据科学方面实现更高性能。
 
-![NVIDIA DPU CPU+GPU GPU](images/04History34.jpg)
+![英伟达 DPU CPU+GPU GPU](images/04History34.jpg)
 
 > 大卫·哈罗德·布莱克韦尔（David Harold Blackwell）是 20 世纪美国著名的数学家和统计学家，他在统计学领域做出了卓越的贡献，被誉为统计学的巨匠，第一个非裔美国人当选为美国国家科学院院士，也是第一个获得美国数学学会最高奖——Leroy P. Steele 奖章的非裔美国人。主要成就包括：
 > 
@@ -382,13 +382,13 @@ NVIDIA CUDA 平台针对 NVIDIA Grace CPU，NVIDIA Grace Hopper Superchip 和 NV
 > 
 > 2.  在信息论方面的研究成果为该领域的发展做出了重要贡献，提供了许多重要的理论基础和方法。
 
-NVIDIA GB200 Grace Blackwell 超级芯片通过 900GB/s 超低功耗的片间互联，将两个 NVIDIA B200 Tensor Core GPU 与 NVIDIA Grace CPU 相连。在 90 天内训练一个 1.8 万亿参数的 MoE 架构 GPT 模型，需要 8000 个 Hopper 架构 GPU，15 兆瓦功率，Blackwell 架构只需要 2000 个 GPU，以及 1/4 的能源消耗。8 年时间，从 Pascal 架构到 Blackwell 架构，英伟达将 AI 计算性能提升了 1000 倍！
+英伟达 GB200 Grace Blackwell 超级芯片通过 900GB/s 超低功耗的片间互联，将两个英伟达 B200 Tensor Core GPU 与英伟达 Grace CPU 相连。在 90 天内训练一个 1.8 万亿参数的 MoE 架构 GPT 模型，需要 8000 个 Hopper 架构 GPU，15 兆瓦功率，Blackwell 架构只需要 2000 个 GPU，以及 1/4 的能源消耗。8 年时间，从 Pascal 架构到 Blackwell 架构，英伟达将 AI 计算性能提升了 1000 倍！
 
 ![8 年时间 AI 计算性能提升了 1000 倍](images/04History35.png)
 
-NVIDIA GB200 NVL72 集群以机架形式设计连接 36 个 GB200 超级芯片(36 个 Grace cpu 和 72 个 Blackwell GPU)。GB200 NVL72 是一款液冷、机架型 72 GPU NVLink，可以作为单个大规模 GPU，提供比上一代 HGX H100 实现 30 倍的实时万亿参数 LLM 推理，加速下一代人工智能和加速计算。
+英伟达 GB200 NVL72 集群以机架形式设计连接 36 个 GB200 超级芯片(36 个 Grace cpu 和 72 个 Blackwell GPU)。GB200 NVL72 是一款液冷、机架型 72 GPU NVLink，可以作为单个大规模 GPU，提供比上一代 HGX H100 实现 30 倍的实时万亿参数 LLM 推理，加速下一代人工智能和加速计算。
 
-![NVIDIA GB200 NVL72 集群](images/04History36.png)
+![英伟达 GB200 NVL72 集群](images/04History36.png)
 
 | | **GB200 NVL72** | **GB200 Grace Blackwell Superchip** |
 | --- | --- | --- |
@@ -405,11 +405,11 @@ NVIDIA GB200 NVL72 集群以机架形式设计连接 36 个 GB200 超级芯片(3
 | **CPU Memory &#124; Bandwidth** | Up to 17 TB LPDDR5X &#124; Up to 18.4 TB/s | Up to 480GB LPDDR5X &#124; Up to 512 GB/s |
 | **1. Preliminary specifications. May be subject to change. 1. With sparsity.** |  |  |
 
-随着大模型（LLM）参数量增长对算力的需求，NVIDIA 在存储带宽和内存方面不断创新，P100 上首次使用 HBM2，A100 使用 HBM2e，H100 使用 HBM3，H200 和 B100 使用 HBM3e。
+随着大模型（LLM）参数量增长对算力的需求，英伟达在存储带宽和内存方面不断创新，P100 上首次使用 HBM2，A100 使用 HBM2e，H100 使用 HBM3，H200 和 B100 使用 HBM3e。
 
-![NVIDIA 为满足模型需要不断创新](images/04History37.jpg)
+![英伟达为满足模型需要不断创新](images/04History37.jpg)
 
-NVIDIA Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析和高性能计算方面具有相同的突破性进展。HGX B200 是基于 8 个 B200 x86 平台，提供 144 petaFLOPs 的 AI 性能，每个 GPU 最高可配置 1000 瓦。HGX B100 是基于 8 个 B100 x86 平台，提供 112 petaFLOPs 的 AI 性能，每个 GPU 最高可配置为 700 瓦。
+英伟达 Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析和高性能计算方面具有相同的突破性进展。HGX B200 是基于 8 个 B200 x86 平台，提供 144 petaFLOPs 的 AI 性能，每个 GPU 最高可配置 1000 瓦。HGX B100 是基于 8 个 B100 x86 平台，提供 112 petaFLOPs 的 AI 性能，每个 GPU 最高可配置为 700 瓦。
 
 |  |  HGX B200 |  HGX B100 |
 | --- | --- | --- |
@@ -437,7 +437,7 @@ NVIDIA Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析�
 
 ## 小结与思考
 
-本节主要回顾了从 2010 年到 2024 年 NVIDIA GPU 架构的发展，其中有几个比较重要的时间节点和事件：
+本节主要回顾了从 2010 年到 2024 年英伟达 GPU 架构的发展，其中有几个比较重要的时间节点和事件：
 
 - 2010 年提出 Fermi 架构，开启了架构演进的进程，属于首个完整的 GPU 计算架构，里面提出的新概念一直沿用至今。
 
@@ -449,7 +449,7 @@ NVIDIA Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析�
 
 - 2020 年 Ampere 架构因多用户 GPU 实例在 AI 云应用厂商中广泛采用。
 
-- 2022 年 Hopper 架构实现了 CPU 和 GPU 异构，CPU 与 GPU 实现 NVIDIA NVLink-C2C 互连。
+- 2022 年 Hopper 架构实现了 CPU 和 GPU 异构，CPU 与 GPU 实现英伟达 NVLink-C2C 互连。
 
 - 2024 年 Blackwell 架构 GPU，英伟达将 AI 计算性能提升了 1000 倍，进一步为生成式人工智能与大模型提供算力支持。
 
@@ -465,7 +465,7 @@ Cuda Core 和 Tensor Core 都是运算单元，与硬件相关。随着科学计
 
 ### NVLink
 
-NVLink 是双向直接 GPU-GPU 互连，第五代 NVLink 连接主机和加速处理器的速度高达每秒 1800GB/s，这是传统 x86 服务器的互连通道——PCIe 5.0 带宽的 14 倍多。NVIDIA NVLink-C2C 还将 Grace CPU 和 Hopper GPU 进行连接，加速异构系统可为数万亿和数万亿参数的 AI 模型提供加速性能。
+NVLink 是双向直接 GPU-GPU 互连，第五代 NVLink 连接主机和加速处理器的速度高达每秒 1800GB/s，这是传统 x86 服务器的互连通道——PCIe 5.0 带宽的 14 倍多。英伟达 NVLink-C2C 还将 Grace CPU 和 Hopper GPU 进行连接，加速异构系统可为数万亿和数万亿参数的 AI 模型提供加速性能。
 
 | NVLink  Generation | 1.0 | 2.0 | 3.0 | 4.0  | 5.0 |
 | --- | --- | --- | --- | --- | --- |
@@ -488,7 +488,7 @@ NVSwitch 是 NVLink 交换机系统的关键使能器，它能够以 NVLink 速�
 
 ## 小结与思考
 
-- NVIDIA GPU 架构发展：NVIDIA GPU 架构自 2010 年以来经历了从 Fermi 到 Blackwell 的多代演进，引入了 CUDA Core、Tensor Core、NVLink 和 NVSwitch 等关键技术，显著提升了 GPU 的计算能力和能效。
+- 英伟达 GPU 架构发展：英伟达 GPU 架构自 2010 年以来经历了从 Fermi 到 Blackwell 的多代演进，引入了 CUDA Core、Tensor Core、NVLink 和 NVSwitch 等关键技术，显著提升了 GPU 的计算能力和能效。
 
 - Tensor Core 的持续创新：Tensor Core 作为专为深度学习矩阵运算设计的加速器，从第一代发展到第五代，不断增加支持的精度类型和提升性能，以适应 AI 的快速发展。
 
