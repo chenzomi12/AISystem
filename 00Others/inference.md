@@ -653,7 +653,7 @@ learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
 9. [详解 Winograd 变换矩阵生成原理](https://zhuanlan.zhihu.com/p/102351953)
 10. [AI 算法基础 [4]：Winograd 算法原理](https://no5-aaron-wu.github.io/2021/11/16/AI-Algorithm-4-Winograd/)
 11. [[DL]Winograd 快速卷积算法](https://martin20150405.github.io/2019/11/13/dl-winograd-kuai-su-juan-ji-suan-fa/)
-12. [MegEngine Inference 卷积优化之 Im2col 和 winograd 优化](https://www.cnblogs.com/megengine/p/16405753.html)
+12. [MegEngine Inference 卷积优化之 Im2Col 和 winograd 优化](https://www.cnblogs.com/megengine/p/16405753.html)
 13. [Winograd 卷积的纯 Python 实现](https://ajz34.readthedocs.io/zh-cn/latest/ML_Notes/winograd6x3/cnn_winograd.html)
 14. [Winograd 优化算法](https://zhenhuaw.me/blog/2019/convolution-neural-networks-optimization.html#winograd-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95c)
 

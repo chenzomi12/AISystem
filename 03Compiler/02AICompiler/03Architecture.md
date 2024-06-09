@@ -24,7 +24,7 @@ Ops Optimizer 接收到 Tensor IR 后，其会针对每个算子进行具体的�
 
 在回顾完现有 AI 编译器架构后，来看看一个理想化的 AI 编译器通用架构应该是什么样的。
 
-笔者推荐各位读者了解一篇关于 AI 编译器的综述，名称为 The Deep Learning Compiler: A Comprehensive Survey。其中有一副插图展示了一个通用 AI 编译器的完整架构，涵盖从模型输入到在不同硬件平台上执行的整个流程。它分为编译器前端（Compiler Frontend）和编译器后端（Compiler Backend）两个主要部分。下面将结合此图对通用 AI 编译器进行初步分析。
+推荐各位读者了解一篇关于 AI 编译器的综述，名称为 The Deep Learning Compiler: A Comprehensive Survey。其中有一副插图展示了一个通用 AI 编译器的完整架构，涵盖从模型输入到在不同硬件平台上执行的整个流程。它分为编译器前端（Compiler Frontend）和编译器后端（Compiler Backend）两个主要部分。下面将结合此图对通用 AI 编译器进行初步分析。
 
 ![通用 AI 编译器架构图](images/03Architecture02.png)
 

@@ -13,12 +13,17 @@
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
 | 模型小型化 | 01 推理参数了解 | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1KW4y1G75J/) |
-| 模型小型化 | 02(上) CNN 模型小型化 | [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1Y84y1b7xj/) |
-| 模型小型化 | 02(下) CNN 模型小型化 | [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1DK411k7qt/) |
-| 模型小型化 | SqueezeNet 系列 | [文章](./02Squeezenet.md) |
-| 模型小型化 | ShuffleNet 系列 | [文章](./03Shufflenet.md) |
-| 模型小型化 | MobileNet 系列 | [文章](./04Mobilenet.md) |
-| 模型小型化 | 03 Transformer 小型化 | [PPT](./03Transform.pdf), [视频](https://www.bilibili.com/video/BV19d4y1V7ou/) |
+| CNN 类型 | 02(上) CNN 模型小型化 | [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1Y84y1b7xj/) |
+| CNN 类型 | 02(下) CNN 模型小型化 | [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1DK411k7qt/) |
+| CNN 类型 | SqueezeNet 系列 | [文章](./03Shufflenet.md) |
+| CNN 类型 | MobileNet 系列 | [文章](./04Mobilenet.md.md) |
+| CNN 类型 | ESPNet 系列 | [文章](./05ESPNet.md) |
+| CNN 类型 | FBNet 系列 | [文章](./06FBNet.md) |
+| CNN 类型 | EfficientNet 系列 | [文章](./07EfficientNet.md) |
+| CNN 类型 | GhostNet 系列 | [文章](./08GhostNet.md) |
+| Transformer 类型 | 03 Transformer 小型化 | [PPT](./03Transform.pdf), [视频](https://www.bilibili.com/video/BV19d4y1V7ou/) |
+| Transformer 类型 | MobileVit 系列 | [文章](./09MobileVit.md) |
+| Transformer 类型 | MobileFormer 系列 | [文章](./10MobileFormer.md) |
 
 ## 备注
 
