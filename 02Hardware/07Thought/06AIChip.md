@@ -1,6 +1,6 @@
 # AI 芯片的思考(DONE)
 
-为了满足数据中心算力需求，谷歌在 2014 年开始研发基于特定领域架构（Domain-specific Architecture，DSA）的 TPU（Tensor Processing Unit），专门为深度学习任务设计的定制硬件加速器，加速谷歌的机器学习工作负载，特别是训练和推理大规模神经网络模型。
+为了满足数据中心算力需求，谷歌在 2014 年开始研发基于特定领域架构（Domain-specific Architecture，DSA）的 TPU（Tensor Processing Unit），专门为深度学习任务设计的定制硬件加速器，加速谷歌的机器学习工作负载，特别是训练和推理大模型。
 
 David Patterson（大卫·帕特森）是计算机体系结构领域科学家，自 1976 年起担任加州大学伯克利分校的计算机科学教授并在 2016 年宣布退休，在 2017 年加入谷歌 TPU 团队，2020 年在加州大学伯克利分校发表演讲《A Decade of Machine Learning Accelerators:Lessons Learned and Carbon Footprint》，分享了 TPU 近几年的发展历程以及心得体会，本节主要摘录并深入探讨其中的 8 点思考。
 
@@ -20,7 +20,7 @@ AI 模型近几年所需的内存空间和算力平均每年增长 50%，模型�
 
 ## 模型结构快速演变
 
-深度神经网络（DNN）是一个发展迅速的领域，2016 年 MLP（Multilayer Perceptron，多层感知器）和 LSTM（Long Short-Term Memory，长短期记忆网络）是主流的深度学习模型，2020 年 CNN（Convolutional Neural Network，卷积神经网络）、RNN（Recurrent Neural Network，循环神经网络）和 BERT（Bidirectional Encoder Representations from Transformers）被广泛应用。
+深度神经网络（DNN）是一个发展迅速的领域，2016 年 MLP（Multilayer Perceptron，多层感知器）和 LSTM（Long Short-Term Memory，长短期记忆网络）是主流的神经网络模型，2020 年 CNN（Convolutional Neural Network，卷积神经网络）、RNN（Recurrent Neural Network，循环神经网络）和 BERT（Bidirectional Encoder Representations from Transformers）被广泛应用。
 
 大型语言模型（Large Language Model，LLM）基于 transformer，参数规模从五年前的仅有十亿参数（例如 GPT-2 的 1.5B 参数）稳步增长到如今的万亿参数，例如 OpenAI 的 GPT-3.5、微软的 Phi-3、谷歌的 Gemma、Meta 的 Llamma 等，未来可能会出现新的网络模型，因此 DSA 架构需要足够通用以支持新的模型。
 
@@ -74,7 +74,7 @@ DSA 难点在于既要对模型进行针对性的优化，同时还须保持一�
 
 ## 半导体供应链的选型
 
-计算逻辑的进步速度很快，但是芯片布线（制程工艺）的发展速度则较慢。 SRAM 和 HBM 比 DDR4 和 GDDR6 速度更快，能效更高，因此 AI 芯片需要根据数据的操作格式选用一定的存储设备。在大模型训练过程中普遍使用 BF16，部分会使用 FP8 进行推理，如果选型有问题，比如只能用 FP32 模拟 BF16，将减慢大模型训练迭代的速度。
+计算逻辑的进步速度很快，但是芯片布线（制程工艺）的发展速度则较慢。SRAM 和 HBM 比 DDR4 和 GDDR6 速度更快，能效更高，因此 AI 芯片需要根据数据的操作格式选用一定的存储设备。在大模型训练过程中普遍使用 BF16，部分会使用 FP8 进行推理，如果选型有问题，比如只能用 FP32 模拟 BF16，将减慢大模型训练迭代的速度。
 
 ![芯片制程与存储类型的匹配](images/06AIChip12.png)
 
@@ -92,7 +92,7 @@ DSA 的编译器需要对 AI 模型进行分析和优化，通过编译器把 AI
 
 - 向量、矩阵、张量等功能单元的数据级并行；
 
-- 322~400 位 VLIW（Very Long Instruction Word） 指令集的指令级并行，一条指令可以同时包含多个操作，这些操作可以在同一时钟周期内并行执行；
+- 322~400 位 VLIW（Very Long Instruction Word）指令集的指令级并行，一条指令可以同时包含多个操作，这些操作可以在同一时钟周期内并行执行；
 
 - 编译优化取决于软硬件能否进行缓存，编译器需要管理内存传输；
 

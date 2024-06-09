@@ -87,7 +87,7 @@ int main(void)
 }
 ```
 
-接下来我们使用 Clang 编译器将 C 语言源文件 test.c 编译成 LLVM 格式的中间代码。具体参数的含义如下： 
+接下来我们使用 Clang 编译器将 C 语言源文件 test.c 编译成 LLVM 格式的中间代码。具体参数的含义如下：
 
 - clang：Clang 编译器
 - -S：生成汇编代码而非目标文件

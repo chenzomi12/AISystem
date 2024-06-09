@@ -3,7 +3,7 @@ import os
 from urllib.request import urlopen
 from pathlib import Path
 
-project = "AISystem & AIInfra (AI系统原理)"
+project = "AISystem & AIInfra (AI 系统原理)"
 # copyright = "2024"
 # author = "ZOMI"
 language = "cn"  # For testing language translations

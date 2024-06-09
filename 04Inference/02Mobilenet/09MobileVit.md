@@ -6,9 +6,9 @@
 
 ## MobileVit V1
 
-**MobileVit  V1** :MobileViT 是一种基于 ViT（Vision Transformer）架构的轻量级视觉模型，旨在适用于移动设备和嵌入式系统。ViT 是一种非常成功的深度学习模型，用于图像分类和其他计算机视觉任务，但通常需要大量的计算资源和参数。MobileViT 的目标是在保持高性能的同时，减少模型的大小和计算需求，以便在移动设备上运行，据作者介绍，这是第一次基于轻量级 CNN 网络性能的轻量级 ViT 工作，性能 SOTA。性能优于 MobileNetV3、CrossviT 等网络。
+**MobileVit  V1** :MobileViT 是一种基于 ViT（Vision Transformer）架构的轻量级视觉模型，旨在适用于移动设备和嵌入式系统。ViT 是一种非常成功的神经网络模型，用于图像分类和其他计算机视觉任务，但通常需要大量的计算资源和参数。MobileViT 的目标是在保持高性能的同时，减少模型的大小和计算需求，以便在移动设备上运行，据作者介绍，这是第一次基于轻量级 CNN 网络性能的轻量级 ViT 工作，性能 SOTA。性能优于 MobileNetV3、CrossviT 等网络。
 
-###  Mobile ViT 块
+### Mobile ViT 块
 
 标准卷积涉及三个操作：展开+局部处理+折叠，利用 Transformer 将卷积中的局部建模替换为全局建模，这使得 MobileViT 具有 CNN 和 ViT 的性质。MobileViT Block 如下图所示:
 
@@ -255,7 +255,7 @@ class MobileViTBlock(nn.Module):
         return fm
 ```
 
-###  多尺度采样训练
+### 多尺度采样训练
 
 在基于 ViT 的模型中，学习多尺度表示的标准方法是微调。例如，在不同尺寸上对经过 224×224 空间分辨率训练的 DeiT 模型进行了独立微调。由于位置嵌入需要根据输入大小进行插值，而网络的性能受插值方法的影响，因此这种学习多尺度表示的方法对 vit 更有利。与 CNN 类似，MobileViT 不需要任何位置嵌入，它可以从训练期间的多尺度输入中受益。
 
@@ -378,7 +378,7 @@ class InvertedResidual(nn.Module):
 ### 可分离的自注意力
 
 MHA（下图 a）允许 Transformer 对 tokens 间的关系进行编码。具体来说，MHA 将输入喂到三个分支，即查询 Q、键 K 和值 V。每个分支（Q、K 和 V）由输入 $x\in R^{k \times d}$ 组成，其中包含 k 个 d 维 tokens（或 patches）嵌入。每个分支包含(Q、K 和 V)包含 h 个头（或层），可以使 Transformer 学习输入的多个视角。然后将输入 x 馈入所有 h 个头，然后进行 softmax 操作 σ 以在 Q 和 K 的线性层的输出之间产生注意力（或上下文映射）点积，然后同时计算矩阵 
- $a\in R^{k\times k \times h}$。然后在 a 和 V 线性层的输出之间计算另一个点积，以产生加权和输出 $y_{w}\in R^{k\times d_{h}\times h}$，其中 $d_{h}=\frac{d}{h}$ 是头部尺寸。这 h 个头的输出被连接起来产生一个带有 k 个 d 维 tokens 的张量， 馈送到另一个具有权重 $W_{o}\in R^{d \times d}$ 的线性层以产生 MHA $y \in R^{k \times d}$ 的输出。然后在数学上，这个操作可以描述为：
+ $a\in R^{k\times k \times h}$。然后在 a 和 V 线性层的输出之间计算另一个点积，以产生加权和输出 $y_{w}\in R^{k\times d_{h}\times h}$，其中 $d_{h}=\frac{d}{h}$ 是头部尺寸。这 h 个头的输出被连接起来产生一个带有 k 个 d 维 tokens 的张量，馈送到另一个具有权重 $W_{o}\in R^{d \times d}$ 的线性层以产生 MHA $y \in R^{k \times d}$ 的输出。然后在数学上，这个操作可以描述为：
 
 $$
 y=Concat\Bigg(\underbrace{<σ(<xW_{Q}^{0},xW_{k}^{0}>),xW_{v}^{0}>}_{a^{0} \in R^{k \times k}}..., \underbrace{<σ(<xW_{Q}^{h},xW_{k}^{h}>),xW_{v}^{h}>}_{a^{h} \in R^{k \times k}}
@@ -399,7 +399,7 @@ $$
 
 上下文向量 $c_{v}$ 在某种意义上类似等式(1)中的注意力矩阵 a,它也编码输入 x 中所有 tokens 的信息，但计算成本较低。
 
-$c_{v}$ 中编码的上下文信息与 x 中的所有 tokens 共享。为此，输入 x 然后通过广播的逐元素乘法运算传播到 $x_{V}$。结果输出后跟 ReLU 激活函数以产生输出 $x_{V} \in R^{k\times d }$。$c_{v}$ 中的上下文信息使用权重 $W_{v} \in R^{d\times d}$ 的值分支 V 线性映射到 d 维空间， 然后将其馈送到权重 $W_{o} \in R^{d \times d}$ 的另一个线性层以产生最终输出 $y \in R^{k \times d}$。在数学上，可分离自注意力可以定义为:
+$c_{v}$ 中编码的上下文信息与 x 中的所有 tokens 共享。为此，输入 x 然后通过广播的逐元素乘法运算传播到 $x_{V}$。结果输出后跟 ReLU 激活函数以产生输出 $x_{V} \in R^{k\times d }$。$c_{v}$ 中的上下文信息使用权重 $W_{v} \in R^{d\times d}$ 的值分支 V 线性映射到 d 维空间，然后将其馈送到权重 $W_{o} \in R^{d \times d}$ 的另一个线性层以产生最终输出 $y \in R^{k \times d}$。在数学上，可分离自注意力可以定义为:
 
 $$
 y = \Bigg( \underbrace{\sum \bigg( \overbrace{σ(xW_{I})}^{c_{s}\in R^{k}} *xW_{K} \bigg)}_{c_{v} \in R^{d}}*ReLU(xW_{V})       \Bigg )
@@ -423,7 +423,7 @@ $$
 
 ### 网络结构
 
-为了证明所提出的可分离自注意力在资源受限设备上的有效性，将可分离自注意力与最近基于 ViT 的模型 MobileViT 相结合。 MobileViT 是一个轻量级、对移动设备友好的混合网络，其性能明显优于其他基于 CNN、基于 Transformer 或混合模型的竞争模型，包括 MobileNets。
+为了证明所提出的可分离自注意力在资源受限设备上的有效性，将可分离自注意力与最近基于 ViT 的模型 MobileViT 相结合。MobileViT 是一个轻量级、对移动设备友好的混合网络，其性能明显优于其他基于 CNN、基于 Transformer 或混合模型的竞争模型，包括 MobileNets。
 
 MobileViTv2 将 MobileViTv1 中的 Transformer 块中的 MHA 替换为提出的可分离自注意力方法。也没有在 MobileViT 块中使用 skip-connection 连接和融合块，因为它略微提高了性能。此外，为了创建不同复杂度的 MobileViTv2 模型，我们使用宽度乘数 α ∈ {0.5, 2.0} 统一缩放 MobileViTv2 网络的宽度。这与为移动设备训练三种特定架构（XXS、XS 和 S）的 MobileViTv1 形成对比。
 
