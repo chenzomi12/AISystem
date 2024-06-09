@@ -18,7 +18,7 @@ David Patterson 介绍了从最初诞生的复杂指令计算机到精简指令�
 
 Chris 认为世界出现了越来越多的专属硬件，同时也出现了各种各样的应用。尽管现在硬件越来越多样，硬件生态迅速壮大，但软件还是很难充分利用它们来提高性能。而且如果软硬件协同不到位，性能就会受到巨大影响，那不止是 10%左右的浮动。
 
-> Chris Lattner，LLVM 项目的主要发起人与作者之一，Swift 语言的创始人，并于 2022 年 3 月离开 Swift 核心团队，Clang 编译器的作者。现为他共同创立的人工智能公司 Modular AI 的首席执行官
+> Chris Lattner，LLVM 课程的主要发起人与作者之一，Swift 语言的创始人，并于 2022 年 3 月离开 Swift 核心团队，Clang 编译器的作者。现为他共同创立的人工智能公司 Modular AI 的首席执行官
 
 人工智能领域正经历着硬件的爆发式增长，这为 AI 应用的创新和扩展提供了强大的动力。随着各种不同的 AI 硬件的快速涌现，我们正面临一个软件碎片化的时代。软件碎片化意味着需要为不同的 AI 硬件平台开发和维护多种版本的基础软件，这无疑增加了研发和运营的成本。
 
@@ -189,7 +189,3 @@ AI 编译器的优化策略更专注于提高性能和效率，而传统编译�
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=520719563&bvid=BV1pM41167KP&cid=911851506&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考资料
-1. https://learning.acm.org/techtalks/computerarchitecture
-2. https://segmentfault.com/a/1190000041739045

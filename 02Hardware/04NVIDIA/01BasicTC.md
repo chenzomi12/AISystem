@@ -104,7 +104,7 @@ Im2col 算法计算卷积的过程，具体简化过程如下:
 
 ### Tensor Core 工作原理
 
-在具体的运算过程中，Tensor Core 采用融合乘法加法（FMA）的方式来高效地处理计算任务。每个 Tensor Core 每周期能执行 **4x4x4 GEMM**，64 个 浮点乘法累加（FMA）运算。
+在具体的运算过程中，Tensor Core 采用融合乘法加法（FMA）的方式来高效地处理计算任务。每个 Tensor Core 每周期能执行 **4x4x4 GEMM**，64 个浮点乘法累加（FMA）运算。
 
 ![CNN 转换为 GEMM 计算](images/01BasicTC06.png)
 
@@ -174,9 +174,13 @@ CUDA 通过**CUDA C++ WMMA API**向外提供了 Tensor Core 在 Warp 级别上�
 
 在实际执行过程中，如上图中所示，蓝色矩阵和黄色矩阵的片段会被取出进行计算，即所谓的 Fragment。这些 Fragment 进行计算后形成 Fragment block，而这些 Fragment block 在 CUDA 编程模型中就是通过线程块（Thread block）的来组织执行的。在线程块内部的计算过程中，会进一步提取部分数据形成 Warp level 级别的计算，Warp level 的计算其实还是很大，于是在 Fragment 执行时会将其变为满足我们 Tensor Core 和矩阵输入的计算了。
 
-## 小结与讨论
+## 小结与思考
 
-从简单的矩阵乘到实际硬件执行阶段，会把矩阵数据的一部分，根据硬件的多级缓存架构分别放在 Block、Warp 和 Thread 里面，最终通过线程的 Block 提供 Tensor Core 的核心计算。
+- Tensor Core 的核心作用：Tensor Core 是 NVIDIA GPU 中专门设计用于加速深度学习和 AI 任务的硬件单元，通过混合精度计算优化了矩阵乘法和累加操作的性能。
+
+Te- nsor Core 的技术演进：自 Volta 架构首次引入后，Tensor Core 在 NVIDIA GPU 架构的后续迭代中不断得到优化，增加了支持的计算精度并提升了运算能力，以满足日益增长的 AI 计算需求。
+
+- Tensor Core 的工作机制：利用融合乘法加法（FMA）技术，Tensor Core 能在单周期内完成大量 FP16 矩阵乘法和 FP32 累加操作，通过 CUDA 编程模型中的 Warp 调度实现高效并行计算，加速深度学习模型的训练和推理过程。
 
 ## 本节视频
 

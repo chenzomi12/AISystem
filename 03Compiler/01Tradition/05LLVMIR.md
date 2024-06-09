@@ -277,7 +277,7 @@ while.end:                                        ; preds = %while.cond
 }
 ```
 
-对比 if 语句可以发现，while 中几乎没有新的指令出现，所以说所谓的 while 循环，也就是“跳转+分支”这一结构。同理，for 循环 也可以由“跳转+分支”这一结构构成。
+对比 if 语句可以发现，while 中几乎没有新的指令出现，所以说所谓的 while 循环，也就是“跳转+分支”这一结构。同理，for 循环也可以由“跳转+分支”这一结构构成。
 
 3. 指针
 
@@ -323,9 +323,7 @@ entry:
 declare i32 @printf(i8*, ...)
 ```
 
-对指针的操作就是指针的指针，开辟一块指针类型的内存，里面放个指针`%pi = alloca i32*, align 8`
-
-此外，c 语言中常见的操作还有对数组和结构体的操作，内置函数和外部函数的引用等，更深一步的内容可以参考[简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
+对指针的操作就是指针的指针，开辟一块指针类型的内存，里面放个指针`%pi = alloca i32*, align 8
 
 ## 小结与思考
     
@@ -343,11 +341,3 @@ declare i32 @printf(i8*, ...)
 <iframe src="https://player.bilibili.com/player.html?aid=305431124&bvid=BV1PP411u7NR&cid=900781834&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
-## 引用
-
-1. https://zh.wikipedia.org/wiki/三位址碼
-2. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_quick_primer.html
-3. https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
-4. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_ssa.html
-5. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/design_hints.html
-6. [简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)

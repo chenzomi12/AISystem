@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 后端优化
+# 后端优化(DONE)
 
 《编译后端优化》后端优化作为 AI 编译器跟硬件之间的相连接的模块，更多的是算子或者 Kernel 进行优化，而优化之前需要把计算图转换称为调度树等 IR 格式，然后针对每一个算子/Kernel 进行循环优化、指令优化和内存优化等技术。
 
@@ -23,7 +23,7 @@
 
 文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/AISystem)，欢迎取用！！！
 
-> 非常希望您也参与到这个开源项目中，B 站给 ZOMI 留言哦！
+> 非常希望您也参与到这个开源课程中，B 站给 ZOMI 留言哦！
 > 
 > 欢迎大家使用的过程中发现 bug 或者勘误直接提交代码 PR 到开源社区哦！
 >

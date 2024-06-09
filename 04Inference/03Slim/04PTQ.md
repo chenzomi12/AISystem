@@ -1,8 +1,14 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 训练后量化与部署
+# 训练后量化与部署(DONE)
 
-## 动态离线量化
+本节将会重点介绍训练后量化技术的两种方式：动态和静态方法，将模型权重和激活从浮点数转换为整数，以减少模型大小和加速推理。并以KL散度作为例子讲解校准方法和量化粒度控制来平衡模型精度和性能。
+
+## 训练后量化的方式
+
+训练后量化的方式主要分为动态和静态两种。
+
+### 动态离线量化
 
 动态离线量化（Post Training Quantization Dynamic, PTQ Dynamic）仅将模型中特定算子的权重从 FP32 类型映射成 INT8/16 类型，主要可以减小模型大小，对特定加载权重费时的模型可以起到一定加速效果。但是对于不同输入值，其缩放因子是动态计算。动态量化的权重是离线转换阶段量化，而激活是在运行阶段才进行量化。因此动态量化是几种量化方法中性能最差的。
 
@@ -18,7 +24,7 @@
 1. 反量化推理方式，即是首先将 INT8/FP16 类型的权重反量化成 FP32 类型，然后再使用 FP32 浮运算运算进行推理。
 2. 量化推理方式，即是推理中动态计算量化算子输入的量化信息，基于量化的输入和权重进行 INT8 整形运算。
 
-## 静态离线量化
+### 静态离线量化
 
 静态离线量化（Post Training Quantization Static, PTQ Static）同时也称为校正量化或者数据集量化，使用少量无标签校准数据。其核心是计算量化比例因子，使用静态量化后的模型进行预测，在此过程中量化模型的缩放因子会根据输入数据的分布进行调整。相比量化训练，静态离线量化不需要重新训练，可以快速得到量化模型。
 
@@ -44,7 +50,7 @@ $$
 | $KL$       | 使用参数在量化前后的 KL 散度作为量化损失的衡量指标。此方法是 TensorRT 所使用的方法。在大多数情况下，使用 KL 方法校准的表现要优于 abs_max 方法。 |
 | $avg $     | 选取所有样本的激活值的绝对值最大值的平均数作为截断值α。此方法计算较为简单，可以在一定程度上消除不同数据样本的激活值的差异，抵消一些极端值影响，总体上优于 abs_max 方法。 |
 
-## 量化粒度
+### 量化粒度
 
 量化参数可以针对层的整个权重张量计算，也可以针对每个通道分别计算。在逐张量量化中，同一剪切范围将应用于层中的所有通道。在模型量化过程中分为权重量化和激活量化：
 
@@ -52,13 +58,13 @@ $$
 
 - 激活量化：即对网络中不含权重的激活类算子进行量化。一般采用逐张量（per-tensor）的粒度，也可以选择逐 token（per-token）的量化粒度。
 
-![per-tensor 和 per-channel 量化粒度](./images/04PTQ03.png)
+![per-tensor 和 per-channel 量化粒度](images/04PTQ03.png)
 
 ## KL 散度校准法
 
 下面以静态离线量化中的 KL 散度作为例子，看看静态离线量化的具体步骤。
 
-### 原理
+### K L 散度原理
 
 KL 散度校准法也叫相对熵，其中 p 表示真实分布，q 表示非真实分布或 p 的近似分布：
 
@@ -86,7 +92,7 @@ $$
 
 KL 散度校准法的伪代码实现：
 
-```python
+```
 Input: FP32 histogram H with 2048 bins: bin[0], … , bin[2047]
 
 For i in range(128, 2048):
@@ -183,19 +189,19 @@ $$
 
 ## 训练后量化的技巧
 
-### 对权重使用每通道（per-channel）粒度，对激活使用每张量（per-tensor）粒度
+1. 对权重使用每通道（per-channel）粒度，对激活使用每张量（per-tensor）粒度
 
 权重张量在不同通道中的值分布差异很大，如果使用单一的缩放因子进行量化，可能会导致较大的精度损失。通过对权重使用每通道粒度，可以在量化过程中更好地保留每个通道内的值分布。此外，推理框架会将每通道的缩放因子整合到 kernel 中，因此在推理过程中不会增加计算开销。由于神经网络通常会使用权重衰减，通道内的权重分布一般较为集中，因此使用最大校准器来捕捉所有动态范围对权重进行量化是有益的。
 
 另一方面，激活在不同通道之间通常较为一致，但会包含来自不同输入数据的异常值。对每层激活张量使用单一的缩放因子，有助于减小异常值的影响，特别是使用基于直方图的方法。此外，由于这些缩放因子不能整合到 kernel 中，仅对每个张量使用一个缩放因子可以减少计算开销。
 
-### 通过替换块分别量化残差连接
+2. 通过替换块分别量化残差连接
 
 残差连接是许多深度学习模型（如 ResNet）中的重要组成部分，因为它们有助于减轻训练期间可能出现的梯度消失问题。然而，在量化过程中，残差连接可能会带来挑战。这是因为像 NVIDIA 的 TensorRT 这样的推理框架需要对所有操作使用单一的数据类型，以便将它们融合到一个内核中。如果残差连接使用的数据类型与模型中的其他层不同，则可能会阻止这些层的融合，从而导致性能下降。
 
 解决这个问题的最好方法是将残差连接与模型中的其他层分开量化。这可以通过替换每个残差连接为一个包含量化后的恒等映射的量化块来实现，将其添加到量化块的输入中。通过这样做，残差连接可以被量化为与其他层相同的数据类型，从而允许它们融合在一起并提高性能。
 
-### 识别敏感层并跳过它们的量化
+3. 识别敏感层并跳过它们的量化
 
 虽然许多层可以在不牺牲太多精度的情况下有效地量化，但某些层在量化过程中可能会带来挑战。这些层包括模型中的瓶颈层，以及需要较高精度以保持准确性的操作层。
 
@@ -203,24 +209,16 @@ $$
 
 为了确定特定模型中哪些层可能对量化敏感并需要跳过，通常需要进行敏感性分析。这包括对模型进行量化，并在验证集上评估其精度，以确定哪些层受量化的影响最大。敏感性分析的一种常见方法是分层分析技术，这涉及逐层量化模型并在每一步评估其精度，从而帮助识别对量化最敏感的层并需要跳过的层。
 
+## 小结与思考
+
+- 训练后量化方式：分为动态离线量化（PTQ Dynamic）和静态离线量化（PTQ Static）。动态量化将权重从FP32映射到INT8/16，而激活在运行时量化，可能导致性能下降；静态量化使用少量校准数据计算量化比例因子，无需重新训练，快速获得量化模型。
+
+- KL散度校准法：一种静态量化方法，通过最小化量化分布和FP32分布之间的KL散度来确定最优的量化阈值，适用于选择量化比例因子。
+
+- 端侧量化推理部署：涉及量化、反量化和重量化操作，根据输入输出数据类型和硬件平台要求，选择不同的推理结构和量化策略，以实现模型在端侧设备上的高效部署。
+
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=735701535&bvid=BV1HD4y1n7E1&cid=976970991&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考
-
-- Learning Accurate Low-Bit Deep Neural Networks with Stochastic Quantization
-- Differentiable Soft Quantization: Bridging Full-Precision and Low-Bit Neural Networks（ICCV 2019）
-- IR-Net: Forward and Backward Information Retention for Highly Accurate Binary Neural Networks（CVPR 2020）
-- Towards Unified INT8 Training for Convolutional Neural Network（CVPR 2020）
-- Rotation Consistent Margin Loss for Efficient Low-bit Face Recognition（CVPR 2020）
-- DMS: Differentiable diMension Search for Binary Neural Networks（ICLR 2020 Workshop）
-- Nagel, Markus, et al. "A white paper on neural network quantization." arXiv preprint arXiv:2106.08295 (2021).
-- Krishnamoorthi, Raghuraman. "Quantizing deep convolutional networks for efficient inference: A whitepaper." arXiv preprint arXiv:1806.08342 (2018)
-- Gholami, A., Kim, S., Dong, Z., Yao, Z., Mahoney, M. W., & Keutzer, K. (2021). A survey of quantization methods for efficient neural network inference. arXiv preprint arXiv:2103.13630.
-- Wu, H., Judd, P., Zhang, X., Isaev, M., & Micikevicius, P. (2020). Integer quantization for deep learning inference: Principles and empirical evaluation. arXiv preprint arXiv:2004.09602.
-- [8-bit Inference with TensorRT ](https://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)
-- [Practical Quantization in PyTorch](https://pytorch.org/blog/quantization-in-practice/)
-- [全网最全-网络模型低比特量化]( https://zhuanlan.zhihu.com/p/453992336)

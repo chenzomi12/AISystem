@@ -1,4 +1,4 @@
-# 指令和存储优化
+# 指令和存储优化(DONE)
 
 除了应用极广的循环优化，在 AI 编译器底层还存在指令和存储这两种不同优化。
 
@@ -12,7 +12,7 @@
 
 ![](images/05OtherOpt01.png)
 
-假设两个整数的数组 A 和 B 计算元素和. 并将结果存储到 数组 C 当中。在非向量化的代码中，代码形式是这样的：
+假设两个整数的数组 A 和 B 计算元素和. 并将结果存储到数组 C 当中。在非向量化的代码中，代码形式是这样的：
 
 ```python 
 for (int i = 0; i < n; i++) {
@@ -30,7 +30,7 @@ for (int i = 0; i < n; i += 4) {
 
 要实现加速，需要将其转换为硬件提供的向量化指令，例如：
 
-```python
+```
 # Intel SSE
 _mm_add_ps：将两个单精度浮点向量的对应元素相加。
 _mm_mul_ps：将两个单精度浮点向量的对应元素相乘。
@@ -159,7 +159,7 @@ NPU 的内存管理机制包括：
 
 - 专用内存控制器：NPU 可能具有专用的内存控制器，用于优化数据流和减少延迟。
 
-## 小结
+## 小结与思考
 
 - 向量化允许并行处理数据，张量化则进一步扩展该概念，通过将数据组织成更高维度结构来实现更大规模的并行计算。
 
@@ -168,5 +168,5 @@ NPU 的内存管理机制包括：
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV11d4y1a7J6&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=391822054&bvid=BV11d4y1a7J6&cid=939552772&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

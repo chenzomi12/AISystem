@@ -2,7 +2,7 @@
 
 # EfficientFormer
 
-本章节主要介绍一种轻量化的 Transformer 结构，在获得高性能的同时，能够保持一定的推理速度。以延迟为目标进行优化设计。通过延迟分析重新探讨 ViT 及其变体的设计原则。
+本节主要介绍一种轻量化的 Transformer 结构，在获得高性能的同时，能够保持一定的推理速度。以延迟为目标进行优化设计。通过延迟分析重新探讨 ViT 及其变体的设计原则。
 
 ## EfficientFormer V1
 
@@ -85,6 +85,7 @@ $$
 $$
 I_{i} = Linear(MHSA(Linear(LN(X_{i}^{B,\frac{HW}{4^{j+1}},C_{j}}))))+X_{i}^{B,\frac{HW}{4^{j+1}},C_{j}}
 $$
+
 $$
 X_{i+1}^{B,\frac{HW}{4^{j+1}},C_{j}} = Linear(Linear_{G}(LN(I_{i})))+I_{i}
 $$
@@ -102,9 +103,11 @@ $$
 Design of Supernet
 
 基于维度一致性设计，作者构建了一个超网，用于搜索上图所示网络架构的有效模型（上图显示了搜索的最终网络的示例）。为了表示这样的超网，作者定义了元路径（MetaPath，MP），它是可能的块的集合：
+
 $$
 MP_{i,j=1,2} \in {MB_{i}^{4D},I_{i}}
 $$
+
 $$
 MP_{i,j=3,4} \in {MB_{i}^{4D},MB_{i}^{3D},I_{i}}
 $$
@@ -301,24 +304,18 @@ class EfficientFormerStage(nn.Module):
         else:
             x = self.blocks(x)
         return x
-
 ```
-
-
-
-
+=========== 代码片段太多了，可以摘取重点，或者重点的代码进行说明，不用全贴哈
 
 ## EfficientFormer V2
 
 ** EfficientFormer V2**:论文重新审视了 ViT 的设计选择，并提出了一种具有低延迟和高参数效率的改进型超网络。论文进一步引入了一种细粒度联合搜索策略，该策略可以通过同时优化延迟和参数量来找到有效的架构。所提出的模型 EfficientFormerV2 在 ImageNet-1K 上实现了比 MobileNetV2 和 MobileNetV1 高约 4%的 top-1 精度，具有相似的延迟和参数。
 
-### 设计思路
-
 EfficientFormerV2 相对于 EfficientFormer 的主要改进如下图所示。
 
 ![EfficientFormer](images/11.efficientformer_03.png)
 
-**重新思考混合 Transformer 网络**
+## 重新思考混合 Transformer
 
 结合局部信息可以提高性能，并使 ViT 在缺少显式位置嵌入的情况下更加鲁棒。PoolFormer 和 EfficientFormer 使用 3×3 平均池化层（作为 local token 混合器。用相同内核大小的 depth-wise 卷积）替换这些层不会引入耗时开销，而使用可忽略的额外参数（0.02M），性能提高了 0.6%。此外。在 ViT 中的前馈网络（FFN）中注入局部信息建模层也有利于以较小的开销提高性能。值得注意的是，通过在 FFN 中放置额外的 depth-wise 3×3 卷积来捕获局部信息，复制了原始局部混合器（池或卷积）的功能。基于这些观察，论文移除了显式残差连接的 local token 混合器，并将 depth-wise 3×3 CONV 移动到 FFN 中，以获得 locality enabled 的统一 FFN（上图（b））。论文将统一的 FFN 应用于网络的所有阶段，如上图（a，b）所示。这种设计修改将网络架构简化为仅两种类型的 block（local FFN 和 global attention），并在相同的耗时（见表 1）下将精度提高到 80.3%，参数开销较小（0.1M）。更重要的是，该修改允许直接使用模块的确切数量搜索网络深度，以提取局部和全局信息，尤其是在网络的后期阶段。
 
@@ -334,7 +331,7 @@ EfficientFormerV2 相对于 EfficientFormer 的主要改进如下图所示。
 | ✓ Stride Attention | 13.10 | 1.31 | 1.5 | 81.5 |
 | ✓ Attention Downsampling | 12.40 | 1.35 | 1.6 | 81.8 |
 
-**搜索空间优化**
+### 搜索空间优化
 
 通过统一的 FFN 和删除残差连接的 token mixer，V2 检查来自 EfficientFormer 的搜索空间是否仍然足够，特别是在深度方面。论文改变了网络深度（每个阶段中的 block 数）和宽度（通道数），并发现更深和更窄的网络会带来更好的精度（0.2%的改进）、更少的参数（0.3M 的减少）和更少的耗时（0.1ms 的加速），如上表所示。因此，论文将此网络设置为新的基线（精度 80.5%），以验证后续的设计修改，并为架构搜索提供更深入的超网络。
 
@@ -422,9 +419,7 @@ class Mlp(nn.Module):
         return x
 ```
 
-
-
-**多头注意力改进**
+### 多头注意力改进
 
 然后，论文研究了在不增加模型大小和耗时的额外开销的情况下提高注意力模块性能的技术。如图（c）所示，论文研究了 MHSA 的两种方法。首先通过添加 depth-wise 3×3 CONV 将局部信息注入到 Value 矩阵（V）中，也采用了这种方法。其次通过在 head 维度上添加全连接层来实现注意力头之间的通信，如图 2（c）所示。通过这些修改，进一步将性能提高到 80.8%，与基线模型相比，具有相似的参数和延迟。
 
@@ -567,7 +562,7 @@ class AttnFFN(nn.Module):
         return x
 ```
 
-**在更高分辨率上的注意力**
+### 在更高分辨率上的注意力
 
 注意机制有利于性能。然而，将其应用于高分辨率特征会损害部署效率，因为它具有与空间分辨率相对应的二次时间复杂度。论文研究了将 MHSA 有效应用于更高分辨率（早期阶段）的策略。回想一下，在当前基线网络中，MHSA 仅在输入图像空间分辨率为 1/32 的最后阶段使用。论文将额外的 MHSA 应用于具有 1/16 特征大小的倒数第二个阶段，并观察到准确度提高了 0.9%。另一方面，推理速度减慢了几乎 2.7 倍。因此，有必要适当降低注意力模块的复杂性。
 
@@ -684,9 +679,7 @@ class Attention4DDownsample(torch.nn.Module):
         return out
 ```
 
-
-
-**注意力降采样**
+### 注意力降采样
 
 大多数视觉主干利用跨步卷积或池化层来执行静态和局部下采样，并形成分层结构。最近的一些研究开始探索注意力下采样。例如，LeViT 和 UniNet 建议通过注意力机制将特征分辨率减半，以实现全局感受野的上下文感知下采样。具体而言，Query 中的 token 数量减少一半，以便对注意力模块的输出进行下采样：
 
@@ -721,7 +714,7 @@ class LGQuery(torch.nn.Module):
         return q
 ```
 
-**EfficientFormerV2 的设计**
+### EfficientFormerV2 的设计
 
 如前文所述，论文采用了四阶段分层设计，其获得的特征尺寸为输入分辨率的{1/4，1/8，1/16，1/32}。EfficientFormerV2 从一个小的内核卷积 stem 开始嵌入输入图像，而不是使用非重叠 patch 的低效嵌入，
 $$
@@ -744,7 +737,7 @@ $$
 MHSA(Q,K,V) = Softmax(Q.K^{T}+ab).V \tag{6}
 $$
 
-**联合优化模型大小和速度**
+### 联合优化模型大小和速度
 
 尽管基线网络 EfficientFormer 是通过耗时驱动搜索发现的，并且在移动设备上具有快速的推理速度，但搜索算法有两个主要缺点。首先，搜索过程仅受速度限制，导致最终模型是参数冗余的，如图 1 所示。其次，它仅搜索深度（每个阶段的 blocks 数）和阶段宽度，这是一种粗粒度的方式。事实上，网络的大多数计算和参数都在 FFN 中，并且参数和计算复杂度与其扩展比线性相关。可以针对每个 FFN 独立地指定，而不必相同。因此，搜索实现了更细粒度的搜索空间，其中计算和参数可以在每个阶段内灵活且非均匀地分布。其中在每个阶段保持相同。论文提出了一种搜索算法，该算法实现了灵活的 per-block 配置，并对大小和速度进行了联合约束，并找到了最适合移动设备的视觉主干。
 
@@ -790,35 +783,12 @@ $$
 
 对于模型大小，EfficientFormerV 2-S0 比 EdgeViT-XXS 超出了 1.3%的 top-1 精度，甚至少了 0.6M 参数，比 MobileNetV 2 ×1.0 优于 3.5%的 top-1，参数数量相似。对于大型模型，EfficientFormerV 2-L 模型实现了与最近的 EfficientFormerL 7 相同的精度，同时小 3.1 倍。在速度方面，在延迟相当或更低的情况下，EfficientFormerV2-S2 的性能分别优于 UniNet-B1，EdgeViT-S 和 EfficientFormerL 1，分别为 0.8%，0.6%和 2.4%。 EiffcientFormer V2-S1 的效率分别比 MobileViT-XS、EdgeViT-XXS 和 EdgeViTXS 高出 4.2%、4.6%和 1.5%，其中 MES 要高得多。
 
-## 小结
+## 小结与思考
 
 EfficientFormerV1 证明了视觉的 Transformer 可以在移动设备上以 MobileNet 速度运行。经全面的延迟分析，在一系列基于 VIT 的架构中识别低效的运算符，指导新的设计范式。此外，基于确定的网络结构，EfficientFormerV2 进一步提出了在大小和速度上的细粒度联合搜索，并获得了轻量级和推理速度超快的模型。
-
 
 ## 本节视频
 
 <html>
 <iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1.[Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. arXiv preprint arXiv:1711.05101, 2017. 6, 8](https://arxiv.org/abs/1711.05101v3)
-
-2.[Hugo Touvron, Matthieu Cord, and Herve J ´ egou. Deit iii: ´Revenge of the vit. arXiv preprint arXiv:2204.07118, 2022.13](https://arxiv.org/abs/2204.07118)
-
-3.[Zizheng Pan, Jianfei Cai, and Bohan Zhuang. Fast vision transformers with hilo attention. arXiv preprint arXiv:2205.13213, 2022. 1](https://arxiv.org/abs/2205.13213)
-
-4.[Noam Shazeer, Zhenzhong Lan, Youlong Cheng, Nan Ding, and Le Hou. Talking-heads attention. arXiv preprint arXiv:2003.02436, 2020. 4](https://arxiv.org/abs/2003.02436v1)
-
-5.[Chenyang Si, Weihao Yu, Pan Zhou, Yichen Zhou, Xinchao Wang, and Shuicheng Yan. Inception transformer. arXiv preprint arXiv:2205.12956, 2022. 1, 2, 4](https://arxiv.org/abs/2205.12956)
-
-6.[Wenqiang Zhang, Zilong Huang, Guozhong Luo, Tao Chen,Xinggang Wang, Wenyu Liu, Gang Yu, and Chunhua Shen.Topformer: Token pyramid transformer for mobile semantic segmentation, 2022. 2](https://arxiv.org/pdf/2204.05525)
-
-7.[Zizhao Zhang, Han Zhang, Long Zhao, Ting Chen, Sercan Arik, and Tomas Pfister. Nested hierarchical transformer:Towards accurate, data-efficient and interpretable visual understanding. 2022. 2](https://arxiv.org/abs/2105.12723)
-
-8.[Weihao Yu, Mi Luo, Pan Zhou, Chenyang Si, Yichen Zhou, Xinchao Wang, Jiashi Feng,and Shuicheng Yan. Metaformer is actually what you need for vision. arXiv preprint arXiv:2111.11418, 2021](https://arxiv.org/abs/2111.11418)
-
-9.[Sebastian Jaszczur, Aakanksha Chowdhery, Afroz Mohiuddin, Lukasz Kaiser, Wojciech Gajewski, Henryk Michalewski, and Jonni Kanerva. Sparse is enough in scaling transformers. Advances in Neural Information Processing Systems, 34:9895–9907, 2021.](https://arxiv.org/pdf/2111.12763)
-
-10.[Sachin Mehta and Mohammad Rastegari. Mobilevit: Light-weight, general-purpose, and mobile-friendly vision transformer. arXiv preprint arXiv:2110.02178, 2021.](https://arxiv.org/abs/2110.02178)

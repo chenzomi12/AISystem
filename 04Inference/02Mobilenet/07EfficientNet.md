@@ -2,15 +2,13 @@
 
 #  EfficientNet 系列
 
-本章节主要介绍 EffiicientNet 系列，在之前的文章中，一般都是单独增加图像分辨率或增加网络深度或单独增加网络的宽度，来提高网络的准确率。而在 EfficientNet 系列论文中，会介绍使用网络搜索技术(NAS)去同时探索网络的 宽度(width)，深度(depth)，分辨率(resolution)对模型准确率的影响。以及如何加速训练推理速度。
+本节主要介绍 EffiicientNet 系列，在之前的文章中，一般都是单独增加图像分辨率或增加网络深度或单独增加网络的宽度，来提高网络的准确率。而在 EfficientNet 系列论文中，会介绍使用网络搜索技术(NAS)去同时探索网络的宽度(width)，深度(depth)，分辨率(resolution)对模型准确率的影响。以及如何加速训练推理速度。
 
 ## EfficientNet V1
 
 **EfficientNetV1**:重点分析了卷积网络的深度，宽度和输入图像大小对卷积网络性能表现的影响，提出了一种混合模型尺度的方法，通过设置一定的参数值平衡调节卷积网络的深度，宽度和输入图像大小，使卷积网络的表现达到最好。
 
-### 设计思路
-
-#### 复合模型缩放法
+### 复合模型缩放法
 
 单独适当增大深度、宽度或分辨率都可以提高网络的精确性，但随着模型的增大，其精度增益却会降低。此外，这三个维度并不是独立的（如：高分辨率图像需要更深的网络来获取更细粒度特征等），需要我们协调和平衡不同尺度的缩放，而不是传统的一维缩放。EfficientNet 的设想就是能否设计一个标准化的卷积网络扩展方法，既可以实现较高的准确率，又可以充分的节省算力资源。其通过 NAS（Neural Architecture Search）技术来搜索网络的图像输入分辨率 r，网络的深度 depth 以及 channel 的宽度 width 三个参数的合理化配置。如下图所示，(b)，(c)，(d)分别从不同的维度对 baseline 做 model scaling，而这篇论文要做的是将这 3 者结合起来一起优化即(e)。
 
@@ -19,20 +17,22 @@
 通过实验得出以下结论:
 
 1. **增加网络的 depth** 能够得到更加丰富、复杂的高级语义特征，并且能很好的应用到其他任务中去。但是网络的深度过深会面临梯度消失，训练困难等问题。
+
 2. **增加网络的 width** 能够获得更高细粒度的特征，并且也更容易训练。但是对于宽度很大，深度较浅的网络往往很难学习到更深层次的特征。例如我就只有一个 3×3 的卷积，但是输出通道为 10000，也没办法得到更为抽象的高级语义。
+
 3. **增加输入网络的图像分辨率**能够潜在获得更高细粒度的特征模版，图像分辨率越高能看到的细节就越多，能提升分辨能力。但是对于非常高的输入分辨率，准确率的增益也会减少。且大分辨率图像会增加网络的计算量（注意不是参数量）。
-
-Compound Model Scaling 也可以公式化为:
-
-**Problem Formulation**
 
 一个卷积网络的某一层 $i$ 可以被定义为；
 
-​                                               $$Y_{i}=F_{i}(X_{i})$$
+$$
+Y_{i}=F_{i}(X_{i})
+$$
 
-其中:$$X_{i}$$ 表示输入的 tensor,其形状为 $<H_{i},W_{i},C_{i}>$，$Y_{i}$ 是输出的 tensor。于是，一个卷积网络 $N$ 可以被表示成如下形式:
+其中：$$X_{i}$$ 表示输入的 tensor，其形状为 $<H_{i},W_{i},C_{i}>$，$Y_{i}$ 是输出的 tensor。于是，一个卷积网络 $N$ 可以被表示成如下形式：
 
-​                       $$N=F_{k}\odot ...\odot F_{2}\odot F_{1}(X_{11})=\odot_{j=1....k}F_{j}(X_{1})$$
+​$$
+N=F_{k}\odot ...\odot F_{2}\odot F_{1}(X_{11})=\odot_{j=1....k}F_{j}(X_{1})
+$$
 
 但是在实际中，ConvNets 的各个层通常被划分为多个 stage，并且每个 stage 中的所有层都具有相同的体系结构（例如 ResNet，共有五个 stage，除了第一层之外的每个 stage 的所有层都分别具有相同的卷积类型）。
 
@@ -41,11 +41,13 @@ Compound Model Scaling 也可以公式化为:
 $$
 N = \bigoplus_{i=1...s}F_{i}^{L_i}(X_{<H_{i},W_{i},C_{i}>})
 $$
+
 其中 $F_{i}^{L_{i}}$ 表示第 $i$ 个 stage，并且这个 stage 由 $L_{i}$ 次的 $F_{i}$（相当于一层 layer）操作构成。
 
 通常 ConvNet 的设计焦点在 $F_{i}$，但是这篇文章的焦点，或者说 Model Scaling 的焦点则是在模型的深度（$L_{i}$）、宽度（$C_{i}$）和输入图片的大小（$H_{i}$,$W_{i}$），而不改变在 baseline 中预先定义好的 $F_{i}$。
 
 通过固定 $F_{i}$，简化了对于新资源约束的 Model Scaling 设计问题，但仍然有很大的设计空间来探索每一层的不同 $L_{i}$，$C_{i}$，$H_{i}$，$W_{i}$。为了进一步减小设计空间，作者又限制所有层必须以恒定比率均匀地做 Scaling。我们的目标是在任何给定的资源约束下最大化模型精度，这可以表述为优化问题：
+
 $$
 max_{d,w,r}Accurracy(N(d,w,r))
 $$
@@ -76,17 +78,16 @@ $$
 
 **Resolution**:早期的图像大小以 224×224 开始，现在常使用 299×299 或者 311×311。最近的创新：480×480 的分辨率和 600×600 的分辨率。下图右是缩放网络分辨率的结果，更高的分辨率的确提高了网络的精度，但对于非常高的分辨率来说，准确率的提高会减弱。
 
-
 ![EfficientNet](images/07.efficientnet_02.png)
-
 
 **Compound Scaling**
 
- 为了追求更好的精度和效率，在连续网络缩放过程中平衡网络宽度、深度和分辨率的所有维度是至关重要的。如下图所示。
+为了追求更好的精度和效率，在连续网络缩放过程中平衡网络宽度、深度和分辨率的所有维度是至关重要的。如下图所示。
 
- ![EfficientNet](images/07.efficientnet_03.png)
+![EfficientNet](images/07.efficientnet_03.png)
 
 不同维度的 Scaling 并不相互独立，需要协调和平衡不同维度的 Scaling，而不是常规的单维度 Scaling。EfficientNet 提出了 compound scaling method（复合缩放方法），这种方法是通过一个复合系数φ去统一缩放网络的宽度，深度和分辨率，公式表示如下：
+
 $$
 depth:d=α^{φ}
 $$
@@ -122,7 +123,7 @@ $$
 Conv 1x1, s1 层，一个 1x1 的标准卷积，用于降维，然后通过一个 BN，没有 swish 激活函数。
 Droupout 层，其 dropout_rate 对应的是 drop_connect_rate；shortcut 连接，执行 add 操作。
 
-####  SE 模块
+### SE 模块
 
 如下图所示，SE 模块由一个全局平均池化(AvgPooling)，两个 FC 层组成。第一个全连接层的节点个数是 MBConv 模块的输入特征图 channels 的 $ \frac{1}{4}$ ，且使用 Swish 激活函数。第二个全连接层的节点个数等于 MBConv 模块中 DWConv 层输出特征图的 channels，且使用 Sigmoid 激活函数。简单理解，SE 模块的总体思想是：给每个特征图不同的权重，关注更有用的特征。
 
@@ -245,18 +246,13 @@ class SqueezeExcitation(nn.Module):
         scale = self.fc2(scale)
         scale = self.ac2(scale)
         return scale * x
-
 ```
-
-
 
 ## EfficientNet V2
 
-**EfficientNet V2**:该网络主要使用训练感知神经结构搜索和缩放的组合；在 EfficientNetV1 的基础上，引入了 Fused-MBConv 到搜索空间中；引入渐进式学习策略、自适应正则强度调整机制使得训练更快；进一步关注模型的推理速度与训练速度。
+**EfficientNet V2**：该网络主要使用训练感知神经结构搜索和缩放的组合；在 EfficientNetV1 的基础上，引入了 Fused-MBConv 到搜索空间中；引入渐进式学习策略、自适应正则强度调整机制使得训练更快；进一步关注模型的推理速度与训练速度。
 
-### 设计思路
-
-#### 训练感知 NAS 和缩放
+### 训练感知 NAS 和缩放
 
 **NAS 搜索**
 
@@ -306,13 +302,11 @@ $$
 
 ![EfficientNet](images/07.efficientnet_06.png)
 
-
-#### 渐进式学习
+### 渐进式学习
 
 除了模型设计优化，论文还提出了一种 progressive learning 策略来进一步提升 EfficientNet v2 的训练速度，简单来说就训练过程渐进地增大图像大小，但在增大图像同时也采用更强的正则化策略，训练的正则化策略包括数据增强和 dropout 等。
 
 不同的图像输入采用不同的正则化策略，这不难理解，在早期的训练阶段，我们用更小的图像和较弱的正则化来训练网络，这样网络就可以轻松、快速地学习简单的表示。然后，我们逐渐增加图像的大小，但也通过增加更强的正则化，使学习更加困难。从下表中可以看到，大的图像输入要采用更强的数据增强，而小的图像输入要采用较轻的数据增强才能训出最优模型效果。
-
 
 |      | Size=128 | Size=192 | Size=300 |
 | ---- | -------- | -------- | -------- |
@@ -328,7 +322,7 @@ $$
 
 （3）当图像大小较小时，弱增强的精度最好；但对于较大的图像，更强的增强效果更好。
 
-#### 自适应正则化的渐进学习
+### 自适应正则化的渐进学习
 
 在早期训练阶段，使用较小的图像大小和较弱的正则化训练网络，这样网络可以轻松快速地学习简单表示。然后，逐渐增加图像大小，但也通过添加更强的正则化使学习更加困难。在逐步改进图像大小的基础上，自适应地调整正则化。假设整个训练有 N 个步骤，目标图像大小为 $S_{e}$ ，正则化大小 $Φ_{e}={ϕ_{e}^{}}$ ，这里 k 表示一种正则化类型，例如 dropout rate or mixup rate value。将训练分为 M 个阶段，对于每个阶段 $1≤i≤M$ ，利用图像大小 Si 和正则化幅度对模型进行训练 $Φ_{i}={ϕ_{i}^{k}}$ ，最后阶段 $M$ 将图像大小 $S_{e}$ 和正则化 $Φ_{e}$ ，为了简单起见，启发式地选择初始图像大小 $S_{0}$,$Φ_{0}$ ，然后使用线性插值来确定每个阶段的值，算法 1 总结了该过程。在每个阶段开始，网络将集成前一阶段的所有权重，与 trasnformer 不同，trasnformer 的权重（例如位置嵌入）可能取决于输入长度，ConvNet 的权重与图像大小无关，可以轻松继承。本文中主要研究了以下三种正则：Dropout、RandAugment 以及 Mixup。
 
@@ -410,49 +404,14 @@ class FusedMBConvBlock(nn.Module):
         if self.use_res_connect:
             result += x
         return result
-
 ```
-
-
 
 ## 小结
 
-相比于 GoogleNet、ResNet 这种人工设计的经典 BackBone，EfficientNet 系列利用强大的计算资源对网络结果进行暴力搜索，得到一系列性能、参数量、计算量最优的网络结构和一些看不懂的超参（虽然人工设计网络中的超参也是大量试出来的，可解释性也较差）。
+相比于谷歌 Net、ResNet 这种人工设计的经典 BackBone，EfficientNet 系列利用强大的计算资源对网络结果进行暴力搜索，得到一系列性能、参数量、计算量最优的网络结构和一些看不懂的超参（虽然人工设计网络中的超参也是大量试出来的，可解释性也较差）。
 
 EfficientNet 系列的研究方式应该是以后发展的一个重要方向，研究人员可以在 Conv 层的优化、训练策略上多下功夫研究，至于网络架构怎么组合最优，交给机器去做就好。
 
 ## 本节视频
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-## 参考文献
-
-1.[Huang, G., Liu, Z., Van Der Maaten, L., and Weinberger,K. Q. Densely connected convolutional networks. CVPR,2017.](https://arxiv.org/abs/1608.06993v2)
-
-2.[Kornblith, S., Shlens, J., and Le, Q. V. Do better imagenet models transfer better? CVPR, 2019.](https://arxiv.org/pdf/1805.08974)
-
-3.[Krizhevsky, A. and Hinton, G. Learning multiple layers of features from tiny images. Technical Report, 2009.](https://core.ac.uk/display/21817232)
-
-4.[Lin, H. and Jegelka, S. Resnet with one-neuron hidden layers is a universal approximator. NeurIPS, pp. 6172 6181, 2018.](https://arxiv.org/pdf/1806.10909)
-
-5.[Ma, N., Zhang, X., Zheng, H.-T., and Sun, J. Shufflenet v2:Practical guidelines for efficient cnn architecture design.ECCV, 2018.](https://arxiv.longhoe.net/abs/1807.11164)
-
-6.[Zoph, B., Vasudevan, V., Shlens, J., and Le, Q. V. Learning transferable architectures for scalable image recognition.CVPR, 2018.](https://store.computer.org/csdl/proceedings-article/cvpr/2018/642000i697/17D45Xtvpcc)
-
-7.[Zagoruyko, S. and Komodakis, N. Wide residual networks.BMVC, 2016.](https://arxiv.longhoe.net/abs/1605.07146)
-
-8.[Zhou, B., Khosla, A., Lapedriza, A., Oliva, A., and Torralba,A. Learning deep features for discriminative localization.CVPR, pp. 2921–2929, 2016.](https://arxiv.longhoe.net/abs/1512.04150)
-
-9.[Karras, T., Aila, T., Laine, S., and Lehtinen, J. Progressive growing of gans for improved quality, stability, and variation. ICLR, 2018.](https://arxiv.longhoe.net/abs/1710.10196)
-
-10.[Krizhevsky, A. and Hinton, G. Learning multiple layers of features from tiny images. Technical Report, 2009.](https://www.cs.utoronto.ca/~kriz/learning-features-2009-TR.pdf)
-
-11.[Xie, Q., Luong, M.-T., Hovy, E., and Le, Q. V. Self  training with noisy student improves imagenet classification. CVPR, 2020.](https://arxiv.longhoe.net/abs/1911.04252)
-
-12.[Zhang, H., Cisse, M., Dauphin, Y. N., and Lopez-Paz, D.Mixup: Beyond empirical risk minimization. ICLR, 2018.](https://arxiv.longhoe.net/abs/1710.09412)
-
-13.[ Ridnik, T., Lawen, H., Noy, A., Baruch, E. B., Sharir,G., and Friedman, I. Tresnet: High performance gpu dedicated architecture. arXiv preprint arXiv:2003.13630,2020.](https://arxiv.longhoe.net/abs/2003.13630)
-
-14.[Sandler, M., Howard, A., Zhu, M., Zhmoginov, A., and Chen, L.-C. Mobilenetv2: Inverted residuals and linear bottlenecks. CVPR, 2018.](https://arxiv.longhoe.net/abs/1801.04381)
-
-15.[Lu, Z., Pu, H., Wang, F., Hu, Z., and Wang, L. The expressive power of neural networks:   A view from the width.NeurIPS, 2018. Lu, Z., Pu, H., Wang, F., Hu, Z., and Wang, L.The expressive power of neural networks: A view from the width.NeurIPS, 2018.](https://arxiv.longhoe.net/abs/1709.02540)
