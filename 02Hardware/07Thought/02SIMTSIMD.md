@@ -1,3 +1,5 @@
+<!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # SIMD & SIMT 与芯片架构
 
 为了进一步探讨 SIMD/SIMT 与 AI 芯片之间的关系，本节将详细介绍 SIMD 单指令多数据和 SIMT 单指令多线程的计算本质，以及对 NVIDIA CUDA 底层实现 SIMD/SIMT 的原理进行讲解。
@@ -227,9 +229,11 @@ int main() {
 
 ## 小结与思考
 
-本节主要对 SIMD、SIMT 进行了讲解，SIMD 计算本质是一次加法运算操作完成多个元素的加法，因此在硬件层面需要增加 ALU 单元的数量，同时需要增加数据通路提升计算的吞吐量。SIMT 硬件结构是一个多核系统，指令会被同时广播给所有的 SIMT Core，每个 SIMT Core 中有多个线程块（Thread Block）实现并行，同时多个 SIMT Core Cluster 组成整个 GPU Core。SIMT 是 SIMD 的一种推广，在编程模式上更加灵活。
+- SIMD与SIMT均基于单指令多数据执行，但SIMD要求数据严格对齐且同步执行，而SIMT允许线程独立寻址且可异步执行，提高了灵活性。
 
-结合 NVIDIA CUDA 实现对 SIMD 和 SIMT 进行了对比，与 SIMD 不同的是 SIMT 允许程序员为独立、标量线程编写线程级的并行代码，还允许为协同线程编写数据并行代码。关于 GPU 编程本质和硬件执行本质，编程模型是程序员用来编写程序的抽象概念，编程模型最终会通过编译器转换为硬件执行模型，最终由硬件执行 SIMD 和 SIMT。
+- NVIDIA CUDA通过SIMT架构实现高效的并行计算，利用线程块和网格结构，通过CUDA核心进行调度，优化了GPU的性能。
+
+- 编程模型与硬件执行模型相互关联，前者为程序员提供抽象概念以组织程序，后者描述程序在硬件上的实际执行方式，理解二者关系有助于程序性能优化。
 
 ## 本节视频
 

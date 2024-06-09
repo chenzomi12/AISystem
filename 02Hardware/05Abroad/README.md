@@ -1,3 +1,5 @@
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # 国外 AI 芯片(DONE)
 
 - 《国外 AI 芯片》深入地剖析国外谷歌 TPU 和特斯拉 DOJO 相关 AI 芯片的架构，以 TPU 为主主要使用了数据流（Data FLow）的方式的脉动阵列来加速矩阵的运算，而特斯拉则使用了近存计算（Near Memory）两种不同的产品形态。

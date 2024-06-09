@@ -179,5 +179,5 @@ Tensor Core 是 NVIDIA GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-le
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1oh4y1J7B4/?spm_id_from=333.788&vd_source=997b612028a4d9f90d4179eb93284d60" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=613407659&bvid=BV1oh4y1J7B4&cid=1121933643&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

@@ -185,5 +185,5 @@ Te- nsor Core 的技术演进：自 Volta 架构首次引入后，Tensor Core �
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1aL411a71w/?spm_id_from=333.999.0.0&vd_source=997b612028a4d9f90d4179eb93284d60" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=443246021&bvid=BV1aL411a71w&cid=1117347546&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

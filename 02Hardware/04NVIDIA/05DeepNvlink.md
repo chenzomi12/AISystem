@@ -159,5 +159,5 @@ NVLink 协议通过 25 位 CRC 实现了错误检测，确保了数据传输的�
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1uP411X7Dr/?spm_id_from=333.337.search-card.all.click&vd_source=997b612028a4d9f90d4179eb93284d60" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=314206309&bvid=BV1uP411X7Dr&cid=1144686167&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

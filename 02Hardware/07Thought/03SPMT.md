@@ -1,3 +1,5 @@
+<!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 #  SIMD & SIMT 与 CUDA 关系
 
 前面的小节对 AI 芯片 SIMD 和 SIMT 计算本质进行了分析，结合 NVIDIA CUDA 实现对 SIMD 和 SIMT 进行了对比，本节将对不同并行的编程方式进行讲解，以英伟达 GPU 为例，讲解 GPU 的编程模型。
@@ -97,7 +99,11 @@ SISD、SIMD 和 SIMT 按照时间轴的执行方式如下所示。
 
 ## 小结与思考
 
-本节主要从硬件执行模型和编程模型两个方面介绍了实现并行计算的指令执行方式，主要对比传统 SIMD（Traditional SIMD）和基于 Warp 的 SIMD（Warp-base SIMD(SIMT)），同时讲解了在英伟达 GPU 上实际采用的 SPMD 编程模型。
+- 串行执行（SISD）、数据并行（SIMD）和多线程执行（MIMD/SPMD）是实现并行编程的三种基本方式，分别适用于不同规模和类型的计算任务。
+
+- SIMD通过向量化指令实现数据并行，而SIMT则是基于SIMD的硬件架构，通过线程束（Warp）实现更灵活的多线程并行执行。
+
+- NVIDIA CUDA编程模型基于SPMD，利用SIMT硬件架构执行单指令多线程，允许程序员以单程序多数据的方式编写并行程序，从而简化并行计算的开发。
 
 ## 本节视频
 

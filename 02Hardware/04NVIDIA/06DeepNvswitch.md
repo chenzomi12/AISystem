@@ -156,10 +156,10 @@ NVSwitch 中的交叉开关（XBAR），经过精心调整和优化，与 SHARP 
 
 - NVSwitch 的演进：自 Volta 架构首次引入以来，NVSwitch 技术经历了多代发展，每代都显著提升了 GPU 间的通信能力和系统的整体性能。
 
--NVSwitch 的技术特性：NVSwitch 支持全互联架构，具备高度的系统扩展性和灵活性，同时集成的 SHARP 和 NVLink 模块增强了数据处理能力和安全性，为高性能计算和 AI 应用提供了坚实的基础。
+- NVSwitch 的技术特性：NVSwitch 支持全互联架构，具备高度的系统扩展性和灵活性，同时集成的 SHARP 和 NVLink 模块增强了数据处理能力和安全性，为高性能计算和 AI 应用提供了坚实的基础。
 
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1uM4y1n7qd/?spm_id_from=333.788&vd_source=997b612028a4d9f90d4179eb93284d60" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=912333177&bvid=BV1uM4y1n7qd&cid=1166054776&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

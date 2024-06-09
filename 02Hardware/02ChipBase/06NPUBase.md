@@ -151,12 +151,5 @@ AI 专用处理器如 NPU 和 TPU 的出现，极大地推动了人工智能技�
 ## 本节视频
 
 <html>
-
 <iframe src="https://player.bilibili.com/player.html?aid=739564193&bvid=BV1Rk4y1e77n&cid=1084564213&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 引用
-
-[1]. [训练芯片和推理芯片，都是干嘛的？](https://zhuanlan.zhihu.com/p/668906583)
-
-[2]. [AI 芯片场景](https://www.cnblogs.com/wujianming-110117/p/16011267.html)
