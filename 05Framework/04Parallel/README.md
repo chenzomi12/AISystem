@@ -16,7 +16,8 @@
 |:--:|:--:|
 | 01 基本介绍 | [文章](./01Introduction.md), [PPT](./01.introduction.pdf), [视频](https://www.bilibili.com/video/BV1ve411w7DL/) |
 | 02 数据并行 | [文章](./02DataParallel.md), [PPT](./02DataParallel.pdf), [视频](https://www.bilibili.com/video/BV1JK411S7gL/) |
-| 03 模型并行 | [文章](./03ModelParallel.md), [PPT](./03TensorParallel.pdf), [PPT](./05PipelineParallel.pdf), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/), [视频](https://www.bilibili.com/video/BV1WD4y1t7Ba/)|
+| 03 模型并行(上) | [文章](./03ModelParallel.md), [PPT](./03TensorParallel.pdf), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/) |
+| 03 模型并行(下) | [文章](./03ModelParallel.md), [PPT](./05PipelineParallel.pdf), [视频](https://www.bilibili.com/video/BV1WD4y1t7Ba/)|
 | 04 混合并行 | [文章](./04HybridParallel.md), [PPT](./04MindsporeParallel.pdf), [视频](https://www.bilibili.com/video/BV1vt4y1K7wT/) |
 | 05 分布式训练总结 | [文章](./05Summary.md), [PPT](./07Summary.pdf), [视频](https://www.bilibili.com/video/BV1av4y1S7DQ/) |
 

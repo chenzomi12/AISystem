@@ -57,7 +57,7 @@
 
 ## NVIDIA Triton 推理服务
 
-NVIDIA Triton Inference Server（简称 Triton）是一个高性能、可扩展的开源推理框架，由 NVIDIA 等公司推出。Triton 旨在为用户提供云和边缘推理的部署解决方案，支持多种深度学习模型和框架。
+NVIDIA Triton Inference Server（简称 Triton）是一个高性能、可扩展的开源推理框架，由 NVIDIA 等公司推出。Triton 旨在为用户提供云和边缘推理的部署解决方案，支持多种神经网络模型和框架。
 
 ![Triton 服务流程图](images/04System02.png)
 
@@ -209,7 +209,7 @@ Pre-Model Scheduler Queues 是模型编排的核心工作区，负责解析请�
 
 ### Triton 推理引擎
 
-Triton 的一大亮点在于其高度灵活且强大的推理引擎支持体系，将 TensorFlow、TensorRT、PyTorch、ONNX Runtime 等主流框架统一整合为“Backends”。这一设计极大地促进了深度学习模型部署的标准化和效率，使得开发者能够在一个统一的平台上轻松管理多样化的模型，而无需关注底层实现细节，获得具有多后端架构的优势。
+Triton 的一大亮点在于其高度灵活且强大的推理引擎支持体系，将 TensorFlow、TensorRT、PyTorch、ONNX Runtime 等主流框架统一整合为“Backends”。这一设计极大地促进了神经网络模型部署的标准化和效率，使得开发者能够在一个统一的平台上轻松管理多样化的模型，而无需关注底层实现细节，获得具有多后端架构的优势。
 
 ![Triton 推理引擎](images/04System07.png)
 
@@ -431,7 +431,7 @@ Status TritonBackend::LoadBackendLibrary()
 
 - 推理系统架构是实现机器学习模型从训练到实际应用的关键桥梁，涉及推理、部署和服务化三个重要环节。
 
-- NVIDIA Triton Inference Server 是一个高性能、可扩展的开源推理框架，支持多种深度学习模型和框架，提供丰富的模型管理和优化功能。
+- NVIDIA Triton Inference Server 是一个高性能、可扩展的开源推理框架，支持多种神经网络模型和框架，提供丰富的模型管理和优化功能。
 
 - 模型生命周期管理包括金丝雀策略和回滚策略，确保模型的持续迭代和稳定性，降低新版本部署风险，快速应对可能的问题。
 

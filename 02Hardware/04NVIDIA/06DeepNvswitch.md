@@ -66,7 +66,6 @@ NVSwitch 的设计引入为英伟达创建一个完全无阻塞的全互联 GPU 
 
 从上表我看可看到，每个 NVLink 双向带宽高达 50GB/s，实际利用率最高能达到 80%。
 
-
 ### 初代 NVSwitch Block
 
 ![NV Switch Block](images/06DeepNvswitch07.png)

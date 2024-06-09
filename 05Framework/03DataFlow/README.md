@@ -1,4 +1,4 @@
-<!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
 # 计算图(DONE)
 

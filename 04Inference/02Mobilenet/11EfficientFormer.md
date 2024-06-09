@@ -781,7 +781,7 @@ $$
 
 ### 网络结构
 
-对于模型大小，EfficientFormerV 2-S0 比 EdgeViT-XXS 超出了 1.3%的 top-1 精度，甚至少了 0.6M 参数，比 MobileNetV 2 ×1.0 优于 3.5%的 top-1，参数数量相似。对于大型模型，EfficientFormerV 2-L 模型实现了与最近的 EfficientFormerL 7 相同的精度，同时小 3.1 倍。在速度方面，在延迟相当或更低的情况下，EfficientFormerV2-S2 的性能分别优于 UniNet-B1，EdgeViT-S 和 EfficientFormerL 1，分别为 0.8%，0.6%和 2.4%。 EiffcientFormer V2-S1 的效率分别比 MobileViT-XS、EdgeViT-XXS 和 EdgeViTXS 高出 4.2%、4.6%和 1.5%，其中 MES 要高得多。
+对于模型大小，EfficientFormerV 2-S0 比 EdgeViT-XXS 超出了 1.3%的 top-1 精度，甚至少了 0.6M 参数，比 MobileNetV 2 ×1.0 优于 3.5%的 top-1，参数数量相似。对于大模型，EfficientFormerV 2-L 模型实现了与最近的 EfficientFormerL 7 相同的精度，同时小 3.1 倍。在速度方面，在延迟相当或更低的情况下，EfficientFormerV2-S2 的性能分别优于 UniNet-B1，EdgeViT-S 和 EfficientFormerL 1，分别为 0.8%，0.6%和 2.4%。 EiffcientFormer V2-S1 的效率分别比 MobileViT-XS、EdgeViT-XXS 和 EdgeViTXS 高出 4.2%、4.6%和 1.5%，其中 MES 要高得多。
 
 ## 小结与思考
 

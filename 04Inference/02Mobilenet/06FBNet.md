@@ -72,8 +72,6 @@ class SupernetLoss(nn.Module):
 
 ```
 
-
-
 #### 搜索算法
 
 论文将搜索空间表示为随机超网，每层包含 9 个表 2 的并行 block。在推理的时候，候选 block 被执行的概率为：
@@ -134,16 +132,11 @@ class MixedOperation(nn.Module):
         return output, latency_to_accumulate
 ```
 
-
-
-
 ### 网络结构
 
 FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。 它采用受 MobileNetv2 启发的基本类型图像模型块，该模型利用深度卷积和反向残差结构（请参阅组件，见下图）。其中，FBNet-A 和 FBNet-B、FBNet-C 的区别在于最后一个卷积的输出 channel 不一样
 
-
 ![FBNet](images/06.fpnet_03.png)
-
 
 ## FBNet V2
 
@@ -286,7 +279,6 @@ $$
 def py2_round(x):
     return math.floor(x + 0.5) if x >= 0.0 else math.ceil(x - 0.5)
 
-
 def get_divisible_by(num, divisible_by=8, min_val=None):
     ret = int(num)
     if min_val is None:
@@ -298,7 +290,6 @@ def get_divisible_by(num, divisible_by=8, min_val=None):
     if ret < min_val:
         ret = min_val
     return ret
-
 
 class InvertedResidual(Layer):
     def __init__(self, in_channels, channels, out_channels, kernel_size, stride, act='relu', with_se=True, drop_path=0.0):
@@ -333,7 +324,6 @@ class InvertedResidual(Layer):
             x = self.drop_path(x)
             x += identity
         return x
-
 
 class FBNetV2(Model):
 
@@ -389,14 +379,6 @@ class FBNetV2(Model):
         return x
 
 ```
-
-
-
-
-
-
-
-
 
 ## FBNet V3
 
@@ -469,7 +451,6 @@ FBNetV3 的搜索空间包括了训练超参和网络架构。训练超参的搜
 def py2_round(x):
     return math.floor(x + 0.5) if x >= 0.0 else math.ceil(x - 0.5)
 
-
 def get_divisible_by(num, divisible_by=8, min_val=None):
     ret = int(num)
     if min_val is None:
@@ -481,7 +462,6 @@ def get_divisible_by(num, divisible_by=8, min_val=None):
     if ret < min_val:
         ret = min_val
     return ret
-
 
 class InvertedResidual(Layer):
     def __init__(self, in_channels, channels, out_channels, kernel_size, stride, act='relu', with_se=True, drop_path=0.0):
@@ -519,7 +499,6 @@ class InvertedResidual(Layer):
             x = self.drop_path(x)
             x += identity
         return x
-
 
 class FBNetV3(Model):
 
@@ -581,10 +560,6 @@ class FBNetV3(Model):
        
         return x
 ```
-
-
-
-
 
 ## 小结与思考
 

@@ -313,7 +313,6 @@ V2 的结构主要就是一些 Ghost bottleneckV2 组合而成，基本结构与
 
 - GhostNetV2 提出的 DFC 注意力方法可以捕捉长距离空间位置中像素之间的相关性，这显著增强了轻量级模型的表达能力，以较低的计算成本实现了较高的性能。
 
-
 ## 本节视频
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

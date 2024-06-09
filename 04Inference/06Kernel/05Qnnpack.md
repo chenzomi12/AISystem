@@ -64,7 +64,7 @@ Marat Dukhan 于 2019 年离开 Meta 来到谷歌之后，发表了一篇名为 
 
 量化公式即可以表示如下：
 
-给定一个浮点数 𝑟 和相应的缩放因子 scale 和零点 zeropoint，量化过程可以表示为：
+给定一个浮点数 r 和相应的缩放因子 scale 和零点 zeropoint，量化过程可以表示为：
 
 $$ q = round(r/scale) + zeropoint $$
 
