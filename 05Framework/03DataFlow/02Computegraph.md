@@ -234,7 +234,7 @@ tensor([[4.5000]])
 <torch.autograd.function.MyReLUBackward object at 0x1205a46c8>
 ```
 
-## 总结
+## 小结与思考
 
 - 了解 AI 应用或者深度学习需要工程化、系统化过程中会遇到哪些问题
 

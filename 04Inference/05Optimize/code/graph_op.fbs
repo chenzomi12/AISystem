@@ -1,0 +1,48 @@
+
+// 卷积算子定义
+table Convolution2D {
+    padX:int = 0;
+    padY:int = 0;
+    kernelX:int = 1;
+    kernelY:int = 1;
+    strideX:int = 1;
+    strideY:int = 1;
+    dilateX:int = 1;
+    dilateY:int = 1;
+    padMode:PadMode;
+    group:int = 1;
+    pads:[int];
+}
+
+// 算子列表
+enum OpType : int {
+    Const,
+    Concat,
+    Convolution,
+    ConvolutionDepthwise,
+    Deconvolution,
+    DeconvolutionDepthwise,
+    MatMul,
+    // ...
+}
+
+// 算子公共属性和参数
+union OpParameter {
+    Axis,
+    shape,
+    Size,
+    WhileParam,
+    IfParam,
+    LoopParam,
+    // ...
+}
+
+// 算子基本定义
+table Op {
+    inputIndexes: [int];
+    outputIndexes: [int];
+    main: OpParameter;
+    type: OpType;
+    name: string;
+    // ...
+}

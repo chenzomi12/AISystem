@@ -2,7 +2,7 @@
 
 # 基本介绍(DONE)
 
-在 AI 框架发展的最近一个阶段，技术上主要以计算图来描述深度神经网络。前期实践最终催生出了工业级 AI：TensorFlow 和 PyTorch，这一时期同时伴随着如 Chainer、DyNet、CNTK、PaddlePaddle、JAX 等激发了框架设计灵感的诸多实验项目。
+在 AI 框架发展的最近一个阶段，技术上主要以计算图来描述深度神经网络。前期实践最终催生出了工业级 AI：TensorFlow 和 PyTorch，这一时期同时伴随着如 Chainer、DyNet、CNTK、PaddlePaddle、JAX 等激发了框架设计灵感的诸多实验课程。
 
 TensorFlow 和 PyTorch，特别是 PyTorch 代表了今天 AI 框架两种不同的设计路径：系统性能优先改善灵活性和灵活性易用性优先改善系统性能。这两种选择，随着神经网络算法研究和应用的更进一步发展，使得 AI 框架在技术实现方案的巨大差异。
 

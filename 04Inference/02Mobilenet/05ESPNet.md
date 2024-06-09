@@ -2,7 +2,7 @@
 
 # ESPNet 系列
 
-本章节将会介绍 ESPNet 系列，该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块（ESP Module）；而在 ESPNet V2 上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
+本节将会介绍 ESPNet 系列，该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块（ESP Module）；而在 ESPNet V2 上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
 
 ## ESPNet V1
 
@@ -14,7 +14,7 @@
 
 基于卷积因子分解的原则，ESP（Efficient spatial pyramid）模块将标准卷积分解成 point-wise 卷积和空洞卷积金字塔（spatial pyramid of dilated convolutions）。point-wise 卷积将输入的特征映射到低维特征空间，即采用 K 个 1x1xM 的小卷积核对输入的特征进行卷积操作，1x1 卷积的作用其实就是为了降低维度，这样就可以减少参数。空洞卷积金字塔使用 K 组空洞卷积的同时下采样得到低维特征，这种分解方法能够大量减少 ESP 模块的参数和内存，并且保证了较大的感受野(如下图 a 所示)。
 
-![ESP 结构](./images/05Espnet01.png)
+![ESP 结构](images/05Espnet01.png)
 ======== 注意图片名字跟文件名保持一致哈，方便索引哈
 
 上图 (b) 展示了 ESP 模块采用的减少-分裂-转换-合并策略。下面来计算下一共包含的参数，其实在效果上，以这种轻量级的网络作为 backbone 效果肯定不如那些重量级的，比如 Resnet，但是在运行速度上有很大优势。
@@ -89,7 +89,7 @@ class ESPModule(nn.Module):
 
 虽然将扩张卷积的输出拼接在一起会给 ESP 模块带来一个较大的有效感受野，但也会引入不必要的棋盘或网格假象，如下图所示。
 
-![HFF 结构](./images/05.espnet_02.png)
+![HFF 结构](images/05.espnet_02.png)
 
 上图(a)举例说明一个网格伪像，其中单个活动像素(红色)与膨胀率 r = 2 的 3×3 膨胀卷积核卷积。
 
@@ -105,7 +105,7 @@ ESPNet 使用 ESP 模块学习卷积核以及下采样操作，除了第一层�
 
 ESPNet 的不同变体如下图所示。第一个变体，ESPNet-A(图 a)，是一种标准网络，它以 RGB 图像作为输入，并使用 ESP 模块学习不同空间层次的表示，以产生一个分割掩码。第二种 ESP - b(图 b)通过在之前的跨步 ESP 模块和之前的 ESP 模块之间共享特征映射，改善了 ESPNet-A 内部的信息流。第三种变体，ESPNet-C(图 c)，加强了 ESPNet-B 内部的输入图像，以进一步改善信息的流动。这三种变量产生的输出的空间维度是输入图像的 1 / 8。第四种变体，ESPNet(图 d)，在 ESPNet- c 中添加了一个轻量级解码器(使用 reduceupsample-merge 的原理构建)，输出与输入图像相同空间分辨率的分割 mask。
 
-![ESP 网络结构](./images/05.espnet_03.png)
+![ESP 网络结构](images/05.espnet_03.png)
 
 从 ESPNet- a 到 ESPNet 的路径。红色和绿色色框分别代表负责下采样和上采样操作的模块。空间级别的 l 在(a)中的每个模块的左侧。本文将每个模块表示为(#输入通道，#输出通道)。这里，conv-n 表示 n × n 卷积。
 
@@ -150,7 +150,7 @@ ESPNet V2 与 V1 版本相比，其特点如下：
 
 EESP 模块结构如下图，图 b 中相比于 ESPNet，输入层采用分组卷积，DDConv+Conv1x1 取代标准空洞卷积，依然采用 HFF 的融合方式，（c）是（b）的等价模式。当输入通道数 M=240，g=K=4, d=M/K=60，EESP 比 ESP 少 7 倍的参数。
 
-![EESP 结构](./images/03cnn/03CNN_05.png)
+![EESP 结构](images/03cnn/03CNN_05.png)
 
 描述了一个新的网络模块 EESP，它利用深度可分离扩张和组逐点卷积设计，专为边缘设备而设计。该模块受 ESPNet 架构的启发，基于 ESP 模块构建，使用了减少-分割-变换-合并的策略。通过组逐点和深度可分离扩张卷积，该模块的计算复杂度得到了显著的降低。进一步，描述了一种带有捷径连接到输入图像的分层 EESP 模块，以更有效地学习多尺度的表示。
 
@@ -259,7 +259,7 @@ class EESP(nn.Module):
 
 4.融合原始输入图像的下采样信息，使得特征信息更加丰富。具体做法是先将图像下采样到与特征图的尺寸相同的尺寸，然后使用第一个卷积，一个标准的 3×3 卷积，用于学习空间表示。再使用第二个卷积，一个逐点卷积，用于学习输入之间的线性组合，并将其投影到高维空间。
 
-![Strided EESP 结构](./images/05.espnet_05.png)
+![Strided EESP 结构](images/05.espnet_05.png)
 
 ```python
 
@@ -325,36 +325,3 @@ ESPNet V2 网络使用 EESP 模块构建。在每个空间级别，ESPNet V2 重
 ## 本节视频
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-## 参考文献
-
-1.[Zhao, H., Shi, J., Qi, X., Wang, X., Jia, J.: Pyramid scene parsing network. In: CVPR. (2017)](https://arxiv.org/pdf/1612.01105.pdf)
-
-2.[He, K., Zhang, X., Ren, S., Sun, J.: Spatial pyramid pooling in deep convolutional networks for visual recognition. In: ECCV. (2014)]( https://arxiv.org/abs/1406.4729)
-
-3.[Ess, A., Muller, T., Grabner, H., Van Gool, L.J.: Segmentation-based urban traffic scene understanding. In: BMVC. (2009)](https://www.bmva.org/bmvc/2009/Papers/Paper350/Abstract350.pdf)
-
-4.[Menze, M., Geiger, A.: Object scene flow for autonomous vehicles. In: CVPR. (2015)](https://ieeexplore.ieee.org/document/7298925/)
-
-5.[Xiang, Y., Fox, D.: DA-RNN: Semantic mapping with data associated recurrent neural networks. Robotics: Science and Systems (RSS) (2017)](https://arxiv.org/abs/1703.03098v1)
-
-6.[Chollet, F.: Xception: Deep learning with depthwise separable convolutions. CVPR (2017)](https://arxiv.org/abs/1610.02357)
-
-7.[Yu, F., Koltun, V.: Multi-scale context aggregation by dilated convolutions. ICLR (2016)](https://arxiv.org/pdf/1511.07122.pdf)
-
-8.[Yu, F., Koltun, V., Funkhouser, T.: Dilated residual networks. CVPR (2017)](https://arxiv.org/pdf/1705.09914.pdf )
-
-9.[Zhao, H., Qi, X., Shen, X., Shi, J., Jia, J.: Icnet for real-time semantic segmentation on high-resolution images. arXiv preprint arXiv:1704.08545 (2017)](https://arxiv.org/abs/1704.08545)
-
-10.[Dai, J., He, K., Sun, J.: Convolutional feature masking for joint object and stuff segmentation.In: CVPR. (2015)](https://arxiv.org/abs/1412.1283v2)
-
-11.[Tao Lei, Yu Zhang, and Yoav Artzi. Training rnns as fast as cnns. In EMNLP, 2018. 8](https://arxiv.org/pdf/1709.02755)
-
-12.[Ilya Loshchilov and Frank Hutter. Sgdr: Stochastic gradient descent with warm restarts. In ICLR, 2017. 5](https://arxiv.org/abs/1608.03983)
-
-13.[Bharath Hariharan, Pablo Arbelaez, Lubomir Bourdev, Subhransu Maji, and Jitendra Malik. Semantic contours from inverse detectors. In ICCV, 2011. 6](https://www.mendeley.com/catalogue/7ff08f6f-384f-3129-9f54-b7327bdd4276/)
-
-14.[Barret Zoph and Quoc V Le. Neural architecture search with reinforcement learning. arXiv preprint arXiv:1611.01578,2016.2](https://ieeexplore.ieee.org/document/6126343)
-
-15.[M. Siam, M. Gamal, M. Abdel-Razek, S. Yogamani, and M.Jagersand. rtseg: Real-time semantic segmentation comparative study. In 2018 25th IEEE International Conference on Image Processing (ICIP).7](https://arxiv.org/pdf/1803.02758v4)
-

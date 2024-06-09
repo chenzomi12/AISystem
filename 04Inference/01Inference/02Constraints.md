@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 推理系统介绍
+# 推理系统介绍(DONE)
 
 推理系统是一个专门用于部署人工智能模型，执行推理预测任务的人工智能系统。它类似于传统的 Web 服务或移动端应用系统，但专注于 AI 模型的部署与运行。通过推理系统，可以将神经网络模型部署到云端或者边缘端，并服务和处理用户的请求。因此，推理系统也需要应对模型部署和服务生命周期中遇到的挑战和问题。
 
@@ -14,7 +14,7 @@
 
 接下来，先从深度学习训练过程和推理过程对比两者的相同点和不同点，以及在生命周期所处的环节，进而便于理解深度学习推理系统所侧重的目标。
 
-![神经网络模型的生命周期](./images/02Constrains01.png)
+![神经网络模型的生命周期](images/02Constrains01.png)
 
 如上图所示，神经网络模型的生命周期（Life Cycle）最核心的主要由数据准备、模型训练推理以及模型部署三个阶段组成。
 
@@ -40,7 +40,7 @@
 
 而在训练停止之后，整个模型的权重和偏置等参数已经被确定下来，也即得到一个固定化的网络模型，可以将其用于后续的数据预测或推理任务。
 
-![深度学习中模型的训练与推理](./images/02Constrains02.png)
+![深度学习中模型的训练与推理](images/02Constrains02.png)
 
 在完成了训练阶段后，就可以得到固定网络模型参数的权重参数，并通过离线和在线优化（例如压缩、量化等），内核编译（例如内核调优与代码生成）等技术将该模型加载部署在推理系统中。
 
@@ -170,7 +170,7 @@ print("Predicted output:", output_data)
 
 通过上面的代码实例，可以对推理系统的主干流程有一个基本的了解。当模型被部署之后，可以通过以下图示来观察常见推理系统的模块、与推理系统交互的系统以及推理任务的流水线。
 
-![推理服务系统图](./images/02Constrains03.png)
+![推理服务系统图](images/02Constrains03.png)
 
 从上图的推理服务系统架构图中，可以清晰地看到推理服务系统的流程。首先，经过训练后的模型会被保存在文件系统中。随着训练效果的不断优化，可能会产生多个版本的模型，这些模型将按照既定的版本管理规则被妥善存储于文件系统中。
 
@@ -186,7 +186,7 @@ print("Predicted output:", output_data)
 
 该公司计划引入内容个性化推荐服务，并期望该服务满足以下几个方面的需求：首先是低延迟，即在互联网上响应请求的延迟通常应小于 100 毫秒，为用户带来流畅的观看体验；其次是高吞吐，因为突发事件可能引发用户量的急剧增加，因此系统需要具备迅速而有效地处理大量请求的能力；再者，系统需具备良好的扩展性，以适应不断扩大的用户群体；最后是准确度，系统需要实时捕捉视频内容和用户兴趣变化之间的关系，持续提供精准且个性化的推荐服务。
 
-![AI 框架、推理系统与硬件之间的关系图](./images/02Constrains04.png)
+![AI 框架、推理系统与硬件之间的关系图](images/02Constrains04.png)
 
 根据上图示的 AI 框架、推理系统与硬件之间的关系，可以看到，除了应对应用场景的多样化需求，推理系统还需克服由不同训练框架和推理硬件所带来的部署环境多样性挑战，这些挑战不仅增加了部署优化和维护的难度，而且易于出错。
 
@@ -239,7 +239,7 @@ print("Predicted output:", output_data)
 
 然后，可扩展性是应对不断增长的用户或设备需求的基础。系统需要能够灵活扩展，以应对突发和持续增长的用户请求。通过自动部署更多解决方案，随着请求负载的增加，系统能够提升推理吞吐量，提供更高的推理吞吐和可靠性。
 
-借助底层 Kubernetes 部署平台，用户可以便捷地配置和自动部署多个推理服务副本，并通过前端负载均衡服务达到高扩展性和提升吞吐量，进一步增强推理服务的可靠性。另外，云计算平台如 AWS、Azure、Google Cloud 等提供了弹性的计算、存储和网络服务，这些服务可以根据需求快速扩展资源。使用负载均衡器（如 Ingress 控制器）可以分发进入网络的流量，确保请求均匀分配到不同的服务实例上，从而提高系统的吞吐量和可靠性。通过这些策略，系统能够在用户或设备需求不断增长的情况下保持高性能和稳定性，确保推理服务能够满足不断变化的市场需求。
+借助底层 Kubernetes 部署平台，用户可以便捷地配置和自动部署多个推理服务副本，并通过前端负载均衡服务达到高扩展性和提升吞吐量，进一步增强推理服务的可靠性。另外，云计算平台如 AWS、Azure、谷歌 Cloud 等提供了弹性的计算、存储和网络服务，这些服务可以根据需求快速扩展资源。使用负载均衡器（如 Ingress 控制器）可以分发进入网络的流量，确保请求均匀分配到不同的服务实例上，从而提高系统的吞吐量和可靠性。通过这些策略，系统能够在用户或设备需求不断增长的情况下保持高性能和稳定性，确保推理服务能够满足不断变化的市场需求。
 
 #### 可靠性（Reliability）
 
@@ -266,7 +266,7 @@ print("Predicted output:", output_data)
 
 如下图的推理系统组件与架构图所示，推理系统中常常涉及相应模块并完成相应功能，将在后面章节中逐步展开。 通过下图可以看到推理系统的全貌：
 
-![推理系统组件与架构图](./images/02Constrains05.png)
+![推理系统组件与架构图](images/02Constrains05.png)
 
 推理系统的构建涉及到多个核心环节，以确保请求与响应的高效处理、资源的高效调度、推理引擎的灵活适配、模型版本的有效管理、服务的健康监控以及边缘推理芯片与代码编译的优化。
 
@@ -288,7 +288,7 @@ print("Predicted output:", output_data)
 
 通过推理引擎的 API，开发者可以轻松读取模型的中间表示（IR）、设置输入输出的数据格式，并在指定的设备上执行模型推理。虽然 C++库是主要的实现方式，但为了方便不同开发者的使用，也提供了 C 库和 Python bindings（即通过 Python 直接调用 C/C++库）。
 
-![推理引擎架构图](./images/02Constrains06.png)
+![推理引擎架构图](images/02Constrains06.png)
 
 上图展示的是推理引擎的架构图。展示了整个推理引擎的流程结构与相关的算法，整个框架从上到下可以分为四个主要部分：API 接口输入、模型压缩与优化、Runtime 优化和 Kernel 优化。
 
@@ -315,29 +315,3 @@ Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负
 <html>
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1nY4y1f7G5&as_wide=1&high_quality=2&danmaku=0&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. [Deep Learning Inference in Facebook Data Centers: Characterization, Performance Optimizations and Hardware Implications](https://arxiv.org/abs/1811.09886)
-2. [Clipper: A Low-Latency Online Prediction Serving System](https://www.usenix.org/system/files/conference/nsdi17/nsdi17-crankshaw.pdf)
-3. [TFX: A TensorFlow-Based Production-Scale Machine Learning Platform](https://www.kdd.org/kdd2017/papers/view/tfx-a-tensorflow-based-production-scale-machine-learning-platform)
-4. [TensorFlow-Serving: Flexible, High-Performance ML Serving](https://arxiv.org/abs/1712.06139)
-5. [Optimal Aggregation Policy for Reducing Tail Latency of Web Search](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/samehe-2015sigir.optimalaggregation.pdf)
-6. [A Survey of Model Compression and Acceleration for Deep Neural Networks](https://arxiv.org/pdf/1710.09282.pdf)
-7. [CSE 599W: System for ML - Model Serving](http://dlsys.cs.washington.edu/pdf/lecture12.pdf)
-8. [https://developer.nvidia.com/deep-learning-performance-training-inference](https://developer.nvidia.com/deep-learning-performance-training-inference)
-9. [DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING](https://arxiv.org/pdf/1510.00149.pdf)
-10. [Learning both Weights and Connections for Efficient Neural Networks](https://pdfs.semanticscholar.org/1ff9/a37d766e3a4f39757f5e1b235a42dacf18ff.pdf)
-11. [DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT](http://on-demand.GPUtechconf.com/gtcdc/2017/presentation/dc7172-shashank-prasanna-deep-learning-deployment-with-nvidia-tensorrt.pdf)
-12. [Halide: A Language and Compiler for Optimizing Parallelism,Locality, and Recomputation in Image Processing Pipelines](https://people.csail.mit.edu/jrk/halide-pldi13.pdf)
-13. [TVM: An Automated End-to-End Optimizing Compiler for Deep Learning](https://www.usenix.org/system/files/osdi18-chen.pdf)
-14. [8-bit Inference with TensorRT](http://on-demand.GPUtechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)
-15. [https://github.com/microsoft/AI-System](https://github.com/microsoft/AI-System)
-16. [【AI System】第 8 章：深度学习推理系统](https://zhuanlan.zhihu.com/p/665146747)
-17. [Tengine-Kit 人脸检测及关键点](https://blog.csdn.net/qq_21370465/article/details/109740949)
-18. [Crazy Rockets-教你如何集成华为 HMS ML Kit 人脸检测和手势识别打造爆款小游戏](https://segmentfault.com/a/1190000037710505)
-19. [记录自己神经网络模型训练的全流程](https://zhuanlan.zhihu.com/p/465623148)
-20. [推理系统和推理引擎的整体架构](https://blog.csdn.net/weixin_45651194/article/details/132872588)
-21. [Pytorch-Onnx-Tensorrt 模型转换教程案例](https://blog.csdn.net/weixin_44533869/article/details/125223704)
-22. [昇思 MindSpore 基本介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc2/beginner/introduction.html)
-23. [飞桨产品全景](https://www.paddlepaddle.org.cn/overview)

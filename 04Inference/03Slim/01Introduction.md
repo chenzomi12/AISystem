@@ -28,7 +28,7 @@
 
 如下图所示，模型压缩通常处于机器学习模型训练和生产部署之间的阶段。它在模型训练完成后，准备将模型部署到目标环境之前进行。
 
-![模型压缩流程](./images/01Introduction01.png)
+![模型压缩流程](images/01Introduction01.png)
 
 ## 模型压缩应用场景
 
@@ -47,5 +47,5 @@
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?aid=608053162&bvid=BV1384y187tL&cid=973975092&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=608053162&bvid=BV1384y187tL&cid=973975092&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

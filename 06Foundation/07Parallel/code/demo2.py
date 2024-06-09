@@ -15,7 +15,7 @@ from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 nltk.download("punkt")
  
 dataset_name = "samsum" # 数据集名称
-model_name="google/flan-t5-xxl" # 模型名称
+model_name="谷歌/flan-t5-xxl" # 模型名称
 max_input_length = 512
 max_gen_length = 128
 output_dir = "checkpoints"

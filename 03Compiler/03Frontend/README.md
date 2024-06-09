@@ -6,7 +6,7 @@
 
 AI 编译器主要是分为前端优化、后端优化，部分还会有中间优化层，而这里面主要介绍 AI 编译器的前端优化涉及到的算法和优化 Pass。
 
-**内容大纲**
+## 内容大纲
 
 > `PPT`和`字幕`需要到 [Github](https://github.com/chenzomi12/AISystem) 下载，网页课程版链接会失效哦~
 >
@@ -14,23 +14,23 @@ AI 编译器主要是分为前端优化、后端优化，部分还会有中间�
 
 | 小节 | 链接|
 |:--:|:--:|
-| 01 内容介绍| [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1ne411w7n2/), [文章](./01Introduction.md), [字幕](./srt/01.srt) |
-| 02 计算图层 IR| [PPT](./02GraphIR.pdf), [视频](https://www.bilibili.com/video/BV1kV4y1w72W/), [文章](./02GraphIR.md), [字幕](./srt/02.srt) |
-| 03 算子融合策略| [PPT](./03OPFusion.pdf), [视频](https://www.bilibili.com/video/BV1P24y1D7RV/), [文章](./03OPFusion.md), [字幕](./srt/03.srt) |
-| 04 布局转换原理 | [PPT](./04LayoutPrinc.pdf), [视频](https://www.bilibili.com/video/BV1xK411z7Uw/), [文章](./04LayoutPrinc.md), [字幕](./srt/04.srt) |
-| 05 布局转换算法 | [PPT](./05LayoutAlgo.pdf), [视频](https://www.bilibili.com/video/BV1gd4y1Y7dc/), [文章](./05LayoutAlgo.md), [字幕](./srt/05.srt) |
-| 06 内存分配算法| [PPT](./06.memory.pdf), [视频](https://www.bilibili.com/video/BV1nM411879s/), [文章](./06.memory.md), [字幕](./srt/06.srt) |
-| 07 常量折叠原理| [PPT](./07.constant_fold.pdf), [视频](https://www.bilibili.com/video/BV1P8411W7dY/), [文章](./07.constant_fold.md), [字幕](./srt/07.srt) |
-| 08 公共表达式消除 | [PPT](./08.cse.pdf), [视频](https://www.bilibili.com/video/BV1rv4y1Q7tp/), [文章](./08.cse.md), [字幕](./srt/08.srt) |
-| 09 死代码消除 | [PPT](./09.dce.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1h7nh/), [文章](./09.dce.md), [字幕](./srt/09.srt) |
-| 10 代数简化| [PPT](./10.algebraic.pdf), [视频](https://www.bilibili.com/video/BV1g24y1Q7qC/), [文章](./10.algebraic.md), [字幕](./srt/10.srt) |
-| 11 优化 Pass 排序| [PPT](./11.summary.pdf), [视频](https://www.bilibili.com/video/BV1L14y1P7ku/), [文章](./11.summary.md), [字幕](./srt/11.srt) |
+| 01 内容介绍| [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1ne411w7n2/), [文章](./01Introduction.md) |
+| 02 计算图层 IR| [PPT](./02GraphIR.pdf), [视频](https://www.bilibili.com/video/BV1kV4y1w72W/), [文章](./02GraphIR.md)  |
+| 03 算子融合策略| [PPT](./03OPFusion.pdf), [视频](https://www.bilibili.com/video/BV1P24y1D7RV/), [文章](./03OPFusion.md)  |
+| 04 布局转换原理 | [PPT](./04LayoutPrinc.pdf), [视频](https://www.bilibili.com/video/BV1xK411z7Uw/), [文章](./04LayoutPrinc.md) |
+| 05 布局转换算法 | [PPT](./05LayoutAlgo.pdf), [视频](https://www.bilibili.com/video/BV1gd4y1Y7dc/), [文章](./05LayoutAlgo.md)  |
+| 06 内存分配算法| [PPT](./06Memory.pdf), [视频](https://www.bilibili.com/video/BV1nM411879s/), [文章](./06Memory.md)  |
+| 07 常量折叠原理| [PPT](./07ConstantFold.pdf), [视频](https://www.bilibili.com/video/BV1P8411W7dY/), [文章](./07ConstantFold.md)  |
+| 08 公共表达式消除 | [PPT](./08CSE.pdf), [视频](https://www.bilibili.com/video/BV1rv4y1Q7tp/), [文章](./08CSE.md)  |
+| 09 死代码消除 | [PPT](./09DCE.pdf), [视频](https://www.bilibili.com/video/BV1hD4y1h7nh/), [文章](./09DCE.md)  |
+| 10 代数简化| [PPT](./10Algebraic.pdf), [视频](https://www.bilibili.com/video/BV1g24y1Q7qC/), [文章](./10Algebraic.md)  |
+| 11 优化 Pass 排序| [PPT](./11Summary.pdf), [视频](https://www.bilibili.com/video/BV1L14y1P7ku/)  |
 
 ## 备注
 
 文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/AISystem)，欢迎取用！！！
 
-> 非常希望您也参与到这个开源项目中，B 站给 ZOMI 留言哦！
+> 非常希望您也参与到这个开源课程中，B 站给 ZOMI 留言哦！
 > 
 > 欢迎大家使用的过程中发现 bug 或者勘误直接提交代码 PR 到开源社区哦！
 >

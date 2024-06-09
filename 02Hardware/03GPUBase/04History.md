@@ -30,7 +30,7 @@ GPU 拥有 6 个 64 位内存分区，总共是 384 位内存，最多支持 6 G
 > 
 > 1. 提出费米子统计，即著名的费米-狄拉克统计，描述了半整数自旋的粒子的统计性质。
 > 
-> 2. 领导了芝加哥大学的“费米堆”项目，成功实现了世界上第一座自持核链反应堆。
+> 2. 领导了芝加哥大学的“费米堆”课程，成功实现了世界上第一座自持核链反应堆。
 > 
 > 3. 参与了曼哈顿计划，对原子弹的研发做出了重要贡献。
 > 
@@ -40,7 +40,7 @@ Fermi 架构采用第三代流处理器，每个 SM 有 16 个加载/存储单�
 
 每个 SM 有两个 warp 调度器和两个指令调度单元，允许同时发出和执行两个 warp。并行计算主要在 CUDA 中进行处理，每个 CUDA 处理器都有一个完整的流水线整数算术逻辑单元（ALU）和浮点单元（FPU），可以选择 FP 32 或者 INT 8 执行计算，但是 FP Unit 和 INT Unit 的执行不是并行的。
 
-![Fermi 架构单个 SM 结构](images/03base_concept05.png)
+![Fermi 架构单个 SM 结构](images/03Concept05.png)
 
 Fermi 架构支持新的并行线程执行 PTX 2.0（Parallel Thread Execution）指令集架构。一个 CUDA 程序被称作并行的 Kernel，线程分为三级，包含线程（Threads）、块（Blocks）和网格（Grid），每个层次结构对应硬件，Thread 可以共享局部内存（Local memory），线程块使用共享内存（Shared Memory），Grid 共享全局内存（Global Memory），具有相应的每个线程专用、每个块共享和每个应用程序全局内存空间。
 
@@ -72,7 +72,7 @@ Fermi 架构支持新的并行线程执行 PTX 2.0（Parallel Thread Execution�
 
 Kepler 架构支持动态并行（Dynnamic Parallelism），在不需要 CPU 支持的情况下自动同步，在程序执行过程中灵活动态地提供并行数量和形式。Hyper-Q 使多个 CPU 核使用单个 GPU 执行工作，提高 GPU 利用率并显着减少 CPU 空闲时间，允许 32 个同时进行的硬件管理连接，允许从多个 CUDA 流处理，多个消息传递进程中分离出单个进程。使用网格管理单元（Grid Management Unit，GMU）启用动态并行和调度控制，比如挂起或暂停网格和队列直到执行的环境准备好。
 
-NVIDIA GPUDirect 可以使单个计算机内的 GPU 或位于网络上不同服务器中的 GPU 直接交换数据，而无需转到 CPU/系统内存，RDMA 特性允许第三方设备直接访问同一系统内多个 GPU 上的内存，减少了对系统内存带宽的需求，释放 GPU DMA 引擎供其它 CUDA 任务使用。
+NVIDIA GPUDirect 可以使单个计算机内的 GPU 或位于网络上不同服务器中的 GPU 直接交换数据，而无需转到 CPU 系统内存，RDMA 特性允许第三方设备直接访问同一系统内多个 GPU 上的内存，减少了对系统内存带宽的需求，释放 GPU DMA 引擎供其它 CUDA 任务使用。
 
 ## Maxwell 架构
 
@@ -325,7 +325,7 @@ H100 一共有 8 组 GPC、66 组 TPC、132 组 SM，总计有 16896 个 CUDA �
 > 
 > 3. 在计算机科学教育和推广方面做出了杰出贡献，她致力于将计算机科学普及到更广泛的人群中，并激励了许多人进入这一领域。
 > 
-> 4. 作为美国海军的一名军官，她参与了多个计算机项目，包括 UNIVAC 和 Mark 系列计算机的开发，为军事和民用领域的计算机化做出了贡献。
+> 4. 作为美国海军的一名军官，她参与了多个计算机课程，包括 UNIVAC 和 Mark 系列计算机的开发，为军事和民用领域的计算机化做出了贡献。
 
 具体到 SM 结构，Hopper 赫柏架构 FP32 Core 和 FP64 Core 两倍于 Ampere 架构，同时采用 Tensor Core4.0 使用新的 8 位浮点精度（FP8），可为万亿参数模型训练提供比 FP16 高 6 倍的性能。FP8 用于 Transformer 引擎，能够应用 FP8 和 FP16 的混合精度模式，大幅加速 Transformer 训练，同时兼顾准确性。FP8 还可大幅提升大型语言模型推理的速度，性能较 Ampere 提升高达 30 倍。新增 Tensor Memory Accelerator，专门针对张量进行数据传输，更好地加速大模型。
 
@@ -435,13 +435,13 @@ NVIDIA Blackwell HGX B200 和 HGX B100 在生成式人工智能、数据分析�
 
 ![GPT-3 Inference Performance](images/04History38.jpg)
 
-## 小结与讨论
+## 小结与思考
 
 本节主要回顾了从 2010 年到 2024 年 NVIDIA GPU 架构的发展，其中有几个比较重要的时间节点和事件：
 
-- 2010 年提出 Fermi 架构，开启了架构演进的进程，属于首个完整的 GPU 计算架构，里面提出的新概念一直沿用至今；
+- 2010 年提出 Fermi 架构，开启了架构演进的进程，属于首个完整的 GPU 计算架构，里面提出的新概念一直沿用至今。
 
-- 2016 年提出 Pascal 架构，首次提出 NVLink，双向互联带宽达到 160 GB/s 对 AI 领域产生重大影响，是具有历史性意义的里程碑架构；
+- 2016 年提出 Pascal 架构，首次提出 NVLink，双向互联带宽达到 160 GB/s 对 AI 领域产生重大影响，是具有历史性意义的里程碑架构。
 
 - 2017 年提出 Volt 架构，首次提出张量核心（Tensor Core），专门针对神经网络矩阵卷积运算进行加速的第一代核心，同时提出 NVSwitch1.0，提高 GPU 之间的通信效率和性能。
 
@@ -486,6 +486,14 @@ NVSwitch 是 NVLink 交换机系统的关键使能器，它能够以 NVLink 速�
 | Architectures | Volta | Ampere  | Hopper | Blackwell |
 | Year | 2017 | 2020 | 2022 | 2024 |
 
+## 小结与思考
+
+- NVIDIA GPU 架构发展：NVIDIA GPU 架构自 2010 年以来经历了从 Fermi 到 Blackwell 的多代演进，引入了 CUDA Core、Tensor Core、NVLink 和 NVSwitch 等关键技术，显著提升了 GPU 的计算能力和能效。
+
+- Tensor Core 的持续创新：Tensor Core 作为专为深度学习矩阵运算设计的加速器，从第一代发展到第五代，不断增加支持的精度类型和提升性能，以适应 AI 的快速发展。
+
+- NVLink 和 NVSwitch 的技术演进：NVLink 和 NVSwitch 作为 GPU 间和 GPU 与 CPU 间的高速互连技术，其带宽和连接能力随架构代数增加而显著提升，为大规模并行计算和异构计算提供了强大支持。
+
 ## 本节视频
 
 <html>
@@ -495,7 +503,3 @@ NVSwitch 是 NVLink 交换机系统的关键使能器，它能够以 NVLink 速�
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=698236135&bvid=BV1mm4y1C7fg&cid=1115170922&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-英伟达 GPU 架构白皮书：[https://www.NVIDIA.cn/technologies/](https://www.NVIDIA.cn/technologies/)

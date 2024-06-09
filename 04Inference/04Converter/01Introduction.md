@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 基本介绍
+# 基本介绍(DONE)
 
 模型转换的主要任务是实现模型在不同框架之间的流转。随着深度学习技术的发展，训练框架和推理框架的功能逐渐分化。训练框架通常侧重于易用性和研究人员的算法设计，提供了分布式训练、自动求导、混合精度等功能，旨在让研究人员能够更快地生成高性能模型。
 
@@ -14,7 +14,7 @@
 
 - **运行阶段：** 实际的推理引擎，负责 AI 模型的加载与执行，可分为调度与执行两层。
 
-![推理引擎架构](image/01Introduction03.png)
+![推理引擎架构](images/01Introduction03.png)
 
 模型转换工具模块有两个部分：
 
@@ -31,7 +31,7 @@
 | 框架         | 导出方式         | 导出成功率 | 算子数（不完全统计） | 冗余度 |
 |:----------:|:------------:|:-----:|:----------:|:---:|
 | Caffe      | Caffe        | 高     | 52         | 低   |
-| Tensorflow | I.X          | 高     | 1566       | 高   |
+| TensorFlow | I.X          | 高     | 1566       | 高   |
 |            | Tflite       | 中     | 141        | 低   |
 |            | Self         | 中     | 1200+      | 高   |
 | Pytorch    | Onnx         | 中     | 165        | 低   |
@@ -45,7 +45,7 @@
 
 2. 支持不同框架的模型文件格式
 
-主流的 PyTorch、MindSpore、PaddlePaddle、Tensorflow、Keras 等框架导出的模型文件格式不同，不同的 AI 框架训练出来的网络模型、算子之间是有差异的。同一框架的不同版本间也存在算子的增改。
+主流的 PyTorch、MindSpore、PaddlePaddle、TensorFlow、Keras 等框架导出的模型文件格式不同，不同的 AI 框架训练出来的网络模型、算子之间是有差异的。同一框架的不同版本间也存在算子的增改。
 
 这些模型文件格式通常包含了网络结构、权重参数、优化器状态等信息，以便于后续的模型部署和推理。以下是一些主流框架的模型文件格式示例：
 
@@ -215,7 +215,7 @@ output2.shape:  (8, 256, 512, 512)
 
 Converter 转换模块由前端转换部分 Frontends 和图优化部分 Graph Optimize 构成。前者 Frontends 负责支持不同的 AI 训练框架；后者 Graph Optimize 通过算子融合、算子替代、布局调整等方式优化计算图。
 
-![转换模块架构](image/01Introduction01.png)
+![转换模块架构](images/01Introduction01.png)
 
 1. 格式转换
 
@@ -266,32 +266,20 @@ Converter 转换模块由前端转换部分 Frontends 和图优化部分 Graph O
   - 内存布局计算：优化数据在内存中的布局，以提高数据访问的局部性和缓存命中率。这可以通过重新组织内存中的数据结构来实现。例如，在矩阵乘法中，使用块状存储（blocking），将大矩阵分成小块存储和计算，以提高缓存利用率。
   - 重复算子合并：识别计算图中重复的算子，并将其合并为一个算子，以减少冗余计算和内存访问。例如计算图中有多个相同的卷积操作，可以合并为一个共享的卷积操作。
 
-![转换模块的工作流程](image/01Introduction02.png)
+![转换模块的工作流程](images/01Introduction02.png)
 
-## 总结
+## 小结与思考
 
-本节主要介绍了推理引擎优化阶段的模型转换工具，它由转换模块和图优化模块组成。我们还介绍了转换模块和优化模块的挑战和目标，并简要介绍了其架构和工作流程。具体的流程细节和优化策略将在后续文章中介绍。
+- 模型转换：将不同深度学习框架训练得到的模型统一转换为推理引擎能够理解和执行的中间表示（IR），以实现跨框架的模型部署。
+
+- 推理引擎架构：包含优化阶段和运行阶段，优化阶段负责模型转换和图优化，运行阶段则涉及模型的实际加载与执行，包括调度与执行两层。
+
+- 转换模块挑战：包括AI框架算子的统一、不同框架模型文件格式的支持、主流网络结构的适配，以及各类输入输出的兼容。
+
+- 优化模块目标：通过消除结构冗余、精度冗余、算法冗余和读写冗余，提高模型的效率和性能，同时保持模型的准确性和功能性。
 
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1724y1z7ep/?spm_id_from=333.880.my_history.page.click&vd_source=57ec244afa109ba4ee6346389a5f32f7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=693376207&bvid=BV1724y1z7ep&cid=981227754&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文章
-
-1. [AI 框架部署方案之模型转换](https://zhuanlan.zhihu.com/p/396781295)
-2. [AI 技术方案（个人总结）](https://zhuanlan.zhihu.com/p/658734035)
-3. [人工智能系统 System for AI   课程介绍 Lecture Introduction](https://microsoft.github.io/AI-System/SystemforAI-9-Compilation%20and%20Optimization.pdf)
-4. [【AI】推理引擎的模型转换模块](https://blog.csdn.net/weixin_45651194/article/details/132921090)
-5. [Pytorch 和 TensorFlow 在 padding 实现上的区别](https://zhuanlan.zhihu.com/p/535729752)
-6. [训练模型到推理模型的转换及优化](https://openmlsys.github.io/chapter_model_deployment/model_converter_and_optimizer.html)
-7. [使用 Grappler 优化 TensorFlow 计算图](https://www.tensorflow.org/guide/graph_optimization?hl=zh-cn)
-8. [死代码消除](https://decaf-lang.gitbook.io/decaf-book/rust-kuang-jia-fen-jie-duan-zhi-dao/pa4-zhong-jian-dai-ma-you-hua/si-dai-ma-xiao-chu)
-9. [AI 编译器之前端优化-下（笔记）](https://zhuanlan.zhihu.com/p/599949051)
-10. [PyTorch 官方教程中文版](https://pytorch123.com/ThirdSection/SaveModel/)
-11. [MindSpore 教程](https://www.mindspore.cn/tutorial/zh-CN/r1.2/save_load_model.html)
-12. [TensorFlow Core](https://www.tensorflow.org/tutorials/keras/save_and_load?hl=zh-cn)
-13. [保存和加载 Keras 模型](https://www.tensorflow.org/guide/keras/save_and_serialize?hl=zh-cn)
-14. [探索 ONNX 模型：动态输入尺寸的实践与解决方案](https://cloud.baidu.com/article/3251524)
-15. [Pytorch 复习笔记--导出 Onnx 模型为动态输入和静态输入](https://blog.csdn.net/weixin_43863869/article/details/128638397)

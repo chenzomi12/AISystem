@@ -1,4 +1,4 @@
-# 指令和存储优化
+# 指令和存储优化(DONE)
 
 除了应用极广的循环优化，在 AI 编译器底层还存在指令和存储这两种不同优化。
 
@@ -10,9 +10,9 @@
 
 在之前的循环优化中，已经介绍过了向量化的原理，它是一种数据级并行的优化。其硬件实现如下图所示，将多个连续存储的数据批量加载进向量寄存器中，对整个向量寄存器进行操作，从而同时对多个数据元素进行了计算。
 
-![](images/other_opt_1.png)
+![](images/05OtherOpt01.png)
 
-假设两个整数的数组 A 和 B 计算元素和. 并将结果存储到 数组 C 当中。在非向量化的代码中，代码形式是这样的：
+假设两个整数的数组 A 和 B 计算元素和. 并将结果存储到数组 C 当中。在非向量化的代码中，代码形式是这样的：
 
 ```python 
 for (int i = 0; i < n; i++) {
@@ -30,7 +30,7 @@ for (int i = 0; i < n; i += 4) {
 
 要实现加速，需要将其转换为硬件提供的向量化指令，例如：
 
-```python
+```
 # Intel SSE
 _mm_add_ps：将两个单精度浮点向量的对应元素相加。
 _mm_mul_ps：将两个单精度浮点向量的对应元素相乘。
@@ -109,7 +109,7 @@ for m in range(M//TILE_M):
 
 这种串行处理模式虽然简单，却无法充分利用现代处理器的并行处理能力，导致计算效率和系统性能受限。
 
-![](images/other_opt_2.png)
+![](images/05OtherOpt02.png)
 
 在这种情况下，每个运算部件的时间开销都累加得到最终的时延。为了克服这一局限，现代深度学习系统广泛采用并行计算架构，允许多个运算单元同时工作，显著提高了数据处理速度和整体系统性能。延迟隐藏（Latency Hiding）技术在这一领域得到了广泛的应用。该技术通过将内存操作与计算任务并行化，实现了两者的重叠执行，从而最大化了内存带宽和计算资源的利用效率。通过这种方式，即使在数据加载和写回阶段，也能持续执行计算任务，有效减少了因等待内存操作而产生的空闲时间。
 
@@ -117,15 +117,15 @@ CPU 实现延迟隐藏的过程主要依赖于多线程技术和硬件隐式数�
 
 GPU 在实现延迟隐藏方面，主要依赖于其高度并行化的架构和先进的调度技术。Wrap Schedule 是一种用于管理多线程执行的技术，它允许 GPU 在等待内存操作完成时，动态地调度其他线程来继续执行计算任务。这种技术通过减少线程间的同步开销，提高了线程的执行效率。GPU 还采用了上下文切换机制，能够在不同的线程上下文之间快速切换，进一步隐藏内存访问的延迟。当一个线程因为内存访问而暂停时，GPU 可以立即切换到另一个准备好的线程继续执行，从而保持了 GPU 核心的持续工作。
 
-![](images/other_opt_3.png)
+![](images/05OtherOpt03.png)
 
 NPU 采用了解耦访问/执行（Decoupled Access/Execute，DAE）架构。在 DAE 架构中，内存访问操作和计算操作是分开进行的，允许它们并行执行而不是顺序依赖。NPU 拥有专门的硬件单元来处理数据的加载和存储，这些单元独立于执行计算的核心。当计算核心需要数据时，它会发送请求，然后继续执行其他计算任务，而数据加载操作在后台进行。在这种情况下，一般需要使用双缓冲机制，来缓存不同 LOAD 指令得到的数据。
 
-![](images/other_opt_4.png)
+![](images/05OtherOpt04.png)
 
 在这种模式下，执行指令会变为并行方式：
 
-![](images/other_opt_5.png)
+![](images/05OtherOpt05.png)
 
 ### 存储分配
 
@@ -159,7 +159,7 @@ NPU 的内存管理机制包括：
 
 - 专用内存控制器：NPU 可能具有专用的内存控制器，用于优化数据流和减少延迟。
 
-## 小结
+## 小结与思考
 
 - 向量化允许并行处理数据，张量化则进一步扩展该概念，通过将数据组织成更高维度结构来实现更大规模的并行计算。
 
@@ -168,5 +168,5 @@ NPU 的内存管理机制包括：
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV11d4y1a7J6&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=391822054&bvid=BV11d4y1a7J6&cid=939552772&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

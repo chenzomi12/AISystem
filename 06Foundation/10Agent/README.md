@@ -17,11 +17,11 @@ AI Agent（人工智能体）是一种能够感知环境、进行决策和执行
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| 大模型 | 01 大模型遇到 AI Agent | [slide](./01Introduction.pdf), [video](https://www.bilibili.com/video/BV11w411p7dW/) |
-| 大模型 | 02 AI Agent 具体组成 | [slide](./02Component.pdf), [video](https://www.bilibili.com/video/BV11u4y1P73P/) |
-| 大模型 | 03 Planning 与 Prompt 关系 | [slide](./03Planning.pdf), [video](https://www.bilibili.com/video/BV1kM411f7Gb/) |
-| 大模型 | 04 AI Agent 应用原理剖析 | [slide](./04Application.pdf), [video](https://www.bilibili.com/video/BV1zM411f7n2/) |
-| 大模型 | 05 AI Agent 问题与未来思考 | [slide](./05Summary.pdf), [video](https://www.bilibili.com/video/BV1KC4y1S7ZG/) |
+| 大模型 | 01 大模型遇到 AI Agent | [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV11w411p7dW/) |
+| 大模型 | 02 AI Agent 具体组成 | [PPT](./02Component.pdf), [视频](https://www.bilibili.com/video/BV11u4y1P73P/) |
+| 大模型 | 03 Planning 与 Prompt 关系 | [PPT](./03Planning.pdf), [视频](https://www.bilibili.com/video/BV1kM411f7Gb/) |
+| 大模型 | 04 AI Agent 应用原理剖析 | [PPT](./04Application.pdf), [视频](https://www.bilibili.com/video/BV1zM411f7n2/) |
+| 大模型 | 05 AI Agent 问题与未来思考 | [PPT](./05Summary.pdf), [视频](https://www.bilibili.com/video/BV1KC4y1S7ZG/) |
 
 ## 备注
 
@@ -29,7 +29,7 @@ AI Agent（人工智能体）是一种能够感知环境、进行决策和执行
 
 文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/AISystem)，欢迎取用！！！
 
-> 非常希望您也参与到这个开源项目中，B 站给 ZOMI 留言哦！
+> 非常希望您也参与到这个开源课程中，B 站给 ZOMI 留言哦！
 >
 > 欢迎大家使用的过程中发现 bug 或者勘误直接提交代码 PR 到开源社区哦！
 >

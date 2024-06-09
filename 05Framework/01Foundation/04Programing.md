@@ -81,12 +81,12 @@ if __name__ == '__main__':
 
 ## AI 框架的编程范式
 
-主流 AI 框架，无论 PyTorch 还是 Tensorflow 都使用都以 Python 为主的高层次语言为前端，提供脚本式的编程体验，后端用更低层次的编程模型和编程语言开发。后端高性能可复用模块与前端深度绑定，通过前端驱动后端方式执行。AI 框架为前端开发者提供声明式（declarative programming）和命令式（imperative programming）两种编程范式。
+主流 AI 框架，无论 PyTorch 还是 TensorFlow 都使用都以 Python 为主的高层次语言为前端，提供脚本式的编程体验，后端用更低层次的编程模型和编程语言开发。后端高性能可复用模块与前端深度绑定，通过前端驱动后端方式执行。AI 框架为前端开发者提供声明式（declarative programming）和命令式（imperative programming）两种编程范式。
 
 ![AI 框架一般性架构图](images/04Programing02.png)
 :width:`500px`
 
-在主流的 AI 框架中，TensorFlow 提供了声明式编程体验，PyTroch 提供了命令式的编程体验。但两种编程模型之间并不存在绝对的边界，multi-stage 编程和及时编译（Just-in-time, JIT）技术能够实现两种编程模式的混合。随着 AI 框架引入更多的编程模式和特性，例如 TensorFlow Eager 模式 和 PyTorch JIT 的加入，主流 AI 框架都选择了通过支持混合式编程以兼顾两者的优点。
+在主流的 AI 框架中，TensorFlow 提供了声明式编程体验，PyTroch 提供了命令式的编程体验。但两种编程模型之间并不存在绝对的边界，multi-stage 编程和及时编译（Just-in-time, JIT）技术能够实现两种编程模式的混合。随着 AI 框架引入更多的编程模式和特性，例如 TensorFlow Eager 模式和 PyTorch JIT 的加入，主流 AI 框架都选择了通过支持混合式编程以兼顾两者的优点。
 
 ### 命令式编程
 
@@ -168,10 +168,10 @@ AI 框架采用声明式编程的优点在于：
 
 2. 因为神经网络的独特性需要 AI 框架预定义对应的概念（DSL），造成不方便调试、灵活性低
 
-以 Google 的 TensorFlow1.X 为代表的编程特点包括：计算图(Computational Graphs)、会话（Session）、张量(Tensor)，其作为一种典型声明式编程风格。下面使用 TensorFlow 实现一个隐层的全连接神经网络，优化的目标函数是预测值和真实值的欧氏距离。该实现使用基本的 Tensorflow 操作来构建一个计算图，然后多次执行这个计算图来训练网络。
+以谷歌的 TensorFlow1.X 为代表的编程特点包括：计算图(Computational Graphs)、会话（Session）、张量(Tensor)，其作为一种典型声明式编程风格。下面使用 TensorFlow 实现一个隐层的全连接神经网络，优化的目标函数是预测值和真实值的欧氏距离。该实现使用基本的 TensorFlow 操作来构建一个计算图，然后多次执行这个计算图来训练网络。
 
 ```Python
-import tensorflow as tf
+import TensorFlow as tf
 import numpy as np
 
 # 首先构建计算图
@@ -186,7 +186,7 @@ x = tf.placeholder(tf.float32, shape=(None, D_in))
 y = tf.placeholder(tf.float32, shape=(None, D_out))
 
 # 创建变量，并且随机初始化。 
-# 在 Tensorflow 里，变量的生命周期是整个 session，因此适合用它来保存模型的参数。
+# 在 TensorFlow 里，变量的生命周期是整个 session，因此适合用它来保存模型的参数。
 w1 = tf.Variable(tf.random_normal((D_in, H)))
 w2 = tf.Variable(tf.random_normal((H, D_out)))
 ```
@@ -205,7 +205,7 @@ loss = tf.reduce_sum((y - y_pred) ** 2.0)
 grad_w1, grad_w2 = tf.gradients(loss, [w1, w2])
 ```
 
-使用梯度下降来更新参数。assign 同样也只是定义更新参数的操作，不会真正的执行。在 Tensorflow 里，更新操作是计算图的一部分，而在 PyTorch 里，因为是动态的”实时“的计算，所以参数的更新只是普通的 Tensor 计算，不属于计算图的一部分。
+使用梯度下降来更新参数。assign 同样也只是定义更新参数的操作，不会真正的执行。在 TensorFlow 里，更新操作是计算图的一部分，而在 PyTorch 里，因为是动态的”实时“的计算，所以参数的更新只是普通的 Tensor 计算，不属于计算图的一部分。
 
 ```Python
 learning_rate = 1e-6

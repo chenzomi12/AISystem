@@ -1,10 +1,12 @@
-# AI 编译器后端优化
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# AI 编译器后端优化(DONE)
 
 AI 编译器分为多层架构，最顶层由各种 AI 训练框架编写的神经网络模型架构，一般由 Python 编写，常见的 AI 训练框架有 PyTorch、MindSpore、PaddlePaddle 等。在导入 AI 编译器时需要用对应框架的 `converter` 功能转换为 AI 编译器统一的 Graph IR，并在计算图级别由 `Graph Optimizer` 进行计算图级优化，也叫前端优化。
 
 前端优化主要的计算图优化包括图算融合、数据排布转换、内存优化、死代码消除，这些优化是硬件无关的通用优化。在得到优化后的计算图后，将其转换为`TensorIR`，送入`OpsOptimizer`进行算子级优化，也叫后端优化，这类优化是硬件相关的，主要包括循环优化、算子融合、tiling、张量化。在算子级优化结束后，即进入代码生成阶段。本节将重点介绍 AI 编译器的后端优化相关功能。
 
-![AI 编译器架构](images/AI_compiler_framework.png)
+![AI 编译器架构](images/01Introduction01.png)
 
 ## 后端优化
 
@@ -14,11 +16,11 @@ AI 编译器分为多层架构，最顶层由各种 AI 训练框架编写的神�
 
 前端优化：针对计算图整体拓扑结构优化，不关心算子的具体实现。主要优化流程为对算子节点进行融合、消除、化简，使得计算图的计算和存储开销最小。
 
-![前端优化示例](images/frontend_optimize.png)
+![前端优化示例](images/01Introduction02.png)
 
 后端优化：针对单个算子的内部具体实现优化，使得算子的性能达到最优。主要优化流程为对算子节点的输入、输出、内存循环方式和计算逻辑进行编排与转换。
 
-![后端优化示例](images/backend_optimize.png)
+![后端优化示例](images/01Introduction03.png)
 
 二者的区别在于关注点不同，前端优化具有局部或全局的视野，而后端优化只关注单个算子节点。
 
@@ -30,7 +32,7 @@ AI 编译器分为多层架构，最顶层由各种 AI 训练框架编写的神�
 
 不同 AI 编译器内部低级 IR 形式和定义不同，但是对于同一算子，算法的原理实质相同。对于每个具体的算子，需要用 AI 编译器底层的接口来定义算法，再由编译器来生成内部的低级 IR。
 
-![生成低级 IR](images/generate_IR.png)
+![生成低级 IR](images/01Introduction04.png)
 
 2. 后端优化：进行后端优化，并将 IR 转换为更低级的 IR。
 
@@ -94,8 +96,16 @@ AI 编译器分为多层架构，最顶层由各种 AI 训练框架编写的神�
 
 - Polyhedral：Polyhedral 方法是一种基于数学多面体理论的编译优化方法，用于描述循环嵌套的迭代空间和数据依赖关系，并生成高效的循环 kernel 代码。通过对循环迭代空间进行变换和重组，Polyhedral 方法可以实现循环并行化、内存局部性优化等优化，从而提高计算核心的性能和效率。
 
+## 小结与思考
+
+- AI 编译器的后端优化关注于算子级优化，包括循环优化、算子融合、tiling 和张量化等硬件相关的优化手段，以实现算子性能的最优化。
+
+- 后端优化流程包括生成低级 IR、进行后端优化以及代码生成，目的是将优化后的 IR 转化为适合特定硬件的机器指令。
+
+- 算子优化面临挑战，如多样性和优化手段的复杂性，业界通过算子库和自动生成算法（如 Auto Tuning 和 Polyhedral 方法）来应对这些挑战，以实现高性能的 AI 计算。
+
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV17D4y177bP&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=734054659&bvid=BV17D4y177bP&cid=933462046&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

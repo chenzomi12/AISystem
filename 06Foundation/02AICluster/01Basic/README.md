@@ -15,11 +15,11 @@
 
 | 大纲 | 小节 | 链接|
 |:--:|:--:|:--:|
-| AI 集群简介 | 03 大模型训练效率 | [slide](./03efficiency.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
-| AI 集群简介 | 04 AI 集群硬件组成 | [slide](./04Hardware.pdf), [video](https://www.bilibili.com/video/BV1dC4y1d7hd) |
-| AI 集群简介 | 05 集群服务器架构 | [slide](./05ClusterArch.pdf), [video](https://www.bilibili.com/video/BV1384y127iP) |
-| AI 集群简介 | 05 大模型训练显存分析 | [slide](./06TrainingMemory.pdf), [video](https://www.bilibili.com/video/BV15Q4y147Uo) |
-| AI 集群简介 | 06 大模型推理显存分析 | [slide](./07InferenceMemory.pdf), [video](https://www.bilibili.com/video/BV1Rc411S7jj) |
+| AI 集群简介 | 03 大模型训练效率 | [PPT](./03efficiency.pdf), [视频](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| AI 集群简介 | 04 AI 集群硬件组成 | [PPT](./04Hardware.pdf), [视频](https://www.bilibili.com/video/BV1dC4y1d7hd) |
+| AI 集群简介 | 05 集群服务器架构 | [PPT](./05ClusterArch.pdf), [视频](https://www.bilibili.com/video/BV1384y127iP) |
+| AI 集群简介 | 05 大模型训练显存分析 | [PPT](./06TrainingMemory.pdf), [视频](https://www.bilibili.com/video/BV15Q4y147Uo) |
+| AI 集群简介 | 06 大模型推理显存分析 | [PPT](./07InferenceMemory.pdf), [视频](https://www.bilibili.com/video/BV1Rc411S7jj) |
 
 ## 备注
 
@@ -27,7 +27,7 @@
 
 文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/AISystem)，欢迎取用！！！
 
-> 非常希望您也参与到这个开源项目中，B 站给 ZOMI 留言哦！
+> 非常希望您也参与到这个开源课程中，B 站给 ZOMI 留言哦！
 >
 > 欢迎大家使用的过程中发现 bug 或者勘误直接提交代码 PR 到开源社区哦！
 >
