@@ -134,7 +134,7 @@ class MixedOperation(nn.Module):
 
 ### 网络结构
 
-FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。 它采用受 MobileNetv2 启发的基本类型图像模型块，该模型利用深度卷积和反向残差结构（请参阅组件，见下图）。其中，FBNet-A 和 FBNet-B、FBNet-C 的区别在于最后一个卷积的输出 channel 不一样
+FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。它采用受 MobileNetv2 启发的基本类型图像模型块，该模型利用深度卷积和反向残差结构（请参阅组件，见下图）。其中，FBNet-A 和 FBNet-B、FBNet-C 的区别在于最后一个卷积的输出 channel 不一样
 
 ![FBNet](images/06.fpnet_03.png)
 
@@ -200,7 +200,7 @@ E:为了保留所有搜索到的输入分辨率的感受域，在卷积之前必
 
 此外，注意到可以实现相同的效果，而不需要构造一个更小的张量，具有适当步长的膨胀卷积；进行子采样以避免修改 F 运算。
 
-上面说了在 channel 维度的做法。 在空间维度的做法也是类似的，作者也想构造一种加权和的形式表征不同分辨率的特征图。如图 A 所示，不同分辨率的 tensor 不能直接相加。图 B 说明了在边缘 padding 的方式不行，像素无法对齐。图 C 这种方式会又带来感受野错位的问题：如图 D 所示，Interspersing zero-padding 之后，一个 3x3 的 kenel 有效感受野变成了 2x2。所以图 E 才是作者最终的解决方法：和 F 运算完之后再 padding。
+上面说了在 channel 维度的做法。在空间维度的做法也是类似的，作者也想构造一种加权和的形式表征不同分辨率的特征图。如图 A 所示，不同分辨率的 tensor 不能直接相加。图 B 说明了在边缘 padding 的方式不行，像素无法对齐。图 C 这种方式会又带来感受野错位的问题：如图 D 所示，Interspersing zero-padding 之后，一个 3x3 的 kenel 有效感受野变成了 2x2。所以图 E 才是作者最终的解决方法：和 F 运算完之后再 padding。
 
 ![FBNetV2](images/06.fpnet_06.png)
 

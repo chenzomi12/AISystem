@@ -10,7 +10,7 @@
 
 ### Ghost Module
 
-利用`Ghost Module`生成与普通卷积层相同数量的特征图，我们可以轻松地将`Ghost Module`替换卷积层，集成到现有设计好的神经网络结构中，以减少计算成本。第一、先通过普通的 conv 生成一些特征图。 第二、对生成的特征图进行 cheap 操作生成冗余特征图，这步使用的卷积是 DW 卷积。 第三将 conv 生成的特征图与 cheap 操作生成的特征图进行 concat 操作。 如下图（b）所示，展示了 Ghost 模块和普通卷积的过程。
+利用`Ghost Module`生成与普通卷积层相同数量的特征图，我们可以轻松地将`Ghost Module`替换卷积层，集成到现有设计好的神经网络结构中，以减少计算成本。第一、先通过普通的 conv 生成一些特征图。第二、对生成的特征图进行 cheap 操作生成冗余特征图，这步使用的卷积是 DW 卷积。第三将 conv 生成的特征图与 cheap 操作生成的特征图进行 concat 操作。如下图（b）所示，展示了 Ghost 模块和普通卷积的过程。
 
 ![GhostModule](images/08.ghostnet_01.png)
 ===== ????
@@ -157,7 +157,7 @@ $$
 a_{hw} =\sum_{w'=1}^{W}F^{W}_{w,hw'}\odot z_{h'w},h=1,2,...,H,w=1,2,...,W \tag{3}
 $$
 
-其中，$F^{H}$ 和 $F^{W}$ 是变换的权重。输入原始特征 Z，并依次应用公式(2)和公式(3)，分别提取沿两个方向的长距离依赖关系。 作者将此操作称为解耦全连接注意力(decoupled fully connected attention，DFC attention)，其信息流如下图所示：
+其中，$F^{H}$ 和 $F^{W}$ 是变换的权重。输入原始特征 Z，并依次应用公式(2)和公式(3)，分别提取沿两个方向的长距离依赖关系。作者将此操作称为解耦全连接注意力(decoupled fully connected attention，DFC attention)，其信息流如下图所示：
 
 ![Ghost bottleneck](images/08.ghostnet_03.png)
 

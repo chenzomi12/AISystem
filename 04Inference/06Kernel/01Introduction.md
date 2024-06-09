@@ -2,7 +2,7 @@
 
 # Kernel 层架构(DONE)
 
-推理引擎的 Kernel 层通常是推理引擎中用于执行底层数学运算的组件。在神经网络模型推理过程中，需要对大量数据进行高效的数学运算，如矩阵乘法、卷积、池化等。Kernel 层就是实现这些运算的核心部分，它直接影响着推理引擎的速度和效率，因此本节将会重点介绍Kernel层相关的内容。
+推理引擎的 Kernel 层通常是推理引擎中用于执行底层数学运算的组件。在神经网络模型推理过程中，需要对大量数据进行高效的数学运算，如矩阵乘法、卷积、池化等。Kernel 层就是实现这些运算的核心部分，它直接影响着推理引擎的速度和效率，因此本节将会重点介绍 Kernel 层相关的内容。
 
 ## Kernel 层介绍
 
@@ -68,17 +68,17 @@ Kernel 层包含了一系列的低级函数，它们直接在硬件上执行数�
 
 CPU 优化：
 
-1. **NEON**： NEON 是 ARM 架构上的 SIMD（单指令多数据）扩展，用于提高多媒体处理和浮点运算的性能。推理引擎可以利用 NEON 指令集来优化 Kernel 层，特别是在移动设备和嵌入式设备上。
-2. **AVX**： AVX（Advanced Vector Extensions）是 Intel 处理器上的 SIMD 指令集，用于提高浮点运算和整数运算的性能。推理引擎可以利用 AVX 指令集来优化 Kernel 层，特别是在 Intel CPU 上。
-3. **Metal**： Metal 是苹果开发的低级图形和计算 API，用于优化在 Apple GPU 上的性能。推理引擎可以利用 Metal API 来优化 Kernel 层，特别是在 iOS 和 macOS 设备上。
-4. **TVM**： TVM（Tensor Virtual Machine）是一个开源的深度学习编译器框架，用于优化神经网络模型在各种硬件上的性能。它支持 CPU、GPU、TPU 和其他类型的硬件。
+1. **NEON**：NEON 是 ARM 架构上的 SIMD（单指令多数据）扩展，用于提高多媒体处理和浮点运算的性能。推理引擎可以利用 NEON 指令集来优化 Kernel 层，特别是在移动设备和嵌入式设备上。
+2. **AVX**：AVX（Advanced Vector Extensions）是 Intel 处理器上的 SIMD 指令集，用于提高浮点运算和整数运算的性能。推理引擎可以利用 AVX 指令集来优化 Kernel 层，特别是在 Intel CPU 上。
+3. **Metal**：Metal 是苹果开发的低级图形和计算 API，用于优化在 Apple GPU 上的性能。推理引擎可以利用 Metal API 来优化 Kernel 层，特别是在 iOS 和 macOS 设备上。
+4. **TVM**：TVM（Tensor Virtual Machine）是一个开源的深度学习编译器框架，用于优化神经网络模型在各种硬件上的性能。它支持 CPU、GPU、TPU 和其他类型的硬件。
 
 GPU 优化：
 
-1. **CUDA**： CUDA 是 NVIDIA 的并行计算平台和编程模型，用于在 NVIDIA GPU 上执行并行计算。推理引擎可以利用 CUDA 来优化 Kernel 层，特别是在大规模矩阵运算和卷积操作方面。
-2. **OpenCL**： OpenCL 是一个开放的标准，用于编写在异构系统上运行的程序。它允许开发者利用 CPU、GPU 和其他类型的处理器来加速计算密集型任务。推理引擎可以利用 OpenCL 来优化 Kernel 层，特别是在 GPU 上。
-3. **Vulkan**： Vulkan 是新一代的图形和计算 API，用于在各种 GPU 上执行并行计算。推理引擎可以利用 Vulkan API 来优化 Kernel 层，特别是在高性能计算和图形处理方面。
-4. **Tensor Cores**： Tensor Cores 是 NVIDIA GPU 上的一种特殊类型的核心，专门用于加速矩阵乘法和卷积操作。推理引擎可以利用 Tensor Cores 来优化 Kernel 层，特别是在执行大规模的矩阵运算时。
+1. **CUDA**：CUDA 是 NVIDIA 的并行计算平台和编程模型，用于在 NVIDIA GPU 上执行并行计算。推理引擎可以利用 CUDA 来优化 Kernel 层，特别是在大规模矩阵运算和卷积操作方面。
+2. **OpenCL**：OpenCL 是一个开放的标准，用于编写在异构系统上运行的程序。它允许开发者利用 CPU、GPU 和其他类型的处理器来加速计算密集型任务。推理引擎可以利用 OpenCL 来优化 Kernel 层，特别是在 GPU 上。
+3. **Vulkan**：Vulkan 是新一代的图形和计算 API，用于在各种 GPU 上执行并行计算。推理引擎可以利用 Vulkan API 来优化 Kernel 层，特别是在高性能计算和图形处理方面。
+4. **Tensor Cores**：Tensor Cores 是 NVIDIA GPU 上的一种特殊类型的核心，专门用于加速矩阵乘法和卷积操作。推理引擎可以利用 Tensor Cores 来优化 Kernel 层，特别是在执行大规模的矩阵运算时。
 
 此外，封装的高性能算子库有：
 

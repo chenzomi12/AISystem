@@ -22,7 +22,7 @@ SqueezeNet 算法的主要目标是构建轻量参数的 CNN 架构，同时不�
 
 ### Fire 模块
 
-**Fire 模块**组成：主要包括挤压层（squeeze） 和拓展层（expand）；
+**Fire 模块**组成：主要包括挤压层（squeeze）和拓展层（expand）；
 
 - **Squeeze**：只有 1×1 卷积滤波器 ；
 - **Expand**：混合有 1×1 和 3×3 卷积滤波器 ；

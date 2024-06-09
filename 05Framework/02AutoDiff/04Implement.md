@@ -104,7 +104,7 @@ t5 = ADSub(t4, t2)
 
 在具有多态特性的现代编程语言中，运算符重载提供了实现自动微分的最直接方式，利用了编程语言的第一特性（first class feature），重新定义了微分基本操作语义的能力。
 
-在 C++ 中使用运算符重载实现的流行工具是 ADOL-C（Walther 和 Griewank，2012）。 ADOL-C 要求对变量使用启用 AD 的类型，并在 Tape 数据结构中记录变量的算术运算，随后可以在反向模式 AD 计算期间“回放”。 Mxyzptlk 库 (Michelotti, 1990) 是 C++ 能够通过前向传播计算任意阶偏导数的另一个例子。 FADBAD++ 库（Bendtsen 和 Stauning，1996 年）使用模板和运算符重载为 C++ 实现自动微分。对于 Python 语言来说，autograd 提供正向和反向模式自动微分，支持高阶导数。
+在 C++ 中使用运算符重载实现的流行工具是 ADOL-C（Walther 和 Griewank，2012）。ADOL-C 要求对变量使用启用 AD 的类型，并在 Tape 数据结构中记录变量的算术运算，随后可以在反向模式 AD 计算期间“回放”。Mxyzptlk 库 (Michelotti, 1990) 是 C++ 能够通过前向传播计算任意阶偏导数的另一个例子。FADBAD++ 库（Bendtsen 和 Stauning，1996 年）使用模板和运算符重载为 C++ 实现自动微分。对于 Python 语言来说，autograd 提供正向和反向模式自动微分，支持高阶导数。
 
 在机器学习 ML 或者深度学习 DL 领域，目前 AI 框架中使用操作符重载的一个典型代表是 Pytroch，其中使用数据结构 Tape 来记录计算流程，在反向模式求解梯度的过程中进行 replay Operator。
 
@@ -175,9 +175,9 @@ def grad(l, results):
 
 源码转换的实现提供了对编程语言的扩展，可自动将算法分解为支持自动微分的基本操作。通常作为预处理器执行，以将扩展语言的输入转换为原始语言。简单来说就是利用源语言来实现领域扩展语言 DSL 的操作方式。
 
-源代码转换的经典实例包括 Fortran 预处理器 GRESS（Horwedel 等人，1988 年）和 PADRE2（Kubo 和 Iri，1990 年），在编译之前将启用 AD 的 Fortran 变体转换为标准 Fortran。类似地，ADIFOR 工具 (Bischof et al., 1996) 给定一个 Fortran 源代码，生成一个增强代码，其中除了原始结果之外还计算所有指定的偏导数。对于以 ANSI C 编码的过程，ADIC 工具（Bischof 等人，1997）在指定因变量和自变量之后将 AD 实现为源代码转换。 Tapenade（Pascual 和 Hasco¨et，2008 年；Hasco¨et 和 Pascual，2013 年）是过去 10 年终 SCT 的流行工具，它为 Fortran 和 C 程序实现正向和反向模式 AD。 
+源代码转换的经典实例包括 Fortran 预处理器 GRESS（Horwedel 等人，1988 年）和 PADRE2（Kubo 和 Iri，1990 年），在编译之前将启用 AD 的 Fortran 变体转换为标准 Fortran。类似地，ADIFOR 工具 (Bischof et al., 1996) 给定一个 Fortran 源代码，生成一个增强代码，其中除了原始结果之外还计算所有指定的偏导数。对于以 ANSI C 编码的过程，ADIC 工具（Bischof 等人，1997）在指定因变量和自变量之后将 AD 实现为源代码转换。Tapenade（Pascual 和 Hasco¨et，2008 年；Hasco¨et 和 Pascual，2013 年）是过去 10 年终 SCT 的流行工具，它为 Fortran 和 C 程序实现正向和反向模式 AD。
 
-除了通过源代码转换进行语言扩展外，还有一些实现通过专用编译器或解释器引入了具有紧密集成的 AD 功能的新语言。一些最早的 AD 工具，例如 SLANG (Adamson and Winant, 1969) 和 PROSE (Pfeiffer, 1987) 属于这一类。 NAGWare Fortran 编译器 (Naumann and Riehme, 2005) 是一个较新的示例，其中使用与 AD 相关的扩展会在编译时触发衍生代码的自动生成。
+除了通过源代码转换进行语言扩展外，还有一些实现通过专用编译器或解释器引入了具有紧密集成的 AD 功能的新语言。一些最早的 AD 工具，例如 SLANG (Adamson and Winant, 1969) 和 PROSE (Pfeiffer, 1987) 属于这一类。NAGWare Fortran 编译器 (Naumann and Riehme, 2005) 是一个较新的示例，其中使用与 AD 相关的扩展会在编译时触发衍生代码的自动生成。
 
 作为基于解释器的实现的一个例子，代数建模语言 AMPL (Fourer et al., 2002) 可以用数学符号表示目标和约束，系统从中推导出活动变量并安排必要的 AD 计算。此类别中的其他示例包括基于类似 Algol 的 DIFALG 语言的 FM/FAD 包 (Mazourik, 1991)，以及类似于 Pascal 的面向对象的 COZY 语言 (Berz et al., 1996)。
 
@@ -199,7 +199,7 @@ def grad(l, results):
 
 源码转换法的**优点**可以总结如下：
 
-- 支持更多的数据类型（原生和用户自定义的数据类型） + 原生语言操作（基本数学运算操作和控制流操作）；
+- 支持更多的数据类型（原生和用户自定义的数据类型）+ 原生语言操作（基本数学运算操作和控制流操作）；
 - 高阶微分中实现容易，不用每次使用 Tape 来记录高阶的微分中产生的大量变量，而是统一通过编译器进行额外变量优化和重计算等优化；
 - 进一步提升性能，没有产生额外的 tape 数据结构和 tape 读写操作，除了利于实现高阶微分以外，还能够对计算表达式进行统一的编译优化。
 

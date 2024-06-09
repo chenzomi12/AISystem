@@ -32,7 +32,7 @@ Ops Optimizer 接收到 Tensor IR 后，其会针对每个算子进行具体的�
 
 编译器前端（Compiler Frontend）主要负责接收和处理来自不同深度学习框架的模型，并将其转换为通用的中间表示（IR），进行初步优化。
 
-编译器前端的组成集中展示在上图中间靠左部分。输入的神经网络模型格式可以来自多种框架（如TensorFlow、PyTorch等）；这些模型通过符号表示的转换（如TVM、nGraph等）生成计算图；高级IR/图IR（设备无关）包含了DAG（有向无环图）和基于let-binding的表示形式以及张量计算；计算图经过多种优化，如代数简化、操作融合、操作下沉、公共子表达式消除（CSE）、死代码消除（DCE）和静态内存规划等，得到初步优化的计算图；随后通过模式匹配和图重写等方法进一步优化，最终生成优化后的计算图；同时，编译器前端也提供了调试工具（如IR dumping）可以以文本或DAG形式呈现。
+编译器前端的组成集中展示在上图中间靠左部分。输入的神经网络模型格式可以来自多种框架（如 TensorFlow、PyTorch 等）；这些模型通过符号表示的转换（如 TVM、nGraph 等）生成计算图；高级 IR/图 IR（设备无关）包含了 DAG（有向无环图）和基于 let-binding 的表示形式以及张量计算；计算图经过多种优化，如代数简化、操作融合、操作下沉、公共子表达式消除（CSE）、死代码消除（DCE）和静态内存规划等，得到初步优化的计算图；随后通过模式匹配和图重写等方法进一步优化，最终生成优化后的计算图；同时，编译器前端也提供了调试工具（如 IR dumping）可以以文本或 DAG 形式呈现。
 
 **Input Format of DL Models（输入格式）**：支持多种深度学习框架，如 TensorFlow、PyTorch、Caffe2、MXNet、飞桨（PaddlePaddle）和 ONNX 等。
 
@@ -52,7 +52,7 @@ Ops Optimizer 接收到 Tensor IR 后，其会针对每个算子进行具体的�
 
 编译器后端（Compiler Backend）负责将优化后的计算图转换为特定硬件平台的低层次表示，并进行硬件特定优化和代码生成。
 
-编译器后端的组成集中展示再上图中间靠右部分。首先进行硬件特定的优化，包括内在映射、内存分配、内存延迟隐藏、循环优化、并行化等；这些优化通过自动调度（如多面体模型）和手动调度（如Halide）进行；自动调优模块包含参数化、成本模型和参数搜索，旨在进一步优化性能；后端还利用内核库（如Intel DNNL、NV cuDNN/TensorRT、AMD MIOpen等）来提高效率；低级IR/操作符IR（设备相关）采用Halide、多面体模型等独特的IR实现；编译方案支持即时（Just-In-Time）和提前（Ahead-Of-Time）编译；最终，代码生成模块将生成LLVM、CUDA、OpenCL、OpenGL等代码，以支持各种目标平台，包括CPU（X86、ARM、RISC-V）、GPU（NVIDIA、AMD）、ASIC（TPU、Inferentia、NNP等）和DSP等，从而适配越来越多的加速器。
+编译器后端的组成集中展示再上图中间靠右部分。首先进行硬件特定的优化，包括内在映射、内存分配、内存延迟隐藏、循环优化、并行化等；这些优化通过自动调度（如多面体模型）和手动调度（如 Halide）进行；自动调优模块包含参数化、成本模型和参数搜索，旨在进一步优化性能；后端还利用内核库（如 Intel DNNL、NV cuDNN/TensorRT、AMD MIOpen 等）来提高效率；低级 IR/操作符 IR（设备相关）采用 Halide、多面体模型等独特的 IR 实现；编译方案支持即时（Just-In-Time）和提前（Ahead-Of-Time）编译；最终，代码生成模块将生成 LLVM、CUDA、OpenCL、OpenGL 等代码，以支持各种目标平台，包括 CPU（X86、ARM、RISC-V）、GPU（NVIDIA、AMD）、ASIC（TPU、Inferentia、NNP 等）和 DSP 等，从而适配越来越多的加速器。
 
 **Hardware Specific Optimizations（硬件特定优化）**：针对特定硬件的优化技术，包括：Intrinsic mapping（内在映射）、Memory allocation（内存分配）、Memory latency hiding（内存延迟隐藏）、Loop oriented optimization（面向循环的优化）以及 Parallelization（并行化）等。
 
@@ -172,15 +172,15 @@ DL 编译器（如 TVM、nGraph 和 TC）在代码生成阶段可以生成对这
 
 ## 小结与思考
 
-**AI编译器通用架构**：分为编译器前端与编译器后端。编译器前端包含输入格式转换、高级IR/图IR、计算图优化方案以及调试工具等；编译器后端包含硬件特定优化、自动调度、自动调优、特定优化的内核库、低级IR/操作符IR、编译方案以及针对不同平台的代码生成等。
+**AI 编译器通用架构**：分为编译器前端与编译器后端。编译器前端包含输入格式转换、高级 IR/图 IR、计算图优化方案以及调试工具等；编译器后端包含硬件特定优化、自动调度、自动调优、特定优化的内核库、低级 IR/操作符 IR、编译方案以及针对不同平台的代码生成等。
 
-**中间表达IR**：分为高级IR和低级IR。
+**中间表达 IR**：分为高级 IR 和低级 IR。
 
 **前端优化**：包括节点级优化、块级（窥孔、局部）优化以及数据流级（全局）优化。
 
 **后端优化**：包括特定硬件优化、自动调整、Halide/TVM 方法、多面体模型参数调整方法以及内核库优化。
 
-**AI编译器全栈产品**：自底向上分为Hardware层（硬件层）、Kernel层（异构计算架构层）、Graph层（计算图层）和DL Models层（深度学习框架层）。
+**AI 编译器全栈产品**：自底向上分为 Hardware 层（硬件层）、Kernel 层（异构计算架构层）、Graph 层（计算图层）和 DL Models 层（深度学习框架层）。
 
 ## 本节视频
 

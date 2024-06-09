@@ -332,12 +332,12 @@ H100 一共有 8 组 GPC、66 组 TPC、132 组 SM，总计有 16896 个 CUDA �
 | Hopper 赫柏架构 SM 硬件单元 | Hopper 赫柏架构每个 Process Block | 相比 Ampere 架构 |
 | --- | --- | --- |
 | 4 个 Warp Scheduler，4 个 Dispatch Unit  | 1 个 Warp Scheduler，1 个 Dispatch Unit | 相同 |
-| 128 个 FP32 Core（4 * 32） | 32 个 FP32 Core | x2 |
-| 64 个 INT32 Core（4 * 16） | 16 个 INT32 Core | 相同 |
-| 64 个 FP64 Core（4 * 16） | 16 个 FP32 Core | x2 |
-| 4 个 Tensor Core4.0（4 * 1） | 1 个 Tensor Core | Tensor Core3.0 |
-| 32 个 LD/ST Unit（4 * 8） | 8 个 LD/ST Unit | 相同 |
-| 16 个 SFU（4 * 4） | 4 个 SFU | 相同 |
+| 128 个 FP32 Core（4 * 32）| 32 个 FP32 Core | x2 |
+| 64 个 INT32 Core（4 * 16）| 16 个 INT32 Core | 相同 |
+| 64 个 FP64 Core（4 * 16）| 16 个 FP32 Core | x2 |
+| 4 个 Tensor Core4.0（4 * 1）| 1 个 Tensor Core | Tensor Core3.0 |
+| 32 个 LD/ST Unit（4 * 8）| 8 个 LD/ST Unit | 相同 |
+| 16 个 SFU（4 * 4）| 4 个 SFU | 相同 |
 | Tensor Memory Accelerator |  | 新增 |
 
 ![Hopper 赫柏架构 SM](images/04History30.png)
@@ -380,7 +380,7 @@ NVIDIA CUDA 平台针对 NVIDIA Grace CPU，NVIDIA Grace Hopper Superchip 和 NV
 > 
 > 1.  在贝叶斯统计学领域做出了开创性的工作，提出了许多重要的方法和理论，推动了贝叶斯分析在统计学中的发展。
 > 
-> 2.  在信息论方面的研究成果为该领域的发展做出了重要贡献，提供了许多重要的理论基础和方法。 
+> 2.  在信息论方面的研究成果为该领域的发展做出了重要贡献，提供了许多重要的理论基础和方法。
 
 NVIDIA GB200 Grace Blackwell 超级芯片通过 900GB/s 超低功耗的片间互联，将两个 NVIDIA B200 Tensor Core GPU 与 NVIDIA Grace CPU 相连。在 90 天内训练一个 1.8 万亿参数的 MoE 架构 GPT 模型，需要 8000 个 Hopper 架构 GPU，15 兆瓦功率，Blackwell 架构只需要 2000 个 GPU，以及 1/4 的能源消耗。8 年时间，从 Pascal 架构到 Blackwell 架构，英伟达将 AI 计算性能提升了 1000 倍！
 

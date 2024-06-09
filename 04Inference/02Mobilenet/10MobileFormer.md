@@ -22,7 +22,7 @@ $$
 A_{X->Z} = [Attn(\widetilde{z_{i}}W_{i}^{Q},\widetilde{x_{i}},\widetilde{x_{i}})]_{i=1:h}W^{o}\tag{1}
 $$
 
-其中局部特征 X 和全局 tokens Z 被拆分进入 h 个头，即 $X=[\widetilde{x_{1}}...\widetilde{x_{h}}],Z=[\widetilde{z_{1}}...\widetilde{z_{h}}]$ 表示多头注意力。第 i 个头的拆分 $\widetilde{z_{1}}\in R^{M \times \frac {d}{h} }$ 与第 i 个 token$\widetilde{z_{1}}\in R^{d}$ 不同。$W_{i}^{Q}$ 是第 i 个头的查询映射矩阵。 $W^{O}$ 用于将多个头组合在一起。Attn(Q,K,V)是查询 Q、键 K 和值 V 的标准注意力函数，即 ：
+其中局部特征 X 和全局 tokens Z 被拆分进入 h 个头，即 $X=[\widetilde{x_{1}}...\widetilde{x_{h}}],Z=[\widetilde{z_{1}}...\widetilde{z_{h}}]$ 表示多头注意力。第 i 个头的拆分 $\widetilde{z_{1}}\in R^{M \times \frac {d}{h} }$ 与第 i 个 token$\widetilde{z_{1}}\in R^{d}$ 不同。$W_{i}^{Q}$ 是第 i 个头的查询映射矩阵。$W^{O}$ 用于将多个头组合在一起。Attn(Q,K,V)是查询 Q、键 K 和值 V 的标准注意力函数，即 ：
 
 $$softmax(\frac{QK^{T}}{\sqrt{d_{k}}})
 $$
@@ -49,9 +49,9 @@ Former 子块：Former 子块是一个标准的 Transformer 块，包括一个�
 
 Mobile→Former：文章提出的轻量级交叉注意力（式 1）用于将局部特征 X 融合到全局特征 tokens Z。与标准注意力相比，映射矩阵的键 $W^{K}$ 和值 $W^{V}$（在局部特征 X 上）被移除以节省计算（见上图）。
 
-Mobile←Former：这里的交叉注意力（式 2） 与 Mobile→Former 的方向相反，其将全局 tokens 融入本地特征。局部特征是查询，全局 tokens 是键和值。因此，我们保留键 $W^{K}$ 和值 $W^{V}$ 中的映射矩阵，但移除查询 $W^{Q}$ 的映射矩阵以节省计算，如上图所示。
+Mobile←Former：这里的交叉注意力（式 2）与 Mobile→Former 的方向相反，其将全局 tokens 融入本地特征。局部特征是查询，全局 tokens 是键和值。因此，我们保留键 $W^{K}$ 和值 $W^{V}$ 中的映射矩阵，但移除查询 $W^{Q}$ 的映射矩阵以节省计算，如上图所示。
 
-计算复杂度：Mobile-Former 块的四个核心部分具有不同的计算成本。给定输入大小为 $HW\timesC$ 的特征图，以及尺寸为 d 的 M 个全局 tokens，Mobile 占据了大部分的计算量 $O(HWC^{2})$。Former 和双线桥是重量级的，占据不到总计算成本的 20%。具体而言，Former 的自注意力和 FFN 具有复杂度 $O(M^{2}d+Md^{2})$。 Mobile→Former 和 Mobile←Former 共享交叉注意力的复杂度 $O(MHWC+MdC)$。
+计算复杂度：Mobile-Former 块的四个核心部分具有不同的计算成本。给定输入大小为 $HW\timesC$ 的特征图，以及尺寸为 d 的 M 个全局 tokens，Mobile 占据了大部分的计算量 $O(HWC^{2})$。Former 和双线桥是重量级的，占据不到总计算成本的 20%。具体而言，Former 的自注意力和 FFN 具有复杂度 $O(M^{2}d+Md^{2})$。Mobile→Former 和 Mobile←Former 共享交叉注意力的复杂度 $O(MHWC+MdC)$。
 
 **代码**
 
