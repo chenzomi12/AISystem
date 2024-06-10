@@ -2,7 +2,7 @@
 
 # ESPNet 系列
 
-本章节将会介绍 ESPNet 系列，该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块（ESP Module）；而在 ESPNet V2 上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
+本节将会介绍 ESPNet 系列，该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块（ESP Module）；而在 ESPNet V2 上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
 
 ## ESPNet V1
 
@@ -109,7 +109,7 @@ ESPNet 的不同变体如下图所示。第一个变体，ESPNet-A(图 a)，是�
 
 从 ESPNet- a 到 ESPNet 的路径。红色和绿色色框分别代表负责下采样和上采样操作的模块。空间级别的 l 在(a)中的每个模块的左侧。本文将每个模块表示为(#输入通道，#输出通道)。这里，conv-n 表示 n × n 卷积。
 
-为了在不改变网络拓扑结构的情况下构建具有较深计算效率的边缘设备网络，超参数α控制网络的深度;ESP 模块在空间层次 l 上重复 $α_{l}$ 次。在更高的空间层次(l = 0 和 l = 1)， cnn 需要更多的内存，因为这些层次的特征图的空间维数较高。为了节省内存，ESP 和卷积模块都不会在这些空间级别上重复。
+为了在不改变网络拓扑结构的情况下构建具有较深计算效率的边缘设备网络，超参数α控制网络的深度;ESP 模块在空间层次 l 上重复 $α_{l}$ 次。在更高的空间层次(l = 0 和 l = 1)，cnn 需要更多的内存，因为这些层次的特征图的空间维数较高。为了节省内存，ESP 和卷积模块都不会在这些空间级别上重复。
 
 ## ESPNet V2
 
@@ -129,7 +129,7 @@ ESPNet V2 与 V1 版本相比，其特点如下：
 
 6. 使用级联（concatenation）取代对应元素加法操作（element-wise addition operation ）
 
-###  DDConv 模块
+### DDConv 模块
 
 深度分离空洞卷积（Depth-wise dilated separable convolution，DDConv）分两步：
 
@@ -325,36 +325,3 @@ ESPNet V2 网络使用 EESP 模块构建。在每个空间级别，ESPNet V2 重
 ## 本节视频
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-## 参考文献
-
-1.[Zhao, H., Shi, J., Qi, X., Wang, X., Jia, J.: Pyramid scene parsing network. In: CVPR. (2017)](https://arxiv.org/pdf/1612.01105.pdf)
-
-2.[He, K., Zhang, X., Ren, S., Sun, J.: Spatial pyramid pooling in deep convolutional networks for visual recognition. In: ECCV. (2014)]( https://arxiv.org/abs/1406.4729)
-
-3.[Ess, A., Muller, T., Grabner, H., Van Gool, L.J.: Segmentation-based urban traffic scene understanding. In: BMVC. (2009)](https://www.bmva.org/bmvc/2009/Papers/Paper350/Abstract350.pdf)
-
-4.[Menze, M., Geiger, A.: Object scene flow for autonomous vehicles. In: CVPR. (2015)](https://ieeexplore.ieee.org/document/7298925/)
-
-5.[Xiang, Y., Fox, D.: DA-RNN: Semantic mapping with data associated recurrent neural networks. Robotics: Science and Systems (RSS) (2017)](https://arxiv.org/abs/1703.03098v1)
-
-6.[Chollet, F.: Xception: Deep learning with depthwise separable convolutions. CVPR (2017)](https://arxiv.org/abs/1610.02357)
-
-7.[Yu, F., Koltun, V.: Multi-scale context aggregation by dilated convolutions. ICLR (2016)](https://arxiv.org/pdf/1511.07122.pdf)
-
-8.[Yu, F., Koltun, V., Funkhouser, T.: Dilated residual networks. CVPR (2017)](https://arxiv.org/pdf/1705.09914.pdf )
-
-9.[Zhao, H., Qi, X., Shen, X., Shi, J., Jia, J.: Icnet for real-time semantic segmentation on high-resolution images. arXiv preprint arXiv:1704.08545 (2017)](https://arxiv.org/abs/1704.08545)
-
-10.[Dai, J., He, K., Sun, J.: Convolutional feature masking for joint object and stuff segmentation.In: CVPR. (2015)](https://arxiv.org/abs/1412.1283v2)
-
-11.[Tao Lei, Yu Zhang, and Yoav Artzi. Training rnns as fast as cnns. In EMNLP, 2018. 8](https://arxiv.org/pdf/1709.02755)
-
-12.[Ilya Loshchilov and Frank Hutter. Sgdr: Stochastic gradient descent with warm restarts. In ICLR, 2017. 5](https://arxiv.org/abs/1608.03983)
-
-13.[Bharath Hariharan, Pablo Arbelaez, Lubomir Bourdev, Subhransu Maji, and Jitendra Malik. Semantic contours from inverse detectors. In ICCV, 2011. 6](https://www.mendeley.com/catalogue/7ff08f6f-384f-3129-9f54-b7327bdd4276/)
-
-14.[Barret Zoph and Quoc V Le. Neural architecture search with reinforcement learning. arXiv preprint arXiv:1611.01578,2016.2](https://ieeexplore.ieee.org/document/6126343)
-
-15.[M. Siam, M. Gamal, M. Abdel-Razek, S. Yogamani, and M.Jagersand. rtseg: Real-time semantic segmentation comparative study. In 2018 25th IEEE International Conference on Image Processing (ICIP).7](https://arxiv.org/pdf/1803.02758v4)
-

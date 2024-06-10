@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 推理系统介绍
+# 推理系统介绍(DONE)
 
 推理系统是一个专门用于部署人工智能模型，执行推理预测任务的人工智能系统。它类似于传统的 Web 服务或移动端应用系统，但专注于 AI 模型的部署与运行。通过推理系统，可以将神经网络模型部署到云端或者边缘端，并服务和处理用户的请求。因此，推理系统也需要应对模型部署和服务生命周期中遇到的挑战和问题。
 
@@ -100,7 +100,7 @@
 
 然而，在推理阶段中，数据经过训练好的网络模型用于发现和预测新输入中的信息。在这个阶段，这些输入数据通过更小的批量大小输入网络，且由于有延迟的约束，大的批量大小需要所有批量内样本都处理完才能响应，容易造成延迟超出约束（例如，每个用户请求要求 100ms 内进行响应）。
 
-对于推理阶段，性能目标与训练阶段有所不同。 为了最大限度地减少网络的端到端响应时间（End to End Response Time），推理通常比训练批量输入更少的输入样本，也就是更小的批量大小，因为依赖推理工作的服务（例如，基于云的图像处理管道）需要尽可能的更快响应，因此用户不需要让系统累积样本形成更大的批量大小，从而避免了等待几秒钟的响应时间。在推理阶段，低延迟是更为关键的性能指标，而高吞吐量虽然在训练期间是重要的，但在推理时则相对次要。
+对于推理阶段，性能目标与训练阶段有所不同。为了最大限度地减少网络的端到端响应时间（End to End Response Time），推理通常比训练批量输入更少的输入样本，也就是更小的批量大小，因为依赖推理工作的服务（例如，基于云的图像处理管道）需要尽可能的更快响应，因此用户不需要让系统累积样本形成更大的批量大小，从而避免了等待几秒钟的响应时间。在推理阶段，低延迟是更为关键的性能指标，而高吞吐量虽然在训练期间是重要的，但在推理时则相对次要。
 
 接下来，可以通过以下使用 Pytorch 实现的 ResNet50 模型在 TensorRT 的推理过程实例来了解模型推理的常见步骤。
 
@@ -215,7 +215,7 @@ print("Predicted output:", output_data)
 
 此外，系统还应能与不同语言接口和逻辑的应用结合，例如在 Web 服务器或 IoT 设备上部署时，需采用相应的 API 接口和特定的操作处理。
 
-具体实现上，可以采用容器技术（如 Docker）和微服务架构，将深度学习模型和推理服务打包成独立的容器，这样不仅便于跨平台和环境部署，也有助于实现与不同语言接口和逻辑的应用的集成。同时，为了与 Web 服务器或 IoT 设备集成，可以使用 API 网关和 RESTful 接口来提供标准的 HTTP 请求和响应，这样开发者就能在不同设备上轻松地调用和集成推理服务。
+具体实现上，可以采用容器技术（如 Docker）和微服务架构，将神经网络模型和推理服务打包成独立的容器，这样不仅便于跨平台和环境部署，也有助于实现与不同语言接口和逻辑的应用的集成。同时，为了与 Web 服务器或 IoT 设备集成，可以使用 API 网关和 RESTful 接口来提供标准的 HTTP 请求和响应，这样开发者就能在不同设备上轻松地调用和集成推理服务。
 
 #### 延迟（Latency）
 
@@ -239,7 +239,7 @@ print("Predicted output:", output_data)
 
 然后，可扩展性是应对不断增长的用户或设备需求的基础。系统需要能够灵活扩展，以应对突发和持续增长的用户请求。通过自动部署更多解决方案，随着请求负载的增加，系统能够提升推理吞吐量，提供更高的推理吞吐和可靠性。
 
-借助底层 Kubernetes 部署平台，用户可以便捷地配置和自动部署多个推理服务副本，并通过前端负载均衡服务达到高扩展性和提升吞吐量，进一步增强推理服务的可靠性。另外，云计算平台如 AWS、Azure、Google Cloud 等提供了弹性的计算、存储和网络服务，这些服务可以根据需求快速扩展资源。使用负载均衡器（如 Ingress 控制器）可以分发进入网络的流量，确保请求均匀分配到不同的服务实例上，从而提高系统的吞吐量和可靠性。通过这些策略，系统能够在用户或设备需求不断增长的情况下保持高性能和稳定性，确保推理服务能够满足不断变化的市场需求。
+借助底层 Kubernetes 部署平台，用户可以便捷地配置和自动部署多个推理服务副本，并通过前端负载均衡服务达到高扩展性和提升吞吐量，进一步增强推理服务的可靠性。另外，云计算平台如 AWS、Azure、谷歌 Cloud 等提供了弹性的计算、存储和网络服务，这些服务可以根据需求快速扩展资源。使用负载均衡器（如 Ingress 控制器）可以分发进入网络的流量，确保请求均匀分配到不同的服务实例上，从而提高系统的吞吐量和可靠性。通过这些策略，系统能够在用户或设备需求不断增长的情况下保持高性能和稳定性，确保推理服务能够满足不断变化的市场需求。
 
 #### 可靠性（Reliability）
 
@@ -257,14 +257,13 @@ print("Predicted output:", output_data)
 
 最后，准确度也是推理系统必须考虑的关键因素。虽然使用近似模型可能会产生一定的误差，但在某些场景下，这些误差是可以接受的。通过模型压缩、量化、低精度推理等手段，可以在一定程度上实现推理加速，以精度换取速度。这种权衡使得推理系统能够在满足实时性和资源约束的同时，保持足够的准确性。
 
-
 ## 推理系统 vs 推理引擎
 
 下面主要介绍推理系统与推理引擎的区别，从而更好地理解后续章节重点介绍的推理引擎的核心技术点。
 
 ### 推理系统
 
-如下图的推理系统组件与架构图所示，推理系统中常常涉及相应模块并完成相应功能，将在后面章节中逐步展开。 通过下图可以看到推理系统的全貌：
+如下图的推理系统组件与架构图所示，推理系统中常常涉及相应模块并完成相应功能，将在后面章节中逐步展开。通过下图可以看到推理系统的全貌：
 
 ![推理系统组件与架构图](images/02Constrains05.png)
 
@@ -302,7 +301,7 @@ IR（中间表示）作为模型的标准化呈现，它在确保模型能在不
 
 Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负责实际执行通过 Runtime 调度过来的模型。该部分专注于硬件级别的深度优化，利用诸如 NEON、CUDA、Vulkan 等高性能计算库，旨在显著提升推理速度。这些库针对不同硬件平台提供了精细优化后的算法和数据结构，从而最大限度地发挥硬件的性能潜力。在此环节，特别关注如何进一步提高算子的执行效率，确保整体推理性能达到最佳状态。
 
-## 小节
+## 小节与思考
 
 - AI 生命周期流程，包括、数据准备、模型训练、推理以及模型部署这几个组成部分；
 
@@ -313,31 +312,5 @@ Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1nY4y1f7G5&as_wide=1&high_quality=2&danmaku=0&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=650120453&bvid=BV1nY4y1f7G5&cid=957583131&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. [Deep Learning Inference in Facebook Data Centers: Characterization, Performance Optimizations and Hardware Implications](https://arxiv.org/abs/1811.09886)
-2. [Clipper: A Low-Latency Online Prediction Serving System](https://www.usenix.org/system/files/conference/nsdi17/nsdi17-crankshaw.pdf)
-3. [TFX: A TensorFlow-Based Production-Scale Machine Learning Platform](https://www.kdd.org/kdd2017/papers/view/tfx-a-tensorflow-based-production-scale-machine-learning-platform)
-4. [TensorFlow-Serving: Flexible, High-Performance ML Serving](https://arxiv.org/abs/1712.06139)
-5. [Optimal Aggregation Policy for Reducing Tail Latency of Web Search](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/samehe-2015sigir.optimalaggregation.pdf)
-6. [A Survey of Model Compression and Acceleration for Deep Neural Networks](https://arxiv.org/pdf/1710.09282.pdf)
-7. [CSE 599W: System for ML - Model Serving](http://dlsys.cs.washington.edu/pdf/lecture12.pdf)
-8. [https://developer.nvidia.com/deep-learning-performance-training-inference](https://developer.nvidia.com/deep-learning-performance-training-inference)
-9. [DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING](https://arxiv.org/pdf/1510.00149.pdf)
-10. [Learning both Weights and Connections for Efficient Neural Networks](https://pdfs.semanticscholar.org/1ff9/a37d766e3a4f39757f5e1b235a42dacf18ff.pdf)
-11. [DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT](http://on-demand.GPUtechconf.com/gtcdc/2017/presentation/dc7172-shashank-prasanna-deep-learning-deployment-with-nvidia-tensorrt.pdf)
-12. [Halide: A Language and Compiler for Optimizing Parallelism,Locality, and Recomputation in Image Processing Pipelines](https://people.csail.mit.edu/jrk/halide-pldi13.pdf)
-13. [TVM: An Automated End-to-End Optimizing Compiler for Deep Learning](https://www.usenix.org/system/files/osdi18-chen.pdf)
-14. [8-bit Inference with TensorRT](http://on-demand.GPUtechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)
-15. [https://github.com/microsoft/AI-System](https://github.com/microsoft/AI-System)
-16. [【AI System】第 8 章：深度学习推理系统](https://zhuanlan.zhihu.com/p/665146747)
-17. [Tengine-Kit 人脸检测及关键点](https://blog.csdn.net/qq_21370465/article/details/109740949)
-18. [Crazy Rockets-教你如何集成华为 HMS ML Kit 人脸检测和手势识别打造爆款小游戏](https://segmentfault.com/a/1190000037710505)
-19. [记录自己神经网络模型训练的全流程](https://zhuanlan.zhihu.com/p/465623148)
-20. [推理系统和推理引擎的整体架构](https://blog.csdn.net/weixin_45651194/article/details/132872588)
-21. [Pytorch-Onnx-Tensorrt 模型转换教程案例](https://blog.csdn.net/weixin_44533869/article/details/125223704)
-22. [昇思 MindSpore 基本介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc2/beginner/introduction.html)
-23. [飞桨产品全景](https://www.paddlepaddle.org.cn/overview)

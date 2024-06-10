@@ -1,8 +1,8 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 推理流程全景
+# 推理流程全景(DONE)
 
-本节介绍深度学习模型在部署态中的两种方式：云侧部署和边缘侧部署。其中，云侧部署适用于云服务器等具备强大计算能力和存储空间的环境，可以实现高吞吐量和集中的数据管理，但可能面临高成本、网络延迟和数据隐私等挑战。
+本节介绍神经网络模型在部署态中的两种方式：云侧部署和边缘侧部署。其中，云侧部署适用于云服务器等具备强大计算能力和存储空间的环境，可以实现高吞吐量和集中的数据管理，但可能面临高成本、网络延迟和数据隐私等挑战。
 
 边缘侧部署适用于边缘设备和移动设备等资源受限的环境，可以通过模型优化、硬件加速和分布式计算等方式降低延迟和能耗，但也面临有限算力、数据分散和安全性风险等挑战。两种部署方式都有自己的优势和局限性，需要根据具体应用场景来选择合适的部署方式。
 
@@ -45,9 +45,9 @@
 
 - 模型更容易在云端得到保护。云服务商通常具备完善的安全防护机制，如防火墙、身份验证、加密技术等，有助于保护数据安全和满足合规性要求。同时，云端部署有利于实施集中式安全策略和审计。
 
-- 深度学习模型的执行平台和 AI 框架统一。云端环境通常提供标准化的基础设施和服务，支持广泛使用的深度学习框架（如 TensorFlow、PyTorch、MXNet 等）。开发者可以利用这些通用平台，无需顾虑底层硬件差异，直接部署训练好的模型，实现模型执行平台和 AI 框架的高度统一。这种一致性不仅简化了模型迁移和部署流程，还促进了跨团队、跨项目的协作与资源共享。
+- 神经网络模型的执行平台和 AI 框架统一。云端环境通常提供标准化的基础设施和服务，支持广泛使用的深度学习框架（如 TensorFlow、PyTorch、MXNet 等）。开发者可以利用这些通用平台，无需顾虑底层硬件差异，直接部署训练好的模型，实现模型执行平台和 AI 框架的高度统一。这种一致性不仅简化了模型迁移和部署流程，还促进了跨团队、跨课程的协作与资源共享。
 
-云端部署推理系统的确具备诸多显著优点，使其成为众多企业和项目首选的部署方式。然而，云端部署并非万能解决方案，也伴随着一些特定的挑战。
+云端部署推理系统的确具备诸多显著优点，使其成为众多企业和课程首选的部署方式。然而，云端部署并非万能解决方案，也伴随着一些特定的挑战。
 
 - 人工智能的服务成本非常高昂。因为需要云端的服务你就需要大量的机器，大量的容灾，大量的各种设备维护机房，所以它整体的成本是很高的。
 
@@ -70,13 +70,13 @@
 
 - 严格约束功耗、热量、模型尺寸小于设备内存：边缘设备，特别是移动设备，如智能手机、物联网传感器等，通常受到严格的电池续航和散热条件限制。部署推理系统时必须精细管理能源消耗，避免过热导致性能下降或设备损坏。这要求模型在设计时考虑低功耗特性，使用高效的计算图执行策略，并可能需要配合动态电压频率调整（DVFS）等硬件节能技术来平衡性能与能耗。
 
-- 有限的硬件算力：边缘设备的计算能力相比云端服务器通常相差悬殊。即使是高端移动设备，其 CPU、GPU 或专用 AI 处理器的算力对于复杂的深度学习模型来说仍可能显得捉襟见肘。因此，部署在边缘的模型必须高度精简，或者通过异步计算、模型拆分（如 Edgent 框架所提出的 DNN 分区）等方式，将部分计算任务卸载到边缘服务器或云端，以减轻设备端的计算压力。
+- 有限的硬件算力：边缘设备的计算能力相比云端服务器通常相差悬殊。即使是高端移动设备，其 CPU、GPU 或专用 AI 处理器的算力对于复杂的神经网络模型来说仍可能显得捉襟见肘。因此，部署在边缘的模型必须高度精简，或者通过异步计算、模型拆分（如 Edgent 框架所提出的 DNN 分区）等方式，将部分计算任务卸载到边缘服务器或云端，以减轻设备端的计算压力。
 
 - 数据分散且难以训练：边缘设备产生的数据高度分散，分布在网络边缘的各个节点，且由于隐私、带宽、法规等因素，这些数据往往难以集中用于模型训练。这要求采用分布式或联邦学习等技术，允许在数据不出本地的前提下进行模型更新，或者设计能够在有限样本下进行有效学习和适应的在线学习算法。
 
 - 安全性风险增加：由于边缘设备更接近物理世界，直接面对用户或攻击者，其上的推理系统更容易受到恶意攻击，如模型窃取、对抗样本攻击、侧信道攻击等。保障边缘推理的安全性需要强化模型加密、完整性验证、反逆向工程等防护措施，以及实施实时监控与异常检测机制。
 
-- 平台多样性与缺乏通用解决方案： 边缘设备类型繁多，操作系统各异，硬件架构差异明显，导致没有一种通用的 DNN 平台或解决方案能无缝适配所有设备。开发者需要面对跨平台兼容性问题，可能需要为不同设备定制化模型编译与优化过程，增加了部署与维护成本。
+- 平台多样性与缺乏通用解决方案：边缘设备类型繁多，操作系统各异，硬件架构差异明显，导致没有一种通用的 DNN 平台或解决方案能无缝适配所有设备。开发者需要面对跨平台兼容性问题，可能需要为不同设备定制化模型编译与优化过程，增加了部署与维护成本。
 
 其次就是在边缘部署要做的工作：
 
@@ -115,7 +115,7 @@
 
 2. 请求调度：系统可以根据后端资源利用率，动态调整整批尺寸，模型的资源分配，进而提升资源利用率，吞吐量。同时如果是通过加速器进行的加速推理，还要考虑主存与加速器内存之间的数据拷贝，通过调度或预取等策略在计算的间歇做好数据的准备。
 
-3. 推理引擎执行：推理引擎将请求映射到模型作为输入，并在运行时调度深度学习模型的内核进行多阶段的处理。如果是部署在异构硬件或多样化的环境，还可以利用编译器进行代码生成与内核算子优化，让模型自动化转换为高效的特定平台的可执行机器码。
+3. 推理引擎执行：推理引擎将请求映射到模型作为输入，并在运行时调度神经网络模型的内核进行多阶段的处理。如果是部署在异构硬件或多样化的环境，还可以利用编译器进行代码生成与内核算子优化，让模型自动化转换为高效的特定平台的可执行机器码。
 
 4. 模型版本管理：在云端算法工程师不断验证和开发新的版本模型，需要有一定的协议保证版本更新与回滚。定期或满足一定条件的新模型不断上线替换线上模型，以提升推理服务的效果，但是由于有些指标只能线上测试，有可能线上测试效果较差还需要支持回滚机制，让模型能回滚到稳定的旧版本模型。
 
@@ -129,9 +129,9 @@
 
 ## 边缘部署和推理方式
 
-除了云端的部署，深度学习模型的另一大场景就是边缘（Edge）部署，随着越来越多的物联网设备智能化，越来越多的移动端系统中开始部署深度学习模型。移动端部署应用常常有以下场景：智能设备，智慧城市，智能工业互联网，智慧办公室等。
+除了云端的部署，神经网络模型的另一大场景就是边缘（Edge）部署，随着越来越多的物联网设备智能化，越来越多的移动端系统中开始部署神经网络模型。移动端部署应用常常有以下场景：智能设备，智慧城市，智能工业互联网，智慧办公室等。
 
-边缘部署和推理方式常见的为以下几种： 
+边缘部署和推理方式常见的为以下几种：
 
 ![边缘设备上的计算](images/03Workflow04.png)
 
@@ -165,32 +165,14 @@
 
 最后一种方式是利用 DNN 独特的层的结构，让一些层在边缘设备上计算，一些层由边缘服务器或云端计算。这种方法可以通过利用其他边缘设备的计算周期来潜在地提供延迟减少，但是还需要注意的是，在 DNN 分区点传递中间结果的延迟会影响总体的收益。
 
-## 小结
+## 小结与思考
 
-====== 加一段自己的个人理解
+- 云端部署：在云服务器上进行 AI 模型推理，具有高吞吐量和集中管理的优势，但需要解决网络延迟、高成本和数据隐私保护的问题。
+
+- 边缘侧部署：在边缘设备上执行 AI 模型推理，以降低延迟和节省带宽，面临硬件资源有限、数据分散和安全性风险等挑战。
 
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=692565613&bvid=BV1M24y1v7rK&cid=959085059&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1. Deep Learning Inference in Facebook Data Centers: Characterization, Performance Optimizations and Hardware Implications
-2. Clipper: A Low-Latency Online Prediction Serving System
-3. TFX: A TensorFlow-Based Production-Scale Machine Learning Platform
-4. TensorFlow-Serving: Flexible, High-Performance ML Serving
-5. Optimal Aggregation Policy for Reducing Tail Latency of Web Search
-6. A Survey of Model Compression and Acceleration for Deep Neural Networks
-7. CSE 599W: System for ML - Model Serving
-8. https://developer.NVIDIA.com/deep-learning-performance-training-inference 
-9. DEEP COMPRESSION:   COMPRESSING DEEP NEURAL NETWORKS WITH PRUNING, TRAINED QUANTIZATION AND HUFFMAN CODING
-10. Learning both Weights and Connections for Efficient Neural Networks
-11. DEEP LEARNING DEPLOYMENT WITH NVIDIA TENSORRT
-12. Halide: A Language and Compiler for Optimizing Parallelism,Locality, and Recomputation in Image Processing Pipelines
-13. TVM: An Automated End-to-End Optimizing Compiler for Deep Learning
-14. 8-bit Inference with TensorRT
-15. https://github.com/microsoft/AI-System
-17. J. Mao, X. Chen, K. W. Nixon, C. Krieger, and Y. Chen, “MoDNN: Local distributed mobilecomputing system for deep neural network,” in Proc. Design, Autom. Test Eur. Conf. Exhibit.(DATE), Mar. 2017, pp. 1396–1401.
-18. Z. Zhao, K. M. Barijough, and A. Gerstlauer, “Deepthings: Distributed adaptive deep learning inference on resource-constrained iot edge clusters,” IEEE Trans. Comput.-Aided Design Integr. Circuits Syst., vol. 37, no. 11, pp. 2348–2359, Nov. 2018.

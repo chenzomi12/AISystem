@@ -2,19 +2,15 @@
 
 # MobileNet 系列
 
-本章节会介绍 MobileNet v1，重点在于其模型结构的轻量化设计，主要介绍详细的轻量化设计原则，基于这原则，MobileNetV1 是如何设计成一个小型，低延迟，低功耗的参数化模型，可以满足各种用例的资源约束。可以更方便的实现分类，检测，嵌入和分割等功能。
-
-======= 同样合并 MoblieNet 系列到总体总结哈
+本节会介绍 MobileNet v1，重点在于其模型结构的轻量化设计，主要介绍详细的轻量化设计原则，基于这原则，MobileNetV1 是如何设计成一个小型，低延迟，低功耗的参数化模型，可以满足各种用例的资源约束。可以更方便的实现分类，检测，嵌入和分割等功能。
 
 ## MobileNet V1
 
 MobileNet v1 是一种体积较小、计算量较少、适用于移动设备的卷积神经网络。mobileNet V1 的主要创新点是用深度可分离卷积(depthwise separable convolution)代替普通的卷积，并使用宽度乘数(width multiply)减少参数量，在 ImageNet 图像分类、Stanford Dog 细粒度图像分类、目标检测、人脸属性识别、人脸编码、以图搜地等计算机视觉任务上，结合知识蒸馏进行评估，MobileNet 表现出极致的轻量化和速度性能。
 
-### 设计思路
+### 逐通道卷积
 
-#### 逐通道卷积（Depthwise Convolution）
-
-Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一个通道只被一个卷积核卷积，这个过程产生的 feature map 通道数和输入的通道数完全一样，如下图所示：
+逐通道卷积（Depthwise Convolution）的一个卷积核只有一个通道，输入信息的一个通道只被一个卷积核卷积，这个过程产生的 feature map 通道数和输入的通道数完全一样，如下图所示：
 
 ![Depthwise Convolution 结构](images/04.mobilenet_01.png)
 
@@ -26,9 +22,9 @@ Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一�
 
 其中 $D_{k}$ 为卷积核尺寸，$D_{f}$ 为特征图尺寸，M 为输入通道数，输出通道数为 1。
 
-#### 逐点卷积 Pointwise Convolution
+### 逐点卷积
 
-Pointwise Convolution 的本质就是 $1\times 1$ 的卷积，它的卷积核的尺寸为 $1\times 1\times M$，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
+逐点卷积（Pointwise Convolution）的本质就是 $1\times 1$ 的卷积，它的卷积核的尺寸为 $1\times 1\times M$，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
 ![Pointwise Convolution 结构](images/04.mobilenet_02.png)
 
 参数量:$1\times 1\times M\times N$
@@ -49,7 +45,7 @@ $$
 \frac{D_{k}\cdot D_{k}\cdot M\cdot D_{F}\cdot D_{F} + M\cdot N\cdot D_{F}\cdot D_{F}}{D_{k}\cdot D_{k}\cdot M\cdot N\cdot D_{F}\cdot D_{F}}=\frac{1}{N}+\frac{1}{D_{k}^{2}}
 $$
 
-#### 宽度乘子（α）和分辨率乘子（ρ）
+### 宽度&分辨率乘子
 
 宽度和分辨率调整系数用于调整模型的大小和计算复杂性。
 
@@ -138,15 +134,13 @@ class MobileNetV1(nn.Module):
 
 ## MobileNet V2
 
-在上一章节中介绍了 MobileNetV1 版本，主要是将普通卷积转成逐点和逐通道卷积，也讲到了用于调整模型的大小和计算复杂性的宽度和分辨率因子。在本章节中主要会讲解基于 V1 构建的更高效更 轻量的网络结构。 
+在上一章节中介绍了 MobileNetV1 版本，主要是将普通卷积转成逐点和逐通道卷积，也讲到了用于调整模型的大小和计算复杂性的宽度和分辨率因子。在本节中主要会讲解基于 V1 构建的更高效更轻量的网络结构。
 
 ### 贡献概述
 
 MobileNet-v2 的主要思想就是在 v1 的基础上引入了线性瓶颈 (Linear Bottleneck)和逆残差 (Inverted Residual)来提高网络的表征能力，同样也是一种轻量级的卷积神经网络。
 
-### 设计思路
-
-#### Linear Bottlenecks(线性瓶颈层)
+### Linear Bottlenecks
 
 MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“瘦身”，这样特征信息就能更集中在缩减后的通道中。但研究人员发现深度可分离卷积中有大量卷积核为 0，即有很多卷积核没有参与实际计算。研究后发现是 ReLU 激活函数的问题，认为 ReLU 这个激活函数，在低维空间运算中会损失很多信息，而在高维空间中会保留较多有用信息 。ReLU 会对维度较低的张量造成较大的信息损耗。
 
@@ -160,7 +154,7 @@ MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“
 
 实验证据表明，使用线性层至关重要，因为它可以防止非线性破坏太多的信息。
 
-#### 可分离卷积块的演化
+### 可分离卷积块的演化
 
 可分离卷积块的演化如下图所示：
 
@@ -171,9 +165,9 @@ MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“
 
 ![Conv](images/04.mobilenet_05.png)
 
-#### Inverted residuals 反向残差
+### 反向残差
 
-反向残差如下图所示
+反向残差（Inverted residuals ）如下图所示：
 
 ![反向残差](images/04.mobilenet_06.png)
 
@@ -185,7 +179,7 @@ Residual block 先用 1x1 卷积降通道过 ReLU，再 3x3 卷积过 ReLU，最
 
 在 Inverted Residual block 中，3x3 卷积变成 Depthwise 了，计算量很少了，所以通道数可以多一点，效果更好，所以通过 1x1 卷积先提升通道数，再 Depthwise3x3 卷积，最后用 1x1 卷积降低通道数。两端的通道数都很小，所以 1x1 卷积升通道和降通道计算量都并不大，而中间的通道数虽然多，但是 Depthwise 的卷积计算量也不。
 
-#### 关于 ReLU6
+### ReLU6 激活
 
 卷积之后通常会接一个 ReLU 非线性激活，在 MobileNet 中使用 ReLU6。ReLU6 在普通的 ReLU 基础上限制最大输出为 6，这是为了在移动端设备 float16/int8 的低精度的时候也能有很好的数值分辨率。
 
@@ -211,7 +205,7 @@ def _make_divisible(ch, divisor=8, min_ch=None):
     This function is taken from the original tf repo.
     It ensures that all layers have a channel number that is divisible by 8
     It can be seen here:
-    https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
+    https://github.com/TensorFlow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
     """
     if min_ch is None:
         min_ch = divisor
@@ -326,9 +320,9 @@ class MobileNetV2(nn.Module):
 
 ## MobileNet V3
 
-在本章节会主要介绍 MobileNetV3 相对于 V1，V2 的改进之处，除了介绍更轻量的网络结构外，还会给大家带来新的技术，什么是神经网络结构搜索(Nas)，以及 Nas 如何与 MobileNet 进行结合。
+在本节会主要介绍 MobileNetV3 相对于 V1，V2 的改进之处，除了介绍更轻量的网络结构外，还会给大家带来新的技术，什么是神经网络结构搜索(Nas)，以及 Nas 如何与 MobileNet 进行结合。
 
-MobileNetV3 是由 google 团队在 2019 年提出的轻量化网络模型，传统的卷积神经网络，内容需求大，运算量大，无法再移动设备以及嵌入式设备上运行，为了解决这一问题，MobileNet 网络应运而生。
+MobileNetV3 是由谷歌团队在 2019 年提出的轻量化网络模型，传统的卷积神经网络，内容需求大，运算量大，无法再移动设备以及嵌入式设备上运行，为了解决这一问题，MobileNet 网络应运而生。
 
 MobileNetV3 在移动端图像分类、目标检测、语义分割等任务上均取得了优秀的表现。MobileNetV3 采用了很多新的技术，包括针对通道注意力的 Squeeze-and-Excitation 模块、NAS 搜索方法等，这些方法都有利于进一步提升网络的性能。
 
@@ -338,7 +332,7 @@ MobileNetV3 在移动端图像分类、目标检测、语义分割等任务上�
 
 ![新结构](images/04.mobilenet_08.png)
 
-#### 重新设计激活函数
+### 重新设计激活函数
 
 引入新的非线性激活函数：h-swish。swish 公式：
 
@@ -356,9 +350,9 @@ $$
 
 ![h-swish](images/04.mobilenet_09.png)
 
-在网络结构搜索中，作者结合两种技术：资源受限的 NAS（platform-aware NAS）与 NetAdapt，前者用于在计算和参数量受限的前提下搜索网络的各个模块，所以称之为模块级的搜索（Block-wise Search） ，后者用于对各个模块确定之后网络层的微调。
+在网络结构搜索中，作者结合两种技术：资源受限的 NAS（platform-aware NAS）与 NetAdapt，前者用于在计算和参数量受限的前提下搜索网络的各个模块，所以称之为模块级的搜索（Block-wise Search），后者用于对各个模块确定之后网络层的微调。
 
-#### NAS 搜索全局结构（Block-wise Search）
+### NAS 搜索全局结构（Block-wise Search）
 
 采用 NSA 方法来搜寻全局网络结构，另外需要针对轻量模型进行优化，用一个多目标奖励。
 
@@ -368,7 +362,7 @@ $$
 
 来近似 pareto 最优解，根据目标延迟 TAR 为每个模型 m 平衡模型精度 ACC(m)和延迟 LAT(m)。用较小的权重因子 w =-0.15 来弥补不同的延迟的更大精度变化。从头训练了一个新的架构搜索，找到了初始的 seed 模型，然后应用 NetAdapt 和其他优化来获得最终的 MobilenetV3-Small 模型。
 
-#### NetAdapt 搜索层结构（Layer-wise Search）
+### NetAdapt 搜索层结构（Layer-wise Search）
 
 $$
 \frac{ΔACC}{ΔLatency}
@@ -410,7 +404,7 @@ def _make_divisible(ch, divisor=8, min_ch=None):
     This function is taken from the original tf repo.
     It ensures that all layers have a channel number that is divisible by 8
     It can be seen here:
-    https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
+    https://github.com/TensorFlow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py
     """
     if min_ch is None:
         min_ch = divisor
@@ -445,7 +439,9 @@ class ConvBNActivation(nn.Sequential):
                                                norm_layer(out_planes),   # BN 层
                                                activation_layer(inplace=True))
 
-# 注意力机制模块（SE 模块，即两个全连接层）   该模块的基本流程是：先进行自适应平均池化(1x1)———>1x1 的卷积层———>relu 激活层———>1x1 的卷积池化———>hardsigmoid()激活函数激活
+# 注意力机制模块（SE 模块，即两个全连接层）
+# 该模块的基本流程是：
+# 先进行自适应平均池化(1x1)———>1x1 的卷积层———>relu 激活层———>1x1 的卷积池化———>hardsigmoid()激活函数激活
 class SqueezeExcitation(nn.Module):
     def __init__(self, input_c: int, squeeze_factor: int = 4):
         super(SqueezeExcitation, self).__init__()
@@ -581,11 +577,11 @@ class MobileNetV3(nn.Module):
 
         # building last several layers
         lastconv_input_c = inverted_residual_setting[-1].out_c  # 最后的 bneckblock 的输出 channel
-        lastconv_output_c = 6 * lastconv_input_c    # lastconv_output_c 与 最后的 bneckblock 的输出 channel 数是六倍的关系
+        lastconv_output_c = 6 * lastconv_input_c    # lastconv_output_c 与最后的 bneckblock 的输出 channel 数是六倍的关系
 
         # 定义最后一层的卷积层
         layers.append(ConvBNActivation(lastconv_input_c,   # 最后的 bneckblock 的输出 channel 数
-                                       lastconv_output_c,   # lastconv_output_c 与 最后的 bneckblock 的输出 channel 数是六倍的关系
+                                       lastconv_output_c,   # lastconv_output_c 与最后的 bneckblock 的输出 channel 数是六倍的关系
                                        kernel_size=1,
                                        norm_layer=norm_layer,
                                        activation_layer=nn.Hardswish))
@@ -708,8 +704,6 @@ def mobilenet_v3_small(num_classes: int = 1000,
     return MobileNetV3(inverted_residual_setting=inverted_residual_setting,
                        last_channel=last_channel,
                        num_classes=num_classes)
-
-
 ```
 
 ======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
@@ -750,9 +744,7 @@ MobileNet V4 具有以下原则:
 
 这些原则使得 MobileNetV4 在所有评估的硬件上大多数情况下都是帕累托最优的。
 
-### 网络结构
-
-#### Hardware-Independent Pareto Efficiency
+### Hardware-Independent Pareto Efficiency
 
 屋顶线模型：为了使一个模型在普遍情况下都高效，它必须能够在其理论的计算复杂度与实际硬件性能之间找到平衡。
 
@@ -760,7 +752,7 @@ MobileNet V4 具有以下原则:
 
 为此，作者使用了屋顶线模型，该模型估计给定工作负载的性能，并预测它是受内存瓶颈还是计算瓶颈的限制。简而言之，它忽略了特定的硬件细节，只考虑工作负载的操作强度 LayerMACs/(WeightBytes + ActivationBytes) 与硬件处理器和内存系统的理论极限之间的关系。
 
-内存和计算操作大致是并行发生的，因此两个中较慢的那个大约决定了延迟瓶颈。为了将屋顶线模型应用于以 为索引的神经网络层，作者可以以下述方式计算模型推理延迟：
+内存和计算操作大致是并行发生的，因此两个中较慢的那个大约决定了延迟瓶颈。为了将屋顶线模型应用于以为索引的神经网络层，作者可以以下述方式计算模型推理延迟：
 
 $$
 MACTime_{i}=\frac{LayerMAC_{s_{i}}}{PeakMA_{s}}
@@ -786,7 +778,7 @@ $$
 
 在高脊点硬件上，数据移动是瓶颈，所以 MAC 不会显著减慢模型速度，但可以增加模型容量（如 MobileNetV1-1.5x）。因此，为低脊点优化的模型在高脊点上运行缓慢，因为内存密集和低 MAC 的全连接（FC）层受到内存带宽的限制，不能利用高可用的峰值 MAC。
 
-#### Universal Inverted Bottlenecks
+### Universal Inverted Bottlenecks
 
 作者提出了通用逆瓶颈（UniversalInvertedBottleneck, UIB）模块，这是一个适用于高效网络设计的可适应构建块，它具有灵活地适应各种优化目标的能力，而不会使搜索复杂度爆炸性增长。
 
@@ -810,17 +802,17 @@ ExtraDW 是本文提出的一种新变体，它允许廉价地增加网络的深
 
 FFN 是由两个 1x1 的点状卷积（PW）堆叠而成，并在它们之间加入激活和标准化层。PW 是最受加速器友好的操作之一，但最好与其他模块一起使用。
 
-#### MobileMQA
+### MobileMQA
 
 在本节中，作者介绍了 MobileMQA，这是一个专门为加速器优化的新型注意力块，它能提供超过 39%的推理速度提升。
 
 操作强度的重要性：近期在视觉模型的研究中，人们大多致力于减少算术运算（MACs）以提高效率。然而，在移动加速器上性能的真正瓶颈往往不是计算而是内存访问。这是因为加速器提供的计算能力远大于内存带宽。因此，仅仅最小化 MACs 可能并不会导致更好的性能。相反，作者必须考虑操作强度，即算术运算与内存访问的比率。
 
-MQA 在混合模型中是高效的：MHSA 将 Query、键和值投影到多个空间以捕捉信息的不同方面。多 Query 注意力（MQA） 通过在所有头之间使用共享的键和值简化了这一点。尽管多个 Query 头是必要的，但大型语言模型可以有效共享单个键和值的头，而不会牺牲准确度。对于键和值使用一个共享的头，当批处理的 Token 数量相对于特征维度较小时，可以大大减少内存访问需求，从而显著提高操作强度。
+MQA 在混合模型中是高效的：MHSA 将 Query、键和值投影到多个空间以捕捉信息的不同方面。多 Query 注意力（MQA）通过在所有头之间使用共享的键和值简化了这一点。尽管多个 Query 头是必要的，但大型语言模型可以有效共享单个键和值的头，而不会牺牲准确度。对于键和值使用一个共享的头，当批处理的 Token 数量相对于特征维度较小时，可以大大减少内存访问需求，从而显著提高操作强度。
 
 这对于面向移动应用的混合视觉模型通常是这种情况，在这种情况下，仅在具有高特征维度的低分辨率后期阶段使用注意力，并且批大小通常为 1。作者的实验证实了 MQA 在混合模型中的优势。如表 1 所示，与 MHSA 相比，MQA 在 EdgeTPUs 和三星 S23GPU 上实现了超过 39%的加速，而质量损失可以忽略不计（-0.03%）。MQA 还将 MACs 和模型参数减少了 25%以上。据作者所知，作者是第一个在移动视觉中使用 MQA 的。
 
-采用非对称空间下采样： 受到 MQA 的启发，它在 Query、键和值之间使用非对称计算，作者将空间缩减注意力（SRA）融合到作者优化的 MQA 模块中，以降低键和值的分辨率，同时保持高分辨率 Query。这一策略是由混合模型中空间相邻标记之间的观察到的相关性所启发的，这归因于早期层中的空间混合卷积滤波器。
+采用非对称空间下采样：受到 MQA 的启发，它在 Query、键和值之间使用非对称计算，作者将空间缩减注意力（SRA）融合到作者优化的 MQA 模块中，以降低键和值的分辨率，同时保持高分辨率 Query。这一策略是由混合模型中空间相邻标记之间的观察到的相关性所启发的，这归因于早期层中的空间混合卷积滤波器。
 
 通过非对称空间下采样，作者在输入和输出之间保持了相同的标记数量，保持了注意力的高分辨率并显著提高了效率。与不同，作者的方法用步长为 2 的 3x3 深度卷积替换了 AvgPooling，为提高模型容量提供了一种成本效益高的方式。
 
@@ -836,7 +828,7 @@ $$
 
 其中 SR 表示空间缩减，在作者设计中是指步长为 2 的深度可分离卷积（DW），或者在未使用空间缩减的情况下的恒等函数。结合非对称空间下采样可以在极小的精度损失（-0.06%）情况下，带来超过 20%的效率提升。
 
-#### Refining NAS for Enhanced Architectures
+### Refining NAS for Enhanced Architectures
 
 为了有效地实例化 UIB 块，作者采用了针对性能改进定制的 TuNAS。
 
@@ -1089,7 +1081,7 @@ MODEL_SPECS = {
 }
 ```
 
-
+====== 断开要介绍下对应代码
 
 ```python
 from typing import Any, Callable, Dict, List, Mapping, Optional, Tuple, Union
@@ -1107,7 +1099,7 @@ def make_divisible(
     ) -> int:
     """
     This function is copied from here 
-    "https://github.com/tensorflow/models/blob/master/official/vision/modeling/layers/nn_layers.py"
+    "https://github.com/TensorFlow/models/blob/master/official/vision/modeling/layers/nn_layers.py"
     
     This is to ensure that all layers have channels that are divisible by 8.
 
@@ -1242,7 +1234,7 @@ class MobileNetV4(nn.Module):
         """Params to initiate MobilenNetV4
         Args:
             model : support 5 types of models as indicated in 
-            "https://github.com/tensorflow/models/blob/master/official/vision/modeling/backbones/mobilenet.py"        
+            "https://github.com/TensorFlow/models/blob/master/official/vision/modeling/backbones/mobilenet.py"        
         """
         super().__init__()
         assert model in MODEL_SPECS.keys()
@@ -1275,9 +1267,9 @@ class MobileNetV4(nn.Module):
 
 ======= 代码不要直接粘贴一大段，看不懂的，融合在对应的网络模型结构里面哈。融合后就没有这个独立代码的小节了。
 
-## 小结
+## 小结与思考
 
-MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动设备和嵌入式系统。其主要特点包括采用深度可分离卷积技术、具有宽度和分辨率调整系数、低延迟、低计算资源占用，以及广泛应用于多种计算机视觉任务。MobileNet V2 是在 V1 基础上提出的升级版轻量级深度学习卷积神经网络（CNN）架构。
+MobileNet V1 是一种高效、轻量级的神经网络模型，适用于移动设备和嵌入式系统。其主要特点包括采用深度可分离卷积技术、具有宽度和分辨率调整系数、低延迟、低计算资源占用，以及广泛应用于多种计算机视觉任务。MobileNet V2 是在 V1 基础上提出的升级版轻量级深度学习卷积神经网络（CNN）架构。
 
 在提高性能的同时保持了低计算复杂性和参数数量的优势，适用于移动设备和嵌入式系统。MobileNet V3 是在 V2 基础上进一步优化的轻量级深度学习卷积神经网络（CNN）架构。
 
@@ -1290,69 +1282,3 @@ MobileNet V1 是一种高效、轻量级的深度学习模型，适用于移动�
 <html>
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1Y84y1b7xj&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1.[M. Abadi, A. Agarwal, P. Barham, E. Brevdo, Z. Chen,C. Citro, G. S. Corrado, A. Davis, J. Dean, M. Devin, et al.Tensorflow: Large-scale machine learning on heterogeneous  systems, 2015. Software available from tensorflow. org, 1,2015.](https://arxiv.org/abs/1603.04467)
-
-2.[I. Hubara, M. Courbariaux, D. Soudry, R. El-Yaniv, and Y. Bengio. Quantized neural networks: Training neural networks with low precision weights and activations. arXiv preprint arXiv:1609.07061, 2016. 2](https://arxiv.org/pdf/1609.07061.pdf)
-
-3.[F. N. Iandola, M. W. Moskewicz, K. Ashraf, S. Han, W. J.Dally, and K. Keutzer. Squeezenet: Alexnet-level accuracy with 50x fewer parameters and¡ 1mb model size. arXiv preprint arXiv:1602.07360, 2016. 1, 6](https://arxiv.org/pdf/1602.07360.pdf)
-
-4.[S. Ioffe and C. Szegedy. Batch normalization: Accelerating deep network training by reducing internal covariate shift.arXiv preprint arXiv:1502.03167, 2015.](https://arxiv.org/abs/1502.03167)
-
-5.[M. Jaderberg, A. Vedaldi, and A. Zisserman. Speeding up convolutional neural networks with low rank expansions.arXiv preprint arXiv:1405.3866, 2014. 2](https://arxiv.org/abs/1405.3866)
-
-6.[Y. Jia, E. Shelhamer, J. Donahue, S. Karayev, J. Long, R. Girshick, S. Guadarrama, and T. Darrell. Caffe: Convolutional architecture for fast feature embedding. arXiv preprint arXiv:1408.5093, 2014. 4](https://dl.acm.org/doi/10.1145/2647868.2654889)
-
-7.[ J. Jin, A. Dundar, and E. Culurciello. Flattened convolutional neural networks for feedforward acceleration. arXiv preprint arXiv:1412.5474, 2014. 1, 3](https://arxiv.org/abs/1412.5474v4)
-
-8.[A. Khosla, N. Jayadevaprakash, B. Yao, and L. Fei-Fei.Novel dataset for fine-grained image categorization. In First Workshop on Fine-Grained Visual Categorization, IEEE Conference on Computer Vision and Pattern Recognition,Colorado Springs, CO, June 2011. 6](http://vision.stanford.edu/aditya86/ImageNetDogs)
-
-9.[J. Krause, B. Sapp, A. Howard, H. Zhou, A. Toshev,T. Duerig, J. Philbin, and L. Fei-Fei. The unreasonable effectiveness of noisy data for fine-grained recognition. arXiv preprint arXiv:1511.06789, 2015. 6](https://arxiv.org/abs/1511.06789v1)
-
-10.[R. Avenash and P. Vishawanth. Semantic segmentation of satellite images using a modified cnn with hard-swish activation function. In VISIGRAPP, 2019. 2, 4](https://www.scitepress.org/Papers/2019/74696/74696.pdf)
-
-11.[ Jonathan Huang, Vivek Rathod, Chen Sun, Menglong Zhu, Anoop Korattikara, Alireza Fathi,Ian Fischer, Zbigniew Wojna, Yang Song, Sergio Guadarrama, et al. Speed/accuracy trade-offs for modern convolutional object detectors. In CVPR,2017. 7](https://openaccess.thecvf.com/content_cvpr_2017/html/Huang_SpeedAccuracy_Trade-Offs_for_CVPR_2017_paper.html)
-
-12.[Wei Liu, Dragomir Anguelov, Dumitru Erhan,Christian Szegedy, Scott Reed, Cheng-Yang Fu,and Alexander C Berg. Ssd: Single shot multibox detector. In ECCV, 2016.]()
-
-13.[Jonathan Huang, Vivek Rathod, Derek Chow,Chen Sun, and Menglong Zhu. Tensorflow object detection api, 2017. 7](https://arxiv.longhoe.net/abs/1512.02325)
-
-14.[Liang-Chieh Chen, George Papandreou, Florian Schroff, and Hartwig Adam. Rethinking atrous convolution for semantic image segmentation. CoRR, abs/1706.05587, 2017. 7](https://arxiv.org/abs/1706.05587)
-
-15.[Matthias Holschneider, Richard KronlandMartinet, Jean Morlet, and Ph Tchamitchian.A real-time algorithm for signal analysis with the help of the wavelet transform. In Wavelets:Time-Frequency Methods and Phase Space, pages 289–297. 1989. 7](https://cir.nii.ac.jp/crid/1573668925020519424)
-
-16.[Pierre Sermanet, David Eigen, Xiang Zhang,Michael Mathieu, Rob Fergus, and Yann Le- ¨Cun. Overfeat: Integrated recognition, localization and detection using convolutional networks.arXiv:1312.6229, 2013. 7](https://cir.nii.ac.jp/crid/1573668925020519424)
-
-17.[George Papandreou, Iasonas Kokkinos, and PierreAndre Savalle. Modeling local and global deformations in deep learning: Epitomic convolution,multiple instance learning, and sliding window detection. In CVPR, 2015. 7](https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Papandreou_Modeling_Local_and_2015_CVPR_paper.html)
-
-18.[T.-Y. Lin, M. Maire, S. Belongie, J. Hays, P. Perona, D. Ramanan, P. Dollar, and C. L. Zitnick. Microsoft COCO: Common objects in context. In ECCV, 2014. 7](https://ui.adsabs.harvard.edu/abs/2014arXiv1405.0312L/abstract)
-
-19[C. Liu, B. Zoph, J. Shlens, W. Hua, L. Li, L. Fei-Fei, A. L.Yuille, J. Huang, and K. Murphy.Progressive neural architecture search. CoRR, abs/1712.00559, 2017. 2](https://openaccess.thecvf.com/content_ECCV_2018/html/Chenxi_Liu_Progressive_Neural_Architecture_ECCV_2018_paper.html)
-
-20.[H. Liu, K. Simonyan, and Y. Yang. DARTS: differentiable architecture search. CoRR, abs/1806.09055, 2018. 2](https://arxiv.longhoe.net/abs/1806.09055)
-
-21.[W. Liu, A. Rabinovich, and A. C. Berg. Parsenet: Looking wider to see better. CoRR, abs/1506.04579, 2015. 7](https://arxiv.longhoe.net/abs/1506.04579)
-
-22.[ J. Long, E. Shelhamer, and T. Darrell. Fully convolutional networks for semantic segmentation. In CVPR, 2015. 8](https://openaccess.thecvf.com/content_cvpr_2015/html/Long_Fully_Convolutional_Networks_2015_CVPR_paper.html)
-
-22.[S. Mehta, M. Rastegari, A. Caspi, L. G. Shapiro, and H. Hajishirzi. Espnet: Efficient spatial pyramid of dilated convolutions for semantic segmentation. In Computer Vision -ECCV 2018 - 15th European Conference, Munich, Germany,September 8-14, 2018, Proceedings, Part X, pages 561–580,2018. 8](https://arxiv.longhoe.net/abs/1803.06815)
-
-23.[S. Mehta, M. Rastegari, L. G. Shapiro, and H. Hajishirzi. Espnetv2: A light-weight, power efficient, and general purpose convolutional neural network. CoRR, abs/1811.11431, 2018.](https://arxiv.longhoe.net/abs/1811.11431)
-
-24.[H. Park, Y. Yoo, G. Seo, D. Han, S. Yun, and N. Kwak.Concentrated-comprehensive convolutions for lightweightsemantic segmentation. CoRR, abs/1812.04920, 2018. 8](https://www.researchgate.net/publication/329607971_Concentrated-Comprehensive_Convolutions_for_lightweight_semantic_segmentation)
-
-25.[H. Pham, M. Y. Guan, B. Zoph, Q. V. Le, and J. Dean.Efficient neural architecture search via parameter sharing.CoRR, abs/1802.03268, 2018. 2](https://arxiv.longhoe.net/abs/1802.03268)
-
-26.[P. Ramachandran, B. Zoph, and Q. V. Le. Searching for activation functions. CoRR, abs/1710.05941, 2017. 2, 4](https://arxiv.longhoe.net/abs/1710.05941)
-
-27.[F. N. Iandola, M. W. Moskewicz, K. Ashraf, S. Han, W. J.Dally, and K. Keutzer. Squeezenet: Alexnet-level accuracy  with 50x fewer parameters and <1mb model size. CoRR,abs/1602.07360, 2016. 2](https://arxiv.longhoe.net/abs/1602.07360)
-
-28.[J. Wu, C. Leng, Y. Wang, Q. Hu, and J. Cheng. Quantized convolutional neural networks for mobile devices. CoRR,abs/1512.06473, 2015. 2](https://openaccess.thecvf.com/content_cvpr_2016/html/Wu_Quantized_Convolutional_Neural_CVPR_2016_paper.html)
-
-29.[S. Zhou, Z. Ni, X. Zhou, H. Wen, Y. Wu, and Y. Zou. Dorefanet: Training low bitwidth convolutional neural networks with low bitwidth gradients. CoRR, abs/1606.06160, 2016.](https://arxiv.longhoe.net/abs/1606.06160)
-
-30.[Pavan Kumar Anasosalu Vasu, James Gabriel, Jeff Zhu, Oncel Tuzel, and Anurag Ranjan. Fastvit: A fast hybrid vision transformer using structural reparameterization. arXiv preprint arXiv:2303.14189, 2023.](https://arxiv.org/pdf/2303.14189.pdf)
-
-

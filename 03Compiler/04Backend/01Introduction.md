@@ -1,4 +1,6 @@
-# AI 编译器后端优化
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# AI 编译器后端优化(DONE)
 
 AI 编译器分为多层架构，最顶层由各种 AI 训练框架编写的神经网络模型架构，一般由 Python 编写，常见的 AI 训练框架有 PyTorch、MindSpore、PaddlePaddle 等。在导入 AI 编译器时需要用对应框架的 `converter` 功能转换为 AI 编译器统一的 Graph IR，并在计算图级别由 `Graph Optimizer` 进行计算图级优化，也叫前端优化。
 
@@ -80,7 +82,7 @@ AI 编译器分为多层架构，最顶层由各种 AI 训练框架编写的神�
 
 - 如何应对 AI 领域算子迭代更新快：AI 领域的算法和模型经常迭代更新，导致算子库需要及时跟进以支持新的算法或模型结构。这可能需要算子库开发者不断更新和优化现有的算子实现，以适应新的需求。
 
-- 如何解决同一算子在多平台移植后一致性问题： 算子库通常是为特定硬件平台（如 GPU、CPU）进行优化设计的。但是，在将算子库移植到不同的平台上时，可能会遇到一致性问题。不同平台上的硬件架构和指令集可能存在差异，可能需要进行特定的优化和调整，以确保在多平台上实现一致的计算结果。
+- 如何解决同一算子在多平台移植后一致性问题：算子库通常是为特定硬件平台（如 GPU、CPU）进行优化设计的。但是，在将算子库移植到不同的平台上时，可能会遇到一致性问题。不同平台上的硬件架构和指令集可能存在差异，可能需要进行特定的优化和调整，以确保在多平台上实现一致的计算结果。
 
 - 如何面对算子组合爆炸问题？如参数多样，融合大算子等：在 AI 计算中，经常会遇到大量算子的组合，例如复杂的模型结构或多阶段数据处理流程。这可能导致算子的组合爆炸问题，其中算子之间的参数和组合方式变得多样化和复杂化。
 
@@ -90,12 +92,20 @@ AI 编译器分为多层架构，最顶层由各种 AI 训练框架编写的神�
 
 目前有两种主流的自动生成算法：
 
-- Auto Tuning： Auto Tuning 是一种通过自动搜索和优化参数组合来生成高效的 kernel 代码的方法。该方法通常基于启发式算法或机器学习技术，自动探索不同参数组合以找到最佳的性能配置。Auto Tuning 可以根据具体的硬件平台和任务特性，自动选择适当的优化策略，从而提高计算核心的性能和效率。
+- Auto Tuning：Auto Tuning 是一种通过自动搜索和优化参数组合来生成高效的 kernel 代码的方法。该方法通常基于启发式算法或机器学习技术，自动探索不同参数组合以找到最佳的性能配置。Auto Tuning 可以根据具体的硬件平台和任务特性，自动选择适当的优化策略，从而提高计算核心的性能和效率。
 
 - Polyhedral：Polyhedral 方法是一种基于数学多面体理论的编译优化方法，用于描述循环嵌套的迭代空间和数据依赖关系，并生成高效的循环 kernel 代码。通过对循环迭代空间进行变换和重组，Polyhedral 方法可以实现循环并行化、内存局部性优化等优化，从而提高计算核心的性能和效率。
+
+## 小结与思考
+
+- AI 编译器的后端优化关注于算子级优化，包括循环优化、算子融合、tiling 和张量化等硬件相关的优化手段，以实现算子性能的最优化。
+
+- 后端优化流程包括生成低级 IR、进行后端优化以及代码生成，目的是将优化后的 IR 转化为适合特定硬件的机器指令。
+
+- 算子优化面临挑战，如多样性和优化手段的复杂性，业界通过算子库和自动生成算法（如 Auto Tuning 和 Polyhedral 方法）来应对这些挑战，以实现高性能的 AI 计算。
 
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV17D4y177bP&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=734054659&bvid=BV17D4y177bP&cid=933462046&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

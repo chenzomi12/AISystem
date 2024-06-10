@@ -2,7 +2,7 @@
 
 #  FBNet 系列
 
-本章节主要介绍 FBNet 系列，在这一章会给大家带来三种版本的 FBNet 网络，从基本 NAS 搜索方法开始，到 v3 版本的独特方法。在本章节中读者会了解到如何用 NAS 搜索出最好的网络和训练参数。
+本节主要介绍 FBNet 系列，在这一章会给大家带来三种版本的 FBNet 网络，从基本 NAS 搜索方法开始，到 v3 版本的独特方法。在本节中读者会了解到如何用 NAS 搜索出最好的网络和训练参数。
 
 ## FBNet V1
 
@@ -14,19 +14,21 @@
 
 FBNet v1 的训练方法和构建网络的方法基本上沿用了 DARTS 的方法，不同的是 DARTS 的 Super net 主要体现在 Cell 结构里，搜索空间包括 cell 内部的连接和路径上的操作；而 FBNet 体现在整个网络的主体里，连接是确定的，只搜索路径上的操作。流程如下图所示。DNAS 方法将整体的搜索空间表示为超网，将寻找最优网络结构问题转换为寻找最优的候选 block 分布，通过梯度下降来训练 block 的分布，而且可以为网络每层选择不同的 block。为了更好的估计网络的时延，预先测量并记录了每个候选 block 的实际时延，在估算时直接根据网络结构和对应的时延累计即可。
 
-DNAS 将网络结构搜索问题 公式化为：
+DNAS 将网络结构搜索问题公式化为：
 
 $$\underset {a∈A}{min}  \underset {w_{a}}{min} L(a,w_{a}) \tag{1}$$
 
 给定结构空间 A，寻找最优的结构 $a∈A$，在训练好权值后 $w_{a}$，可以满足最小化损失 $L(a,w_{a})$，论文主要集中于 3 个因素：搜索空间、考虑实际时延的损失函数以及高效的搜索算法。
 
 ![DNAS](images/03cnn/03CNN_07_1.png)
+===== ????
 
 #### 搜索空间
 
 之前的方法大都搜索单元结构，然后堆叠成完整的网络，但实际上，相同的单元结构在不同的层对网络的准确率和时延的影响是大不相同的。为此，论文构造了整体网络结构(macro-architecture)固定的 layer-wise 搜索空间，每层可以选择不同结构的 block，整体网络结构如表 1 所示，前一层和后三层的结构是固定的，其余层的结构需要进行搜索。前面的层由于特征分辨率较大，人工设定了较小的核数量以保证网络的轻量性。layer-wise 搜索空间如下图所示，基于 MobileNetV2 和 ShuffleNet 的经典结构设计，通过设定不同的卷积核大小(3 或 5)、扩展率以及分组数来构造成不同的候选 block。若 block 的输入和输出分辨率一致，则添加 element-wise 的 shortcut，而若使用了分组卷积，则需要对卷积输出进行 channel shuffle。
 
 ![搜索空间结构](images/03cnn/03CNN_07.png)
+===== ????
 
 #### Latency-Aware 损失函数
 
@@ -70,8 +72,6 @@ class SupernetLoss(nn.Module):
 
 ```
 
-
-
 #### 搜索算法
 
 论文将搜索空间表示为随机超网，每层包含 9 个表 2 的并行 block。在推理的时候，候选 block 被执行的概率为：
@@ -97,7 +97,7 @@ m_{l,i}=GumbelSoftmax(θ_{l,i}|θ_{l})
        =\frac{exp[(θ_{l,i}+g_{l,i})/ τ]}{\sum_{i}exp[(θ_{l,i}+g_{l,i})/ τ} \tag{8}
 $$
 
-$g_{l,i}\sim Gumbel(0,1)$ 为 Gumbel 分布的随机噪声，τ为温度 参数。当τ接近 0 时，$m_{l,i}$ 类似于 one-shot，当τ越大时，$m_{l,i}$ 类似于连续随机变量。这样，公式 2 的交叉熵损失就可以对 $w_{a}$ 和θ求导，而时延项 LAT 也可以改写为：
+$g_{l,i}\sim Gumbel(0,1)$ 为 Gumbel 分布的随机噪声，τ为温度参数。当τ接近 0 时，$m_{l,i}$ 类似于 one-shot，当τ越大时，$m_{l,i}$ 类似于连续随机变量。这样，公式 2 的交叉熵损失就可以对 $w_{a}$ 和θ求导，而时延项 LAT 也可以改写为：
 
 $$LAT(a) =  \sum_{l}\sum_{i}m_{l,i}\cdot LAT(b_{l,i}) \tag{9}$$
 
@@ -132,16 +132,11 @@ class MixedOperation(nn.Module):
         return output, latency_to_accumulate
 ```
 
-
-
-
 ### 网络结构
 
-FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。 它采用受 MobileNetv2 启发的基本类型图像模型块，该模型利用深度卷积和反向残差结构（请参阅组件，见下图）。其中，FBNet-A 和 FBNet-B、FBNet-C 的区别在于最后一个卷积的输出 channel 不一样
-
+FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。它采用受 MobileNetv2 启发的基本类型图像模型块，该模型利用深度卷积和反向残差结构（请参阅组件，见下图）。其中，FBNet-A 和 FBNet-B、FBNet-C 的区别在于最后一个卷积的输出 channel 不一样
 
 ![FBNet](images/06.fpnet_03.png)
-
 
 ## FBNet V2
 
@@ -205,7 +200,7 @@ E:为了保留所有搜索到的输入分辨率的感受域，在卷积之前必
 
 此外，注意到可以实现相同的效果，而不需要构造一个更小的张量，具有适当步长的膨胀卷积；进行子采样以避免修改 F 运算。
 
-上面说了在 channel 维度的做法。 在空间 维度的做法也是类似的，作者也想构造一种加权和的形式表征不同分辨率的特征图。如图 A 所示，不同分辨率的 tensor 不能直接相加。图 B 说明了在边缘 padding 的方式不行，像素无法对齐。图 C 这种方式会又带来感受野错位 的问题：如图 D 所示，Interspersing zero-padding 之后，一个 3x3 的 kenel 有效感受野变成了 2x2。所以图 E 才是作者最终的解决方法：和 F 运算完之后再 padding。
+上面说了在 channel 维度的做法。在空间维度的做法也是类似的，作者也想构造一种加权和的形式表征不同分辨率的特征图。如图 A 所示，不同分辨率的 tensor 不能直接相加。图 B 说明了在边缘 padding 的方式不行，像素无法对齐。图 C 这种方式会又带来感受野错位的问题：如图 D 所示，Interspersing zero-padding 之后，一个 3x3 的 kenel 有效感受野变成了 2x2。所以图 E 才是作者最终的解决方法：和 F 运算完之后再 padding。
 
 ![FBNetV2](images/06.fpnet_06.png)
 
@@ -284,7 +279,6 @@ $$
 def py2_round(x):
     return math.floor(x + 0.5) if x >= 0.0 else math.ceil(x - 0.5)
 
-
 def get_divisible_by(num, divisible_by=8, min_val=None):
     ret = int(num)
     if min_val is None:
@@ -296,7 +290,6 @@ def get_divisible_by(num, divisible_by=8, min_val=None):
     if ret < min_val:
         ret = min_val
     return ret
-
 
 class InvertedResidual(Layer):
     def __init__(self, in_channels, channels, out_channels, kernel_size, stride, act='relu', with_se=True, drop_path=0.0):
@@ -331,7 +324,6 @@ class InvertedResidual(Layer):
             x = self.drop_path(x)
             x += identity
         return x
-
 
 class FBNetV2(Model):
 
@@ -388,14 +380,6 @@ class FBNetV2(Model):
 
 ```
 
-
-
-
-
-
-
-
-
 ## FBNet V3
 
 **FBNetV3**：论文认为目前的 NAS 方法大都只满足网络结构的搜索，而没有在意网络性能验证时的训练参数的设置是否合适，这可能导致模型性能下降。为此，论文提出 JointNAS，在资源约束的情况下，搜索最准确的训练参数以及网络结构。
@@ -418,7 +402,7 @@ A，h，Ω分别表示网络架构、训练策略以及搜索空间；$g_{i}(A)$
 
 ** 粗粒度阶段
 
-粗粒度搜索生成准确率预测器和一个高性能候选网络集,这 个 预 测 器 是 一 个 多 层 感 知 器 构 成 的 小 型 网 络，这个预测器是一个多层感知器构成的小型网络这个预测器是一个多层感知器构成的小型网络，包含了两个部分，一个代理预测器，一个是准确率预测器。
+粗粒度搜索生成准确率预测器和一个高性能候选网络集,这个预测器是一个多层感知器构成的小型网络，这个预测器是一个多层感知器构成的小型网络这个预测器是一个多层感知器构成的小型网络，包含了两个部分，一个代理预测器，一个是准确率预测器。
 
 预测器的结构如下图所示，包含一个结构编码器以及两个 head，分别为辅助的代理 head 以及准确率 head。代理 head 预测网络的属性(FLOPs 或参数量等)，主要在编码器预训练时使用，准确率 head 根据训练参数以及网络结构预测准确率，使用代理 head 预训练的编码器在迭代优化过程中进行 fine-tuned。
 
@@ -467,7 +451,6 @@ FBNetV3 的搜索空间包括了训练超参和网络架构。训练超参的搜
 def py2_round(x):
     return math.floor(x + 0.5) if x >= 0.0 else math.ceil(x - 0.5)
 
-
 def get_divisible_by(num, divisible_by=8, min_val=None):
     ret = int(num)
     if min_val is None:
@@ -479,7 +462,6 @@ def get_divisible_by(num, divisible_by=8, min_val=None):
     if ret < min_val:
         ret = min_val
     return ret
-
 
 class InvertedResidual(Layer):
     def __init__(self, in_channels, channels, out_channels, kernel_size, stride, act='relu', with_se=True, drop_path=0.0):
@@ -517,7 +499,6 @@ class InvertedResidual(Layer):
             x = self.drop_path(x)
             x += identity
         return x
-
 
 class FBNetV3(Model):
 
@@ -580,56 +561,10 @@ class FBNetV3(Model):
         return x
 ```
 
-
-
-
-
-## 小结
+## 小结与思考
 
 FBNet 系列是完全基于 NAS 方法的轻量级网络系列，分析当前搜索方法的缺点，逐步增加创新性改进，FBNet 结合了 DNAS 和资源约束，FBNetV2 加入了 channel 和输入分辨率的搜索，FBNetV3 则是使用准确率预测来进行快速的网络结构搜索，期待完整的代码开源。
 
 ## 本节视频
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
-## 参考文献
-
-1.[Anonymous. Snas: stochastic neural architecture search. In Submitted to International Conference on Learning Repre sentations, 2019. under review.](https://arxiv.org/pdf/1812.09926)
-
-2.[K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition, pages770–778, 2016.](https://arxiv.org/abs/1512.03385)
-
-3.[G. Huang, S. Liu, L. van der Maaten, and K. Q. Weinberger.Condensenet: An efficient densenet using learned group convolutions. group, 3(12):11, 2017.](https://arxiv.org/pdf/1711.09224)
-
-4.[E. Jang, S. Gu, and B. Poole. Categorical reparameterization with gumbel-softmax. arXiv preprint arXiv:1611.01144,2016.](https://arxiv.org/abs/1611.01144)
-
-5.[D. P. Kingma and J. Ba. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.](https://arxiv.org/abs/1412.6980v6)
-
-6.[H. Pham, M. Y. Guan, B. Zoph, Q. V. Le, and J. Dean. Efficient neural architecture search via parameter sharing. arXiv preprint arXiv:1802.03268, 2018.](https://arxiv.org/abs/1802.03268)
-
-7.[X. Zhang, X. Zhou, M. Lin, and J. Sun. Shufflenet: An extremely efficient convolutional neural network for mobile devices. arxiv 2017. arXiv preprint arXiv:1707.01083.](https://arxiv.org/pdf/1707.01083)
-
-8.[T. Veniat and L. Denoyer. Learning time/memory-efficient deep architectures with budgeted super networks. arXiv preprint arXiv:1706.00046, 2017.](https://arxiv.org/abs/1706.00046v3)
-
-9.[T.-J. Yang, A. Howard, B. Chen, X. Zhang, A. Go, M. Sandler, V. Sze, and H. Adam. Netadapt: Platform-aware neuralnetwork adaptation for mobile applications. Energy, 41:46,2018.](https://arxiv.org/abs/1804.03230v1)
-
-10.[Tien-Ju Yang, Yu-Hsin Chen, and Vivienne Sze. Designing energy-efficient convolutional neural networks using energy aware pruning. arXiv preprint arXiv:1611.05128, 2016.](https://arxiv.org/pdf/1611.05128)
-
-11.[Barret Zoph, Vijay Vasudevan, Jonathon Shlens, and Quoc Le. Learning transferable architectures for scalable image recognition. pages 8697–8710, 06 2018](https://arxiv.org/abs/1707.07012v1)
-
-12.[HongyiZhang, MoustaphaCisse, YannNDauphin, andDavid Lopez-Paz. mixup: Beyond empirical risk minimization.ICLR, 2018. 5](https://arxiv.org/pdf/1710.09412)
-
-13.[NingningMa,XiangyuZhang,Hai-TaoZheng, andJianSun.ShuffleNet V2: Practical guidelines for efficient CNN architecture design. arXiv preprint arXiv:1807.11164, 2018.](https://arxiv.org/pdf/1807.11164)
-
-14.[Mingxing Tan and Quoc V Le. Efficientnet: Rethinking model scaling for convolutional neural networks. arXiv preprint arXiv:1905.11946, 2019.](https://arxiv.org/abs/1905.11946v5)
-
-15.[M. Tan, B. Chen, R. Pang, V. Vasudevan, and Q. V. Le.Mnasnet: Platform-aware neural architecture search for mobile. arXiv preprint arXiv:1807.11626, 2018.](https://arxiv.org/abs/1807.11626)
-
-16.[ Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li, and Li Fei-Fei. ImageNet: A large-scale hierarchical image database.In CVPR, 2009. 5](https://ieeexplore.ieee.org/abstract/document/5206848)
-
-17.[Piotr Dollár, Mannat Singh, and Ross Girshick. Fast and accurate model scaling. arXiv preprint arXiv:2103.06877, 2021. 12](https://arxiv.org/abs/2103.06877)
-
-18.[Hanxiao Liu, Karen Simonyan, and Yiming Yang. Darts:Differentiable architecture search. ICLR, 2019. 3](http://export.arxiv.org/abs/1806.09055)
-
-19.[Jieru Mei, Yingwei Li, Xiaochen Lian, Xiaojie Jin, Linjie  Bichen Wu, Xiaoliang Dai, Peizhao Zhang, Yanghan Wang,Yang, AlanYuille, and Jianchao Yang. Atomnas: Fine-grained end-to-end neural architecture search. ICLR, 2020. 7](https://arxiv.longhoe.net/abs/1912.09640)
-
-20.[Linnan Wang, Yiyang Zhao, Yuu Jinnai, Yuandong Tian,and Rodrigo Fonseca. Neural architecture search using deep neural networks and monte carlo tree search. In AAAI, 2020.](https://arxiv.longhoe.net/abs/1805.07440)

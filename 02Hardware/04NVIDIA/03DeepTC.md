@@ -2,9 +2,9 @@
 
 # Tensor Core 深度剖析(DONE)
 
-Tensor Core 是用于加速深度学习计算的关键技术，其主要功能是执行深度神经网络中的矩阵乘法和卷积运算。通过利用混合精度计算和张量核心操作，Tensor Core 能够在较短的时间内完成大量矩阵运算，从而显著加快深度学习模型的训练和推断过程。具体来说，Tensor Core 采用半精度(FP16)作为输入和输出，并利用全精度(FP32)进行存储中间结果计算，以确保计算精度的同时最大限度地提高计算效率。
+Tensor Core 是用于加速深度学习计算的关键技术，其主要功能是执行深度神经网络中的矩阵乘法和卷积运算。通过利用混合精度计算和张量核心操作，Tensor Core 能够在较短的时间内完成大量矩阵运算，从而显著加快神经网络模型的训练和推断过程。具体来说，Tensor Core 采用半精度(FP16)作为输入和输出，并利用全精度(FP32)进行存储中间结果计算，以确保计算精度的同时最大限度地提高计算效率。
 
-与传统的 CUDA Core 相比，Tensor Core 在每个时钟周期能执行多达 4x4x4 的 GEMM（general matrix multiply）运算，相当于同时进行 64 个浮点乘法累加（FMA）运算。这种并行计算的方式极大地提高了计算速度，使得深度学习模型的训练和推断能够更加高效地进行。
+与传统的 CUDA Core 相比，Tensor Core 在每个时钟周期能执行多达 4x4x4 的 GEMM（general matrix multiply）运算，相当于同时进行 64 个浮点乘法累加（FMA）运算。这种并行计算的方式极大地提高了计算速度，使得神经网络模型的训练和推断能够更加高效地进行。
 
 ## 计算原理
 
@@ -18,7 +18,7 @@ $$
 D_{0,0} = A_{0,0} * B_{0,0} + A_{0,1} * B_{1,0} + A_{0,2} * B_{2,0} + A_{0,3} * B_{3,0} + C_{0,0}
 $$
 
-然而在 NVIDIA 的 GPU Tensor Core 中并不是一行一行的计算，而是整个矩阵进行计算，我们可以看看官方给出的 Tensor Core 的计算模拟图。
+然而在英伟达的 GPU Tensor Core 中并不是一行一行的计算，而是整个矩阵进行计算，我们可以看看官方给出的 Tensor Core 的计算模拟图。
 
 ![Tensor Core FMA](images/03DeepTC02.png)
 
@@ -70,7 +70,7 @@ $$
 
 ## 线程执行
 
-在整体 CUDA 软件设计方面，其目的是与 GPU 计算和存储分层结构相匹配。NVIDIA CUDA 对于 Tensor Core 的定义主要是通过 CUDA 提供一种通用的编程范式，即所谓的 General Programming。为了更高效地利用 Tensor Core，CUDA 允许开发者利用通用编程模型来调用 Tensor Core 的硬件功能，以实现高效的并行计算。
+在整体 CUDA 软件设计方面，其目的是与 GPU 计算和存储分层结构相匹配。英伟达 CUDA 对于 Tensor Core 的定义主要是通过 CUDA 提供一种通用的编程范式，即所谓的 General Programming。为了更高效地利用 Tensor Core，CUDA 允许开发者利用通用编程模型来调用 Tensor Core 的硬件功能，以实现高效的并行计算。
 
 假设我们 Tensor Core 中的 D = A * B + C 计算，简化为 C = A * B。在实际应用中，由于 Tensor Core 只能处理 4x4 的简单计算，不可能直接将整个大矩阵载入 Tensor Core 中进行运算。因此，需要将矩阵切片，并将其分配到 Thread Block（线程块）中。
 
@@ -131,7 +131,7 @@ for (int mb = O; mb < M; mb += Mtile)
 
 在 Tensor Core 里面并行执行的就是上述的形式，矩阵 A 乘以矩阵 B 等于 C 矩阵这么一个简单最核心操作。
 
-Tensor Core 是 NVIDIA GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-level Matrix Multiply-Accumulate）API，这个 API 是专门为 Tensor Core 设计的，它允许开发者在 CUDA 程序中直接利用 Tensor Core 的硬件加速能力。通过 WMMA API，开发者可以执行矩阵乘法累积操作，并管理数据的加载、存储和同步。
+Tensor Core 是英伟达 GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-level Matrix Multiply-Accumulate）API，这个 API 是专门为 Tensor Core 设计的，它允许开发者在 CUDA 程序中直接利用 Tensor Core 的硬件加速能力。通过 WMMA API，开发者可以执行矩阵乘法累积操作，并管理数据的加载、存储和同步。
 
 在 GEMM（General Matrix Multiply，通用矩阵乘法）的软硬件分层中，数据复用是一个非常重要的概念。由于矩阵通常很大，包含大量的数据，因此有效地复用这些数据可以显著提高计算效率。在每一层中，都会通过不同的内存层次结构（如全局内存、共享内存和寄存器）来管理和复用数据。
 
@@ -168,12 +168,16 @@ Tensor Core 是 NVIDIA GPU 的硬件，CUDA 编程模型提供了 WMMA（Warp-le
 
 在共享内存中进行结果累积后，这些累积的结果最终会被写回到全局内存中。这个过程可能涉及多个线程块的协作，因为整个矩阵乘法运算可能需要多个线程块共同完成。通过全局内存，不同线程块计算得到的结果块可以被拼接起来，形成最终的完整矩阵乘法结果。
 
-## 小结与讨论
+## 小结与思考
 
-总结来说，整个 GEMM 计算过程涉及矩阵分块、数据加载到共享内存和寄存器、在 Tensor Core 中执行计算、结果回存到共享内存并最终写回全局内存等多个步骤。通过合理使用 WMMA API 和 CUDA 编程技术，可以高效利用 GPU 的硬件资源，实现高性能的矩阵乘法运算。
+- Tensor Core 的计算效率：Tensor Core 通过混合精度计算，利用 FP16 进行矩阵乘法运算并用 FP32 存储中间结果，大幅提高了神经网络模型训练和推断的计算速度。
+
+- Tensor Core 的并行计算能力：与 CUDA Core 相比，Tensor Core 能在每个时钟周期内执行更多的 GEMM 运算，等效于同时进行 64 个浮点乘法累加（FMA）操作，显著增强了并行处理能力。
+
+- Tensor Core 的计算过程：涉及将大矩阵分块、数据加载到共享内存和寄存器、在 Tensor Core 中进行计算、结果回存到共享内存并最终写回全局内存，整个过程通过 WMMA API 和 CUDA 编程技术实现高效的数据管理和计算。
 
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1oh4y1J7B4/?spm_id_from=333.788&vd_source=997b612028a4d9f90d4179eb93284d60" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=613407659&bvid=BV1oh4y1J7B4&cid=1121933643&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

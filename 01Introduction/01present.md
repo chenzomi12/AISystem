@@ -2,7 +2,7 @@
 
 # AI 的历史与现状(DONE)
 
-本章将介绍 AI 的由来、现状和趋势，让大家能够了解 AI 应用的由来与趋势，为后面理解 AI 系统的设计形成初步的基础。在后面章节介绍的人工智能系统（AI System）奠定基础，值得注意的是，这些系统设计原则大部分也适合于机器学习系统（ML System）。
+本节将介绍 AI 的由来、现状和趋势，让大家能够了解 AI 应用的由来与趋势，为后面理解 AI 系统的设计形成初步的基础。在后面章节介绍的人工智能系统（AI System）奠定基础，值得注意的是，这些系统设计原则大部分也适合于机器学习系统（ML System）。
 
 因为系统本身是随着上层应用的发展而不断演化的，从人工智能本身的发展脉络和趋势可以观察到：目前模型不断由小模型到大模型分布式训练演进，由单一的模型训练方式演化出针对特定应用的深度强化学习的训练方式，企业级人工智能模型生产由独占使用硬件资源到云上多租户共享 AI 集群资源进行模型训练。
 
@@ -22,7 +22,7 @@
 
 - 物体检测与跟踪：深度学习算法已用于各种应用，例如自动驾驶汽车、无人机和安全摄像头的实时检测和跟踪对象。例如，自动驾驶汽车使用深度学习来识别和跟踪周围环境中的车辆、行人和其他物体。同样，配备深度学习算法的无人机可以实时检测和跟踪感兴趣的物体，例如野生动物或车辆。
 
-- 图像与视频识别：深度学习模型可以非常准确地识别和分类图像和视频，从而支持图像搜索引擎、内容审核和推荐系统等应用。例如，Google 和 Bing 等搜索引擎使用深度学习算法，根据图像查询提供准确且相关的搜索结果。同样，Facebook 和 YouTube 等内容审核平台使用深度学习来自动标记和删除不当内容。
+- 图像与视频识别：神经网络模型可以非常准确地识别和分类图像和视频，从而支持图像搜索引擎、内容审核和推荐系统等应用。例如，谷歌和 Bing 等搜索引擎使用深度学习算法，根据图像查询提供准确且相关的搜索结果。同样，Meta 和 YouTube 等内容审核平台使用深度学习来自动标记和删除不当内容。
 
 - 面部识别：深度学习算法可以高精度识别和匹配人脸，实现安全访问控制、监控甚至个性化营销等应用。例如，出于安全目的，机场和政府大楼使用面部识别来筛查乘客和员工。同样，零售商使用面部识别来分析客户行为和偏好，并提供个性化的购物体验。
 
@@ -48,11 +48,11 @@
 
 - 音频信号分析：深度学习技术可以用于音频信号的分析，如音频分类、音频分割和音频降噪等。通过训练深度神经网络模型，可以提取音频信号的特征，并对音频进行分类或分割。此外，深度学习技术还可以应用于音频降噪，通过学习噪声模型和信号模型，实现对噪声的自动去除。
 
-- 语音识别：深度学习技术在语音识别领域取得了重大突破。通过使用深度神经网络模型，可以将语音信号转化为文本信息。深度学习模型可以自动学习语音信号的特征，并通过大规模的训练数据提高识别准确率。语音识别技术的应用包括语音助手、语音翻译和语音控制等。
+- 语音识别：深度学习技术在语音识别领域取得了重大突破。通过使用深度神经网络模型，可以将语音信号转化为文本信息。神经网络模型可以自动学习语音信号的特征，并通过大规模的训练数据提高识别准确率。语音识别技术的应用包括语音助手、语音翻译和语音控制等。
 
 - 音频合成：深度学习技术可以用于音频合成，如语音合成和音乐合成等。通过训练深度神经网络模型，可以生成逼真的语音合成结果。此外，深度学习技术还可以用于音乐合成，通过学习音乐的模式和结构，生成新的音乐作品。
 
-- 端到端的音频处理：传统的音频处理方法通常需要多个步骤和模块，而深度学习技术可以实现端到端的音频处理。通过训练端到端的深度学习模型，可以直接从原始音频信号中提取特征并完成音频处理任务，简化了处理流程并提高了效率。
+- 端到端的音频处理：传统的音频处理方法通常需要多个步骤和模块，而深度学习技术可以实现端到端的音频处理。通过训练端到端的神经网络模型，可以直接从原始音频信号中提取特征并完成音频处理任务，简化了处理流程并提高了效率。
 
 - 跨模态音频处理：深度学习技术可以实现跨模态的音频处理，将音频信号与其他模态的信息进行融合和处理。例如，可以将音频信号与图像或文本信息进行联合处理，实现更加丰富和准确的音频分析和合成。
 
@@ -117,21 +117,21 @@
 
 2009 年，李飞飞教授团队在佛罗里达州举行的 2009 年计算机视觉和模式识别 (CVPR) 会议上首次以海报的形式展示了他们的 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)[<sup>[11]</sup>] 数据库，之后大量计算机视觉领域的经典模型在此数据库上进行验证，评测并演进。李飞飞于 2006 年产生想法并开始研究 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)[<sup>[11]</sup>] 。
 
-2007 年，李飞飞与 WordNet 的创始人之一普林斯顿大学教授克里斯蒂安·费尔鲍姆会面，之后从 WordNet 的单词数据库开始构建 ImageNet，并使用了它的许多功能。作为普林斯顿大学的助理教授，李博士组建了一个研究团队，致力于 ImageNet 项目，其通过众包平台 [Amazon Mechanical Turk](https://www.mturk.com/) 的工作人员来进行标记。
+2007 年，李飞飞与 WordNet 的创始人之一普林斯顿大学教授克里斯蒂安·费尔鲍姆会面，之后从 WordNet 的单词数据库开始构建 ImageNet，并使用了它的许多功能。作为普林斯顿大学的助理教授，李博士组建了一个研究团队，致力于 ImageNet 课程，其通过众包平台 [Amazon Mechanical Turk](https://www.mturk.com/) 的工作人员来进行标记。
 
 ### 突破驱动繁荣期（约 2010s）
 
 2011 年 8 月，微软研究院 Frank Seide, Gang Li, Dong Yu 在 Interspeech 的论文 " Conversational speech transcription using context-dependent deep neural networks."[<sup>[12]</sup>] 首次介绍了如何通过深度神经网络模型在会话语音转录（Conversational Speech Transcription）上实现突破性进展。文章介绍了模型的的设计和实验结果，“其在单通道非特定人识别（Single-pass Speaker-independent Recognition）基准测试上将相对错误率由 27.4% 降低到 18.5% ，相对错误率降低 33%，在其他 4 类任务中相对错误率降低 22–28%。
 
-此深度神经网络的训练任务是通过分布式系统（其设计了适合当前作业的张量切片与放置以及通信协调策略以加速训练）部署在多台配置有 NVIDIA Tesla GPGPU 服务器，通过几百小时的分布式训练才得以完成。论文在最后致谢中提到 “Our special thanks go to Ajith Jayamohan and Igor Kouzminykh of the MSR Extreme Computing Group for access to a Tesla server farm, without which this work would not have been possible.”，由此看到在 AI 领域算法团队与系统团队协作已经由来已久，算法与系统的协同设计将以往不可能完成的计算任务变为了可能，上层应用负载需求驱动系统发展与演化，系统支撑上层应用负载取得新的突破。
+此深度神经网络的训练任务是通过分布式系统（其设计了适合当前作业的张量切片与放置以及通信协调策略以加速训练）部署在多台配置有英伟达 Tesla GPGPU 服务器，通过几百小时的分布式训练才得以完成。论文在最后致谢中提到 “Our special thanks go to Ajith Jayamohan and Igor Kouzminykh of the MSR Extreme Computing Group for access to a Tesla server farm, without which this work would not have been possible.”，由此看到在 AI 领域算法团队与系统团队协作已经由来已久，算法与系统的协同设计将以往不可能完成的计算任务变为了可能，上层应用负载需求驱动系统发展与演化，系统支撑上层应用负载取得新的突破。
 
-2012 年 1 月，Google 的神经网络从 1000 万张 YouTube 视频的静止画面中学会了[识别猫](https://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html)。Google 的科学家通过连接 16,000 个计算机处理器创建了最大的机器学习神经网络之一，他们在互联网上将这些处理器松散开来自行学习，正是大规模系统互联更大的算力支撑了当时相比以往更大的数据和模型的训练。此工作 “[Building high-level features using large scale unsupervised learning](https://dl.acm.org/doi/10.5555/3042573.3042641)” [<sup>[13]</sup>] 发表在 ICML '12 会议上。
+2012 年 1 月，谷歌的神经网络从 1000 万张 YouTube 视频的静止画面中学会了[识别猫](https://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html)。谷歌的科学家通过连接 16,000 个计算机处理器创建了最大的机器学习神经网络之一，他们在互联网上将这些处理器松散开来自行学习，正是大规模系统互联更大的算力支撑了当时相比以往更大的数据和模型的训练。此工作 “[Building high-level features using large scale unsupervised learning](https://dl.acm.org/doi/10.5555/3042573.3042641)” [<sup>[13]</sup>] 发表在 ICML '12 会议上。
 
-2012 年 9 月，Alex Krizhevsky，Ilya Sutskever 和 Geoffrey Hinton，团队通过设计 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)[<sup>[14]</sup>] 赢得 ImageNet 竞赛，深度神经网络开始再次流行。首次采用 ReLU 激活函数，扩展了 LeNet5 结构，添加 Dropout 层减小过拟合，LRN 层增强泛化能力/减小过拟合。这些新的模型结构和训练方法影响着后续的模型设计和系统优化，例如：激活函数和卷积层的内核融合计算等。其花费 5 到 6 天，采用 2 块 NVIDIA GTX 580 3GB GPUs 对计算进行加速，进而形成 AI 系统以 GPU 等加速器为主要计算单元的架构。
+2012 年 9 月，Alex Krizhevsky，Ilya Sutskever 和 Geoffrey Hinton，团队通过设计 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)[<sup>[14]</sup>] 赢得 ImageNet 竞赛，深度神经网络开始再次流行。首次采用 ReLU 激活函数，扩展了 LeNet5 结构，添加 Dropout 层减小过拟合，LRN 层增强泛化能力/减小过拟合。这些新的模型结构和训练方法影响着后续的模型设计和系统优化，例如：激活函数和卷积层的内核融合计算等。其花费 5 到 6 天，采用 2 块英伟达 GTX 580 3GB GPUs 对计算进行加速，进而形成 AI 系统以 GPU 等加速器为主要计算单元的架构。
 
 ![](images/01Present09.png)
 
-截至到 2012 年这个时间点，基础架构的线索中，以英伟达（NVIDIA）为代表的芯片厂商已经连续发布了 Tesla，Fermi，[Kepler](https://en.wikipedia.org/wiki/Kepler_(microarchitecture)) 架构系列商用 GPU 和多款消费级 GPU，这些 GPU 已经开始被研究工作引用加速 AI 算法与模型的研究，被业界公司用于人工智能产品。但同时从 AlexNet 工作中看到，作还基于 CUDA API 进行编程实现了[cuda-convnet](https://code.google.com/archive/p/cuda-convnet)，AI 系统与工具伴随着 AI 算法与模型的突破与需求呼之欲出，在后面的章节中将会总结和展望 AI 系统本身的脉络，现状与发展。
+截至到 2012 年这个时间点，基础架构的线索中，以英伟达（NVIDIA）为代表的芯片厂商已经连续发布了 Tesla，Fermi，[Kepler](https://en.wikipedia.org/wiki/Kepler_(microarchitecture)) 架构系列商用 GPU 和多款消费级 GPU，这些 GPU 已经开始被研究工作引用加速 AI 算法与模型的研究，被业界公司用于人工智能产品。但同时从 AlexNet 工作中看到，作还基于 CUDA API 进行编程实现了[cuda-convnet](https://code.谷歌.com/archive/p/cuda-convnet)，AI 系统与工具伴随着 AI 算法与模型的突破与需求呼之欲出，在后面的章节中将会总结和展望 AI 系统本身的脉络，现状与发展。
 
 在之后的时间里，以 [ImageNet](https://www.image-net.org/)，等公开的各领域（例如，计算机视觉，自然语言处理）数据集为代表的各个应用领域的公开数据集或基准测试，驱动着以卷积神经网络 CNN，循环神经网络 RNN，Transformer，图神经网络 GNN 为代表的 AI 模型网络结构的发展和创新。
 
@@ -145,39 +145,8 @@
 
 大模型包括多种预训练模型，如 BERT、GPT-3、CLIP、DALL·E 等。目前基础模型所涉及的技术子领域包括：模型的构建、训练、微调、评价、加速、数据、安全、稳健性、对齐（Alignment）、模型理论、可解释等，大模型仍处于快速发展的阶段。
 
-## 小结与讨论
+## 小结与思考
 
-本章主要围绕 AI 的历史现状和发展展开，对 AI 系统研究，需要要深刻理解上层 AI 计算应用负载特点，历史和趋势，才能将找到系统设计的真实需求问题和优化机会。那么当前 AI 领域不同算法模型之间有何差异，对 AI 系统的要求会有什么新的挑战？
+- 围绕 AI 的历史现状和发展展开对 AI 系统研究，需要要深刻理解上层 AI 计算应用负载特点，历史和趋势，才能将找到系统设计的真实需求问题和优化机会。
 
-## 参考文献
-
-1. [Silver, D., Huang, A., Maddison, C. et al. Mastering the game of Go with deep neural networks and tree search. Nature 529, 484–489 (2016). https://doi.org/10.1038/nature16961](https://www.nature.com/articles/nature16961)
-
-2. [McCulloch, W.S., Pitts, W. A logical calculus of the ideas immanent in nervous activity. Bulletin of Mathematical Biophysics 5, 115–133 (1943).](https://link.springer.com/article/10.1007/BF02478259)
-
-3. [The perceptron - A perceiving and recognizing automaton. Rosenblatt, F. Technical Report 85-460-1, Cornell Aeronautical Laboratory, Ithaca, New York, January, 1957.](https://bibbase.org/network/publication/rosenblatt-theperceptronaperceivingandrecognizingautomaton-1957)
-
-4. [Bernard Widrow. (1960). “Adaptive "Adaline" Neuron Using Chemical "memistors".” Number Technical Report 1553-2. Stanford Electron. Labs. Stanford, CA](https://www-isl.stanford.edu/~widrow/papers/t1960anadaptive.pdf)
-
-5. [Minsky, M., Papert, S. (1969). Perceptrons: An Introduction to Computational Geometry. Cambridge, MA, USA: MIT Press.](https://www.amazon.com/Perceptrons-Introduction-Computational-Geometry-Expanded/dp/0262631113)
-
-6. [Werbos, Paul J.. “Beyond Regression : "New Tools for Prediction and Analysis in the Behavioral Sciences.” (1974).](https://books.google.com/books/about/Beyond_Regression.html?id=z81XmgEACAAJ)
-
-7. [Rina Dechter. 1986. Learning while searching in constraint-satisfaction-problems. In Proceedings of the Fifth AAAI National Conference on Artificial Intelligence (AAAI'86). AAAI Press, 178–183.](https://dl.acm.org/doi/abs/10.5555/2887770.2887799)
-
-8. [Y. LeCun et al., "Backpropagation Applied to Handwritten Zip Code Recognition," in Neural Computation, vol. 1, no. 4, pp. 541-551, Dec. 1989, doi: 10.1162/neco.1989.1.4.541.](https://ieeexplore.ieee.org/document/6795724)
-
-9. [Hinton GE, Salakhutdinov RR. Reducing the dimensionality of data with neural networks. Science. 2006 Jul 28;313(5786):504-7. doi: 10.1126/science.1127647. PMID: 16873662.](https://www.science.org/doi/10.1126/science.1127647)
-
-10. [Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K., & Fei-Fei, L. (2009). Imagenet: A large-scale hierarchical image database. In 2009 IEEE conference on computer vision and pattern recognition (pp. 248–255).
-    ](https://image-net.org/)
-
-11. [Dong Yu, Frank Seide, and Gang Li. 2012. Conversational speech transcription using context-dependent deep neural networks. In Proceedings of the 29th International Coference on International Conference on Machine Learning (ICML'12). Omnipress, Madison, WI, USA, 1–2.](https://dl.acm.org/doi/10.5555/3042573.3042574)
-
-12. [Quoc V. Le, Marc'Aurelio Ranzato, Rajat Monga, Matthieu Devin, Kai Chen, Greg S. Corrado, Jeff Dean, and Andrew Y. Ng. 2012. Building high-level features using large scale unsupervised learning. In Proceedings of the 29th International Coference on International Conference on Machine Learning (ICML'12). Omnipress, Madison, WI, USA, 507–514.](https://dl.acm.org/doi/10.5555/3042573.3042641)
-
-13. [Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. 2017. ImageNet classification with deep convolutional neural networks. Commun. ACM 60, 6 (June 2017), 84–90. https://doi.org/10.1145/3065386](https://dl.acm.org/doi/10.1145/3065386)
-
-14. [Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Köpf, Edward Yang, Zach DeVito, Martin Raison, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. 2019. PyTorch: an imperative style, high-performance deep learning library. Proceedings of the 33rd International Conference on Neural Information Processing Systems. Curran Associates Inc., Red Hook, NY, USA, Article 721, 8026–8037.](https://dl.acm.org/doi/10.5555/3454287.3455008)
-
-15. [Martín Abadi, Paul Barham, Jianmin Chen, Zhifeng Chen, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Geoffrey Irving, Michael Isard, Manjunath Kudlur, Josh Levenberg, Rajat Monga, Sherry Moore, Derek G. Murray, Benoit Steiner, Paul Tucker, Vijay Vasudevan, Pete Warden, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. 2016. TensorFlow: a system for large-scale machine learning. In Proceedings of the 12th USENIX conference on Operating Systems Design and Implementation (OSDI'16). USENIX Association, USA, 265–283.](https://dl.acm.org/doi/10.5555/3026877.3026899)
+- 当前 AI 领域不同算法模型之间有何差异，对 AI 系统的要求会有什么新的挑战？

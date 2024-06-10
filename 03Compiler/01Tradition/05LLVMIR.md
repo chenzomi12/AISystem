@@ -87,7 +87,7 @@ int main(void)
 }
 ```
 
-接下来我们使用 Clang 编译器将 C 语言源文件 test.c 编译成 LLVM 格式的中间代码。具体参数的含义如下： 
+接下来我们使用 Clang 编译器将 C 语言源文件 test.c 编译成 LLVM 格式的中间代码。具体参数的含义如下：
 
 - clang：Clang 编译器
 - -S：生成汇编代码而非目标文件
@@ -277,7 +277,7 @@ while.end:                                        ; preds = %while.cond
 }
 ```
 
-对比 if 语句可以发现，while 中几乎没有新的指令出现，所以说所谓的 while 循环，也就是“跳转+分支”这一结构。同理，for 循环 也可以由“跳转+分支”这一结构构成。
+对比 if 语句可以发现，while 中几乎没有新的指令出现，所以说所谓的 while 循环，也就是“跳转+分支”这一结构。同理，for 循环也可以由“跳转+分支”这一结构构成。
 
 3. 指针
 
@@ -323,31 +323,19 @@ entry:
 declare i32 @printf(i8*, ...)
 ```
 
-对指针的操作就是指针的指针，开辟一块指针类型的内存，里面放个指针`%pi = alloca i32*, align 8`
-
-此外，c 语言中常见的操作还有对数组和结构体的操作，内置函数和外部函数的引用等，更深一步的内容可以参考[简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
+对指针的操作就是指针的指针，开辟一块指针类型的内存，里面放个指针`%pi = alloca i32*, align 8
 
 ## 小结与思考
     
-- **LLVM IR 表示形式：** LLVM IR 是一种中间表示形式，类似汇编语言但更抽象，用于表示高级语言到机器码的转换过程。
+- LLVM IR 表示形式：LLVM IR 是一种中间表示形式，类似汇编语言但更抽象，用于表示高级语言到机器码的转换过程。
     
-- **LLVM IR 基本语法：** LLVM IR 使用类似文本的语法表示，包括指令、注释、变量声明等内容。
+- LLVM IR 基本语法：LLVM IR 使用类似文本的语法表示，包括指令、注释、变量声明等内容。
     
-- **LLVM IR 指令集：** LLVM IR 包含一系列指令用于描述计算、内存访问、分支等操作，能够表示复杂的算法和数据流。
+- LLVM IR 指令集：LLVM IR 包含一系列指令用于描述计算、内存访问、分支等操作，能够表示复杂的算法和数据流。
     
-在下一节中，将介绍 LLVM 的前端和优化层，这些层将进一步处理 LLVM IR 以及源代码，进行语法分析、优化和生成目标机器码的工作。
-
 ## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=305431124&bvid=BV1PP411u7NR&cid=900781834&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
-## 引用
-
-1. https://zh.wikipedia.org/wiki/三位址碼
-2. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_quick_primer.html
-3. https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
-4. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_ssa.html
-5. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/design_hints.html
-6. [简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)

@@ -2,16 +2,13 @@
 
 # MobileVit 系列
 
-自 Vision Transformer 出现之后，人们发现 Transformer 也可以应用在计算机视觉领域，并且效果还是非常不错的。但是基于 Transformer 的网络模型通常具有数十亿或数百亿个参数，这使得它们的模型文件非常大，不仅占用大量存储空间，而且在训练和部署过程中也需要更多的计算资源。所以在本章节中会介绍关于 Transformer 一些轻量化工作。
+自 Vision Transformer 出现之后，人们发现 Transformer 也可以应用在计算机视觉领域，并且效果还是非常不错的。但是基于 Transformer 的网络模型通常具有数十亿或数百亿个参数，这使得它们的模型文件非常大，不仅占用大量存储空间，而且在训练和部署过程中也需要更多的计算资源。所以在本节中会介绍关于 Transformer 一些轻量化工作。
 
 ## MobileVit V1
 
-**MobileVit  V1** :MobileViT 是一种基于 ViT（Vision Transformer）架构的轻量级视觉模型，旨在适用于移动设备和嵌入式系统。ViT 是一种非常成功的深度学习模型，用于图像分类和其他计算机视觉任务，但通常需要大量的计算资源和参数。MobileViT 的目标是在保持高性能的同时，减少模型的大小和计算需求，以便在移动设备上运行，据作者介绍，这是第一次基于轻量级 CNN 网络性能的轻量级 ViT 工作，性能 SOTA。性能优于 MobileNetV3、CrossviT 等网络。
+**MobileVit  V1** :MobileViT 是一种基于 ViT（Vision Transformer）架构的轻量级视觉模型，旨在适用于移动设备和嵌入式系统。ViT 是一种非常成功的神经网络模型，用于图像分类和其他计算机视觉任务，但通常需要大量的计算资源和参数。MobileViT 的目标是在保持高性能的同时，减少模型的大小和计算需求，以便在移动设备上运行，据作者介绍，这是第一次基于轻量级 CNN 网络性能的轻量级 ViT 工作，性能 SOTA。性能优于 MobileNetV3、CrossviT 等网络。
 
-
-### 设计思路
-
-####  Mobile ViT 块
+### Mobile ViT 块
 
 标准卷积涉及三个操作：展开+局部处理+折叠，利用 Transformer 将卷积中的局部建模替换为全局建模，这使得 MobileViT 具有 CNN 和 ViT 的性质。MobileViT Block 如下图所示:
 
@@ -47,11 +44,11 @@ Transformers as Convolutions (global representations)
 
 Transformers as Convolutions (global representations) 表示输入信息的全局表示。在 Transformers as Convolutions 中首先通过 Unfold 对数据进行转换，转化为 Transformer 可以接受的 1D 数据。然后将数据输入到 Transformer 块中。最后通过 Fold 再将数据变换成原有的样子。
 
-Fusion
+**Fusion 融合**
 
 在 Fusion 中，经过 Transformers as Convolutions 得到的信息与原始输入信息 $(A ∈ R^{H\times W\times C}) $ 进行合并，然后使用另一个 $n\times n$ 卷积层来融合这些连接的特征。这里得到的信息指的是全局表征 $X_{F}\in R^{H\times W\times C}$
 
-**代码**
+**代码实现**
 
 ```python
 #Mobile Vit 块的实现
@@ -256,13 +253,9 @@ class MobileViTBlock(nn.Module):
 
         fm = self.fusion(torch.cat((res, fm), dim=1))
         return fm
-
 ```
 
-
-
-
-####  多尺度采样训练
+### 多尺度采样训练
 
 在基于 ViT 的模型中，学习多尺度表示的标准方法是微调。例如，在不同尺寸上对经过 224×224 空间分辨率训练的 DeiT 模型进行了独立微调。由于位置嵌入需要根据输入大小进行插值，而网络的性能受插值方法的影响，因此这种学习多尺度表示的方法对 vit 更有利。与 CNN 类似，MobileViT 不需要任何位置嵌入，它可以从训练期间的多尺度输入中受益。
 
@@ -382,12 +375,11 @@ class InvertedResidual(nn.Module):
 
 ** MobileVit V2 **:MobileViT 的主要效率瓶颈是 Transformer 中的多头自注意力（MHA），它需要相对于 tokens（或 patches）数量 k 的时间复杂度。此外，MHA 需要昂贵的操作来计算自注意力，从而影响资源受限设备的延迟。MobileVit V2 则是一种具有 O(k)线性复杂度的可分离的自注意力方法。所提出方法的一个简单而有效的特征是它使用元素操作来计算自注意力，使其成为资源受限设备的不错选择。
 
-### 设计思路
-
-#### 可分离的自注意力
+### 可分离的自注意力
 
 MHA（下图 a）允许 Transformer 对 tokens 间的关系进行编码。具体来说，MHA 将输入喂到三个分支，即查询 Q、键 K 和值 V。每个分支（Q、K 和 V）由输入 $x\in R^{k \times d}$ 组成，其中包含 k 个 d 维 tokens（或 patches）嵌入。每个分支包含(Q、K 和 V)包含 h 个头（或层），可以使 Transformer 学习输入的多个视角。然后将输入 x 馈入所有 h 个头，然后进行 softmax 操作 σ 以在 Q 和 K 的线性层的输出之间产生注意力（或上下文映射）点积，然后同时计算矩阵 
- $a\in R^{k\times k \times h}$。然后在 a 和 V 线性层的输出之间计算另一个点积，以产生加权和输出 $y_{w}\in R^{k\times d_{h}\times h}$,其中 $d_{h}=\frac{d}{h}$ 是头部尺寸。这 h 个头的输出被连接起来产生一个带有 k 个 d 维 tokens 的张量， 馈送到另一个具有权重 $W_{o}\in R^{d \times d}$ 的线性层以产生 MHA $y \in R^{k \times d}$ 的输出。然后在数学上，这个操作可以描述为：
+ $a\in R^{k\times k \times h}$。然后在 a 和 V 线性层的输出之间计算另一个点积，以产生加权和输出 $y_{w}\in R^{k\times d_{h}\times h}$，其中 $d_{h}=\frac{d}{h}$ 是头部尺寸。这 h 个头的输出被连接起来产生一个带有 k 个 d 维 tokens 的张量，馈送到另一个具有权重 $W_{o}\in R^{d \times d}$ 的线性层以产生 MHA $y \in R^{k \times d}$ 的输出。然后在数学上，这个操作可以描述为：
+
 $$
 y=Concat\Bigg(\underbrace{<σ(<xW_{Q}^{0},xW_{k}^{0}>),xW_{v}^{0}>}_{a^{0} \in R^{k \times k}}..., \underbrace{<σ(<xW_{Q}^{h},xW_{k}^{h}>),xW_{v}^{h}>}_{a^{h} \in R^{k \times k}}
 \Bigg)W_{o}\tag{1}
@@ -407,13 +399,13 @@ $$
 
 上下文向量 $c_{v}$ 在某种意义上类似等式(1)中的注意力矩阵 a,它也编码输入 x 中所有 tokens 的信息，但计算成本较低。
 
-$c_{v}$ 中编码的上下文信息与 x 中的所有 tokens 共享。为此，输入 x 然后通过广播的逐元素乘法运算传播到 $x_{V}$。结果输出后跟 ReLU 激活函数以产生输出 $x_{V} \in R^{k\times d }$。$c_{v}$ 中的上下文信息使用权重 $W_{v} \in R^{d\times d}$ 的值分支 V 线性映射到 d 维空间， 然后将其馈送到权重 $W_{o} \in R^{d \times d}$ 的另一个线性层以产生最终输出 $y \in R^{k \times d}$。在数学上，可分离自注意力可以定义为:
+$c_{v}$ 中编码的上下文信息与 x 中的所有 tokens 共享。为此，输入 x 然后通过广播的逐元素乘法运算传播到 $x_{V}$。结果输出后跟 ReLU 激活函数以产生输出 $x_{V} \in R^{k\times d }$。$c_{v}$ 中的上下文信息使用权重 $W_{v} \in R^{d\times d}$ 的值分支 V 线性映射到 d 维空间，然后将其馈送到权重 $W_{o} \in R^{d \times d}$ 的另一个线性层以产生最终输出 $y \in R^{k \times d}$。在数学上，可分离自注意力可以定义为:
+
 $$
 y = \Bigg( \underbrace{\sum \bigg( \overbrace{σ(xW_{I})}^{c_{s}\in R^{k}} *xW_{K} \bigg)}_{c_{v} \in R^{d}}*ReLU(xW_{V})       \Bigg )
 $$
 
 其中*和 $\sum$ 分别是可广播的逐元素乘法和求和运算。
-
 
 与自注意力方法的比较。下图将所提出的方法与 Transformer 和 Linformer 进行了比较。由于自注意力方法的时间复杂度没有考虑用于实现这些方法的操作成本，因此某些操作可能会成为资源受限设备的瓶颈。为了整体理解，除了理论指标外，还测量了具有不同 k 的单个 CPU 内核上的模块级延迟。与 Transformer 和 Linformer 中的 MHA 相比，所提出的可分离自注意力快速且高效。
 
@@ -431,7 +423,7 @@ $$
 
 ### 网络结构
 
-为了证明所提出的可分离自注意力在资源受限设备上的有效性，将可分离自注意力与最近基于 ViT 的模型 MobileViT 相结合。 MobileViT 是一个轻量级、对移动设备友好的混合网络，其性能明显优于其他基于 CNN、基于 Transformer 或混合模型的竞争模型，包括 MobileNets。
+为了证明所提出的可分离自注意力在资源受限设备上的有效性，将可分离自注意力与最近基于 ViT 的模型 MobileViT 相结合。MobileViT 是一个轻量级、对移动设备友好的混合网络，其性能明显优于其他基于 CNN、基于 Transformer 或混合模型的竞争模型，包括 MobileNets。
 
 MobileViTv2 将 MobileViTv1 中的 Transformer 块中的 MHA 替换为提出的可分离自注意力方法。也没有在 MobileViT 块中使用 skip-connection 连接和融合块，因为它略微提高了性能。此外，为了创建不同复杂度的 MobileViTv2 模型，我们使用宽度乘数 α ∈ {0.5, 2.0} 统一缩放 MobileViTv2 网络的宽度。这与为移动设备训练三种特定架构（XXS、XS 和 S）的 MobileViTv1 形成对比。
 
@@ -520,23 +512,17 @@ class LinearSelfAttention(nn.Module):
         return out
 ```
 
-
-
 ## MobileVit V3
-
-**MobileVit V3**:
 
 虽然 Mobilevit V1 具有竞争力的最先进的结果，但 Mobilevit v1 块中的融合模块比较复杂难以学习。在 MobileVit V3 版本则提出对融合块进行简单有效的修改，以创建 mobilevitv3 块，解决了伸缩问题，简化了学习任务。
 
-### 设计思路
-
-####　MobileViTV3 模块
+###　MobileViTV3 模块
 
 在ＭobileViTv2 体系结构中删除了融合块，并使用了线性复杂度的 Transformer 得到了比 MobileViTv1 更好的性能。将本文提出的融合块添加到 MobileViTv2 中，以创建 MobileViTv3-0.5,0.75 和 1.0 模型，如下图所示。
 
 ![MobileVit](images/09.mobilevit_08.png)
 
-**1、 融合块中用 1x1 卷积层替换 3x3 卷积层。**优势就在于 1x1 卷积核 会使用更少的权重参数数量。在输入尺寸不发生改变的情况下而增加了非线性，所以会增加整个网络的表达能力。
+**1、 融合块中用 1x1 卷积层替换 3x3 卷积层。**优势就在于 1x1 卷积核会使用更少的权重参数数量。在输入尺寸不发生改变的情况下而增加了非线性，所以会增加整个网络的表达能力。
 
 在融合模块中替换 3×3 卷积层存在两个主要动机。首先，融合部分独立于特征图中其他位置的局部和全局特征，以简化融合模块的学习任务。从概念上讲，3×3 卷积层融合了输入特征、全局特征以及其他位置的输入和全局特征，这是一项复杂的任务。融合模块的目标可以简化，因为它可以融合输入和全局特征，而不依赖于特征图中的其他位置。因此，作者在融合中使用 1×1 卷积层，而不是 3×3 卷积层。
 
@@ -691,60 +677,14 @@ class MobileViT_v3_Block(Layer):
         final = x + fused
 
         return final
-
 ```
-
-
 
 ## 小结
 
 MobileVit-V1 是比较早的 CNN 与 Transformer 混合结构，结合了 CNN 与 Transformer 的优点，成为了轻量级、低延迟和满足设备资源约束的精确模型。V2 版本则在 V1 的基础上进行了改进，主要针对多头自注意力，保持了比 V1 版本更快的速度与精确度。V3 版本则是创新性地融合了本地，全局合输入特征来提升模型精度。总之，V1,V2,V3 在 Transformer 模型轻量化以及与 CNN 结合方面给大家提供了更多思考的空间与改进方向。
-
 
 ## 本节视频
 
 <html>
 <iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 参考文献
-
-1.[Irwan Bello, Barret Zoph, Ashish Vaswani, Jonathon Shlens, and Quoc V Le. Attention augmented convolutional networks. In Proceedings of the IEEE/CVF international conference on computer vision, pp. 3286–3295, 2019.](https://arxiv.org/abs/1904.09925)
-
-2.[Chun-Fu Chen, Quanfu Fan, and Rameswar Panda. CrossVit: Cross-attention multi-scale vision transformer for image classification. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), 2021a.](https://arxiv.org/abs/2103.14899)
-
-3.[Liang-Chieh Chen, George Papandreou, Florian Schroff, and Hartwig Adam. Rethinking atrous convolution for semantic image segmentation. arXiv preprint arXiv:1706.05587, 2017.](https://arxiv.org/abs/1706.05587v3)
-
-4.[Yinpeng Chen, Xiyang Dai, Dongdong Chen, Mengchen Liu, Xiaoyi Dong, Lu Yuan, and Zicheng Liu. Mobile-former: Bridging mobilenet and transformer. arXiv preprint arXiv:2108.05895,2021b.](https://arxiv.org/abs/2108.05895v3)
-
-5.[Franc ¸ois Chollet. Xception: Deep learning with depthwise separable convolutions. In Proceedings of the IEEE conference on computer vision and pattern recognition, pp. 1251–1258, 2017.](https://arxiv.org/abs/1610.02357)
-
-6.[Ekin D Cubuk, Barret Zoph, Dandelion Mane, Vijay Vasudevan, and Quoc V Le. Autoaugment:Learning augmentation strategies from data. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pp. 113–123, 2019.](https://arxiv.org/abs/1805.09501)
-
-7.[Zihang Dai, Hanxiao Liu, Quoc V Le, and Mingxing Tan. Coatnet: Marrying convolution and attention for all data sizes. arXiv preprint arXiv:2106.04803, 2021.](https://arxiv.org/abs/2106.04803)
-
-8.[St´ ephane d’Ascoli, Hugo Touvron, Matthew Leavitt, Ari Morcos, Giulio Biroli, and Levent Sagun.Convit: Improving vision transformers with soft convolutional inductive biases. arXiv preprint arXiv:2103.10697, 2021.](https://arxiv.org/pdf/2103.10697)
-
-9.[Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszko reit, and Neil Houlsby. An image is worth 16x16 words: Transformers for image recognition at scale. In International Conference on Learning Representations, 2021.](https://arxiv.longhoe.net/abs/2010.11929)
-
-10.[Mingxing Tan and Quoc Le. Efficientnet: Rethinking model scaling for convolutional neural net works. In International conference on machine learning, pp. 6105–6114. PMLR, 2019.](https://arxiv.org/abs/1905.11946)
-
-11.[Tete Xiao, Mannat Singh, Eric Mintun, Trevor Darrell, Piotr Doll´ar, and Ross Girshick. Early convolutions help transformers see better. Advances in Neural Information Processing Systems, 34:30392–30400, 2021.](https://arxiv.org/abs/2106.14881v1)
-
-12.[Yufei Xu, Qiming Zhang, Jing Zhang, and Dacheng Tao. Vitae: Vision transformer advanced by exploring intrinsic inductive bias. Advances in Neural Information Processing Systems, 34:28522 28535, 2021b.](https://arxiv.org/abs/2106.03348)
-
-13.[Qinglong Zhang and Yu-Bin Yang. Rest: An efficient transformer for visual recognition. Advances in Neural Information Processing Systems, 34:15475–15485, 2021.](https://arxiv.org/abs/2105.13677)
-
-14.[Ze Liu, Yutong Lin, Yue Cao, Han Hu, Yixuan Wei, Zheng Zhang, Stephen Lin, and Baining Guo. Swin transformer: Hierarchical vision transformer using shifted windows. In Proceedings of the IEEE/CVF International Conference on Computer Vision, pages 10012–10022, 2021.](https://arxiv.org/abs/2103.14030)
-
-15.[Rewon Child, Scott Gray, Alec Radford, and Ilya Sutskever. Generating long sequences with sparse transformers. arXiv preprint arXiv:1904.10509, 2019.](https://arxiv.org/abs/1904.10509)
-
-16.[Nikita Kitaev, Łukasz Kaiser, and Anselm Levskaya. Reformer: The efficient transformer. arXiv preprint arXiv:2001.04451, 2020.](https://arxiv.org/abs/2001.04451v2)
-
-17.[Apoorv Vyas, Angelos Katharopoulos, and François Fleuret. Fast transformers with clustered attention.Advances in Neural Information Processing Systems, 33:21665–21674, 2020.](https://arxiv.org/abs/2007.04825v1)
-
-18.[Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473, 2014.](https://arxiv.org/pdf/1409.0473)
-
-19.[Boris T Polyak and Anatoli B Juditsky. Acceleration of stochastic approximation by averaging. SIAM journal on control and optimization, 30(4):838–855, 1992.](Acceleration of stochastic approximation by averaging)
-
-20.[Tal Ridnik, Emanuel Ben-Baruch, Asaf Noy, and Lihi Zelnik-Manor. Imagenet-21k pretraining for the masses. arXiv preprint arXiv:2104.10972, 2021.](https://arxiv.org/abs/2104.10972)
