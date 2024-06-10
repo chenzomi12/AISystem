@@ -1120,7 +1120,7 @@ Kernel 有一半都是算子
 
 281
 00:09:50,680 --> 00:09:53,520
-MindSpore Tensorflow Pytorch PaddlePaddle 也好
+MindSpore TensorFlow Pytorch PaddlePaddle 也好
 
 282
 00:09:53,520 --> 00:09:56,280

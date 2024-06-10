@@ -108,7 +108,6 @@ class ADTangent:
 以公式为例：
 
 $$ f(x1,x2)=ln(x1)+x1x2−sin(x2) $$
-:eqlabel:`diff_05_eq1`
 
 因为是基于 ADTangent 类进行了操作符重载，因此在初始化自变量 x 和 y 的值需要使用 ADTangent 来初始化，然后通过代码 f = ADTangent.log(x) + x * y - ADTangent.sin(y) 来实现。
 
@@ -185,6 +184,12 @@ print(grad[0])
     [11.65207]
     5.5
 ```
+
+## 小结与思考
+
+- 介绍了前向自动微分（Forward Automatic Differentiation, FAD）的实现原理和过程，通过 Python 语言的操作符重载技术，创建了 ADTangent 类来自动计算导数，并通过实例代码演示了如何使用该类来计算给定函数的导数。
+
+- 通过具体的 Python 代码示例，展示了如何利用 ADTangent 类进行操作符重载，实现正向自动微分，并与 PyTorch 和 MindSpore 等深度学习框架的自动微分结果进行了对比，验证了实现的正确性。
 
 ## 本节视频
 

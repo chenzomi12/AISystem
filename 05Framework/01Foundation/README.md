@@ -12,16 +12,16 @@ AI 框架基础内容介绍，从 AI 框架基础开始去介绍为什么我们�
 
 | 小节 | 链接|
 |:--:|:--:|
-| 01 基本介绍| [文章](./01Introduction.md), [PPT](./01Introduction.md), [视频](https://www.bilibili.com/video/BV1he4y1z7oD)  |
+| 01 基本介绍| [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1he4y1z7oD)  |
 | 02 AI 框架的作用| [文章](./02Fundamentals.md), [PPT](./02Fundamentals.pdf), [视频](https://www.bilibili.com/video/BV1fd4y1q7qk) |
 | 03 AI 框架之争（框架发展）| [文章](./03History.md), [PPT](./03History.pdf), [视频](https://www.bilibili.com/video/BV1C8411x7Kn)  |
-| 04 编程范式（声明式&命令式） | [文章](./04Programing.md), [PPT](./04Programing.pdf), [视频](https://www.bilibili.com/video/BV1gR4y1o7WT)  |
+| 04 编程范式（声明式&命令式）| [文章](./04Programing.md), [PPT](./04Programing.pdf), [视频](https://www.bilibili.com/video/BV1gR4y1o7WT)  |
 
 ## 备注
 
 文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@ZOMI666/videos)，PPT 开源在[github](https://github.com/chenzomi12/AISystem)，欢迎取用！！！
 
-> 非常希望您也参与到这个开源项目中，B 站给 ZOMI 留言哦！
+> 非常希望您也参与到这个开源课程中，B 站给 ZOMI 留言哦！
 > 
 > 欢迎大家使用的过程中发现 bug 或者勘误直接提交代码 PR 到开源社区哦！
 >

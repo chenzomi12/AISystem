@@ -1,8 +1,8 @@
 <!--Copyright © XcodeHW 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 推理参数
+# 推理参数(DONE)
 
-本章节将介绍 AI 模型网络参数方面的一些基本概念，以及硬件相关的性能指标，为后面让大家更了解模型轻量化做初步准备。值得让人思考的是，随着深度学习的发展，神经网络被广泛应用于各种领域，模型性能的提高同时也引入了巨大的参数量和计算量（如下图右所示），一般来说模型参数量越大，精度越高，性能越好(如下图左所示)。
+本节将介绍 AI 模型网络参数方面的一些基本概念，以及硬件相关的性能指标，为后面让大家更了解模型轻量化做初步准备。值得让人思考的是，随着深度学习的发展，神经网络被广泛应用于各种领域，模型性能的提高同时也引入了巨大的参数量和计算量（如下图右所示），一般来说模型参数量越大，精度越高，性能越好(如下图左所示)。
 
 但由于大部分的深度神经网络模型的参数量很大，无法满足直接部署到移动端的条件，因此在不严重影响模型性能的前提下对模型进行重新设计，来减少网络参数量和计算复杂度，提升运算能力是目前相当热门的研究方向。同时也希望在后续的章节中，让大家更了解模型轻量化的一些经典网络结构。
 
@@ -67,7 +67,7 @@ MACs 全称 Multiply–Accumulate Operations，即乘加累积操作，**1MACs �
 
 ### 内存带宽
 
-内存带宽决定了它将数据从内存（vRAM） 移动到计算核心的速度，是比计算速度更具代表性的指标，内存带宽值取决于内存和计算核心之间数据传输速度，以及这两个部分之间总线中单独并行链路数量。
+内存带宽决定了它将数据从内存（vRAM）移动到计算核心的速度，是比计算速度更具代表性的指标，内存带宽值取决于内存和计算核心之间数据传输速度，以及这两个部分之间总线中单独并行链路数量。
 
 ### 神经网络的计算量
 
@@ -101,7 +101,7 @@ $$
 k_{h}\times k_{w}\times c_{in}\times c_{out}
 $$
 
-其中$k_{h}$是卷积核的高度，$k_{w}$是卷积核的宽度； $c_{in}$是输入的通道数； $c_{out}$是输出的通道数
+其中 $k_{h}$ 是卷积核的高度，$k_{w}$ 是卷积核的宽度； $c_{in}$ 是输入的通道数； $c_{out}$ 是输出的通道数
 
 - FLOPs
 
@@ -246,21 +246,9 @@ PCLe 桥传输的速率，属于设备外的传输。
 
 它指的是显卡每秒钟所能传输的数据量。显存带宽直接决定显卡的性能，越高则性能越强。它受到显存类型和显存容量的共同影响。
 
-## 小结与讨论
+## 小结与思考
 
-本章节主要是介绍深度学习网络结构中基本组件，同时对网络结构参数、硬件算力参数进行初步的介绍，了解相关概念后才能更好理解网络轻量化设计的原理。
-
-## 参考文献
-
-1.[Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. ImageNet Classification with Deep Convolutional Neural Networks. In NIPS, 2012](https://dl.acm.org/doi/10.1145/3065386)
-
-2.[Alex Krizhevsky, Ilya Sutskever, and Geoffrey E. Hinton. 2017. ImageNet classification with deep convolutional neural networks. Commun. ACM 60, 6 (June 2017), 84–90. https://doi.org/10.1145/3065386](https://dl.acm.org/doi/10.1145/3065386)
-
-3.[Silver, D., Huang, A., Maddison, C. et al. Mastering the game of Go with deep neural networks and tree search. Nature 529, 484–489 (2016). https://doi.org/10.1038/nature16961](https://www.nature.com/articles/nature16961)
-
-4.[Karen Simonyan and Andrew Zisserman. Very deep convolutional networks for large-scale image recognition. arXiv:1409.1556, 2014.](https://arxiv.org/abs/1409.1556)
-
-5.[Mohamed S Abdelfattah, David Han, Andrew Bitar, Roberto DiCecco, Shane O’Connell,Nitika Shanker, Joseph Chu, Ian Prins, Joshua Fender, Andrew C Ling, et al. Dla: Compiler and fpga overlay for neural network inference acceleration. In International Conference on Field Programmable Logic and Applications, pages 411–4117. IEEE, 2018.](https://arxiv.org/abs/1807.06434)
+本节主要是介绍深度学习网络结构中基本组件，同时对网络结构参数、硬件算力参数进行初步的介绍，了解相关概念后才能更好理解网络轻量化设计的原理。
 
 ## 本节视频
 
