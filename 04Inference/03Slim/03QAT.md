@@ -2,9 +2,6 @@
 
 # 感知量化训练 QAT
 
-======== 一句话介绍本节内容
-======== 感知量化训练上次说这个内容过于简单，需要继续拓展和深入一下的，参考我的文章 https://blog.csdn.net/m0_37046057/article/details/122356151
-
 ## 感知量化训练流程
 
 传统的训练后量化将模型从 FP32 量化到 INT8 精度时会产生较大的数值精度损失。感知量化训练（Aware Quantization Training）通过在训练期间模拟量化操作，可以最大限度地减少量化带来的精度损失。
@@ -90,7 +87,104 @@ $$
 
 ![反向传播梯度计算](images/03QAT05.png)
 
-## 感知量化训练的技巧
+#### BN折叠
+
+在卷积或全连接层后通常会加入批量归一化操作（Batch Normalization），以归一化输出数据。在训练阶段，BN作为一个独立的算子，统计输出的均值和方差（如下左图）。然而，为了提高推理阶段的效率，推理图将批量归一化参数“折叠”到卷积层或全连接层的权重和偏置中。也就是说，Conv和BN两个算子在正向传播时可以融合为一个算子，该操作称为BN折叠（如右下图）。
+
+![BN 折叠](./images/03QAT06.png)
+
+为了准确地模拟量化效果，我们需要模拟这种折叠，并在通过批量归一化参数缩放权重后对其进行量化。我们通过以下方式做到这一点：
+
+$$
+w_{fold} := \frac{\gamma w}{\text{EMA}(\sigma_B^2) + \epsilon}
+$$
+
+其中 $\gamma$ 是批量归一化的尺度参数，$\text{EMA}(\sigma_B^2)$ 是跨批次卷积结果方差的移动平均估计，$\epsilon$ 是为了数值稳定性的常数。
+
+#### 推理过程：
+
+假设我们有一层的输入为 $x$，应用BN后得到输出 $y$，其基本公式为：
+
+1. 归一化：
+$$
+\hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}
+$$
+
+其中，$\mu_B$ 是均值，$\sigma_B^2$ 是方差。
+
+2. 缩放和平移：
+
+$$
+y_i = \gamma \hat{x}_i + \beta
+$$
+
+为了将 BN 折叠到前一层的权重和 bias 中，将 BN 的过程应用到上面的公式中，可以得到：
+
+$$
+y_i = \gamma \frac{z_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}} + \beta
+$$
+
+可得：
+
+$$
+y_i = \gamma \frac{w x_i + b - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}} + \beta
+$$
+
+将上式拆解为对权重 w 和偏置 b 的调整：
+
+1. 调整后的权重 $w_{fold}$ 
+
+$$
+w_{fold} = \frac{\gamma w}{\sqrt{\sigma_B^2 + \epsilon}}
+$$
+
+2. 调整后的偏置 $b_{fold}$ 
+
+$$
+b_{fold} = \frac{\gamma (b - \mu_B)}{\sqrt{\sigma_B^2 + \epsilon}} + \beta
+$$
+
+
+在量化感知训练中应用 BN 折叠的过程涉及将 BN 层的参数合并到前一层的权重和偏置中，并对这些合并后的权重进行量化。
+
+BN 折叠的训练模型：
+
+![BN 折叠的训练模型](./images/03QAT07.png)
+
+BN 折叠感知量化训练模型：
+
+![BN 折叠感知量化训练模型](./images/03QAT08.png)
+
+QAT中常见的算子折叠组合有：Conv + BN、Conv + BN + ReLU、Conv + ReLU、Linear + ReLU、BN + ReLU。
+
+## 感知量化实践
+
+### 基于TensorRT的推理
+
+TensorRT 通过混合精度（FP32、FP16、INT8）计算、图优化和层融合等技术，显著提高了模型的推理速度和效率。TensorRT 8.0之后的版本可以显式地加载包含有QAT量化信息的ONNX模型，实现一系列优化后，可以生成INT8的engine。要使用 TensorRT 推理 QAT 模型，通常需要以下步骤：
+
+1. 训练并量化模型：
+
+首先使用训练框架（如PyTorch、PaddlePaddle和MindSpore）进行量化感知训练并保存量化后的模型。
+
+2. 转换模型格式：
+
+将训练好的模型转换为 TensorRT 可以使用的 ONNX 格式。在这个过程中，转换器会将原始模型中的 FakeQuant 算子分解成 Q 和 DQ 两个算子，分别对应量化和反量化操作，包含了该层或者该激活值的量化 scale 和 zero-point。
+
+3. 使用 TensorRT 进行转换和推理：
+
+使用 TensorRT 将 ONNX 模型转换为 TensorRT 引擎，并在 GPU 上进行推理。
+
+在推理之前，TensorRT会对计算图进行优化：
+
+（1）常量的折叠：如权重的 Q 节点可与权重合并，无需在真实推理中由 FP32 的权重经过 scale 和 Z 转为 INT8 的权重。
+
+（2）op 融合：将 DQ 信息融合到算子（如conv）中，通过 op 融合，模型计算将变为真实的 INT8 计算。
+比如可以将 DQ 和 Conv 融合，再和 Relu 融合，得到 ConvRelu，最后和下一个 Q 节点融合形成 INT8 输入和 INT8 输出的 QConvRelu 算子。如果在网络的末尾节点没有 Q 节点了（在前面已经融合了），可以将 DQ 和 Conv 融合得到 QConv算子，输入是INT8，输出是FP32。
+
+值得注意的一点是，TensorRT官方建议不要在训练框架中模拟批量归一化和 ReLU 融合，因为 TensorRT 自己的融合优化保证了融合后算术语义不变，确保推理阶段的准确性。
+
+### 感知量化训练的技巧
 
 1. 从已校准的表现最佳的 PTQ 模型开始
 
