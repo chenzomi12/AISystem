@@ -155,7 +155,36 @@ BN 折叠感知量化训练模型：
 
 ![BN 折叠感知量化训练模型](./images/03QAT08.png)
 
-## 感知量化训练的技巧
+QAT中常见的算子折叠组合有：Conv + BN、Conv + BN + ReLU、Conv + ReLU、Linear + ReLU、BN + ReLU。
+
+## 感知量化实践
+
+### 基于TensorRT的推理
+
+TensorRT 通过混合精度（FP32、FP16、INT8）计算、图优化和层融合等技术，显著提高了模型的推理速度和效率。TensorRT 8.0之后的版本可以显式地加载包含有QAT量化信息的ONNX模型，实现一系列优化后，可以生成INT8的engine。要使用 TensorRT 推理 QAT 模型，通常需要以下步骤：
+
+1. 训练并量化模型：
+
+首先使用训练框架（如PyTorch、PaddlePaddle和MindSpore）进行量化感知训练并保存量化后的模型。
+
+2. 转换模型格式：
+
+将训练好的模型转换为 TensorRT 可以使用的 ONNX 格式。在这个过程中，转换器会将原始模型中的 FakeQuant 算子分解成 Q 和 DQ 两个算子，分别对应量化和反量化操作，包含了该层或者该激活值的量化 scale 和 zero-point。
+
+3. 使用 TensorRT 进行转换和推理：
+
+使用 TensorRT 将 ONNX 模型转换为 TensorRT 引擎，并在 GPU 上进行推理。
+
+在推理之前，TensorRT会对计算图进行优化：
+
+（1）常量的折叠：如权重的 Q 节点可与权重合并，无需在真实推理中由 FP32 的权重经过 scale 和 Z 转为 INT8 的权重。
+
+（2）op 融合：将 DQ 信息融合到算子（如conv）中，通过 op 融合，模型计算将变为真实的 INT8 计算。
+比如可以将 DQ 和 Conv 融合，再和 Relu 融合，得到 ConvRelu，最后和下一个 Q 节点融合形成 INT8 输入和 INT8 输出的 QConvRelu 算子。如果在网络的末尾节点没有 Q 节点了（在前面已经融合了），可以将 DQ 和 Conv 融合得到 QConv算子，输入是INT8，输出是FP32。
+
+值得注意的一点是，TensorRT官方建议不要在训练框架中模拟批量归一化和 ReLU 融合，因为 TensorRT 自己的融合优化保证了融合后算术语义不变，确保推理阶段的准确性。
+
+### 感知量化训练的技巧
 
 1. 从已校准的表现最佳的 PTQ 模型开始
 
