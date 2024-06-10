@@ -2,23 +2,23 @@
 
 # Tensor Core 架构演进(DONE)
 
-自 Volta 架构时代起，NVIDIA 的 GPU 架构已经明显地转向深度学习领域的优化和创新。2017 年，Volta 架构横空出世，其中引入的张量核心（Tensor Core）设计可谓划时代之作，这一设计专门针对深度学习计算进行了优化，通过执行融合乘法加法操作，大幅提升了计算效率。与前一代 Pascal 架构相比，Volta 架构在深度学习训练和推理方面的性能提升了 3 倍，这一飞跃性进步为深度学习的发展提供了强大的硬件支持。
+自 Volta 架构时代起，英伟达的 GPU 架构已经明显地转向深度学习领域的优化和创新。2017 年，Volta 架构横空出世，其中引入的张量核心（Tensor Core）设计可谓划时代之作，这一设计专门针对深度学习计算进行了优化，通过执行融合乘法加法操作，大幅提升了计算效率。与前一代 Pascal 架构相比，Volta 架构在深度学习训练和推理方面的性能提升了 3 倍，这一飞跃性进步为深度学习的发展提供了强大的硬件支持。
 
-![Nvida GPU Tensor Core 发展](images/02HistoryTC01.png)
+![英伟达 GPU Tensor Core 发展](images/02HistoryTC01.png)
 
-紧随其后，在一年后的 2018 年，NVIDIA 发布了 Turing 架构，进一步增强了 Tensor Core 的功能。Turing 架构不仅延续了对浮点运算的优化，还新增了对 INT8、INT4、甚至是 Binary(INT1)等整数格式的支持。这一举措不仅使大范围混合精度训练成为可能，更将 GPU 的性能吞吐量推向了新的高度，较 Pascal GPU 提升了惊人的 32 倍。此外，Turing 架构还引入了先进的光线追踪(RT Core)技术。
+紧随其后，在一年后的 2018 年，英伟达发布了 Turing 架构，进一步增强了 Tensor Core 的功能。Turing 架构不仅延续了对浮点运算的优化，还新增了对 INT8、INT4、甚至是 Binary(INT1)等整数格式的支持。这一举措不仅使大范围混合精度训练成为可能，更将 GPU 的性能吞吐量推向了新的高度，较 Pascal GPU 提升了惊人的 32 倍。此外，Turing 架构还引入了先进的光线追踪(RT Core)技术。
 
 2020 年，Ampere 架构的推出再次刷新了人们对 Tensor Core 的认知。Ampere 架构新增了对 TF32 和 BF16 两种数据格式的支持，这些新的数据格式进一步提高了深度学习训练和推理的效率。同时，Ampere 架构引入了对稀疏矩阵计算的支持，在处理深度学习等现代计算任务时，稀疏矩阵是一种常见的数据类型，其特点是矩阵中包含大量零值元素。传统的计算方法在处理这类数据时往往效率低下，而 Ampere 架构通过专门的稀疏矩阵计算优化，实现了对这类数据的高效处理，从而大幅提升了计算效率并降低了能耗。此外，Ampere 架构还引入了 NVLink 技术，这一技术为 GPU 之间的通信提供了前所未有的高速通道。在深度学习等需要大规模并行计算的任务中，GPU 之间的数据交换往往成为性能瓶颈。而 NVLink 技术通过提供高带宽、低延迟的连接，使得 GPU 之间的数据传输更加高效，从而进一步提升了整个系统的计算性能。
 
-到了 2022 年，NVIDIA 发布了专为深度学习设计的 Hopper 架构。Hopper 架构标志性的变化是引入了 FP8 张量核心，这一创新进一步加速了 AI 训练和推理过程。值得注意的是，Hopper 架构去除了 RT Core，以便为深度学习计算腾出更多空间，这一决策凸显了 NVIDIA 对深度学习领域的专注和投入。此外，Hopper 架构还引入了 Transformer 引擎，这使得它在处理如今广泛应用的 Transformer 模型时表现出色，进一步巩固了 NVIDIA 在深度学习硬件领域的领导地位。
+到了 2022 年，英伟达发布了专为深度学习设计的 Hopper 架构。Hopper 架构标志性的变化是引入了 FP8 张量核心，这一创新进一步加速了 AI 训练和推理过程。值得注意的是，Hopper 架构去除了 RT Core，以便为深度学习计算腾出更多空间，这一决策凸显了英伟达对深度学习领域的专注和投入。此外，Hopper 架构还引入了 Transformer 引擎，这使得它在处理如今广泛应用的 Transformer 模型时表现出色，进一步巩固了英伟达在深度学习硬件领域的领导地位。
 
-2024 年，Nvidia 推出了 Blackwell 架构为生成式人工智能带来了显著的飞跃。相较于 H100 GPU，GB200 Superchip 在处理 LLM 推理任务时，性能实现了高达 30 倍的惊人提升，同时在能耗方面也实现了高达 25 倍的优化。其中 GB200 Superchip 能够组合两个 Blackwell GPU，并与 Nvidia 的 Grace 中央处理单元配对，支持 Nvlink-C2C 互联。此外，Blackwell 还引入了第二代 Transformer 引擎，增强了对 FP4 和 FP6 精度的兼容性，显著降低了模型运行时的内存占用和带宽需求。此外，还引入了第五代 Nvlink 技术，使每个 GPU 的带宽从 900GB/秒增加到 1800GB/秒。
+2024 年，英伟达推出了 Blackwell 架构为生成式人工智能带来了显著的飞跃。相较于 H100 GPU，GB200 Superchip 在处理 LLM 推理任务时，性能实现了高达 30 倍的惊人提升，同时在能耗方面也实现了高达 25 倍的优化。其中 GB200 Superchip 能够组合两个 Blackwell GPU，并与英伟达的 Grace 中央处理单元配对，支持 NVLink-C2C 互联。此外，Blackwell 还引入了第二代 Transformer 引擎，增强了对 FP4 和 FP6 精度的兼容性，显著降低了模型运行时的内存占用和带宽需求。此外，还引入了第五代 NVLink 技术，使每个 GPU 的带宽从 900 GB/s 增加到 1800 GB/s。
 
-总的来说，从 Volta 到 Blackwell，NVIDIA 的 GPU 架构经历了一系列针对深度学习优化的重大创新和升级，每一次进步都在推动深度学习技术的边界。这些架构的发展不仅体现了 NVIDIA 在硬件设计方面的前瞻性，也为深度学习的研究和应用提供了强大的计算支持，促进了人工智能技术的快速发展。
+总的来说，从 Volta 到 Blackwell，英伟达的 GPU 架构经历了一系列针对深度学习优化的重大创新和升级，每一次进步都在推动深度学习技术的边界。这些架构的发展不仅体现了英伟达在硬件设计方面的前瞻性，也为深度学习的研究和应用提供了强大的计算支持，促进了人工智能技术的快速发展。
 
 接下来，我们将逐一深入剖析每一代 Tensor Core 的独特之处，以揭示其背后的技术奥秘。
 
-![](images/02HistoryTC02.png)
+![Turing 架构 Tensor Core](images/02HistoryTC02.png)
 
 ## 第一代 Tensor Core（Volta）
 
@@ -28,15 +28,15 @@
 
 如上图所示，左边就是 Volta SM 的架构图，Volta 架构中的 Streaming Multiprocessor（SM）通过引入子核心（Sub Core）概念，提升了其执行效率和灵活性。在 Volta 架构中，一个 SM 由 4 个 Sub Core 组成，每个 Sub Core 可以被视为一个更小的、功能完备的执行单元，它们共同工作以提高整体的处理能力。
 
-每个 Sub Core 内部包含了一定数量的 CUDA 核心，这是 NVIDIA GPU 的基础计算单元，用于执行并行计算任务。除此之外，Sub Core 还集成了专门的整数（INT）和浮点（FP）运算单元，这些单元能够同时进行整数和浮点计算，从而提高计算效率。更重要的是，Sub Core 内还配备了一组张量核心（Tensor Core），这是 Volta 架构的核心创新之一，专为加速深度学习中的矩阵乘法和累加操作而设计，极大地提升了深度学习训练和推理的性能。
+每个 Sub Core 内部包含了一定数量的 CUDA 核心，这是英伟达 GPU 的基础计算单元，用于执行并行计算任务。除此之外，Sub Core 还集成了专门的整数（INT）和浮点（FP）运算单元，这些单元能够同时进行整数和浮点计算，从而提高计算效率。更重要的是，Sub Core 内还配备了一组张量核心（Tensor Core），这是 Volta 架构的核心创新之一，专为加速深度学习中的矩阵乘法和累加操作而设计，极大地提升了深度学习训练和推理的性能。
 
-在 Volta SM 的结构中，如上图右边所示，揭示了其内部工作机制的细节。SM 顶部的 L1 指令缓存负责存储即将执行的指令，并将这些指令发送到下方的四个 Sub Core 中。这种指令传输是单向的，确保了指令能够高效、有序地分配给每个执行单元。
+Volta SM 的结构揭示了其内部工作机制的细节。SM 顶部的 L1 指令缓存负责存储即将执行的指令，并将这些指令发送到下方的四个 Sub Core 中。这种指令传输是单向的，确保了指令能够高效、有序地分配给每个执行单元。
 
 在 Sub Core 完成计算任务后，其与位于 SM 底部的 L1 数据缓存（L1 Cache）和共享内存（Shared Memory）之间的交互则是双向的。这种设计允许 Sub Core 不仅可以读取下一批计算所需的数据，还可以将计算结果写回缓存或共享内存中，供其他 Sub Core 或 SM 中的其他组件使用。这种灵活的数据交互机制优化了数据流动，减少了内存访问延迟，进一步提升了整体的计算效率。
 
 ### Volta SM 微架构
 
-接下来我们深入研究下 Volta GPU 中的 SM，首先 SM 它在处理寄存器的整体读写逻辑方面起着核心作用，是计算的关键单元。其次在每个 SM 的 Sub-Core 中，包含了多种功能单元，如 Tensor Core（张量核心）、FP64、FP32、INT8 等 CUDA Core、RT Core 和特殊函数处理单元 MFU。
+接下来我们深入研究 Volta GPU 中的 SM，首先 SM 它在处理寄存器的整体读写逻辑方面起着核心作用，是计算的关键单元。其次在每个 SM 的 Sub-Core 中，包含了多种功能单元，如 Tensor Core（张量核心）、FP64、FP32、INT8 等 CUDA Core、RT Core 和特殊函数处理单元 MFU。
 
 此外，每个 Sub-Core 中还设有 Warp Scheduler，它负责有效调度执行计算单元的工作。数据被存储在寄存器中，通过高效的调度和数据流，实现快速并行的数据处理和计算过程。
 
@@ -44,7 +44,7 @@
 
 ![Volta SM 微架构](images/02HistoryTC04.png)
 
-如上图所示，最上面是共享的 L1 缓存，每个时钟周期可以执行 4 个 Warp 指令，下属 4 个独立的 Sub Core，面的数据是不进行缓存的，但是每个 Sub Core 里有两个 Tensor Core, 这两个 Tensor Core 中的数据是可以共享的，再往下有一个共享内存，每个时钟周期可以传输 128B 的数据，当所有的 SM 计算完这个权重矩阵就会将数据回传到 L2 Cache 中，最后返回 Host Cpu 中。
+如上图所示，最上面是共享的 L1 缓存，每个时钟周期可以执行 4 个 Warp 指令，下属 4 个独立的 Sub Core 的数据是不进行缓存的，但是每个 Sub Core 里有两个 Tensor Core, 这两个 Tensor Core 中的数据是可以共享的，再往下有一个共享内存，每个时钟周期可以传输 128B 的数据，当所有的 SM 计算完这个权重矩阵就会将数据回传到 L2 Cache 中，最后返回 Host Cpu 中。
 
 ### Sub Core 微架构
 
@@ -52,7 +52,7 @@
 
 ![Volta Sub Core 微架构](images/02HistoryTC05.png)
 
-然而，当调用 WMMA 相关的 API 或指令时，Warp Scheduler 会直接触发 Tensor Core 中的计算，每个 Tensor Core 内含有两个 4x4x4 的矩阵，在每个时钟周期内并行进行计算，最终将结果存回 Register File 寄存器中。寄存器通过 MIO 的 Data Pipeline 与 Shared Memory 进行通讯。
+然而，当调用 WMMA 相关的 API 或指令时，Warp Scheduler 会直接触发 Tensor Core 中的计算，每个 Tensor Core 内含有两个 4x4x4 的矩阵，在每个时钟周期内并行进行计算，最终将结果存回 Register File 寄存器中。寄存器通过 MIO 的 Data Pipeline 与 Shared Memory 进行通信。
 
 另外，在 Volta 架构中相比 P100 有一个重要改进，即将 L1 缓存和共享内存合并为同一块空间，其中的共享内存 SMEM 为整个 SM 提供了 96KB 的存储空间。对 L2 Cache 也进行了更新，性能提升了 5%到 15%。
 
@@ -62,7 +62,7 @@
 
 ## 第二代 Tensor Core（Turing）
 
-在 Turing 架构中，我们直接进入 Sub Core，即微内核，来了解 Tensor Core 的第二代。
+在 Turing 架构中，我们直接进入 Sub Core（微内核）来了解第二代 Tensor Core。
 
 ![Turing Sub Core 微架构](images/02HistoryTC06.png)
 
@@ -84,11 +84,11 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 ![Ampere 多级带宽体系](images/02HistoryTC07.png)
 
-接下来，再往上一层，为 L2 Cache 缓存和 DRAM，它们负责的是每块 GPU 卡内部的存储。L2 Cache 缓存作为一个高速缓存，用于存储经常访问的数据，以减少对 DRAM 的访问延迟。DRAM 则提供了更大的存储空间，用于存储 GPU 计算所需的大量数据。这两者的协同工作，使得 GPU 能够高效地处理大规模数据集。这里要说明的一点是我们所说的 HBM 其实就是多个 DRAM 的堆叠，它通过堆叠多个 DRAM 芯片来提高带宽和容量。
+接下来，再往上一层为 L2 Cache 缓存和 DRAM，它们负责的是每块 GPU 卡内部的存储。L2 Cache 缓存作为一个高速缓存，用于存储经常访问的数据，以减少对 DRAM 的访问延迟。DRAM 则提供了更大的存储空间，用于存储 GPU 计算所需的大量数据。这两者的协同工作，使得 GPU 能够高效地处理大规模数据集。这里要说明的一点是我们所说的 HBM 其实就是多个 DRAM 的堆叠，它通过堆叠多个 DRAM 芯片来提高带宽和容量。
 
-再往上一层，则为共享内存和 L1 Cache，它们负责 SM 中数据存储，共享内存允许同一 SM 内的线程快速共享数据，通过共享内存，线程能够直接访问和修改共享数据，从而提高了数据访问的效率和并行计算的性能。L1 缓存，主要用于缓存 SM 中经常访问的数据和指令。
+再往上一层为共享内存和 L1 Cache，它们负责 SM 中数据存储，共享内存允许同一 SM 内的线程快速共享数据，通过共享内存，线程能够直接访问和修改共享数据，从而提高了数据访问的效率和并行计算的性能。L1 缓存，主要用于缓存 SM 中经常访问的数据和指令。
 
-而最上面是针对具体的计算任务 Math 模块，是负责 GPU 数学处理能力。Math 模块包括 Tensor Core 和 CUDA Core，分别针对不同的计算需求进行优化。Tensor Core 是专为深度学习等计算密集型任务设计的，能够高效地执行矩阵乘法等张量运算。而 CUDA Core 则提供了更广泛的计算能力，支持各种通用的 GPU 计算任务。
+而最上面是针对具体的计算任务 Math 模块，负责 GPU 数学处理能力。Math 模块包括 Tensor Core 和 CUDA Core，分别针对不同的计算需求进行优化。Tensor Core 是专为深度学习等计算密集型任务设计的，能够高效地执行矩阵乘法等张量运算。而 CUDA Core 则提供了更广泛的计算能力，支持各种通用的 GPU 计算任务。
 
 ### Movement Efficiently
 
@@ -106,7 +106,7 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 ### Tensor Core FFMA
 
-当我们深入研究 FFMA（Fuse Fold Math and Add）操作时，我们可以从上图中得到更多的信息。在这个图中，绿色的小块代表 Sub Core，也就是之前提到的 Sub Core。而图中连续的蓝色框代表寄存器 Registers。
+当我们深入研究 FFMA（Fuse Fold Math and Add）操作时，可以从下图中得到更多的信息。在这个图中，绿色的小块代表 Sub Core，也就是之前提到的 Sub Core，而图中连续的蓝色框代表寄存器 Registers。
 
 ![Ampere FFMA](images/02HistoryTC09.png)
 
@@ -122,15 +122,15 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 ## 第四代 Tensor Core（Hopper）
 
-2022 年 Nvida 提出的 Hopper 架构，这一创新架构中最为引人瞩目的便是第 4 代 Tensor Core 的亮相。
+2022 年英伟达提出的 Hopper 架构，这一创新架构中最为引人瞩目的便是第 4 代 Tensor Core 的亮相。
 
-回顾 Tensor Core 的发展历程，前三代的 Tensor Core 均基于 Warp-Level 编程模式进行运作。尽管在 NVIDIA A100 架构中引入了软件的异步加载机制，但其核心运算逻辑仍基于 Web-Level 编程模式进行。简而言之，这一模式要求先将数据从 HBM（全局内存）加载到寄存器中，随后通过 Warp Schedule 调用 Tensor Core 完成矩阵运算，最终再将运算结果回传至寄存器，以便进行后续的连续运算。然而，这一流程中存在两大显著问题。
+回顾 Tensor Core 的发展历程，前三代的 Tensor Core 均基于 Warp-Level 编程模式运作。尽管在英伟达 A100 架构中引入了软件的异步加载机制，但其核心运算逻辑仍基于 Warp-Level 编程模式进行。简而言之，这一模式要求先将数据从 HBM（全局内存）加载到寄存器中，随后通过 Warp Scheduler 调用 Tensor Core 完成矩阵运算，最终再将运算结果回传至寄存器，以便进行后续的连续运算。然而，这一流程中存在两大显著问题。
 
-首先，数据的搬运与计算过程紧密耦合，这导致线程在加载矩阵数据时不得不独立地获取矩阵地址，简而言之，Tensor Core 准备数据时，warp 内线程分别加载矩阵数据 Data Tile，每一个线程都会获取独立矩阵块地址；为了隐藏数据加载的延时（全局内存到共享内存，共享内存到寄存器的数据加载），会构建多层级软流水（software pipeline），消耗寄存器数量及存储带宽。这一过程不仅消耗了大量的继承器资源，还极大地占用了存储带宽，进而影响了整体运算效率。
+首先，数据的搬运与计算过程紧密耦合，这导致线程在加载矩阵数据时不得不独立地获取矩阵地址，简而言之，Tensor Core 准备数据时，Warp 内线程分别加载矩阵数据 Data Tile，每一个线程都会获取独立矩阵块地址；为了隐藏数据加载的延时（全局内存到共享内存，共享内存到寄存器的数据加载），会构建多层级软流水（software pipeline），使用更多的寄存器及存储带宽。这一过程不仅消耗了大量的继承器资源，还极大地占用了存储带宽，进而影响了整体运算效率。
 
-其次，这一模式的可扩展性受到了严重限制。由于多级缓存 Cache 的存储空间限制，单个 warp 的矩阵计算规格有上限，这直接限制了矩阵计算的规模。在大数据、大模型日益盛行的今天，这种限制无疑成为了制约计算性能进一步提升的瓶颈。
+其次，这一模式的可扩展性受到了严重限制。由于多级缓存 Cache 的存储空间限制，单个 Warp 的矩阵计算规格有上限，这直接限制了矩阵计算的规模。在大数据、大模型日益盛行的今天，这种限制无疑成为了制约计算性能进一步提升的瓶颈。
 
-而第 4 代 Tensor Core 的引入，正是为了解决这些问题。NVIDIA 通过全新的设计和优化，它旨在实现数据搬运与计算的解耦，提升存储带宽的利用率，同时增强可扩展性，以应对日益复杂和庞大的计算任务。我们有理由相信，随着第 4 代 Tensor Core 的广泛应用，计算性能将迎来新的飞跃。
+而第 4 代 Tensor Core 的引入，正是为了解决这些问题。英伟达通过全新的设计和优化，它旨在实现数据搬运与计算的解耦，提升存储带宽的利用率，同时增强可扩展性，以应对日益复杂和庞大的计算任务。随着第 4 代 Tensor Core 的广泛应用，计算性迎来新的飞跃。
 
 ### Tensor Memory Accelerator
 
@@ -156,7 +156,7 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 ![Hopper TBC Block](images/02HistoryTC12.png)
 
-如上图左边所示, 就是没有进行分布式共享内存的，每个 Thread Block 都对应一个 SM，每个 SM 内部拥有自己的共享内存。然而，SM 与 SM 之间无法进行直接的数据交互，这意味着它们之间的通信必须通过全局内存进行。这种通信方式不仅增加了数据传输的时延，还可能导致寄存器的过度使用，降低了计算效率。
+如上图左边所示，没有进行分布式共享内存时每个 Thread Block 都对应一个 SM，每个 SM 内部拥有自己的共享内存。然而，SM 与 SM 之间无法进行直接的数据交互，这意味着它们之间的通信必须通过全局内存进行。这种通信方式不仅增加了数据传输的时延，还可能导致寄存器的过度使用，降低了计算效率。
 
 而在 H100 架构中，如上图右边所示，通过引入 SM 的 Cluster 或 Block 的 Cluster，实现了硬件层面的分布式共享内存。这意味着 SM 与 SM 之间的数据可以直接进行互联，无需再通过全局内存进行中转。这种机制极大地减少了数据传输的时延，提高了数据交互的效率。同时，由于数据可以在 SM 之间直接共享，寄存器的使用也得到了更加合理的分配，减少了不必要的浪费。
 
@@ -166,13 +166,13 @@ Turing 架构的第二代 Tensor Core 在距离上一代 Volta 架构仅一年�
 
 ## 第五代 Tensor Core（Blackwell）
 
-为了更好地适应 AI 工作负载的需求，同时提高性能和降低资源消耗。在 Blackwell 架构中，支持了第五代 Tensor Core，继续扩展了对低精度计算范围支持。第五代 Tensor Core 中，能够处理最低至 FP4 精度，并着眼于使用非常低精度的格式进行推理。与上一代 NVIDIA Hopper 相比，有着第五代 Tensor Core 支持的 Blackwell 架构可为 GPT-MoE-1.8 T 等大型模型提供 30 倍的加速。
+为了更好地适应 AI 工作负载的需求，同时提高性能和降低资源消耗。在 Blackwell 架构中，支持了第五代 Tensor Core，继续扩展了对低精度计算范围支持。第五代 Tensor Core 中，能够处理最低至 FP4 精度，并着眼于使用非常低精度的格式进行推理。与上一代英伟达 Hopper 相比，有着第五代 Tensor Core 支持的 Blackwell 架构可为 GPT-MoE-1.8 T 等大模型提供 30 倍的加速。
 
-此外，为了应对那些 FP4 精度不足以满足的工作负载，第五代 Tensor Core 还增加了对 FP6 精度的兼容。虽然 FP6 精度在计算性能上并不比 FP8 有显著提升——因为它在 NVIDIA 的张量核心中本质上仍然是以类似 FP8 的方式进行操作——但由于数据大小缩小了 25%，它在内存占用和带宽需求方面带来了显著的优势。
+此外，为了应对那些 FP4 精度不足以满足的工作负载，第五代 Tensor Core 还增加了对 FP6 精度的兼容。虽然 FP6 精度在计算性能上并不比 FP8 有显著提升，因为它在英伟达的张量核心中本质上仍然是以类似 FP8 的方式进行操作，但由于数据大小缩小了 25%，它在内存占用和带宽需求方面带来了显著的优势。
 
 对于大型语言模型（LLM）的推理任务而言，内存容量依然是这些加速器所面临的主要限制。因此，在推理过程中降低内存使用量成为了一个亟待解决的问题。通过采用低精度格式如 FP4 和 FP6，可以在保持推理质量的同时，有效减少内存消耗，这对于提升 LLM 推理的效率和可行性至关重要。
 
-此外，第五代 Tensor Core 还支持社区定义的微缩放格式 MX（Microscaling） Format ，它是一种精度调整技术，相比一般的 scalar format （比如 FP32, FP16），MX Format 的粒度更高，多个 scalar 构成一组数据（vector format），它允许模型在保持相对高精度的同时减少计算资源的消耗。
+此外，第五代 Tensor Core 还支持社区定义的微缩放格式 MX（Microscaling）Format ，它是一种精度调整技术，相比一般的 scalar format （比如 FP32, FP16），MX Format 的粒度更高，多个 scalar 构成一组数据（vector format），它允许模型在保持相对高精度的同时减少计算资源的消耗。
 
 MX Format 的核心特点是其由两个主要部分组成：scale（X）和 element（P）。在这种格式中，k 个 element 共享一个相同的 scale。Element 的定义是基于 scalar format，如 FP32、FP16 等。这种设计允许在保持一定精度的同时，通过共享 scale 来减少存储需求和计算开销。此外，我们可以将 MX Format 视为一种不带 shift 的量化方法。量化是一种将连续或高精度数据转换为低精度表示的技术，通常用于减少模型大小和加速推理过程。MX Format 通过引入 block size k 来定义量化的粒度，即每个 block 中的 element 数量。
 
@@ -180,22 +180,16 @@ ze 通常设置为 32，这意味着每个 scale 会影响 32 个 element。MX F
 
 此外，Blackwell 架构，进一步支持了第二代 Transformer 引擎。第二代 Transformer 引擎与第五代 Tensor Core 技术与 TensorRT-LLM 和 NeMo 框架创新相结合，加速大语言模型 (LLM) 和专家混合模型 (MoE) 的推理和训练，可将性能和效率翻倍，同时为当前和新一代 MoE 模型保持高精度。
 
-## 小结与讨论
+## 小结与思考
 
-经过上述探讨，我们可以对历代的 Tensor Core 进行一个简要的总结。Tensor Core 的演进主要带来了三大关键提升。
+- 英伟达 GPU 架构自 Volta 起引入 Tensor Core 后，历经五代演进，每代都通过技术创新如 TMA 和分布式共享内存，显著提升了 AI 计算的效率和性能。
 
-![Tensor Core 性能提升](images/02HistoryTC14.png)
+- 五代 Tensor Core 的演进反映了英伟达对深度学习硬件支持的不断加强，特别是对低精度计算和大规模矩阵运算的优化，为 AI 训练和推理提供了更高效的硬件基础。
 
-首先，是内存能力的提升，有效地打破了所谓的“内存墙”。随着技术的不断进步，Tensor Core 在处理大规模数据时，能够更高效地利用和管理内存资源，从而显著提升了计算性能。
-
-其次，Tensor Core 在 SM 内部支持了更多样化的数据格式。从最初的帕斯卡标准的 FP16，到现在支持的 TF32、IP8、IP4 等多种数据格式，这一变化不仅丰富了数据处理的方式，也使得 Tensor Core 能够更灵活地应对各种计算需求。
-
-最后，随着硬件架构的升级，对应的软件编程模式也发生了相应的调整。为了充分利用新的硬件特性，CUDA 编程模式也进行了相应的优化和创新，使得软件能够更高效地与硬件协同工作，从而进一步提升计算性能。
-
-综上所述，Tensor Core 的历代演进不仅在硬件层面实现了显著的提升，也在软件层面带来了更为丰富和高效的编程模式。这些进步共同推动了高性能计算领域的发展，使得我们能够更好地应对日益复杂的计算挑战。
+- Blackwell 架构的第五代 Tensor Core 通过支持 FP4 和 FP6 精度计算，以及引入第二代 Transformer 引擎，展现了英伟达面向未来 AI 工作负载需求的前瞻性设计，进一步推动了生成式人工智能和大型语言模型的发展。
 
 ## 本节视频
 
 <html>
-<iframe src="https://www.bilibili.com/video/BV1pL41187FH/?vd_source=997b612028a4d9f90d4179eb93284d60" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=443349118&bvid=BV1pL41187FH&cid=1118167796&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

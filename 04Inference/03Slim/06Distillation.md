@@ -8,7 +8,7 @@ Knowledge Distillation(KD)最初由 Hinton 在文章“Distilling the Knowledge 
 
 知识蒸馏算法由三部分组成，分别是知识（Knowledge）、蒸馏算法（Distillation algorithm）、师生架构（Teacher-student architecture）。一般的师生架构如下图所示。
 
-![知识蒸馏架构](../03Slim/images/distill01.png)
+![知识蒸馏架构](images/distill01.png)
 ===== 图片地址有错哦，另外图片统一改为 03Distillation01.pn 这种哈
 
 通常，教师网络会比学生网络大，通过知识蒸馏的方法将教师网络的知识转移到学生网络，因此，蒸馏学习可以用于压缩模型，将大模型变成小模型。另外，知识蒸馏的过程需要数据集，这个数据集可以是用于教师模型预训练的数据集，也可以是额外的数据集。
@@ -19,14 +19,14 @@ Knowledge Distillation(KD)最初由 Hinton 在文章“Distilling the Knowledge 
 
 知识的类型可以分为四类，主要有 Response-based、Feature-based、Relation-based 三种，而 Architecture-based 类型很少。
 
-![知识类型](../03Slim/images/distill03.png)
+![知识类型](images/distill03.png)
 ===== 图片地址有错哦，另外图片统一改为 03Distillation01.pn 这种哈
 
 ### response-based knowledge
 
 当知识蒸馏对这部分知识进行转移时，学生模型直接学习教师模型输出层的特征。通俗的说法就是老师充分学习知识后，直接将结论告诉学生。假设张量 $z_t$ 为教师模型的输出，张量 $z_s$ 为学生模型的输出，这里的输出都是指模型最后一层的输出，蒸馏学习的目标是让 $z_s$ 模仿 $z_t$，降低下图中的 distillation loss。
 
-![Response-based knowledge](../03Slim/images/distill04.png)
+![Response-based knowledge](images/distill04.png)
 ===== 图片地址有错哦，另外图片统一改为 03Distillation01.pn 这种哈
 
 ### feature-based knowledge
@@ -34,7 +34,7 @@ Knowledge Distillation(KD)最初由 Hinton 在文章“Distilling the Knowledge 
 上面一种方法学习目标非常直接，学生模型直接学习教师模型的最后预测结果。考虑到深度神经网络善于学习不同层级的特征，教师模型的中间层的特征激活也可以作为学生模型的学习目标，对 Response-based knowledge 形成补充。
 下面是 Feature-based knowledge 的知识迁移过程。
 
-![Feature-based knowledge](../03Slim/images/distill05.png)
+![Feature-based knowledge](images/distill05.png)
 ===== 图片地址有错哦，另外图片统一改为 03Distillation01.pn 这种哈
 
 虽然基于特征的知识转移为学生模型的学习提供了更多信息，但由于学生模型和教师模型的结构不一定相同，如何从教师模型中选择哪一层特征激活（提示层），从学生模型中选择哪一层（引导层）模仿教师模型的特征激活，是一个需要探究的问题。
@@ -45,14 +45,14 @@ Knowledge Distillation(KD)最初由 Hinton 在文章“Distilling the Knowledge 
 
 上述两种方法都使用了教师模型中特定网络层中特征的输出，而基于关系的知识进一步探索了各网络层输出之间的关系或样本之间的关系。例如将教师模型中两层 feature maps 之间的 Gram 矩阵（网络层输出之间的关系）作为知识，或者将样本在教师模型上的特征表示的概率分布（样本之间的关系）作为知识。
 
-![Feature-based knowledge](../03Slim/images/distill06.png)
+![Feature-based knowledge](images/distill06.png)
 ===== 图片地址有错哦，另外图片统一改为 03Distillation01.pn 这种哈
 
 ## 知识蒸馏方式
 
 知识蒸馏的方式一般分为三种：offline distillation，online distillation，self-distillation。
 
-![知识蒸馏方式](../03Slim/images/distill07.png)
+![知识蒸馏方式](images/distill07.png)
 ===== 图片地址有错哦，另外图片统一改为 03Distillation01.pn 这种哈
 
 ### offline distillation
@@ -131,14 +131,9 @@ $$\mathcal{L}_{hard} = -\sum_j c_j log(q_j)$$
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=778337476&bvid=BV1My4y197Tf&cid=979176124&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
-## 参考文献
-
-1. Jianping Gou et al. Knowledge Distillation: A Survey. https://doi.org/10.1007/s11263-021-01453-z
-2. Hinton et al. Distilling the Knowledge in a Neural Network. http://arxiv.org/abs/1503.02531
-3. Longhui Wei et al. Circumventing outlier of autoaugment with knowledge distillation.  https://doi.org/10.1007/978-3-030-58580-8_36
-4. Caruana et al. Model compression. https://doi.org/10.1145/1150402.1150464
-5. 模型压缩（上）--知识蒸馏（Distilling Knowledge）https://www.jianshu.com/p/a6d87b338bcf
-6. DeiT：注意力也能蒸馏 https://www.cnblogs.com/ZOMI/p/16496326.html
+<html>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=308275683&bvid=BV1vA411d7MF&cid=980464383&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</html>
