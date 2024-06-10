@@ -146,7 +146,7 @@ def foo2(s: Tensor) -> Tensor:
 
 - 动静转换技术面临的挑战包括控制流的准确表示、类型推断的复杂性以及硬件和后端实现的限制，但这些技术的发展极大地提升了 AI 算法的开发效率和产品的便利性。
 
-## 视频
+## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=303892102&bvid=BV17P41177Pk&cid=911665293&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

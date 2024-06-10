@@ -88,6 +88,23 @@
 
 ## 三. AI 编译器
 
+1. https://llvm.org/docs/Passes.html
+2. https://getting-started-with-llvm-core-libraries-zh-cn.readthedocs.io/zh-cn/latest/ch04.html
+
+1. https://zh.wikipedia.org/wiki/三位址碼
+2. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_quick_primer.html
+3. https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
+4. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_ssa.html
+5. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/design_hints.html
+6. [简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
+1. https://www.youtube.com/watch?v=4HgShra-KnY
+2. https://www.modular.com
+3. https://scottamain.github.io/xla
+4. https://jax.readthedocs.io
+5. https://www.TensorFlow.org
+6. https://tvm.apache.org/
+7. https://julialang.org/
+
 此外，c 语言中常见的操作还有对数组和结构体的操作，内置函数和外部函数的引用等，更深一步的内容可以参考[简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
 1. https://zh.wikipedia.org/wiki/三位址碼
 2. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_quick_primer.html

@@ -284,15 +284,16 @@ Winograd 算法虽然通过减少乘法次数来提高计算速度，但加法�
 
 ## 小结与思考
 
-======== TODO ZOMI
+- Winograd 算法优化原理：通过减少乘法操作的数量，增加加法操作，利用卷积核和输入数据的变换矩阵，将卷积运算转换为更少乘法次数的等价形式，从而加速卷积计算。
+
+- Winograd 算法实现步骤包括输入卷积核的变换、输入数据的变换、中间矩阵的计算，以及最终卷积结果的计算，涉及特定的矩阵乘法和元素乘积（Hadamard product）。
+
+- Winograd 算法适用于特定的卷积核和分块尺寸，对于大规模卷积核或大尺寸分块，转换矩阵的规模和计算精度损失可能会降低算法效率。
+
+- 在实际应用中，Winograd 算法可以与空间组织算法结合，通过分块处理和卷积核的预编译，优化计算过程，尤其适用于小型卷积核如 $3×3$。
 
 ## 本节视频
 
-=========== TODO ZOMI
 <html>
-<iframe src="https://www.bilibili.com/video/BV1Ys4y1o7XW/?spm_id_from=333.788&vd_source=096daa038c279ccda6e4f8c5eea82de7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-</html>
-
-<html>
-<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=651712557&bvid=BV1Ze4y1c7Bb&cid=1003817481&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=567780450&bvid=BV1vv4y1Y7sc&cid=1034419206&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

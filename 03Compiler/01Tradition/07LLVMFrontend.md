@@ -296,10 +296,5 @@ Pass 类是实现优化的主要资源。然而，我们从不直接使用它，
 ## 本节视频
 
 <html>
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=390513023&bvid=BV1vd4y1t7vS&cid=903052026&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="http://player.bilibili.com/player.html?isOutside=true&aid=390513023&bvid=BV1vd4y1t7vS&cid=903052026&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 引用
-
-1. https://llvm.org/docs/Passes.html
-2. https://getting-started-with-llvm-core-libraries-zh-cn.readthedocs.io/zh-cn/latest/ch04.html

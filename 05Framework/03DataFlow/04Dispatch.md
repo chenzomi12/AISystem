@@ -188,7 +188,7 @@ Kernel 主要是算子的计算模块，但是别忘记了在深度学习中，�
 
 - PyTorch 中的算子执行涉及两次调度，首先是选择具体实现函数，然后是选择具体的 Kernel 执行操作，整个过程由 Autograd 模块支持自动求导。
 
-## 视频
+## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=731435786&bvid=BV1hD4y1k7Ty&cid=911663481&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

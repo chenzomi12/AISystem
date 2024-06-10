@@ -34,11 +34,7 @@ DNN 部署的硬件平台越来越多样化，包括 CPU、GPU、FPGA 和 ASIC�
 
 ## AutoTVM 介绍
 
-AutoTVM[^1]是 TVM 的第一代自动调优系统，其是基于模板的。
-
-其总体流程如下图：
-
-![img](images/06AutoTuning01.jpg)
+AutoTVM 是 TVM 的第一代自动调优系统，其是基于模板的。
 
 ### 编写模板
 
@@ -139,7 +135,7 @@ AutoTVM 有多个 tuner，根据 index 的 random tuner 和 grid tuner、基于�
 
 ## Ansor 介绍
 
-AutoTVM 需要事先编写模板来组成调度的搜索空间，最佳性能的上限取决于模板的设计，这对模板的编写带来了很高的要求。作为第二代调优系统，Ansor[^2]（Auto Scheduler）取消了模板机制，优化过程可以自动、无干预的进行：无需手动指定优化方式，编译器自动应用调度原语。
+AutoTVM 需要事先编写模板来组成调度的搜索空间，最佳性能的上限取决于模板的设计，这对模板的编写带来了很高的要求。作为第二代调优系统，Ansor（Auto Scheduler）取消了模板机制，优化过程可以自动、无干预的进行：无需手动指定优化方式，编译器自动应用调度原语。
 
 Ansor 自动生成一个覆盖全面的优化的大搜索空间，并为空间中的每个张量程序提供被选择的机会。首先，它自动构建一个大的搜索空间，以覆盖给定计算定义的尽可能多的张量程序。其次，在大搜索空间中高效搜索，该搜索空间可能比现有模板可以覆盖的范围大几个数量级。最后，在优化具有许多子图的整个 DNN 时，识别对端到端性能至关重要的子图并对其进行优先级排序，因为资源是有限的，应该将调优时间和算力资源分配给对性能有更大影响的子图。
 
@@ -187,7 +183,7 @@ Ansor 也存在诸多限制，例如不能对动态形状的图进行优化，�
 
 ## Meta Scheduler 介绍
 
-Meta Schedule[^3]是第三代调优系统，在它之前，TVM 存在三套生成调度的 API：
+Meta Schedule 是第三代调优系统，在它之前，TVM 存在三套生成调度的 API：
 
 + 手动调度：开发人员利用调度原语手动优化程序，程序性能高度依赖开发者的经验。
 
@@ -234,5 +230,5 @@ Meta Schedule 提供了多种内置的探索策略，可以详尽或高效地进
 ## 本节视频
 
 <html>
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=307179697&bvid=BV1uA411D7JF&cid=949212038&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=307179697&bvid=BV1uA411D7JF&cid=949212038&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

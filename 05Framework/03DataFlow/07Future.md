@@ -79,7 +79,7 @@ AI 框架的设计很自然地沿用了张量和张量操作，将其作为构�
 
 - 面向未来，计算图面临着图表示、大数据融合、部署推理和科学计算等新挑战和应用场景，需要进一步发展以满足更复杂的数据处理需求和多尺度问题的求解。
 
-## 视频
+## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=688995055&bvid=BV1hm4y1A7Nv&cid=911668368&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

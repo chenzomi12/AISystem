@@ -335,7 +335,7 @@ MindSpore Lite 提供了一套注册机制，允许用户基于转换工具进�
 | 代码生成工具 | 有（生成代码量较多）   | 有（生成代码量较少）|
 | 协议字段类型 | bool, bytes, int32, int64, uint32, uint64, sint32, sint64, fixed32, fixed64, sfixed32, sfixed64, float, double, string | bool, int8, uint8, int16, uint16, int32, uint32, int64, uint64, float, double, string, vector |
 
-## 小结
+## 小结与思考
 
 - 模型序列化：模型序列化是将训练好的模型从内存中保存到硬盘上，以供将来使用的必要步骤，涉及将模型的参数、结构等信息存储到文件中。
 

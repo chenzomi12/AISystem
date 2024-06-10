@@ -221,13 +221,3 @@ TensorFlow 可以更好的应用于工业生产环境，因为它可以利用到
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=390568348&bvid=BV1cd4y1b7ho&cid=903537014&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 引用
-
-1. https://www.youtube.com/watch?v=4HgShra-KnY
-2. https://www.modular.com
-3. https://scottamain.github.io/xla
-4. https://jax.readthedocs.io
-5. https://www.TensorFlow.org
-6. https://tvm.apache.org/
-7. https://julialang.org/

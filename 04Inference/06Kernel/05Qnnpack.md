@@ -208,15 +208,14 @@ $$ \[ \left\lceil \frac{OH \times OW}{M} \right\rceil \times \left\lceil \frac{O
 
 ## 小结与思考
 
-======== TODO ZOMI
+- QNNPACK 是一种为量化神经网络设计的加速库，通过间接卷积算法优化移动设备上的计算性能。
+
+- QNNPACK 利用量化技术减少模型大小和内存需求，同时通过避免不必要的内存转换和优化内存访问模式提升效率。
+
+- QNNPACK 的间接卷积算法通过使用间接缓冲区和 PDOT 微内核，有效解决了传统卷积运算中的内存消耗和缓存效率问题。
 
 ## 本节视频
 
-=========== TODO ZOMI
 <html>
-<iframe src="https://www.bilibili.com/video/BV1Ys4y1o7XW/?spm_id_from=333.788&vd_source=096daa038c279ccda6e4f8c5eea82de7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-</html>
-
-<html>
-<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=651712557&bvid=BV1Ze4y1c7Bb&cid=1003817481&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=992873862&bvid=BV1ms4y1o7ki&cid=1034431308&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

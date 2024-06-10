@@ -246,7 +246,7 @@ loss.backward() 调用后，依次发生以下计算过程：
 
 - AI 框架中的自动微分通常采用动态计算图或静态计算图的方式，动态图易于调试和支持灵活的网络结构调整，而静态图在执行效率和内存优化方面表现更优。
 
-## 视频
+## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=688904932&bvid=BV1S24y197FU&cid=911589985&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

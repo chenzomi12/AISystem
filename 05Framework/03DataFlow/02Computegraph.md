@@ -237,7 +237,7 @@ tensor([[4.5000]])
 
 - PyTorch 中的计算图是动态的，正向传播即时执行，反向传播后计算图销毁，支持通过自定义 Function 来扩展新的操作，结合正向和反向逻辑实现自动微分。
 
-## 视频
+## 本节视频
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=346347233&bvid=BV1rR4y197HM&cid=911588326&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

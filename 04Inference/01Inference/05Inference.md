@@ -560,9 +560,9 @@ for (auto& result : results) {
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1Mx4y137Er&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=990231519&bvid=BV1Mx4y137Er&cid=961999806&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1FG4y1C7Mn&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=862797903&bvid=BV1FG4y1C7Mn&cid=964527046&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

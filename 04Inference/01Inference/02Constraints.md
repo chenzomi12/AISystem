@@ -301,7 +301,7 @@ IR（中间表示）作为模型的标准化呈现，它在确保模型能在不
 
 Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负责实际执行通过 Runtime 调度过来的模型。该部分专注于硬件级别的深度优化，利用诸如 NEON、CUDA、Vulkan 等高性能计算库，旨在显著提升推理速度。这些库针对不同硬件平台提供了精细优化后的算法和数据结构，从而最大限度地发挥硬件的性能潜力。在此环节，特别关注如何进一步提高算子的执行效率，确保整体推理性能达到最佳状态。
 
-## 小节
+## 小节与思考
 
 - AI 生命周期流程，包括、数据准备、模型训练、推理以及模型部署这几个组成部分；
 
@@ -312,5 +312,5 @@ Kernel（Hardware Level Optimize）部分是整个流程的关键环节，它负
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1nY4y1f7G5&as_wide=1&high_quality=2&danmaku=0&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=650120453&bvid=BV1nY4y1f7G5&cid=957583131&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

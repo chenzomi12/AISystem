@@ -174,13 +174,14 @@ $$
 
 ## 小结与思考
 
+- m2Col 优化原理通过将卷积操作转换为矩阵乘法，减少内存访问次数，提高计算效率。Caffe 等早期深度学习框架利用此方法优化卷积计算。
+
+- Im2Col 将输入数据重排为连续的二维矩阵，然后通过矩阵乘法（GEMM）实现卷积计算，适用于各种卷积参数，与 Matmul 性能相当。
+
+- 空间组合优化算法通过特定的数据组合和重排，减少计算和内存访问复杂性，提高推理效率。
+
 ## 本节视频
 
-=========== TODO ZOMI
 <html>
-<iframe src="https://www.bilibili.com/video/BV1Ys4y1o7XW/?spm_id_from=333.788&vd_source=096daa038c279ccda6e4f8c5eea82de7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-</html>
-
-<html>
-<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=651712557&bvid=BV1Ze4y1c7Bb&cid=1003817481&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=992855878&bvid=BV1Ys4y1o7XW&cid=1032961239&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

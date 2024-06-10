@@ -48,7 +48,7 @@ $$
 
 矩阵乘作为 AI 模型中的重要性能算子，CPU 和 GPU 的平台上都有专门对其进行优化实现的库函数。比如 CPU 的 OpenBLAS, Intel MKL 等，GPU 的 cuBLAS, cuDNN 等。实现的方法主要有 Loop 循环优化 (Loop Tiling)和多级缓存 (Memory Hierarchy)。
 
-其两者的实现逻辑大概分为如下 2 步，关于 Kernel 实现优化的技术细节将在[推理引擎](https://www.bilibili.com/video/BV1Ze4y1c7Bb/?spm_id_from=333.788&vd_source=e743fa4e1793ba5e810b504e33c4a426)章节进一步展开。
+其两者的实现逻辑大概分为如下 2 步，关于 Kernel 实现优化的技术细节在[推理引擎]章节进一步展开。
 
 1.  Lib 感知相乘矩阵的 Shape
 2. 选择最优的 Kernel 实现来执行
