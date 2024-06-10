@@ -2,7 +2,7 @@
 
 ## Sphinx 环境安装
 
-AI 系统项目部署在 Github 是依赖于 sphinx 工具实现的。因此我们首先要安装 sphinx。在MacOS中，可以使用 Homebrew 、 MacPorts 或者 Anaconda 之类的Python发行版安装Sphinx。
+AI 系统项目部署在 Github 是依赖于 sphinx 工具实现的。因此我们首先要安装 sphinx。在 MacOS 中，可以使用 Homebrew 、 MacPorts 或者 Anaconda 之类的 Python 发行版安装 Sphinx。
 
 ```bash
 brew install sphinx-doc
@@ -76,7 +76,7 @@ import os
 from urllib.request import urlopen
 from pathlib import Path
 
-project = "AISystem & AIInfra (AI系统原理)"
+project = "AISystem & AIInfra (AI 系统原理)"
 language = "cn"  # For testing language translations
 master_doc = "index"
 

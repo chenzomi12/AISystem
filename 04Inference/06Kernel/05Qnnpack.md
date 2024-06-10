@@ -4,8 +4,8 @@
 
 QNNPACK（Quantized Neural Networks PACKage 是 Marat Dukhan (Meta) 开发的专门用于量化神经网络计算的加速库，其卓越的性能表现一经开源就击败了几乎全部已公开的加速算法。到目前为止，QNNPACK 仍然是已公开的，用于移动端（手机）的，性能最优的量化神经网络加速库。本节将会深入介绍 QNNPACK 算法的实现过程。
 
-======== 需要继续优化，图片请引用 PPT 里面的图片，不要网上找，有好几个图片PPT 都已经重绘优化过的。
-======== 具体的计算公式和计算内容详细展开请参考连接，进行补充哈，特别是 Repacking 和 Indirection部分：
+======== 需要继续优化，图片请引用 PPT 里面的图片，不要网上找，有好几个图片 PPT 都已经重绘优化过的。
+======== 具体的计算公式和计算内容详细展开请参考连接，进行补充哈，特别是 Repacking 和 Indirection 部分：
 https://aijishu.com/a/1060000000116424
 https://zhuanlan.zhihu.com/p/81026071
 https://zhenhuaw.me/blog/2019/reveal-qnnpack-implementation.html
@@ -64,7 +64,7 @@ Marat Dukhan 于 2019 年离开 Meta 来到谷歌之后，发表了一篇名为 
 
 量化公式即可以表示如下：
 
-给定一个浮点数 𝑟 和相应的缩放因子 scale 和零点 zeropoint，量化过程可以表示为：
+给定一个浮点数 r 和相应的缩放因子 scale 和零点 zeropoint，量化过程可以表示为：
 
 $$ q = round(r/scale) + zeropoint $$
 
@@ -178,7 +178,7 @@ $$ KH × (M + 2(KW-1)) × IC $$
 
 图中将平面缓冲区展示为三维的形式（引入 IC 维度），意在说明间接缓冲区的每个指针可索引 IC 个输入元素，而每个间接缓冲区索引的内容即为与权重对应的输入内存区域。
 
-间接缓冲区如下图中部下方的排布图所示。 A、B、C、D 四个缓冲区内部相同空间位置的指针被组织到了一起并横向排布。值得注意的是，图例中 Stride 为 1，当 Stride 不为 1 时，重新组织后 A、B、C、D 相同空间的坐标（对应于在输入的坐标）不一定是连续的，相邻的空间位置横向坐标相差 strdie 大小。
+间接缓冲区如下图中部下方的排布图所示。A、B、C、D 四个缓冲区内部相同空间位置的指针被组织到了一起并横向排布。值得注意的是，图例中 Stride 为 1，当 Stride 不为 1 时，重新组织后 A、B、C、D 相同空间的坐标（对应于在输入的坐标）不一定是连续的，相邻的空间位置横向坐标相差 strdie 大小。
 
 现在来分析如何使用间接缓冲区完成计算。间接缓冲区使得可以通过指针模拟出对输入的访存。在实际运行计算尺寸为 M × N 的计算核时，会有 M 个智障扫描输入。M 个指针每次从间接缓冲区中取出 M 个地址，即对应于 M × IC 的输入内存。指针以 M × S 的形式运行，其中 S 在 IC 维度上运动。此部分输入扫描完毕后，这 M 个指针从间接缓冲区中继续取出相应部分的指针，继续对下一轮 M × IC 输入内存进行遍历，每次计算出输出部分的大小为 1/(KH × KW)。当这个过程运行 KH × KW 次后即得到了 M × N 的输出。
 
@@ -208,15 +208,14 @@ $$ \[ \left\lceil \frac{OH \times OW}{M} \right\rceil \times \left\lceil \frac{O
 
 ## 小结与思考
 
-======== TODO ZOMI
+- QNNPACK 是一种为量化神经网络设计的加速库，通过间接卷积算法优化移动设备上的计算性能。
+
+- QNNPACK 利用量化技术减少模型大小和内存需求，同时通过避免不必要的内存转换和优化内存访问模式提升效率。
+
+- QNNPACK 的间接卷积算法通过使用间接缓冲区和 PDOT 微内核，有效解决了传统卷积运算中的内存消耗和缓存效率问题。
 
 ## 本节视频
 
-=========== TODO ZOMI
 <html>
-<iframe src="https://www.bilibili.com/video/BV1Ys4y1o7XW/?spm_id_from=333.788&vd_source=096daa038c279ccda6e4f8c5eea82de7" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-</html>
-
-<html>
-<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=651712557&bvid=BV1Ze4y1c7Bb&cid=1003817481&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=992873862&bvid=BV1ms4y1o7ki&cid=1034431308&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

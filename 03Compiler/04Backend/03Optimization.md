@@ -26,7 +26,7 @@ Roofline 模型是一种用于评估和分析高性能计算平台性能的有�
 
 - 带宽决定“房檐”的斜率（红色线段）
 
-![img](images/03optimization01.jpg)
+![img](images/03Optimization01.png)
 
 - Compute-Bound:  当算子的计算强度大于计算平台的计算强度上限时，算子在当前计算平台上处于计算瓶颈。从充分利用计算平台算力的角度来看，此时算子已经利用了计算平台的全部算力。
 
@@ -34,7 +34,7 @@ Roofline 模型是一种用于评估和分析高性能计算平台性能的有�
 
 在（3,224,224）的输入下，VGG16 模型的前向传播计算量为 15GFLOPs，访存量大约为 600MB，则计算强度为 25FLOPSs/Byte。MobileNet 计算量为 0.5GFLOPs，访存量为 74MB，那么它的计算强度只有 7FLOPs/Byte。在 1080Ti GPU 上，其算力为 11.3TFLOP/s，带宽为 484GB/s，因此该平台的最大计算强度约为 24。
 
-![img](images/03optimization02.webp)
+![img](images/03Optimization02.png)
 
 由上图可以看出，MobileNet 处于 Memory-Bound 区域，在 1080Ti 上的理论性能只有 3.3TFLOPs，VGG 处于 Compute-Bound 区域，完全利用 1080Ti 的全部算力。通过 Roofline 模型，我们可以清晰地看到，当计算量和访存量增加时，性能提升会受到硬件算力和带宽的限制。这种分析对于优化计算密集型和内存带宽密集型应用至关重要，因为它可以帮助开发者识别性能瓶颈，并作出相应的优化策略。
 
@@ -54,7 +54,7 @@ Roofline 模型是一种用于评估和分析高性能计算平台性能的有�
 
 - 指令优化
 
-现代处理器，如 Intel 的 AVX-512 或 ARM 的 SVE，提供了强大的向量处理能力，允许单个指令同时操作多个数据点。通过这种方式，指令优化能够减少指令的数量和执行周期，进而降低延迟并提升性能。此外，针对特定硬件定制的指令集，如 NVIDIA 的 Tensor Cores，可以进一步增强并行处理能力，为深度学习中的张量运算提供专门优化。
+现代处理器，如 Intel 的 AVX-512 或 ARM 的 SVE，提供了强大的向量处理能力，允许单个指令同时操作多个数据点。通过这种方式，指令优化能够减少指令的数量和执行周期，进而降低延迟并提升性能。此外，针对特定硬件定制的指令集，如英伟达的 Tensor Cores，可以进一步增强并行处理能力，为深度学习中的张量运算提供专门优化。
 
 在指令优化中，开发者需要深入理解目标硬件的架构特性，以及如何将这些特性映射到算法实现中。这可能涉及到对现有算法的重新设计，以确保它们能够充分利用硬件的并行处理单元。例如，通过将数据重新排列以适应 SIMD（单指令多数据）架构，或者通过调整算法以利用特定的硬件加速器。除了硬件特性的利用，指令优化还涉及到编译器级别的优化，如自动向量化、指令调度和寄存器分配等。这些编译器技术能够自动识别并应用优化，进一步释放硬件的潜力。
 
@@ -72,7 +72,7 @@ Roofline 模型是一种用于评估和分析高性能计算平台性能的有�
 
 ### TVM 开发算法
 
-TVM 是 OctoML 研发的可扩展、开放的端到端 AI 编译器，用于深度学习模型的优化和部署，目标是减少企业为特定硬件开发和深度学习软件部署所花费的成本和时间。
+TVM 是 OctoML 研发的可扩展、开放的端到端 AI 编译器，用于神经网络模型的优化和部署，目标是减少企业为特定硬件开发和深度学习软件部署所花费的成本和时间。
 
 TVM 极大的发扬了 Halide 的计算与调度思想，将可实现的优化都以调度 API 的方式呈现。相比 Triton，TVM 不局限于 CUDA，支持了更多的后端，并且也易于扩展更多后端。TVM 上一个典型的调度如下：
 
@@ -186,13 +186,12 @@ TVM 当前被多个加速器厂商采用，进行了适应自家硬件的定制�
 
     希姆计算基于 TVM 的 AI 编译器端到端支持希姆一代二代芯片，实现了自定义算子方案，其模型性能接近手写极致。
 
-![image-20240526203405335](images/03optimization03.png)
+![](images/03Optimization03.png)
 
 - 华为 TBE 张量加速引擎
 
     TBE（Tensor Boost Engine）负责执行昇腾 AI 处理器中运行在 AI Core 上的算子，TBE 提供了基于 TVM 框架的自定义算子开发能力，通过 TBE 提供的 API 可以完成相应神经网络算子的开发。
 
-![image-20240526203607467](images/03optimization04.png)
 
 ### Triton 开发算子
 
@@ -200,7 +199,7 @@ Triton 是 OpenAI 研发的专为深度学习和高性能计算任务设计的�
 
 Triton 的核心理念是基于分块的编程范式可以有效促进神经网络的高性能计算核心的构建。CUDA 的编程模型是传统的 SIMT（Single Instruction Multi Thread）GPU 执行模型，在线程的细粒度上进行编程，Triton 是在分块的细粒度上进行编程。例如，在矩阵乘法的情况下，CUDA 和 Triton 有以下不同。
 
-![img](images/03optimization05.webp)
+![img](images/03Optimization04.png)
 
 可以看出 triton 在循环中是逐块进行计算的。这种方法的一个关键优势是，它导致了块结构的迭代空间，相较于现有的 DSL，为程序员在实现稀疏操作时提供了更多的灵活性，同时允许编译器为数据局部性和并行性进行积极的优化。下面是一个使用 Triton 实现矩阵乘法的例子：
 
@@ -234,13 +233,13 @@ Triton 的前端是基于 Python 实现的，这使得用户的学习成本大�
 
 - Layout 抽象：Layout 抽象描述的是计算资源和输入、输出元素的坐标映射关系，主要包括块编码、共享内存编码、切片编码等几类定义，这些编码信息会作为 attribute 附着在一个一个的 Tensor 对象上，来描述这个 Tensor 作为输入或输出时所需满足的映射关系。如果出现一个 Tensor 作为输入和输出时的映射关系不兼容的情况，会再通过插入一些中转 layout 来完成兼容性的适配，代价是可能引入额外的转换开销。
 
-- 优化 Pass：主要包括了 NVIDIA GPU 计算 kernel 优化的一些常见技巧，包括用于辅助向量化访存的[coalescing](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Coalesce.cpp)、用于缓解计算访存差异的[pipeline](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Pipeline.cpp)/[prefetch](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Prefetch.cpp)，用于避免 shared memory 访问 bank-conflict 的[swizzling](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/include/triton/Dialect/TritonGPU/IR/TritonGPUAttrDefs.td%23L47)。用户在开发 Kernel 时，主要关注其业务逻辑，而底层硬件优化的细节由 Trition 编译器实现。对于一些十分精细的优化，使用 Triton 可能就无法实现。
+- 优化 Pass：主要包括了英伟达 GPU 计算 kernel 优化的一些常见技巧，包括用于辅助向量化访存的[coalescing](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Coalesce.cpp)、用于缓解计算访存差异的[pipeline](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Pipeline.cpp)/[prefetch](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Prefetch.cpp)，用于避免 shared memory 访问 bank-conflict 的[swizzling](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/include/triton/Dialect/TritonGPU/IR/TritonGPUAttrDefs.td%23L47)。用户在开发 Kernel 时，主要关注其业务逻辑，而底层硬件优化的细节由 Trition 编译器实现。对于一些十分精细的优化，使用 Triton 可能就无法实现。
 
 在应用场景上，Triton 已经被集成进了多个著名的课程中：
 
 - [jax-ml/jax-triton](https://github.com/jax-ml/jax-triton)：JAX 是一个用于加速数值计算的 Python 库，使用 Triton 编写可以嵌入到 JAX 程序中的自定义 GPU 内核。在 JAX 中可以使用 triton_call 方便的调用 Triton kernel。
 
-- [PyTorch/inductor](https://github.com/pytorch/pytorch/tree/ab148da66cb9433effac90c7bd4930a961481d9/torch/_inductor/triton_ops)：Inductor 在 Triton 的集成方面做得更加全面且务实。Inductor 一共包含三种使用 Triton 的方式， 针对非计算密集算子，基于 Inductor IR，实现了相对通用的[Codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/codegen/triton.py%23L997)的支持。针对 GEMM，基于 Jinja2，通过模式匹配的方式实现了[半定制的 codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/kernel/mm.py%23L27)。针对 Conv，调用[pre-baked Triton kernel](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/triton_ops/conv.py%23L14)，没有提供定制能力。
+- [PyTorch/inductor](https://github.com/pytorch/pytorch/tree/ab148da66cb9433effac90c7bd4930a961481d9/torch/_inductor/triton_ops)：Inductor 在 Triton 的集成方面做得更加全面且务实。Inductor 一共包含三种使用 Triton 的方式，针对非计算密集算子，基于 Inductor IR，实现了相对通用的[Codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/codegen/triton.py%23L997)的支持。针对 GEMM，基于 Jinja2，通过模式匹配的方式实现了[半定制的 codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/kernel/mm.py%23L27)。针对 Conv，调用[pre-baked Triton kernel](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/triton_ops/conv.py%23L14)，没有提供定制能力。
 
 ## 小结与思考
 

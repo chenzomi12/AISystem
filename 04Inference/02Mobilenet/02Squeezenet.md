@@ -22,7 +22,7 @@ SqueezeNet 算法的主要目标是构建轻量参数的 CNN 架构，同时不�
 
 ### Fire 模块
 
-**Fire 模块**组成：主要包括挤压层（squeeze） 和拓展层（expand）；
+**Fire 模块**组成：主要包括挤压层（squeeze）和拓展层（expand）；
 
 - **Squeeze**：只有 1×1 卷积滤波器 ；
 - **Expand**：混合有 1×1 和 3×3 卷积滤波器 ；
@@ -116,8 +116,6 @@ Bottle 模块，加入 Shortcut ,Bottleneck module 和 Low Rank Filter 。改进
 - 将 expand 层的 3x3 卷积替换为 1x3 + 3x1 卷积，同时移除了 expand 层的拼接 1x1 卷积、添加了 1x1 卷积来恢复通道数。
 - 通过两阶段的 squeeze 得到更激进的通道缩减，每个阶段的 squeeze 都将通道数减半。
 
-
-
 ```python
 class Bottle(nn.Module):
     def __init__(self,in_channel,out_channel, stride):
@@ -172,7 +170,6 @@ class Bottle(nn.Module):
 AlexNet96%的参数来自于全连接层，SqueezeNet 和 ResNet 中都只包含一个全连接层。假设输入数据为 $H \times W \times C_{i}$ ，那么最后的全连接层的参数数量为 $H \times W \times C_{i} \times L_{i}$，L 表示输出的类别数。SqueezeNext 在最后一个全连接层之前使用了一个 bottleneck 层，进一步减少了参数数量。
 
 ![SqueezeNext block 结构](images/02Squeezenet04.png)
-
 
 ### 网络结构与实现
 

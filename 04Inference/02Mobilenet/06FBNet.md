@@ -72,8 +72,6 @@ class SupernetLoss(nn.Module):
 
 ```
 
-
-
 #### 搜索算法
 
 论文将搜索空间表示为随机超网，每层包含 9 个表 2 的并行 block。在推理的时候，候选 block 被执行的概率为：
@@ -134,16 +132,11 @@ class MixedOperation(nn.Module):
         return output, latency_to_accumulate
 ```
 
-
-
-
 ### 网络结构
 
-FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。 它采用受 MobileNetv2 启发的基本类型图像模型块，该模型利用深度卷积和反向残差结构（请参阅组件，见下图）。其中，FBNet-A 和 FBNet-B、FBNet-C 的区别在于最后一个卷积的输出 channel 不一样
-
+FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。它采用受 MobileNetv2 启发的基本类型图像模型块，该模型利用深度卷积和反向残差结构（请参阅组件，见下图）。其中，FBNet-A 和 FBNet-B、FBNet-C 的区别在于最后一个卷积的输出 channel 不一样
 
 ![FBNet](images/06.fpnet_03.png)
-
 
 ## FBNet V2
 
@@ -207,7 +200,7 @@ E:为了保留所有搜索到的输入分辨率的感受域，在卷积之前必
 
 此外，注意到可以实现相同的效果，而不需要构造一个更小的张量，具有适当步长的膨胀卷积；进行子采样以避免修改 F 运算。
 
-上面说了在 channel 维度的做法。 在空间维度的做法也是类似的，作者也想构造一种加权和的形式表征不同分辨率的特征图。如图 A 所示，不同分辨率的 tensor 不能直接相加。图 B 说明了在边缘 padding 的方式不行，像素无法对齐。图 C 这种方式会又带来感受野错位的问题：如图 D 所示，Interspersing zero-padding 之后，一个 3x3 的 kenel 有效感受野变成了 2x2。所以图 E 才是作者最终的解决方法：和 F 运算完之后再 padding。
+上面说了在 channel 维度的做法。在空间维度的做法也是类似的，作者也想构造一种加权和的形式表征不同分辨率的特征图。如图 A 所示，不同分辨率的 tensor 不能直接相加。图 B 说明了在边缘 padding 的方式不行，像素无法对齐。图 C 这种方式会又带来感受野错位的问题：如图 D 所示，Interspersing zero-padding 之后，一个 3x3 的 kenel 有效感受野变成了 2x2。所以图 E 才是作者最终的解决方法：和 F 运算完之后再 padding。
 
 ![FBNetV2](images/06.fpnet_06.png)
 
@@ -286,7 +279,6 @@ $$
 def py2_round(x):
     return math.floor(x + 0.5) if x >= 0.0 else math.ceil(x - 0.5)
 
-
 def get_divisible_by(num, divisible_by=8, min_val=None):
     ret = int(num)
     if min_val is None:
@@ -298,7 +290,6 @@ def get_divisible_by(num, divisible_by=8, min_val=None):
     if ret < min_val:
         ret = min_val
     return ret
-
 
 class InvertedResidual(Layer):
     def __init__(self, in_channels, channels, out_channels, kernel_size, stride, act='relu', with_se=True, drop_path=0.0):
@@ -333,7 +324,6 @@ class InvertedResidual(Layer):
             x = self.drop_path(x)
             x += identity
         return x
-
 
 class FBNetV2(Model):
 
@@ -390,14 +380,6 @@ class FBNetV2(Model):
 
 ```
 
-
-
-
-
-
-
-
-
 ## FBNet V3
 
 **FBNetV3**：论文认为目前的 NAS 方法大都只满足网络结构的搜索，而没有在意网络性能验证时的训练参数的设置是否合适，这可能导致模型性能下降。为此，论文提出 JointNAS，在资源约束的情况下，搜索最准确的训练参数以及网络结构。
@@ -420,7 +402,7 @@ A，h，Ω分别表示网络架构、训练策略以及搜索空间；$g_{i}(A)$
 
 ** 粗粒度阶段
 
-粗粒度搜索生成准确率预测器和一个高性能候选网络集,这个 预测 器是 一个 多层 感知 器构 成的 小型 网络，这个预测器是一个多层感知器构成的小型网络这个预测器是一个多层感知器构成的小型网络，包含了两个部分，一个代理预测器，一个是准确率预测器。
+粗粒度搜索生成准确率预测器和一个高性能候选网络集,这个预测器是一个多层感知器构成的小型网络，这个预测器是一个多层感知器构成的小型网络这个预测器是一个多层感知器构成的小型网络，包含了两个部分，一个代理预测器，一个是准确率预测器。
 
 预测器的结构如下图所示，包含一个结构编码器以及两个 head，分别为辅助的代理 head 以及准确率 head。代理 head 预测网络的属性(FLOPs 或参数量等)，主要在编码器预训练时使用，准确率 head 根据训练参数以及网络结构预测准确率，使用代理 head 预训练的编码器在迭代优化过程中进行 fine-tuned。
 
@@ -469,7 +451,6 @@ FBNetV3 的搜索空间包括了训练超参和网络架构。训练超参的搜
 def py2_round(x):
     return math.floor(x + 0.5) if x >= 0.0 else math.ceil(x - 0.5)
 
-
 def get_divisible_by(num, divisible_by=8, min_val=None):
     ret = int(num)
     if min_val is None:
@@ -481,7 +462,6 @@ def get_divisible_by(num, divisible_by=8, min_val=None):
     if ret < min_val:
         ret = min_val
     return ret
-
 
 class InvertedResidual(Layer):
     def __init__(self, in_channels, channels, out_channels, kernel_size, stride, act='relu', with_se=True, drop_path=0.0):
@@ -519,7 +499,6 @@ class InvertedResidual(Layer):
             x = self.drop_path(x)
             x += identity
         return x
-
 
 class FBNetV3(Model):
 
@@ -581,10 +560,6 @@ class FBNetV3(Model):
        
         return x
 ```
-
-
-
-
 
 ## 小结与思考
 

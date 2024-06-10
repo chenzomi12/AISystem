@@ -140,7 +140,7 @@ $$
 
 ### 网络结构
 
-EfficientFormer 一共有 4 个阶段。每个阶段都有一个 Embeding（两个 3x3 的 Conv 组成一个 Embeding） 来投影 Token 长度（可以理解为 CNN 中的 feature map）。EfficientFormer 是一个完全基于 Transformer 设计的模型，并没有集成 MobileNet 相关内容。最后通过 AUTOML 来搜索 MB_3D 和 MB_4D block 相关参数。最后堆叠 block 形成最终网络。
+EfficientFormer 一共有 4 个阶段。每个阶段都有一个 Embeding（两个 3x3 的 Conv 组成一个 Embeding）来投影 Token 长度（可以理解为 CNN 中的 feature map）。EfficientFormer 是一个完全基于 Transformer 设计的模型，并没有集成 MobileNet 相关内容。最后通过 AUTOML 来搜索 MB_3D 和 MB_4D block 相关参数。最后堆叠 block 形成最终网络。
 
 **代码**
 
@@ -335,7 +335,7 @@ EfficientFormerV2 相对于 EfficientFormer 的主要改进如下图所示。
 
 通过统一的 FFN 和删除残差连接的 token mixer，V2 检查来自 EfficientFormer 的搜索空间是否仍然足够，特别是在深度方面。论文改变了网络深度（每个阶段中的 block 数）和宽度（通道数），并发现更深和更窄的网络会带来更好的精度（0.2%的改进）、更少的参数（0.3M 的减少）和更少的耗时（0.1ms 的加速），如上表所示。因此，论文将此网络设置为新的基线（精度 80.5%），以验证后续的设计修改，并为架构搜索提供更深入的超网络。
 
-此外，具有进一步缩小的空间分辨率（1/64）的 5 阶段模型已广泛用于有效的 ViT 工作。为了证明是否应该从一个 5 阶段超网络中搜索，论文在当前的基线网络中添加了一个额外的阶段，并验证了性能增益和开销。值得注意的是，尽管考虑到小的特征分辨率，计算开销不是一个问题，但附加阶段是参数密集型的。因此需要缩小网络维度（深度或宽度），以将参数和延迟与基线模型对齐，以便进行公平比较。如上表所示，尽管节省了 MACs（0.12G），但 5 阶段模型的最佳性能在更多参数（0.39M）和延迟开销（0.2ms）的情况下意外降至 80.31%。这符合我们的直觉，即五阶段计算效率高，但参数密集。鉴于 5 阶段网络无法在现有的规模和速度范围内引入更多潜力，论文坚持 4 阶段设计。这一分析也解释了为什么某些 ViT 在 MACs 精度方面提供了出色的 Pareto curve，但在大小上往往非常冗余。作为最重要的一点，优化单一度量很容易陷入困境。
+此外，具有进一步缩小的空间分辨率（1/64）的 5 阶段模型已广泛用于有效的 ViT 工作。为了证明是否应该从一个 5 阶段超网络中搜索，论文在当前的基线网络中添加了一个额外的阶段，并验证了性能增益和开销。值得注意的是，尽管考虑到小的特征分辨率，计算开销不是一个问题，但附加阶段是参数密集型的。因此需要缩小网络维度（深度或宽度），以将参数和延迟与基线模型对齐，以便进行公平比较。如上表所示，尽管节省了 MACs（0.12G），但 5 阶段模型的最佳性能在更多参数（0.39M）和延迟开销（0.2ms）的情况下意外降至 80.31%。这符合直觉，即五阶段计算效率高，但参数密集。鉴于 5 阶段网络无法在现有的规模和速度范围内引入更多潜力，论文坚持 4 阶段设计。这一分析也解释了为什么某些 ViT 在 MACs 精度方面提供了出色的 Pareto curve，但在大小上往往非常冗余。作为最重要的一点，优化单一度量很容易陷入困境。
 
 **代码**
 
@@ -527,7 +527,7 @@ class Attention4D(torch.nn.Module):
 ```
 
 ```python
-#AttnFFN（Local Global 模块） 
+#AttnFFN（Local Global 模块）
 class AttnFFN(nn.Module):
     def __init__(self, dim, mlp_ratio=4.,
                  act_layer=nn.ReLU, norm_layer=nn.LayerNorm,
@@ -781,7 +781,7 @@ $$
 
 ### 网络结构
 
-对于模型大小，EfficientFormerV 2-S0 比 EdgeViT-XXS 超出了 1.3%的 top-1 精度，甚至少了 0.6M 参数，比 MobileNetV 2 ×1.0 优于 3.5%的 top-1，参数数量相似。对于大型模型，EfficientFormerV 2-L 模型实现了与最近的 EfficientFormerL 7 相同的精度，同时小 3.1 倍。在速度方面，在延迟相当或更低的情况下，EfficientFormerV2-S2 的性能分别优于 UniNet-B1，EdgeViT-S 和 EfficientFormerL 1，分别为 0.8%，0.6%和 2.4%。 EiffcientFormer V2-S1 的效率分别比 MobileViT-XS、EdgeViT-XXS 和 EdgeViTXS 高出 4.2%、4.6%和 1.5%，其中 MES 要高得多。
+对于模型大小，EfficientFormerV 2-S0 比 EdgeViT-XXS 超出了 1.3%的 top-1 精度，甚至少了 0.6M 参数，比 MobileNetV 2 ×1.0 优于 3.5%的 top-1，参数数量相似。对于大模型，EfficientFormerV 2-L 模型实现了与最近的 EfficientFormerL 7 相同的精度，同时小 3.1 倍。在速度方面，在延迟相当或更低的情况下，EfficientFormerV2-S2 的性能分别优于 UniNet-B1，EdgeViT-S 和 EfficientFormerL 1，分别为 0.8%，0.6%和 2.4%。EiffcientFormer V2-S1 的效率分别比 MobileViT-XS、EdgeViT-XXS 和 EdgeViTXS 高出 4.2%、4.6%和 1.5%，其中 MES 要高得多。
 
 ## 小结与思考
 

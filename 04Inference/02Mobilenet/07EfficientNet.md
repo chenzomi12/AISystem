@@ -46,7 +46,7 @@ $$
 
 通常 ConvNet 的设计焦点在 $F_{i}$，但是这篇文章的焦点，或者说 Model Scaling 的焦点则是在模型的深度（$L_{i}$）、宽度（$C_{i}$）和输入图片的大小（$H_{i}$,$W_{i}$），而不改变在 baseline 中预先定义好的 $F_{i}$。
 
-通过固定 $F_{i}$，简化了对于新资源约束的 Model Scaling 设计问题，但仍然有很大的设计空间来探索每一层的不同 $L_{i}$，$C_{i}$，$H_{i}$，$W_{i}$。为了进一步减小设计空间，作者又限制所有层必须以恒定比率均匀地做 Scaling。我们的目标是在任何给定的资源约束下最大化模型精度，这可以表述为优化问题：
+通过固定 $F_{i}$，简化了对于新资源约束的 Model Scaling 设计问题，但仍然有很大的设计空间来探索每一层的不同 $L_{i}$，$C_{i}$，$H_{i}$，$W_{i}$。为了进一步减小设计空间，作者又限制所有层必须以恒定比率均匀地做 Scaling。目标是在任何给定的资源约束下最大化模型精度，这可以表述为优化问题：
 
 $$
 max_{d,w,r}Accurracy(N(d,w,r))
@@ -146,7 +146,7 @@ class InvertedResidualConfig:
                  index: str,           # 1a, 2a, 2b, ...
                  width_coefficient: float):   # 网络宽度的倍率因子，即 channel 数 xn
         self.input_c = self.adjust_channels(input_c, width_coefficient)
-        self.expanded_c = self.input_c * expanded_ratio  # expanded_ratio： 1 or 6   表示 MBConvm 模块内第一个 1x1 卷积层维度扩展输出的 channel 的扩展因子
+        self.expanded_c = self.input_c * expanded_ratio  # expanded_ratio：1 or 6   表示 MBConvm 模块内第一个 1x1 卷积层维度扩展输出的 channel 的扩展因子
         self.kernel = kernel
         self.out_c = self.adjust_channels(out_c, width_coefficient)
         self.use_se = use_se
