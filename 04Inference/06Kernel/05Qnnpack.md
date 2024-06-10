@@ -4,12 +4,6 @@
 
 QNNPACK（Quantized Neural Networks PACKage 是 Marat Dukhan (Meta) 开发的专门用于量化神经网络计算的加速库，其卓越的性能表现一经开源就击败了几乎全部已公开的加速算法。到目前为止，QNNPACK 仍然是已公开的，用于移动端（手机）的，性能最优的量化神经网络加速库。本节将会深入介绍 QNNPACK 算法的实现过程。
 
-======== 需要继续优化，图片请引用 PPT 里面的图片，不要网上找，有好几个图片 PPT 都已经重绘优化过的。
-======== 具体的计算公式和计算内容详细展开请参考连接，进行补充哈，特别是 Repacking 和 Indirection 部分：
-https://aijishu.com/a/1060000000116424
-https://zhuanlan.zhihu.com/p/81026071
-https://zhenhuaw.me/blog/2019/reveal-qnnpack-implementation.html
-
 ## QNNPACK 算法介绍
 
 Marat Dukhan 于 2019 年离开 Meta 来到谷歌之后，发表了一篇名为 The Indirect Convolution Algorithm 的文章，揭秘了 QNNPack 加速库中针对矩阵卷积运算的核心算法，即如文章标题所示的 The Indirect Convolution Algorithm（间接卷积算法）。
@@ -302,7 +296,7 @@ $$ \[ \left\lceil \frac{OH \times OW}{M} \right\rceil \times \left\lceil \frac{O
 
 在 The Indirect Convolution Algorithm 中作者展示了间接卷积算法、基于 GEMM 的算法以及 ResNet18 和 SqueezeNet 1.0 模型中仅 GEMM 部分的性能。可以看到间接卷积算法性能会明显优于其他算法的性能。
 
-![性能对比](images/QNNPACK06.png)
+![性能对比](images/05QNNPACK07.png)
 
 ## 小结与思考
 
