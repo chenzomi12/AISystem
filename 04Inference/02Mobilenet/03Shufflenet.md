@@ -22,7 +22,7 @@ ShuffleNet V1 网络结构同样沿袭了稀疏连接的设计理念。作者通
 
 因此，在使用分组逐点卷积的同时，需要引入组间信息交换的机制。也就是说，对于第二层卷积而言，每个卷积核需要同时接收各组的特征作为输入，如下图 (b)所示。作者指出，通过引入“通道重排”（channel shuffle，见下图 (c)）可以很方便地实现这一机制；并且由于通道重排操作是可导的，因此可以嵌在网络结构中实现端到端的学习。
 
-![](./images/03Shufflenet01.png)
+![Shufflenet](./images/03Shufflenet01.png)
 
 ### 网络结构
 
@@ -86,7 +86,7 @@ def shuffle_channels(x, groups):
 
 - **逐点分组卷积 ( stride=2 )**。
 
-![](./images/03Shufflenet02.png)
+![Shufflenet](./images/03Shufflenet02.png)
 
 **代码**
 
@@ -215,7 +215,7 @@ class ShuffleNet(nn.Module):
 
 在移动设备中的运行速度不仅仅需要考虑 FLOPs，还需要考虑其他的因素，比如内存访问成本(memory access cost)和平台特点(platform characterics)。所以，ShuffleNet v2 通过控制不同的环境来测试网络在设备上运行速度的快慢，而不是通过 FLOPs 来判断性能指标。
 
-![](./images/03Shufflenet03.png)
+![Shufflenet](./images/03Shufflenet03.png)
 
 因此，ShuffleNetv2 提出了设计应该考虑两个原则：
 
@@ -252,7 +252,7 @@ def split(x, groups):
 
 针对需要进行空间下采样的 block，卷积单元（block）进行了修改，通道切分算子被移除，然后 block 的输出通道数变为两倍，详细信息如下图(d) 所示。
 
-![](./images/03Shufflenet04.png)
+![Shufflenet](./images/03Shufflenet04.png)
 
 **代码**
 
@@ -420,9 +420,9 @@ def shufflenet_v2_x0_5(num_classes=1000):
 
 ## 小结
 
-ShuffleNet v1 的核心就是用一系列的新颖结构达到了减少计算量和提高准确率的目的。ShuffleNet v2 则在 v1 的基础进行了更深入的思考，对于轻量级网络设计应该考虑直接评价指标（速度），而不是间接的指标（ FLOPs）。
+- ShuffleNet v1 的核心就是用一系列的新颖结构达到了减少计算量和提高准确率的目的。ShuffleNet v2 则在 v1 的基础进行了更深入的思考，对于轻量级网络设计应该考虑直接评价指标（速度），而不是间接的指标（ FLOPs）。
 
-通过分析 ShuffleNet 网络模型的推理性能得结合具体的推理平台，目前已知影响推理性能的因素包括: 算子计算量 FLOPs（参数量 Params）、算子内存访问代价（访存带宽）。
+- 通过分析 ShuffleNet 网络模型的推理性能得结合具体的推理平台，目前已知影响推理性能的因素包括: 算子计算量 FLOPs（参数量 Params）、算子内存访问代价（访存带宽）。
 
 ## 本节视频
 
@@ -430,44 +430,4 @@ ShuffleNet v1 的核心就是用一系列的新颖结构达到了减少计算量
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1Y84y1b7xj&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
 
-## 参考文献
 
-1.[François Chollet. Xception: Deep learning with depthwise separable convolutions. arXiv:1610.02357, 2016.](https://openaccess.thecvf.com/content_cvpr_2017/papers/Chollet_Xception_Deep_Learning_CVPR_2017_paper.pdf)
-
-2.[Saining Xie, Ross Girshick, Piotr Dollár, Zhuowen Tu, and Kaiming He. Aggregated residual transformations for deep neural networks. arXiv:1611.05431, 2016.]( https://arxiv.org/abs/1611.05431)
-
-3.[Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 770–778, 2016.](https://arxiv.org/abs/1512.03385)
-
-4.[Howard, Andrew G., et al. "Mobilenets: Efficient convolutional neural networks for mobile vision applications." arXiv preprint arXiv:1704.04861 (2017).](https://arxiv.org/pdf/1704.04861.pdf%EF%BC%89)
-
-5.[Ren, Shaoqing, et al. "Faster R-CNN: Towards real-time object detection with region proposal networks." Advances in neural information processing systems. 2015.](https://arxiv.org/abs/1506.01497)
-
-6.[Liu, Z., Li, J., Shen, Z., Huang, G., Yan, S., Zhang, C.: Learning efficient convolutional networks through network slimming. In: 2017 IEEE International Conference on Computer Vision (ICCV), IEEE (2017) 2755–2763](https://arxiv.org/abs/1708.06519)
-
-7.[Zhang, X., Zou, J., Ming, X., He, K., Sun, J.: Efficient and accurate approximations of nonlinear convolutional networks. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. (2015) 1984–1992](https://ieeexplore.ieee.org/document/7298809/)
-
-8.[Zhang, X., Zou, J., He, K., Sun, J.: Accelerating very deep convolutional networks for classification and detection. IEEE transactions on pattern analysis and machine intelligence 38(10) (2016) 1943–1955](https://ieeexplore.ieee.org/document/7332968/)
-
-9.[Chetlur, S., Woolley, C., Vandermersch, P., Cohen, J., Tran, J., Catanzaro, B.,Shelhamer, E.: cudnn: Efficient primitives for deep learning. arXiv preprint arXiv:1410.0759 (2014)](https://arxiv.org/pdf/1410.0759v3.pdf)
-
-10.[Das, D., Avancha, S., Mudigere, D., Vaidynathan, K., Sridharan, S., Kalamkar,D., Kaul, B., Dubey, P.: Distributed deep learning using synchronous stochastic gradient descent. arXiv preprint arXiv:1602.06709 (2016)](https://arxiv.org/pdf/1602.06709.pdf)
-
-11.[Ioannou, Y., Robertson, D., Cipolla, R., Criminisi, A.: Deep roots: Improving cnn efficiency with hierarchical filter groups. arXiv preprint arXiv:1605.06489 (2016)](https://arxiv.org/abs/1605.06489v1)
-
-12.[Zhang, T., Qi, G.J., Xiao, B., Wang, J.: Interleaved group convolutions for deep neural networks. In: International Conference on Computer Vision. (2017)](https://arxiv.org/abs/1707.02725)
-
-13.[Xie, G., Wang, J., Zhang, T., Lai, J., Hong, R., Qi, G.J.: Igcv 2: Interleaved structured sparse convolutional neural networks. arXiv preprint arXiv:1804.06202(2018)](https://arxiv.org/abs/1804.06202)
-
-14.[Sun, K., Li, M., Liu, D., Wang, J.: Igcv3: Interleaved low-rank group convolutions for efficient deep neural networks. arXiv preprint arXiv:1806.00178 (2018)](https://arxiv.org/abs/1806.00178v2)
-
-15.[Szegedy, C., Ioffe, S., Vanhoucke, V., Alemi, A.A.: Inception-v4, inception-resnet and the impact of residual connections on learning. In: AAAI. Volume 4. (2017)](https://arxiv.org/abs/1602.07261)
-
-16.[Zhang, X., Zou, J., He, K., Sun, J.: Accelerating very deep convolutional networks for classification and detection. IEEE transactions on pattern analysis and machine  intelligence 38(10) (2016) 1943–1955](https://arxiv.org/abs/1505.06798)
-
-17.[Chetlur, S., Woolley, C., Vandermersch, P., Cohen, J., Tran, J., Catanzaro, B.,Shelhamer, E.: cudnn: Efficient primitives for deep learning. arXiv preprint arXiv:1410.0759 (2014)](https://arxiv.org/pdf/1410.0759v3.pdf)
-
-18.[O. Russakovsky, J. Deng, H. Su, J. Krause, S. Satheesh,S. Ma, Z. Huang, A. Karpathy, A. Khosla, M. Bernstein,et al. Imagenet large scale visual recognition challenge.International Journal of Computer Vision, 115(3):211–252,2015.](https://arxiv.org/abs/1409.0575)
-
-19.[S. Zhou, Y. Wu, Z. Ni, X. Zhou, H. Wen, and Y. Zou.Dorefa-net: Training low bitwidth convolutional neural networks with low bitwidth gradients. arXiv preprint arXiv:1606.06160, 2016. 2](https://arxiv.org/abs/1606.06160)
-
-20.[B. Zoph, V. Vasudevan, J. Shlens, and Q. V. Le. Learning transferable architectures for scalable image recognition. arXiv preprint arXiv:1707.07012, 2017. 1,](https://arxiv.org/abs/1707.07012v1)
