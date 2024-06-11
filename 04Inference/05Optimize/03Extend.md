@@ -11,7 +11,7 @@ Extended: 扩展优化仅在运行特定后端，如 CPU、CUDA、NPU  后端�
 
 Layout & Memory: 布局转换优化，主要是不同 AI 框架，在不同的硬件后端训练又在不同的硬件后端执行，数据的存储和排布格式不同。
 
-![工作流程](image/image.png)
+![工作流程](image/03Extend01.png)
 
 最后我们来到了第二个和第三个步骤，除了前面提到的算子替换和算子前移等内容，图优化还包括以下几种常见的优化策略：
 
@@ -39,7 +39,7 @@ Fuse Binary Eltwise：x3 = x1 *b1+x2 *b2，把 BinaryOp Add 转换成 Eltwise Su
 
 Fuse Reduction with Global Pooling：对一个三维 tensor 先后两次分别进行 w 维度的 reduction mean 和 h 维度的 reducetion mean，最终只剩下 c 这个维度，就等于进行了一次 global_mean_pooling
 
-![其他图优化](image/other_graph_optimize.png)
+![其他图优化](image/03Extend02.png)
 
 ### Flash Attention
 
@@ -47,7 +47,7 @@ Fuse Reduction with Global Pooling：对一个三维 tensor 先后两次分别�
 
 这里要特别提及的一篇工作是 FlashAttention。Transformer 结构已成为自然语言处理和图像分类等应用中最常用的架构。尽管 Transformer 在规模上不断增大和加深，但处理更长上下文仍然是一个挑战，因为核心的自注意力模块在序列长度上具有二次方的时间和内存复杂度。这导致在处理长序列时速度变慢且内存需求巨大。
 
-![flashAttention](image/flash_attention.png)
+![flashAttention](image/03Extend03.png)
 
 在传统算法中，一种方式是将 Mask 和 SoftMax 部分融合，以减少访存次数。然而，FlashAttention 则更加激进，它将从输入 Q,K,V 到输出 O 的整个过程进行融合，以避免 S,P 矩阵的存储开销，实现端到端的延迟缩减。
 
@@ -147,7 +147,7 @@ FlashAttention 的优点在于充分考虑了在计算任务中 IO 的重要性�
 
 具体示例如下：
 
-![数据节点转换](image/data_op_transfer.png)
+![数据节点转换](image/03Extend04.png)
 
 内存优化是一种计算机系统优化技术，主要目的是提高系统的运行性能，通过更有效地使用和管理内存资源来达到这个目的。
 
@@ -155,7 +155,7 @@ Inplace operation：是一种内存优化手段，它在当前的内存块上直
 
 Memory sharing：是另一种内存优化策略。它在内存使用上进行优化，当两个数据的内存大小相同，且有一个数据参与计算后不再需要时，我们可以让后一个数据直接覆盖前一个数据的内存。这样做的好处是可以减少内存的开销，节省内存空间，提高内存的使用效率。
 
-![内存优化](image/memory_optimize.png)
+![内存优化](image/03Extend05.png)
 
 ## 小结与思考
 
