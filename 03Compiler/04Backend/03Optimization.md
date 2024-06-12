@@ -242,8 +242,6 @@ Triton 的前端是基于 Python 实现的，这使得用户的学习成本大�
 
 - [PyTorch/inductor](https://github.com/pytorch/pytorch/tree/ab148da66cb9433effac90c7bd4930a961481d9/torch/_inductor/triton_ops)：Inductor 在 Triton 的集成方面做得更加全面且务实。Inductor 一共包含三种使用 Triton 的方式， 针对非计算密集算子，基于 Inductor IR，实现了相对通用的[Codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/codegen/triton.py%23L997)的支持。针对 GEMM，基于 Jinja2，通过模式匹配的方式实现了[半定制的 codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/kernel/mm.py%23L27)。针对 Conv，调用[pre-baked Triton kernel](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/triton_ops/conv.py%23L14)，没有提供定制能力。
 
-
-
 ## Triton实现原理
 
 在没有Triton之前，算子工程师在开发算子时，需要同时处理DRAM、SRAM、计算单元，面临诸多挑战：
