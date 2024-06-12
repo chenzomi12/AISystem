@@ -266,7 +266,7 @@ Optimizer大致工作流如下：
 
 TritonGPU Dialect 相比 Triton Dialect，主要是增加了 GPU 硬件相关的 Op 和 Type。关键Op为数据布局转换。当前有以下几种数据布局：
 
-+   Blocked Layout：表示 thread 间平均分配 workload 的情况，每个线程 o处理 一块 memory 上连续的数据。
++   Blocked Layout：表示 thread 间平均分配 workload 的情况，每个线程处理一块memory上连续的数据。
 +   Shared Layout：表示数据在 shared memory 的一些特性。
 +   MMA Layout：表示 Tensor Core 中 MMA 指令结果的 data layout
 +   DotOperand Layout：表示 Triton 的 DotOp 的输入的 layout
