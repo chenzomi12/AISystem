@@ -12,11 +12,11 @@
 
 标准卷积涉及三个操作：展开+局部处理+折叠，利用 Transformer 将卷积中的局部建模替换为全局建模，这使得 MobileViT 具有 CNN 和 ViT 的性质。MobileViT Block 如下图所示:
 
-![MobileVit](images/09.mobilevit_01.png)
+![MobileVit](images/09Mobilevit01.png)
 
  从上面的模型可以看出，首先将特征图通过一个卷积层，卷积核大小为 $n\times n$，然后再通过一个卷积核大小为 $1\times 1$ 的卷积层进行通道调整，接着依次通过 Unfold、Transformer、Fold 结构进行全局特征建模，然后再通过一个卷积核大小为 $1\times 1$ 的卷积层将通道调整为原始大小，接着通过 shortcut 捷径分支与原始输入特征图按通道 concat 拼接，最后再通过一个卷积核大小为 $n\times n$ 的卷积层进行特征融合得到最终的输出。这里可能会对 folod 和 unfold 感到迷惑，所以这个地方的核心又落到了 global representation 部分(图中中间蓝色字体部分)。
 
-![MobileVit](images/09.mobilevit_02.png)
+![MobileVit](images/09Mobilevit02.png)
 
 我们以单通道特征图来分析 global representation 这部分做了什么，假设 patch 划分的大小为 $2\times 2$，实际中可以根据具体要求自己设置。在 Transformer 中对于输入的特征图，我们一般是将他整体展平为一维向量，在输入到 Transformer 中，在 self-attention 的时候，每个图中的每个像素和其他的像素进行计算，这样计算量就是：
 $$
@@ -34,7 +34,7 @@ $$
 
 我们再来介绍下 unfold 和 fold 到底是什么意思。unfold 就是将颜色相同的部分拼成一个序列输入到 Transformer 进行建模。最后再通过 fold 是拼回去。如下图所示：
 
-![MobileVit](images/09.mobilevit_03.png)
+![MobileVit](images/09Mobilevit03.png)
 
 Local representations 表示输入信息的局部表达。在这个部分，输入 MobileViT Block 的数据会经过一个 $n \times n$ 的卷积块和一个 $1 \times 1$ 的卷积块。
 
@@ -48,30 +48,11 @@ Transformers as Convolutions (global representations) 表示输入信息的全�
 
 在 Fusion 中，经过 Transformers as Convolutions 得到的信息与原始输入信息 $(A ∈ R^{H\times W\times C}) $ 进行合并，然后使用另一个 $n\times n$ 卷积层来融合这些连接的特征。这里得到的信息指的是全局表征 $X_{F}\in R^{H\times W\times C}$
 
-**代码实现**
+**代码**
 
 ```python
 #Mobile Vit 块的实现
 class MobileViTBlock(nn.Module):
-    """
-    This class defines the `MobileViT block <https://arxiv.org/abs/2110.02178?context=cs.LG>`_
-
-    Args:
-        opts: command line arguments
-        in_channels (int): :math:`C_{in}` from an expected input of size :math:`(N, C_{in}, H, W)`
-        transformer_dim (int): Input dimension to the transformer unit
-        ffn_dim (int): Dimension of the FFN block
-        n_transformer_blocks (int): Number of transformer blocks. Default: 2
-        head_dim (int): Head dimension in the multi-head attention. Default: 32
-        attn_dropout (float): Dropout in multi-head attention. Default: 0.0
-        dropout (float): Dropout rate. Default: 0.0
-        ffn_dropout (float): Dropout between FFN layers in transformer. Default: 0.0
-        patch_h (int): Patch height for unfolding operation. Default: 8
-        patch_w (int): Patch width for unfolding operation. Default: 8
-        transformer_norm_layer (Optional[str]): Normalization layer in the transformer block. Default: layer_norm
-        conv_ksize (int): Kernel size to learn local representations in MobileViT block. Default: 3
-        no_fusion (Optional[bool]): Do not combine the input and output feature maps. Default: False
-    """
 
     def __init__(
         self,
@@ -121,7 +102,7 @@ class MobileViTBlock(nn.Module):
             stride=1
         )
 
-        # Local representations
+        # 局部表征
         self.local_rep = nn.Sequential()
         self.local_rep.add_module(name="conv_3x3", module=conv_3x3_in)
         self.local_rep.add_module(name="conv_1x1", module=conv_1x1_in)
@@ -129,7 +110,7 @@ class MobileViTBlock(nn.Module):
         assert transformer_dim % head_dim == 0
         num_heads = transformer_dim // head_dim
 
-        # global representations
+        # 全局表征
         global_rep = [
             TransformerEncoder(
                 embed_dim=transformer_dim,
@@ -172,11 +153,11 @@ class MobileViTBlock(nn.Module):
 
         interpolate = False
         if new_w != orig_w or new_h != orig_h:
-            # Note: Padding can be done, but then it needs to be handled in attention function.
+            # 注意：Padding是可以完成的，但需要在注意力函数中进行处理
             x = F.interpolate(x, size=(new_h, new_w), mode="bilinear", align_corners=False)
             interpolate = True
 
-        # number of patches along width and height
+        # 宽度和高度上的patch数量
         num_patch_w = new_w // patch_w  # n_w
         num_patch_h = new_h // patch_h  # n_h
         num_patches = num_patch_h * num_patch_w  # N
@@ -239,10 +220,10 @@ class MobileViTBlock(nn.Module):
 
         fm = self.local_rep(x)
 
-        # convert feature map to patches
+        # 转换feature map to patches
         patches, info_dict = self.unfolding(fm)
 
-        # learn global representations
+        # 学习全局表征
         for transformer_layer in self.global_rep:
             patches = transformer_layer(patches)
 
@@ -263,13 +244,13 @@ class MobileViTBlock(nn.Module):
 
 例如，YOLOv2 在每 10 次迭代时从预定义的集合中采样一个新的空间分辨率，并在训练期间在不同的 gpu 上使用相同的分辨率。这导致 GPU 利用率不足和训练速度变慢，因为在所有分辨率中使用相同的批大小(使用预定义集中的最大空间分辨率确定)。
 
-![MobileVit](images/09.mobilevit_04.png)
+![MobileVit](images/09Mobilevit04.png)
 
 ### 网络结构
 
 在论文中，关于 MobileViT 作者提出了三种不同的配置，分别是 MobileViT-S(small)，MobileViT-XS(extra small)和 MobileViT-XXS(extra extra small)。三者的主要区别在于特征图的通道数不同。下图为 MobileViT 的整体框架，最开始的 3x3 卷积层以及最后的 1x1 卷积层、全局池化、全连接层不去赘述，主要看下图中的标出的 Layer1~5，这里是根据源码中的配置信息划分的。下面只列举了部分配置信息。
 
-![MobileVit](images/09.mobilevit_05.png)
+![MobileVit](images/09Mobilevit05.png)
 
 组成部分（从左至右）：
 
@@ -288,24 +269,7 @@ MobileViT block：MobileViT 的核心组件，由多个 Transformer block 组成
 ```python
 # MV2 结构
 class InvertedResidual(nn.Module):
-    """
-    This class implements the inverted residual block, as described in `MobileNetv2 <https://arxiv.org/abs/1801.04381>`_ paper
 
-    Args:
-        in_channels (int): :math:`C_{in}` from an expected input of size :math:`(N, C_{in}, H_{in}, W_{in})`
-        out_channels (int): :math:`C_{out}` from an expected output of size :math:`(N, C_{out}, H_{out}, W_{out)`
-        stride (int): Use convolutions with a stride. Default: 1
-        expand_ratio (Union[int, float]): Expand the input channels by this factor in depth-wise conv
-        skip_connection (Optional[bool]): Use skip-connection. Default: True
-
-    Shape:
-        - Input: :math:`(N, C_{in}, H_{in}, W_{in})`
-        - Output: :math:`(N, C_{out}, H_{out}, W_{out})`
-
-    .. note::
-        If `in_channels =! out_channels` and `stride > 1`, we set `skip_connection=False`
-
-    """
 
     def __init__(
         self,
@@ -373,7 +337,7 @@ class InvertedResidual(nn.Module):
 
 ## MobileVit V2
 
-** MobileVit V2 **:MobileViT 的主要效率瓶颈是 Transformer 中的多头自注意力（MHA），它需要相对于 tokens（或 patches）数量 k 的时间复杂度。此外，MHA 需要昂贵的操作来计算自注意力，从而影响资源受限设备的延迟。MobileVit V2 则是一种具有 O(k)线性复杂度的可分离的自注意力方法。所提出方法的一个简单而有效的特征是它使用元素操作来计算自注意力，使其成为资源受限设备的不错选择。
+**MobileVit V2 **:MobileViT 的主要效率瓶颈是 Transformer 中的多头自注意力（MHA），它需要相对于 tokens（或 patches）数量 k 的时间复杂度。此外，MHA 需要昂贵的操作来计算自注意力，从而影响资源受限设备的延迟。MobileVit V2 则是一种具有 O(k)线性复杂度的可分离的自注意力方法。所提出方法的一个简单而有效的特征是它使用元素操作来计算自注意力，使其成为资源受限设备的不错选择。
 
 ### 可分离的自注意力
 
@@ -387,7 +351,7 @@ $$
 
 其中 $W_{Q}^{i} \in R^{d \times d_{h}}$,$W_{K}^{i} \in R^{d \times d_{h}}$,$W_{V}^{i} \in R^{d \times d_{h}}$ 是第 i 个线性层的(或头部)分别在 Q、K 和 V 分支中的权重。符号<.,.>表示点积运算。
 
-![MobileVit](images/09.mobilevit_06.png)
+![MobileVit](images/09Mobilevit06.png)
 
 可分离自注意力的结构则受到了 MHA 的启发。与 MHA 类似，输入 x 使用三个分支处理，即输入 I、键 K 和值 V。输入分支 I 映射上图 b 中的每个 d 维潜在节点 L。该线性映射是内积运算，并使用权重 $W_{I} \in R^{d}$ 的线性层将 x 中的 tokens 计算为标量。权重 $W_{I}$ 用作潜在 token L 和 x 之间的距离，从而产生一个 k 维向量。然后将 softmax 操作应用于这个 k 维向量以产生上下文分数 $c_{s} \in R^{k}$。与针对所有 k 个 tokens 计算每个 tokens 的注意力（或上下文）分数的 Transformer 不同，所提出的方法仅计算关于潜在 tokens L 的上下文分数。这降低了计算注意力（或上下文）分数的成本 $O(k^{2})$ 到 O(k)。
 
@@ -409,7 +373,7 @@ $$
 
 与自注意力方法的比较。下图将所提出的方法与 Transformer 和 Linformer 进行了比较。由于自注意力方法的时间复杂度没有考虑用于实现这些方法的操作成本，因此某些操作可能会成为资源受限设备的瓶颈。为了整体理解，除了理论指标外，还测量了具有不同 k 的单个 CPU 内核上的模块级延迟。与 Transformer 和 Linformer 中的 MHA 相比，所提出的可分离自注意力快速且高效。
 
-![MobileVit](images/09.mobilevit_07.png)
+![MobileVit](images/09Mobilevit07.png)
 
 除了这些模块级结果之外，当我们用 MobileViT 架构中提出的可分离自注意力替换 Transformer 中的 MHA 时，我们观察到在 ImageNet-1k 数据集上具有相似性能的推理速度提高了 3 倍（表 1）。这些结果显示了所提出的可分离自注意力在架构级别的有效性。请注意，Transformer 和 Linformer 中的自注意力对 MobileViT 产生了类似的结果。这是因为与语言模型相比，MobileViT 中的 tokens k 数量更少（k ≤ 1024），其中 Linformer 明显快于 Transformer。
 
@@ -466,7 +430,7 @@ class LinearAttnFFN(nn.Module):
 
     def forward(self, x: torch.Tensor):
         x = x + self.pre_norm_attn(x)
-        # Feed forward network
+        # 前馈网络
         x = x + self.pre_norm_ffn(x)
         return x
 
@@ -489,18 +453,17 @@ class LinearSelfAttention(nn.Module):
 
     def forward(self, x):
         qkv = self.qkv_proj(x)
-        # Project x into query, key and value
+        # 映射 x 到 query, key and value
         # Query --> [B, 1, P, N]
         # value, key --> [B, d, P, N]
         query, key, value = torch.split(qkv,
                                         split_size_or_sections=[1, self.embed_dim, self.embed_dim],
                                         dim=1)
-        # apply softmax along N dimension
+   
         context_scores = F.softmax(query, dim=-1)
-        # Uncomment below line to visualize context scores
-        # self.visualize_context_scores(context_scores=context_scores)
+        # 
         context_scores = self.attn_dropout(context_scores)
-        # Compute context vector
+        # 计算上下文向量
         # [B, d, P, N] x [B, 1, P, N] -> [B, d, P, N]
         context_vector = key * context_scores
         # [B, d, P, N] --> [B, d, P, 1]
@@ -516,11 +479,11 @@ class LinearSelfAttention(nn.Module):
 
 虽然 Mobilevit V1 具有竞争力的最先进的结果，但 Mobilevit v1 块中的融合模块比较复杂难以学习。在 MobileVit V3 版本则提出对融合块进行简单有效的修改，以创建 mobilevitv3 块，解决了伸缩问题，简化了学习任务。
 
-###　MobileViTV3 模块
+### MobileViTV3 模块
 
 在ＭobileViTv2 体系结构中删除了融合块，并使用了线性复杂度的 Transformer 得到了比 MobileViTv1 更好的性能。将本文提出的融合块添加到 MobileViTv2 中，以创建 MobileViTv3-0.5,0.75 和 1.0 模型，如下图所示。
 
-![MobileVit](images/09.mobilevit_08.png)
+![MobileVit](images/09Mobilevit08.png)
 
 **1、 融合块中用 1x1 卷积层替换 3x3 卷积层。**优势就在于 1x1 卷积核会使用更少的权重参数数量。在输入尺寸不发生改变的情况下而增加了非线性，所以会增加整个网络的表达能力。
 
@@ -615,7 +578,7 @@ class MobileViT_v3_Block(Layer):
 
         transformer_layers.append(LayerNormalization(epsilon=1e-6))
 
-        # Repeated transformer blocks
+        # 重复 transformer blocks
         self.transformer_blocks = Sequential(layers=transformer_layers)
 
         self.concat = Concatenate(axis=-1)
@@ -665,8 +628,7 @@ class MobileViT_v3_Block(Layer):
             num_patches_h=num_patches_h,
             num_patches_w=num_patches_w,
         )
-        # # --------------------------------
-
+  
         # New Fustion Block
         if self.project:
             folded = self.conv_proj(folded)
@@ -681,7 +643,11 @@ class MobileViT_v3_Block(Layer):
 
 ## 小结
 
-MobileVit-V1 是比较早的 CNN 与 Transformer 混合结构，结合了 CNN 与 Transformer 的优点，成为了轻量级、低延迟和满足设备资源约束的精确模型。V2 版本则在 V1 的基础上进行了改进，主要针对多头自注意力，保持了比 V1 版本更快的速度与精确度。V3 版本则是创新性地融合了本地，全局合输入特征来提升模型精度。总之，V1,V2,V3 在 Transformer 模型轻量化以及与 CNN 结合方面给大家提供了更多思考的空间与改进方向。
+- MobileVit-V1 是比较早的 CNN 与 Transformer 混合结构，结合了 CNN 与 Transformer 的优点，成为了轻量级、低延迟和满足设备资源约束的精确模型。
+
+- V2 版本则在 V1 的基础上进行了改进，主要针对多头自注意力，保持了比 V1 版本更快的速度与精确度。
+
+- V3 版本则是创新性地融合了本地，全局合输入特征来提升模型精度。
 
 ## 本节视频
 
