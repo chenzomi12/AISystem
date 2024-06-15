@@ -91,7 +91,7 @@ $$
 
 在卷积或全连接层后通常会加入批量归一化操作（Batch Normalization），以归一化输出数据。在训练阶段，BN作为一个独立的算子，统计输出的均值和方差（如下左图）。然而，为了提高推理阶段的效率，推理图将批量归一化参数“折叠”到卷积层或全连接层的权重和偏置中。也就是说，Conv和BN两个算子在正向传播时可以融合为一个算子，该操作称为BN折叠（如右下图）。
 
-![BN 折叠](./images/03QAT06.png)
+![BN 折叠](images/03QAT06.png)
 
 为了准确地模拟量化效果，我们需要模拟这种折叠，并在通过批量归一化参数缩放权重后对其进行量化。我们通过以下方式做到这一点：
 
@@ -149,11 +149,11 @@ $$
 
 BN 折叠的训练模型：
 
-![BN 折叠的训练模型](./images/03QAT07.png)
+![BN 折叠的训练模型](images/03QAT07.png)
 
 BN 折叠感知量化训练模型：
 
-![BN 折叠感知量化训练模型](./images/03QAT08.png)
+![BN 折叠感知量化训练模型](images/03QAT08.png)
 
 QAT中常见的算子折叠组合还有：Conv + BN、Conv + BN + ReLU、Conv + ReLU、Linear + ReLU、BN + ReLU。
 
@@ -193,31 +193,31 @@ TensorRT 通过混合精度（FP32、FP16、INT8）计算、图优化和层融�
 
 将训练好的模型转换为 TensorRT 可以使用的 ONNX 格式。在这个过程中，转换器会将原始模型中的 FakeQuant 算子分解成 Q 和 DQ 两个算子，分别对应量化和反量化操作，包含了该层或者该激活值的量化 scale 和 zero-point。
 
-![ONXX转换](./images/03QAT09.png)
+![ONXX转换](images/03QAT09.png)
 
 3. 使用 TensorRT 进行转换和推理：
 
 使用 TensorRT 转换 ONNX 模型，为特定的 GPU 构建一个优化后的引擎。
 
-![alt text](./images/03QAT10.png)
+![alt text](images/03QAT10.png)
 
 在转换过程中，TensorRT 会对计算图进行优化：
 
 （1）常量的折叠：如权重的 Q 节点可与权重合并，无需在真实推理中由 FP32 的权重经过 scale 和 Z 转为 INT8 的权重。
 
-![常量折叠](./images/03QAT11.png)
+![常量折叠](images/03QAT11.png)
 
 （2）op 融合：将 Q/DQ 信息融合到算子（如conv）中，得到量化的算子。通过 op 融合，模型计算将变为真实的 INT8 计算。
 
 比如可以将 DQ 和 Conv 融合，再和 Relu 融合，得到 ConvRelu，最后和下一个 Q 节点融合形成 INT8 输入和 INT8 输出的 QConvRelu 算子。如果在网络的末尾节点没有 Q 节点了（在前面已经融合了），可以将 DQ 和 Conv 融合得到 QConv算子，输入是INT8，输出是FP32。
 
-![op 融合](./images/03QAT12.png)
+![op 融合](images/03QAT12.png)
 
 值得注意的一点是，TensorRT 官方建议不要在训练框架中模拟批量归一化和 ReLU 融合，因为 TensorRT 自己的融合优化保证了融合后算术语义不变，确保推理阶段的准确性。
 
 下面是经过TensorRT优化最终得到的量化推理计算图：
 
-![量化推理计算图](./images/03QAT13.png)
+![量化推理计算图](images/03QAT13.png)
 
 权重是INT8精度，FP32 的输入经过 Q 节点也被量化为 INT8，随后进行 INT8 计算，QConv 算子融合了反量化操作，最终输出的是 FP32 的结果。
 

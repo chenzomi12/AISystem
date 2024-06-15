@@ -16,7 +16,7 @@
 | CNN 类型 | 02(上) CNN 模型小型化 | [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1Y84y1b7xj/) |
 | CNN 类型 | 02(下) CNN 模型小型化 | [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1DK411k7qt/) |
 | CNN 类型 | SqueezeNet 系列 | [文章](./03Shufflenet.md) |
-| CNN 类型 | MobileNet 系列 | [文章](./04Mobilenet.md.md) |
+| CNN 类型 | MobileNet 系列 | [文章](./04Mobilenet.md) |
 | CNN 类型 | ESPNet 系列 | [文章](./05ESPNet.md) |
 | CNN 类型 | FBNet 系列 | [文章](./06FBNet.md) |
 | CNN 类型 | EfficientNet 系列 | [文章](./07EfficientNet.md) |
