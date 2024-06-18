@@ -92,6 +92,4 @@ NCHWX 的格式能够更好的适配SIMT，其中Cuda的DP4A模块计算时执�
 
 ## 本节视频
 
-<html>
-<iframe src="https://www.bilibili.com/video/BV1eX4y1X7mL/?vd_source=2f45292201835520d512b8f7c607b1fd" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-</html>
+

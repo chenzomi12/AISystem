@@ -12,7 +12,7 @@
 
 单独适当增大深度、宽度或分辨率都可以提高网络的精确性，但随着模型的增大，其精度增益却会降低。此外，这三个维度并不是独立的（如：高分辨率图像需要更深的网络来获取更细粒度特征等），需要我们协调和平衡不同尺度的缩放，而不是传统的一维缩放。EfficientNet 的设想就是能否设计一个标准化的卷积网络扩展方法，既可以实现较高的准确率，又可以充分的节省算力资源。其通过 NAS（Neural Architecture Search）技术来搜索网络的图像输入分辨率 r，网络的深度 depth 以及 channel 的宽度 width 三个参数的合理化配置。如下图所示，(b)，(c)，(d)分别从不同的维度对 baseline 做 model scaling，而这篇论文要做的是将这 3 者结合起来一起优化即(e)。
 
-![EfficientNet](images/07.efficientnet_01.png)
+![EfficientNet](images/07Efficientnet01.png)
 
 通过实验得出以下结论:
 
@@ -28,26 +28,22 @@ $$
 Y_{i}=F_{i}(X_{i})
 $$
 
-其中：$$X_{i}$$ 表示输入的 tensor，其形状为 $<H_{i},W_{i},C_{i}>$，$Y_{i}$ 是输出的 tensor。于是，一个卷积网络 $N$ 可以被表示成如下形式：
+其中：$X_{i}$表示输入的 tensor，其形状为 $<H_{i},W_{i},C_{i}>$，$Y_{i}$ 是输出的 tensor。于是，一个卷积网络 $N$ 可以被表示成如下形式：
 
-​$$
+$$
 N=F_{k}\odot ...\odot F_{2}\odot F_{1}(X_{11})=\odot_{j=1....k}F_{j}(X_{1})
 $$
-
 但是在实际中，ConvNets 的各个层通常被划分为多个 stage，并且每个 stage 中的所有层都具有相同的体系结构（例如 ResNet，共有五个 stage，除了第一层之外的每个 stage 的所有层都分别具有相同的卷积类型）。
 
 因此，我们可以将 ConvNet 重新表示成如下形式：
-
 $$
 N = \bigoplus_{i=1...s}F_{i}^{L_i}(X_{<H_{i},W_{i},C_{i}>})
 $$
-
 其中 $F_{i}^{L_{i}}$ 表示第 $i$ 个 stage，并且这个 stage 由 $L_{i}$ 次的 $F_{i}$（相当于一层 layer）操作构成。
 
 通常 ConvNet 的设计焦点在 $F_{i}$，但是这篇文章的焦点，或者说 Model Scaling 的焦点则是在模型的深度（$L_{i}$）、宽度（$C_{i}$）和输入图片的大小（$H_{i}$,$W_{i}$），而不改变在 baseline 中预先定义好的 $F_{i}$。
 
-通过固定 $F_{i}$，简化了对于新资源约束的 Model Scaling 设计问题，但仍然有很大的设计空间来探索每一层的不同 $L_{i}$，$C_{i}$，$H_{i}$，$W_{i}$。为了进一步减小设计空间，作者又限制所有层必须以恒定比率均匀地做 Scaling。我们的目标是在任何给定的资源约束下最大化模型精度，这可以表述为优化问题：
-
+通过固定 $F_{i}$，简化了对于新资源约束的 Model Scaling 设计问题，但仍然有很大的设计空间来探索每一层的不同 $L_{i}$，$C_{i}$，$H_{i}$，$W_{i}$。为了进一步减小设计空间，作者又限制所有层必须以恒定比率均匀地做 Scaling。目标是在任何给定的资源约束下最大化模型精度，这可以表述为优化问题：
 $$
 max_{d,w,r}Accurracy(N(d,w,r))
 $$
@@ -63,7 +59,6 @@ $$
 $$
 FLOPS(N)\leq target flops
 $$
-
 其中:w,d,r 分别为 Model Scaling 的宽度，深度和分辨率的系数，$\hat {F}_{i}$，$\hat{L}_{i}$，$\hat{H}_{i}$，$\hat{W}_{i}$，$\hat{C}_{i}$ 是预先设定好的参数。
 
 **Scaling Dimensions**
@@ -78,16 +73,15 @@ $$
 
 **Resolution**:早期的图像大小以 224×224 开始，现在常使用 299×299 或者 311×311。最近的创新：480×480 的分辨率和 600×600 的分辨率。下图右是缩放网络分辨率的结果，更高的分辨率的确提高了网络的精度，但对于非常高的分辨率来说，准确率的提高会减弱。
 
-![EfficientNet](images/07.efficientnet_02.png)
+![EfficientNet](images/07Efficientnet02.png)
 
 **Compound Scaling**
 
 为了追求更好的精度和效率，在连续网络缩放过程中平衡网络宽度、深度和分辨率的所有维度是至关重要的。如下图所示。
 
-![EfficientNet](images/07.efficientnet_03.png)
+![EfficientNet](images/07Efficientnet03.png)
 
 不同维度的 Scaling 并不相互独立，需要协调和平衡不同维度的 Scaling，而不是常规的单维度 Scaling。EfficientNet 提出了 compound scaling method（复合缩放方法），这种方法是通过一个复合系数φ去统一缩放网络的宽度，深度和分辨率，公式表示如下：
-
 $$
 depth:d=α^{φ}
 $$
@@ -107,7 +101,6 @@ $$
 $$
 α\geq1,β\geq1,γ\geq1
 $$
-
 其中，α、β以及γ是常数，可以通过在 baseline 上做 small grid search 来得到。ϕ 是用户指定的系数，用于控制有多少其他计算资源可用于模型缩放，而 α，β，γ 指定如何分别将这些额外资源分配给网络宽度，深度和分辨率。
 
 需要注意的是：常规卷积运算的 FLOPS 与 d，$w^{2}$，$r^{2}$ 成正比，即网络深度增加 1 倍会使 FLOPS 增加 1 倍，网络宽度或分辨率增加 1 倍会使 FLOPS 增加 4 倍。
@@ -118,16 +111,10 @@ $$
 
 以 EfficientNet-B0 baseline 网络结构为例，在 B0 中一共分为 9 个 stage，表中的卷积层后默认都跟有 BN 以及 Swish 激活函数。stage 1 就是一个 3×3 的卷积层。对于 stage 2 到 stage 8 就是在重复堆叠 MBConv。
 
-![EfficientNet](images/07.efficientnet_04.png)
+![EfficientNet](images/07Efficientnet04.png)
 
 Conv 1x1, s1 层，一个 1x1 的标准卷积，用于降维，然后通过一个 BN，没有 swish 激活函数。
 Droupout 层，其 dropout_rate 对应的是 drop_connect_rate；shortcut 连接，执行 add 操作。
-
-### SE 模块
-
-如下图所示，SE 模块由一个全局平均池化(AvgPooling)，两个 FC 层组成。第一个全连接层的节点个数是 MBConv 模块的输入特征图 channels 的 $ \frac{1}{4}$ ，且使用 Swish 激活函数。第二个全连接层的节点个数等于 MBConv 模块中 DWConv 层输出特征图的 channels，且使用 Sigmoid 激活函数。简单理解，SE 模块的总体思想是：给每个特征图不同的权重，关注更有用的特征。
-
-![EfficientNet](images/07.efficientnet_05.png)
 
 **代码**
 
@@ -146,7 +133,7 @@ class InvertedResidualConfig:
                  index: str,           # 1a, 2a, 2b, ...
                  width_coefficient: float):   # 网络宽度的倍率因子，即 channel 数 xn
         self.input_c = self.adjust_channels(input_c, width_coefficient)
-        self.expanded_c = self.input_c * expanded_ratio  # expanded_ratio： 1 or 6   表示 MBConvm 模块内第一个 1x1 卷积层维度扩展输出的 channel 的扩展因子
+        self.expanded_c = self.input_c * expanded_ratio  # expanded_ratio：1 or 6   表示 MBConvm 模块内第一个 1x1 卷积层维度扩展输出的 channel 的扩展因子
         self.kernel = kernel
         self.out_c = self.adjust_channels(out_c, width_coefficient)
         self.use_se = use_se
@@ -222,8 +209,17 @@ class InvertedResidual(nn.Module):
             result += x
 
         return result
-
 ```
+
+
+
+### SE 模块
+
+如下图所示，SE 模块由一个全局平均池化(AvgPooling)，两个 FC 层组成。第一个全连接层的节点个数是 MBConv 模块的输入特征图 channels 的 $ \frac{1}{4}$ ，且使用 Swish 激活函数。第二个全连接层的节点个数等于 MBConv 模块中 DWConv 层输出特征图的 channels，且使用 Sigmoid 激活函数。简单理解，SE 模块的总体思想是：给每个特征图不同的权重，关注更有用的特征。
+
+![EfficientNet](images/07Efficientnet05.png)
+
+**代码**
 
 ```python
 # 注意力机制模块
@@ -269,7 +265,6 @@ class SqueezeExcitation(nn.Module):
 另外，作者通过以下方法来减小搜索空间的范围：
 
 移除不需要的搜索选项，重用 EfficientNet 中搜索的 channel sizes，接着在搜索空间中随机采样了 1000 个模型，并针对每个模型训练 10 个 epochs（使用较小的图像尺度）。搜索奖励结合了模型准确率 A，标准训练一个 step 所需时间 S 以及模型参数大小 P，奖励函数可写成：
-
 $$
 A \cdot S^{w}\cdot P^{v}
 $$
@@ -300,7 +295,7 @@ $$
 
 如下图所示，EfficientNetV2 模型在 ImageNet 上 top-1 acc 和 train step time，这里的训练采用固定的图像大小，不过比推理时图像大小降低 30%，而图中的 EffNet(reprod)也是采用这样的训练策略，可以看到比 baseline 训练速度和效果均有明显提升，而 EfficientNetV2 在训练速度和效果上有进一步地提升。
 
-![EfficientNet](images/07.efficientnet_06.png)
+![EfficientNet](images/07Efficientnet06.png)
 
 ### 渐进式学习
 
@@ -408,9 +403,9 @@ class FusedMBConvBlock(nn.Module):
 
 ## 小结
 
-相比于谷歌 Net、ResNet 这种人工设计的经典 BackBone，EfficientNet 系列利用强大的计算资源对网络结果进行暴力搜索，得到一系列性能、参数量、计算量最优的网络结构和一些看不懂的超参（虽然人工设计网络中的超参也是大量试出来的，可解释性也较差）。
+- 相比于GoogleNet、ResNet 这种人工设计的经典 BackBone，EfficientNet 系列利用强大的计算资源对网络结果进行暴力搜索，得到一系列性能、参数量、计算量最优的网络结构和一些看不懂的超参（虽然人工设计网络中的超参也是大量试出来的，可解释性也较差）。
 
-EfficientNet 系列的研究方式应该是以后发展的一个重要方向，研究人员可以在 Conv 层的优化、训练策略上多下功夫研究，至于网络架构怎么组合最优，交给机器去做就好。
+- EfficientNet 系列的研究方式应该是以后发展的一个重要方向，研究人员可以在 Conv 层的优化、训练策略上多下功夫研究，至于网络架构怎么组合最优，交给机器去做就好。
 
 ## 本节视频
 

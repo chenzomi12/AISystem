@@ -44,7 +44,7 @@ int main() {
 }
 ```
 
-对 hello.c 文件进行词法分析，执行以下代码：  
+对 hello.c 文件进行词法分析，执行以下代码： 
 
 ```shell
 clang -cc1 -dump-tokens hello.c
@@ -235,7 +235,7 @@ LLVM 优化层在输入的时候是一个 AST 语法树，输出的时候已经�
 
 分析 Pass 用于收集信息和了解程序的行为，而转换 Pass 则用于修改程序以实现优化或修改功能。在 LLVM 中，这两种 Pass 通常结合使用，以实现对程序进行全面优化和改进。
 
-优化过程需要执行以下代码： 
+优化过程需要执行以下代码：
 
 首先我们需要生成 hello.bc 文件：
 
@@ -296,10 +296,5 @@ Pass 类是实现优化的主要资源。然而，我们从不直接使用它，
 ## 本节视频
 
 <html>
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=390513023&bvid=BV1vd4y1t7vS&cid=903052026&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="http://player.bilibili.com/player.html?isOutside=true&aid=390513023&bvid=BV1vd4y1t7vS&cid=903052026&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 引用
-
-1. https://llvm.org/docs/Passes.html
-2. https://getting-started-with-llvm-core-libraries-zh-cn.readthedocs.io/zh-cn/latest/ch04.html

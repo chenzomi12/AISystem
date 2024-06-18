@@ -1,3 +1,5 @@
+<!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # SIMD & SIMT 与芯片架构
 
 为了进一步探讨 SIMD/SIMT 与 AI 芯片之间的关系，本节将详细介绍 SIMD 单指令多数据和 SIMT 单指令多线程的计算本质，以及对 NVIDIA CUDA 底层实现 SIMD/SIMT 的原理进行讲解。
@@ -84,7 +86,7 @@ vstmia.32 r2!, {s15}
 
 ## SIMT 计算本质
 
-SIMT（Single Instruction Multiple Threads，单指令多线程）是 NVIDIA 提出基于 GPU 的新概念。与 SIMD 相比，二者都通过将同样的指令广播给多个执行单元来实现数据并行和计算。**主要的不同在于 SIMD 要求所有的向量元素在统一的同步组里（一个线程内）同步执行，而 SIMT 允许多个线程在一个 Warp 中独立执行**。
+SIMT（Single Instruction Multiple Threads，单指令多线程）是英伟达提出基于 GPU 的新概念。与 SIMD 相比，二者都通过将同样的指令广播给多个执行单元来实现数据并行和计算。**主要的不同在于 SIMD 要求所有的向量元素在统一的同步组里（一个线程内）同步执行，而 SIMT 允许多个线程在一个 Warp 中独立执行**。
 
 SIMT 类似 CPU 上的多线程，有多个计算核心系统，每一个核心中有独立的寄存器文件（Register File，RF）、计算单元（Arithmetic Logic Unit，ALU），但是没有独立指令缓存（Instruction Cache）、解码器、程序计数器（Program Counter register），命令从统一的指令缓存广播给多个 SIMT 核心。因此 SIMT 的所有核心各自独立，在不同的数据上执行相同的计算操作，即执行命令相同，多个线程各有各的处理单元，SIMD 则是共用同一个 ALU。
 
@@ -227,12 +229,14 @@ int main() {
 
 ## 小结与思考
 
-本节主要对 SIMD、SIMT 进行了讲解，SIMD 计算本质是一次加法运算操作完成多个元素的加法，因此在硬件层面需要增加 ALU 单元的数量，同时需要增加数据通路提升计算的吞吐量。SIMT 硬件结构是一个多核系统，指令会被同时广播给所有的 SIMT Core，每个 SIMT Core 中有多个线程块（Thread Block）实现并行，同时多个 SIMT Core Cluster 组成整个 GPU Core。SIMT 是 SIMD 的一种推广，在编程模式上更加灵活。
+- SIMD与SIMT均基于单指令多数据执行，但SIMD要求数据严格对齐且同步执行，而SIMT允许线程独立寻址且可异步执行，提高了灵活性。
 
-结合 NVIDIA CUDA 实现对 SIMD 和 SIMT 进行了对比，与 SIMD 不同的是 SIMT 允许程序员为独立、标量线程编写线程级的并行代码，还允许为协同线程编写数据并行代码。关于 GPU 编程本质和硬件执行本质，编程模型是程序员用来编写程序的抽象概念，编程模型最终会通过编译器转换为硬件执行模型，最终由硬件执行 SIMD 和 SIMT。
+- NVIDIA CUDA通过SIMT架构实现高效的并行计算，利用线程块和网格结构，通过CUDA核心进行调度，优化了GPU的性能。
+
+- 编程模型与硬件执行模型相互关联，前者为程序员提供抽象概念以组织程序，后者描述程序在硬件上的实际执行方式，理解二者关系有助于程序性能优化。
 
 ## 本节视频
 
 <html>
-<iframe src="//player.bilibili.com/player.html?aid=744768610&bvid=BV1Kr4y1d7eW&cid=1236498445&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="http://player.bilibili.com/player.html?aid=744768610&bvid=BV1Kr4y1d7eW&cid=1236498445&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
