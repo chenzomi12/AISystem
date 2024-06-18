@@ -28,7 +28,7 @@
 
 常用的序列化主要有四种格式：XML（一种可扩展标记语言，非常适合存储和传输结构化数据），JSON（一种轻量级的数据交换格式），Protocol Buffers（谷歌开发的语言中立、平台中立、可扩展的序列化结构数据格式）和 Flatbuffer（谷歌开发的另一种高效序列化库，与 Protobuffer 类似）。前两种是文本格式，人和机器都可以理解，后两种是二进制格式，只有机器能理解，但在存储传输解析上有很大的速度优势。使用最广泛为 Protobuffer。
 
-下图中的[ONNX](https://onnx.ai/)使用的就是 Protobuf 这个序列化数据结构去存储神经网络的权重信息。ONNX（Open Neural Network Exchange）是一个开放格式，用于机器学习模型的跨平台共享。通过使用 Protobuf，ONNX 能够在不同的深度学习框架之间高效地传输模型数据。
+下图中的[ONNX](https://onnx.ai/)使用的就是 Protobuf 这个序列化数据结构去存储神经网络的权重信息。ONNX（Open Neural Network Exchange）是一个开放格式，用于机器学习模型的跨平台共享。通过使用 Protobuf，ONNX 能够在不同的AI 框架之间高效地传输模型数据。
 
 [CoreML](https://developer.apple.com/cn/documentation/coreml/)既是一种文件格式，又是一个强大的机器学习运行时环境，它使用了 Protocol Buffers 的二进制序列化格式，并在所有苹果操作系统平台上提供了高效的推理和重新训练功能。CoreML 允许开发者轻松地将机器学习模型集成到 iOS、macOS、watchOS 和 tvOS 应用中，利用苹果设备的硬件加速特性实现高效的模型推理。
 
@@ -46,7 +46,7 @@
 
 **语言专有格式：** 某些机器学习框架提供了特定语言的序列化方法，比如 Scikit-Learn 的 .pkl 文件，专门用于 Python 环境中的模型保存和加载。
 
-**跨语言跨平台格式：** 这类格式旨在实现不同编程语言和操作系统之间的互操作性。比如 ONNX 就是一种跨平台的模型序列化格式，可以在不同的深度学习框架和运行时环境之间共享模型。
+**跨语言跨平台格式：** 这类格式旨在实现不同编程语言和操作系统之间的互操作性。比如 ONNX 就是一种跨平台的模型序列化格式，可以在不同的AI 框架和运行时环境之间共享模型。
 
 3. 语言级通用序列化方法
 
@@ -110,7 +110,7 @@ model.eval()
 
 `torch.save` 将序列化对象保存到磁盘。该函数使用 Python 的 pickle 实用程序进行序列化。使用此函数可以保存各种对象的模型、张量和字典。
 
-`torch.nn.Module.load_state_dict` 使用反序列化的 state_dict 加载模型的参数字典 。在 PyTorch 中，模型的可学习参数（即权重和偏差） `torch.nn.Module` 包含在模型的参数中 （通过访问 `model.parameters()`）。
+`torch.nn.Module.load_state_dict` 使用反序列化的 state_dict 加载模型的参数字典 。在 PyTorch 中，模型的可学习参数（即权重和偏差）`torch.nn.Module` 包含在模型的参数中 （通过访问 `model.parameters()`）。
 
 `state_dict`只是一个 Python 字典对象，它将每个层映射到其参数张量。请注意，只有具有可学习参数的层（卷积层、线性层等）和注册缓冲区（batchnorm 的 running_mean）在模型的`state_dict`中具有条目。
 
@@ -196,7 +196,7 @@ message Net{ // message 属于 Net 域；
   
   - required：一个格式良好的消息一定要含有 1 个这种字段。表示该值是必须要设置的。
   - optional：消息格式中该字段可以有 0 个或 1 个值（不超过 1 个）。
-  - repeated：在一个格式良好的消息中，这种字段可以重复任意多次（包括 0 次）。重复的值的顺序会被保留。表示该值可以重复，相当于 java 中的 List。 
+  - repeated：在一个格式良好的消息中，这种字段可以重复任意多次（包括 0 次）。重复的值的顺序会被保留。表示该值可以重复，相当于 java 中的 List。
 
 #### Protobuf 例子
 
@@ -315,7 +315,7 @@ root_type Monster;
 
 很多 AI 推理框架都是用的 FlatBuffers，最主要的有以下两个：
 
-**[MNN](https://github.com/alibaba/MNN/blob/master/README_CN.md)：** 阿里巴巴的深度神经网络推理引擎，是一个轻量级的深度神经网络引擎，支持深度学习的推理与训练。适用于服务器/个人电脑/手机/嵌入式各类设备。目前，MNN 已经在阿里巴巴的手机淘宝、手机天猫、优酷等 30 多个 App 中使用，覆盖直播、短视频、搜索推荐、商品图像搜索、互动营销、权益发放、安全风控等场景。 MNN 模型文件采用的存储结构是 FlatBuffers。
+**[MNN](https://github.com/alibaba/MNN/blob/master/README_CN.md)：** 阿里巴巴的深度神经网络推理引擎，是一个轻量级的深度神经网络引擎，支持深度学习的推理与训练。适用于服务器/个人电脑/手机/嵌入式各类设备。目前，MNN 已经在阿里巴巴的手机淘宝、手机天猫、优酷等 30 多个 App 中使用，覆盖直播、短视频、搜索推荐、商品图像搜索、互动营销、权益发放、安全风控等场景。MNN 模型文件采用的存储结构是 FlatBuffers。
 
 **[MindSpore Lite](https://www.mindspore.cn/lite/en):**  一种适用于端边云场景的新型开源深度学习训练/推理框架，提供离线转换模型功能的工具，支持多种类型的模型转换，转换后的模型可用于推理。除了基本的模型转换功能之外，还支持用户对模型进行自定义的优化与构建，生成用户自定义算子的模型。
 
@@ -332,18 +332,18 @@ MindSpore Lite 提供了一套注册机制，允许用户基于转换工具进�
 | 支持语言   | C/C++, C#, Go, Java, Python, Ruby, Objective-C, Dart    | C/C++, C#, Go, Java, JavaScript, TypeScript, Lua, PHP, Python, Rust, Lobster    |
 | 版本     | 2.x/3.x，不相互兼容 | 1.x |
 | 协议文件   | .proto，需指定协议文件版本     | .fbs |
-| 代码生成工具 | 有（生成代码量较多）    | 有（生成代码量较少） |
+| 代码生成工具 | 有（生成代码量较多）   | 有（生成代码量较少）|
 | 协议字段类型 | bool, bytes, int32, int64, uint32, uint64, sint32, sint64, fixed32, fixed64, sfixed32, sfixed64, float, double, string | bool, int8, uint8, int16, uint16, int32, uint32, int64, uint64, float, double, string, vector |
 
-## 小结
+## 小结与思考
 
 - 模型序列化：模型序列化是将训练好的模型从内存中保存到硬盘上，以供将来使用的必要步骤，涉及将模型的参数、结构等信息存储到文件中。
 
-- 序列化分类：序列化方法分为跨平台跨语言通用序列化方法（如XML、JSON、Protocol Buffers和Flatbuffers）、模型本身提供的自定义序列化方法、语言级通用序列化方法（如Python的pickle和joblib、R的rda）以及用户自定义序列化方法。
+- 序列化分类：序列化方法分为跨平台跨语言通用序列化方法（如 XML、JSON、Protocol Buffers 和 Flatbuffers）、模型本身提供的自定义序列化方法、语言级通用序列化方法（如 Python 的 pickle 和 joblib、R 的 rda）以及用户自定义序列化方法。
 
-- Pytorch模型序列化：PyTorch提供了基于内部格式和ONNX的序列化方法。内部格式通过torch.save和torch.load实现模型状态的保存与加载，而ONNX通过torch.onnx.export导出模型，支持不同框架和平台之间的模型转换与部署。
+- Pytorch 模型序列化：PyTorch 提供了基于内部格式和 ONNX 的序列化方法。内部格式通过 torch.save 和 torch.load 实现模型状态的保存与加载，而 ONNX 通过 torch.onnx.export 导出模型，支持不同框架和平台之间的模型转换与部署。
 
-- 目标文件格式：Protobuf和FlatBuffers是两种流行的目标文件格式。Protobuf是一种高效、与语言无关的数据序列化机制，而FlatBuffers提供了无需解析即可直接访问序列化数据的能力，适合性能要求高的应用场景。
+- 目标文件格式：Protobuf 和 FlatBuffers 是两种流行的目标文件格式。Protobuf 是一种高效、与语言无关的数据序列化机制，而 FlatBuffers 提供了无需解析即可直接访问序列化数据的能力，适合性能要求高的应用场景。
 
 ## 本节视频
 

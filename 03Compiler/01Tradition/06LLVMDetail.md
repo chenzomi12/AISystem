@@ -152,7 +152,7 @@ ret i32 %0
 ret i32 %1
 ```
 
-静态单赋值好处：  
+静态单赋值好处： 
 
 1. 每个值都由单一的赋值操作定义，这使得我们可以轻松地从值的使用点直接追溯到其定义的指令。这种特性极大地方便了编译器进行正向和反向的编译过程。
 
@@ -260,12 +260,3 @@ define dso_local void @test(i32 noundef %0, i32 noundef %1) #0 {
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=305431124&bvid=BV1PP411u7NR&cid=900781834&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 引用
-
-1. https://zh.wikipedia.org/wiki/三位址碼
-2. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_quick_primer.html
-3. https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
-4. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_ssa.html
-5. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/design_hints.html
-6. [简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)

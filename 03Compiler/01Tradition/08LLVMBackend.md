@@ -112,7 +112,7 @@ Code Emission（代码生成）是 LLVM 后端的重要阶段，其目标是将�
     
     - **循环展开（Loop Unrolling）**：通过展开循环体，减少循环控制开销，提高指令流水线效率。
     - **循环交换（Loop Exchange）**：调整嵌套循环的顺序，提高数据局部性。
-    - **循环合并（Loop Fusion）**：将多个循环合并为一个循环，减少循环开销。 这些优化在 LLVM 的循环优化器（Loop Optimizer）中实现，优化后的循环结构会在代码生成阶段进一步优化。
+    - **循环合并（Loop Fusion）**：将多个循环合并为一个循环，减少循环开销。这些优化在 LLVM 的循环优化器（Loop Optimizer）中实现，优化后的循环结构会在代码生成阶段进一步优化。
 
 #### 代码输出的实现
 
@@ -221,13 +221,3 @@ TensorFlow 可以更好的应用于工业生产环境，因为它可以利用到
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=390568348&bvid=BV1cd4y1b7ho&cid=903537014&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
-## 引用
-
-1. https://www.youtube.com/watch?v=4HgShra-KnY
-2. https://www.modular.com
-3. https://scottamain.github.io/xla
-4. https://jax.readthedocs.io
-5. https://www.TensorFlow.org
-6. https://tvm.apache.org/
-7. https://julialang.org/
