@@ -28,7 +28,7 @@ title: AISystem & AIInfra
 
 第二部分，硬核篇介绍[<u>**AI 芯片概况**</u>](./02Hardware/README.md)，这里就很硬核了，从芯片基础到 AI 芯片的范围都会涉及，芯片设计需要考虑上面 AI 框架的前端、后端编译，而不是停留在天天喊着吊打英伟达，被现实打趴。
 
-第三部分，进阶篇介绍[<u>**AI 编译器原理**</u>](./03Compiler/README.md)，将站在系统设计的角度，思考在设计现代机器学习系统中需要考虑的编译器问题，特别是中间表达乃至后端优化。
+第三部分，进阶篇介绍[<u>**AI 编程与计算架构**</u>](./03Compiler/README.md)，将站在系统设计的角度，思考在设计现代机器学习系统中需要考虑的编译器问题，特别是中间表达乃至后端优化。
 
 第四部分，实际应用[<u>**推理系统与引擎**</u>](./04Inference/README.md)，讲了太多原理身体太虚容易消化不良，还是得回归到业务本质，让行业、企业能够真正应用起来，而推理系统涉及一些核心算法和注意的事情也分享下。
 
@@ -59,11 +59,11 @@ title: AISystem & AIInfra
 01Introduction/README
 ```
 
-<!-- ## 二. AI 硬件体系结构 -->
+<!-- ## 二. AI 硬件体系架构 -->
 
 ```{toctree}
 :maxdepth: 1
-:caption: === 二. AI 硬件体系结构 ===
+:caption: === 二. AI 硬件体系架构 ===
 
 02Hardware/README
 02Hardware01Foundation/README
@@ -75,11 +75,11 @@ title: AISystem & AIInfra
 02Hardware07Thought/README
 ```
 
-<!-- ## 三. AI 编译器 -->
+<!-- ## 三. AI 编程与计算架构 -->
 
 ```{toctree}
 :maxdepth: 1
-:caption: === 三. AI 编译器 ===
+:caption: === 三. AI 编程与计算架构 ===
 
 03Compiler/README
 03Compiler01Tradition/README

@@ -4,7 +4,7 @@
 
 本节将介绍 SqueezeNet 系列网络，在轻量化模型这个范畴中，Squeezenet 是最早的研究。主要针对了一些组件进行轻量化。与以往的网络都只讲网络如何设计不同。SqueezeNext 则从硬件角度分析如何加速，从而更全面地了解网络结构的设计。
 
-## SqueezeNet
+## SqueezeNet 模型
 
 **SqueezeNet**：是轻量化主干网络中比较著名的，它发表于 ICLR 2017，在达到了 AlexNet 相同的精度的同时，只用了 AlexNet 1/50 的参数量。SqueezeNet 核心贡献在于使用 **Fire Module**(如下图所示)，即由 Squeeze 部分和 Expand 部分组成，Squeeze 部分是一组连续的 $1 \times 1$ 卷积组成，Expand 部分则是由一组连续的 $1 \times 1$ 卷积和 $3 \times 3$ 卷积 cancatnate 组成，在 Fire 模块中，Squeeze 部分的 $1\times1$ 卷积的通道数记做 $s_{1\times 1}$，Expand 部分 $1 \times 1$ 卷积和 $3 \times 3$ 卷积的通道数分别记做 $e_{1 \times 1}$ 和 $e_{3 \times 3}$。
 
@@ -24,10 +24,10 @@ SqueezeNet 算法的主要目标是构建轻量参数的 CNN 架构，同时不�
 
 **Fire 模块**组成：主要包括挤压层（squeeze）和拓展层（expand）；
 
-- **Squeeze**：只有 1×1 卷积滤波器 ；
-- **Expand**：混合有 1×1 和 3×3 卷积滤波器 ；
+- **Squeeze**：只有 1×1 卷积滤波器；
+- **Expand**：混合有 1×1 和 3×3 卷积滤波器；
 
-并引入了三个调节维度的超参数 ：
+并引入了三个调节维度的超参数：
 
 - $s_{1\times1}$：squeeze 中 1 x 1 卷积滤波器个数；
 - $e_{1\times1}$：expand 中 1 x 1 卷积滤波器个数；
@@ -53,7 +53,7 @@ class fire(nn.Module):
         return out
 ```
 
-### 网络结构
+### 网络结构实现
 
 在**Fire Module**的基础上搭建 SqueezeNet 神经网络，结构如下图所示。以卷积层开始，后面是 8 个 Fire Module，最后以卷积层结束，激活函数默认使用 ReLU，每个 Fire Module 中的通道数目逐渐增加，另外网络在 conv1、fire4、fire8、conv10 的后面使用了最大池化。
 
@@ -103,7 +103,7 @@ class SQUEEZENET(nn.Module):
         return out
 ```
 
-## SqueezeNext
+## SqueezeNext 模型
 
 **SqueezeNext**：现有神经网络需要大的内存和计算资源是将其部署到嵌入式设备上的最大障碍。SqueezeNext 引入了神经网络加速技术。本文介绍的 SqueezeNext 可以达到 AlexNet 的准确度且参数数量比前者少 112 倍。另一版本的 SqueezeNext 模型可以达到 VGG-19 的精度且参数数量比原始 VGG-19 网络少 31 倍，仅为 4.4 Million。
 
@@ -165,13 +165,11 @@ class Bottle(nn.Module):
 
 另外一种思路是使用低秩参数矩阵 $\hat{W}$ 重新设计网络，这也是本文作者所采用的方法。作者所作的第一个变化是将 $K \times K$ 的矩阵分解为两个独立的 $1 \times K$ 和 $ K \times 1$ 卷积。这样做有效地将参数数量从 $K^2$ 减少成了 2K，同时增加了网络的深度。两个卷积层后都使用了 ReLu 激活函数和 BN 层。
 
-### 全连接层
+### 网络结构实现
 
-AlexNet96%的参数来自于全连接层，SqueezeNet 和 ResNet 中都只包含一个全连接层。假设输入数据为 $H \times W \times C_{i}$ ，那么最后的全连接层的参数数量为 $H \times W \times C_{i} \times L_{i}$，L 表示输出的类别数。SqueezeNext 在最后一个全连接层之前使用了一个 bottleneck 层，进一步减少了参数数量。
+AlexNet 96% 的参数来自于全连接层，SqueezeNet 和 ResNet 中都只包含一个全连接层。假设输入数据为 $H \times W \times C_{i}$ ，那么最后的全连接层的参数数量为 $H \times W \times C_{i} \times L_{i}$，L 表示输出的类别数。SqueezeNext 在最后一个全连接层之前使用了一个 bottleneck 层，进一步减少了参数数量。
 
 ![Squeezenet](images/02Squeezenet04.png)
-
-### 网络结构与实现
 
 SqueezeNext 的设计就是不断的堆叠上图的 block，在模拟硬件性能实验结果中发现，维度越低，计算性能也越低效，于是将更多的层操作集中在维度较高的 block。
 
@@ -244,9 +242,11 @@ class SQUEEZENEXT(nn.Module):
 
 ## 小结与思考
 
-- SqueezeNet 系列是比较早期且经典的轻量级网络，其使用 Fire 模块进行参数压缩，而 SqueezeNext 则在此基础上加入分离卷积进行改进。
+- SqueezeNet系列网络专注于轻量化设计，其中SqueezeNet通过Fire Module实现参数量的显著减少，而SqueezeNext进一步从硬件角度优化网络结构以加速模型运行。
 
-- 虽然 SqueezeNet 系列不如 MobieNet 使用广泛，但其架构思想和实验结论还是可以值得借鉴的。
+- SqueezeNet的Fire Module由Squeeze层和Expand层组成，通过1x1卷积和3x3卷积的结合，以及特定的通道数分配策略，有效减少参数量同时保持精度。
+
+- SqueezeNext模型通过引入Bottle模块、两阶段Bottleneck设计和低秩过滤器等技术，进一步减少参数量和计算量，同时保持或提升模型精度，适应资源受限的嵌入式设备部署。
 
 ## 本节视频
 
