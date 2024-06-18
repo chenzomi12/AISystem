@@ -349,7 +349,7 @@ __mlu_global__ void MatmulKernel(float* dst/*C*/, int16_t* src0/*A*/, int8_t* sr
 
 - 寒武纪提供统一的平台级基础系统软件 Cambricon Neuware，支持云边端全系列智能芯片，简化 AI 模型迁移和软件开发。
 
-- Cambricon BANG 平台提供了一套完整的软件栈，支持从 C/C++编程到深度学习框架和通信库，简化了异构并行编程。
+- Cambricon BANG 平台提供了一套完整的软件栈，支持从 C/C++编程到AI 框架和通信库，简化了异构并行编程。
 
 - 寒武纪的 MLU 架构包括多层次的存储结构和多种计算能力，支持不同规模的并行计算任务，并通过软件工具优化性能。
 

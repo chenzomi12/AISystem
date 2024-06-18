@@ -189,7 +189,7 @@ print(grad[0])
 
 - 介绍了前向自动微分（Forward Automatic Differentiation, FAD）的实现原理和过程，通过 Python 语言的操作符重载技术，创建了 ADTangent 类来自动计算导数，并通过实例代码演示了如何使用该类来计算给定函数的导数。
 
-- 通过具体的 Python 代码示例，展示了如何利用 ADTangent 类进行操作符重载，实现正向自动微分，并与 PyTorch 和 MindSpore 等深度学习框架的自动微分结果进行了对比，验证了实现的正确性。
+- 通过具体的 Python 代码示例，展示了如何利用 ADTangent 类进行操作符重载，实现正向自动微分，并与 PyTorch 和 MindSpore 等AI 框架的自动微分结果进行了对比，验证了实现的正确性。
 
 ## 本节视频
 

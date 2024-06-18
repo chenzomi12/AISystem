@@ -68,7 +68,7 @@ Tensor 是神经网络中的一个基本数据结构，可以看作是一个多�
 
 ### 框架对 NCHW 与 NHWC 的默认选择
 
-常用的深度学习框架中默认使用 NCHW 的有 caffe、NCNN、pytorch、mxnet 等，默认使用 NHWC 的有 tensorflow、openCV 等，设置非默认排布格式只需要修改一些参数即可。
+常用的AI 框架中默认使用 NCHW 的有 caffe、NCNN、pytorch、mxnet 等，默认使用 NHWC 的有 tensorflow、openCV 等，设置非默认排布格式只需要修改一些参数即可。
 
 ## NCHWX
 

@@ -100,7 +100,7 @@
 
 ### AI 框架排布默认选择
 
-常用的深度学习框架中默认使用 NCHW 的有 caffe、NCNN、PyTorch、mxnet 等，默认使用 NHWC 的有 TensorFlow、OpenCV 等，设置非默认排布格式只需要修改一些参数即可。
+常用的AI 框架中默认使用 NCHW 的有 caffe、NCNN、PyTorch、mxnet 等，默认使用 NHWC 的有 TensorFlow、OpenCV 等，设置非默认排布格式只需要修改一些参数即可。
 
 ### 非连续与连续张量
 
