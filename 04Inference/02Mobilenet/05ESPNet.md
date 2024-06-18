@@ -10,23 +10,17 @@
 
 ### ESP 模块
 
-======== 标题尽可能用简短的形式来表达，能有中文或者缩写的用中文或者缩写哈，这样标题简洁
-
 基于卷积因子分解的原则，ESP（Efficient spatial pyramid）模块将标准卷积分解成 point-wise 卷积和空洞卷积金字塔（spatial pyramid of dilated convolutions）。point-wise 卷积将输入的特征映射到低维特征空间，即采用 K 个 1x1xM 的小卷积核对输入的特征进行卷积操作，1x1 卷积的作用其实就是为了降低维度，这样就可以减少参数。空洞卷积金字塔使用 K 组空洞卷积的同时下采样得到低维特征，这种分解方法能够大量减少 ESP 模块的参数和内存，并且保证了较大的感受野(如下图 a 所示)。
 
-![ESP 结构](images/05Espnet01.png)
-======== 注意图片名字跟文件名保持一致哈，方便索引哈
+![ESPNet](images/05Espnet01.png)
 
-上图 (b) 展示了 ESP 模块采用的减少-分裂-转换-合并策略。下面来计算下一共包含的参数，其实在效果上，以这种轻量级的网络作为 backbone 效果肯定不如那些重量级的，比如 Resnet，但是在运行速度上有很大优势。
-======== 这段话很像是机器翻译过来的哈，建议通读一下，不像是自然写出来的话。“重量级的？”，而且这段话读起来很怪。
+上图 (b) 展示了 ESP 模块采用的减少-分裂-转换-合并策略。下面来计算下一共包含的参数，其实在效果上，以这种轻量级的网络作为 backbone 效果肯定不如那些参数量大的网络模型，比如 Resnet，但是在运行速度上有很大优势。
 
-如上图所示，对 ESP 模块的第一部分来说，$d$ 个 $1\times1\times M$ 的卷积核，将 M 维的输入特征降至 d 维。此时参数为：$M*N/K$，第二部分参数量为 $K*n^{2}*(N/K)^{2}$，和标准卷积结构相比，参数数量降低很多。
+如上图所示，对 ESP 模块的第一部分来说，$d$ 个 $1\times 1\times M$ 的卷积核，将 M 维的输入特征降至 d 维。此时参数为：$M*N/K$，第二部分参数量为 $K*n^{2}*(N/K)^{2}$，和标准卷积结构相比，参数数量降低很多。
 
 为了减少计算量，又引入了一个简单的超参数 K，它的作用是统一收缩网络中各个 ESP 模块的特征映射维数。Reduce 对于给定 K，ESP 模块首先通过逐点卷积将特征映射从 m 维空间缩减到 $N/K$ 维空间（上图 a 中的步骤 1）。通过 Split 将低维特征映射拆分到 K 个并行分支上。
 
-然后每个分支使用 $2^{k-1},k=1,...,k-1$ 给出的 $n\times\n$ 个扩张速率不同的卷积核同时处理这些特征映射（上图 a 中的步骤 2）。最后将 K 个并行扩展卷积核的输出连接起来，产生一个 n 维输出特征图。
-
-======== 注意标点符号，文章中都用逗号，而不是,
+然后每个分支使用 $2^{k-1}，k=1,...,k-1$ 给出的 $n\times n$ 个扩张速率不同的卷积核同时处理这些特征映射（上图 a 中的步骤 2）。最后将 K 个并行扩展卷积核的输出连接起来，产生一个 n 维输出特征图。
 
 下面代码使用 PyTorch 来实现具体的 ESP 模块：
 
@@ -83,21 +77,17 @@ class ESPModule(nn.Module):
         return x
 ```
 
-======= 回车用一个空行就可以了，不用太多的哈。
-
 ### HFF 特性
 
 虽然将扩张卷积的输出拼接在一起会给 ESP 模块带来一个较大的有效感受野，但也会引入不必要的棋盘或网格假象，如下图所示。
 
-![HFF 结构](images/05.espnet_02.png)
+![ESPNet](images/05Espnet02.png)
 
-上图(a)举例说明一个网格伪像，其中单个活动像素(红色)与膨胀率 r = 2 的 3×3 膨胀卷积核卷积。
+上图(a)举例说明一个网格伪像，其中单个活动像素（红色）与膨胀率 r = 2 的 3×3 膨胀卷积核卷积。
 
 上图(b)具有和不具有层次特征融合（Hierarchical feature fusion，HFF）的 ESP 模块特征图可视化。ESP 中的 HFF 消除了网格伪影。彩色观看效果最佳。
 
-========= 文章里面括号主要用中文的（），具体上下标的上图(a)(b)用英文的()哈
-
-为了解决 ESP 中的网格问题，使用不同膨胀率的核获得的特征映射在拼接之前会进行层次化添加(上图 b 中的 HFF)。该解决方案简单有效，且不会增加 ESP 模块的复杂性，这与现有方法不同，现有方法通过使用膨胀率较小的卷积核学习更多参数来消除网格误差[Dilated residual networks,Understanding convolution for semantic segmentation]。为了改善网络内部的梯度流动，ESP 模块的输入和输出特征映射使用元素求和[Deep residual learning for image recognition]进行组合。
+为了解决 ESP 中的网格问题，使用不同膨胀率的核获得的特征映射在拼接之前会进行层次化添加（上图 b 中的 HFF）。该解决方案简单有效，且不会增加 ESP 模块的复杂性，这与现有方法不同，现有方法通过使用膨胀率较小的卷积核学习更多参数来消除网格误差[Dilated residual networks,Understanding convolution for semantic segmentation]。为了改善网络内部的梯度流动，ESP 模块的输入和输出特征映射使用元素求和[Deep residual learning for image recognition]进行组合。
 
 ### 网络结构
 
@@ -105,11 +95,11 @@ ESPNet 使用 ESP 模块学习卷积核以及下采样操作，除了第一层�
 
 ESPNet 的不同变体如下图所示。第一个变体，ESPNet-A(图 a)，是一种标准网络，它以 RGB 图像作为输入，并使用 ESP 模块学习不同空间层次的表示，以产生一个分割掩码。第二种 ESP - b(图 b)通过在之前的跨步 ESP 模块和之前的 ESP 模块之间共享特征映射，改善了 ESPNet-A 内部的信息流。第三种变体，ESPNet-C(图 c)，加强了 ESPNet-B 内部的输入图像，以进一步改善信息的流动。这三种变量产生的输出的空间维度是输入图像的 1 / 8。第四种变体，ESPNet(图 d)，在 ESPNet- c 中添加了一个轻量级解码器(使用 reduceupsample-merge 的原理构建)，输出与输入图像相同空间分辨率的分割 mask。
 
-![ESP 网络结构](images/05.espnet_03.png)
+![ESPNet](images/05Espnet03.png)
 
-从 ESPNet- a 到 ESPNet 的路径。红色和绿色色框分别代表负责下采样和上采样操作的模块。空间级别的 l 在(a)中的每个模块的左侧。本文将每个模块表示为(#输入通道，#输出通道)。这里，conv-n 表示 n × n 卷积。
+从 ESPNet- a 到 ESPNet 的路径。红色和绿色色框分别代表负责下采样和上采样操作的模块。空间级别的 l 在(a)中的每个模块的左侧。本文将每个模块表示为（#输入通道，#输出通道）。这里，conv-n 表示 n × n 卷积。
 
-为了在不改变网络拓扑结构的情况下构建具有较深计算效率的边缘设备网络，超参数α控制网络的深度;ESP 模块在空间层次 l 上重复 $α_{l}$ 次。在更高的空间层次(l = 0 和 l = 1)， cnn 需要更多的内存，因为这些层次的特征图的空间维数较高。为了节省内存，ESP 和卷积模块都不会在这些空间级别上重复。
+为了在不改变网络拓扑结构的情况下构建具有较深计算效率的边缘设备网络，超参数α控制网络的深度;ESP 模块在空间层次 l 上重复 $α_{l}$ 次。在更高的空间层次（l = 0 和 l = 1），cnn 需要更多的内存，因为这些层次的特征图的空间维数较高。为了节省内存，ESP 和卷积模块都不会在这些空间级别上重复。
 
 ## ESPNet V2
 
@@ -129,7 +119,7 @@ ESPNet V2 与 V1 版本相比，其特点如下：
 
 6. 使用级联（concatenation）取代对应元素加法操作（element-wise addition operation ）
 
-###  DDConv 模块
+### DDConv 模块
 
 深度分离空洞卷积（Depth-wise dilated separable convolution，DDConv）分两步：
 
@@ -150,7 +140,7 @@ ESPNet V2 与 V1 版本相比，其特点如下：
 
 EESP 模块结构如下图，图 b 中相比于 ESPNet，输入层采用分组卷积，DDConv+Conv1x1 取代标准空洞卷积，依然采用 HFF 的融合方式，（c）是（b）的等价模式。当输入通道数 M=240，g=K=4, d=M/K=60，EESP 比 ESP 少 7 倍的参数。
 
-![EESP 结构](images/03cnn/03CNN_05.png)
+![ESPNet](images/05ESPNet04.png)
 
 描述了一个新的网络模块 EESP，它利用深度可分离扩张和组逐点卷积设计，专为边缘设备而设计。该模块受 ESPNet 架构的启发，基于 ESP 模块构建，使用了减少-分割-变换-合并的策略。通过组逐点和深度可分离扩张卷积，该模块的计算复杂度得到了显著的降低。进一步，描述了一种带有捷径连接到输入图像的分层 EESP 模块，以更有效地学习多尺度的表示。
 
@@ -159,41 +149,30 @@ EESP 模块结构如下图，图 b 中相比于 ESPNet，输入层采用分组�
 ```python
 class EESP(nn.Module):
     '''
-    // ======= 中文中文哈
-    This class defines the EESP block, which is based on the following principle
-        REDUCE ---> SPLIT ---> TRANSFORM --> MERGE
+       按照 REDUCE ---> SPLIT ---> TRANSFORM --> MERGE 
     '''
 
-    def __init__(self, nIn, nOut, stride=1, k=4, r_lim=7, down_method='esp'):                     #down_method --> ['avg' or 'esp'] ======= 注释是解释的作用，不是标记哈，这个看上去就像是标记哈
-        '''
-        // ======== 中文中文哈，要不就不写
-        :param nIn: number of input channels
-        :param nOut: number of output channels
-        :param stride: factor by which we should skip (useful for down-sampling). If 2, then down-samples the feature map by 2
-        :param k: # of parallel branches
-        :param r_lim: A maximum value of receptive field allowed for EESP block
-        :param g: number of groups to be used in the feature map reduction step.
-        '''
+    def __init__(self, nIn, nOut, stride=1, k=4, r_lim=7, down_method='esp'):                   
         super().__init__()
         self.stride = stride
         n = int(nOut / k)
         n1 = nOut - (k - 1) * n
-        assert down_method in ['avg', 'esp'], 'One of these is suppported (avg or esp)'
+        assert down_method in ['avg', 'esp']
         assert n == n1, "n(={}) and n1(={}) should be equal for Depth-wise Convolution ".format(n, n1)
 
         self.proj_1x1 = CBR(nIn, n, 1, stride=1, groups=k)
 
-        # (For convenience) Mapping between dilation rate and receptive field for a 3x3 kernel
+        #3x3 核的膨胀率和感受野之间的映射
         map_receptive_ksize = {3: 1, 5: 2, 7: 3, 9: 4, 11: 5, 13: 6, 15: 7, 17: 8}
         self.k_sizes = list()
         for i in range(k):
             ksize = int(3 + 2 * i)
-            # After reaching the receptive field limit, fall back to the base kernel size of 3 with a dilation rate of 1
+            # 达到感受野极限后，回落到 3x3，膨胀率为 1 的基础卷积
             ksize = ksize if ksize <= r_lim else 3
             self.k_sizes.append(ksize)
-        # sort (in ascending order) these kernel sizes based on their receptive field
-        # This enables us to ignore the kernels (3x3 in our case) with the same effective receptive field in hierarchical
-        # feature fusion because kernels with 3x3 receptive fields does not have gridding artifact.
+        #根据感受野对这些核大小进行排序（升序）
+        #这使我们能够忽略分层中具有相同有效感受野的核（在我们的例子中为 3×3）
+        # 特征融合，因为 3x3 感受野的核不具有网格伪影。
         self.k_sizes.sort()
         self.spp_dw = nn.ModuleList()
      
@@ -207,45 +186,41 @@ class EESP(nn.Module):
         self.downAvg = True if down_method == 'avg' else False
 
     def forward(self, input):
-        '''
-        :param input: input feature map
-        :return: transformed feature map
-        '''
 
-        # Reduce --> project high-dimensional feature maps to low-dimensional space
+        # Reduce --> 将高维特征映射投影到低维空间
         output1 = self.proj_1x1(input)
         output = [self.spp_dw[0](output1)]
-        # compute the output for each branch and hierarchically fuse them
+        # 计算每个分支的输出并分层融合它们
         # i.e. Split --> Transform --> HFF
         for k in range(1, len(self.spp_dw)):
             out_k = self.spp_dw[k](output1)
             # HFF
-            # We donot combine the branches that have the same effective receptive (3x3 in our case)
-            # because there are no holes in those kernels.
+            #我们不组合具有相同感受野的分支(在我们的例子中是 3x3)
+         
             out_k = out_k + output[k - 1]
-            #apply batch norm after fusion and then append to the list
+            #融合后应用批量定额，然后添加到列表中
             output.append(out_k)
         # Merge
-        expanded = self.conv_1x1_exp( # Aggregate the feature maps using point-wise convolution
-            self.br_after_cat( # apply batch normalization followed by activation function (PRelu in this case)
-                torch.cat(output, 1) # concatenate the output of different branches
+        expanded = self.conv_1x1_exp( 
+            self.br_after_cat( 
+                torch.cat(output, 1) 
             )
         )
         del output
-        # if down-sampling, then return the concatenated vector
-        # as Downsampling function will combine it with avg. pooled feature map and then threshold it
+        # 如果下采样，则返回连接的向量
+        # 因为下采样功能会将其与 avg 合并。合并特征图，然后对其进行阈值处理
         if self.stride == 2 and self.downAvg:
             return expanded
 
-        # if dimensions of input and concatenated vector are the same, add them (RESIDUAL LINK)
+        # 如果输入向量和连接向量的维数相同，则将它们相加 (RESIDUAL LINK)
         if expanded.size() == input.size():
             expanded = expanded + input
 
-        # Threshold the feature map using activation function (PReLU in this case)
+        # 使用激活函数对特征图进行阈值处理 (PReLU in this case)
         return self.module_act(expanded)
 ```
 
-============ 代码的注释都没有中文哈，中文是让别人理解，这里不是写代码哈，是伪代码，让别人理解看懂的代码
+
 
 ### Strided EESP 模块
 
@@ -259,26 +234,17 @@ class EESP(nn.Module):
 
 4.融合原始输入图像的下采样信息，使得特征信息更加丰富。具体做法是先将图像下采样到与特征图的尺寸相同的尺寸，然后使用第一个卷积，一个标准的 3×3 卷积，用于学习空间表示。再使用第二个卷积，一个逐点卷积，用于学习输入之间的线性组合，并将其投影到高维空间。
 
-![Strided EESP 结构](images/05.espnet_05.png)
+![ESPNet](images/05Espnet05.png)
 
 ```python
 
 class DownSampler(nn.Module):
     '''
-    Down-sampling fucntion that has two parallel branches: (1) avg pooling
-    and (2) EESP block with stride of 2. The output feature maps of these branches
-    are then concatenated and thresholded using an activation function (PReLU in our
-    case) to produce the final output.
+   具有两个并行分支的下采样功能：平均池和步长为 2 的 EESP 块。然后，使用激活函数将这些分支的输出特征图连接起来并进行阈值处理，以产生最终输出。
     '''
 
     def __init__(self, nin, nout, k=4, r_lim=9, reinf=True):
-        '''
-            :param nin: number of input channels
-            :param nout: number of output channels
-            :param k: # of parallel branches
-            :param r_lim: A maximum value of receptive field allowed for EESP block
-            :param g: number of groups to be used in the feature map reduction step.
-        '''
+
         super().__init__()
         nout_new = nout - nin
         self.eesp = EESP(nin, nout_new, stride=2, k=k, r_lim=r_lim, down_method='avg')
@@ -291,15 +257,12 @@ class DownSampler(nn.Module):
         self.act =  nn.PReLU(nout)
 
     def forward(self, input, input2=None):
-        '''
-        :param input: input feature map
-        :return: feature map down-sampled by a factor of 2
-        '''
+ 
         avg_out = self.avg(input)
         eesp_out = self.eesp(input)
         output = torch.cat([avg_out, eesp_out], 1)
         if input2 is not None:
-            #assuming the input is a square image
+            
             w1 = avg_out.size(2)
             while True:
                 input2 = F.avg_pool2d(input2, kernel_size=3, padding=1, stride=2)
@@ -308,7 +271,7 @@ class DownSampler(nn.Module):
                     break
             output = output + self.inp_reinf(input2)
 
-        return self.act(output) #self.act(output)
+        return self.act(output) 
 ```
 ### 网络结构
 
@@ -316,11 +279,9 @@ ESPNet V2 网络使用 EESP 模块构建。在每个空间级别，ESPNet V2 重
 
 ## 小结
 
-- ESPNet 系列核心在于空洞卷积金字塔，每层具有不同的空洞比例（dilation rate）
+- ESPNet 系列核心在于空洞卷积金字塔，每层具有不同的空洞比例（dilation rate）。
 
-- ESPNet 模型结构再参数量不增加的情况下，利用 HFF 方法能够融合多尺度特征提升模型精度
-
-===== 小结高度提炼要点哈
+- ESPNet 模型结构再参数量不增加的情况下，利用 HFF 方法能够融合多尺度特征提升模型精度。
 
 ## 本节视频
 

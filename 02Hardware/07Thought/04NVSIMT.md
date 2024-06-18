@@ -1,10 +1,12 @@
+<!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # CUDA 编程模式(DONE)
 
-前面的小节对 AI 芯片 SIMD 和 SIMT 计算本质进行了分析，结合 NVIDIA CUDA 实现对 SIMD 和 SIMT 进行了对比，本节将以英伟达 GPU 为例，讲解 GPU 的编程模型。
+前面的小节对 AI 芯片 SIMD 和 SIMT 计算本质进行了分析，结合英伟达 CUDA 实现对 SIMD 和 SIMT 进行了对比，本节将以英伟达 GPU 为例，讲解 GPU 的编程模型。
 
 ## GPU 编程模型 CUDA
 
-NVIDIA 公司于 2007 年发布了 CUDA，支持编程人员利用更为通用的方式对 GPU 进行编程，更好地发挥底层硬件强大的计算能力，以英伟达 GPU 为例对 GPU 的编程模型进行讲解。
+英伟达公司于 2007 年发布了 CUDA，支持编程人员利用更为通用的方式对 GPU 进行编程，更好地发挥底层硬件强大的计算能力，以英伟达 GPU 为例对 GPU 的编程模型进行讲解。
 
 ### SIMD vs SIMT 执行模式
 
@@ -82,18 +84,20 @@ AMD 的显卡也是有大量的计算单元和计算核心，为什么没有 SIM
 
 ![ADM CDNA3 CU 架构](images/04NVSIMT09.png)
 
-NVIDIA 的 H100 由 132 个流式多处理器 （SM）组成，作为一个大型统一的 GPU 呈现给程序员。计算通过 CUDA 程序分发到具体的核心（Cuda Core/Tensor Core），每个执行核心有 SIMD 执行单元，从而实现并行计算。
+英伟达的 H100 由 132 个流式多处理器 （SM）组成，作为一个大型统一的 GPU 呈现给程序员。计算通过 CUDA 程序分发到具体的核心（Cuda Core/Tensor Core），每个执行核心有 SIMD 执行单元，从而实现并行计算。
 
 ![NVIDIA Hopper 架构](images/04NVSIMT10.png)
 
 ## 小结与思考
 
-NVIDIA 推出 CUDA 并遵循自定义的 SIMT 架构基于 SIMD，并构建了用户易于实现的 SPMD 编程模型，实现了对通用计算的高效支持。如今整个科学计算、HPC 和 AI 的软件生态大多构建在 CUDA 的基础之上。
+- NVIDIA CUDA 允许开发者以更通用的方式编程 GPU，利用 GPU 的 SIMT 执行模式来提高计算性能和灵活性。
 
-CUDA 作为软件生态的标杆，从软件库的覆盖面、 AI 框架和算子库的支持程度两方面来讲，都是目前最完善的。开发者使用 CUDA 进行并行计算编程，利用 GPU 的大规模并行计算能力来加速各种应用程序，包括科学计算、深度学习、图形渲染等。
+- SIMD 适合向量化指令执行，而 SIMT 通过线程动态分组（Warp）执行相同指令，提高了并行度和硬件的灵活性。
+
+- AMD 通过 ROCm 平台支持类似 CUDA 的编程体验，而英伟达的 Hopper 架构通过大量流式多处理器（SM）和 CUDA 核心实现并行计算。
 
 ## 本节视频
 
 <html>
-<iframe src="//player.bilibili.com/player.html?aid=282100205&bvid=BV16c41117vp&cid=1361312451&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="http://player.bilibili.com/player.html?aid=282100205&bvid=BV16c41117vp&cid=1361312451&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

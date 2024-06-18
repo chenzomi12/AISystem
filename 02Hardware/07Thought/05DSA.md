@@ -1,3 +1,5 @@
+<!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # 从 CUDA 对 AI 芯片思考
 
 从技术的角度重新看英伟达生态，有很多值得借鉴的方面。本节将主要从流水编排、SIMT 前端、分支预测和交互方式等方面进行分析，同时对比 DSA 架构，思考可以从英伟达 CUDA 中借鉴的要点。
@@ -12,7 +14,7 @@
 
 ### SIMT 与 CUDA 的关系
 
-英伟达为了维护 CUDA 生态对 SIMT 硬件架构做出了调整和取舍，因此 CUDA 会在一定程度上对 NVIDIA 硬件架构产生约束，例如保留 SM、Warp、Thread 等线程分层概念。CUDA 架构在近几年没有做出重大的改变，主要是维护编程体系软件对外的抽象和易用性。
+英伟达为了维护 CUDA 生态对 SIMT 硬件架构做出了调整和取舍，因此 CUDA 会在一定程度上对英伟达硬件架构产生约束，例如保留 SM、Warp、Thread 等线程分层概念。CUDA 架构在近几年没有做出重大的改变，主要是维护编程体系软件对外的抽象和易用性。
 
 DSA 之所以在硬件架构的指令和设计上比较激进，并非软件体系做得好，而是在刚开始并没有太多地考虑编程体系的问题，自然没有为了实现软硬件协同带来的架构约束。CUDA 的成功之处在于通过 SIMT 架构掩盖了流水编排、并行指令隐藏以及 CUDA 的易用性。
 
@@ -95,13 +97,13 @@ int main() {
 
 ![通过 Warp 并行掩盖流水阻塞](images/05DSA02.png)
 
-DSA 硬件架构同样可以引入 Warp Scheduler 进行指令流水掩盖，让每个 DSA 核执行多个线程，相互掩盖流水线阻塞。NVIDIA GPU 使用 Warp 来掩盖指令流水是基于运行时的具体信息，而开发者和编译器只能基于静态信息进行流水编排，很难做到足够均衡，使得 SIMD/DSA 在进行手工或者编译器自动流水编排时相对困难，资深开发者也很难把流水编排得足够好。
+DSA 硬件架构同样可以引入 Warp Scheduler 进行指令流水掩盖，让每个 DSA 核执行多个线程，相互掩盖流水线阻塞。英伟达 GPU 使用 Warp 来掩盖指令流水是基于运行时的具体信息，而开发者和编译器只能基于静态信息进行流水编排，很难做到足够均衡，使得 SIMD/DSA 在进行手工或者编译器自动流水编排时相对困难，资深开发者也很难把流水编排得足够好。
 
 增加 SIMT 前端硬件同样会带来开销，但是可以实现流水阻塞掩盖，通过 SIMT 表达将接口暴露给用户，让用户主动写多线程，warp scheduler 在硬件层面实现多线程相互掩盖流水阻塞。SIMD 指令掩盖可以通过 SIMT 表达实现用户写通用单线程，同时 warp 分组组成 SIMD 指令。
 
 ![SIMT 前端实现流水阻塞掩盖](images/05DSA03.png)
 
-但是 CUDA 没有解决 DSA 指令掩盖，目前只是通过给开发者一个 Warp 概念，透传指令 API 来解决表达和使用的问题，因此 CUDA 的上手门槛并不低，需要在前期充分了解 NVIDIA GPU 的硬件细节。
+但是 CUDA 没有解决 DSA 指令掩盖，目前只是通过给开发者一个 Warp 概念，透传指令 API 来解决表达和使用的问题，因此 CUDA 的上手门槛并不低，需要在前期充分了解英伟达 GPU 的硬件细节。
 
 ### 分支预测机制
 
@@ -198,18 +200,16 @@ CUDA 同时具有编程开发的易用性，对初阶用户而言，CUDA 的易�
 
 ## 小结与思考
 
-相比较英伟达 GPU 的强大生态，AI 芯片采用的 DSA 架构在编程模型和硬件执行模型方面还处于较为早期的状态，各项技术还不太成熟，很难与英伟达形成抗衡，同时 CUDA 在编程方面的易用性让不同层次需求的开发者实现并行加速。NVIDIA GPU 有以下四点值得借鉴：
+- DSA 架构在编程模型和硬件执行模型上还不够成熟，需要构建开放的软硬件架构和易用的开发环境来吸引开发者，并与 CUDA 生态竞争。
 
-- 提供良好的流水编排，提供多线程交错并行来提升整体性能。
+- CUDA 提供了从初级到高级不同层次的易用性，通过简化的编程模型和高效的线程管理机制，使得不同水平的开发者都能在 GPU 上实现高性能计算。
 
 - 增加了 SIMT 前端硬件，通过线程组 Warp 隐藏线程指令流水，SIMD 使用户只需要实现单线程，但是需要在前期充分了解 GPU 的硬件架构。
 
 - 在分支预测方面，通过动态 Warp 合并，动态分支合并和动态 Warp 分组，使得 GPU 并行计算能力大大提高。
 
-- CUDA 很好地提供了主机（CPU）和设备（GPU）之间的交互方式，使编程开发更加具有易用性。
-
 ## 本节视频
 
 <html>
-<iframe src="//player.bilibili.com/player.html?aid=367168309&bvid=BV1j94y1N7qh&cid=1365978059&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="http://player.bilibili.com/player.html?aid=367168309&bvid=BV1j94y1N7qh&cid=1365978059&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

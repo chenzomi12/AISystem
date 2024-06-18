@@ -26,7 +26,7 @@ Roofline 模型是一种用于评估和分析高性能计算平台性能的有�
 
 - 带宽决定“房檐”的斜率（红色线段）
 
-![img](images/03optimization01.jpg)
+![img](images/03Optimization01.png)
 
 - Compute-Bound:  当算子的计算强度大于计算平台的计算强度上限时，算子在当前计算平台上处于计算瓶颈。从充分利用计算平台算力的角度来看，此时算子已经利用了计算平台的全部算力。
 
@@ -34,7 +34,7 @@ Roofline 模型是一种用于评估和分析高性能计算平台性能的有�
 
 在（3,224,224）的输入下，VGG16 模型的前向传播计算量为 15GFLOPs，访存量大约为 600MB，则计算强度为 25FLOPSs/Byte。MobileNet 计算量为 0.5GFLOPs，访存量为 74MB，那么它的计算强度只有 7FLOPs/Byte。在 1080Ti GPU 上，其算力为 11.3TFLOP/s，带宽为 484GB/s，因此该平台的最大计算强度约为 24。
 
-![img](images/03optimization02.webp)
+![img](images/03Optimization02.png)
 
 由上图可以看出，MobileNet 处于 Memory-Bound 区域，在 1080Ti 上的理论性能只有 3.3TFLOPs，VGG 处于 Compute-Bound 区域，完全利用 1080Ti 的全部算力。通过 Roofline 模型，我们可以清晰地看到，当计算量和访存量增加时，性能提升会受到硬件算力和带宽的限制。这种分析对于优化计算密集型和内存带宽密集型应用至关重要，因为它可以帮助开发者识别性能瓶颈，并作出相应的优化策略。
 
@@ -54,7 +54,7 @@ Roofline 模型是一种用于评估和分析高性能计算平台性能的有�
 
 - 指令优化
 
-现代处理器，如 Intel 的 AVX-512 或 ARM 的 SVE，提供了强大的向量处理能力，允许单个指令同时操作多个数据点。通过这种方式，指令优化能够减少指令的数量和执行周期，进而降低延迟并提升性能。此外，针对特定硬件定制的指令集，如 NVIDIA 的 Tensor Cores，可以进一步增强并行处理能力，为深度学习中的张量运算提供专门优化。
+现代处理器，如 Intel 的 AVX-512 或 ARM 的 SVE，提供了强大的向量处理能力，允许单个指令同时操作多个数据点。通过这种方式，指令优化能够减少指令的数量和执行周期，进而降低延迟并提升性能。此外，针对特定硬件定制的指令集，如英伟达的 Tensor Cores，可以进一步增强并行处理能力，为深度学习中的张量运算提供专门优化。
 
 在指令优化中，开发者需要深入理解目标硬件的架构特性，以及如何将这些特性映射到算法实现中。这可能涉及到对现有算法的重新设计，以确保它们能够充分利用硬件的并行处理单元。例如，通过将数据重新排列以适应 SIMD（单指令多数据）架构，或者通过调整算法以利用特定的硬件加速器。除了硬件特性的利用，指令优化还涉及到编译器级别的优化，如自动向量化、指令调度和寄存器分配等。这些编译器技术能够自动识别并应用优化，进一步释放硬件的潜力。
 
@@ -72,7 +72,7 @@ Roofline 模型是一种用于评估和分析高性能计算平台性能的有�
 
 ### TVM 开发算子
 
-TVM 是 OctoML 研发的可扩展、开放的端到端 AI 编译器，用于深度学习模型的优化和部署，目标是减少企业为特定硬件开发和深度学习软件部署所花费的成本和时间。
+TVM 是 OctoML 研发的可扩展、开放的端到端 AI 编译器，用于神经网络模型的优化和部署，目标是减少企业为特定硬件开发和深度学习软件部署所花费的成本和时间。
 
 TVM 极大的发扬了 Halide 的计算与调度思想，将可实现的优化都以调度 API 的方式呈现。相比 Triton，TVM 不局限于 CUDA，支持了更多的后端，并且也易于扩展更多后端。TVM 上一个典型的调度如下：
 
@@ -186,13 +186,12 @@ TVM 当前被多个加速器厂商采用，进行了适应自家硬件的定制�
 
     希姆计算基于 TVM 的 AI 编译器端到端支持希姆一代二代芯片，实现了自定义算子方案，其模型性能接近手写极致。
 
-![image-20240526203405335](images/03optimization03.png)
+![](images/03Optimization03.png)
 
 - 华为 TBE 张量加速引擎
 
     TBE（Tensor Boost Engine）负责执行昇腾 AI 处理器中运行在 AI Core 上的算子，TBE 提供了基于 TVM 框架的自定义算子开发能力，通过 TBE 提供的 API 可以完成相应神经网络算子的开发。
 
-![image-20240526203607467](images/03optimization04.png)
 
 ### Triton 开发算子
 
@@ -200,7 +199,7 @@ Triton 是 OpenAI 研发的专为深度学习和高性能计算任务设计的�
 
 Triton 的核心理念是基于分块的编程范式可以有效促进神经网络的高性能计算核心的构建。CUDA 的编程模型是传统的 SIMT（Single Instruction Multi Thread）GPU 执行模型，在线程的细粒度上进行编程，Triton 是在分块的细粒度上进行编程。例如，在矩阵乘法的情况下，CUDA 和 Triton 有以下不同。
 
-![img](images/03optimization05.webp)
+![img](images/03Optimization04.png)
 
 可以看出 triton 在循环中是逐块进行计算的。这种方法的一个关键优势是，它导致了块结构的迭代空间，相较于现有的 DSL，为程序员在实现稀疏操作时提供了更多的灵活性，同时允许编译器为数据局部性和并行性进行积极的优化。下面是一个使用 Triton 实现矩阵乘法的例子：
 
@@ -234,42 +233,42 @@ Triton 的前端是基于 Python 实现的，这使得用户的学习成本大�
 
 - Layout 抽象：Layout 抽象描述的是计算资源和输入、输出元素的坐标映射关系，主要包括块编码、共享内存编码、切片编码等几类定义，这些编码信息会作为 attribute 附着在一个一个的 Tensor 对象上，来描述这个 Tensor 作为输入或输出时所需满足的映射关系。如果出现一个 Tensor 作为输入和输出时的映射关系不兼容的情况，会再通过插入一些中转 layout 来完成兼容性的适配，代价是可能引入额外的转换开销。
 
-- 优化 Pass：主要包括了 NVIDIA GPU 计算 kernel 优化的一些常见技巧，包括用于辅助向量化访存的[coalescing](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Coalesce.cpp)、用于缓解计算访存差异的[pipeline](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Pipeline.cpp)/[prefetch](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Prefetch.cpp)，用于避免 shared memory 访问 bank-conflict 的[swizzling](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/include/triton/Dialect/TritonGPU/IR/TritonGPUAttrDefs.td%23L47)。用户在开发 Kernel 时，主要关注其业务逻辑，而底层硬件优化的细节由 Trition 编译器实现。对于一些十分精细的优化，使用 Triton 可能就无法实现。
+- 优化 Pass：主要包括了英伟达 GPU 计算 kernel 优化的一些常见技巧，包括用于辅助向量化访存的[coalescing](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Coalesce.cpp)、用于缓解计算访存差异的[pipeline](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Pipeline.cpp)/[prefetch](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Prefetch.cpp)，用于避免 shared memory 访问 bank-conflict 的[swizzling](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/include/triton/Dialect/TritonGPU/IR/TritonGPUAttrDefs.td%23L47)。用户在开发 Kernel 时，主要关注其业务逻辑，而底层硬件优化的细节由 Trition 编译器实现。对于一些十分精细的优化，使用 Triton 可能就无法实现。
 
 在应用场景上，Triton 已经被集成进了多个著名的课程中：
 
 - [jax-ml/jax-triton](https://github.com/jax-ml/jax-triton)：JAX 是一个用于加速数值计算的 Python 库，使用 Triton 编写可以嵌入到 JAX 程序中的自定义 GPU 内核。在 JAX 中可以使用 triton_call 方便的调用 Triton kernel。
 
-- [PyTorch/inductor](https://github.com/pytorch/pytorch/tree/ab148da66cb9433effac90c7bd4930a961481d9/torch/_inductor/triton_ops)：Inductor 在 Triton 的集成方面做得更加全面且务实。Inductor 一共包含三种使用 Triton 的方式， 针对非计算密集算子，基于 Inductor IR，实现了相对通用的[Codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/codegen/triton.py%23L997)的支持。针对 GEMM，基于 Jinja2，通过模式匹配的方式实现了[半定制的 codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/kernel/mm.py%23L27)。针对 Conv，调用[pre-baked Triton kernel](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/triton_ops/conv.py%23L14)，没有提供定制能力。
+- [PyTorch/inductor](https://github.com/pytorch/pytorch/tree/ab148da66cb9433effac90c7bd4930a961481d9/torch/_inductor/triton_ops)：Inductor 在 Triton 的集成方面做得更加全面且务实。Inductor 一共包含三种使用 Triton 的方式，针对非计算密集算子，基于 Inductor IR，实现了相对通用的[Codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/codegen/triton.py%23L997)的支持。针对 GEMM，基于 Jinja2，通过模式匹配的方式实现了[半定制的 codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/kernel/mm.py%23L27)。针对 Conv，调用[pre-baked Triton kernel](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/triton_ops/conv.py%23L14)，没有提供定制能力。
 
-## Triton实现原理
+## Triton 实现原理
 
-在没有Triton之前，算子工程师在开发算子时，需要同时处理DRAM、SRAM、计算单元，面临诸多挑战：
+在没有 Triton 之前，算子工程师在开发算子时，需要同时处理 DRAM、SRAM、计算单元，面临诸多挑战：
 
-+   内存管理：合理利用内存体系，将频繁访问的数据块缓存到较快的存储区域；对齐和合并访存请求，避免带宽浪费。
-+   线程管理：最大化利用硬件计算资源，规划并行线程数量和线程束大小。
-+   指令使用：使用CUDA实现一个功能有相应多种指令，不同指令具有不同延迟和吞吐量。
+- 内存管理：合理利用内存体系，将频繁访问的数据块缓存到较快的存储区域；对齐和合并访存请求，避免带宽浪费。
+- 线程管理：最大化利用硬件计算资源，规划并行线程数量和线程束大小。
+- 指令使用：使用 CUDA 实现一个功能有相应多种指令，不同指令具有不同延迟和吞吐量。
 
-Triton提高了算子开发时的效率，使得开发者不再囿于硬件细节。CUDA直接面向Thread变成，而Triton面向Thread Block编程，开发者只需关注1）Kernel launch的参数；2）每个数据分块的大小；3）数据分块之间的交互。在这之下的细节由Triton实现。
+Triton 提高了算子开发时的效率，使得开发者不再囿于硬件细节。CUDA 直接面向 Thread 变成，而 Triton 面向 Thread Block 编程，开发者只需关注 1）Kernel launch 的参数；2）每个数据分块的大小；3）数据分块之间的交互。在这之下的细节由 Triton 实现。
 
-Triton是基于MLIR实现的，其架构如下图[^1]：
+Triton 是基于 MLIR 实现的，其架构如下图[^1]：
 
 ![img](images/03optimization06.png)
 
-Frontend用于将开发者利用Python编写的kernel转换为对应的Triton IR (Triton Dialect)。使用`@triton.jit`来标注kernel，Triton解析Python AST，将用户定义的计算过程带入MLIR体系，之后继续做后续的优化。
+Frontend 用于将开发者利用 Python 编写的 kernel 转换为对应的 Triton IR (Triton Dialect)。使用`@triton.jit`来标注 kernel，Triton 解析 Python AST，将用户定义的计算过程带入 MLIR 体系，之后继续做后续的优化。
 
-Optimizer大致工作流如下：
+Optimizer 大致工作流如下：
 
 ![img](images/03optimization07.png)
 
-主要分为1）TritonIR的优化；2）TritonIR到TritonGPU IR的转换；3）TritonGPU IR的优化。贯穿中间的数据结构是 TritonGPU IR。
+主要分为 1）TritonIR 的优化；2）TritonIR 到 TritonGPU IR 的转换；3）TritonGPU IR 的优化。贯穿中间的数据结构是 TritonGPU IR。
 
-TritonGPU Dialect 相比 Triton Dialect，主要是增加了 GPU 硬件相关的 Op 和 Type。关键Op为数据布局转换。当前有以下几种数据布局：
+TritonGPU Dialect 相比 Triton Dialect，主要是增加了 GPU 硬件相关的 Op 和 Type。关键 Op 为数据布局转换。当前有以下几种数据布局：
 
-+   Blocked Layout：表示 thread 间平均分配 workload 的情况，每个线程处理一块memory上连续的数据。
-+   Shared Layout：表示数据在 shared memory 的一些特性。
-+   MMA Layout：表示 Tensor Core 中 MMA 指令结果的 data layout
-+   DotOperand Layout：表示 Triton 的 DotOp 的输入的 layout
+- Blocked Layout：表示 thread 间平均分配 workload 的情况，每个线程处理一块 memory 上连续的数据。
+- Shared Layout：表示数据在 shared memory 的一些特性。
+- MMA Layout：表示 Tensor Core 中 MMA 指令结果的 data layout
+- DotOperand Layout：表示 Triton 的 DotOp 的输入的 layout
 
 列举一些典型的 data layout 的转换，以及特点：
 
@@ -280,7 +279,7 @@ TritonGPU Dialect 相比 Triton Dialect，主要是增加了 GPU 硬件相关的
 
 TritonIR 上的优化主要是计算本身的，与硬件无关的优化，包含了如下 Pass：1）Inliner Pass，将 Kernel Call 的子函数 Inline 展开；2）Combine Pass，一些特定的 Pattern rewrite；3）Canonicalizer Pass，一些化简的 Pattern rewrite；4）CSE Pass，MLIR 的 [cse](https://mlir.llvm.org/docs/Passes/#-cse-eliminate-common-sub-expressions) Pass，用于 消除公共子表达式；5）LICM Pass，MLIR 的 [LoopInvariantCodeMotion Pass](https://mlir.llvm.org/doxygen/LoopInvariantCodeMotion_8cpp_source.html) ，将循环无关的变量挪到 forloop 外面。
 
-TritonGPU IR优化在计算本身优化外，新增了 GPU 硬件相关的优化，具体的 Pass 列表如下：1）ConvertTritonToTritonGPU Pass，将 Triton IR 转换为 TritonGPU IR，主要是增加 TritonGPU 特有的 layout；2）Coalesce Pass，重排 order，使得最大 contiguity 的维度排在最前面；3）Pipeline Pass，MMA 指令对应的 global memory 到 shared memory 的 N-Buffer 优化；4）Prefetch Pass，MMA 指令对应的 shared memory 到 register file 的 N-Buffer 优化
+TritonGPU IR 优化在计算本身优化外，新增了 GPU 硬件相关的优化，具体的 Pass 列表如下：1）ConvertTritonToTritonGPU Pass，将 Triton IR 转换为 TritonGPU IR，主要是增加 TritonGPU 特有的 layout；2）Coalesce Pass，重排 order，使得最大 contiguity 的维度排在最前面；3）Pipeline Pass，MMA 指令对应的 global memory 到 shared memory 的 N-Buffer 优化；4）Prefetch Pass，MMA 指令对应的 shared memory 到 register file 的 N-Buffer 优化
 
 ## 参考文献
 

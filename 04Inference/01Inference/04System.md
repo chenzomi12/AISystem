@@ -57,7 +57,7 @@
 
 ## NVIDIA Triton 推理服务
 
-NVIDIA Triton Inference Server（简称 Triton）是一个高性能、可扩展的开源推理框架，由 NVIDIA 等公司推出。Triton 旨在为用户提供云和边缘推理的部署解决方案，支持多种深度学习模型和框架。
+NVIDIA Triton Inference Server（简称 Triton）是一个高性能、可扩展的开源推理框架，由英伟达等公司推出。Triton 旨在为用户提供云和边缘推理的部署解决方案，支持多种神经网络模型和框架。
 
 ![Triton 服务流程图](images/04System02.png)
 
@@ -67,7 +67,7 @@ Triton 的主要特点包括：
 
 - **可扩展性**：支持水平扩展和垂直扩展，能够适应不同的计算资源和负载需求。
 
-- **多框架支持**：兼容 TensorFlow、PyTorch、ONNX 等主流深度学习框架。
+- **多框架支持**：兼容 TensorFlow、PyTorch、ONNX 等主流AI 框架。
 
 - **模型优化**：集成 TensorRT 等优化工具，进一步提升模型推理性能。
 
@@ -209,13 +209,13 @@ Pre-Model Scheduler Queues 是模型编排的核心工作区，负责解析请�
 
 ### Triton 推理引擎
 
-Triton 的一大亮点在于其高度灵活且强大的推理引擎支持体系，将 TensorFlow、TensorRT、PyTorch、ONNX Runtime 等主流框架统一整合为“Backends”。这一设计极大地促进了深度学习模型部署的标准化和效率，使得开发者能够在一个统一的平台上轻松管理多样化的模型，而无需关注底层实现细节，获得具有多后端架构的优势。
+Triton 的一大亮点在于其高度灵活且强大的推理引擎支持体系，将 TensorFlow、TensorRT、PyTorch、ONNX Runtime 等主流框架统一整合为“Backends”。这一设计极大地促进了神经网络模型部署的标准化和效率，使得开发者能够在一个统一的平台上轻松管理多样化的模型，而无需关注底层实现细节，获得具有多后端架构的优势。
 
 ![Triton 推理引擎](images/04System07.png)
 
 - **无缝迁移与混合部署**：通过将不同框架的模型推理能力抽象为统一的 Backend 接口，Triton 允许用户在不修改模型代码的情况下，自由选择或切换推理引擎。这意味着，开发者可以在 TensorFlow 模型和 PyTorch 模型之间轻松迁移，甚至在同一服务中混合部署多种框架的模型，极大提升了开发效率和灵活性。
 
-- **性能优化与硬件加速**：Triton 集成的每个 Backend 都针对特定框架进行了优化，尤其是 TensorRT，作为 NVIDIA 开发的高性能推理加速库，能显著提高 GPU 上的推理速度。此外，Triton 还能自动利用硬件加速特性，如 FP16、INT8 量化，进一步提升吞吐量和降低延迟。
+- **性能优化与硬件加速**：Triton 集成的每个 Backend 都针对特定框架进行了优化，尤其是 TensorRT，作为英伟达开发的高性能推理加速库，能显著提高 GPU 上的推理速度。此外，Triton 还能自动利用硬件加速特性，如 FP16、INT8 量化，进一步提升吞吐量和降低延迟。
 
 - **资源高效利用**：多后端架构使得 Triton 能够根据模型特性和硬件资源情况智能选择最合适的推理引擎。例如，对于某些模型，使用 TensorRT 可能比原生 TensorFlow 提供更好的性能；而对于复杂的 PyTorch 模型，直接利用 PyTorch Backend 可能更为合适。这种动态适配策略有助于最大化资源利用率。
 
@@ -227,7 +227,7 @@ Triton 在其初始化序列中采用了一套精细且高效的模型管理机�
 
 根据模型的具体需求及系统当前的资源分配状况，Triton 采用先进的资源调度算法来决定模型的最优存放位置（内存或 GPU 显存）。此过程综合考虑了模型尺寸、预期的推理延迟要求、以及 GPU 的内存使用情况等多维度因素，力求达到资源使用的最优化。对于 GPU 密集型模型，Triton 会尝试最大化 GPU 并行度，同时考虑内存带宽限制，避免资源争抢。
 
-针对每个模型，Triton 会基于选定的 Backend 定制化创建推理引擎。这一步骤包含了模型的优化，比如图优化、算子融合、内核选择等，以及针对特定硬件的编译。特别是对于 TensorRT Backend，Triton 会利用其深度学习网络优化器自动执行量化、层融合、内存优化等高级策略，以减少计算和内存开销。
+针对每个模型，Triton 会基于选定的 Backend 定制化创建推理引擎。这一步骤包含了模型的优化，比如图优化、算子融合、内核选择等，以及针对特定硬件的编译。特别是对于 TensorRT Backend，Triton 会利用其神经网络优化器自动执行量化、层融合、内存优化等高级策略，以减少计算和内存开销。
 
 为了加速首次推理请求的响应时间，Triton 会在模型加载后执行一系列预推理操作，即所谓的“热身”。这个过程会生成并缓存执行计划，包括计算图的优化布局、内存分配方案等，确保后续请求能够直接利用这些预计算结果，从而显著减少冷启动延迟。
 
@@ -431,13 +431,12 @@ Status TritonBackend::LoadBackendLibrary()
 
 - 推理系统架构是实现机器学习模型从训练到实际应用的关键桥梁，涉及推理、部署和服务化三个重要环节。
 
-- NVIDIA Triton Inference Server 是一个高性能、可扩展的开源推理框架，支持多种深度学习模型和框架，提供丰富的模型管理和优化功能。
+- NVIDIA Triton Inference Server 是一个高性能、可扩展的开源推理框架，支持多种神经网络模型和框架，提供丰富的模型管理和优化功能。
 
 - 模型生命周期管理包括金丝雀策略和回滚策略，确保模型的持续迭代和稳定性，降低新版本部署风险，快速应对可能的问题。
 
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1Gv4y1i7Tw&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=565182107&bvid=BV1Gv4y1i7Tw&cid=960779011&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-

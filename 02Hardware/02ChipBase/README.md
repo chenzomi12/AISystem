@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 芯片基础
+# AI 芯片基础(DONE)
 
 《AI 芯片基础》简单从 CPU 开始看通用逻辑架构（冯诺依曼架构），通过打开计算的本质（数据与时延）从而引出对于并行计算 GPU 作用和解决的业务场景，到目前最火的 AI 芯片 NPU。最后迈入超异构并行 CPU、GPU 和 NPU 并存的计算系统架构黄金十年。
 

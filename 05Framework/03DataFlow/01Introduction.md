@@ -1,4 +1,4 @@
-<!--适用于[License](https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
 # 基本介绍(DONE)
 
@@ -11,7 +11,6 @@ TensorFlow 和 PyTorch，特别是 PyTorch 代表了今天 AI 框架两种不同
 综上所述，目前主流的 AI 框架都选择使用**计算图**来抽象神经网络计算表达，通过通用的数据结构（张量）来理解、表达和执行神经网络模型，通过**计算图**可以把 AI 系统化的问题形象地表示出来。
 
 ![AI 框架逻辑架构图](images/framework_arch01.png)
-:width:`500px`
 
 有了对计算图的基本了解之后，就开始深入地了解计算图，跟自动微分之间的关系。即计算图、神经网络在真正执行计算，反向传播如何传播，如何表达自动微分的概念，而不是停留在抽象的数学含义。
 
