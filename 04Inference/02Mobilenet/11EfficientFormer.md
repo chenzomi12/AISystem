@@ -12,13 +12,27 @@
 
 大多数现有方法通过从服务器 GPU 获得的计算复杂性（MAC）或吞吐量（图像/秒）来优化 Transformer 的推理速度。但是这些指标不能反映实际的设备延迟。为了清楚地了解哪些操作和设计选择会减慢边缘设备上 VIT 的推断，在下图中作者作者对不同模型在端侧运行进行了一些分析，主要是分为 ViT 对图像进行分块的 Patch Embedding、Transformer 中的 Attention 和 MLP，另外还有 LeViT 提出的 Reshape 和一些激活等。提出了下面几个猜想。
 
-![EfficientFormer](images/11.efficientformer_01.png)
+![EfficientFormer](images/11Efficientformer01.png)
 
 **观察 1：在移动设备上，具有大核和步长的 patch 嵌入是一个速度瓶颈。**
 
 patch 嵌入通常使用一个不重叠的卷积层来实现，该层具有较大的内核大小和步长。一种普遍的看法是，Transformer 网络中 patch 嵌入层的计算成本不显著或可以忽略不计。然而，在上图中比较了具有大核和大步长的 patch 嵌入模型，即 DeiT-S 和 PoolFormer-s24，以及没有它的模型，即 LeViT-256 和 EfficientFormer，结果表明，patch 嵌入反而是移动设备上的速度瓶颈。
 
 大多数编译器都不支持大型内核卷积，并且无法通过 Winograd 等现有算法来加速。或者，非重叠 patch 嵌入可以由一个具有快速下采样的卷积 stem 代替，该卷积 stem 由几个硬件效率高的 3×3 卷积组成。
+
+**代码**
+
+```python
+#stem 以一些普通卷积组成
+def stem(in_chs, out_chs):
+    return nn.Sequential(
+        nn.Conv2d(in_chs, out_chs // 2, kernel_size=3, stride=2, padding=1),
+        nn.BatchNorm2d(out_chs // 2),
+        nn.ReLU(),
+        nn.Conv2d(out_chs // 2, out_chs, kernel_size=3, stride=2, padding=1),
+        nn.BatchNorm2d(out_chs),
+        nn.ReLU(), )
+```
 
 **观察 2：一致的特征维度对于选择 token 混合器很重要。MHSA 不一定是速度瓶颈。**
 
@@ -33,7 +47,7 @@ patch 嵌入通常使用一个不重叠的卷积层来实现，该层具有较�
 
 **观察 3：CONV-BN 比 LN-Linear 更适合延迟，准确性缺陷通常是可以接受的。**
 
-选择 MLP 实现是另一个重要的设计选择。通常，会选择两个选项之一：带 3D 线性投影（proj）的 LayerNorm（LN）和带 BatchNorm（BN）的 CONV 1×1。CONV-BN 更适合低延迟，因为 BN 可以折叠到之前的卷积用于推理加速，而 LN 仍在推理阶段收集运行统计信息，从而导致延迟。根据本文的实验结果和之前的工作，LN 引入的延迟约占整个网络延迟的 10%-20%。
+选择 MLP 实现是另一个重要的设计选择。通常，会选择两个选项之一：带 3D 线性投影（proj）的 LayerNorm（LN）和带 BatchNorm（BN）的 CONV1×1。CONV-BN 更适合低延迟，因为 BN 可以折叠到之前的卷积用于推理加速，而 LN 仍在推理阶段收集运行统计信息，从而导致延迟。根据本文的实验结果和之前的工作，LN 引入的延迟约占整个网络延迟的 10%-20%。
 
 **观察 4：非线性延迟取决于硬件和编译器。**
 
@@ -43,7 +57,7 @@ patch 嵌入通常使用一个不重叠的卷积层来实现，该层具有较�
 
 #### EfficientFormer 结构
 
-![EfficientFormer](images/11.efficientformer_02.png)
+![EfficientFormer](images/11Efficientformer02.png)
 
 基于延迟分析，作者提出了 EfficientFormer 的设计，如上图所示。该网络由 patch 嵌入（PatchEmbed）和 meta transformer 块堆栈组成，表示为 MB：
 $$
@@ -98,6 +112,83 @@ $$
 
 其中 Q、K、V 表示通过线性投影学习的查询、键和值，b 表示作为位置编码的参数化注意力 bias。
 
+**代码**
+
+```python
+#以 1x1 卷积为主的 MLP
+class Mlp(nn.Module):
+    def __init__(self, in_features, hidden_features=None,
+                 out_features=None, act_layer=nn.GELU, drop=0.):
+        super().__init__()
+        out_features = out_features or in_features
+        hidden_features = hidden_features or in_features
+        self.fc1 = nn.Conv2d(in_features, hidden_features, 1)
+        self.act = act_layer()
+        self.fc2 = nn.Conv2d(hidden_features, out_features, 1)
+        self.drop = nn.Dropout(drop)
+        self.apply(self._init_weights)
+ 
+        self.norm1 = nn.BatchNorm2d(hidden_features)
+        self.norm2 = nn.BatchNorm2d(out_features)
+ 
+    def _init_weights(self, m):
+        if isinstance(m, nn.Conv2d):
+            trunc_normal_(m.weight, std=.02)
+            if m.bias is not None:
+                nn.init.constant_(m.bias, 0)
+ 
+    def forward(self, x):
+        x = self.fc1(x)
+ 
+        x = self.norm1(x)
+ 
+        x = self.act(x)
+        x = self.drop(x)
+        x = self.fc2(x)
+ 
+        x = self.norm2(x)
+ 
+        x = self.drop(x)
+        return 
+
+class Meta4D(nn.Module):
+ 
+    def __init__(self, dim, pool_size=3, mlp_ratio=4.,
+                 act_layer=nn.GELU,
+                 drop=0., drop_path=0.,
+                 use_layer_scale=True, layer_scale_init_value=1e-5):
+        super().__init__()
+ 
+        self.token_mixer = Pooling(pool_size=pool_size)
+        mlp_hidden_dim = int(dim * mlp_ratio)
+        #MLP 层
+        self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim,
+                       act_layer=act_layer, drop=drop)
+        #drop_path 目的是在一个 batch 里面随机去除一部分样本，起正则化作用
+        self.drop_path = DropPath(drop_path) if drop_path > 0. \
+            else nn.Identity()
+        self.use_layer_scale = use_layer_scale #可学习的参数,提供一个特征的缩放
+        if use_layer_scale:
+            self.layer_scale_1 = nn.Parameter(
+                layer_scale_init_value * torch.ones((dim)), requires_grad=True)
+            self.layer_scale_2 = nn.Parameter(
+                layer_scale_init_value * torch.ones((dim)), requires_grad=True)
+ 
+    def forward(self, x):
+        if self.use_layer_scale:
+ 
+            x = x + self.drop_path(
+                self.layer_scale_1.unsqueeze(-1).unsqueeze(-1)
+                * self.token_mixer(x))
+            x = x + self.drop_path(
+                self.layer_scale_2.unsqueeze(-1).unsqueeze(-1)
+                * self.mlp(x))
+        else:
+            x = x + self.drop_path(self.token_mixer(x))
+            x = x + self.drop_path(self.mlp(x))
+        return x
+```
+
 **Latency Driven Slimming**
 
 Design of Supernet
@@ -115,6 +206,75 @@ $$
 其中 $I$ 表示 identity path，$j$ 表示第 $j$ 阶段，$i$ 表示第 $i$ 个块。
 
 在超网的 $S_{1}$ 和 $S_{2}$ 中，每个块可以从 MB4D 或 I 中选择，而在 $S_{3}$ 和 $S_{4}$ 中，块可以是 MB3D、MB4D 或 I。出于两个原因，作者仅在最后两个阶段启用 MB3D：首先，由于 MHSA 的计算相对于 token 长度呈二次增长，因此在早期阶段对其进行集成将大大增加计算成本。其次，将全局 MHSA 应用于最后阶段符合这样一种直觉，即网络的早期阶段捕获低级特征，而后期阶段学习长期依赖性。
+
+**代码**
+
+```python
+#Meta3D 与 Meta4D 在 MLP 有不同，Meta3D 使用如下的 LinearMLP，主要以线性层为主
+class LinearMlp(nn.Module):
+    """ MLP as used in Vision Transformer, MLP-Mixer and related networks
+    """
+ 
+    def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=nn.GELU, drop=0.):
+        super().__init__()
+        out_features = out_features or in_features
+        hidden_features = hidden_features or in_features
+ 
+        self.fc1 = nn.Linear(in_features, hidden_features)
+        self.act = act_layer()
+        self.drop1 = nn.Dropout(drop)
+        self.fc2 = nn.Linear(hidden_features, out_features)
+        self.drop2 = nn.Dropout(drop)
+ 
+    def forward(self, x):
+        x = self.fc1(x)
+        x = self.act(x)
+        x = self.drop1(x)
+        x = self.fc2(x)
+        x = self.drop2(x)
+        return 
+    
+class Meta3D(nn.Module):
+ 
+    def __init__(self, dim, mlp_ratio=4.,
+                 act_layer=nn.GELU, norm_layer=nn.LayerNorm,
+                 drop=0., drop_path=0.,
+                 use_layer_scale=True, layer_scale_init_value=1e-5):
+ 
+        super().__init__()
+ 
+        self.norm1 = norm_layer(dim)
+        self.token_mixer = Attention(dim)
+        self.norm2 = norm_layer(dim)
+        mlp_hidden_dim = int(dim * mlp_ratio)
+        self.mlp = LinearMlp(in_features=dim, hidden_features=mlp_hidden_dim,
+                             act_layer=act_layer, drop=drop)
+ 
+        self.drop_path = DropPath(drop_path) if drop_path > 0. \
+            else nn.Identity()
+        self.use_layer_scale = use_layer_scale
+        if use_layer_scale:
+            self.layer_scale_1 = nn.Parameter(
+                layer_scale_init_value * torch.ones((dim)), requires_grad=True)
+            self.layer_scale_2 = nn.Parameter(
+                layer_scale_init_value * torch.ones((dim)), requires_grad=True)
+ 
+    def forward(self, x):
+        if self.use_layer_scale:
+            x = x + self.drop_path(
+                self.layer_scale_1.unsqueeze(0).unsqueeze(0)
+                * self.token_mixer(self.norm1(x)))
+            x = x + self.drop_path(
+                self.layer_scale_2.unsqueeze(0).unsqueeze(0)
+                * self.mlp(self.norm2(x)))
+ 
+        else:
+            x = x + self.drop_path(self.token_mixer(self.norm1(x)))
+            x = x + self.drop_path(self.mlp(self.norm2(x)))
+        return x
+```
+
+
 
 **Searching Space**
 
@@ -142,170 +302,7 @@ $$
 
 EfficientFormer 一共有 4 个阶段。每个阶段都有一个 Embeding（两个 3x3 的 Conv 组成一个 Embeding）来投影 Token 长度（可以理解为 CNN 中的 feature map）。EfficientFormer 是一个完全基于 Transformer 设计的模型，并没有集成 MobileNet 相关内容。最后通过 AUTOML 来搜索 MB_3D 和 MB_4D block 相关参数。最后堆叠 block 形成最终网络。
 
-**代码**
 
-```python
-
-class LayerScale(nn.Module):
-    def __init__(self, dim, init_values=1e-5, inplace=False):
-        super().__init__()
-        self.inplace = inplace
-        self.gamma = nn.Parameter(init_values * torch.ones(dim))
-
-    def forward(self, x):
-        return x.mul_(self.gamma) if self.inplace else x * self.gamma
-
-
-class MetaBlock1d(nn.Module):
-    def __init__(
-        self,
-        dim,
-        mlp_ratio=4.0,
-        act_layer=nn.GELU,
-        norm_layer=nn.LayerNorm,
-        proj_drop=0.0,
-        drop_path=0.0,
-        layer_scale_init_value=1e-5,
-    ):
-        super().__init__()
-        self.norm1 = norm_layer(dim)
-        self.token_mixer = Attention(dim)
-        self.norm2 = norm_layer(dim)
-        self.mlp = Mlp(
-            in_features=dim,
-            hidden_features=int(dim * mlp_ratio),
-            act_layer=act_layer,
-            drop=proj_drop,
-        )
-
-        self.drop_path = DropPath(drop_path) if drop_path > 0.0 else nn.Identity()
-        self.ls1 = LayerScale(dim, layer_scale_init_value)
-        self.ls2 = LayerScale(dim, layer_scale_init_value)
-
-    def forward(self, x):
-        x = x + self.drop_path(self.ls1(self.token_mixer(self.norm1(x))))
-        x = x + self.drop_path(self.ls2(self.mlp(self.norm2(x))))
-        return x
-
-
-class LayerScale2d(nn.Module):
-    def __init__(self, dim, init_values=1e-5, inplace=False):
-        super().__init__()
-        self.inplace = inplace
-        self.gamma = nn.Parameter(init_values * torch.ones(dim))
-
-    def forward(self, x):
-        gamma = self.gamma.view(1, -1, 1, 1)
-        return x.mul_(gamma) if self.inplace else x * gamma
-
-
-class MetaBlock2d(nn.Module):
-    def __init__(
-        self,
-        dim,
-        pool_size=3,
-        mlp_ratio=4.0,
-        act_layer=nn.GELU,
-        norm_layer=nn.BatchNorm2d,
-        proj_drop=0.0,
-        drop_path=0.0,
-        layer_scale_init_value=1e-5,
-    ):
-        super().__init__()
-        self.token_mixer = Pooling(pool_size=pool_size)
-        self.ls1 = LayerScale2d(dim, layer_scale_init_value)
-        self.drop_path1 = DropPath(drop_path) if drop_path > 0.0 else nn.Identity()
-
-        self.mlp = ConvMlpWithNorm(
-            dim,
-            hidden_features=int(dim * mlp_ratio),
-            act_layer=act_layer,
-            norm_layer=norm_layer,
-            drop=proj_drop,
-        )
-        self.ls2 = LayerScale2d(dim, layer_scale_init_value)
-        self.drop_path2 = DropPath(drop_path) if drop_path > 0.0 else nn.Identity()
-
-    def forward(self, x):
-        x = x + self.drop_path1(self.ls1(self.token_mixer(x)))
-        x = x + self.drop_path2(self.ls2(self.mlp(x)))
-        return x
-
-
-class EfficientFormerStage(nn.Module):
-    def __init__(
-        self,
-        dim,
-        dim_out,
-        depth,
-        downsample=True,
-        num_vit=1,
-        pool_size=3,
-        mlp_ratio=4.0,
-        act_layer=nn.GELU,
-        norm_layer=nn.BatchNorm2d,
-        norm_layer_cl=nn.LayerNorm,
-        proj_drop=0.0,
-        drop_path=0.0,
-        layer_scale_init_value=1e-5,
-    ):
-        super().__init__()
-        self.grad_checkpointing = False
-
-        if downsample:
-            self.downsample = Downsample(
-                in_chs=dim, out_chs=dim_out, norm_layer=norm_layer
-            )
-            dim = dim_out
-        else:
-            assert dim == dim_out
-            self.downsample = nn.Identity()
-
-        blocks = []
-        if num_vit and num_vit >= depth:
-            blocks.append(Flat())
-
-        for block_idx in range(depth):
-            remain_idx = depth - block_idx - 1
-            if num_vit and num_vit > remain_idx:
-                blocks.append(
-                    MetaBlock1d(
-                        dim,
-                        mlp_ratio=mlp_ratio,
-                        act_layer=act_layer,
-                        norm_layer=norm_layer_cl,
-                        proj_drop=proj_drop,
-                        drop_path=drop_path[block_idx],
-                        layer_scale_init_value=layer_scale_init_value,
-                    )
-                )
-            else:
-                blocks.append(
-                    MetaBlock2d(
-                        dim,
-                        pool_size=pool_size,
-                        mlp_ratio=mlp_ratio,
-                        act_layer=act_layer,
-                        norm_layer=norm_layer,
-                        proj_drop=proj_drop,
-                        drop_path=drop_path[block_idx],
-                        layer_scale_init_value=layer_scale_init_value,
-                    )
-                )
-                if num_vit and num_vit == remain_idx:
-                    blocks.append(Flat())
-
-        self.blocks = nn.Sequential(*blocks)
-
-    def forward(self, x):
-        x = self.downsample(x)
-        if self.grad_checkpointing and not torch.jit.is_scripting():
-            x = checkpoint_seq(self.blocks, x)
-        else:
-            x = self.blocks(x)
-        return x
-```
-=========== 代码片段太多了，可以摘取重点，或者重点的代码进行说明，不用全贴哈
 
 ## EfficientFormer V2
 
@@ -313,7 +310,7 @@ class EfficientFormerStage(nn.Module):
 
 EfficientFormerV2 相对于 EfficientFormer 的主要改进如下图所示。
 
-![EfficientFormer](images/11.efficientformer_03.png)
+![EfficientFormer](images/11Efficientformer03.png)
 
 ## 重新思考混合 Transformer
 
@@ -340,7 +337,7 @@ EfficientFormerV2 相对于 EfficientFormer 的主要改进如下图所示。
 **代码**
 
 ```python
-# 深度卷积前馈网络(Local 模块)
+# 深度卷积前馈网络(局部模块)
 class FFN(nn.Module):
     def __init__(self, dim, pool_size=3, mlp_ratio=4.,
                  act_layer=nn.GELU,
@@ -367,57 +364,7 @@ class FFN(nn.Module):
         return x
 ```
 
-```python
-# 多层感知机
-class Mlp(nn.Module):
-    """
-    Implementation of MLP with 1*1 convolutions.
-    Input: tensor with shape [B, C, H, W]
-    """
- 
-    def __init__(self, in_features, hidden_features=None,
-                 out_features=None, act_layer=nn.GELU, drop=0., mid_conv=False):
-        super().__init__()
-        out_features = out_features or in_features
-        hidden_features = hidden_features or in_features
-        self.mid_conv = mid_conv
-        self.fc1 = nn.Conv2d(in_features, hidden_features, 1)
-        self.act = act_layer()
-        self.fc2 = nn.Conv2d(hidden_features, out_features, 1)
-        self.drop = nn.Dropout(drop)
-        self.apply(self._init_weights)
- 
-        if self.mid_conv:
-            self.mid = nn.Conv2d(hidden_features, hidden_features, kernel_size=3, stride=1, padding=1,
-                                 groups=hidden_features)
-            self.mid_norm = nn.BatchNorm2d(hidden_features)
- 
-        self.norm1 = nn.BatchNorm2d(hidden_features)
-        self.norm2 = nn.BatchNorm2d(out_features)
- 
-    def _init_weights(self, m):
-        if isinstance(m, nn.Conv2d):
-            trunc_normal_(m.weight, std=.02)
-            if m.bias is not None:
-                nn.init.constant_(m.bias, 0)
- 
-    def forward(self, x):
-        x = self.fc1(x)     # 1x1 卷积
-        x = self.norm1(x)
-        x = self.act(x)     # 激活层，GELU 激活
- 
-        if self.mid_conv:
-            x_mid = self.mid(x)     # 3x3 卷积
-            x_mid = self.mid_norm(x_mid)
-            x = self.act(x_mid)
-        x = self.drop(x)
- 
-        x = self.fc2(x)     # 1x1 卷积
-        x = self.norm2(x)
- 
-        x = self.drop(x)
-        return x
-```
+
 
 ### 多头注意力改进
 
@@ -689,7 +636,7 @@ $$
 
 然而，决定如何减少 Query 中的 token 数量是非常重要的。Graham 等人根据经验使用池化对 Query 进行下采样，而 Liu 等人建议搜索局部或全局方法。为了在移动设备上实现可接受的推理速度，将注意力下采样应用于具有高分辨率的早期阶段是不利的，这限制了以更高分辨率搜索不同下采样方法的现有工作的价值。
 
-相反，论文提出了一种同时使用局部性和全局依赖性的组合策略，如图（f）所示。为了获得下采样的 Query，论文使用池化层作为静态局部下采样，使用 3×3 DWCONV 作为可学习的局部下采样。此外，注意力下采样模块残差连接到 regular strided CONV，以形成 local-global 方式，类似于下采样 bottlenecks 或 inverted bottlenecks。如表所示，通过略微增加参数和耗时开销，论文进一步将注意力下采样的准确率提高到 81.8%。
+相反，论文提出了一种同时使用局部性和全局依赖性的组合策略，如图(f)所示。为了获得下采样的 Query，论文使用池化层作为静态局部下采样，使用 3×3 DWCONV 作为可学习的局部下采样。此外，注意力下采样模块残差连接到 regular strided CONV，以形成 local-global 方式，类似于下采样 bottlenecks 或 inverted bottlenecks。如表所示，通过略微增加参数和耗时开销，论文进一步将注意力下采样的准确率提高到 81.8%。
 
 **代码**
 
@@ -785,7 +732,9 @@ $$
 
 ## 小结与思考
 
-EfficientFormerV1 证明了视觉的 Transformer 可以在移动设备上以 MobileNet 速度运行。经全面的延迟分析，在一系列基于 VIT 的架构中识别低效的运算符，指导新的设计范式。此外，基于确定的网络结构，EfficientFormerV2 进一步提出了在大小和速度上的细粒度联合搜索，并获得了轻量级和推理速度超快的模型。
+- EfficientFormerV1 证明了视觉的 Transformer 可以在移动设备上以 MobileNet 速度运行。经全面的延迟分析，在一系列基于 VIT 的架构中识别低效的运算符，指导新的设计范式。
+
+- EfficientFormerV2 进一步提出了在大小和速度上的细粒度联合搜索，并获得了轻量级和推理速度超快的模型。
 
 ## 本节视频
 

@@ -8,7 +8,7 @@
 
 流水线并行（Pipeline Parallelism，PP）是一种将模型的不同层（layer）按顺序分配到不同设备上的方法。不同于朴素的模型并行，流水线并行通过将输入数据切分成多个微批次（micro-batch），使得每个设备可以在处理完当前批次后立即处理下一个批次，从而提高设备利用率。
 
-主要集中在 Gpipe 流水线并行和 PipeDream 流水线并行上（基于 F-then-B 策略与 1F1B 策略），不过还有很多优秀的流水线并行实现方式，例如：PipeDream-2BW、PipeDream-Flush、PipeDream-Megatron-LM 等，但他们一般都在大规模分布式深度学习训练框架中使用，如：Megatron-LM 和 Deepspeed，而不是深度学习框架，因此并不作为讨论范围。
+主要集中在 Gpipe 流水线并行和 PipeDream 流水线并行上（基于 F-then-B 策略与 1F1B 策略），不过还有很多优秀的流水线并行实现方式，例如：PipeDream-2BW、PipeDream-Flush、PipeDream-Megatron-LM 等，但他们一般都在大规模分布式深度学习训练框架中使用，如：Megatron-LM 和 Deepspeed，而不是AI 框架，因此并不作为讨论范围。
 
 ### Gpipe 流水线并行
 

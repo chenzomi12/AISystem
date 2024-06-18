@@ -2,25 +2,21 @@
 
 # 离线图优化技术
 
-========== 图片按规范命名，文档名字是 01Optimizer.md, 那么图片是 01Optimizer01.png，这种
-
 上一章节主要回顾了计算图优化的各个组成部分，包括基础优化、扩展优化以及布局和内存优化。这些优化方式在预优化阶段、优化阶段和后优化阶段都有所应用，以提高计算效率。同时，还介绍了 AI 框架和推理引擎在图优化方面的不同应用和侧重点。接下来，我们从计算图优化的各个组成部分开始逐步进行讲解。
 
 ## 基础图优化
 
-========== 一个二级目录的内容，详细展开下哈。不行就用 KIMI 等扩写。
-
 基础图优化指涵盖了所有保留语义的修改，如常量折叠、冗余节点消除和有限数量的节点融合，具体如下所示：
 
-1.Constant folding 常量折叠
+1.Constant folding 常量折叠：主要针对那些在模型推理中值不变的常量进行处理。如果某个操作的所有输入都是常量，那么它的输出也会是一个常量，这个操作可以在编译阶段就执行，并将结果存储为一个常量，从而在实际处理中减少计算量。
 
-2.Redundant eliminations 冗余节点消除
+2.Redundant eliminations 冗余节点消除：如果模型中存在一些冗余的节点，例如同样的计算被多次执行，那么可以消除这些冗余的节点，不仅可以减少内存消耗，还可以提升运算效率。
 
-3.Operation fusion 算子融合
+3.Operation fusion 算子融合：算子融合就是把几个连续的算子合并成一个算子，这种方式可以减少数据的读写操作，提升运算速度。
 
-4.Operation Replace 算子替换
+4.Operation Replace 算子替换：如果可以找到一个等效但更高效的算子来完成相同的计算任务，就可以将原算子替换为这个更高效的算子。例如，将高精度的计算替换为低精度计算。
 
-5.Operation Forward 算子前移
+5.Operation Forward 算子前移：如果有些算子的输入无关于程序的其它部分，那么这个算子可以前移执行，这样可以减少运行时的计算负担。
 
 ## 常量折叠
 
@@ -52,19 +48,19 @@ Fuse Const To Binary：Binary 折叠，Binary Op 第二个输入是标量 Const�
 
 (1) Constant folding 常量折叠：如果一个 Op 所有输入都是常量 Const，可以先计算好结果 Const 代替该 Op，而不用每次都在推理阶段都计算一遍。
 
-![Constant folding](image/const_folding.png)
+![Constant folding](images/02Basic01.png)
 
 如图所示，我们有两个常量输入，通过两个操作 Op1 和 Op2 进行处理。具体来说，Op1 接收两个常量作为输入，Opened 接收 Op1 的输出作为输入。在离线计算中，我们实际上可以预先计算出这两个常量的结果，然后把这个结果作为一个新的常量输入给 Op2。这种预先计算并替换常量的策略即为常量折叠。
 
 (2) ExpandDims 折叠：ExpandDims Op 指定维度的输入是常量 Const，则把这个维度以参数的形式折叠到 ExpandDims 算子中。
 
-![ExpandDims](image/ExpandDims.png)
+![ExpandDims](images/02Basic02.png)
 
 在处理计算图优化的过程中，当 ExpandDims 操作的指定维度输入是常量时，我们可以直接将其堆叠进参数，并放在 ExpandDims 这个操作符内部。这样一来，我们就减少了一个操作符的使用。因为常量可能是一个操作符，或者可能占用一块内存空间。
 
 (3) Binary 折叠：Binary Op 第二个输入是标量 Const ，把这个标量以参数的形式折叠到 Binary Op 的属性中。
 
-![Binary](image/Binary.png)
+![Binary](images/02Basic03.png)
 
 Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，如果输入是标量，那么我们可以直接将标量作为 Binary 操作的一个参数，然后进行计算。这样做的结果是，我们减少了一个计算节点。对于计算过程来说，提高了计算效率，节省了计算资源。
 
@@ -76,7 +72,7 @@ Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，�
 
 有些 Op 本身不参与计算，在推理阶段可以直接去掉对结果没有影响。如下图所示，在转换前后类型相同的 cast，只有一个输入 tensor 的 concat，以及 Seq2Out、Identity、NoOp、Print、Assert、StopGradient、Split 等算子均可以通过一系列的模板删除包括 dropout 算子。
 
-![Op 本身无意义](image/op_without_meaning.png)
+![Op 本身无意义](images/02Basic04.png)
 
 具体示例如下图所示：
 
@@ -88,13 +84,13 @@ Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，�
 
 3、当前冗余算子的输入对于下一个节点是无意义的：只要这个节点的输入没有意义，轮循删除往上的节点，直到输入有意义为止。
 
-![Op 无意义示例](image/op_mean_example.png)
+![Op 无意义示例](images/02Basic05.png)
 
 ### Op 参数无意义
 
 有些 Op 本身是有意义，但是设置成某些参数后就变成了无意义了的 Op。典型示例如 cast 算子，其主要是对数据的排布进行转换，当输入的参数等于输出的参数的时候，算子本身则无意义且可删除。还有很多种其他情况下的算子，在删除处理后，实践证明对于模型性能的提升具有极大的帮助。如下图所示：
 
-![Op 参数无意义](image/op_param.png)
+![Op 参数无意义](images/02Basic06.png)
 
 详细示例如下所示：
 
@@ -104,19 +100,19 @@ Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，�
 
 （3）对于 slice/pooling 算子，index_start 等于 0 或者 index_end 等于 channel-1 以及 pooling 算子的窗口为 1x1 的时候，算子均可删除
 
-![Op 参数无意义示例](image/op_param_example.png)
+![Op 参数无意义示例](images/02Basic07.png)
 
 ### Op 位置无意义
 
 一些 Op 在计算图中特殊位置会变得多余无意义。
 
-![Op 位置无意义](image/op_position.png.png)
+![Op 位置无意义](images/02Basic08.png)
 
 详细示例如下所示：
 
 示例中的 cast 算子，unsqueeze 算子以及无后续输出的 op1 和在 global pooling 之后的 reshape/flatten 算子等，均可以进行冗余算子的消除。
 
-![Op 位置无意义](image/op_position_example.png)
+![Op 位置无意义](images/02Basic09.png)
 
 图一：在优化计算图的过程中，有些算子的存在并没有实际意义。例如，Cast 算子，如果它没有作用，我们就可以直接将其删除。
 
@@ -126,7 +122,7 @@ Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，�
 
 图四：在处理 Global pooling 算子的过程中，我们发现它后面接的一些 Reshape 或者 Flatten 算子其实是没有意义的。因为这些算子的存在并不会改变 Global pooling 的输出结果。所以，我们可以选择将这些算子删除，以优化计算图的结构。
 
-![Op 位置无意义](image/op_position_example2.png)
+![Op 位置无意义](images/02Basic10.png)
 
 图一：与上图中的图四相似，我们发现 Linear 前面接的一些 Reshape 或者 Flatten 算子其实是没有意义的。因为这些算子的存在并不会改变 Linear 的输出结果。所以，我们可以选择将这些算子删除，以优化计算图的结构。
 
@@ -148,8 +144,13 @@ Concat Slice Elimination: 合并后又进行同样的拆分，可同时删除这
 
 详细示例如下所示：可参考上述规则，对于存在前后反义算子的情况，进行冗余节点的消除。
 
-![Op 前后反义](image.png)
-====== 太笼统了，还是要介绍下图片描述得内容。
+![Op 前后反义](images/02Basic11.png)
+
+图一：描绘了 Squeeze 算子与 ExpandDims 算子在计算图优化过程中的作用。这两个算子进行的是逆向操作，先对矩阵进行扩张（ExpandDims），后合并相同维度（Squeeze），这就形成了一个等效于无操作的过程。因此，省略这两个步骤可以优化计算流程，加速推理过程。
+
+图二：Cast 算子将 A 变换为 B，再将 B 变换为 A 等同于无操作，同样的 Quant 算子和 Dequant 算子如果作用于同一个变量，我们均可以选择将其删除，以简化计算图的结构。
+
+图三：在如图所示的 "Concat" 和 "Slice" 的例子中，用单个 "Slice" 操作替换 "Concat" 和 "Slice" 组合的优化案例。通过将 "Concat" 操作和后续的 "Slice" 操作整合为直接的 "Slice" 操作，可以抽象化计算过程并提高计算效率。
 
 ### 公共子图优化
 
@@ -159,7 +160,7 @@ Common Subexpression Elimination：当模型当中出现了公共子图，如一
 
 基本思路是通过一个 MAP 表, 记录截止当前, 已处理过的同一种类型的 OP。对于当前正在处理的 OP, 先查找该 MAP 表, 如果能找到其他和正在处理的 OP 类型相同的 OP, 则对他们进行遍历, 如果其中某个 OP 的输入和参数与当前正在处理的 OP 相同, 则它们为公共子表达式, 结果可以互相替代；如果所有 OP 都不能与当前正在处理的 OP 匹配, 则将当前 OP 复制一份返回。
 
-![公共子图](image/op_share_graph.png)
+![公共子图](images/02Basic12.png)
 
 ## 算子融合
 
@@ -227,7 +228,7 @@ b' = alpha * b
 
 4.Conv + MatMul + Act：Conv Op 后跟着的 MatMul 可以融合到 Conv 里的 Weight 里面，原理与上述 scale 的融合相同
 
-![算子融合 conv](image/op_fuse_conv.png)
+![算子融合 conv](images/02Basic13.png)
 
 示例二：
 
@@ -253,7 +254,7 @@ b' = alpha * b
 
 5.Matmul + Batch Norm：与 Conv + BN 相类似
 
-![算子融合 matmul](image/op_fuse_matmul.png)
+![算子融合 matmul](images/02Basic14.png)
 
 最后，还有一种融合是算子与后续的激活相融合：Conv + ReLU、Conv + ReLU6、Conv + Act
 
@@ -287,7 +288,7 @@ pReLU -> Leaky ReLU：将 pReLU 转变成 Leaky ReLU，不影响性能和精度�
 
 Conv -> Linear After global pooling：在 Global Pooling 之后 Conv 算子转换成为全连接层
 
-![算子替换 replace1vs1](image/op_replace_1vs1.png)
+![算子替换 replace1vs1](images/02Basic15.png)
 
 算子替换--一换多，将某 Op 以其他 Op 组合形式代替，能减少推理引擎需要单独实现及支持 Op 数量
 
@@ -350,7 +351,7 @@ def group_conv_replace(x, weight, bias, stride, padding, dilation, groups):
     return y
 ```
 
-![算子替换 replace1vsn](image/op_replace_1vsn.png)
+![算子替换 replace1vsn](images/02Basic16.png)
 
 ## 算子前移
 
@@ -366,13 +367,13 @@ Slice and Mul：Shuffle Channel Op 大部分框架缺乏单独实现，可以通
 
 Bit shift and Reduce Sum：利用算术简化中的交换律，对计算的算子进行交换减少数据的传输和访存次数
 
-![算子前移](image/op_forward.png)
+![算子前移](images/02Basic17.png)
 
 ## 小结与思考
 
-本节简要围绕计算图优化中常量折叠&冗余节点消除进行了介绍，在了解计算图优化的相关方式的基础上，针对常量折叠和冗余节点消除进行了详细的展开，重点探讨了 cast 算子、ExpandDims 算子、Squeeze 算子以及 Slice 等算子在神经网络中不同搭配组合时，可以进行优化的情况，以达到减少重复计算和冗余计算的目的。
+1. 这节内容主要讨论了计算图优化中的常量折叠和冗余节点消除。详细解读了如何借助这两种方法，优化复杂的计算图，提高计算效率和减少不必要的计算任务。
 
-========== 总结成 1.xxxx，2.xxxx。
+2. 深入探讨了 cast、ExpandDims、Squeeze 和 Slice 等算子在神经网络中的搭配和使用，以及它们在不同组合情况下的优化可能性。这有助于在神经网络设计和计算过程中，减少重复计算和冗余计算，提高整体性能
 
 ## 本节视频
 
