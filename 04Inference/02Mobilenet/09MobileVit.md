@@ -153,11 +153,11 @@ class MobileViTBlock(nn.Module):
 
         interpolate = False
         if new_w != orig_w or new_h != orig_h:
-            # 注意：Padding是可以完成的，但需要在注意力函数中进行处理
+            # 注意：Padding 是可以完成的，但需要在注意力函数中进行处理
             x = F.interpolate(x, size=(new_h, new_w), mode="bilinear", align_corners=False)
             interpolate = True
 
-        # 宽度和高度上的patch数量
+        # 宽度和高度上的 patch 数量
         num_patch_w = new_w // patch_w  # n_w
         num_patch_h = new_h // patch_h  # n_h
         num_patches = num_patch_h * num_patch_w  # N
@@ -220,7 +220,7 @@ class MobileViTBlock(nn.Module):
 
         fm = self.local_rep(x)
 
-        # 转换feature map to patches
+        # 转换 feature map to patches
         patches, info_dict = self.unfolding(fm)
 
         # 学习全局表征

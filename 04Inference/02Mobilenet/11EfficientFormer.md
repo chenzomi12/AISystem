@@ -23,7 +23,7 @@ patch 嵌入通常使用一个不重叠的卷积层来实现，该层具有较�
 **代码**
 
 ```python
-#stem以一些普通卷积组成
+#stem 以一些普通卷积组成
 def stem(in_chs, out_chs):
     return nn.Sequential(
         nn.Conv2d(in_chs, out_chs // 2, kernel_size=3, stride=2, padding=1),
@@ -115,7 +115,7 @@ $$
 **代码**
 
 ```python
-#以1x1卷积为主的MLP
+#以 1x1 卷积为主的 MLP
 class Mlp(nn.Module):
     def __init__(self, in_features, hidden_features=None,
                  out_features=None, act_layer=nn.GELU, drop=0.):
@@ -161,10 +161,10 @@ class Meta4D(nn.Module):
  
         self.token_mixer = Pooling(pool_size=pool_size)
         mlp_hidden_dim = int(dim * mlp_ratio)
-        #MLP层
+        #MLP 层
         self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim,
                        act_layer=act_layer, drop=drop)
-        #drop_path目的是在一个batch里面随机去除一部分样本，起正则化作用
+        #drop_path 目的是在一个 batch 里面随机去除一部分样本，起正则化作用
         self.drop_path = DropPath(drop_path) if drop_path > 0. \
             else nn.Identity()
         self.use_layer_scale = use_layer_scale #可学习的参数,提供一个特征的缩放
@@ -210,7 +210,7 @@ $$
 **代码**
 
 ```python
-#Meta3D与Meta4D 在MLP有不同，Meta3D使用如下的LinearMLP，主要以线性层为主
+#Meta3D 与 Meta4D 在 MLP 有不同，Meta3D 使用如下的 LinearMLP，主要以线性层为主
 class LinearMlp(nn.Module):
     """ MLP as used in Vision Transformer, MLP-Mixer and related networks
     """

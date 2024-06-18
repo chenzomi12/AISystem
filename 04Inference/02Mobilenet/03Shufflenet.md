@@ -2,7 +2,7 @@
 
 # ShuffleNet
 
-本章节会介绍 ShuffleNet系列，重点在于其模型结构的轻量化设计，涉及如何降低深度网络计算量，在本节中会着重会讲解逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算，而V2版本则会从设备运算速度方面考虑将网络进行轻量化。
+本章节会介绍 ShuffleNet 系列，重点在于其模型结构的轻量化设计，涉及如何降低深度网络计算量，在本节中会着重会讲解逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算，而 V2 版本则会从设备运算速度方面考虑将网络进行轻量化。
 
 ## ShuffleNet V1
 
@@ -50,7 +50,7 @@ $$
 
 通道重排的思想如上面图中所示。一般卷积操作中输入特征图的数量比如是 N，该卷积层的卷积核数量是 M，那么 M 个卷积核中的每一个卷积核都要和 N 个特征图的某个区域做卷积，然后相加作为一个卷积的结果。
 
-假设你引入分组操作，设组数 为 g，那么 N 个输入特征图就被分成 g 个组，M 个卷积核就被分成 g 个组，然后在做卷积操作的时候，第一个组的 $M/g$ 个卷积核中的每一个都和第一个组的$ N/g $个输入特征图做卷积得到结果，第二组同理，直到最后一组，如上图 a。不同的颜色代表不同的组，图中有三个组。
+假设你引入分组操作，设组数 为 g，那么 N 个输入特征图就被分成 g 个组，M 个卷积核就被分成 g 个组，然后在做卷积操作的时候，第一个组的 $M/g$ 个卷积核中的每一个都和第一个组的 $ N/g $ 个输入特征图做卷积得到结果，第二组同理，直到最后一组，如上图 a。不同的颜色代表不同的组，图中有三个组。
 
 这种操作可以大大减少计算量，因为你每个卷积核不再是和输入的全部特征图做卷积，而是和一个组的特征图做卷积。但是如果多个组操作叠加在一起，如上图 a 的两个卷积层都有组操作，显然就会产生边界效应。
 
@@ -61,16 +61,16 @@ $$
 ```python
 # 通道混洗
 def shuffle_channels(x, groups):
-    # 先得到输入特征图的shape，b:batch size，h,w:一张图的size，c:通道数
+    # 先得到输入特征图的 shape，b:batch size，h,w:一张图的 size，c:通道数
     batch_size, channels, height, width = x.size()
     assert channels % groups == 0
     channels_per_group = channels // groups
-    #在通道维度上将特征图reshape为groups行channels_per_group列的矩阵
+    #在通道维度上将特征图 reshape 为 groups 行 channels_per_group 列的矩阵
     x = x.view(batch_size, groups, channels_per_group,height, width)
     #  矩阵转置
     x = x.transpose(1, 2).contiguous()
     x = x.view(batch_size, channels, height, width)
-    #返回通道维度交叉排序后的tensor
+    #返回通道维度交叉排序后的 tensor
     return x
 ```
 
@@ -78,7 +78,7 @@ def shuffle_channels(x, groups):
 
 #### ShuffleNet Unit
 
-基于残差块（residual block）和 通道重排（channel shuffle）设计的ShuffleNet Unit：
+基于残差块（residual block）和 通道重排（channel shuffle）设计的 ShuffleNet Unit：
 
 - **深度卷积 **。
 
@@ -100,7 +100,7 @@ class ShuffleNetUnitA(nn.Module):
         assert out_channels % 4 == 0
         bottleneck_channels = out_channels // 4
         self.groups = groups
-        # 1*1分组卷积降维
+        # 1*1 分组卷积降维
         self.group_conv1 = nn.Conv2d(in_channels, bottleneck_channels,
                                         1, groups=groups, stride=1)
         self.bn2 = nn.BatchNorm2d(bottleneck_channels)
@@ -109,7 +109,7 @@ class ShuffleNetUnitA(nn.Module):
                                          3, padding=1, stride=1,
                                          groups=bottleneck_channels)
         self.bn4 = nn.BatchNorm2d(bottleneck_channels)
-        # 1*1分组卷积升维
+        # 1*1 分组卷积升维
         self.group_conv5 = nn.Conv2d(bottleneck_channels, out_channels,
                                      1, stride=1, groups=groups)
         self.bn6 = nn.BatchNorm2d(out_channels)
@@ -132,7 +132,7 @@ class ShuffleNetUnitB(nn.Module):
     """ShuffleNet unit for stride=2"""
     def __init__(self, in_channels, out_channels, groups=3):
         super(ShuffleNetUnitB, self).__init__()
-        # 右分支的通道数和左分支的通道数叠加 == 输出特征图的通道数out_channel(重点，和上面的残差是不一样的)
+        # 右分支的通道数和左分支的通道数叠加 == 输出特征图的通道数 out_channel(重点，和上面的残差是不一样的)
         out_channels -= in_channels
         assert out_channels % 4 == 0
         bottleneck_channels = out_channels // 4
@@ -167,7 +167,7 @@ class ShuffleNetUnitB(nn.Module):
 
 ### 网络结构
 
-ShuffleNet V1 架构主要由一组 ShuffleNet 单元组成，分为三个阶段。每个阶段的第一个构建块应用 stride = 2。一个阶段内的其他超参数保持不变，下一个阶段的输出通道加倍。，我们将每个 ShuffleNet 的瓶颈通道数设置为输出通道的 1/4。stage2的第一个block上不用GConv,用普通的$1\times 1$卷积，因为此时输入通道数只有24，太少了。且每个stage中的第一个block的stride=2（对应ShuffleNet Unit中的下采样模块,上图c），其他block的stride=1(对应ShuffleNet基本模块，上图b)
+ShuffleNet V1 架构主要由一组 ShuffleNet 单元组成，分为三个阶段。每个阶段的第一个构建块应用 stride = 2。一个阶段内的其他超参数保持不变，下一个阶段的输出通道加倍。，我们将每个 ShuffleNet 的瓶颈通道数设置为输出通道的 1/4。stage2 的第一个 block 上不用 GConv,用普通的 $1\times 1$ 卷积，因为此时输入通道数只有 24，太少了。且每个 stage 中的第一个 block 的 stride=2（对应 ShuffleNet Unit 中的下采样模块,上图 c），其他 block 的 stride=1(对应 ShuffleNet 基本模块，上图 b)
 
 **代码**
 
@@ -236,7 +236,7 @@ class ShuffleNet(nn.Module):
 **代码**
 
 ```python
-#特征图C个通道进行切分
+#特征图 C 个通道进行切分
 def split(x, groups):
     out = x.chunk(groups, dim=1)
     return out
@@ -261,7 +261,7 @@ def split(x, groups):
 class ShuffleUnit(nn.Module):
     def __init__(self, input_c: int, output_c: int, stride: int):
         super(ShuffleUnit, self).__init__()
-        # 步长必须在1和2之间
+        # 步长必须在 1 和 2 之间
         if stride not in [1, 2]:
             raise ValueError("illegal stride value.")
         self.stride = stride
@@ -270,13 +270,13 @@ class ShuffleUnit(nn.Module):
         assert output_c % 2 == 0
         branch_features = output_c // 2
 
-        # 当stride为1时，input_channel是branch_features的两倍
-        # '<<' 是位运算，可理解为计算×2的快速方法
+        # 当 stride 为 1 时，input_channel 是 branch_features 的两倍
+        # '<<' 是位运算，可理解为计算×2 的快速方法
         assert (self.stride != 1) or (input_c == branch_features << 1)
 
         # 捷径分支
         if self.stride == 2:
-            # 进行下采样:3×3深度卷积+1×1卷积
+            # 进行下采样:3×3 深度卷积+1×1 卷积
             self.branch1 = nn.Sequential(
                 self.depthwise_conv(input_c, input_c, kernel_s=3, stride=self.stride, padding=1),
                 nn.BatchNorm2d(input_c),
@@ -290,7 +290,7 @@ class ShuffleUnit(nn.Module):
 
         # 主干分支
         self.branch2 = nn.Sequential(
-            # 1×1卷积+3×3深度卷积+1×1卷积
+            # 1×1 卷积+3×3 深度卷积+1×1 卷积
             nn.Conv2d(input_c if self.stride > 1 else branch_features, branch_features, kernel_size=1,
                       stride=1, padding=0, bias=False),
             nn.BatchNorm2d(branch_features),
@@ -327,12 +327,12 @@ class ShuffleUnit(nn.Module):
 
 ### 网络结构
 
-上图 c,d 显示的卷积 block 叠加起来即组成了最后的 ShuffleNet v2 模型，这样堆叠后的网络是类似 ShuffleNet v1 模型的，v1 和 v2 block 的区别在于，v2 在全局平均池化层（global averaged pooling）之前添加了一个 卷积来混合特征（mix up features），而 v1 没有。但与v1 一样，v2 的 block 的通道数是按照 0.5x 1x 等比例进行缩放，以生成不同复杂度的 ShuffleNet v2 网络，并标记为 ShuffleNet V2 0.5×、ShuffleNet V2 1× 等模型。
+上图 c,d 显示的卷积 block 叠加起来即组成了最后的 ShuffleNet v2 模型，这样堆叠后的网络是类似 ShuffleNet v1 模型的，v1 和 v2 block 的区别在于，v2 在全局平均池化层（global averaged pooling）之前添加了一个 卷积来混合特征（mix up features），而 v1 没有。但与 v1 一样，v2 的 block 的通道数是按照 0.5x 1x 等比例进行缩放，以生成不同复杂度的 ShuffleNet v2 网络，并标记为 ShuffleNet V2 0.5×、ShuffleNet V2 1× 等模型。
 
 **代码**
 
 ```python
-# V2网络结构
+# V2 网络结构
 class ShuffleNetV2(nn.Module):
     def __init__(self, stages_repeats, stages_out_channels, num_classes=1000, ShuffleUnit=ShuffleUnit):
         super(ShuffleNetV2, self).__init__()
@@ -363,7 +363,7 @@ class ShuffleNetV2(nn.Module):
         stage_names = ["stage{}".format(i) for i in [2, 3, 4]]
         for name, repeats, output_channels in zip(stage_names, stages_repeats,
                                                   self._stage_out_channels[1:]):
-            # 每个Stage的首个基础单元都需要进行下采样,其他单元不需要
+            # 每个 Stage 的首个基础单元都需要进行下采样,其他单元不需要
             seq = [ShuffleUnit(input_channels, output_channels, 2)]
             for i in range(repeats - 1):
                 seq.append(ShuffleUnit(output_channels, output_channels, 1))

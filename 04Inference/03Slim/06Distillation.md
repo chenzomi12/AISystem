@@ -146,7 +146,7 @@ $$\mathcal{L}_{hard} = -\sum_j c_j log(q_j)$$
 - 知识蒸馏系统一般由知识、蒸馏算法和师生架构这三部分组成。
 - 神经网络中的知识总体可以分为四类：response-based knowledge、feature-based knowledge 以及 relation-based knowledge。
 - 神经网络的知识蒸馏在学习方式上有多种模式，一般分为三种：offline distillation、online distillation 及 self-distillation
-- 介绍了Hinton针对多分类任务提出的知识蒸馏算法，通过调节softmax函数中的温度参数T，使得教师网络预测输出的软目标（soft targets，指预测输出的类别概率分布）包含更多的信息，学生网络通过这些软目标学习到更多知识。
+- 介绍了 Hinton 针对多分类任务提出的知识蒸馏算法，通过调节 softmax 函数中的温度参数 T，使得教师网络预测输出的软目标（soft targets，指预测输出的类别概率分布）包含更多的信息，学生网络通过这些软目标学习到更多知识。
 
 ## 本节视频
 

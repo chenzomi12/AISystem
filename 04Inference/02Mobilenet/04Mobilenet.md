@@ -2,7 +2,7 @@
 
 # MobileNet 系列
 
-在本章节会介绍 MobileNet 系列，重点在于其模型结构的轻量化设计，主要介绍详细的轻量化设计原则，基于这原则，MobileNetV1 是如何设计成一个小型，低延迟，低功耗的参数化模型，可以满足各种用例的资源约束。可以更方便的实现分类，检测，嵌入和分割等功能。会结合目前较流行的深度学习技术，在V1的基础会分别讲解V2，V3，V4做出的改进升级，让读者们更深入了解轻量级网络结构的设计思路与过程。
+在本章节会介绍 MobileNet 系列，重点在于其模型结构的轻量化设计，主要介绍详细的轻量化设计原则，基于这原则，MobileNetV1 是如何设计成一个小型，低延迟，低功耗的参数化模型，可以满足各种用例的资源约束。可以更方便的实现分类，检测，嵌入和分割等功能。会结合目前较流行的深度学习技术，在 V1 的基础会分别讲解 V2，V3，V4 做出的改进升级，让读者们更深入了解轻量级网络结构的设计思路与过程。
 
 ## MobileNet V1
 
@@ -88,7 +88,7 @@ $$
 
 ### 网络结构
 
-在V1结构中会加入BN，并使用ReLU激活函数，所以depthwise separable convolution的基本结构如下图右面所示, 左面是正常的conv：
+在 V1 结构中会加入 BN，并使用 ReLU 激活函数，所以 depthwise separable convolution 的基本结构如下图右面所示, 左面是正常的 conv：
 
 ![Mobilenet](images/04Mobilenet03.png)
 
@@ -120,7 +120,7 @@ def conv_dw(inp, oup, stride):
 
 ```
 
-整体网络就是通过不断堆叠MBconv组件组成的,首先是一个3x3的标准卷积，然后后面就是堆积depthwise separable convolution，并且可以看到其中的部分depthwise convolution会通过strides=2进行down sampling。经过 卷积提取特征后再采用average pooling将feature变成1x1，根据预测类别大小加上全连接层，最后是一个softmax层。
+整体网络就是通过不断堆叠 MBconv 组件组成的,首先是一个 3x3 的标准卷积，然后后面就是堆积 depthwise separable convolution，并且可以看到其中的部分 depthwise convolution 会通过 strides=2 进行 down sampling。经过 卷积提取特征后再采用 average pooling 将 feature 变成 1x1，根据预测类别大小加上全连接层，最后是一个 softmax 层。
 
 **代码**
 
@@ -134,7 +134,7 @@ class MobileNetV1(nn.Module):
 
         self.model = nn.Sequential(
             conv_bn(ch_in, 32, 2), #普通卷积
-            conv_dw(32, 64, 1),    #DW卷积
+            conv_dw(32, 64, 1),    #DW 卷积
             conv_dw(64, 128, 2),
             conv_dw(128, 128, 1),
             conv_dw(128, 256, 2),
@@ -199,11 +199,11 @@ MobileNetV1 中引入α参数来做模型通道的缩减，相当于给模型“
 
 - Original residual block：reduce – transfer – expand （中间窄两头宽）
 
-Residual block 先用 $1 \times 1$卷积降通道过 ReLU，再 $3 \times 3$ 卷积过 ReLU，最后再用 $1 \times 1$卷积过 ReLU 恢复通道，并和输入相加。之所以要$1 \times 1$卷积降通道，是为了减少计算量，不然中间的$ 3 \times 3$ 卷积计算量太大。所以 Residual block 是中间窄两头宽。
+Residual block 先用 $1 \times 1$ 卷积降通道过 ReLU，再 $3 \times 3$ 卷积过 ReLU，最后再用 $1 \times 1$ 卷积过 ReLU 恢复通道，并和输入相加。之所以要 $1 \times 1$ 卷积降通道，是为了减少计算量，不然中间的 $ 3 \times 3$ 卷积计算量太大。所以 Residual block 是中间窄两头宽。
 
 - Inverted residual block：expand – transfer – reduce （中间宽两头窄）
 
-在 Inverted Residual block 中，$ 3 \times 3$ 卷积变成 Depthwise 了，计算量很少了，所以通道数可以多一点，效果更好，所以通过 $1 \times 1$ 卷积先提升通道数，再 Depthwise $ 3 \times 3$卷积，最后用$1 \times 1$卷积降低通道数。两端的通道数都很小，所以 $1 \times 1$卷积升通道和降通道计算量都并不大，而中间的通道数虽然多，但是 Depthwise 的卷积计算量也不。
+在 Inverted Residual block 中，$ 3 \times 3$ 卷积变成 Depthwise 了，计算量很少了，所以通道数可以多一点，效果更好，所以通过 $1 \times 1$ 卷积先提升通道数，再 Depthwise $ 3 \times 3$ 卷积，最后用 $1 \times 1$ 卷积降低通道数。两端的通道数都很小，所以 $1 \times 1$ 卷积升通道和降通道计算量都并不大，而中间的通道数虽然多，但是 Depthwise 的卷积计算量也不。
 
 **代码**
 
@@ -265,7 +265,7 @@ class ConvBNReLU(nn.Sequential):
 
 ### 网络结构
 
-V2 的加入了$1 \times 1$ 升维，引入 Shortcut 并且去掉了最后的 ReLU，改为 Linear。步长为 1 时，先进行 $1 \times 1$ 卷积升维，再进行深度卷积提取特征，再通过 Linear 的逐点卷积降维。
+V2 的加入了 $1 \times 1$ 升维，引入 Shortcut 并且去掉了最后的 ReLU，改为 Linear。步长为 1 时，先进行 $1 \times 1$ 卷积升维，再进行深度卷积提取特征，再通过 Linear 的逐点卷积降维。
 
 将 input 与 output 相加，形成残差结构。步长为 2 时，因为 input 与 output 的尺寸不符，因此不添加 shortcut 结构。整个结构由 V2 block 堆叠而成。
 
@@ -357,7 +357,7 @@ class MobileNetV2(nn.Module):
 
 ## MobileNet V3
 
-**MobileNetV3** 是由谷歌团队在 2019 年提出的轻量化网络模型，传统的卷积神经网络，内容需求大，运算量大，无法再移动设备以及嵌入式设备上运行，为了解决这一问题，MobileNet V3网络应运而生。在移动端图像分类、目标检测、语义分割等任务上均取得了优秀的表现。MobileNetV3 采用了很多新的技术，包括针对通道注意力的 Squeeze-and-Excitation 模块、NAS 搜索方法等，这些方法都有利于进一步提升网络的性能。
+**MobileNetV3** 是由谷歌团队在 2019 年提出的轻量化网络模型，传统的卷积神经网络，内容需求大，运算量大，无法再移动设备以及嵌入式设备上运行，为了解决这一问题，MobileNet V3 网络应运而生。在移动端图像分类、目标检测、语义分割等任务上均取得了优秀的表现。MobileNetV3 采用了很多新的技术，包括针对通道注意力的 Squeeze-and-Excitation 模块、NAS 搜索方法等，这些方法都有利于进一步提升网络的性能。
 
 ### 重新设计耗时层结构
 
@@ -437,7 +437,7 @@ class SqueezeExcitation(nn.Module):
 
 ### 反向残差结构(Inverted Residuals)
 
-相对于MobileNets_V2，MobileNets_V3的反向残差结构发生改变，在MobileNets_V2的反向残差结构基础上加入了SE模块。
+相对于 MobileNets_V2，MobileNets_V3 的反向残差结构发生改变，在 MobileNets_V2 的反向残差结构基础上加入了 SE 模块。
 
 **代码**
 
@@ -466,7 +466,7 @@ class InvertedResidualConfig:
         return _make_divisible(channels * width_multi, 8)
 
 
-# 此为 block 模块，其包含第一个 1x1 卷积层、DeptWis 卷积层、SE 注意力机制层（判断是否需求）、第二个 1x1 卷积层、激活函数（需要判断是否是非线性激活）,ConvBNActivation为普通卷积块卷积层
+# 此为 block 模块，其包含第一个 1x1 卷积层、DeptWis 卷积层、SE 注意力机制层（判断是否需求）、第二个 1x1 卷积层、激活函数（需要判断是否是非线性激活）,ConvBNActivation 为普通卷积块卷积层
 class InvertedResidual(nn.Module):
     def __init__(self,
                  cnf: InvertedResidualConfig,   # cnf:配置类参数
@@ -627,7 +627,7 @@ class MobileNetV3(nn.Module):
 
 ## MobileNet V4
 
-**MobileNetV4**:主要是针对移动设备设计的通用高效架构。在其核心部分，引入了通用倒瓶颈（UIB）搜索块，Mobile MQA，带来了 39%速度提升。同时还带来了一种优化的神经架构搜索（NAS）方法，它提高了 MobileNetV4 搜索的有效性。同时UIB、Mobile MQA 以及精细化的 NAS 方法的整合，使得 MNv4 模型系列在移动 CPU、DSP、GPU 以及像苹果神经引擎和谷歌 Pixel EdgeTPU 这样的专用加速器上几乎达到了帕累托最优——这是其他测试模型所不具备的特性。最后，为了进一步提升准确度，引入了一种新颖的蒸馏技术。借助这项技术，MNv4-Hybrid-Large 模型在 ImageNet-1K 上的准确度达到了 87%，在 Pixel 8 EdgeTPU 上的运行时间仅为 3.8ms。
+**MobileNetV4**:主要是针对移动设备设计的通用高效架构。在其核心部分，引入了通用倒瓶颈（UIB）搜索块，Mobile MQA，带来了 39%速度提升。同时还带来了一种优化的神经架构搜索（NAS）方法，它提高了 MobileNetV4 搜索的有效性。同时 UIB、Mobile MQA 以及精细化的 NAS 方法的整合，使得 MNv4 模型系列在移动 CPU、DSP、GPU 以及像苹果神经引擎和谷歌 Pixel EdgeTPU 这样的专用加速器上几乎达到了帕累托最优——这是其他测试模型所不具备的特性。最后，为了进一步提升准确度，引入了一种新颖的蒸馏技术。借助这项技术，MNv4-Hybrid-Large 模型在 ImageNet-1K 上的准确度达到了 87%，在 Pixel 8 EdgeTPU 上的运行时间仅为 3.8ms。
 
 ### 设计原则
 
@@ -834,7 +834,7 @@ import torch.nn as nn
 
 from mobilenet.model_config import MODEL_SPECS 
 
-#通过配置参数构建Mobile v4 block
+#通过配置参数构建 Mobile v4 block
 def build_blocks(layer_spec):
     if not layer_spec.get('block_name'):
         return nn.Sequential()

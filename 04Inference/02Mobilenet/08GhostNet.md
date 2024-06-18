@@ -55,12 +55,12 @@ $$
 r_{c} =\frac{n\cdot c\cdot k \cdot k}{\frac{n}{s}\cdot{c}\cdot{k}\cdot{k}+(s-1)\cdot \frac{n}{s}\cdot d \cdot d} ≈\frac{s\cdot c}{s+c-1}  ≈ s
 $$
 
-其实GhostNet的方法也很简单，无外乎就是将原本的乘法变成了两个乘法相加，然后在代码实现中，其实第二个变换是用depthwise conv实现的。作者在文中也提到，前面的卷积使用pointwise效率比较高，所以网络嫣然类似一个mobilenet的反过来的版本，只不过GhostNet采用了拼接的方式，进一步减少了计算量。Ghost module的pytorch代码如下：
+其实 GhostNet 的方法也很简单，无外乎就是将原本的乘法变成了两个乘法相加，然后在代码实现中，其实第二个变换是用 depthwise conv 实现的。作者在文中也提到，前面的卷积使用 pointwise 效率比较高，所以网络嫣然类似一个 mobilenet 的反过来的版本，只不过 GhostNet 采用了拼接的方式，进一步减少了计算量。Ghost module 的 pytorch 代码如下：
 
 **代码**
 
 ```python
-#Ghost模块，以普通卷积和DW卷积组合而成
+#Ghost 模块，以普通卷积和 DW 卷积组合而成
 class GhostModule(nn.Module):
     def __init__(self, in_channels,out_channels,s=2, kernel_size=1,stride=1, use_relu=True):
         super(GhostModule, self).__init__()
@@ -98,7 +98,7 @@ Ghost bottleneck 主要由两个堆叠的 Ghost Module 组成。第一个 Ghost 
 **代码**
 
 ```python
-#Ghost瓶颈层实现
+#Ghost 瓶颈层实现
 class GhostBottleneck(nn.Module):
     def __init__(self, in_channels,mid_channels, out_channels , kernel_size, stride, use_se, se_kernel_size=1):
         super(GhostBottleneck, self).__init__()
