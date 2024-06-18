@@ -586,10 +586,10 @@ $$
 
 左边的原始网络会变成右边的结构。标号处是值得关注的地方：
 
-1. 左边的conv+relu6可以组合为一个融合的大算子。右半部分是量化的大算子展开之后的计算。weight和bias要在参与计算之前quantize（编译器进行），这里bias要和conv的结果做加法，因此其量化的scale等于input_scale x weight_scale。加完之后的结果的scale要转变为output_scale，插入了requantize操作，即用定点乘法和移位模拟与（ input_scale x weight_scale / output_scale）这个浮点数的乘积。具体的原理在上一节量化网络算子如何计算有提到。最后一个操作是clip，即数值截断指令。数值截断指令在每一个大算子结尾都有，因为input、output均是int8，中间的计算数据类型是int32（为了防止溢出），在数据store回ddr时，需要进行截断以保证output仍然是int8的范围。这里relu6和本来的数值截断指令融合了，因为relu6本质也是数值截断，和原有int8数值截断的范围取个交集就同时完成了二者的计算。
-2. 乘法操作之后需要插入requantize。
-3. maxpool是被动量化算子，未改变量化参数。不用插入requantize节点。
-4. conv+relu6+tanh也可以融合为一个大算子，因为relu6和tanh都是逐元素、一对一映射计算的。在经过图变换后，量化需要的节点都已插入。之后需要去做低层的优化和指令生成。
+1.   左边的 conv+relu6 可以组合为一个融合的大算子。右半部分是量化的大算子展开之后的计算。weight 和 bias 要在参与计算之前 quantize（编译器进行），这里 bias 要和 conv 的结果做加法，因此其量化的 scale 等于 input_scale x weight_scale。加完之后的结果的 scale 要转变为 output_scale，插入了 requantize 操作，即用定点乘法和移位模拟与（ input_scale x weight_scale / output_scale）这个浮点数的乘积。具体的原理在上一节量化网络算子如何计算有提到。最后一个操作是 clip，即数值截断指令。数值截断指令在每一个大算子结尾都有，因为 input、output 均是 int8，中间的计算数据类型是 int32（为了防止溢出），在数据 store 回 ddr 时，需要进行截断以保证 output 仍然是 int8 的范围。这里 relu6 和本来的数值截断指令融合了，因为 relu6 本质也是数值截断，和原有 int8 数值截断的范围取个交集就同时完成了二者的计算。
+2.   乘法操作之后需要插入 requantize。
+3.   maxpool 是被动量化算子，未改变量化参数。不用插入 requantize 节点。
+4.   conv+relu6+tanh 也可以融合为一个大算子，因为 relu6 和 tanh 都是逐元素、一对一映射计算的。在经过图变换后，量化需要的节点都已插入。之后需要去做低层的优化和指令生成。
 
 ### 计算图优化
 
@@ -649,13 +649,13 @@ TVM推荐的BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式，�
 
 **基于模式的分组：**
 
-许多硬件加速器使用指令执行算子。例如Conv2d、Add、Relu的序列通常可以映射到单个算子，以最小化处理中间结果的开销（算子融合）。因此，硬件供应商需要使用模式匹配算法来匹配IR节点序列，并用复合指令替换他们。
+许多硬件加速器使用指令执行算子。例如 Conv2d、Add、Relu 的序列通常可以映射到单个算子，以最小化处理中间结果的开销（算子融合）。因此，硬件供应商需要使用模式匹配算法来匹配IR节点序列，并用复合指令替换他们。
 
-该框架提供了模式匹配机制，如下代码描述的匹配一个Conv2d-add-relu
+该框架提供了模式匹配机制，如下代码描述的匹配一个 Conv2d-add-relu
 
 ![img](images/07Practice08.webp)
 
-通过上述匹配模式表，可以将图3（上）a转换为b
+通过上述匹配模式表，可以将图 3（上）a 转换为 b
 
 **注解：**
 
