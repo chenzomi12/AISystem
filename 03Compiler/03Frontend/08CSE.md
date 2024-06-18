@@ -1,3 +1,5 @@
+<!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # 公共表达式消除原理
 
 公共子表达式消除（Common Subexpression Elimination，CSE）也成为冗余表达式消除，是普遍应用于各种编译器的经典优化技术。旨在消除程序中重复计算的公共表达式，从而减少计算量和提高执行效率。
@@ -27,6 +29,8 @@ d = temp + e
 对于 b * c，程序只需要计算一次，并将结果保存在 temp 中，当计算 a 和 d 使用到时直接载入 temp 中保存的值即可，避免了 b * c 的重复计算，提高程序的执行效率。
 
 编译器开发者将公共子表达式消除分成两类。如果这种优化仅限于程序的基本块内，便称为局部公共子表达式消除；如果这种优化范围涵盖了多个基本块，那就称为全局公共子表达式消除。
+
+下面分别两种常见的公共子表达式消除方法，分别是局部值编号(LVN)和缓式代码移动(LCM)。局部值编号是一种常见的局部公共子表达式消除，它通过局部散列表，在找到并消除公共子表达式。缓式代码移动是一种常见的全局公共子表达式消除，它通过可用表达式，可预测表达式，延迟分析这三种数据流问题，将冗余表达式上提到合适的位置，从而消除公共子表达式的目的。
 
 ### 局部值编号
 
@@ -231,7 +235,9 @@ SSA（Static Single Assignment）是一种中间表示（IR）形式，用于在
 以 tensorflow 为例，给出 AI 编译器实现公共表达式消除的一种实现：
 
 1. 获得逆后续节点集。tensorflow 使用反向深度优先搜索遍历计算图，获得逆后续节点集。这样处理的目的是为了确保在处理某个节点时，其所有的输入节点已经处理完毕。
+
 2. 遍历逆后续节点集，由于公共子表达式优化只与操作节点有关，所以在遍历的时候忽略非操作节点。tensorflow 使用混合哈希的计算模式为每个操作节点计算其对应的哈希值。参与混合哈希计算的节点属性包括输出节点的个数，每个输出节点的类型，输入节点的信息等等。这样处理的目的是为了确保一个表达式对应一个 hash 值，达到检索公共表达式的目的。
+
 3. 维护公共子表达式候选集，将节点和哈希值一一对应，当处理一个新的操作节点时，判断该节点的哈希值是否在公共子表达式候选集中，如果不存在，则将该操作节点及其哈希值添加到公共子表达式候选集中。如果存在，则用公共子表达式候选集中的节点连接到该操作节点的所有输出节点，但对于该操作节点并不会做任何处理，这会在后续的死代码删除中被删除掉。
 
 ## 本章小结
@@ -243,5 +249,5 @@ SSA（Static Single Assignment）是一种中间表示（IR）形式，用于在
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=563971071&bvid=BV1rv4y1Q7tp&cid=930209206&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

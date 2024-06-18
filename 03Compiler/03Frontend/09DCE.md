@@ -1,3 +1,5 @@
+<!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
 # 死代码消除
 
 死代码消除（Dead Code Elimination）是一种编译器优化技术，旨在删除程序中不会被执行的代码，从而提高程序的执行效率和资源利用率。死代码是指在程序的当前执行路径下不会被访问或执行的代码片段。
@@ -152,5 +154,5 @@ AI编译器通常是通过分析计算图，找到无用的计算节点或不可
 ## 本节视频
 
 <html>
-<iframe src="https:&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=733982245&bvid=BV1hD4y1h7nh&cid=930519505&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>

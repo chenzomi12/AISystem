@@ -149,13 +149,13 @@ Ansor 有三个关键设计，分别是程序采样器、性能微调器、任�
 
 递归地应用一组派生规则来生成草图，例如在 CPU 上使用这样一组规则来进行草图生成：
 
-+   IsStrictInlinable(S,i)：表示 S 中的节点是否是个简单的逐元素算子如 relu，则可以内联
+- IsStrictInlinable(S,i)：表示 S 中的节点是否是个简单的逐元素算子如 relu，则可以内联
 
-+   HasDataReuse：表示节点 i 是否是计算密集型，并且有丰富的算子内部数据重用机会如 matmul、conv2d
+- HasDataReuse：表示节点 i 是否是计算密集型，并且有丰富的算子内部数据重用机会如 matmul、conv2d
 
-+   HasFusibleConsumer：表示 S 中的节点 i 是否只有一个节点 j，节点 j 可以融合到节点 i（如 matmul+bias_add，conv2d+relu
+- HasFusibleConsumer：表示 S 中的节点 i 是否只有一个节点 j，节点 j 可以融合到节点 i（如 matmul+bias_add，conv2d+relu
 
-+   HasMoreReducetionParallel：表示节点在空间维几乎没有并行性，但是在 reduce 维有足够的并行性。（如计算一个矩阵 l2 范数，matmul 2x512 . 512x2）
+- HasMoreReducetionParallel：表示节点在空间维几乎没有并行性，但是在 reduce 维有足够的并行性。（如计算一个矩阵 l2 范数，matmul 2x512 . 512x2）
 
 对计算的定义进行静态分析，获得这些条件谓词的值。这个过程是解析计算的数学表达式的读写模式自动完成的。与 AutoTVM 中手写模板不同，手写模板同时指定了高层规则和低层规则，而草图只有高层结构。
 

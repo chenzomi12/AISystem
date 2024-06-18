@@ -1,15 +1,17 @@
-# 实践案例
+<!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+
+# TVM 实践案例
 
 在本节我们探讨一下，如何利用 AI 编译器在新的硬件上部署一个神经网络，从算法设计到实际运行，有哪些需要考虑的地方？本节将以 TVM 为例，首先介绍一下 TVM 的工作流：
 
 ![image-20240612213553327](images/07Practice01.png)
 
-+   导入模型。TVM 可以从 TensorFlow、PyTorch、ONNX 等框架导入模型。
-+   转换为 Relay。Relay 是 TVM 的中间表示形式，已导入 TVM 的模型以 Relay 表示。最新版本为 Relax。
-+   转换为 TE（Tensor Expression，张量表达式）。在 Relay 应用图级优化后，将模型进行子图分割，并将子图降低为 TE 表示。
-+   自动调优。使用 AutoTVM 或 AutoScheduler 搜索最佳调度，以更好利用硬件特性达到更高性能。生成最佳配置。在自动调优后，会生成调优记录日志，为每个子图选择最佳调度。
-+   转换为 TIR（Tensor Intermediate Representation）。这是 TVM 的低级中间表示，特定于硬件平台。TIR 通过低层次优化进行优化。之后优化的 TIR 被降低到硬件平台的目标编译器。这是生成可部署到生产中的优化模型的最终代码生成阶段。
-+   编译为机器码。TVM 支持不同硬件后端，包括：LLVM，针对任意微处理器架构，如 X86 和 ARM 处理器；专门的编译器，如 NVCC，NVIDIA 的编译器；嵌入式和专用目标平台，通过 TVM 的代码生成框架实现。
+- 导入模型。TVM 可以从 TensorFlow、PyTorch、ONNX 等框架导入模型。
+- 转换为 Relay。Relay 是 TVM 的中间表示形式，已导入 TVM 的模型以 Relay 表示。最新版本为 Relax。
+- 转换为 TE（Tensor Expression，张量表达式）。在 Relay 应用图级优化后，将模型进行子图分割，并将子图降低为 TE 表示。
+- 自动调优。使用 AutoTVM 或 AutoScheduler 搜索最佳调度，以更好利用硬件特性达到更高性能。生成最佳配置。在自动调优后，会生成调优记录日志，为每个子图选择最佳调度。
+- 转换为 TIR（Tensor Intermediate Representation）。这是 TVM 的低级中间表示，特定于硬件平台。TIR 通过低层次优化进行优化。之后优化的 TIR 被降低到硬件平台的目标编译器。这是生成可部署到生产中的优化模型的最终代码生成阶段。
+- 编译为机器码。TVM 支持不同硬件后端，包括：LLVM，针对任意微处理器架构，如 X86 和 ARM 处理器；专门的编译器，如 NVCC，NVIDIA 的编译器；嵌入式和专用目标平台，通过 TVM 的代码生成框架实现。
 
 ## 算法层
 
@@ -25,19 +27,19 @@
 
 除了激活函数的替换，另一个典型例子是卷积的改进。为了改进普通卷积高额的计算开销，研究人员开发了多种紧凑卷积来压缩计算量：
 
-+   压缩通道
+- 压缩通道
 
     SqueezeNet 每个网络块利用小于输入通道数量的 1×1 filter 来减少挤压阶段的网络宽度，然后在扩展阶段利用多个 1×1 和 3×3 kernel。通过挤压宽度，计算复杂度明显降低，同时补偿了扩展阶段的精度。SqueezeNext 在扩展阶段利用了可分离的卷积；一个 k×k 的 filter 被分为一个 k×1 和一个 1×k 的 filter。与 SqueezeNet 相比，这种可分离的卷积进一步减少了参数的数量。
 
-+   深度可分离卷积
+- 深度可分离卷积
 
     深度可分离卷积由 Depthwise Convolution 和 Pointwise Convolution 两部分构成。Depthwise Convolution 的计算非常简单，它对输入 feature map 的每个通道分别使用一个卷积核，然后将所有卷积核的输出再进行拼接得到它的最终输出，Pointwise Convolution 实际为 1×1 卷积。最大优点是计算效率非常高。典型实例如 Xception、MobileNet。
 
-+   线性瓶颈层
+- 线性瓶颈层
 
     瓶颈结构是指将高维空间映射到低维空间，缩减通道数。线性瓶颈结构，就是末层卷积使用线性激活的瓶颈结构（将 ReLU 函数替换为线性函数）。该方法在 MobileNet V2 中提出，为了减缓在 MobileNet V1 中出现的 Relu 激活函数导致的信息丢失现象。
 
-+   组卷积
+- 组卷积
 
     在组卷积方法中，输入通道分为几组，每组的通道分别与其他组进行卷积。例如，带有三组的输入通道需要三个独立的卷积。由于组卷积不与其他组中的通道进行交互，所以不同的组之间的交互将在单独的卷积之后进行。与使用常规卷积的 cnn 相比，组卷积方法减少了 MAC 操作的数量
     
@@ -250,7 +252,7 @@ opset_version=16, export_params=True)
 
 使用 fx 量化有一些值得注意的地方，总结如下：
 
-+   **在模型经过 prepare_qat_fx 时，出现函数不支持 trace，典型报错如下：**
+- **在模型经过 prepare_qat_fx 时，出现函数不支持 trace，典型报错如下：**
 
     ```python
     xxxfunc(): argument 'xxx' (position 1) must be xxx, not Proxy
@@ -437,7 +439,7 @@ $$
 
 除了卷积层，这里再介绍下其他主要算子的量化流程：
 
-+   **乘法**
+- **乘法**
 
     一个原始的 float mul 伪代码如下，这里数值类型都是 float 的：
 
@@ -464,7 +466,7 @@ $$
     i_output = i_src0 *i_src1 * (scale_0*scale_1/scale_output)
     ```
 
-+    **requant 再量化操作**
+-  **requant 再量化操作**
 
     requant 中的难点是如何用整数计算来计算与`scale_0*scale_1/scale_output`这样一个浮点数的乘法。这一长串在运行时数据都是已知的，因此在编译期就可以将其提前计算，记作 s。假设 s=0.2，那么 s 可不可以表示为一串整数的计算？
 
@@ -498,7 +500,7 @@ $$
     }
     ```
 
-+   **加法**
+- **加法**
 
     乘法和加法都是二元操作，但是他们的量化计算方式却是不同的。如果仍然按照乘法的那个思路，会变成下面这样：
 
@@ -513,19 +515,19 @@ $$
 
     与上面的量化乘法不同，量化乘法可以在乘法之后加一个 requant 计算。但是量化加法的乘以一个浮点数无法提取出来，根据上面的计算公式，两个操作数需要在加法之前就做 requant 计算，之后再进行加法。concat 也是与 add 这样的方式。
 
-+   **激活函数**
+- **激活函数**
 
     激活函数有需要经过复杂计算的，比如 tanh、sigmoid、exp、softmax 等，也有简单的例如 relu、relu6 等。
 
     对于复杂的激活函数，一般有两种方法，一种是拟合，另一种是使用查找表。
 
-    +   **拟合**
+    - **拟合**
 
         拟合是使用一系列分段的多项式函数去逼近这一段的非线性计算的值。一般使用泰勒展开、傅里叶展开等形式，或者自己设计一个拟合函数。这个拟合函数的设计非常的影响精度，有时会使用一些魔法，看起来很不直观。
 
         例如对于 exp，其泰勒展开式为 $ exp(x)=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+R_4 $。这里只展开到 3 次项，为了更高的精度可以继续展开，但是计算也更复杂，如何处理余项也需要考虑。
 
-    +   **查找表**
+    - **查找表**
 
         好在如果使用 int8 量化，那么输入的数据只有[-128,127]这 256 个数，经过激活函数后产生 256 个输出值，这是个一对一的映射关系，因此可以使用查找表提前保存这 256 个值，在运算时直接查表即可。查找表的生成可以模拟浮点计算的过程：将 input 到 output 的过程看作大小为 256 的一对一映射，把 input（int8 的整数）看作索引，LUT 看作数组，直接取值即可
 
@@ -560,21 +562,21 @@ $$
 
         在使用时也非常简单，伪代码如下：
 
-        ```python
+        ```python 
         int8 get_tanh_result(int8 input){
-            return TANH_LUT[input+128]; //这里偏移 128 是因为存放查找表时是-128，-127，...，126，127 这样的顺序， 对应的索引是 0,1,2，...，需要偏移 128
+            # 这里偏移 128 是因为存放查找表时是-128，-127，...，126，127 这样的顺序， 对应的索引是 0,1,2，...，需要偏移 128
+            return TANH_LUT[input+128]; 
         }
         ```
 
-+   **被动量化算子**
+- **被动量化算子**
 
     不是所有算子的运算都需要改变量化参数，例如对于 padding、relu、clip、maxpooling 等，输入和输出共享 scale，也就是 scale 不会发生改变，不需要 requant 操作。对于这类算子，计算形式有时要发生一些小小的变化：
+    - 对于 padding，一般是填充 0 值，量化后要填充这个数据对应的 zero_point。
 
-    +   对于 padding，一般是填充 0 值，量化后要填充这个数据对应的 zero_point。
+    - 对于 relu，形式为 `output = max(input,0)`，量化后其运算变为 `output = max(input,zero_point)`
 
-    +   对于 relu，形式为 `output = max(input,0)`，量化后其运算变为 `output = max(input,zero_point)`
-
-    +   涉及到常量的通常也要把常量值进行量化，例如 max，形式为`output=max(input,min)`，量化后为`output=max(input,min/scale+zero_point)`。add、mul 一个标量也需要这样。
+    - 涉及到常量的通常也要把常量值进行量化，例如 max，形式为`output=max(input,min)`，量化后为`output=max(input,min/scale+zero_point)`。add、mul 一个标量也需要这样。
 
     这些算子不需要使用 requant，因为没改变量化参数。
 
@@ -635,7 +637,7 @@ TVM 推荐的 BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式�
 
 3.图划分，划分为 host 和 accelerator 两个部分。
 
-#### **图划分**
+#### 图划分
 
 将模型切割为不同的子图，对加速器运行友好（例如加速器支持的算子，或者在加速器上执行效率更高的算子）的部分被卸载，其余部分仍然让 host 执行。深度学习编译器通常有多层 IR，比如 TVM 的 Relay 和 TensorIR，和 MLIR（顾名思义），因此需要决定在哪个 IR 级别进行划分。
 

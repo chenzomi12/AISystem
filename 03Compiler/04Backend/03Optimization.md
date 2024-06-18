@@ -245,9 +245,9 @@ Triton 的前端是基于 Python 实现的，这使得用户的学习成本大�
 
 在没有 Triton 之前，算子工程师在开发算子时，需要同时处理 DRAM、SRAM、计算单元，面临诸多挑战：
 
-+   内存管理：合理利用内存体系，将频繁访问的数据块缓存到较快的存储区域；对齐和合并访存请求，避免带宽浪费。
-+   线程管理：最大化利用硬件计算资源，规划并行线程数量和线程束大小。
-+   指令使用：使用 CUDA 实现一个功能有相应多种指令，不同指令具有不同延迟和吞吐量。
+- 内存管理：合理利用内存体系，将频繁访问的数据块缓存到较快的存储区域；对齐和合并访存请求，避免带宽浪费。
+- 线程管理：最大化利用硬件计算资源，规划并行线程数量和线程束大小。
+- 指令使用：使用 CUDA 实现一个功能有相应多种指令，不同指令具有不同延迟和吞吐量。
 
 Triton 提高了算子开发时的效率，使得开发者不再囿于硬件细节。CUDA 直接面向 Thread 变成，而 Triton 面向 Thread Block 编程，开发者只需关注 1）Kernel launch 的参数；2）每个数据分块的大小；3）数据分块之间的交互。在这之下的细节由 Triton 实现。
 
@@ -265,10 +265,10 @@ Optimizer 大致工作流如下：
 
 TritonGPU Dialect 相比 Triton Dialect，主要是增加了 GPU 硬件相关的 Op 和 Type。关键 Op 为数据布局转换。当前有以下几种数据布局：
 
-+   Blocked Layout：表示 thread 间平均分配 workload 的情况，每个线程处理一块 memory 上连续的数据。
-+   Shared Layout：表示数据在 shared memory 的一些特性。
-+   MMA Layout：表示 Tensor Core 中 MMA 指令结果的 data layout
-+   DotOperand Layout：表示 Triton 的 DotOp 的输入的 layout
+- Blocked Layout：表示 thread 间平均分配 workload 的情况，每个线程处理一块 memory 上连续的数据。
+- Shared Layout：表示数据在 shared memory 的一些特性。
+- MMA Layout：表示 Tensor Core 中 MMA 指令结果的 data layout
+- DotOperand Layout：表示 Triton 的 DotOp 的输入的 layout
 
 列举一些典型的 data layout 的转换，以及特点：
 
