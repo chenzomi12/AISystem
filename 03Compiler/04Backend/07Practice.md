@@ -396,7 +396,7 @@ def _quantized_conv2d(with_relu=False):
 
 将算子的input的scale和zero_point显式地提取出来。有一个`num_quantized_inputs`的dict，记录了算子的量化输入的数量，例如 `"quantized::conv2d": 1`,`"quantized::add": 2`。如果有新的量化算子加入，需要在这里加入。
 
--   _get_quant_param_for_input
+-   get_quant_param_for_input
 
 执行add_input_quant_params_to_op_inputs函数中量化参数提取，维护`output_quant_param_indices`的dict，记录算子output的scale和zero_point的index，index数据的来源是node中注册算子时的属性顺序。如果有新的量化算子加入，需要在这里加入。
 
@@ -472,7 +472,7 @@ $$
 
     下面这段tvm中的代码就是将s分解为乘数和移位数的函数：
 
-    ```python
+    ```C++
     std::pair<int32_t, int32_t> GetFixedPointMultiplierShift(double double_multiplier) {
       int32_t significand, exponent;
       if (double_multiplier == 0.) {
@@ -529,7 +529,7 @@ $$
 
         好在如果使用int8量化，那么输入的数据只有[-128,127]这256个数，经过激活函数后产生256个输出值，这是个一对一的映射关系，因此可以使用查找表提前保存这256个值，在运算时直接查表即可。查找表的生成可以模拟浮点计算的过程：将input到output的过程看作大小为256的一对一映射，把input（int8的整数）看作索引，LUT看作数组，直接取值即可
 
-        ![img](07Practice.assets/images/07Practice04.jpg)
+        ![img](images/07Practice04.jpg)
 
         以tanh为例，获得int8范围内[-127,128]的LUT代码如下：
 
@@ -582,14 +582,14 @@ $$
 
 在经过一系列的转换后，量化网络的结构会发生极大变化，这里有一个简要的示意图：
 
-![img](07Practice.assets/images/07Practice05.jpg)
+![img](images/07Practice05.jpg)
 
 左边的原始网络会变成右边的结构。标号处是值得关注的地方：
 
-1.   左边的conv+relu6可以组合为一个融合的大算子。右半部分是量化的大算子展开之后的计算。weight和bias要在参与计算之前quantize（编译器进行），这里bias要和conv的结果做加法，因此其量化的scale等于input_scale x weight_scale。加完之后的结果的scale要转变为output_scale，插入了requantize操作，即用定点乘法和移位模拟与（ input_scale x weight_scale / output_scale）这个浮点数的乘积。具体的原理在上一节量化网络算子如何计算有提到。最后一个操作是clip，即数值截断指令。数值截断指令在每一个大算子结尾都有，因为input、output均是int8，中间的计算数据类型是int32（为了防止溢出），在数据store回ddr时，需要进行截断以保证output仍然是int8的范围。这里relu6和本来的数值截断指令融合了，因为relu6本质也是数值截断，和原有int8数值截断的范围取个交集就同时完成了二者的计算。
-2.   乘法操作之后需要插入requantize。
-3.   maxpool是被动量化算子，未改变量化参数。不用插入requantize节点。
-4.   conv+relu6+tanh也可以融合为一个大算子，因为relu6和tanh都是逐元素、一对一映射计算的。在经过图变换后，量化需要的节点都已插入。之后需要去做低层的优化和指令生成。
+1. 左边的conv+relu6可以组合为一个融合的大算子。右半部分是量化的大算子展开之后的计算。weight和bias要在参与计算之前quantize（编译器进行），这里bias要和conv的结果做加法，因此其量化的scale等于input_scale x weight_scale。加完之后的结果的scale要转变为output_scale，插入了requantize操作，即用定点乘法和移位模拟与（ input_scale x weight_scale / output_scale）这个浮点数的乘积。具体的原理在上一节量化网络算子如何计算有提到。最后一个操作是clip，即数值截断指令。数值截断指令在每一个大算子结尾都有，因为input、output均是int8，中间的计算数据类型是int32（为了防止溢出），在数据store回ddr时，需要进行截断以保证output仍然是int8的范围。这里relu6和本来的数值截断指令融合了，因为relu6本质也是数值截断，和原有int8数值截断的范围取个交集就同时完成了二者的计算。
+2. 乘法操作之后需要插入requantize。
+3. maxpool是被动量化算子，未改变量化参数。不用插入requantize节点。
+4. conv+relu6+tanh也可以融合为一个大算子，因为relu6和tanh都是逐元素、一对一映射计算的。在经过图变换后，量化需要的节点都已插入。之后需要去做低层的优化和指令生成。
 
 ### 计算图优化
 
@@ -653,15 +653,9 @@ TVM推荐的BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式，�
 
 该框架提供了模式匹配机制，如下代码描述的匹配一个Conv2d-add-relu
 
-
-
 ![img](images/07Practice08.webp)
 
-
-
 通过上述匹配模式表，可以将图3（上）a转换为b
-
-
 
 **注解：**
 
@@ -685,11 +679,7 @@ TVM推荐的BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式，�
 
 在划分之后，一个图被分割成多个不同后端处理的区域，在host上的区域可以有效利用从现有的深度学习编译器中进行的标准优化，然而卸载到加速器的区域可能需要一些特定于硬件的优化（例如融合、替换、存储布局转换、量化等），这些优化通常是专有的，无法在深度学习编译器中处理。
 
-
-
 ![img](images/07Practice11.png)
-
-
 
 上图左边是量化，右边是存储布局转换。
 
