@@ -280,7 +280,7 @@ for (int kh = 0; kh < KH; kh++){
 
 上述 M 个指针不断运动扫描的过程其实就是在扫描三维输入经过 Im2Col 之后的矩阵，而输入缓冲区的特点就是他将对二维矩阵的扫描转为对三维张量的扫描。上述 M × IC 的内存块其实是由 M 个 1 × IC 张量组成，他们之间 W 维度的间距为步长 stride。这样一来，只需要运行
 
-$$ \[ \left\lceil \frac{OH \times OW}{M} \right\rceil \times \left\lceil \frac{OC}{N} \right\rceil \] $$
+$$ \left\lceil \frac{OH \times OW}{M} \right\rceil \times \left\lceil \frac{OC}{N} \right\rceil$$
 
 次计算核，即可得到全部的输出。
 

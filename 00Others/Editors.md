@@ -10,7 +10,7 @@
 
 AI 系统概述：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12)
 
-AI 硬件体系架构：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12), [@刘军](https://github.com/AI-LJ), [@张晓天](), [@李明慧](https://github.com/xxx), [@张圣航](), [@刘纬恒](), [@李宗泽](),  [@赵文千]()
+AI 硬件体系架构：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12), [@刘军](https://github.com/AI-LJ), [@张晓天](), [@李明慧](https://github.com/xxx), [@张圣航](), [@刘纬恒](), [@李宗泽](https://freelulul.github.io/),  [@赵文千]()
 
 AI 编译原理：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12), [@史家兴](), [@宋一帆](https://github.com/sfs999), [@韩昊知](https://github.com/haozhihan), [@李行](), [@武震卿](), [@张浩](), [@陈庚天](), 
 
