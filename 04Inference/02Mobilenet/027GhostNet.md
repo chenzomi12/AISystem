@@ -4,7 +4,7 @@
 
 本主要会介绍 GhostNet 系列网络，在本中会给大家带来卷积结构的改进方面的轻量化，以及与注意力(self-attention)模块的进行结合，部署更高效，更适合移动计算的 GhostNetV2。让读者更清楚的区别 V2 与 V1 之间的区别。
 
-## GhostNet V1
+## GhostNet V1 模型
 
 **GhostNet V1**:提供了一个全新的 Ghost Module，旨在通过廉价操作生成更多的特征图。基于一组原始的特征图，作者应用一系列廉价的线性变换(cheap linear operations)，以很小的代价生成许多能从原始特征发掘所需信息的 Ghost 特征图。该 Ghost 模块即插即用，通过堆叠 Ghost Module 得出 Ghost bottleneck，进而搭建轻量级神经网络——GhostNet。在 ImageNet 分类任务，GhostNet 在相似计算量情况下 Top-1 正确率达 75.7%，高于 MobileNetV3 的 75.2%。
 
@@ -13,7 +13,6 @@
 利用`Ghost Module`生成与普通卷积层相同数量的特征图，我们可以轻松地将`Ghost Module`替换卷积层，集成到现有设计好的神经网络结构中，以减少计算成本。第一、先通过普通的 conv 生成一些特征图。第二、对生成的特征图进行 cheap 操作生成冗余特征图，这步使用的卷积是 DW 卷积。第三将 conv 生成的特征图与 cheap 操作生成的特征图进行 concat 操作。如下图（b）所示，展示了 Ghost 模块和普通卷积的过程。
 
 ![GhostNet](images/08Ghostnet01.png)
-
 
 深度卷积神经网络通常引用由大量卷积组成的卷积神经网络，导致大量的计算成本。尽管最近的工作，例如 MobileNet 和 ShuffleNet 引入了深度卷积或混洗操作，以使用较小的卷积核（浮点运算）来构建有效的 CNN，其余 1×1 卷积层仍将占用大量内存和 FLOPs。鉴于主流 CNN 计算出的中间特征图中存在大量的冗余，作者提出减少所需的资源，即用于生成它们的卷积核。实际上，给定输入数据 $X∈R^{cxhxw}$，其中 c 是输入通道数，h 和 w 是高度，输入数据的宽度，分别用于生成 n 个特征图的任意卷积层的运算可表示为:
 
@@ -57,8 +56,6 @@ $$
 
 其实 GhostNet 的方法也很简单，无外乎就是将原本的乘法变成了两个乘法相加，然后在代码实现中，其实第二个变换是用 depthwise conv 实现的。作者在文中也提到，前面的卷积使用 pointwise 效率比较高，所以网络嫣然类似一个 mobilenet 的反过来的版本，只不过 GhostNet 采用了拼接的方式，进一步减少了计算量。Ghost module 的 pytorch 代码如下：
 
-**代码**
-
 ```python
 #Ghost 模块，以普通卷积和 DW 卷积组合而成
 class GhostModule(nn.Module):
@@ -94,8 +91,6 @@ Ghost bottleneck 主要由两个堆叠的 Ghost Module 组成。第一个 Ghost 
 左图中，主干通路用两 Ghost Module 串联组成，其中第一个 Ghost Module 扩大通道数，第二个 Ghost Module 将通道数降低到与输入通道数一致；残差边部分与 ResNet 一样。由于 Stride=1，因此不会对输入特征图的高和宽进行压缩，其功能为加深网络的深度。
 
 右图中，主干通路的两个 Ghost Module 之间加入了一个 Stride=2 的 DWConv，可以将特征图高和宽进行压缩，使其大小降为输入的 $\frac {1}{2}$；在残差边部分，也会添加一个步长为 2 的 DWConv 和 1x1 的 PWConv，以保证 Add 操作可以对齐。这个模块可以用来替换其他 CNN 中的下采样层（1/2）。出于效率考虑，Ghost Module 中的所有标准卷积都用 PWConv 代替。
-
-**代码**
 
 ```python
 #Ghost 瓶颈层实现
@@ -133,11 +128,11 @@ GhostNet 主要由一堆 Ghost bottleneck 组成，其中 Ghost bottleneck 以 G
 
 与 MobileNetV3 相比，这里用 ReLU 换掉了 Hard-swish 激活函数。尽管进一步的超参数调整或基于自动架构搜索的 Ghost 模块将进一步提高性能;
 
-## GhostNet V2
+## GhostNet V2 模型
 
 **GhostNet V2**:GhostV2 的主要工作就是在 Ghost module 的基础上，添加了一个改进的注意力块。文中称为解耦全连接注意力机制 DFC（Decouplod fully connected）。它不仅可以在普通硬件上快速执行，还可以捕获远程像素之间的依赖关系。大量的实验表明，GhostNetV2 优于现有的体系结构。例如，它在具有 167M FLOPs 的 ImageNet 上实现了 75.3%的 top-1 精度，显著高于 GhostNetV1 (74.5%)，但计算成本相似。
 
-### 解耦全连接注意力机制 DFC
+### DFC 模块
 
 虽然自注意力操作可以很好地建模长距离依赖，但是部署效率低。相比自注意力机制，具有固定权重的 FC 层更简单，更容易实现，也可以用于生成具有全局感受野的 attention maps。
 
@@ -166,8 +161,6 @@ $$
 由于水平和垂直方向变换的解耦，注意力模块的计算复杂度可以降低到 $\mathcal{O}(H^{2}W+HW^{2})$ 对于 full attention （公式 1），正方形区域内的所有 patches 直接参与被聚合 patch 的计算。在 DFC attention 中，一个 patch 直接由其垂直方向和水平方向的 patch 进行聚合，而其他 patch 参与垂直线/水平线上的 patch 的生成，与被聚合的 token 有间接关系。因此，一个 patch 的计算也涉及到正方形区域的所有 patchs。
 
 公式(2)和公式(3)是 DFC attention 的一般表示，分别沿着水平和垂直方向聚合像素。通过共享部分变换权重，可以方便地使用卷积操作实现，省去了影响实际推理速度的耗时张量的 reshape 操作和 transpose 操作。为了处理不同分辨率的输入图像，卷积核的大小可以与特征图的大小进行解耦，也就是在输入特征上依次进行两个大小为 $1 \times K_{H}$ 和 $ K_{W} \times 1$ 的 DWConv 操作。当用卷积操作时，DFC attention 理论上的计算复杂度为 $\mathcal{O}(K_{H}HW+K_{W}HW)$。这种策略得到了 TFLite 和 ONNX 等工具的良好支持，可以在移动设备上进行快速推理。
-
-**代码**
 
 ```python
 class GhostModuleV2(nn.Module):
@@ -244,13 +237,11 @@ $$
 
 使用相同的输入特征，Ghost Module 和 DFC attention 是两个从不同角度提取信息的并行分支。输出特征是它们逐元素的信息，其中包含来自 Ghost Module 的特性和 DFC attention 的信息。每个 attention value 涉及到大范围的 patches，以便输出的特征可以包含这些 patches 的信息。
 
-### GhostNetV2 bottleneck
+### 模型结构实现
 
 为了减小 DFC attention 模块所消耗的计算量，本文对 DFC 这条支路上的特征进行下采样，在更小的特征图上执行一系列变换。同时，本文发现，对一个逆 bottleneck 结构而言，增强“expressiveness”（bottleneck 中间层）比“capacity”（bottleneck 输出层）更加有效，因此在 GhostNetV2 只对中间特征做了增强。GhostNetV2 的 bottleneck 如下图所示。
 
 ![GhostNet](images/08Ghostnet05.png)
-
-**代码**
 
 ```python
 class GhostBottleneckV2(nn.Module): 
@@ -304,11 +295,6 @@ class GhostBottleneckV2(nn.Module):
         x += self.shortcut(residual)
         return x
 ```
-
-### 网络结构
-
-V2 的结构主要就是一些 Ghost bottleneckV2 组合而成，基本结构与 V1 相似。
-
 ## 小结与思考
 
 - GhostNetV1 提出了一个即插即用的模块，能将原始模型转为更轻量的模型，GhostNetV2 在此基础上更关注硬件友好，并提出了一种新的用于移动应用的架构。

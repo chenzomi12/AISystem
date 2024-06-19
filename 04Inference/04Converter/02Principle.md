@@ -328,7 +328,7 @@ MindSpore Lite 提供了一套注册机制，允许用户基于转换工具进�
 下面的表格从支持的语言、版本、协议文件、代码生成工具及协议字段类型几个方面比较了 ProtoBufers 和 Flatbuffers 两种格式：
 
 | | Proto Bufers  | Flatbuffers |
-| -- | -- | --------------------------------------------------------------------------------------------- |
+| -- | -- | ------ |
 | 支持语言   | C/C++, C#, Go, Java, Python, Ruby, Objective-C, Dart    | C/C++, C#, Go, Java, JavaScript, TypeScript, Lua, PHP, Python, Rust, Lobster    |
 | 版本     | 2.x/3.x，不相互兼容 | 1.x |
 | 协议文件   | .proto，需指定协议文件版本     | .fbs |

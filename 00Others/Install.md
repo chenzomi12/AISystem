@@ -71,7 +71,7 @@ make html
 AI 系统在 Sphinx 配置（`conf.py`）中的全部配置内容：
 
 ```python
-# -- Project information -----------------------------------------------------
+# -- Project information -----
 import os
 from urllib.request import urlopen
 from pathlib import Path
@@ -80,7 +80,7 @@ project = "AISystem & AIInfra (AI 系统原理)"
 language = "cn"  # For testing language translations
 master_doc = "index"
 
-# -- General configuration ---------------------------------------------------
+# -- General configuration ------
 extensions = [
     "ablog",
     "myst_nb",
@@ -124,7 +124,7 @@ myst_enable_extensions = [
     "colon_fence",
 ]
 
-# -- Options for HTML output -------------------------------------------------
+# -- Options for HTML output ----
 html_theme = "sphinx_book_theme"
 html_logo = "_static/logo-wide.svg"
 html_title = "AI System"
@@ -184,7 +184,7 @@ ogp_social_cards = {
     "image": "_static/logo-square.png",
 }
 
-# # -- ABlog config -------------------------------------------------
+# # -- ABlog config ----
 blog_path = "reference/blog"
 blog_post_pattern = "reference/blog/*.md"
 blog_baseurl = "https://sphinx-book-theme.readthedocs.io"
@@ -237,11 +237,11 @@ title: AISystem & AIInfra
 01Introduction/04Sample
 ```
 
-<!-- ## 二. AI 硬件体系结构 -->
+<!-- ## 二. AI 硬件体系架构 -->
 
 ```{toctree}
 :maxdepth: 1
-:caption: === 二. AI 硬件体系结构 ===
+:caption: === 二. AI 硬件体系架构 ===
 
 02Hardware/README
 02Hardware01Foundation/README
@@ -253,11 +253,11 @@ title: AISystem & AIInfra
 02Hardware07Thought/README
 ```
 
-<!-- ## 三. AI 编译器 -->
+<!-- ## 三. AI 编程与计算架构 -->
 
 ```{toctree}
 :maxdepth: 1
-:caption: === 三. AI 编译器 ===
+:caption: === 三. AI 编程与计算架构 ===
 
 03Compiler/README
 03Compiler01Tradition/README

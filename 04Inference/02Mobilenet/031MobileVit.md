@@ -4,7 +4,7 @@
 
 自 Vision Transformer 出现之后，人们发现 Transformer 也可以应用在计算机视觉领域，并且效果还是非常不错的。但是基于 Transformer 的网络模型通常具有数十亿或数百亿个参数，这使得它们的模型文件非常大，不仅占用大量存储空间，而且在训练和部署过程中也需要更多的计算资源。所以在本节中会介绍关于 Transformer 一些轻量化工作。
 
-## MobileVit V1
+## MobileVit V1 模型
 
 **MobileVit  V1** :MobileViT 是一种基于 ViT（Vision Transformer）架构的轻量级视觉模型，旨在适用于移动设备和嵌入式系统。ViT 是一种非常成功的神经网络模型，用于图像分类和其他计算机视觉任务，但通常需要大量的计算资源和参数。MobileViT 的目标是在保持高性能的同时，减少模型的大小和计算需求，以便在移动设备上运行，据作者介绍，这是第一次基于轻量级 CNN 网络性能的轻量级 ViT 工作，性能 SOTA。性能优于 MobileNetV3、CrossviT 等网络。
 
@@ -19,9 +19,11 @@
 ![MobileVit](images/09Mobilevit02.png)
 
 我们以单通道特征图来分析 global representation 这部分做了什么，假设 patch 划分的大小为 $2\times 2$，实际中可以根据具体要求自己设置。在 Transformer 中对于输入的特征图，我们一般是将他整体展平为一维向量，在输入到 Transformer 中，在 self-attention 的时候，每个图中的每个像素和其他的像素进行计算，这样计算量就是：
+
 $$
 P_{1}= WHC 
 $$
+
 其中，W、H、C 分别表示特征图的宽，高和通道个数。
 
 在 Mobile-ViT 中的是先对输入的特征图划分成一个个的 patch，再计算 self-attention 的时候只对相同位置的像素计算，即图中展示的颜色相同的位置。这样就可以相对的减少计算量，这个时候的计算量为:
@@ -47,8 +49,6 @@ Transformers as Convolutions (global representations) 表示输入信息的全�
 **Fusion 融合**
 
 在 Fusion 中，经过 Transformers as Convolutions 得到的信息与原始输入信息 $(A ∈ R^{H\times W\times C}) $ 进行合并，然后使用另一个 $n\times n$ 卷积层来融合这些连接的特征。这里得到的信息指的是全局表征 $X_{F}\in R^{H\times W\times C}$
-
-**代码**
 
 ```python
 #Mobile Vit 块的实现
@@ -246,7 +246,7 @@ class MobileViTBlock(nn.Module):
 
 ![MobileVit](images/09Mobilevit04.png)
 
-### 网络结构
+### 网络结构实现
 
 在论文中，关于 MobileViT 作者提出了三种不同的配置，分别是 MobileViT-S(small)，MobileViT-XS(extra small)和 MobileViT-XXS(extra extra small)。三者的主要区别在于特征图的通道数不同。下图为 MobileViT 的整体框架，最开始的 3x3 卷积层以及最后的 1x1 卷积层、全局池化、全连接层不去赘述，主要看下图中的标出的 Layer1~5，这里是根据源码中的配置信息划分的。下面只列举了部分配置信息。
 
@@ -263,8 +263,6 @@ MobileViT block：MobileViT 的核心组件，由多个 Transformer block 组成
 全局池化层：用于将特征图进行降维，得到全局特征。
 
 全连接层：用于将全局特征映射到最终的预测输出。
-
-**代码**
 
 ```python
 # MV2 结构
@@ -333,9 +331,7 @@ class InvertedResidual(nn.Module):
             return self.block(x)
 ```
 
-
-
-## MobileVit V2
+## MobileVit V2 模型
 
 **MobileVit V2 **:MobileViT 的主要效率瓶颈是 Transformer 中的多头自注意力（MHA），它需要相对于 tokens（或 patches）数量 k 的时间复杂度。此外，MHA 需要昂贵的操作来计算自注意力，从而影响资源受限设备的延迟。MobileVit V2 则是一种具有 O(k)线性复杂度的可分离的自注意力方法。所提出方法的一个简单而有效的特征是它使用元素操作来计算自注意力，使其成为资源受限设备的不错选择。
 
@@ -378,20 +374,18 @@ $$
 除了这些模块级结果之外，当我们用 MobileViT 架构中提出的可分离自注意力替换 Transformer 中的 MHA 时，我们观察到在 ImageNet-1k 数据集上具有相似性能的推理速度提高了 3 倍（表 1）。这些结果显示了所提出的可分离自注意力在架构级别的有效性。请注意，Transformer 和 Linformer 中的自注意力对 MobileViT 产生了类似的结果。这是因为与语言模型相比，MobileViT 中的 tokens k 数量更少（k ≤ 1024），其中 Linformer 明显快于 Transformer。
 
 | Attention unit | Latency $\downarrow$ | Top-1 $\uparrow$     |
-| -------------- | ------------------ | ---- |
+| -- | --- | - |
 | Self-attention in Transformer | 9.9ms | **78.4** |
 | Self.attention in Linformer | 10.2ms | 78.2 |
 | Separable self-attention | **3.4**ms | 78.1 |
 
 **与加法的关系。** 所提出的方法类似于 Bahdanau 等人的注意力机制，它还通过在每个时间步取 LSTM 输出的加权和来对全局信息进行编码。不同之处，输入 tokens 通过递归进行交互，所提出方法中的输入 tokens 仅与潜在 tokens 交互。
 
-### 网络结构
+### 网络结构实现
 
 为了证明所提出的可分离自注意力在资源受限设备上的有效性，将可分离自注意力与最近基于 ViT 的模型 MobileViT 相结合。MobileViT 是一个轻量级、对移动设备友好的混合网络，其性能明显优于其他基于 CNN、基于 Transformer 或混合模型的竞争模型，包括 MobileNets。
 
 MobileViTv2 将 MobileViTv1 中的 Transformer 块中的 MHA 替换为提出的可分离自注意力方法。也没有在 MobileViT 块中使用 skip-connection 连接和融合块，因为它略微提高了性能。此外，为了创建不同复杂度的 MobileViTv2 模型，我们使用宽度乘数 α ∈ {0.5, 2.0} 统一缩放 MobileViTv2 网络的宽度。这与为移动设备训练三种特定架构（XXS、XS 和 S）的 MobileViTv1 形成对比。
-
-**代码**
 
 ```python
 #线性注意力
@@ -475,7 +469,7 @@ class LinearSelfAttention(nn.Module):
         return out
 ```
 
-## MobileVit V3
+## MobileVit V3 模型
 
 虽然 Mobilevit V1 具有竞争力的最先进的结果，但 Mobilevit v1 块中的融合模块比较复杂难以学习。在 MobileVit V3 版本则提出对融合块进行简单有效的修改，以创建 mobilevitv3 块，解决了伸缩问题，简化了学习任务。
 
@@ -496,7 +490,7 @@ class LinearSelfAttention(nn.Module):
 **3、融合输入。**在论文中说：ResNet 和 DenseNet 等模型中的残余连接已证明有助于优化体系结构中的更深层次。并且增加了这个残差结构后，消融实验证明能够增加 0.6 个点。如下表所示。
 
 | Model | Conv 3x3 | Conv 1x1 | Input Concat | Local Concat | Input Add | DW Conv | Top-1(%)$\uparrow$ |
-| ----- | -------- | -------- | ------------ | ------------ | --------- | ------- | ---------------- |
+| -- | -- | -- | --- | --- | --- | - | - |
 | MobileVitv1-s | √ |          | √ |              |           |         | 73.7($\uparrow$ 0.0%) |
 | MobileVitv3-s |          | √ | √ |              |           |         | 74.8($\uparrow$ 1.1%) |
 | MobileVitv3-s |          | √ |              | √ |           |         | 74.7($\uparrow$ 1.0%) |
@@ -508,7 +502,7 @@ class LinearSelfAttention(nn.Module):
 通过上面的几点，可以更好的对 MobileViT 块进行扩展，带来的优势也是非常巨大的，如下表所示，在参数量控制在 6M 以下，达到的效果也是非常惊人的，Top-1 的精确度都快接近 80%了。
 
 | Layer    | Size    | Stride | Repeat | XXS  | XS   | S    |
-| -------- | ------- | ------ | ------ | ---- | ---- | ---- |
+| -- | - | --- | --- | - | - | - |
 | Image    | 256x256 | 1      |        |      |      |      |
 | Conv 3x3$\downarrow$ 2 | 128x128 | 2 | 1 | 16 | 16 | 16 |
 | MV2 | 128x128 | 2 | 1 | 16 | 32 | 32 |
@@ -527,11 +521,9 @@ class LinearSelfAttention(nn.Module):
 | FLOPs(M) |  |  |  | 289 | 927 | 1841 |
 | Top-1 Accuracy(%) |  |  |  | 71.0 | 76.7 | 79.3 |
 
-### 网络结构
+### 网络结构实现
 
 如上表格所示，过增加层的宽度（通道数量）来扩展的 MobileViTv 3 架构。表中列出了 MobileViTv 3-S、XS 和 XXS 架构，其每层中具有输出通道、缩放因子、参数和 FLOP。
-
-**代码**
 
 ```python
 class MobileViT_v3_Block(Layer):
@@ -598,7 +590,7 @@ class MobileViT_v3_Block(Layer):
         local_representation = self.local_rep(x)
 
         # Transformer as Convolution Steps
-        # --------------------------------
+        # --
         # # Unfolding
 
         batch_size, fmH, fmW = tf.shape(x)[0], tf.shape(x)[1], tf.shape(x)[2]
@@ -643,11 +635,11 @@ class MobileViT_v3_Block(Layer):
 
 ## 小结
 
-- MobileVit-V1 是比较早的 CNN 与 Transformer 混合结构，结合了 CNN 与 Transformer 的优点，成为了轻量级、低延迟和满足设备资源约束的精确模型。
+- MobileViT V1 模型是基于 Vision Transformer (ViT) 的轻量级神经网络，专为移动设备和嵌入式系统设计。它结合了 CNN 和 ViT 的优点，通过 MobileViT Block 实现全局特征建模，并使用多尺度采样训练提高性能，不依赖位置嵌入。
 
-- V2 版本则在 V1 的基础上进行了改进，主要针对多头自注意力，保持了比 V1 版本更快的速度与精确度。
+- MobileViT V2 模型通过引入具有 O(k) 线性复杂度的可分离自注意力方法来解决 Transformer 中的多头自注意力（MHA）计算成本高的问题。这种方法通过元素操作计算自注意力，显著减少了计算量，同时保持了模型性能。
 
-- V3 版本则是创新性地融合了本地，全局合输入特征来提升模型精度。
+- MobileViT V3 模型对 MobileViT V1 中的融合模块进行了简化，使用 1x1 卷积层替换 3x3 卷积层，增加了非线性表达能力，同时简化了学习任务，解决了可伸缩性问题。此外，MobileViT V3 还引入了局部特征融合和深度可分离卷积，进一步提升了模型性能和效率。
 
 ## 本节视频
 

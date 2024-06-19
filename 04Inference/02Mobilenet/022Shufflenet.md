@@ -1,14 +1,14 @@
 <!--Copyright © XcodeHw 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# ShuffleNet
+# ShuffleNet 系列
 
 本章节会介绍 ShuffleNet 系列，重点在于其模型结构的轻量化设计，涉及如何降低深度网络计算量，在本节中会着重会讲解逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算，而 V2 版本则会从设备运算速度方面考虑将网络进行轻量化。
 
-## ShuffleNet V1
+## ShuffleNet V1 模型
 
 **ShuffleNet V1**: 它的贡献在于，使用 Point-Wise 分组卷积和 Channel Shuffle 两个操作，在降低计算量同时保持准确率。网络使用更多的通道来帮助编码阶段提取更多的信息，同时又针对小网络提出了 ShuffleNet Unit。
 
-ShuffleNet V1 比  MobileNet 在 ImageNet 分类任务上的 top-1 误差更低 (绝对 7.8%) ；在基于 ARM 的移动设备上，ShuffleNet 比 AlexNet 实现了约 13 倍的实际加速，同时保持了相当的精度 ；
+ShuffleNet V1 比  MobileNet 在 ImageNet 分类任务上的 top-1 误差更低 (绝对 7.8%)；在基于 ARM 的移动设备上，ShuffleNet 比 AlexNet 实现了约 13 倍的实际加速，同时保持了相当的精度；
 
 ### 设计思路
 
@@ -24,9 +24,7 @@ ShuffleNet V1 网络结构同样沿袭了稀疏连接的设计理念。作者通
 
 ![Shufflenet](images/03Shufflenet01.png)
 
-### 网络结构
-
-#### 逐点分组卷积(Pointwise group convolution)
+### 逐点分组卷积
 
 pointwise group convolutions，其实就是带分组的卷积核为 $1 \times 1$ 的卷积，也就是说 pointwise convolution 是卷积核为 $1\times1 $ 的卷积。在 ResNeXt 中主要是对 $3x3$ 的卷积做分组操作，但是在 ShuffleNet 中，作者是对 $1 \times 1$ 的卷积做分组的操作，因为作者认为 $1 \times1$ 的卷积操作的计算量不可忽视。
 
@@ -44,7 +42,7 @@ $$
 Computation=C_{out}/g\times H_{out}\times W_{out} \times(C_{in}/g\times K_{h}\times K_{w}/g )^{2}
 $$
 
-#### 通道重排(channel shuffle)
+### 通道重排
 
 不同组之间是没有任何联系的，即得到的特征图只和对应组别的输入有关系。论文中也有这样的描述，这种分组因不同组之间没有任何联系，学习到的特征会非常有限，也很容易导致信息丢失，因此论文提出了通道重排(channel shuffle)。
 
@@ -55,8 +53,6 @@ $$
 这种操作可以大大减少计算量，因为你每个卷积核不再是和输入的全部特征图做卷积，而是和一个组的特征图做卷积。但是如果多个组操作叠加在一起，如上图 a 的两个卷积层都有组操作，显然就会产生边界效应。
 
 即某个输出通道 仅仅来自输入通道 的一小部分。这种计算方式使得网络模型学习得到的特征会非常局限。于是就有了 通道重排来解决这个问题，先看上图 b，在进行 GConv2 之前，对其输入图做一个分配，也就是每个组分成几个次组，然后将不同组的下面的组作为 GConv2 的一个组的输入，使得 GConv2 的每一个组都能卷积输入的所有组的特征图，这和图 c 的通道重排的思想是一样的。
-
-**代码**
 
 ```python
 # 通道混洗
@@ -74,24 +70,14 @@ def shuffle_channels(x, groups):
     return x
 ```
 
+### ShuffleNet 单元
 
-
-#### ShuffleNet Unit
-
-基于残差块（residual block）和 通道重排（channel shuffle）设计的 ShuffleNet Unit：
-
-- **深度卷积 **。
-
-- **逐点分组卷积**。
-
-- **逐点分组卷积 ( stride=2 )**。
+基于残差块（residual block）和 通道重排（channel shuffle）设计的 ShuffleNet Unit 主要由深度卷积、逐点分组卷积和逐点分组卷积组成。
 
 ![Shufflenet](images/03Shufflenet02.png)
 
-**代码**
-
 ```python
-# ShuffleNet 中 stride=1 的基本单元,
+# ShuffleNet 中 stride=1 的基本单元
 class ShuffleNetUnitA(nn.Module):
     """ShuffleNet unit for stride=1"""
     def __init__(self, in_channels, out_channels, groups=3):
@@ -165,11 +151,9 @@ class ShuffleNetUnitB(nn.Module):
         return out
 ```
 
-### 网络结构
+### 网络结构与实现
 
 ShuffleNet V1 架构主要由一组 ShuffleNet 单元组成，分为三个阶段。每个阶段的第一个构建块应用 stride = 2。一个阶段内的其他超参数保持不变，下一个阶段的输出通道加倍。，我们将每个 ShuffleNet 的瓶颈通道数设置为输出通道的 1/4。stage2 的第一个 block 上不用 GConv,用普通的 $1\times 1$ 卷积，因为此时输入通道数只有 24，太少了。且每个 stage 中的第一个 block 的 stride=2（对应 ShuffleNet Unit 中的下采样模块,上图 c），其他 block 的 stride=1(对应 ShuffleNet 基本模块，上图 b)
-
-**代码**
 
 ```python
 #shuffleNet 网络
@@ -203,9 +187,7 @@ class ShuffleNet(nn.Module):
         return logits
 ```
 
-
-
-## ShuffleNet V2
+## ShuffleNet V2 模型
 
 **ShuffleNet v2**: V2 的框架结构与 V1 基本相同，包括了 Conv1、Maxpool、Stage 2~5、Global pool 和 FC 等部分。唯一的不同是 V2 比 V1 多了一个 $1 \times 1$Conv5。V2 最大的贡献在于看到了 GPU 访存带宽（内存访问代价 MAC）对于模型推理时间的影响，而不仅仅是模型复杂度，也就是 FLOPs 和参数量 Params 对于推理时间的影响，并由此提出了 4 个轻量级网络设计的原则和一个新颖的卷积 block 架构。
 
@@ -219,21 +201,19 @@ class ShuffleNet(nn.Module):
 
 因此，ShuffleNetv2 提出了设计应该考虑两个原则：
 
-- 应该使用直接度量(如速度)而不是间接度量(如 FLOPs)。
+- 应该使用直接度量(如速度)而不是间接度量(如 FLOPs)；
 - 这些指标应该在目标平台上进行评估。
 
 然后 根据这两个原则，提出了四种有效的网络设计原则：
 
-- G1: 相同的通道宽度最小化内存访问成本(MAC);
-- G2: 过多的群卷积增加 MAC;
-- G3: 网络碎片降低了并行度;
-- G4: 元素操作是不可忽略的;
+- G1: 相同的通道宽度最小化内存访问成本(MAC)；
+- G2: 过多的群卷积增加 MAC；
+- G3: 网络碎片降低了并行度；
+- G4: 元素操作是不可忽略的。
 
-### 网络结构 
+### 通道分割 
 
 在 ShuffleNet V1 block 的基础上，ShuffleNet V2 block 引入通道分割（Channel Split）这个简单的算子来实现上述目的，如下图 (c) 所示。在每个单元 (block) 的开始，我们将输入特征图的 c 个通道切分成 (split) 两个分支 (branches)：$c-c'$ 个通道和 $c'$ 个通道。
-
-**代码**
 
 ```python
 #特征图 C 个通道进行切分
@@ -253,8 +233,6 @@ def split(x, groups):
 针对需要进行空间下采样的 block，卷积单元（block）进行了修改，通道切分算子被移除，然后 block 的输出通道数变为两倍，详细信息如下图(d) 所示。
 
 ![Shufflenet](images/03Shufflenet04.png)
-
-**代码**
 
 ```python
 #Shuffle V2 block
@@ -321,15 +299,11 @@ class ShuffleUnit(nn.Module):
         # 通道混洗
         out = channel_shuffle(out, 2)
         return out
-
-
 ```
 
-### 网络结构
+### 网络结构实现
 
 上图 c,d 显示的卷积 block 叠加起来即组成了最后的 ShuffleNet v2 模型，这样堆叠后的网络是类似 ShuffleNet v1 模型的，v1 和 v2 block 的区别在于，v2 在全局平均池化层（global averaged pooling）之前添加了一个 卷积来混合特征（mix up features），而 v1 没有。但与 v1 一样，v2 的 block 的通道数是按照 0.5x 1x 等比例进行缩放，以生成不同复杂度的 ShuffleNet v2 网络，并标记为 ShuffleNet V2 0.5×、ShuffleNet V2 1× 等模型。
-
-**代码**
 
 ```python
 # V2 网络结构
@@ -413,16 +387,15 @@ def shufflenet_v2_x0_5(num_classes=1000):
     model = ShuffleNetV2(stages_repeats=[4, 8, 4],
                          stages_out_channels=[24, 48, 96, 192, 1024],
                          num_classes=num_classes)
-
 ```
 
+## 小结与思考
 
+- ShuffleNet系列网络专注于模型结构的轻量化设计，通过引入逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算，有效降低深度网络的计算量。
 
-## 小结
+- ShuffleNet V1利用分组逐点卷积减少计算量，并通过通道重排来交换组间信息，保持模型的表征能力；V1版本在ImageNet分类任务上达到较低的top-1误差，并且在移动设备上实现了显著的加速。
 
-- ShuffleNet v1 的核心就是用一系列的新颖结构达到了减少计算量和提高准确率的目的。ShuffleNet v2 则在 v1 的基础进行了更深入的思考，对于轻量级网络设计应该考虑直接评价指标（速度），而不是间接的指标（ FLOPs）。
-
-- 通过分析 ShuffleNet 网络模型的推理性能得结合具体的推理平台，目前已知影响推理性能的因素包括: 算子计算量 FLOPs（参数量 Params）、算子内存访问代价（访存带宽）。
+- ShuffleNet V2进一步考虑了设备运算速度，提出了4个轻量级网络设计原则，并通过通道分割(Channel Split)和改进的卷积block架构来最小化内存访问成本，提高网络在目标平台上的运行速度。
 
 ## 本节视频
 

@@ -222,7 +222,7 @@ return:                                           ; preds = %if.else, %if.then
 
 `icmp` 指令是根据比较规则，比较两个操作数，将比较的结果以布尔值或者布尔值向量返回，且对于操作数的限定是操作数为整数或整数值向量、指针或指针向量。其中，eq 是比较规则，%rem 和 0 是操作数，i32 是操作数类型，比较 %rem 与 0 的值是否相等，将比较的结果存放到 %cmp 中。
 
-`br` 指令有两种形式，分别对应于条件分支和无条件分支。该指令的条件分支在形式上接受一个“i1”值和两个“label”值，用于将控制流传输到当前函数中的不同基本块，上面这条指令是条件分支，类似于 c 中的三目条件运算符 `< expression ？Statement ：statement>`；无条件分支的话就是不用判断，直接跳转到指定的分支，类似于 c 中 goto ，比如说这个就是无条件分支 br label %return。`br i1 %cmp, label %if.then, label %if.else` 指令的意思是，i1 类型的变量 %cmp 的值如果为真，执行 `if.then` 否则执行 `if.else`。
+`br` 指令有两种形式，分别对应于条件分支和无条件分支。该指令的条件分支在形式上接受一个“i1”值和两个“label”值，用于将控制流传输到当前函数中的不同基本块，上面这条指令是条件分支，类似于 c 中的三目条件运算符 `< expression ？Statement：statement>`；无条件分支的话就是不用判断，直接跳转到指定的分支，类似于 c 中 goto ，比如说这个就是无条件分支 br label %return。`br i1 %cmp, label %if.then, label %if.else` 指令的意思是，i1 类型的变量 %cmp 的值如果为真，执行 `if.then` 否则执行 `if.else`。
 
 2. 循环体
 

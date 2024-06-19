@@ -4,23 +4,23 @@
 
 上一章节主要回顾了计算图优化的各个组成部分，包括基础优化、扩展优化以及布局和内存优化。这些优化方式在预优化阶段、优化阶段和后优化阶段都有所应用，以提高计算效率。同时，还介绍了 AI 框架和推理引擎在图优化方面的不同应用和侧重点。接下来，我们从计算图优化的各个组成部分开始逐步进行讲解。
 
-## 基础图优化
+## 基础图优化方案
 
 基础图优化指涵盖了所有保留语义的修改，如常量折叠、冗余节点消除和有限数量的节点融合，具体如下所示：
 
-1.Constant folding 常量折叠：主要针对那些在模型推理中值不变的常量进行处理。如果某个操作的所有输入都是常量，那么它的输出也会是一个常量，这个操作可以在编译阶段就执行，并将结果存储为一个常量，从而在实际处理中减少计算量。
+1. Constant folding 常量折叠：主要针对那些在模型推理中值不变的常量进行处理。如果某个操作的所有输入都是常量，那么它的输出也会是一个常量，这个操作可以在编译阶段就执行，并将结果存储为一个常量，从而在实际处理中减少计算量。
 
-2.Redundant eliminations 冗余节点消除：如果模型中存在一些冗余的节点，例如同样的计算被多次执行，那么可以消除这些冗余的节点，不仅可以减少内存消耗，还可以提升运算效率。
+2. Redundant eliminations 冗余节点消除：如果模型中存在一些冗余的节点，例如同样的计算被多次执行，那么可以消除这些冗余的节点，不仅可以减少内存消耗，还可以提升运算效率。
 
-3.Operation fusion 算子融合：算子融合就是把几个连续的算子合并成一个算子，这种方式可以减少数据的读写操作，提升运算速度。
+3. Operation fusion 算子融合：算子融合就是把几个连续的算子合并成一个算子，这种方式可以减少数据的读写操作，提升运算速度。
 
-4.Operation Replace 算子替换：如果可以找到一个等效但更高效的算子来完成相同的计算任务，就可以将原算子替换为这个更高效的算子。例如，将高精度的计算替换为低精度计算。
+4. Operation Replace 算子替换：如果可以找到一个等效但更高效的算子来完成相同的计算任务，就可以将原算子替换为这个更高效的算子。例如，将高精度的计算替换为低精度计算。
 
-5.Operation Forward 算子前移：如果有些算子的输入无关于程序的其它部分，那么这个算子可以前移执行，这样可以减少运行时的计算负担。
+5. Operation Forward 算子前移：如果有些算子的输入无关于程序的其它部分，那么这个算子可以前移执行，这样可以减少运行时的计算负担。
 
 ## 常量折叠
 
-常量折叠：Constant folding，常量折叠，编译器优化技术之一，通过对编译时常量或常量表达式进行计算来简化代码。常量折叠是将计算图中可以预先可以确定输出值的节点替换成常量，并对计算图进行一些结构简化的操作。
+常量折叠（Constant folding）是编译器优化技术之一，通过对编译时常量或常量表达式进行计算来简化代码。常量折叠是将计算图中可以预先可以确定输出值的节点替换成常量，并对计算图进行一些结构简化的操作。
 
 推理引擎中使用的常量折叠如上所述，通常试图在编译时计算出常量表达式的结果，从而消除在运行时对这些表达式的计算。这种优化可以显著提高程序的运行效率。假设有一个推理引擎正在处理一个计算图，其中包含如下的操作：
 
@@ -40,25 +40,31 @@ z = 50
 
 具体方法如下所示：
 
-Constant folding：Const 折叠，常量折叠如果一个 Op 所有输入都是常量 Const，可以先计算好结果 Const 代替该 Op，而不用每次都在推理阶段都计算一遍
+- Constant folding：Const 折叠，常量折叠如果一个 Op 所有输入都是常量 Const，可以先计算好结果 Const 代替该 Op，而不用每次都在推理阶段都计算一遍
 
-Fold Const To ExpandDims：ExpandDims 折叠，ExpandDims Op 指定维度的输入是常量 Const，则把这个维度以参数的形式折叠到 ExpandDims 算子中
+- Fold Const To ExpandDims：ExpandDims 折叠，ExpandDims Op 指定维度的输入是常量 Const，则把这个维度以参数的形式折叠到 ExpandDims 算子中
 
-Fuse Const To Binary：Binary 折叠，Binary Op 第二个输入是标量 Const，把这个标量以参数形式折叠到 Binary Op 的属性中
+- Fuse Const To Binary：Binary 折叠，Binary Op 第二个输入是标量 Const，把这个标量以参数形式折叠到 Binary Op 的属性中
 
-(1) Constant folding 常量折叠：如果一个 Op 所有输入都是常量 Const，可以先计算好结果 Const 代替该 Op，而不用每次都在推理阶段都计算一遍。
+### Const 折叠
+
+Constant folding 常量折叠：如果一个 Op 所有输入都是常量 Const，可以先计算好结果 Const 代替该 Op，而不用每次都在推理阶段都计算一遍。
 
 ![Constant folding](images/02Basic01.png)
 
 如图所示，我们有两个常量输入，通过两个操作 Op1 和 Op2 进行处理。具体来说，Op1 接收两个常量作为输入，Opened 接收 Op1 的输出作为输入。在离线计算中，我们实际上可以预先计算出这两个常量的结果，然后把这个结果作为一个新的常量输入给 Op2。这种预先计算并替换常量的策略即为常量折叠。
 
-(2) ExpandDims 折叠：ExpandDims Op 指定维度的输入是常量 Const，则把这个维度以参数的形式折叠到 ExpandDims 算子中。
+### ExpandDims 折叠
+
+ExpandDims Op 指定维度的输入是常量 Const，则把这个维度以参数的形式折叠到 ExpandDims 算子中。
 
 ![ExpandDims](images/02Basic02.png)
 
 在处理计算图优化的过程中，当 ExpandDims 操作的指定维度输入是常量时，我们可以直接将其堆叠进参数，并放在 ExpandDims 这个操作符内部。这样一来，我们就减少了一个操作符的使用。因为常量可能是一个操作符，或者可能占用一块内存空间。
 
-(3) Binary 折叠：Binary Op 第二个输入是标量 Const ，把这个标量以参数的形式折叠到 Binary Op 的属性中。
+### Binary 折叠
+
+Binary Op 第二个输入是标量 Const ，把这个标量以参数的形式折叠到 Binary Op 的属性中。
 
 ![Binary](images/02Basic03.png)
 
@@ -66,7 +72,7 @@ Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，�
 
 ## 冗余节点消除
 
-冗余节点消除：在不改变图形结构的情况下删除所有冗余节点，目前支持 Identity Elimination、Slice Elimination、Unsqueeze Elimination、 Dropout Elimination 优化方式
+冗余节点消除是在不改变图形结构的情况下删除所有冗余节点，其主要分为以下几种形态。
 
 ### Op 本身无意义
 
@@ -78,11 +84,11 @@ Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，�
 
 当图中存在冗余算子时，可能会出现以下三种情况：
 
-1、当前冗余算子的输出对于下一个节点是有意义的：可以直接去除冗余算子，然后将上一个算子的输出和下一个算子的输入相连
+1. 当前冗余算子的输出对于下一个节点是有意义的：可以直接去除冗余算子，然后将上一个算子的输出和下一个算子的输入相连
 
-2、当前冗余算子的输出对于下一个节点是无意义的：此时可以把它切成两个子图，一个子图就是 input->op1，另一个子图则是 op2->output
+2. 当前冗余算子的输出对于下一个节点是无意义的：此时可以把它切成两个子图，一个子图就是 input->op1，另一个子图则是 op2->output
 
-3、当前冗余算子的输入对于下一个节点是无意义的：只要这个节点的输入没有意义，轮循删除往上的节点，直到输入有意义为止。
+3. 当前冗余算子的输入对于下一个节点是无意义的：只要这个节点的输入没有意义，轮循删除往上的节点，直到输入有意义为止。
 
 ![Op 无意义示例](images/02Basic05.png)
 
@@ -94,11 +100,11 @@ Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，�
 
 详细示例如下所示：
 
-（1）对于 cast 算子，当它的 source 等于 destination 的时候，cast 算子可以删除
+1. 对于 cast 算子，当它的 source 等于 destination 的时候，cast 算子可以删除
 
-（2）对于 ExpandDims 算子，当输出的 shape 跟输入的 shape 是一致时，ExpandDims 算子可以删除
+2. 对于 ExpandDims 算子，当输出的 shape 跟输入的 shape 是一致时，ExpandDims 算子可以删除
 
-（3）对于 slice/pooling 算子，index_start 等于 0 或者 index_end 等于 channel-1 以及 pooling 算子的窗口为 1x1 的时候，算子均可删除
+3. 对于 slice/pooling 算子，index_start 等于 0 或者 index_end 等于 channel-1 以及 pooling 算子的窗口为 1x1 的时候，算子均可删除
 
 ![Op 参数无意义示例](images/02Basic07.png)
 
@@ -132,15 +138,15 @@ Binary 折叠其原理与 ExpandDims 的折叠类似。在 Binary 折叠中，�
 
 ### Op 前后反义
 
-前后两个相邻 Op 进行操作时，语义相反的两个 Op 都可以删除
+前后两个相邻 Op 进行操作时，语义相反的两个 Op 都可以删除。
 
-Squeeze ExpandDims Eliminate: Squeeze 和 ExpandDims 这两个 Op 是反义的,一个压缩维度，一个是拓展维度，当连续的这两个 Op 指定的 axis 相等时即可同时删除这两个 Op
+Squeeze ExpandDims Eliminate: Squeeze 和 ExpandDims 这两个 Op 是反义的,一个压缩维度，一个是拓展维度，当连续的这两个 Op 指定的 axis 相等时即可同时删除这两个 Op。
 
-Inverse Cast Eliminate: 当连续的两个内存排布转换 Op 的参数前后反义，即 src1 等于 dst2,可同时删除这两个 Op
+Inverse Cast Eliminate: 当连续的两个内存排布转换 Op 的参数前后反义，即 src1 等于 dst2,可同时删除这两个 Op。
 
-Quant Dequant Eliminate: 连续进行量化和反量化，可同时删除这两个 Op
+Quant Dequant Eliminate: 连续进行量化和反量化，可同时删除这两个 Op。
 
-Concat Slice Elimination: 合并后又进行同样的拆分，可同时删除这两个 Op
+Concat Slice Elimination: 合并后又进行同样的拆分，可同时删除这两个 Op。
 
 详细示例如下所示：可参考上述规则，对于存在前后反义算子的情况，进行冗余节点的消除。
 
@@ -170,23 +176,27 @@ Common Subexpression Elimination：当模型当中出现了公共子图，如一
 
 算子融合不仅可以减少内存访问次数，还可以提高计算密度，使得 GPU 等硬件能更充分地利用其计算资源。但是，算子融合也需要考虑到算子的计算顺序和计算精度，不能随意地将算子进行融合。下面将围绕相邻 Op 中，存在数学上线性可融合的关系进行主要的介绍：
 
-示例一：
+### 示例一
 
-1.Conv + BN + Act：Conv Op 后跟着的 Batch Normal 的算子可以把 BN 的参数融合到 Conv 里面
+1. Conv + BN + Act：Conv Op 后跟着的 Batch Normal 的算子可以把 BN 的参数融合到 Conv 里面
 
 主要是基于以下数学原理：
 
 卷积操作（Conv）：这是一种线性操作，可以表示为 y=W*x+b，其中 W 代表权重，x 代表输入，b 代表偏置。
 
-批量归一化操作（Batch Normalization，BN）：BN 的基本形式为 y=(x-mean(x))/sqrt(var(x)+eps)*gamma+beta，其中 mean(x) 和 var(x) 分别是 x 的均值和方差，gamma 和 beta 是学习的尺度和偏移参数。
+批量归一化操作（Batch Normalization，BN）：BN 的基本形式为 $y=(x-mean(x))/sqrt(var(x)+eps)*gamma+beta$，其中 $mean(x)$ 和 $var(x)$ 分别是 x 的均值和方差，gamma 和 beta 是学习的尺度和偏移参数。
 
-将 Conv 和 BN 进行融合，然后按照 y=W'*x+b' 的形式重新构造，就是将 BN 的参数 gamma 和 beta 融合到 Conv 的权重 W 和偏置 b 中，得到新的权重 W' 和偏置 b'。具体计算方式为：
+将 Conv 和 BN 进行融合，然后按照 $y=W'*x+b'$ 的形式重新构造，就是将 BN 的参数 gamma 和 beta 融合到 Conv 的权重 W 和偏置 b 中，得到新的权重 $W'$ 和偏置 $b'$。具体计算方式为：
 
+$$
 W' = gamma/sqrt(var(x)+eps) * W
+$$
 
+$$
 b' = beta - gamma/sqrt(var(x)+eps) * mean(x)
+$$
 
-这样，我们就可以将 BN 融合到 Conv 中，得到的新的权重 W'和偏置 b'可以直接用于 Conv 操作，从而减少了 BN 的计算。以下是一个简单的 Python 代码示例：
+这样，我们就可以将 BN 融合到 Conv 中，得到的新的权重 $W'$ 和偏置 $b'$ 可以直接用于 Conv 操作，从而减少了 BN 的计算。以下是一个简单的 Python 代码示例：
 
 ```python
 def fuse_conv_bn(conv, bn):
@@ -208,55 +218,65 @@ def fuse_conv_bn(conv, bn):
     return conv
 ```
 
-2.Conv + Bias + Add：Conv Op 后跟着的 Add 可以融合到 Conv 里的 Bias 参数里面
+2. Conv + Bias + Add：Conv Op 后跟着的 Add 可以融合到 Conv 里的 Bias 参数里面
 
-在"Conv + Bias + Add"的操作中，假设卷积输出为 X，偏置值为 b，Add 操作的值为 a。那么，这个操作序列的输出结果为：Output = X + b + a。注意到，加法操作满足交换律和结合律，所以我们可以将偏置值 b 和 Add 操作的值 a 进行相加，得到一个新的偏置值 b' = b + a。那么，原本的操作序列就可以简化为 "Conv + Bias"，其中 Bias 的值为 b'。
+在"Conv + Bias + Add"的操作中，假设卷积输出为 X，偏置值为 b，Add 操作的值为 a。那么，这个操作序列的输出结果为：$Output = X + b + a$。注意到，加法操作满足交换律和结合律，所以我们可以将偏置值 b 和 Add 操作的值 a 进行相加，得到一个新的偏置值 $b' = b + a$。那么，原本的操作序列就可以简化为 "Conv + Bias"，其中 Bias 的值为 b'。
 
-3.Conv + Scale + Act：Conv Op 后跟着的 Scale 可以融合到 Conv 里的 Weight 里面
+3. Conv + Scale + Act：Conv Op 后跟着的 Scale 可以融合到 Conv 里的 Weight 里面
 
 主要是基于以下的数学原理：
 
-尺度变换操作（Scale）：这是一种乘法操作，可以表示为 y=x*alpha，其中 alpha 是需要学习的尺度参数。
+尺度变换操作（Scale）：这是一种乘法操作，可以表示为 $y=x*alpha$，其中 alpha 是需要学习的尺度参数。
 
-参考 Conv + BN + Act 的融合方式，将 Conv 和 Scale 进行融合，就是将 Scale 的参数 alpha 融合到 Conv 的权重 W 和偏置 b 中，得到新的权重 W' 和偏置 b'。具体计算方式为：
+参考 Conv + BN + Act 的融合方式，将 Conv 和 Scale 进行融合，就是将 Scale 的参数 alpha 融合到 Conv 的权重 W 和偏置 b 中，得到新的权重 $W'$ 和偏置 $b'$。具体计算方式为：
 
+$$
 W' = alpha * W
+$$
 
+$$
 b' = alpha * b
+$$
 
-这样，我们就可以将 Scale 融合到 Conv 中，得到的新的权重 W' 和偏置 b' 可以直接用于 Conv 操作，从而减少了 Scale 的计算。
+这样，我们就可以将 Scale 融合到 Conv 中，得到的新的权重 $W'$ 和偏置 $b'$ 可以直接用于 Conv 操作，从而减少了 Scale 的计算。
 
-4.Conv + MatMul + Act：Conv Op 后跟着的 MatMul 可以融合到 Conv 里的 Weight 里面，原理与上述 scale 的融合相同
+4. Conv + MatMul + Act：Conv Op 后跟着的 MatMul 可以融合到 Conv 里的 Weight 里面，原理与上述 scale 的融合相同。
 
 ![算子融合 conv](images/02Basic13.png)
 
-示例二：
+### 示例二
 
-1.Matmul + Add：使用 GEMM 代替矩阵乘 Matmul + Add
+1. Matmul + Add：使用 GEMM 代替矩阵乘 Matmul + Add；
 
-2.Matmul + Add/Scale：Matmul 前或者后接 Add / Scale / Div 可以融合到 Matmul 中
+2. Matmul + Add/Scale：Matmul 前或者后接 Add / Scale / Div 可以融合到 Matmul 中；
 
+$$
 (in*W+bias0) + bias1 = in*W + (bias0+bias1)
+$$
 
+$$
 (in*W+bias0) * sclae1 = in*(W*sclae1) + (bias0*sclae1)
+$$
 
+$$
 (in*W+bias0) / sclae2 = in*(W/sclae2) + (bias0/sclae2)
+$$
 
 因此可以一直往后融合下去。这个融合在性能上肯定是提升的，但是在精度上有可能会产生牺牲，特别是融合了 mul 算子。因为原来的矩阵乘 weight 和 bias 以及 scale 通常都是比较小的小于 1 的数值，把 scale 融合到 weight 和 bias 里面后，会导致 weight 和 bias 数值进一步降低，可能导致精度下降。
 
-3.Mean + Add：使用 Mean 后面跟着 Add，使用 Layer Norm 代替
+3. Mean + Add：使用 Mean 后面跟着 Add，使用 Layer Norm 代替；
 
-4.Batch Norm + Scale：scale 的 s 和 b 可以直接融合到 BN Op 里
+4. Batch Norm + Scale：scale 的 $s$ 和 $b$ 可以直接融合到 BN Op 里；
 
-在 BN 操作后通常会有一个 Scale 操作，用于恢复数据的原始分布。具体来说，如果 `x` 是 BN 的输出，那么 Scale 操作就是 `y = s * x + b`，其中 `s` 和 `b` 是可学习的参数。
+在 BN 操作后通常会有一个 Scale 操作，用于恢复数据的原始分布。具体来说，如果 $x$ 是 BN 的输出，那么 Scale 操作就是 $y = s * x + b$，其中 $s$ 和 $b$ 是可学习的参数。
 
 将两个操作融合到一起，即直接在 BN 操作中包含 Scale 操作。这样做的优点是可以减少计算量和内存消耗，因为不需要单独存储 BN 的输出。同时，由于 BN 和 Scale 是连续的线性操作，它们的融合不会改变模型的表示能力。
 
-5.Matmul + Batch Norm：与 Conv + BN 相类似
+5. Matmul + Batch Norm：与 Conv + BN 相类似
 
 ![算子融合 matmul](images/02Basic14.png)
 
-最后，还有一种融合是算子与后续的激活相融合：Conv + ReLU、Conv + ReLU6、Conv + Act
+6. Conv + ReLU、Conv + ReLU6、Conv + Act
 
 Act 激活操作和 Conv 操作虽然是连续但是计算过程是独立的，在推理的时候是先计算 Conv 层：访问 Conv 输出位置，再计算 ReLU 层（即第二次访存）。因此造成了访问两遍输出 output，增加了访存时间降低了推理效率。
 
@@ -264,37 +284,39 @@ Act 激活操作和 Conv 操作虽然是连续但是计算过程是独立的，�
 
 ## 算子替换
 
-算子替换（Operator Substitution）是一种神经网络模型优化技术，主要用于改善模型的计算效率和性能。这种技术是将模型中的某些算子替换为功能相同或相似，但计算效率更高或对特定硬件优化更好的算子。
+算子替换（Operator Substitution）是一种神经网络模型优化技术，主要用于改善模型的计算效率和性能。这种技术是将模型中的某些算子替换为功能相同或相似，但计算效率更高或对特定硬件优化更好的算子。例如：
 
-例如：
+1. 在某些情况下，两个连续的卷积层可以被替换为一个等效的卷积层，以减少计算量。
 
-1、在某些情况下，两个连续的卷积层可以被替换为一个等效的卷积层，以减少计算量。
-
-2、使用深度可分离的卷积（depthwise separable convolution）替换标准卷积，可以显著减少计算量，但仍能保持相似的性能。
+2. 使用深度可分离的卷积（depthwise separable convolution）替换标准卷积，可以显著减少计算量，但仍能保持相似的性能。
 
 算子替换需要保证替换后的模型在功能上与原模型尽可能接近，以保证模型的性能不会因为算子的替换而有所下降。算子替换的原理是通过合并同类项、提取公因式等数学方法，将算子的计算公式加以简化，并将简化后的计算公式映射到某类算子上。算子替换可以达到降低计算量、降低模型大小的效果。在实际应用中，算子替换通常与其他优化技术如算子融合等结合使用，以达到最佳的优化效果。
 
-算子替换--一换一，将某 Op 以另外 Op 代替，能减少推理引擎需要单独实现及支持的 OP
+### 一换一替换
+
+将某 Op 以另外 Op 代替，能减少推理引擎需要单独实现及支持的 OP。
 
 具体示例：
 
-MatMul -> Conv2D：将矩阵乘变成 Conv，因为一般框架对 Conv 是做了更多的优化
+- MatMul -> Conv2D：将矩阵乘变成 Conv，因为一般框架对 Conv 是做了更多的优化
 
-Linear -> Conv2D：将全连接层转变成 1x1 Conv，因为对 Conv 做了更多的优化
+- Linear -> Conv2D：将全连接层转变成 1x1 Conv，因为对 Conv 做了更多的优化
 
-Batch Normal -> Scale：BN 是等价于 Scale Op 的，转换成 Scale 计算量更少，速度更快
+- Batch Normal -> Scale：BN 是等价于 Scale Op 的，转换成 Scale 计算量更少，速度更快
 
-pReLU -> Leaky ReLU：将 pReLU 转变成 Leaky ReLU，不影响性能和精度的前提下，聚焦有限算法
+- pReLU -> Leaky ReLU：将 pReLU 转变成 Leaky ReLU，不影响性能和精度的前提下，聚焦有限算法
 
-Conv -> Linear After global pooling：在 Global Pooling 之后 Conv 算子转换成为全连接层
+- Conv -> Linear After global pooling：在 Global Pooling 之后 Conv 算子转换成为全连接层
 
 ![算子替换 replace1vs1](images/02Basic15.png)
 
-算子替换--一换多，将某 Op 以其他 Op 组合形式代替，能减少推理引擎需要单独实现及支持 Op 数量
+### 一换多替换
+
+将某 Op 以其他 Op 组合形式代替，能减少推理引擎需要单独实现及支持 Op 数量
 
 具体示例：
 
-Shuffle Channel Replace：Shuffle Channel Op 大部分框架缺乏单独实现，可以通过组合 Reshape + Permute 实现
+Shuffle Channel Replace：Shuffle Channel Op 大部分框架缺乏单独实现，可以通过组合 Reshape + Permute 实现：
 
 ```python
 import torch
@@ -316,7 +338,7 @@ def shuffle_channel(x, groups):
     return x
 ```
 
-Pad Replace：将老版 onnx 的 pad-2 的 pads 从参数形式转成输入形式
+Pad Replace：将老版 onnx 的 pad-2 的 pads 从参数形式转成输入形式：
 
 ```python
 import torch.nn.functional as F
@@ -325,14 +347,14 @@ def pad_replace(x, pads):
     return F.pad(x, pads)
 ```
 
-ShapeN Replace：将 ShapeN Op 通过组合多个 Shape 的方式实现
+ShapeN Replace：将 ShapeN Op 通过组合多个 Shape 的方式实现：
 
 ```python
 def shape_n_replace(*xs):
     return [x.shape for x in xs]
 ```
 
-Group Conv Replace：把 Group 卷积通过组合 Slice、Conv 实现
+Group Conv Replace：把 Group 卷积通过组合 Slice、Conv 实现：
 
 ```python
 import torch
@@ -363,17 +385,17 @@ def group_conv_replace(x, weight, bias, stride, padding, dilation, groups):
 
 具体示例：
 
-Slice and Mul：Shuffle Channel Op 大部分框架缺乏单独实现，可以通过组合 Reshape + Permute 实现
+Slice and Mul：Shuffle Channel Op 大部分框架缺乏单独实现，可以通过组合 Reshape + Permute 实现。
 
-Bit shift and Reduce Sum：利用算术简化中的交换律，对计算的算子进行交换减少数据的传输和访存次数
+Bit shift and Reduce Sum：利用算术简化中的交换律，对计算的算子进行交换减少数据的传输和访存次数。
 
 ![算子前移](images/02Basic17.png)
 
 ## 小结与思考
 
-1. 这节内容主要讨论了计算图优化中的常量折叠和冗余节点消除。详细解读了如何借助这两种方法，优化复杂的计算图，提高计算效率和减少不必要的计算任务。
+1. 本节节内容主要讨论了计算图优化中的常量折叠和冗余节点消除。详细解读了如何借助这两种方法，优化复杂的计算图，提高计算效率和减少不必要的计算任务。
 
-2. 深入探讨了 cast、ExpandDims、Squeeze 和 Slice 等算子在神经网络中的搭配和使用，以及它们在不同组合情况下的优化可能性。这有助于在神经网络设计和计算过程中，减少重复计算和冗余计算，提高整体性能
+2. 深入探讨了 cast、ExpandDims、Squeeze 和 Slice 等算子在神经网络中的搭配和使用，以及它们在不同组合情况下的优化可能性。这有助于在神经网络设计和计算过程中，减少重复计算和冗余计算，提高整体性能。
 
 ## 本节视频
 

@@ -1,32 +1,30 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 通用图优化技术
+# 其他计算图优化
 
 除了前面提到的算子替换和算子前移等内容，本节内容将深入探讨计算图的优化策略，我们将细致分析图优化的其他重要内容，如改变数据节点的数据类型或存储格式来提升模型性能，以及优化数据的存储和访问方式以降低内存占用和数据访问时间。以上内容的理解和掌握，对于高效利用计算资源，提升算法性能具有至关重要的作用。
 
-## 计算图优化详解
+### 融合算子替换
 
-### 其他图优化
-
-某些复杂的算子在一些AI 框架上可能没有直接实现，而是通过一系列基本算子的组合来实现。但是，这种组合方式可能会导致计算效率降低，因为每个算子之间的数据传输都需要额外的时间和空间。此外，过多的算子也会使得网络图变得复杂，难以理解和优化。
+某些复杂的算子在一些 AI 框架上可能没有直接实现，而是通过一系列基本算子的组合来实现。但是，这种组合方式可能会导致计算效率降低，因为每个算子之间的数据传输都需要额外的时间和空间。此外，过多的算子也会使得网络图变得复杂，难以理解和优化。
 
 这时，如果推理引擎实现了该 Op，就可以把这些组合转成这个 Op，能够使得网络图更加简明清晰。具体示例如下：
 
-Fuse Layer Norm：组合实现的 Norm Op 直接转换成一个 Op
+Fuse Layer Norm：组合实现的 Norm Op 直接转换成一个 Op；
 
-Fuse PReLU：组合实现的 PReLU Op 直接转换成一个 Op
+Fuse PReLU：组合实现的 PReLU Op 直接转换成一个 Op；
 
-Fuse Matmul Transpose：有些框架的矩阵乘法 Matmul 层自身是不带转置操作的，当需要转置的矩阵乘法时需要前面加一个 transpose 层。如 Onnx 的 Matmul 自身有是否转置的参数，因此可以将前面的 transpose 层转换为参数即可
+Fuse Matmul Transpose：有些框架的矩阵乘法 Matmul 层自身是不带转置操作的，当需要转置的矩阵乘法时需要前面加一个 transpose 层。如 Onnx 的 Matmul 自身有是否转置的参数，因此可以将前面的 transpose 层转换为参数即可。
 
-Fuse Binary Eltwise：x3 = x1 *b1+x2 *b2，把 BinaryOp Add 转换成 Eltwise Sum，而 Eltwise Sum 是有参数 coeffs，可以完成上述乘法的效果，因此把两个 BinaryOp Mul 的系数融合到 Eltwise Sum 的参数 coeffs
+Fuse Binary Eltwise：x3 = x1 *b1+x2 *b2，把 BinaryOp Add 转换成 Eltwise Sum，而 Eltwise Sum 是有参数 coeffs，可以完成上述乘法的效果，因此把两个 BinaryOp Mul 的系数融合到 Eltwise Sum 的参数 coeffs。
 
-Fuse Reduction with Global Pooling：对一个三维 tensor 先后两次分别进行 w 维度的 reduction mean 和 h 维度的 reducetion mean，最终只剩下 c 这个维度，就等于进行了一次 global_mean_pooling
+Fuse Reduction with Global Pooling：对一个三维 tensor 先后两次分别进行 w 维度的 reduction mean 和 h 维度的 reducetion mean，最终只剩下 c 这个维度，就等于进行了一次 global_mean_pooling。
 
 ![其他图优化](images/03Extend02.png)
 
-### Flash Attention
+## Flash Attention
 
-这里要特别提及的一篇工作是 FlashAttention。它是一种重新排序注意力计算的算法，主要针对 Transformer 模型实现性能优化，无需任何近似即可加速注意力计算并减少内存占用。
+这里要特别提及的一篇工作是 Flash Attention。它是一种重新排序注意力计算的算法，主要针对 Transformer 模型实现性能优化，无需任何近似即可加速注意力计算并减少内存占用。
 
 众所周知，Transformer 结构已成为自然语言处理和图像分类等应用中最常用的架构。但由于其固有的 O(N^2) 复杂度和内存限制的键值缓存，在推理过程中表现出次优效率。这种低效率使它们的实际部署变得复杂，特别是对于长序列来说，这就是大模型在发展的初期其输入输出往往只支持 2K 或 4K token 原因。
 
@@ -176,7 +174,7 @@ def _fwd_kernel(
     q = tl.load(q_ptrs)
     # loop over k, v and update accumulator
     for start_n in range(0, (start_m + 1) * BLOCK_M, BLOCK_N):
-        # -- compute qk ----
+        # -- compute qk -
         k = tl.load(k_ptrs)
         qk = tl.zeros([BLOCK_M, BLOCK_N], dtype=tl.float32)
         qk += tl.dot(q, k)
@@ -218,11 +216,11 @@ def _fwd_kernel(
     tl.store(out_ptrs, acc)
 ```
 
-FlashAttention 在速度和内存占用方面都表现出明显的优势，并取得了良好的效果。目前，FlashAttention 已经经过广泛验证, torch2.0 中已提供 flashattention 的实现。
+Flash Attention 在速度和内存占用方面都表现出明显的优势，并取得了良好的效果。目前，Flash Attention 已经经过广泛验证, torch2.0 中已提供 flashattention 的实现。
 
-FlashAttention 的优点在于充分考虑了在计算任务中 IO 的重要性，并通过分块计算的方式开发了一种快速、节省显存、精确无近似的注意力实现方法。这使得我们更便于训练具有更长上下文的 Transformer 模型，并且为后续注意力算法的优化提供了一个基准。
+Flash Attention 的优点在于充分考虑了在计算任务中 IO 的重要性，并通过分块计算的方式开发了一种快速、节省显存、精确无近似的注意力实现方法。这使得我们更便于训练具有更长上下文的 Transformer 模型，并且为后续注意力算法的优化提供了一个基准。
 
-### layout and memory 优化
+## layout&memory 优化
 
 针对网络模型，特别是在处理算子（操作符）时。算子在这里可以理解为模型中完成特定任务的一种函数或者操作，例如卷积，矩阵乘法等。
 
@@ -246,11 +244,11 @@ Memory sharing：是另一种内存优化策略。它在内存使用上进行优
 
 ## 小结与思考
 
-本节深入探讨了网络模型优化的几个关键方面，包括算子融合、数据节点转换和内存优化。首先，我们讨论了算子融合，这是一种减少数据在算子之间传输的技术，可以有效地提升计算速度。通过将多个算子融合为一个算子，我们可以减少数据传输的次数，从而提升计算效率。
+- 计算图优化策略：本文深入探讨了计算图优化策略，重点分析了通过改变数据类型或存储格式、优化数据存储和访问方式来提升模型性能和降低内存占用的方法。
 
-其次，我们介绍了数据节点转换，这是一种改变数据节点的数据类型或存储格式的方法，旨在改善模型的性能。通过对数据节点进行适当的转换，我们可以使模型更好地适应特定的计算或存储需求，从而提高模型的性能。
+- Flash Attention技术：介绍了Flash Attention技术，这是一种针对Transformer模型的注意力计算优化算法，通过减少对低速存储器的访问次数和利用高速存储计算单元，显著加速了注意力计算并降低了内存占用。
 
-最后，我们研究了内存优化，这是一种优化数据的存储和访问方式的技术，旨在减少内存占用和数据访问的时间。通过改进数据的存储方式和访问策略，我们可以更有效地使用内存资源，从而提升程序的运行效率。
+- 内存优化技术：讨论了内存优化技术，包括Inplace operation和Memory sharing，这些技术通过减少内存分配和回收开销，提高内存使用效率，从而提升程序运行效率。
 
 ## 本节视频
 

@@ -118,7 +118,7 @@ scaler.update()
 
 <center>
 | Model States                 | Size (Byte) |
-|----------------------------- |------------ |
+|-- |--- |
 | FP32 Parameters              | 4$\Phi$   |
 | FP32 Adam Optimizer Momentum | 4$\Phi$   |
 | FP32 Adam Optimizer Variance | 4$\Phi$   |

@@ -1,4 +1,4 @@
-# -- Project information -----------------------------------------------------
+# -- Project information -----
 import os
 from urllib.request import urlopen
 from pathlib import Path
@@ -9,7 +9,7 @@ project = "AISystem & AIInfra (AI 系统原理)"
 language = "cn"  # For testing language translations
 master_doc = "index"
 
-# -- General configuration ---------------------------------------------------
+# -- General configuration ------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -68,7 +68,7 @@ myst_enable_extensions = [
     # "substitution",
 ]
 
-# -- Options for HTML output -------------------------------------------------
+# -- Options for HTML output ----
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -160,7 +160,7 @@ ogp_social_cards = {
     "image": "_static/logo-square.png",
 }
 
-# # -- ABlog config -------------------------------------------------
+# # -- ABlog config ----
 blog_path = "reference/blog"
 blog_post_pattern = "reference/blog/*.md"
 blog_baseurl = "https://sphinx-book-theme.readthedocs.io"
@@ -179,7 +179,7 @@ linkcheck_ignore = [
 ]
 
 
-# -- Download latest theme elements page from PyData -----------------------------
+# -- Download latest theme elements page from PyData --
 
 # path_pydata_content = "https://raw.githubusercontent.com/pydata/pydata-sphinx-theme/main/docs/user_guide/theme-elements.md"  # noqa
 # path_content_file = Path(__file__).parent / "content/pydata-content-blocks.md"
@@ -201,7 +201,7 @@ linkcheck_ignore = [
 
 
 def setup(app):
-    # -- To demonstrate ReadTheDocs switcher -------------------------------------
+    # -- To demonstrate ReadTheDocs switcher ----
     # This links a few JS and CSS files that mimic the environment that RTD uses
     # so that we can test RTD-like behavior. We don't need to run it on RTD and we
     # don't wanted it loaded in GitHub Actions because it messes up the lighthouse

@@ -222,7 +222,7 @@ TVM 提供了 4 种融合规则，具体如下：
 - injective(one-to-one map)：映射函数，比如加法，点乘等。
 - reduction：约简，如 sum/max/min，输入到输出具有降维性质，如 sum/max/min。
 - complex-out-fusable(can fuse element-wise map to output)：计算复杂类型的融合，如 conv2d。
-- opaque(cannot be fused) ：无法被融合的算子，如 sort。
+- opaque(cannot be fused)：无法被融合的算子，如 sort。
 
 ![TVM 示意图](images/03OPFusion12.png)
 
