@@ -19,29 +19,29 @@
 
 在部署网络时，首先要考虑在目标硬件平台的可行性，如果目标硬件平台不支持某个算子，那么就需要替换为相似的受支持的算子。例如在 YoloV5 中，默认的激活函数为 SiLU，SiLU 的计算公式涉及自然指数和除法，对 FPGA 硬件非常不友好，其函数曲线如下：
 
-![../_images/SiLU.png](images/07Practice02.png)
+![](images/07Practice02.png)
 
 而 YoloV5 中还提供了其他的激活函数如 ReLU6，其函数曲线如下图。经过实验发现二者在精度上面并无太大差异，而 ReLU6 的计算方式则简单的多，可以用 ReLU6 来替换 SiLU。
 
-![../_images/ReLU6.png](images/07Practice03.png)
+![](images/07Practice03.png)
 
 除了激活函数的替换，另一个典型例子是卷积的改进。为了改进普通卷积高额的计算开销，研究人员开发了多种紧凑卷积来压缩计算量：
 
 - 压缩通道
 
-    SqueezeNet 每个网络块利用小于输入通道数量的 1×1 filter 来减少挤压阶段的网络宽度，然后在扩展阶段利用多个 1×1 和 3×3 kernel。通过挤压宽度，计算复杂度明显降低，同时补偿了扩展阶段的精度。SqueezeNext 在扩展阶段利用了可分离的卷积；一个 k×k 的 filter 被分为一个 k×1 和一个 1×k 的 filter。与 SqueezeNet 相比，这种可分离的卷积进一步减少了参数的数量。
+SqueezeNet 每个网络块利用小于输入通道数量的 1×1 filter 来减少挤压阶段的网络宽度，然后在扩展阶段利用多个 1×1 和 3×3 kernel。通过挤压宽度，计算复杂度明显降低，同时补偿了扩展阶段的精度。SqueezeNext 在扩展阶段利用了可分离的卷积；一个 k×k 的 filter 被分为一个 k×1 和一个 1×k 的 filter。与 SqueezeNet 相比，这种可分离的卷积进一步减少了参数的数量。
 
 - 深度可分离卷积
 
-    深度可分离卷积由 Depthwise Convolution 和 Pointwise Convolution 两部分构成。Depthwise Convolution 的计算非常简单，它对输入 feature map 的每个通道分别使用一个卷积核，然后将所有卷积核的输出再进行拼接得到它的最终输出，Pointwise Convolution 实际为 1×1 卷积。最大优点是计算效率非常高。典型实例如 Xception、MobileNet。
+深度可分离卷积由 Depthwise Convolution 和 Pointwise Convolution 两部分构成。Depthwise Convolution 的计算非常简单，它对输入 feature map 的每个通道分别使用一个卷积核，然后将所有卷积核的输出再进行拼接得到它的最终输出，Pointwise Convolution 实际为 1×1 卷积。最大优点是计算效率非常高。典型实例如 Xception、MobileNet。
 
 - 线性瓶颈层
 
-    瓶颈结构是指将高维空间映射到低维空间，缩减通道数。线性瓶颈结构，就是末层卷积使用线性激活的瓶颈结构（将 ReLU 函数替换为线性函数）。该方法在 MobileNet V2 中提出，为了减缓在 MobileNet V1 中出现的 Relu 激活函数导致的信息丢失现象。
+瓶颈结构是指将高维空间映射到低维空间，缩减通道数。线性瓶颈结构，就是末层卷积使用线性激活的瓶颈结构（将 ReLU 函数替换为线性函数）。该方法在 MobileNet V2 中提出，为了减缓在 MobileNet V1 中出现的 Relu 激活函数导致的信息丢失现象。
 
 - 组卷积
 
-    在组卷积方法中，输入通道分为几组，每组的通道分别与其他组进行卷积。例如，带有三组的输入通道需要三个独立的卷积。由于组卷积不与其他组中的通道进行交互，所以不同的组之间的交互将在单独的卷积之后进行。与使用常规卷积的 cnn 相比，组卷积方法减少了 MAC 操作的数量
+在组卷积方法中，输入通道分为几组，每组的通道分别与其他组进行卷积。例如，带有三组的输入通道需要三个独立的卷积。由于组卷积不与其他组中的通道进行交互，所以不同的组之间的交互将在单独的卷积之后进行。与使用常规卷积的 cnn 相比，组卷积方法减少了 MAC 操作的数量
     
 ### 量化
 
@@ -182,9 +182,9 @@ torch.save(int_model.state_dict(), save_path_int8)
 
 需要手动对模型有以下更改：
 
-1.  插入 quant 量化节点与 dequant 反量化节点，进行显式的 float32 与 int8 数据类型的转换。如果模型中有无法量化或有意以浮点类型运行的层，需要用这对节点进行包裹。若模型比较复杂，手动修改的地方很多。
-2.  在搭建模型的过程中，eager 模式量化必须将用到的所有算子在__init__中定义，并且引入的是 torch.nn 的形式，不能以 torch.nn.functional 的形式，哪怕这个算子没有参数，比如 ReLU，也要在__init__中定义，并且由于要统计量化 scale 和 zero_point，对不同输入 tensor 不能使用相同的算子，最好每个输入 tensor 用到的算子都单独定义。
-3.  在推理时，有时要进行层融合（算子融合），典型模式如 Linear+ReLU、Conv+ReLU、Conv+BatchNorm，需要手动进行融合模式的指定，如代码开头一大串的 fused_layer。
+1. 插入 quant 量化节点与 dequant 反量化节点，进行显式的 float32 与 int8 数据类型的转换。如果模型中有无法量化或有意以浮点类型运行的层，需要用这对节点进行包裹。若模型比较复杂，手动修改的地方很多。
+2. 在搭建模型的过程中，eager 模式量化必须将用到的所有算子在__init__中定义，并且引入的是 torch.nn 的形式，不能以 torch.nn.functional 的形式，哪怕这个算子没有参数，比如 ReLU，也要在__init__中定义，并且由于要统计量化 scale 和 zero_point，对不同输入 tensor 不能使用相同的算子，最好每个输入 tensor 用到的算子都单独定义。
+3. 在推理时，有时要进行层融合（算子融合），典型模式如 Linear+ReLU、Conv+ReLU、Conv+BatchNorm，需要手动进行融合模式的指定，如代码开头一大串的 fused_layer。
 
 整个过程需要对模型有较多修改，量化过程也有很多额外工作，过程很繁琐，特别是对于较复杂的模型，几乎要把模型代码修改一遍。
 
@@ -248,13 +248,14 @@ opset_version=16, export_params=True)
 ```
 
 1.  模型不同部分可以采用不同的量化配置，在 qconfig_dict 中支持以层名、层类型指定量化配置，想要跳过量化的层可以直接设置为 None。
+
 2.  导出方式可以用 torchScript 的形式，也可以用 onnx 接口导出。
 
 使用 fx 量化有一些值得注意的地方，总结如下：
 
 - **在模型经过 prepare_qat_fx 时，出现函数不支持 trace，典型报错如下：**
 
-    ```python
+    ```
     xxxfunc(): argument 'xxx' (position 1) must be xxx, not Proxy
     ```
 
@@ -280,16 +281,16 @@ opset_version=16, export_params=True)
 
     有两种可以尝试的方法：
 
-    -   使用不同的量化 qconfig。不同的 qconfig 对于训练过程中 scale、zero_point 的生成是有区别的，可供探索的配置包括 observer、per_channel or per_tensor 等。
-    -   在加入量化感知训练之前先预训练一段时间，最好待模型已经趋于收敛了再转为量化感知训练。
+    - 使用不同的量化 qconfig。不同的 qconfig 对于训练过程中 scale、zero_point 的生成是有区别的，可供探索的配置包括 observer、per_channel or per_tensor 等。
+    - 在加入量化感知训练之前先预训练一段时间，最好待模型已经趋于收敛了再转为量化感知训练。
 
 + **量化感知训练时正确率和 loss 一直不变**
 
-    这里有个细节，在模型训练过程中要选择 optimizer 来对模型参数更新，这个 optimizer 是与模型的参数关联的。在模型预训练后，转换为量化感知训练模型时，模型进行了深拷贝（model_to_quantize = copy.deepcopy(model)），模型参数的地址已经发生了改变，所以要重新生成一个与量化模型关联的 optimizer（或许也有学习率 scheduler）。
+ 这里有个细节，在模型训练过程中要选择 optimizer 来对模型参数更新，这个 optimizer 是与模型的参数关联的。在模型预训练后，转换为量化感知训练模型时，模型进行了深拷贝（model_to_quantize = copy.deepcopy(model)），模型参数的地址已经发生了改变，所以要重新生成一个与量化模型关联的 optimizer（或许也有学习率 scheduler）。
 
 + **量化感知训练收敛速度过慢**
 
-    预训练至模型趋于收敛了再转为量化感知训练。
+ 预训练至模型趋于收敛了再转为量化感知训练。
 
 ## 编译层
 
@@ -297,9 +298,9 @@ opset_version=16, export_params=True)
 
 TVM 使用 QNN Dialect 来解析量化模型。QNN 是为 TVM 开发的支持导入预量化模型的框架，具有以下特点：
 
--   QNN 为计算图级别的高层次 IR。在 QNN 中添加了新的算子，但未进行任何图级别或算子级别优化。而是将这些算子映射到已经定义好的图或算子级别优化。
--   QNN 量化算子表示比任何图级别算子的层次都高
--   可以定义新的 QNN 优化 pass 来转换图，使其适配特定硬件后端
+- QNN 为计算图级别的高层次 IR。在 QNN 中添加了新的算子，但未进行任何图级别或算子级别优化。而是将这些算子映射到已经定义好的图或算子级别优化。
+- QNN 量化算子表示比任何图级别算子的层次都高
+- 可以定义新的 QNN 优化 pass 来转换图，使其适配特定硬件后端
 
 以 PyTorch 模型为例从一个量化模型的导入到生成计算图来介绍 QNN 工作流程。TVM 为每一个训练框架的 Converter 都会维护一个`convert_map`，将该框架训练的模型算子转换为 relay 算子。例如`"quantized::linear": _linear()`，`"quantized::conv2d": _quantized_conv2d()` 。
 
@@ -394,11 +395,11 @@ def _quantized_conv2d(with_relu=False):
 
 **关键函数：**
 
--   add_input_quant_params_to_op_inputs
+- add_input_quant_params_to_op_inputs
 
 将算子的 input 的 scale 和 zero_point 显式地提取出来。有一个`num_quantized_inputs`的 dict，记录了算子的量化输入的数量，例如 `"quantized::conv2d": 1`,`"quantized::add": 2`。如果有新的量化算子加入，需要在这里加入。
 
--   _get_quant_param_for_input
+- get_quant_param_for_input
 
 执行 add_input_quant_params_to_op_inputs 函数中量化参数提取，维护`output_quant_param_indices`的 dict，记录算子 output 的 scale 和 zero_point 的 index，index 数据的来源是 node 中注册算子时的属性顺序。如果有新的量化算子加入，需要在这里加入。
 
@@ -406,25 +407,25 @@ def _quantized_conv2d(with_relu=False):
 
 量化 tensor（以 A 代指原本的 input 的浮点数表示）可以表示为：
 
-```python
+```
 A = scale_a x (QA - zp_A)
 ```
 
 矩阵乘法的浮点表达式为：
 
-```python
+```
 C(m, n) = Sigma(k) (A(m, k) * W(n, k)) // 表示在 k axis 进行 reduce
 ```
 
 将上式替换为量化形式，则为：
 
-```python
+```
 Sigma(k) ([QA(m, k) - zp_a] * [QW(n, k) - zp_w])
 ```
 
 这里将式子展开，即为以下四项。QNN 选择以下分解的原因，是出于对编译器现有操作的复用和底层指令的可利用性。
 
-```python
+```
 Sigma(k) QA(m, k) * QW(n, k)                         // Term1
 - Sigma(k) zp_w * QA(m, k)                             // Term2
 - Sigma(k) zp_a * QW(n, k)                             // Term3
@@ -474,7 +475,7 @@ $$
 
     下面这段 tvm 中的代码就是将 s 分解为乘数和移位数的函数：
 
-    ```python
+    ```C++
     std::pair<int32_t, int32_t> GetFixedPointMultiplierShift(double double_multiplier) {
       int32_t significand, exponent;
       if (double_multiplier == 0.) {
@@ -504,7 +505,7 @@ $$
 
     乘法和加法都是二元操作，但是他们的量化计算方式却是不同的。如果仍然按照乘法的那个思路，会变成下面这样：
 
-    ```python
+    ```
     f_output = f_src0 * f_src1  //原始浮点计算
     
     (i_output-zero_point_output)*scale_output =((i_src0 - zero_point_0) * scale_0) + ((i_src1 - zero_point_1) * scale_1)
@@ -531,7 +532,7 @@ $$
 
         好在如果使用 int8 量化，那么输入的数据只有[-128,127]这 256 个数，经过激活函数后产生 256 个输出值，这是个一对一的映射关系，因此可以使用查找表提前保存这 256 个值，在运算时直接查表即可。查找表的生成可以模拟浮点计算的过程：将 input 到 output 的过程看作大小为 256 的一对一映射，把 input（int8 的整数）看作索引，LUT 看作数组，直接取值即可
 
-        ![img](07Practice.assets/images/07Practice04.jpg)
+        ![img](images/07Practice04.jpg)
 
         以 tanh 为例，获得 int8 范围内[-127,128]的 LUT 代码如下：
 
@@ -584,14 +585,14 @@ $$
 
 在经过一系列的转换后，量化网络的结构会发生极大变化，这里有一个简要的示意图：
 
-![img](07Practice.assets/images/07Practice05.jpg)
+![](images/07Practice05.jpg)
 
 左边的原始网络会变成右边的结构。标号处是值得关注的地方：
 
-1.   左边的 conv+relu6 可以组合为一个融合的大算子。右半部分是量化的大算子展开之后的计算。weight 和 bias 要在参与计算之前 quantize（编译器进行），这里 bias 要和 conv 的结果做加法，因此其量化的 scale 等于 input_scale x weight_scale。加完之后的结果的 scale 要转变为 output_scale，插入了 requantize 操作，即用定点乘法和移位模拟与（ input_scale x weight_scale / output_scale）这个浮点数的乘积。具体的原理在上一节量化网络算子如何计算有提到。最后一个操作是 clip，即数值截断指令。数值截断指令在每一个大算子结尾都有，因为 input、output 均是 int8，中间的计算数据类型是 int32（为了防止溢出），在数据 store 回 ddr 时，需要进行截断以保证 output 仍然是 int8 的范围。这里 relu6 和本来的数值截断指令融合了，因为 relu6 本质也是数值截断，和原有 int8 数值截断的范围取个交集就同时完成了二者的计算。
-2.   乘法操作之后需要插入 requantize。
-3.   maxpool 是被动量化算子，未改变量化参数。不用插入 requantize 节点。
-4.   conv+relu6+tanh 也可以融合为一个大算子，因为 relu6 和 tanh 都是逐元素、一对一映射计算的。在经过图变换后，量化需要的节点都已插入。之后需要去做低层的优化和指令生成。
+1. 左边的 conv+relu6 可以组合为一个融合的大算子。右半部分是量化的大算子展开之后的计算。weight 和 bias 要在参与计算之前 quantize（编译器进行），这里 bias 要和 conv 的结果做加法，因此其量化的 scale 等于 input_scale x weight_scale。加完之后的结果的 scale 要转变为 output_scale，插入了 requantize 操作，即用定点乘法和移位模拟与（ input_scale x weight_scale / output_scale）这个浮点数的乘积。具体的原理在上一节量化网络算子如何计算有提到。最后一个操作是 clip，即数值截断指令。数值截断指令在每一个大算子结尾都有，因为 input、output 均是 int8，中间的计算数据类型是 int32（为了防止溢出），在数据 store 回 ddr 时，需要进行截断以保证 output 仍然是 int8 的范围。这里 relu6 和本来的数值截断指令融合了，因为 relu6 本质也是数值截断，和原有 int8 数值截断的范围取个交集就同时完成了二者的计算。
+2. 乘法操作之后需要插入 requantize。
+3. maxpool 是被动量化算子，未改变量化参数。不用插入 requantize 节点。
+4. conv+relu6+tanh 也可以融合为一个大算子，因为 relu6 和 tanh 都是逐元素、一对一映射计算的。在经过图变换后，量化需要的节点都已插入。之后需要去做低层的优化和指令生成。
 
 ### 计算图优化
 
@@ -627,15 +628,15 @@ TVM 推荐的 BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式�
 
 该框架流程如下：
 
-![img](images/07Practice06.png)
+![](images/07Practice06.png)
 
 流程：
 
-1.模型加载，转换为统一的 IR 表示
+1. 模型加载，转换为统一的 IR 表示
 
-2.硬件无关的计算图优化，常数折叠、算子简化等
+2. 硬件无关的计算图优化，常数折叠、算子简化等
 
-3.图划分，划分为 host 和 accelerator 两个部分。
+3. 图划分，划分为 host 和 accelerator 两个部分。
 
 #### 图划分
 
@@ -651,25 +652,19 @@ TVM 推荐的 BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式�
 
 **基于模式的分组：**
 
-许多硬件加速器使用指令执行算子。例如 Conv2d、Add、Relu 的序列通常可以映射到单个算子，以最小化处理中间结果的开销（算子融合）。因此，硬件供应商需要使用模式匹配算法来匹配 IR 节点序列，并用复合指令替换他们。
+许多硬件加速器使用指令执行算子。例如 Conv2d、Add、Relu 的序列通常可以映射到单个算子，以最小化处理中间结果的开销（算子融合）。因此，硬件供应商需要使用模式匹配算法来匹配IR节点序列，并用复合指令替换他们。
 
 该框架提供了模式匹配机制，如下代码描述的匹配一个 Conv2d-add-relu
 
-
-
-![img](images/07Practice08.webp)
-
-
+![](images/07Practice08.webp)
 
 通过上述匹配模式表，可以将图 3（上）a 转换为 b
-
-
 
 **注解：**
 
 在根据模式将 node 进行分组后，下一步是根据编程模型指定支持的算子列表。例如下代码注册了一个函数，指示所有浮点类型的 Conv2D 节点被注释并卸载到 MyAccel 中
 
-![img](images/07Practice09.webp)
+![](images/07Practice09.webp)
 
 通过一组注解函数，在图中生成了多个区域，这些区域可以被卸载到目标加速器上，如上图 3（c） 。
 
@@ -687,11 +682,7 @@ TVM 推荐的 BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式�
 
 在划分之后，一个图被分割成多个不同后端处理的区域，在 host 上的区域可以有效利用从现有的深度学习编译器中进行的标准优化，然而卸载到加速器的区域可能需要一些特定于硬件的优化（例如融合、替换、存储布局转换、量化等），这些优化通常是专有的，无法在深度学习编译器中处理。
 
-
-
-![img](images/07Practice11.png)
-
-
+![](images/07Practice11.png)
 
 上图左边是量化，右边是存储布局转换。
 
@@ -699,20 +690,20 @@ TVM 推荐的 BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式�
 
 编译流的最后一步是代码生成。
 
-![img](images/07Practice12.png)
+![](images/07Practice12.png)
 
 该框架通过遍历图并为每个图节点调用相应的代码生成来生成一个子模块。当遍历到 host 上的节点时，可以利用现有深度学习编译器中的代码生成，如 TVM 和 XLA，它们能为通用设备（如 CPU 和 GPU）生成代码。当遍历到特定 target 标注的节点（即划分函数）时，生成一个外部函数调用作为运行时内核调用的 hook。同时调用加速器特定的代码生成，其包含了硬件供应商提供的代码生成工具和编译流，为该节点中的划分函数生成一个“加速器子模块”。
 
 加速器子模块中生成的代码必须以一定的格式表示，以便在运行时可以被加速器的执行引擎消耗。该框架提供了一下代码生成格式：
 
-1.  **标准图表示** 使用 json 文件记录算子名称、属性和数据流，这种格式易读。例如 NVIDIA TensorRT 和 Arm 计算库使用该框架的 json 生成器来搭建与运行时之间的桥梁。
-2.  **标准 C 代码**
+1. **标准图表示** 使用 json 文件记录算子名称、属性和数据流，这种格式易读。例如 NVIDIA TensorRT 和 Arm 计算库使用该框架的 json 生成器来搭建与运行时之间的桥梁。
+2. **标准 C 代码**
 
 尽管选项 1 易于实现和部署，但它需要一个图引擎来包含所有受支持的算子的实现，这可能会导致较大的二进制大小。
 
 该框架提供了一个标准的 C 代码生成器，可以发射内核库函数调用并将它们与 host 子模块链接在一起来支持加速器的专有内核库，这个解决方案简化了代码打包，因为 host 代码通常是兼容 C 的。当库函数调用成为 host 子模块一部分时，硬件供应商可以充分利用现有的运行时系统。
 
-  **3. 自定义图表示**
+3. **自定义图表示**
 
 某些加速器有专用格式来表示神经网络，如 ARM Ethos-N 和 Xilinx Vitis AI，为了满足这种需求，该框架提供了一组统一的 API 来定制序列化的代码格式：1）将生成的代码编译和序列化为一个 bit 流，以便其可以与其他子模块一起实例化；2）在运行时反序列化来自子模块的 bit 流
 
@@ -726,17 +717,17 @@ TVM 推荐的 BYOC（Bring Your Own Codegen to Deep Learning Compiler）方式�
 
 运行时系统流程如下：
 
-1.  **初始化元数据模块**
+1. **初始化元数据模块**
 
 DNN 模型的大量权重参数在推理时一般是常数，应该包含在运行时模块中。不同的子模块都需要这些权重，该框架提供了一个统一的模块来管理，称为元数据模块。如上图 6（a）中，元数据模块被设计为一个包含所有常量、host 子模块、加速器子模块的层次化模块。在初始化时，元数据模块将这些常量加载到运行时数据项中，这是在 host 或加速器上预分配的一组内存 buffer。（如上图 6**①**）
 
 除了权重常量外，数据项还维护了模型的输入、输出以及中间结果。由于划分函数（即算子融合后的复合算子）已经是外部函数调用。因此其中间结果不会在数据项中得到维护。
 
-2.   **执行 host 上的图节点**
+2. **执行 host 上的图节点**
 
 当调用推理时，host 子模块加载模型图并启动执行引擎（上图 6**②**）,开始依次执行图节点。如上图 6**③**子模块可以直接访问数据项来读取输入，调用内核执行计算，将结果写入数据项
 
-3.   **执行加速器上的图节点**
+3. **执行加速器上的图节点**
 
 如上图 6（b），host 执行引擎执行 F1，这是对加速器的外部函数调用（图 6**④**）。执行细节如图 6（c）。
 
@@ -752,10 +743,10 @@ DNN 模型的大量权重参数在推理时一般是常数，应该包含在运�
 
 在深度学习加速器的开发中，最小的运行单位是算子。在 TVM 测试新算子的正确性，有多个步骤：
 
-1.   计算的正确性：使用 TVM 的 DSL 编写算子的计算流程，然后生成一个默认的调度，这个调度是在 CPU 上计算的，硬件上是绝对正确的。使用 Pytorch 的结果作为基准，测试通过后，可以认为计算的编写没问题。
-2.   编译器仿真器：使用 TVM 的 DSL 编写算子的调度流程，生成针对该硬件的指令流。使用 C++实现在 CPU 上计算的仿真器，这个仿真器的编写模仿硬件端的计算逻辑，尽可能使得计算、同步、访存的方式一致，来验证指令生成，各个字段的数值以及同步的方式是否正确。
-3.   硬件仿真：验证指令的正确性后，将虚拟的 ddr（运算前后）、指令等保存下来，送到硬件端进行 CSIM 和 RTL 测试，此时基准为编译器仿真器运算后的虚拟 ddr 中的值。这里测试目标为加速器硬件的正确性。
-4.   硬件实际测试：仿真通过后，编译器对接硬件进行实际的上板测试。
+1. 计算的正确性：使用 TVM 的 DSL 编写算子的计算流程，然后生成一个默认的调度，这个调度是在 CPU 上计算的，硬件上是绝对正确的。使用 Pytorch 的结果作为基准，测试通过后，可以认为计算的编写没问题。
+2. 编译器仿真器：使用 TVM 的 DSL 编写算子的调度流程，生成针对该硬件的指令流。使用 C++实现在 CPU 上计算的仿真器，这个仿真器的编写模仿硬件端的计算逻辑，尽可能使得计算、同步、访存的方式一致，来验证指令生成，各个字段的数值以及同步的方式是否正确。
+3. 硬件仿真：验证指令的正确性后，将虚拟的 ddr（运算前后）、指令等保存下来，送到硬件端进行 CSIM 和 RTL 测试，此时基准为编译器仿真器运算后的虚拟 ddr 中的值。这里测试目标为加速器硬件的正确性。
+4. 硬件实际测试：仿真通过后，编译器对接硬件进行实际的上板测试。
 
 ### 网络仿真
 
