@@ -4,7 +4,7 @@
 
 本节将会介绍 ESPNet 系列，该网络主要应用在高分辨率图像下的语义分割，在计算内存占用、功耗方面都非常高效，重点介绍一种高效的空间金字塔卷积模块（ESP Module）；而在 ESPNet V2 上则是会更进一步给大家呈现如何利用分组卷积核，深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。
 
-## ESPNet V1
+## ESPNet V1 模型
 
 **ESPNet V1**：应用在高分辨图像下的语义分割，在计算、内存占用、功耗方面都非常高效。主要贡献在于基于传统卷积模块，提出高效空间金子塔卷积模块（ESP Module），有助于减少模型运算量和内存、功率消耗，来提升终端设备适用性，方便部署到移动端。
 
@@ -89,7 +89,7 @@ class ESPModule(nn.Module):
 
 为了解决 ESP 中的网格问题，使用不同膨胀率的核获得的特征映射在拼接之前会进行层次化添加（上图 b 中的 HFF）。该解决方案简单有效，且不会增加 ESP 模块的复杂性，这与现有方法不同，现有方法通过使用膨胀率较小的卷积核学习更多参数来消除网格误差[Dilated residual networks,Understanding convolution for semantic segmentation]。为了改善网络内部的梯度流动，ESP 模块的输入和输出特征映射使用元素求和[Deep residual learning for image recognition]进行组合。
 
-### 网络结构
+### 网络结构与实现
 
 ESPNet 使用 ESP 模块学习卷积核以及下采样操作，除了第一层是标准的大步卷积。所有层(卷积和 ESP 模块)后面都有一个批归一化和一个 PReLU 非线性，除了最后一个点卷积，它既没有批归一化，也没有非线性。最后一层输入 softmax 进行像素级分类。
 
@@ -101,7 +101,7 @@ ESPNet 的不同变体如下图所示。第一个变体，ESPNet-A(图 a)，是�
 
 为了在不改变网络拓扑结构的情况下构建具有较深计算效率的边缘设备网络，超参数α控制网络的深度;ESP 模块在空间层次 l 上重复 $α_{l}$ 次。在更高的空间层次（l = 0 和 l = 1），cnn 需要更多的内存，因为这些层次的特征图的空间维数较高。为了节省内存，ESP 和卷积模块都不会在这些空间级别上重复。
 
-## ESPNet V2
+## ESPNet V2 模型
 
 **ESPNet V2**：是由 ESPNet V1 改进来的，一种轻量级、能耗高效、通用的卷积神经网络，利用分组卷积核深度空洞分离卷积学习巨大有效感受野，进一步降低浮点计算量和参数量。同时在图像分类、目标检测、语义分割等任务上检验了模型效果。
 
@@ -130,7 +130,7 @@ ESPNet V2 与 V1 版本相比，其特点如下：
 深度分离空洞卷积与其他卷积的参数量与感受野对比如下表所示。
 
 | Convolution type             | Parameters | Eff.receptive field |
-| ---------------------------- | ---------- | ------------------- |
+| ---- | - | ---- |
 | Standard                     |$n^{2}c\hat{c}$|$n\times n$       |
 | Group                        |$\frac{n^{2}c\hat{c}}{g}$|$n\times n$|
 | Depth-wise separable         |$n^{2}c+c\hat{c}$|$n\times n$|
@@ -220,8 +220,6 @@ class EESP(nn.Module):
         return self.module_act(expanded)
 ```
 
-
-
 ### Strided EESP 模块
 
 为了在多尺度下能够有效地学习特征，对上图 1c 的网络做了四点改动（如下图所示）：
@@ -273,16 +271,16 @@ class DownSampler(nn.Module):
 
         return self.act(output) 
 ```
-### 网络结构
 
-ESPNet V2 网络使用 EESP 模块构建。在每个空间级别，ESPNet V2 重复多次 EESP 模块以增加网络的深度。其中在每个卷积层之后使用 batch normalization 和 PRelu，但在最后一个组级卷积层除外，在该层中，PRelu 是在 element-wise sum 操作之后应用的。
+## 小结与思考
 
-## 小结
+- ESPNet V1 模型专注于高分辨率图像的语义分割任务，通过引入高效的空间金字塔卷积模块（ESP Module），显著降低了模型的运算量和内存功耗，提升了在终端设备上的适用性。
 
-- ESPNet 系列核心在于空洞卷积金字塔，每层具有不同的空洞比例（dilation rate）。
+- ESP Module 利用逐点卷积和空洞卷积金字塔减少参数量和内存消耗，同时通过层次化特征融合（HFF）解决卷积输出的棋盘格效应，保持了较大的感受野和有效的特征学习。
 
-- ESPNet 模型结构再参数量不增加的情况下，利用 HFF 方法能够融合多尺度特征提升模型精度。
+- ESPNet V2 在 V1 的基础上进一步优化，采用分组卷积和深度分离卷积学习更大的有效感受野，减少浮点计算量和参数量，同时通过级联和平均池化融合多尺度特征，提升了模型在不同视觉任务上的性能和通用性。
 
 ## 本节视频
+
 
 <iframe src="https://player.bilibili.com/player.html?bvid=BV1DK411k7qt&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

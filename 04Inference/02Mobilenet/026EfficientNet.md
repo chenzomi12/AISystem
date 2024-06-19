@@ -4,11 +4,11 @@
 
 本节主要介绍 EffiicientNet 系列，在之前的文章中，一般都是单独增加图像分辨率或增加网络深度或单独增加网络的宽度，来提高网络的准确率。而在 EfficientNet 系列论文中，会介绍使用网络搜索技术(NAS)去同时探索网络的宽度(width)，深度(depth)，分辨率(resolution)对模型准确率的影响。以及如何加速训练推理速度。
 
-## EfficientNet V1
+## EfficientNet V1 模型
 
 **EfficientNetV1**:重点分析了卷积网络的深度，宽度和输入图像大小对卷积网络性能表现的影响，提出了一种混合模型尺度的方法，通过设置一定的参数值平衡调节卷积网络的深度，宽度和输入图像大小，使卷积网络的表现达到最好。
 
-### 复合模型缩放法
+### 复合模型缩放
 
 单独适当增大深度、宽度或分辨率都可以提高网络的精确性，但随着模型的增大，其精度增益却会降低。此外，这三个维度并不是独立的（如：高分辨率图像需要更深的网络来获取更细粒度特征等），需要我们协调和平衡不同尺度的缩放，而不是传统的一维缩放。EfficientNet 的设想就是能否设计一个标准化的卷积网络扩展方法，既可以实现较高的准确率，又可以充分的节省算力资源。其通过 NAS（Neural Architecture Search）技术来搜索网络的图像输入分辨率 r，网络的深度 depth 以及 channel 的宽度 width 三个参数的合理化配置。如下图所示，(b)，(c)，(d)分别从不同的维度对 baseline 做 model scaling，而这篇论文要做的是将这 3 者结合起来一起优化即(e)。
 
@@ -82,6 +82,7 @@ $$
 ![EfficientNet](images/07Efficientnet03.png)
 
 不同维度的 Scaling 并不相互独立，需要协调和平衡不同维度的 Scaling，而不是常规的单维度 Scaling。EfficientNet 提出了 compound scaling method（复合缩放方法），这种方法是通过一个复合系数φ去统一缩放网络的宽度，深度和分辨率，公式表示如下：
+
 $$
 depth:d=α^{φ}
 $$
@@ -101,13 +102,43 @@ $$
 $$
 α\geq1,β\geq1,γ\geq1
 $$
+
 其中，α、β以及γ是常数，可以通过在 baseline 上做 small grid search 来得到。ϕ 是用户指定的系数，用于控制有多少其他计算资源可用于模型缩放，而 α，β，γ 指定如何分别将这些额外资源分配给网络宽度，深度和分辨率。
 
 需要注意的是：常规卷积运算的 FLOPS 与 d，$w^{2}$，$r^{2}$ 成正比，即网络深度增加 1 倍会使 FLOPS 增加 1 倍，网络宽度或分辨率增加 1 倍会使 FLOPS 增加 4 倍。
 
 由于卷积运算通常在 ConvNets 中占主导地位，因此根据上述的等式，缩放 ConvNets 将使总 FLOPS 大约增加 $(α⋅β^{2}⋅γ^{2})ϕ$。在本文中，作者做了 $α⋅β^{2}⋅γ^{2}≈2$ 的约束，这样对于任何新的 ϕ ，总 FLOPS 大约会增加 $2^{ϕ}$。
 
-### 网络结构
+### SE 模块
+
+如下图所示，SE 模块由一个全局平均池化(AvgPooling)，两个 FC 层组成。第一个全连接层的节点个数是 MBConv 模块的输入特征图 channels 的 $ \frac{1}{4}$ ，且使用 Swish 激活函数。第二个全连接层的节点个数等于 MBConv 模块中 DWConv 层输出特征图的 channels，且使用 Sigmoid 激活函数。简单理解，SE 模块的总体思想是：给每个特征图不同的权重，关注更有用的特征。
+
+![EfficientNet](images/07Efficientnet05.png)
+
+```python
+# 注意力机制模块
+class SqueezeExcitation(nn.Module):
+    def __init__(self,
+                 input_c: int,   # block input channel   # 其对应的是 MBConv 模块输入的 channel
+                 expand_c: int,  # block expand channel  # 因为之前的 DW 卷积不改变 channe，所以其对应着 1x1 卷积输出的 channel
+                 squeeze_factor: int = 4):    # squeeze_c：其等于 input_c 的 channel 数的 1/4
+        super(SqueezeExcitation, self).__init__()
+        squeeze_c = input_c // squeeze_factor
+        self.fc1 = nn.Conv2d(expand_c, squeeze_c, 1)  # 此处使用卷积来达到全连接层的目的，所以 kernel_size 为 1  此处与 ModileNet 中的注意力机制的输入 channel 的选择存在差异
+        self.ac1 = nn.SiLU()  # alias Swish
+        self.fc2 = nn.Conv2d(squeeze_c, expand_c, 1)
+        self.ac2 = nn.Sigmoid()
+
+    def forward(self, x: Tensor) -> Tensor:
+        scale = F.adaptive_avg_pool2d(x, output_size=(1, 1))
+        scale = self.fc1(scale)
+        scale = self.ac1(scale)
+        scale = self.fc2(scale)
+        scale = self.ac2(scale)
+        return scale * x
+```
+
+### 网络结构实现
 
 以 EfficientNet-B0 baseline 网络结构为例，在 B0 中一共分为 9 个 stage，表中的卷积层后默认都跟有 BN 以及 Swish 激活函数。stage 1 就是一个 3×3 的卷积层。对于 stage 2 到 stage 8 就是在重复堆叠 MBConv。
 
@@ -115,8 +146,6 @@ $$
 
 Conv 1x1, s1 层，一个 1x1 的标准卷积，用于降维，然后通过一个 BN，没有 swish 激活函数。
 Droupout 层，其 dropout_rate 对应的是 drop_connect_rate；shortcut 连接，执行 add 操作。
-
-**代码**
 
 ```python
 # MBConvm 模块的配置类
@@ -211,40 +240,7 @@ class InvertedResidual(nn.Module):
         return result
 ```
 
-
-
-### SE 模块
-
-如下图所示，SE 模块由一个全局平均池化(AvgPooling)，两个 FC 层组成。第一个全连接层的节点个数是 MBConv 模块的输入特征图 channels 的 $ \frac{1}{4}$ ，且使用 Swish 激活函数。第二个全连接层的节点个数等于 MBConv 模块中 DWConv 层输出特征图的 channels，且使用 Sigmoid 激活函数。简单理解，SE 模块的总体思想是：给每个特征图不同的权重，关注更有用的特征。
-
-![EfficientNet](images/07Efficientnet05.png)
-
-**代码**
-
-```python
-# 注意力机制模块
-class SqueezeExcitation(nn.Module):
-    def __init__(self,
-                 input_c: int,   # block input channel   # 其对应的是 MBConv 模块输入的 channel
-                 expand_c: int,  # block expand channel  # 因为之前的 DW 卷积不改变 channe，所以其对应着 1x1 卷积输出的 channel
-                 squeeze_factor: int = 4):    # squeeze_c：其等于 input_c 的 channel 数的 1/4
-        super(SqueezeExcitation, self).__init__()
-        squeeze_c = input_c // squeeze_factor
-        self.fc1 = nn.Conv2d(expand_c, squeeze_c, 1)  # 此处使用卷积来达到全连接层的目的，所以 kernel_size 为 1  此处与 ModileNet 中的注意力机制的输入 channel 的选择存在差异
-        self.ac1 = nn.SiLU()  # alias Swish
-        self.fc2 = nn.Conv2d(squeeze_c, expand_c, 1)
-        self.ac2 = nn.Sigmoid()
-
-    def forward(self, x: Tensor) -> Tensor:
-        scale = F.adaptive_avg_pool2d(x, output_size=(1, 1))
-        scale = self.fc1(scale)
-        scale = self.ac1(scale)
-        scale = self.fc2(scale)
-        scale = self.ac2(scale)
-        return scale * x
-```
-
-## EfficientNet V2
+## EfficientNet V2 模型
 
 **EfficientNet V2**：该网络主要使用训练感知神经结构搜索和缩放的组合；在 EfficientNetV1 的基础上，引入了 Fused-MBConv 到搜索空间中；引入渐进式学习策略、自适应正则强度调整机制使得训练更快；进一步关注模型的推理速度与训练速度。
 
@@ -304,7 +300,7 @@ $$
 不同的图像输入采用不同的正则化策略，这不难理解，在早期的训练阶段，我们用更小的图像和较弱的正则化来训练网络，这样网络就可以轻松、快速地学习简单的表示。然后，我们逐渐增加图像的大小，但也通过增加更强的正则化，使学习更加困难。从下表中可以看到，大的图像输入要采用更强的数据增强，而小的图像输入要采用较轻的数据增强才能训出最优模型效果。
 
 |      | Size=128 | Size=192 | Size=300 |
-| ---- | -------- | -------- | -------- |
+| - | -- | -- | -- |
 |RandAug magnitude=5|**78.3**$\pm$ 0.16|81.2$\pm$ 0.06|82.5$\pm$ 0.05|
 |RandAug magnitude=10|78.0$\pm$ 0.08|**81.6**$\pm$0.08|82.7$\pm$ 0.08|
 |RandAug magnitude=15|77.7$\pm$ 0.15|81.5$\pm$0.05|**83.2**$\pm$ 0.09|
@@ -317,7 +313,7 @@ $$
 
 （3）当图像大小较小时，弱增强的精度最好；但对于较大的图像，更强的增强效果更好。
 
-### 自适应正则化的渐进学习
+### 自适应正则化
 
 在早期训练阶段，使用较小的图像大小和较弱的正则化训练网络，这样网络可以轻松快速地学习简单表示。然后，逐渐增加图像大小，但也通过添加更强的正则化使学习更加困难。在逐步改进图像大小的基础上，自适应地调整正则化。假设整个训练有 N 个步骤，目标图像大小为 $S_{e}$ ，正则化大小 $Φ_{e}={ϕ_{e}^{}}$ ，这里 k 表示一种正则化类型，例如 dropout rate or mixup rate value。将训练分为 M 个阶段，对于每个阶段 $1≤i≤M$ ，利用图像大小 Si 和正则化幅度对模型进行训练 $Φ_{i}={ϕ_{i}^{k}}$ ，最后阶段 $M$ 将图像大小 $S_{e}$ 和正则化 $Φ_{e}$ ，为了简单起见，启发式地选择初始图像大小 $S_{0}$,$Φ_{0}$ ，然后使用线性插值来确定每个阶段的值，算法 1 总结了该过程。在每个阶段开始，网络将集成前一阶段的所有权重，与 trasnformer 不同，trasnformer 的权重（例如位置嵌入）可能取决于输入长度，ConvNet 的权重与图像大小无关，可以轻松继承。本文中主要研究了以下三种正则：Dropout、RandAugment 以及 Mixup。
 
@@ -327,12 +323,10 @@ $$
 
 - Mixup：图像与图像相互作用的数据增强。给定带有标签的两幅图像 $(x_{i},y_{i})$ 和 $(x_{j},y_{j})$，Mixup 根据混合比将两者混合：$\widetilde{x_{i}}=λx_{j}+(1-λ)x_{i}$  $\widetilde{y_{i}}=λy_{j}+(1-λ)y_{j}$，。我们将在训练期间调整混合比λ。
 
-### 网络结构
+### 网络结构实现
 
 EfficientNet V2 在除了使用 MBConv 之外，在网络浅层使用了 Fused-MBConv 模块，加快训练速度与提升性能；使用较小的 expansion ratio(从 V1 版本的 6 减小到 4)，从而减少内存的访问量；
 偏向使用更小的 3×3 卷积核(V1 版本存在很多 5×5)，并堆叠更多的层结构以增加感受野；移除步长为 1 的最后一个阶段(V1 版本中 stage8)，因为它的参数数量过多，需要减少部分参数和内存访问。
-
-**代码**
 
 ```python
 # 反残差结构 FusedMBConv:3×3 膨胀卷积层+BN 层+Swish 激活函数+1×1 点卷积层+BN 层
@@ -401,11 +395,13 @@ class FusedMBConvBlock(nn.Module):
         return result
 ```
 
-## 小结
+## 小结与思考
 
-- 相比于 GoogleNet、ResNet 这种人工设计的经典 BackBone，EfficientNet 系列利用强大的计算资源对网络结果进行暴力搜索，得到一系列性能、参数量、计算量最优的网络结构和一些看不懂的超参（虽然人工设计网络中的超参也是大量试出来的，可解释性也较差）。
+- EfficientNet V1 通过神经网络搜索技术（NAS）分析了网络深度、宽度和输入图像分辨率对模型性能的影响，并提出了一种复合模型缩放方法，通过统一的缩放系数平衡调整这三个参数，使用SE模块进一步提升特征表示能力。
 
-- EfficientNet 系列的研究方式应该是以后发展的一个重要方向，研究人员可以在 Conv 层的优化、训练策略上多下功夫研究，至于网络架构怎么组合最优，交给机器去做就好。
+- EfficientNet V2 在 V1 的基础上引入了训练感知神经结构搜索和缩放，考虑了模型的推理和训练速度，采用渐进式学习策略和自适应正则化强度调整机制，通过联合优化准确率、参数效率和训练效率，提高了模型的训练速度和性能。
+
+- EfficientNet V2 网络结构实现中，使用了Fused-MBConv模块以加快训练速度和提升性能，较小的expansion ratio减少内存访问量，偏向使用3×3卷积核并通过堆叠更多层来增加感受野，移除了最后一个步长为1的stage以减少参数和内存访问。
 
 ## 本节视频
 

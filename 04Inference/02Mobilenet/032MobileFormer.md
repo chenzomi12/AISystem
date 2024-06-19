@@ -22,12 +22,14 @@ $$
 A_{X->Z} = [Attn(\widetilde{z_{i}}W_{i}^{Q},\widetilde{x_{i}},\widetilde{x_{i}})]_{i=1:h}W^{o}\tag{1}
 $$
 
-其中局部特征 X 和全局 tokens Z 被拆分进入 h 个头，即 $X=[\widetilde{x_{1}}...\widetilde{x_{h}}],Z=[\widetilde{z_{1}}...\widetilde{z_{h}}]$ 表示多头注意力。第 i 个头的拆分 $\widetilde{z_{1}}\in R^{M \times \frac {d}{h} }$ 与第 i 个 token$\widetilde{z_{1}}\in R^{d}$ 不同。$W_{i}^{Q}$ 是第 i 个头的查询映射矩阵。$W^{O}$ 用于将多个头组合在一起。Attn(Q,K,V)是查询 Q、键 K 和值 V 的标准注意力函数，即 ：
+其中局部特征 X 和全局 tokens Z 被拆分进入 h 个头，即 $X=[\widetilde{x_{1}}...\widetilde{x_{h}}],Z=[\widetilde{z_{1}}...\widetilde{z_{h}}]$ 表示多头注意力。第 i 个头的拆分 $\widetilde{z_{1}}\in R^{M \times \frac {d}{h} }$ 与第 i 个 token$\widetilde{z_{1}}\in R^{d}$ 不同。$W_{i}^{Q}$ 是第 i 个头的查询映射矩阵。$W^{O}$ 用于将多个头组合在一起。Attn(Q,K,V)是查询 Q、键 K 和值 V 的标准注意力函数，即：
 
 $$
 softmax(\frac{QK^{T}}{\sqrt{d_{k}}})
 $$
+
 其中 $[.]_{1:h}$ 表示将 h 个元素 concat 到一起。需要注意的是，键和值的映射矩阵从 Mobile 中移除，而查询的映射矩阵 $W_{i}^{Q}$ 在 Former 中保留。类似地从全局到局部的交叉注意力计算如下：
+
 $$
 A_{Z->X} = [Attn(\widetilde{x_{i}},\widetilde{z_{i}}\odot W_{i}^{K},\widetilde{z_{i}}\odot W_{i}^{V})]_{i=1:h}\tag{2}
 $$
@@ -43,8 +45,6 @@ Mobile-Former 由 Mobile-Former 块组成。每个块包含四部分：Mobile �
 输入和输出：Mobile-Former 块有两个输入：(a) 局部特征图 $X\in R^{HW\times C}$，为 C 通道、高度 H 和宽度 W，以及(b) 全局 tokens $Z\in R^{M\times d}$，其中 M 和 d 是分别是 tokens 的数量和维度，M 和 d 在所有块中一样。Mobile-Former 块输出更新的局部特征图 $X$ 和全局 tokens$Z$，用作下一个块的输入。
 
 Mobile 子块：如上图所示，Mobile 子块将特征图 $X$ 作为输入，并将其输出作为 Mobile←Former 的输入。这和反向瓶颈块略有不同，其用动态 ReLU 替换 ReLU 作为激活函数。不同于原始的动态 ReLU，在平均池化特征图上应用两个 MLP 以生成参数。我们从 Former 的第一个全局 tokens 的输出 $z'_{1}$ 应用两个 MLP 层（上图中的θ）保存平均池化。其中所有块的 depth-wise 卷积的核大小为 3×3。
-
-**代码**
 
 ```python
 class Mobile(nn.Module):
@@ -90,8 +90,6 @@ class Mobile(nn.Module):
 
 Former 子块：Former 子块是一个标准的 Transformer 块，包括一个多头注意力（MHA）和一个前馈网络（FFN）。在 FFN 中，膨胀率为 2（代替 4）。使用 post 层归一化。Former 在 Mobile→Former 和 Mobile←Former 之间处理（见上图）。
 
-**代码**
-
 ```python
 class Former(nn.Module):
 
@@ -132,11 +130,7 @@ class Former(nn.Module):
         return attout  
 ```
 
-
-
 Mobile→Former：文章提出的轻量级交叉注意力（式 1）用于将局部特征 X 融合到全局特征 tokens Z。与标准注意力相比，映射矩阵的键 $W^{K}$ 和值 $W^{V}$（在局部特征 X 上）被移除以节省计算（见上图）。
-
-**代码**
 
 ```python
 
@@ -162,11 +156,9 @@ class Mobile_Former(nn.Module):
         return unproject + self.shortcut(x)
 ```
 
-Mobile←Former：这里的交叉注意力（式 2）与 Mobile→Former 的方向相反，其将全局 tokens 融入本地特征。局部特征是查询，全局 tokens 是键和值。因此，我们保留键 $W^{K}$ 和值 $W^{V}$ 中的映射矩阵，但移除查询 $W^{Q}$ 的映射矩阵以节省计算，如上图所示。
+Mobile-Former：这里的交叉注意力（式 2）与 Mobile→Former 的方向相反，其将全局 tokens 融入本地特征。局部特征是查询，全局 tokens 是键和值。因此，我们保留键 $W^{K}$ 和值 $W^{V}$ 中的映射矩阵，但移除查询 $W^{Q}$ 的映射矩阵以节省计算，如上图所示。
 
 计算复杂度：Mobile-Former 块的四个核心部分具有不同的计算成本。给定输入大小为 $HW\times C$ 的特征图，以及尺寸为 d 的 M 个全局 tokens，Mobile 占据了大部分的计算量 $O(HWC^{2})$。Former 和双线桥是重量级的，占据不到总计算成本的 20%。具体而言，Former 的自注意力和 FFN 具有复杂度 $O(M^{2}d+Md^{2})$。Mobile→Former 和 Mobile←Former 共享交叉注意力的复杂度 $O(MHWC+MdC)$。
-
-**代码**
 
 ```python
 class Former_Mobile(nn.Module):
@@ -196,8 +188,6 @@ class Former_Mobile(nn.Module):
 
 一个 Mobile-Former 架构，图像大小为 224×224，294M FLOPs，以不同的输入分辨率堆叠 11 个 Mobile-Former 块。所有块都有 6 个维度为 192 的全局 tokens。它以一个 3×3 的卷积作为 stem 和第一阶段的轻量瓶颈块，首先膨胀，然后通过 3×3 depth-wise 卷积和 point-wise 卷积压缩通道数。第 2-5 阶段包括 Mobile-Former 块。每个阶段的下采样，表示为 Mobile-Former 分类头在局部特征应用平均池化，首先和全局 tokens concat 到一起，然后经过两个全连接层，中间是 h-swish 激活函数。Mobile-Former 有七种模型，计算成本从 26M 到 508M FLOPs。它们的结构相似，但宽度和高度不同。
 
-**代码**
-
 ```python
 class MobileFormerBlock(nn.Module):
     def __init__(self, in_channel, expand_size, out_channel, d_model, stride=1, k=2, head=8, expand_ratio=2):
@@ -221,7 +211,11 @@ class MobileFormerBlock(nn.Module):
 
 ## 小结与思考
 
-本文提出了一种基于 MobileNet 和 Transformer 的双向式交互并行设计的网络 Mobile-Former。它利用了 MobileNet 在局部信息处理中的效率和 Transformer 在编码全局交互方面的优势。该设计不仅有效地提高了计算精度，而且还有效地节省了计算成本。在低 FLOP 条件下，它在图像分类和目标检测方面都优于高效的 CNN 和 ViT 变体。
+- MobileFormer 通过并行的MobileNet和Transformer结构以及双线桥技术，实现了局部和全局特征的有效融合。
+
+- MobileFormer 网络利用轻量级的交叉注意力机制，显著降低了计算成本，同时保持了高效的特征表达能力。
+
+- MobileFormer 提供了多种模型变体，适应不同计算需求，最高可达508M FLOPs，为移动和边缘设备上的高效视觉任务提供了灵活的解决方案。
 
 ## 本节视频
 

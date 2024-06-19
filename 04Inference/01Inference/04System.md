@@ -47,7 +47,7 @@
 一个早期的服务化框架是谷歌在 2016 年针对 TensorFlow 推出的 TensorFlow Serving，它能够把 TensorFlow 模型以 web 服务的方式对外暴露接口，通过网络请求方式接受来自客户端（Client）的请求数据，计算得到前向推理结果并返回。这成为了模型服务化的重要里程碑。除此之外，业界还涌现了许多其他优秀的服务化框架，如 TorchServe、Triton、BentoML、Kubeflow 和 Seldon Core 等。
 
 | 服务框架 | 支持的模型 | 开源仓库地址 | 开源时间 |
-| --------- | ----------- | ------------- | --------- |
+| --- | -- | - | --- |
 | TensorFlow Serving | TensorFlow | <https://github.com/TensorFlow/serving> | 2016 |
 | TorchServe | PyTorch | <https://github.com/pytorch/serve> | 2020 |
 | Triton | TensorFlow/PyTorch 等 | <https://github.com/triton-inference-server/server> | 2018 |

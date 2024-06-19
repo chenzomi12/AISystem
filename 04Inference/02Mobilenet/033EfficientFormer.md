@@ -1,14 +1,12 @@
 <!--Copyright © XcodeHw 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# EfficientFormer
+# EfficientFormer 系列
 
 本节主要介绍一种轻量化的 Transformer 结构，在获得高性能的同时，能够保持一定的推理速度。以延迟为目标进行优化设计。通过延迟分析重新探讨 ViT 及其变体的设计原则。
 
-## EfficientFormer V1
+## EfficientFormer V1 模型
 
 **EfficientFormer V1**:基于 ViT 的模型中使用的网络架构和具体的算子，找到端侧低效的原因。然后引入了维度一致的 Transformer Block 作为设计范式。最后，通过网络模型搜索获得不同系列的模型 —— EfficientFormer。
-
-### 设计思路
 
 大多数现有方法通过从服务器 GPU 获得的计算复杂性（MAC）或吞吐量（图像/秒）来优化 Transformer 的推理速度。但是这些指标不能反映实际的设备延迟。为了清楚地了解哪些操作和设计选择会减慢边缘设备上 VIT 的推断，在下图中作者作者对不同模型在端侧运行进行了一些分析，主要是分为 ViT 对图像进行分块的 Patch Embedding、Transformer 中的 Attention 和 MLP，另外还有 LeViT 提出的 Reshape 和一些激活等。提出了下面几个猜想。
 
@@ -19,8 +17,6 @@
 patch 嵌入通常使用一个不重叠的卷积层来实现，该层具有较大的内核大小和步长。一种普遍的看法是，Transformer 网络中 patch 嵌入层的计算成本不显著或可以忽略不计。然而，在上图中比较了具有大核和大步长的 patch 嵌入模型，即 DeiT-S 和 PoolFormer-s24，以及没有它的模型，即 LeViT-256 和 EfficientFormer，结果表明，patch 嵌入反而是移动设备上的速度瓶颈。
 
 大多数编译器都不支持大型内核卷积，并且无法通过 Winograd 等现有算法来加速。或者，非重叠 patch 嵌入可以由一个具有快速下采样的卷积 stem 代替，该卷积 stem 由几个硬件效率高的 3×3 卷积组成。
-
-**代码**
 
 ```python
 #stem 以一些普通卷积组成
@@ -55,11 +51,12 @@ def stem(in_chs, out_chs):
 
 相反，在本文的实验中，HardSwish 的速度惊人地慢，编译器可能无法很好地支持它（LeViT-256 使用 HardSwish 的延迟为 44.5 ms，而使用 GeLU 的延迟为 11.9 ms）。作者的结论是，考虑到手头的特定硬件和编译器，非线性应该根据具体情况来确定。
 
-#### EfficientFormer 结构
+### EfficientFormer 结构
 
 ![EfficientFormer](images/11Efficientformer02.png)
 
 基于延迟分析，作者提出了 EfficientFormer 的设计，如上图所示。该网络由 patch 嵌入（PatchEmbed）和 meta transformer 块堆栈组成，表示为 MB：
+
 $$
 y = \prod_{i}^{m}MB_{i}(PatchEmbed(X_{0}^{B,3,H,W}))
 $$
@@ -112,8 +109,6 @@ $$
 
 其中 Q、K、V 表示通过线性投影学习的查询、键和值，b 表示作为位置编码的参数化注意力 bias。
 
-**代码**
-
 ```python
 #以 1x1 卷积为主的 MLP
 class Mlp(nn.Module):
@@ -139,15 +134,11 @@ class Mlp(nn.Module):
  
     def forward(self, x):
         x = self.fc1(x)
- 
         x = self.norm1(x)
- 
         x = self.act(x)
         x = self.drop(x)
         x = self.fc2(x)
- 
         x = self.norm2(x)
- 
         x = self.drop(x)
         return 
 
@@ -176,7 +167,6 @@ class Meta4D(nn.Module):
  
     def forward(self, x):
         if self.use_layer_scale:
- 
             x = x + self.drop_path(
                 self.layer_scale_1.unsqueeze(-1).unsqueeze(-1)
                 * self.token_mixer(x))
@@ -207,14 +197,11 @@ $$
 
 在超网的 $S_{1}$ 和 $S_{2}$ 中，每个块可以从 MB4D 或 I 中选择，而在 $S_{3}$ 和 $S_{4}$ 中，块可以是 MB3D、MB4D 或 I。出于两个原因，作者仅在最后两个阶段启用 MB3D：首先，由于 MHSA 的计算相对于 token 长度呈二次增长，因此在早期阶段对其进行集成将大大增加计算成本。其次，将全局 MHSA 应用于最后阶段符合这样一种直觉，即网络的早期阶段捕获低级特征，而后期阶段学习长期依赖性。
 
-**代码**
-
 ```python
 #Meta3D 与 Meta4D 在 MLP 有不同，Meta3D 使用如下的 LinearMLP，主要以线性层为主
 class LinearMlp(nn.Module):
     """ MLP as used in Vision Transformer, MLP-Mixer and related networks
-    """
- 
+    """ 
     def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=nn.GELU, drop=0.):
         super().__init__()
         out_features = out_features or in_features
@@ -232,7 +219,7 @@ class LinearMlp(nn.Module):
         x = self.drop1(x)
         x = self.fc2(x)
         x = self.drop2(x)
-        return 
+        return x
     
 class Meta3D(nn.Module):
  
@@ -240,9 +227,7 @@ class Meta3D(nn.Module):
                  act_layer=nn.GELU, norm_layer=nn.LayerNorm,
                  drop=0., drop_path=0.,
                  use_layer_scale=True, layer_scale_init_value=1e-5):
- 
         super().__init__()
- 
         self.norm1 = norm_layer(dim)
         self.token_mixer = Attention(dim)
         self.norm2 = norm_layer(dim)
@@ -267,14 +252,11 @@ class Meta3D(nn.Module):
             x = x + self.drop_path(
                 self.layer_scale_2.unsqueeze(0).unsqueeze(0)
                 * self.mlp(self.norm2(x)))
- 
         else:
             x = x + self.drop_path(self.token_mixer(self.norm1(x)))
             x = x + self.drop_path(self.mlp(self.norm2(x)))
         return x
 ```
-
-
 
 **Searching Space**
 
@@ -298,13 +280,9 @@ $$
 
 作者首先将 S_{1,2}和 S_{3,4}的 $MP_{i}$ 重要性得分分别定义为和 $\frac{α_{i}^{4D}}{α_{i}^{I}}$ 和 $\frac{α_{i}^{3D}+α_{i}^{4D}}{α_{i}^{I}}$。同样，每个阶段的重要性得分可以通过将该阶段内所有 MP 的得分相加得到。根据重要性得分，作者定义了包含三个选项的动作空间：1）选择 I 作为最小导入 MP，2）删除第一个 MB3D，3）减少最不重要阶段的宽度（乘以 16）。然后，通过查找表计算每个动作的延迟，并评估每个动作的准确度下降。最后，根据每延迟准确度下降 $(\frac{-%}{ms})$ 来选择操作。此过程将迭代执行，直到达到目标延迟。
 
-### 网络结构
-
 EfficientFormer 一共有 4 个阶段。每个阶段都有一个 Embeding（两个 3x3 的 Conv 组成一个 Embeding）来投影 Token 长度（可以理解为 CNN 中的 feature map）。EfficientFormer 是一个完全基于 Transformer 设计的模型，并没有集成 MobileNet 相关内容。最后通过 AUTOML 来搜索 MB_3D 和 MB_4D block 相关参数。最后堆叠 block 形成最终网络。
 
-
-
-## EfficientFormer V2
+## EfficientFormer V2 模型
 
 ** EfficientFormer V2**:论文重新审视了 ViT 的设计选择，并提出了一种具有低延迟和高参数效率的改进型超网络。论文进一步引入了一种细粒度联合搜索策略，该策略可以通过同时优化延迟和参数量来找到有效的架构。所提出的模型 EfficientFormerV2 在 ImageNet-1K 上实现了比 MobileNetV2 和 MobileNetV1 高约 4%的 top-1 精度，具有相似的延迟和参数。
 
@@ -312,12 +290,10 @@ EfficientFormerV2 相对于 EfficientFormer 的主要改进如下图所示。
 
 ![EfficientFormer](images/11Efficientformer03.png)
 
-## 重新思考混合 Transformer
-
 结合局部信息可以提高性能，并使 ViT 在缺少显式位置嵌入的情况下更加鲁棒。PoolFormer 和 EfficientFormer 使用 3×3 平均池化层（作为 local token 混合器。用相同内核大小的 depth-wise 卷积）替换这些层不会引入耗时开销，而使用可忽略的额外参数（0.02M），性能提高了 0.6%。此外。在 ViT 中的前馈网络（FFN）中注入局部信息建模层也有利于以较小的开销提高性能。值得注意的是，通过在 FFN 中放置额外的 depth-wise 3×3 卷积来捕获局部信息，复制了原始局部混合器（池或卷积）的功能。基于这些观察，论文移除了显式残差连接的 local token 混合器，并将 depth-wise 3×3 CONV 移动到 FFN 中，以获得 locality enabled 的统一 FFN（上图（b））。论文将统一的 FFN 应用于网络的所有阶段，如上图（a，b）所示。这种设计修改将网络架构简化为仅两种类型的 block（local FFN 和 global attention），并在相同的耗时（见表 1）下将精度提高到 80.3%，参数开销较小（0.1M）。更重要的是，该修改允许直接使用模块的确切数量搜索网络深度，以提取局部和全局信息，尤其是在网络的后期阶段。
 
 | Method                  | #Params(M) | MACs(G) | Latency(ms) | Top-1(%) |
-| ----------------------- | ---------- | ------- | ----------- | -------- |
+| -- | - | - | -- | -- |
 | EfficientFormer-L1      | 12.25      | 1.30    | 1.4         | 79.2     |
 | Pool Mixer → $DWCONV_{3×3}$ | 12.27 | 1.30 | 1.4 | 79.8 |
 | ✓ Feed Forward Network | 12.37 | 1.33 | 1.4 | 80.3 |
@@ -333,8 +309,6 @@ EfficientFormerV2 相对于 EfficientFormer 的主要改进如下图所示。
 通过统一的 FFN 和删除残差连接的 token mixer，V2 检查来自 EfficientFormer 的搜索空间是否仍然足够，特别是在深度方面。论文改变了网络深度（每个阶段中的 block 数）和宽度（通道数），并发现更深和更窄的网络会带来更好的精度（0.2%的改进）、更少的参数（0.3M 的减少）和更少的耗时（0.1ms 的加速），如上表所示。因此，论文将此网络设置为新的基线（精度 80.5%），以验证后续的设计修改，并为架构搜索提供更深入的超网络。
 
 此外，具有进一步缩小的空间分辨率（1/64）的 5 阶段模型已广泛用于有效的 ViT 工作。为了证明是否应该从一个 5 阶段超网络中搜索，论文在当前的基线网络中添加了一个额外的阶段，并验证了性能增益和开销。值得注意的是，尽管考虑到小的特征分辨率，计算开销不是一个问题，但附加阶段是参数密集型的。因此需要缩小网络维度（深度或宽度），以将参数和延迟与基线模型对齐，以便进行公平比较。如上表所示，尽管节省了 MACs（0.12G），但 5 阶段模型的最佳性能在更多参数（0.39M）和延迟开销（0.2ms）的情况下意外降至 80.31%。这符合直觉，即五阶段计算效率高，但参数密集。鉴于 5 阶段网络无法在现有的规模和速度范围内引入更多潜力，论文坚持 4 阶段设计。这一分析也解释了为什么某些 ViT 在 MACs 精度方面提供了出色的 Pareto curve，但在大小上往往非常冗余。作为最重要的一点，优化单一度量很容易陷入困境。
-
-**代码**
 
 ```python
 # 深度卷积前馈网络(局部模块)
@@ -364,13 +338,9 @@ class FFN(nn.Module):
         return x
 ```
 
-
-
 ### 多头注意力改进
 
 然后，论文研究了在不增加模型大小和耗时的额外开销的情况下提高注意力模块性能的技术。如图（c）所示，论文研究了 MHSA 的两种方法。首先通过添加 depth-wise 3×3 CONV 将局部信息注入到 Value 矩阵（V）中，也采用了这种方法。其次通过在 head 维度上添加全连接层来实现注意力头之间的通信，如图 2（c）所示。通过这些修改，进一步将性能提高到 80.8%，与基线模型相比，具有相似的参数和延迟。
-
-**代码**
 
 ```python
 class Attention4D(torch.nn.Module):
@@ -509,7 +479,7 @@ class AttnFFN(nn.Module):
         return x
 ```
 
-### 在更高分辨率上的注意力
+### 更高分辨率注意力
 
 注意机制有利于性能。然而，将其应用于高分辨率特征会损害部署效率，因为它具有与空间分辨率相对应的二次时间复杂度。论文研究了将 MHSA 有效应用于更高分辨率（早期阶段）的策略。回想一下，在当前基线网络中，MHSA 仅在输入图像空间分辨率为 1/32 的最后阶段使用。论文将额外的 MHSA 应用于具有 1/16 特征大小的倒数第二个阶段，并观察到准确度提高了 0.9%。另一方面，推理速度减慢了几乎 2.7 倍。因此，有必要适当降低注意力模块的复杂性。
 
@@ -520,8 +490,6 @@ Out_{[B,H,N,C]} = (Q_{[B,H,N,C]}.K^{T}_{[B,H,C,\frac{N}{2}]}).V_{[B,H,\frac{N}{2
 $$
 
 根据测试该模型的耗时仅下降到 2.8ms，仍然比基线模型慢 2 倍。因此，为了在网络的早期阶段执行 MHSA，论文将所有 Query、Key 和 Value 降采样到固定的空间分辨率（1/32），并将注意力的输出插值回原始分辨率，以馈送到下一层，如图所示（（d）和（e））。我们称这种方法为“Stride Attention”。如表所示，这种简单的近似值将延迟从 3.5ms 显著降低到 1.5ms，并保持了具有竞争力的准确性（81.5%对 81.7%）。
-
-**代码**
 
 ```python
 class Attention4DDownsample(torch.nn.Module):
@@ -638,8 +606,6 @@ $$
 
 相反，论文提出了一种同时使用局部性和全局依赖性的组合策略，如图(f)所示。为了获得下采样的 Query，论文使用池化层作为静态局部下采样，使用 3×3 DWCONV 作为可学习的局部下采样。此外，注意力下采样模块残差连接到 regular strided CONV，以形成 local-global 方式，类似于下采样 bottlenecks 或 inverted bottlenecks。如表所示，通过略微增加参数和耗时开销，论文进一步将注意力下采样的准确率提高到 81.8%。
 
-**代码**
-
 ```python
 class LGQuery(torch.nn.Module):
     def __init__(self, in_dim, out_dim, resolution1, resolution2):
@@ -661,7 +627,7 @@ class LGQuery(torch.nn.Module):
         return q
 ```
 
-### EfficientFormerV2 的设计
+### 模型设计
 
 如前文所述，论文采用了四阶段分层设计，其获得的特征尺寸为输入分辨率的{1/4，1/8，1/16，1/32}。EfficientFormerV2 从一个小的内核卷积 stem 开始嵌入输入图像，而不是使用非重叠 patch 的低效嵌入，
 $$
@@ -684,7 +650,7 @@ $$
 MHSA(Q,K,V) = Softmax(Q.K^{T}+ab).V \tag{6}
 $$
 
-### 联合优化模型大小和速度
+### 优化模型
 
 尽管基线网络 EfficientFormer 是通过耗时驱动搜索发现的，并且在移动设备上具有快速的推理速度，但搜索算法有两个主要缺点。首先，搜索过程仅受速度限制，导致最终模型是参数冗余的，如图 1 所示。其次，它仅搜索深度（每个阶段的 blocks 数）和阶段宽度，这是一种粗粒度的方式。事实上，网络的大多数计算和参数都在 FFN 中，并且参数和计算复杂度与其扩展比线性相关。可以针对每个 FFN 独立地指定，而不必相同。因此，搜索实现了更细粒度的搜索空间，其中计算和参数可以在每个阶段内灵活且非均匀地分布。其中在每个阶段保持相同。论文提出了一种搜索算法，该算法实现了灵活的 per-block 配置，并对大小和速度进行了联合约束，并找到了最适合移动设备的视觉主干。
 

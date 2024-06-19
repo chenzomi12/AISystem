@@ -4,7 +4,7 @@
 
 本节主要介绍 FBNet 系列，在这一章会给大家带来三种版本的 FBNet 网络，从基本 NAS 搜索方法开始，到 v3 版本的独特方法。在本节中读者会了解到如何用 NAS 搜索出最好的网络和训练参数。
 
-## FBNet V1
+## FBNet V1 模型
 
 **FBNetV1**:完全基于 NAS 搜索的轻量级网络系列，结合了 DNAS 和资源约束。采用梯度优化的方法优化卷积结构，避免像以前的方法那样分别枚举和训练各个体系结构。FBNets-B 在 ImageNet 上 top-1 准确率为 74.1%，295M FLOPs。
 
@@ -20,14 +20,13 @@ $$\underset {a∈A}{min}  \underset {w_{a}}{min} L(a,w_{a}) \tag{1}$$
 
 ![FBNet](images/06Fpnet01.png)
 
-
 ### 搜索空间
 
 之前的方法大都搜索单元结构，然后堆叠成完整的网络，但实际上，相同的单元结构在不同的层对网络的准确率和时延的影响是大不相同的。为此，论文构造了整体网络结构(macro-architecture)固定的 layer-wise 搜索空间，每层可以选择不同结构的 block，整体网络结构如表 1 所示，前一层和后三层的结构是固定的，其余层的结构需要进行搜索。前面的层由于特征分辨率较大，人工设定了较小的核数量以保证网络的轻量性。layer-wise 搜索空间如下图所示，基于 MobileNetV2 和 ShuffleNet 的经典结构设计，通过设定不同的卷积核大小(3 或 5)、扩展率以及分组数来构造成不同的候选 block。若 block 的输入和输出分辨率一致，则添加 element-wise 的 shortcut，而若使用了分组卷积，则需要对卷积输出进行 channel shuffle。
 
 ![FBNet](images/06Fpnet02.png)
 
-### Latency-Aware 损失函数
+### Latency-Aware 损失
 
 公式 1 中的损失函数不仅要反映准确率，也要反应目标硬件上的时延。因此，定义以下损失函数：
 
@@ -38,8 +37,6 @@ $CE(a,w_{a})$ 表示交叉熵损失，LAT(a)表示当前结构在目标硬件上
 $$LAT(a) = \sum_{l}LAT(b_{l}^{(a)})\tag{3} $$
 
 其中 $b_{l}^{(a)}$ 为结构 a 中 l 层的 block，这种估计方法假设 block 间的计算相互独立，对 CPUs 和 DSPs 等串行计算设备有效，通过这种方法，能够快速估计 $10^{21}$ 种网络的实际时延。
-
-**代码**
 
 ```python
 class SupernetLoss(nn.Module):
@@ -64,12 +61,8 @@ class SupernetLoss(nn.Module):
         losses_lat.update(lat.item(), N)
         
         loss = self.alpha * ce * lat
-#        loss = ce
         return loss #.unsqueeze(0)
-
 ```
-
-#### 搜索算法
 
 论文将搜索空间表示为随机超网，每层包含 9 个表 2 的并行 block。在推理的时候，候选 block 被执行的概率为：
 
@@ -102,8 +95,6 @@ $$LAT(a) =  \sum_{l}\sum_{i}m_{l,i}\cdot LAT(b_{l,i}) \tag{9}$$
 
 搜索过程等同于随机超网的训练过程，在训练时，计算 $∂L/∂w_{a}$ 更新超网每个 block 的权值，在 block 训练后，每个 block 对准确率和时延的贡献不同，计算 $∂L/∂θ$ 来更新每个 block 的采样概率 $P_{θ}$。在超网训练完后，通过采样网络分布 $P_{θ}$ 得到最优的网络结构。
 
-**代码**
-
 ```python
 
 class MixedOperation(nn.Module):
@@ -135,7 +126,7 @@ FBNet 是通过 DNAS 神经架构搜索发现的一种卷积神经架构。它�
 
 ![FBNet](images/06Fpnet03.png)
 
-## FBNet V2
+## FBNet V2 模型
 
 **FBNetV2**: 提出了 DMaskingNAS，将 channel 数和输入分辨率分别以 mask 和采样的方式加入到超网中，在带来少量内存和计算量的情况下，大幅增加搜索空间。同时采用一种用于特征映射重用的屏蔽机制，使得随着搜索空间的扩大，存储和计算成本几乎保持不变。此外，本文采用有效的形状传播来最大化每个触发器或每个参数的精度。与所有以前的架构相比，搜索到的 FBNetV2s 具有一流的性能。
 
@@ -258,7 +249,7 @@ $$
 具有γ卷积群。第(l + 1)层的有效输入通道是 $$\overline{C}^{l+1}_{in} = \overline{C}^l_{out} $$
 。总训练损失由(1)交叉熵损失和(2)总成本组成，总成本是来自所有层的成本之和:$cost_{total} =\sum_lcost^l$。在正向传递中，对于所有卷积，本文计算并返回输出张量和有效输出形状。此外，Gumbel Softmax 等式 4 中的 $\mathcal{T}$。在整个训练期间下降，迫使 $g^{l}$ 接近 one-hot 分布。$argmax_{i}g^{l}_{i}$ 将因此在超图中选择块的路径；每个块的单通道和扩展速率选项；和整个网络的单一输入分辨率。然后这个最终的架构被训练。请注意，这种最终模型不使用 mask，也不需要有效的形状。
 
-### 网络结构
+### 网络结构实现
 
 首先使用 DMaskingNAS 寻找低计算预算的紧凑模型(见下图):
 
@@ -267,8 +258,6 @@ $$
 搜索出来的 FBNetV2 架构，颜色表示不同的内核大小，高度表示不同的膨胀率。高度是按比例绘制的。模型范围为 50 MFLOPs 至 300 MFLOPs，如下图所示。搜索到的 FBNetV2s 优于所有现有网络。
 
 ![FBNet](images/06Fpnet09.png)
-
-**代码**
 
 ```python
 def py2_round(x):
@@ -320,8 +309,8 @@ class InvertedResidual(Layer):
             x += identity
         return x
 
-class FBNetV2(Model):
 
+class FBNetV2(Model):
     def __init__(self, setting, num_classes=1000, dropout=0, drop_path=0):
         super().__init__()
         in_channels = setting['init_channels']
@@ -372,10 +361,9 @@ class FBNetV2(Model):
         x = self.fc(x)
        
         return x
-
 ```
 
-## FBNet V3
+## FBNet V3 模型
 
 **FBNetV3**：论文认为目前的 NAS 方法大都只满足网络结构的搜索，而没有在意网络性能验证时的训练参数的设置是否合适，这可能导致模型性能下降。为此，论文提出 JointNAS，在资源约束的情况下，搜索最准确的训练参数以及网络结构。
 
@@ -437,8 +425,6 @@ Neural Acquisition Function，即预测器，见上图。它包含编码架构�
 ### 搜索空间
 
 FBNetV3 的搜索空间包括了训练超参和网络架构。训练超参的搜索空间包括了优化器类型、初始学习率、参数正则化比例、mixup 比例、dropout 比例、随机深度 drop 比例和是否使用 EMA 等。网络架构的搜索空间是逆残差模型的参数，包括输入分辨率、卷积核大小、中间通道放大比例、每一 stage 网络的通道数和深度等。
-
-**代码**
 
 ```python
 def py2_round(x):

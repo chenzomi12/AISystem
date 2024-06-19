@@ -39,7 +39,7 @@
 
 15. [Martín Abadi, Paul Barham, Jianmin Chen, Zhifeng Chen, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Geoffrey Irving, Michael Isard, Manjunath Kudlur, Josh Levenberg, Rajat Monga, Sherry Moore, Derek G. Murray, Benoit Steiner, Paul Tucker, Vijay Vasudevan, Pete Warden, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. 2016. TensorFlow: a system for large-scale machine learning. In Proceedings of the 12th USENIX conference on Operating Systems Design and Implementation (OSDI'16). USENIX Association, USA, 265–283.](https://dl.acm.org/doi/10.5555/3026877.3026899)
 
-## 二. AI 硬件体系结构
+## 二. AI 硬件体系架构
 
 1. https://www.knime.com/blog/a-friendly-introduction-to-deep-neural-networks
 2. https://machine-learning.paperspace.com/wiki/activation-function
@@ -86,7 +86,7 @@
 
 [2] "TPU 演进十年：谷歌的十大经验教训" 知乎, [https://zhuanlan.zhihu.com/p/573794328]
 
-## 三. AI 编译器
+## 三. AI 编程与计算架构
 
 1. https://llvm.org/docs/Passes.html
 2. https://getting-started-with-llvm-core-libraries-zh-cn.readthedocs.io/zh-cn/latest/ch04.html
@@ -584,6 +584,23 @@ learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
 - [Practical Quantization in PyTorch](https://pytorch.org/blog/quantization-in-practice/)
 - Jacob, Benoit, et al. "Quantization and training of neural networks for efficient integer-arithmetic-only inference." Proceedings of the IEEE conference on computer vision and pattern recognition. 2018.
 - Wu, Hao, et al. "Integer quantization for deep learning inference: Principles and empirical evaluation." arXiv preprint arXiv:2004.09602 (2020).
+1. Hongrong Cheng, Miao Zhang, "A Survey on Deep Neural Network Pruning: Taxonomy, Comparison, Analysis, and Recommendations," 2023.
+2. Song Han, Jeff Pool, John Tran, John Tran, "Learning both Weights and Connections for Efficient Neural Networks,"  2015.
+3. Yiwen Guo, Anbang Yao, Yurong Chen, "Dynamic Network Surgery for Efficient DNNs," 2016.
+4. Enzo Tartaglione, Skjalg Lepsøy, "Learning Sparse Neural Networks via Sensitivity-Driven Regularization," 2018.
+5. Zhu M, Gupta S, "To prune, or not to prune: exploring the efficacy of pruning for model compression," 2017.
+6. Namhoon Lee, Thalaiyasingam Ajanthan, Philip H. S. Tor, "SNIP: Single-shot Network Pruning based on Connection Sensitivity," 2019.
+7. [闲话模型压缩之网络剪枝（Network Pruning）](https://cloud.tencent.com/developer/article/1631704)
+8. [模型压缩-剪枝算法详解](https://zhuanlan.zhihu.com/p/622519997)
+9. [模型压缩：剪枝算法](https://zhuanlan.zhihu.com/p/462026539)
+10. Hao Li, Asim Kadav, Igor Durdanovic, "Pruning Filters for Efficient ConvNets," 2017.
+
+1. Jianping Gou et al. Knowledge Distillation: A Survey. https://doi.org/10.1007/s11263-021-01453-z
+2. Hinton et al. Distilling the Knowledge in a Neural Network. http://arxiv.org/abs/1503.02531
+3. Longhui Wei et al. Circumventing outlier of autoaugment with knowledge distillation.  https://doi.org/10.1007/978-3-030-58580-8_36
+4. Caruana et al. Model compression. https://doi.org/10.1145/1150402.1150464
+5. 模型压缩（上）--知识蒸馏（Distilling Knowledge）https://www.jianshu.com/p/a6d87b338bcf
+6. DeiT：注意力也能蒸馏 https://www.cnblogs.com/ZOMI/p/16496326.html
 
 - Learning Accurate Low-Bit Deep Neural Networks with Stochastic Quantization
 - Differentiable Soft Quantization: Bridging Full-Precision and Low-Bit Neural Networks（ICCV 2019）
@@ -630,7 +647,7 @@ learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
 6. [什么是 Protobuf？](https://blog.postman.com/what-is-protobuf/)
 7. [Protobuf 语法指南](https://colobu.com/2015/01/07/Protobuf-language-guide/)
 8. [深入浅出 FlatBuffers 之 Schema](https://halfrost.com/flatbuffers_schema/)
-9. [FlatBuffers，MNN 模型存储结构基础 ---- 无法解读 MNN 模型文件的秘密](https://www.jianshu.com/p/8eb153c12a4b)
+9. [FlatBuffers，MNN 模型存储结构基础 - 无法解读 MNN 模型文件的秘密](https://www.jianshu.com/p/8eb153c12a4b)
 10. [华为昇思 MindSpore 详细教程（一）](https://blog.csdn.net/m0_37605642/article/details/125691987)
 11. [如何将在 GPU 上训练的模型加载到 CPU（系统）内存中？](https://www.volcengine.com/theme/9557712-R-7-1)
 12. [11 模型的保存加载¶](http://121.199.45.168:13007/01-PyTorch%E4%BD%BF%E7%94%A8/11-%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BF%9D%E5%AD%98%E5%8A%A0%E8%BD%BD.html)

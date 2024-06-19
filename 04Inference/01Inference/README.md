@@ -10,12 +10,12 @@
 > 
 > 建议优先下载 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~
 
-| 大纲   | 小节           | 链接                                                                               |
-|:----:|:------------:|:--------------------------------------------------------------------------------:|
-| 推理系统 | 01 内容介绍      | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1J8411K7pj/) |
+| 大纲   | 小节   | 链接   |
+|:-:|:---:|:-----:|
+| 推理系统 | 01 内容介绍  | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1J8411K7pj/) |
 | 推理系统 | 02 什么是推理系统  | [文章](./02Constraints.md), [PPT](./02Constraints.pdf), [视频](https://www.bilibili.com/video/BV1nY4y1f7G5/)  |
-| 推理系统 | 03 推理流程全景    | [文章](./03Workflow.md), [PPT](./03Workflow.pdf), [视频](https://www.bilibili.com/video/BV1M24y1v7rK/)     |
-| 推理系统 | 04 推理系统架构    | [文章](./04System.md), [PPT](./04System.pdf), [视频](https://www.bilibili.com/video/BV1Gv4y1i7Tw/)       |
+| 推理系统 | 03 推理流程全景    | [文章](./03Workflow.md), [PPT](./03Workflow.pdf), [视频](https://www.bilibili.com/video/BV1M24y1v7rK/) |
+| 推理系统 | 04 推理系统架构    | [文章](./04System.md), [PPT](./04System.pdf), [视频](https://www.bilibili.com/video/BV1Gv4y1i7Tw/)   |
 | 推理系统 | 05 推理引擎架构 | [文章](./05Inference.md), [PPT1](./05Inference.pdf), [PPT2](./06Architecture.pdf), [视频 1](https://www.bilibili.com/video/BV1Mx4y137Er/), [视频 2](https://www.bilibili.com/video/BV1FG4y1C7Mn/)   |
 
 ## 备注
