@@ -18,10 +18,10 @@
 | 国内 AI 芯片 | 04 寒武纪 AI 芯片第一股 | [文章](./04Cambricon.md), [PPT](./04CambriconProduct.pdf), [视频](https://www.bilibili.com/video/BV1Y8411m7Cd)|
 | 国内 AI 芯片 | 05 寒武纪 AI 芯片架构剖析（上）| [PPT](./05CambriconArch.pdf), [视频](https://www.bilibili.com/video/BV1op4y157Qf)|
 | 国内 AI 芯片 | 06 寒武纪 AI 芯片架构剖析（下）| [PPT](./06CambriconArch.pdf), [视频](https://www.bilibili.com/video/BV1TV411j7Yx)|
-| 国内 AI 芯片 | 07 昇腾 AI 处理器 | [文章](), [PPT](), [视频]() |
-| 国内 AI 芯片 | 08 昇腾 AI 核心单元 | [文章](), [PPT](), [视频]() |
-| 国内 AI 芯片 | 09 昇腾 AI 算力集群 | [文章](), [PPT](), [视频]() |
-| 国内 AI 芯片 | 10 昇腾 AI 全栈架构 | [文章](), [PPT](), [视频]() |
+| 国内 AI 芯片 | 07 昇腾 AI 处理器 | [文章](./07AscendBase.md), [PPT](), [视频]() |
+| 国内 AI 芯片 | 08 昇腾 AI 核心单元 | [文章](./08AscendCube.md), [PPT](), [视频]() |
+| 国内 AI 芯片 | 09 昇腾 AI 算力集群 | [文章](./09AscendCluster.md), [PPT](), [视频]() |
+| 国内 AI 芯片 | 10 昇腾 AI 全栈架构 | [文章](./10AscendArch.md), [PPT](), [视频]() |
 
 ## 备注
 
