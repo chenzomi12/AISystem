@@ -84,6 +84,8 @@ Recomputation（重算）则是一种以计算能力为代价来节省存储空�
 
 主要的算法实现：
 
+![flashAttention 算法方式](images/03Extend08.png)
+
 步骤一：计算分子块的大小
 
 首先，我们需要获取 GPU 硬件 SRAM 的大小，我们假设为 M。为了让 Q、K、V 在计算中可以存放在 SRAM 中，我们需要设定分块的大小尺寸。
