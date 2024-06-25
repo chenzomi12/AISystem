@@ -93,6 +93,7 @@ Recomputation（重算）则是一种以计算能力为代价来节省存储空�
 其次，在 SRAM 上需要存在的数据包括，Q 子块，K 子块，V 子块，其次还应包括计算过程中的中间输出 O，O 的大小应该与 Q、K、V 子块大小一致。
 
 ![flashAttention 算法方式](images/03Extend05.png)
+1. Set block sizes B_c = [M / 4d], B_r = min([M / 4d],d)
 
 所以，在这里我们计算出子块的列大小 Bc =[M/4d]， d 为矩阵维度。当然，需要注意的是，上面的设置子块的大小并非唯一的，只有保证子块大小不超过SRAM的大小即可。
 
