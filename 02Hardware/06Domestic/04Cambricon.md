@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 寒武纪
+# 寒武纪介绍
 
 中科寒武纪科技股份有限公司成立于 2016 年 3 月 15 日，其名字 Cambricon 是由 Cambrian（寒武纪）和 Silicon（硅）组合成。企业使命是：为客户创造价值，成为持续创新的智能时代领导者，企业愿景是让机器更好地理解和服务人类。寒武纪提供云边端一体、软硬件协同、训练推理融合、具备统一生态的系列化智能芯片产品和平台化基础系统软件。下面我们将重点展开寒武纪产品背后的相关芯片架构和模块。
 
@@ -187,7 +187,9 @@ Cambricon PyTorch 借助 PyTorch 自身提供的设备扩展接口将 MLU 后端
 
 Cambricon TensorFlow 集成了寒武纪软件栈，扩展了社区 TensorFlow 对 MLU 设备的支持，同时屏蔽硬件的细节，允许用户使用原生 TensorFlow API 进行开发。用户在使用 Cambricon TensorFlow 进行开发、部署时，可以获得与使用 CPU、GPU 一致的体验。
 
-### DeepSpeed
+### 其他库
+
+1. DeepSpeed
 
 Cambricon DeepSpeed 是适配了 Cambricon PyTorch 的大规模分布式训练框架，位于寒武纪软件栈的 AI 框架和开源生态层。
 
@@ -197,11 +199,11 @@ Cambricon DeepSpeed 扩展了原生 DeepSpeed，支持使用 MLU 设备进行模
 - 适配了 Cambricon Lightning。
 - 使用 CNCL（Cambricon Communications Library，寒武纪通信库）进行多卡或者多机之间的通信。
 
-### CNCodec
+2. CNCodec
 
 CNCodec-V3（Cambricon Codec Library，寒武纪编解码库）是一个基于第三代寒武纪硬件视频编解码加速单元，并针对 MLU 加速卡特点进行优化的硬件编解码加速库。在继承第二代 CNCodec 设计基础上，CNCodec-V3 针对新的硬件特性，将视频编解码与图像编解码接口融合，为用户提供简洁、高效、通用、灵活并且可扩展的接口。
 
-### CNStream
+3. CNStream
 
 CNStream 是面向寒武纪开发平台的数据流处理 SDK，基于模块化和流水线的思想，提供了一套基于 C++11 的类和接口来支持流处理多路并发的 Pipeline 框架。用户可以根据 CNStream 提供的接口，开发自定义模块，并通过模块之间相互连接，实现自己的业务处理流程。CNStream 能够大大简化寒武纪人工智能平台提供的推理和其他处理，如视频解码、图像前处理的集成。也能够在兼顾灵活性的同时，充分发挥寒武纪硬件解码和人工智能算法的运算性能。
 
@@ -360,9 +362,11 @@ __mlu_global__ void MatmulKernel(float* dst/*C*/, int16_t* src0/*A*/, int8_t* sr
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=231283169&bvid=BV1Y8411m7Cd&cid=1207500944&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
+
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=956498914&bvid=BV1op4y157Qf&cid=1209962179&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
+
 <html>
 <iframe src="https://player.bilibili.com/player.html?aid=403940478&bvid=BV1TV411j7Yx&cid=1210634113&page=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
