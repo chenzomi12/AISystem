@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License]（https://github.com/chenzomi12/AISystem）版权许可-->
 
-# NPU 基础(DONE)
+# NPU 基础
 
 近年来，随着人工智能技术的飞速发展，AI 专用处理器如 NPU（Neural Processing Unit）和 TPU（Tensor Processing Unit）也应运而生。这些处理器旨在加速深度学习和机器学习任务，相比传统的 CPU 和 GPU，它们在处理 AI 任务时表现出更高的效率和性能。在接下来的内容中，我们将首先简单介绍引入什么是 AI 芯片，随后具体展开其的部署说明，技术发展路线和应用场景。
 

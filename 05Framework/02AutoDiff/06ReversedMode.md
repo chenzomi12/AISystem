@@ -1,6 +1,6 @@
 <!--适用于[License](https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
 
-# 动手实现 PyTroch 微分(DONE)
+# 动手实现 PyTroch 微分
 
 这里记录一下使用操作符重载（OO）编程方式的自动微分，其中数学实现模式则是使用反向模式（Reverse Mode），综合起来就叫做反向 OO 实现 AD 啦。
 
@@ -336,7 +336,7 @@ print("dy", dy)
 
 ## 小结与思考
 
-- 通过 Python 语言的操作符重载技术，展示了如何实现一个基础的反向自动微分（AD）机制，模仿了 PyTroch 等AI 框架中的自动微分系统。
+- 通过 Python 语言的操作符重载技术，展示了如何实现一个基础的反向自动微分（AD）机制，模仿了 PyTroch 等 AI 框架中的自动微分系统。
 
 - 实现中定义了 Variable 类来跟踪计算梯度，并通过 Tape 数据结构记录计算过程，最终通过反向传播计算出梯度，验证了反向操作符重载实现自动微分的基本原理和效果。
 

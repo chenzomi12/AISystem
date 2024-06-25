@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# GPU 工作原理(DONE)
+# GPU 工作原理
 
 前面的章节对 AI 计算体系和 AI 芯片基础进行讲解，在 AI 芯片基础中关于通用图形处理器 GPU 只是简单地讲解了主要概念，将从 GPU 硬件基础和英伟达 GPU 架构两个方面讲解 GPU 的工作原理。英伟达 GPU 有着很长的发展历史，整体架构从 Fermi 到 Blankwell 架构演变了非常多代，其中和 AI 特别相关的就有 Tensor Core 和 NVLink。
 

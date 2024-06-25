@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 低比特量化原理(DONE)
+# 低比特量化原理
 
 计算机里面数值有很多种表示方式，如浮点表示的 FP32、FP16，整数表示的 INT32、INT16、INT8，量化一般是将 FP32、FP16 降低为 INT8 甚至 INT4 等低比特表示。
 

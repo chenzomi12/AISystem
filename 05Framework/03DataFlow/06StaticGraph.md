@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 动态图与静态图转换(DONE)
+# 动态图与静态图转换
 
 从 TensorFlow、PyTorch，到 PaddlePaddle、MindSpore、MegEngine，主流的 AI 框架动静态图转换，经历了动静分离、动静结合到动静统一的发展过程。兼顾动态图易用性和静态图执行性能高效两方面优势，均具备动态图转静态图的功能，支持使用动态图编写代码，框架自动转换为静态图网络结构执行计算。
 

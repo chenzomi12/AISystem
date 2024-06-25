@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# GPU 架构回顾(DONE)
+# GPU 架构回顾
 
 1999 年，英伟达发明了 GPU（graphics processing unit），本节将介绍英伟达 GPU 从 Fermi 到 Blankwell 共 9 代架构，时间跨度从 2010 年至 2024 年，具体包括费米（Feimi）、开普勒（Kepler）、麦克斯韦（Maxwell）、帕斯卡（Pashcal）、伏特（Volt）、图灵（Turing）、安培（Ampere）和赫柏（Hopper）和布莱克韦尔（Blackwell）架构。经过 15 年的发展，CUDA 已成为英伟达的技术“护城河”，Tensor Core5.0，NVLink5.0，NVswitch4.0，Transformer Engine2.0 等技术迭代更新，正如英伟达公司官方宣传语所言：“人工智能计算领域的领导者，推动了 AI、HPC、游戏、创意设计、自动驾驶汽车和机器人开发领域的进步。”
 

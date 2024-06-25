@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# GPU 基础 (DONE)
+# GPU 基础 
 
 GPU 是 Graphics Processing Unit（图形处理器）的简称，它是计算机系统中负责处理图形和图像相关任务的核心组件。GPU 的发展历史可以追溯到对计算机图形处理需求的不断增长，以及对图像渲染速度和质量的不断追求。从最初的简单图形处理功能到如今的高性能计算和深度学习加速器，GPU 经历了一系列重要的技术突破和发展转折。
 

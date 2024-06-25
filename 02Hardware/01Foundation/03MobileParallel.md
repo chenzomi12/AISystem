@@ -1,6 +1,6 @@
 <!--Copyright ©  适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 计算模式（下）(DONE)
+# AI 计算模式（下）
 
 了解 AI 计算模式对 AI 芯片设计和优化方向至关重要。本节将会接着从轻量化网络模型和大模型分布式并行两个主题来深入了解 AI 算法的发展现状，引发关于 AI 计算模式的思考。
 
@@ -105,7 +105,7 @@ DDP 是一种分布式训练方法，它允许模型在多个计算节点上进�
 
 在 DDP 中，每个节点上的模型副本执行前向和后向传播计算，并计算梯度。然后，这些梯度在不同的节点之间进行通信和平均，以便所有节点都可以使用全局梯度来更新其本地模型参数。这种方法的优点是可以扩展到大量的节点，并且可以显著减少每个节点的内存需求，因为每个节点只需要存储整个模型的一个副本。
 
-DDP 通常与AI 框架（如 PyTorch）一起使用，这些框架提供了对 DDP 的内置支持。例如，在 PyTorch 中，`torch.nn.parallel.DistributedDataParallel` 模块提供了 DDP 实现，它可以自动处理模型和梯度的同步，以及分布式训练的通信。
+DDP 通常与 AI 框架（如 PyTorch）一起使用，这些框架提供了对 DDP 的内置支持。例如，在 PyTorch 中，`torch.nn.parallel.DistributedDataParallel` 模块提供了 DDP 实现，它可以自动处理模型和梯度的同步，以及分布式训练的通信。
 
 3. Fully Sharded Data Parallel, FSDP 全分片数据并行
 

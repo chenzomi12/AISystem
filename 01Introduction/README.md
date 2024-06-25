@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 课程概述(DONE)
+# 课程概述
 
 ## 课程简介
 

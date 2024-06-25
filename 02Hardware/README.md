@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 硬件体系架构概述(DONE)
+# AI 硬件体系架构概述
 
 AI 硬件体系架构主要是指 AI 芯片，这里就很硬核了，从芯片的基础到 AI 芯片的范围都会涉及，芯片设计需要考虑上面 AI 框架的前端、后端编译，而不是停留在天天喊着吊打英伟达，被现实打趴。
 

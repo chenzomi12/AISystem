@@ -2,7 +2,7 @@
 
 # ShuffleNet 系列
 
-本章节会介绍 ShuffleNet 系列，重点在于其模型结构的轻量化设计，涉及如何降低深度网络计算量，在本节中会着重会讲解逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算，而 V2 版本则会从设备运算速度方面考虑将网络进行轻量化。
+本节节会介绍 ShuffleNet 系列，重点在于其模型结构的轻量化设计，涉及如何降低深度网络计算量，在本节中会着重会讲解逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算，而 V2 版本则会从设备运算速度方面考虑将网络进行轻量化。
 
 ## ShuffleNet V1 模型
 
@@ -391,11 +391,11 @@ def shufflenet_v2_x0_5(num_classes=1000):
 
 ## 小结与思考
 
-- ShuffleNet系列网络专注于模型结构的轻量化设计，通过引入逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算，有效降低深度网络的计算量。
+- ShuffleNet 系列网络专注于模型结构的轻量化设计，通过引入逐点分组卷积(Pointwise Group Convolution)和通道混洗(Channel Shuffle)两种新的运算，有效降低深度网络的计算量。
 
-- ShuffleNet V1利用分组逐点卷积减少计算量，并通过通道重排来交换组间信息，保持模型的表征能力；V1版本在ImageNet分类任务上达到较低的top-1误差，并且在移动设备上实现了显著的加速。
+- ShuffleNet V1 利用分组逐点卷积减少计算量，并通过通道重排来交换组间信息，保持模型的表征能力；V1 版本在 ImageNet 分类任务上达到较低的 top-1 误差，并且在移动设备上实现了显著的加速。
 
-- ShuffleNet V2进一步考虑了设备运算速度，提出了4个轻量级网络设计原则，并通过通道分割(Channel Split)和改进的卷积block架构来最小化内存访问成本，提高网络在目标平台上的运行速度。
+- ShuffleNet V2 进一步考虑了设备运算速度，提出了 4 个轻量级网络设计原则，并通过通道分割(Channel Split)和改进的卷积 block 架构来最小化内存访问成本，提高网络在目标平台上的运行速度。
 
 ## 本节视频
 

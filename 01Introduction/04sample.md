@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 系统与程序代码关系(DONE)
+# AI 系统与程序代码关系
 
 模型算法的开发者一般会通过使用 AI 框架提供 Python 等高级语言的 API，来编写对应的人工智能程序，而人工智能程序的底层系统问题被当前层抽象隐藏。到底在每个代码部分具体底层发生了什么？有哪些有意思的系统设计问题？
 
@@ -241,7 +241,7 @@ for n in range(batch_size):
 [参考实例 cudnn-training](https://github.com/tbennun/cudnn-training/blob/master/lenet.cu)，需要~1000 行实现模型结构和内存管理等逻辑。
 
 ```C++
-// 内存分配，如果用AI 框架此步骤会省略
+// 内存分配，如果用 AI 框架此步骤会省略
 ...
 cudaMalloc(&d_data, sizeof(float) * context.m_batchSize * channels * height * width);
 cudaMalloc(&d_labels, sizeof(float) * context.m_batchSize * 1  * 1 * 1);
@@ -256,7 +256,7 @@ cudnnConvolutionForward(cudnnHandle, &alpha, dataTensor,
                         conv1Tensor, conv1);
 ...
 
-// 反向传播第一个卷积算子（仍需要写其他算子），如果用AI 框架此步骤会省略
+// 反向传播第一个卷积算子（仍需要写其他算子），如果用 AI 框架此步骤会省略
 cudnnConvolutionBackwardBias(cudnnHandle, &alpha, conv1Tensor,
                              dpool1, &beta, conv1BiasTensor, gconv1bias);
 
@@ -265,13 +265,13 @@ cudnnConvolutionBackwardFilter(cudnnHandle, &alpha, dataTensor,
                                conv1bwfalgo, workspace, m_workspaceSize, 
                                &beta, conv1filterDesc, gconv1));
 
-// 第一个卷积权重梯度更新（仍需要写其他算子），如果用AI 框架此步骤会省略
+// 第一个卷积权重梯度更新（仍需要写其他算子），如果用 AI 框架此步骤会省略
 cublasSaxpy(cublasHandle, static_cast<int>(conv1.pconv.size()),
             &alpha, gconv1, 1, pconv1, 1);
 cublasSaxpy(cublasHandle, static_cast<int>(conv1.pbias.size()),
             &alpha, gconv1bias, 1, pconv1bias, 1);
 
-// 内存释放，如果用AI 框架此步骤会省略
+// 内存释放，如果用 AI 框架此步骤会省略
 ...
 cudaFree(d_data);
 cudaFree(d_labels);

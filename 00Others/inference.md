@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 参考链接(DONE)
+# 参考链接
 
 参考链接（Reference）介绍了 AI 系统相关的链接。
 
@@ -114,7 +114,7 @@
 6. [简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
 1. https://learning.acm.org/techtalks/computerarchitecture
 2. https://segmentfault.com/a/1190000041739045
-[^1]: [Roofline Model 与深度学习模型的性能分析 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/34204282)
+[^1]: [Roofline Model 与神经网络模型的性能分析 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/34204282)
 [^2]: [谈谈对 OpenAI Triton 的一些理解 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/613244988)
 
 [^1]:刘松，卫国，博，.面向局部性和并行优化的循环分块技术[J].计算机研究与发展, 2015, 52(005):1160-1176.DOI:10.7544/issn1000-1239.2015.20131387.
@@ -680,13 +680,13 @@ learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
 1. [深入浅出：AI 框架与计算图的关系](https://developer.baidu.com/article/details/3129186)
 2. [4.1. 计算图的设计背景和作用](https://openmlsys.github.io/chapter_computational_graph/background_and_functionality.html#id1)
 3. [【AI】推理系统和推理引擎的整体架构](https://blog.csdn.net/weixin_45651194/article/details/132872588)
-4. [谈谈AI 框架的数据排布](https://zhuanlan.zhihu.com/p/149464086)
+4. [谈谈 AI 框架的数据排布](https://zhuanlan.zhihu.com/p/149464086)
 5. [从零构建 AI 推理引擎系列](https://github.com/lucasjinreal/AI-Infer-Engine-From-Zero)
 6. [一篇就够：高性能推理引擎理论与实践 (TensorRT)](https://developer.aliyun.com/article/995926)
 7. [序列化之 FlatBuffers](https://harmonyhu.com/2018/08/11/flatbuffers/)
 
 1. [【AI】推理引擎的模型转换模块](https://blog.csdn.net/weixin_45651194/article/details/132921090)
-2. [深度学习模型转换](https://blog.csdn.net/jasonaidm/article/details/90522615)
+2. [神经网络模型转换](https://blog.csdn.net/jasonaidm/article/details/90522615)
 3. [deep-learning-model-convertor](https://github.com/ysh329/deep-learning-model-convertor)
 4. [hb_mapper_tools_guide](https://developer.horizon.ai/api/v1/fileData/doc/ddk_doc/navigation/ai_toolchain/docs_cn/hb_mapper_tools_guide/01_model_conversion_details.html)
 5. [模型转换：由 Pytorch 到 TFlite](https://zhuanlan.zhihu.com/p/363317178)

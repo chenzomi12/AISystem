@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# CPU 基础 (DONE)
+# CPU 基础 
 
 CPU 是 Central Processing Unit（中央处理器）的简称，它负责执行指令和计算，控制着计算机的所有组件。CPU 从无到有，从弱小到强大，经历了漫长发展过程，其间发生了无数的故事。
 

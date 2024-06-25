@@ -1,6 +1,6 @@
 <!--Copyright ©  适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Kernel 层架构(DONE)
+# Kernel 层架构
 
 推理引擎的 Kernel 层通常是推理引擎中用于执行底层数学运算的组件。在神经网络模型推理过程中，需要对大量数据进行高效的数学运算，如矩阵乘法、卷积、池化等。Kernel 层就是实现这些运算的核心部分，它直接影响着推理引擎的速度和效率，因此本节将会重点介绍 Kernel 层相关的内容。
 

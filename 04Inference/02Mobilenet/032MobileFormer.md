@@ -211,11 +211,11 @@ class MobileFormerBlock(nn.Module):
 
 ## 小结与思考
 
-- MobileFormer 通过并行的MobileNet和Transformer结构以及双线桥技术，实现了局部和全局特征的有效融合。
+- MobileFormer 通过并行的 MobileNet 和 Transformer 结构以及双线桥技术，实现了局部和全局特征的有效融合。
 
 - MobileFormer 网络利用轻量级的交叉注意力机制，显著降低了计算成本，同时保持了高效的特征表达能力。
 
-- MobileFormer 提供了多种模型变体，适应不同计算需求，最高可达508M FLOPs，为移动和边缘设备上的高效视觉任务提供了灵活的解决方案。
+- MobileFormer 提供了多种模型变体，适应不同计算需求，最高可达 508M FLOPs，为移动和边缘设备上的高效视觉任务提供了灵活的解决方案。
 
 ## 本节视频
 

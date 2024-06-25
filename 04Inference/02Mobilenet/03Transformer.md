@@ -2,7 +2,7 @@
 
 # Transformer 小型化
 
-本节将介绍xxxx
+本节将介绍 xxxx
 
 ## 小结与思考
 

@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 布局转换算法(DONE)
+# 布局转换算法
 
 接着上节中我们对卷积神经网络的特征图存储方式的讨论。 NHWC 的数据排布方式更适合多核 CPU 运算， NCHW 的数据排布方式更适合 GPU 并行运算。那么接下来让我们了解一下在华为昇腾的 NPU 中，这种特征图的存储方式。
 

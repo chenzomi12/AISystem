@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Tensor Core 基本原理(DONE)
+# Tensor Core 基本原理
 
 在英伟达的通用 GPU 架构中，主要存在三种核心类型：CUDA Core、Tensor Core 以及 RT Core。其中，Tensor Core 扮演着极其关键的角色。
 

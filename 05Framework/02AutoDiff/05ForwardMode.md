@@ -1,6 +1,6 @@
 <!--适用于[License](https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
 
-# 动手实现自动微分(DONE)
+# 动手实现自动微分
 
 在这节内容，会介绍是怎么实现自动微分的，因为代码量非常小，也许你也可以写一个玩玩。前面的章节当中，已经把自动微分的原理深入浅出的讲了一下，也引用了非常多的论文。有兴趣的可以顺着综述 A survey 这篇深扒一下。
 
@@ -189,7 +189,7 @@ print(grad[0])
 
 - 介绍了前向自动微分（Forward Automatic Differentiation, FAD）的实现原理和过程，通过 Python 语言的操作符重载技术，创建了 ADTangent 类来自动计算导数，并通过实例代码演示了如何使用该类来计算给定函数的导数。
 
-- 通过具体的 Python 代码示例，展示了如何利用 ADTangent 类进行操作符重载，实现正向自动微分，并与 PyTorch 和 MindSpore 等AI 框架的自动微分结果进行了对比，验证了实现的正确性。
+- 通过具体的 Python 代码示例，展示了如何利用 ADTangent 类进行操作符重载，实现正向自动微分，并与 PyTorch 和 MindSpore 等 AI 框架的自动微分结果进行了对比，验证了实现的正确性。
 
 ## 本节视频
 

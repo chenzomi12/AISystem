@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 国内 AI 芯片(DONE)
+# 国内 AI 芯片
 
 - 《国内 AI 芯片》深入地解读国内 AI 初创芯片厂商如国内第一 AI 芯片上市公司寒武纪、国内造 GPU 声势最大的壁仞科技、腾讯重头的燧原科技等科技公司的 AI 芯片架构。
 

@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 算子融合(DONE)
+# 算子融合
 
 近年来，人们对优化神经网络模型的执行一直非常重视。算子融合是一种常见的提高神经网络模型执行效率的方法。这种融合的基本思想与优化编译器所做的传统循环融合相同，它们会带来：1）消除不必要的中间结果实例化，2）减少不必要的输入扫描；3）实现其他优化机会。下面让我们正式走进算子融合。
 
@@ -67,7 +67,7 @@ if __name__ == "__main__":
 	conv2_output = F.conv2d(input, conv2_weight, bias=conv2_bias, stride=1, padding=0)
 	print('conv2_output: ', conv2_output)
 
-	# ============================== kernel fusion ============================== #
+	# kernel fusion
 	# 将 conv2 的卷积核权重由(1, 1)扩展到(3, 3)
 	weight_expanded = F.interpolate(conv2_weight, size=(3, 3), mode='bilinear', align_corners=False)
 	# conv1 卷积核与 conv2 卷积核融合
@@ -229,7 +229,9 @@ TVM 提供了 4 种融合规则，具体如下：
 ## 小结与思考
 
 1. 算子的融合方式有横向融合和纵向融合，但根据 AI 模型结构和算子的排列，可以衍生出更多不同的融合方式；
+
 2. 通过 Conv-BN-ReLU 算子融合例子，了解到如何对算子进行融合和融合后的计算，可以减少对于对访存的压力；
+
 3. 在编译器中，一般融合规则都是通过 Pass 来承载，不同的 Pass 处理不同的融合规则，而融合规则主要是人工定义好。
 
 ## 本节视频

@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 图形处理器 GPU(DONE)
+# 图形处理器 GPU
 
 - 《图形处理器 GPU》深入地讲解 GPU 的工作原理，其最重要的指标是 GPU 计算吞吐、存储和传输带宽，并对英伟达的 GPU 的十年 5 代不断演进的硬件架构进行梳理。
 

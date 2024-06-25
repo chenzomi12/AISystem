@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# GCC 主要特征(DONE)
+# GCC 主要特征
 
 GCC（GNU Compiler Collection，GNU 编译器集合）最初是作为 GNU 操作系统的编译器编写的，旨在为 GNU/Linux 系统开发一个高效的 C 编译器。其历史可以追溯到 1987 年，当时由理查德·斯托曼（Richard Stallman）创建，作为 GNU 课程的一部分。
 

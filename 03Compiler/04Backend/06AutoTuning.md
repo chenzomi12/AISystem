@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Auto-Tuning 原理(DONE)
+# Auto-Tuning 原理
 
 在硬件平台驱动算子运行需要使用各种优化方式来提高性能，然而传统的手工编写算子库面临各种窘境，衍生出了自动生成高性能算子的的方式，称为自动调优。在本节我们首先分析传统算子库面临的挑战，之后介绍基于 TVM 的业界领先的三个自动调优系统。
 

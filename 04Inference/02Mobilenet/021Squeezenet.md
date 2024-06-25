@@ -1,6 +1,6 @@
 <!--Copyright © XcodeHw 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# SqueezeNet 系列(DONE)
+# SqueezeNet 系列
 
 本节将介绍 SqueezeNet 系列网络，在轻量化模型这个范畴中，Squeezenet 是最早的研究。主要针对了一些组件进行轻量化。与以往的网络都只讲网络如何设计不同。SqueezeNext 则从硬件角度分析如何加速，从而更全面地了解网络结构的设计。
 
@@ -242,11 +242,11 @@ class SQUEEZENEXT(nn.Module):
 
 ## 小结与思考
 
-- SqueezeNet系列网络专注于轻量化设计，其中SqueezeNet通过Fire Module实现参数量的显著减少，而SqueezeNext进一步从硬件角度优化网络结构以加速模型运行。
+- SqueezeNet 系列网络专注于轻量化设计，其中 SqueezeNet 通过 Fire Module 实现参数量的显著减少，而 SqueezeNext 进一步从硬件角度优化网络结构以加速模型运行。
 
-- SqueezeNet的Fire Module由Squeeze层和Expand层组成，通过1x1卷积和3x3卷积的结合，以及特定的通道数分配策略，有效减少参数量同时保持精度。
+- SqueezeNet 的 Fire Module 由 Squeeze 层和 Expand 层组成，通过 1x1 卷积和 3x3 卷积的结合，以及特定的通道数分配策略，有效减少参数量同时保持精度。
 
-- SqueezeNext模型通过引入Bottle模块、两阶段Bottleneck设计和低秩过滤器等技术，进一步减少参数量和计算量，同时保持或提升模型精度，适应资源受限的嵌入式设备部署。
+- SqueezeNext 模型通过引入 Bottle 模块、两阶段 Bottleneck 设计和低秩过滤器等技术，进一步减少参数量和计算量，同时保持或提升模型精度，适应资源受限的嵌入式设备部署。
 
 ## 本节视频
 

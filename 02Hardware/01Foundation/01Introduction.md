@@ -1,6 +1,6 @@
 <!--Copyright ©  适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 课程内容(DONE)
+# 课程内容
 
 在整个 AI 系统的构建中，AI 算法、AI 框架、AI 编译器、AI 推理引擎等都是软件层面的概念，而 AI 芯片则是物理存在的实体，AI 芯片是所有内容的重要基础。
 

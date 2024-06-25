@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 代数简化(DONE)
+# 代数简化
 
 代数简化（Algebraic Reduced）是一种从数学上来指导我们优化计算图的方法。其目的是利用交换率、结合律等规律调整图中算子的**执行顺序**，或者删除不必要的算子，以提高图整体的计算效率。
 
