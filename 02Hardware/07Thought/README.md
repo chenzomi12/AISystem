@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 芯片黄金十年(DONE)
+# AI 芯片黄金十年
 
 基于 AI 芯片的 SIMD 硬件结构和 SIMT 的硬件结构原理，分析其上层的编程模型 SPMD 与 CUDA 之间的关系，去了解做好 AI 芯片其实跟软件的关联性也有着密切的关系，并对 AI 芯片近 10 年的发展进行一个总结和思考。
 

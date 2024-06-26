@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Tensor Core 架构演进(DONE)
+# Tensor Core 架构演进
 
 自 Volta 架构时代起，英伟达的 GPU 架构已经明显地转向深度学习领域的优化和创新。2017 年，Volta 架构横空出世，其中引入的张量核心（Tensor Core）设计可谓划时代之作，这一设计专门针对深度学习计算进行了优化，通过执行融合乘法加法操作，大幅提升了计算效率。与前一代 Pascal 架构相比，Volta 架构在深度学习训练和推理方面的性能提升了 3 倍，这一飞跃性进步为深度学习的发展提供了强大的硬件支持。
 

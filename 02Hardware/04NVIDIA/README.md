@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 英伟达 GPU 详解(DONE)
+# 英伟达 GPU 详解
 
 - 《英伟达 GPU 原理》英伟达架构里面专门为 AI 而生的 Tensor Core 和 NVLink 对 AI 加速尤为重要，因此重点对 Tensor Core 和 NVLink 进行深入剖析其发展、演进和架构。
 

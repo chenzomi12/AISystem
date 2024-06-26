@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# NV Switch 深度解析(DONE)
+# NV Switch 深度解析
 
 在当今的高性能计算领域，英伟达的 GPU 技术无疑是一颗璀璨的明星。随着人工智能和机器学习技术的飞速发展，对于计算能力的需求日益增长，GPU 之间的互联互通变得尤为重要。在这样的背景下，英伟达推出了 NVLink 协议，以及基于此技术的多 GPU 互联解决方案——NV Switch。
 

@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 算子融合(DONE)
+# 算子融合
 
 近年来，人们对优化神经网络模型的执行一直非常重视。算子融合是一种常见的提高神经网络模型执行效率的方法。这种融合的基本思想与优化编译器所做的传统循环融合相同，它们会带来：1）消除不必要的中间结果实例化，2）减少不必要的输入扫描；3）实现其他优化机会。下面让我们正式走进算子融合。
 
@@ -18,7 +18,6 @@
 为什么要算子融合呢？这样有什么好处呢？ 融合算子出现主要解决模型训练过程中的读入数据量，同时，减少中间结果的写回操作，降低访存操作。它主要想解决我们遇到的内存墙和并行强墙问题：
 
 - **内存墙**：主要是访存瓶颈引起。算子融合主要通过对计算图上存在数据依赖的“生产者-消费者”算子进行融合，从而提升中间 Tensor 数据的访存局部性，以此来解决内存墙问题。这种融合技术也统称为“Buffer 融合”。在很长一段时间，Buffer 融合一直是算子融合的主流技术。早期的 AI 框架，主要通过手工方式实现固定 Pattern 的 Buffer 融合。
-  
 - **并行墙**：主要是由于芯片多核增加与单算子多核并行度不匹配引起。可以将计算图中的算子节点进行并行编排，从而提升整体计算并行度。特别是对于网络中存在可并行的分支节点，这种方式可以获得较好的并行加速效果。
 
 算子的融合方式非常多，我们首先可以观察几个简单的例子，不同的算子融合有着不同的算子开销，也有着不同的内存访问效率提升。
@@ -67,7 +66,7 @@ if __name__ == "__main__":
 	conv2_output = F.conv2d(input, conv2_weight, bias=conv2_bias, stride=1, padding=0)
 	print('conv2_output: ', conv2_output)
 
-	# ============================== kernel fusion ============================== #
+	# kernel fusion
 	# 将 conv2 的卷积核权重由(1, 1)扩展到(3, 3)
 	weight_expanded = F.interpolate(conv2_weight, size=(3, 3), mode='bilinear', align_corners=False)
 	# conv1 卷积核与 conv2 卷积核融合
@@ -80,9 +79,10 @@ if __name__ == "__main__":
 ```
 
 最后我们给一个更具体的算子融合，读者可自行验证。
-========= 需要用文字解释一下下面的图例。
 
 ![融合方式 example](images/03OPFusion06.png)
+
+如图所示，首先我们可以利用横向融合的思想，将一个3×3×256的卷积算子和一个1×1×256的卷积算子通过Enlarge方法将后者扩成3×3×256的卷积算子，然后融合成一个3×3×512的卷积算子；接着我们可以利用纵向融合的思想，将Split，卷积，Add融合成一个卷积算子，减少Kernel调度；最后，一般激活ReLU都可以和前一个计算步骤融合，于是最后融合得到一个Cov2d_ReLU算子。于是我们从一个比较复杂的计算图，最终得到了一个比较简洁的计算图，减少了Kernel调度，实现了“少就是多”。
 
 总而言之，为了提高效率，我们可以通过消除不必要的中间结果实例化、 减少不必要的输入扫描、 发现其他优化机会等方法来指导我们实现算子融合。
 
@@ -94,7 +94,35 @@ Batch-Normalization (BN)是一种让神经网络训练更快、更稳定的方�
 
 ### BN 计算流程
 
-====== 先给出 BN 的计算公式，
+BN 的计算公式
+
+计算均值：
+
+$$
+\mu_B = \frac{1}{m} \sum_{i=1}^{m} x_i
+$$
+
+计算方差：
+
+$$
+\sigma_B^2 = \frac{1}{m} \sum_{i=1}^{m} (x_i - \mu_B)^2
+$$
+
+归一化：
+
+$$
+\hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}
+$$
+
+   其中，$\epsilon$ 是一个很小的正数，用于避免除以零。
+
+线性变换：
+
+$$
+y_i = \gamma \hat{x}_i + \beta
+$$
+
+其中，$\gamma$ 和 $\beta$ 是可学习的缩放参数和偏移参数。
 
 在 BN 前向计算过程中，首先求输入数据的均值 $\mu$ 与方差 $\sigma^{2}$，然后使用 $\mu$、$\sigma^{2}$ 对每个输入数据进行归一化及缩放操作。其中，$\mu$、$\sigma^{2}$ 依赖于输入数据；归一化及缩放计算的输入则依赖于输入数据、均值、方差以及两个超参数。下图为前向计算过程中 BN 的数据依赖关系：
 
@@ -143,35 +171,34 @@ y = \gamma\frac{{\left( {z - mean} \right)}}{{\sqrt {\operatorname{var} } }} + \
 $$
 
 - ReLU 计算：
-  
+
   $$
   y=max(0,y)
   $$
-  
 - 融合卷积、BN 与 ReLU 的运算：
 
   将卷积计算公式带入到 BN 计算公式中，可得到下式：
-  
+
   $$
   y = \gamma\frac{{\left( {(w*x+b) - mean} \right)}}{{\sqrt {\operatorname{var} } }} + \beta
   $$
-  
+
   展开后可得到：
-  
+
   $$
   y =\gamma\frac{w}{{\sqrt {\operatorname{var}}}}*x+\gamma\frac{{\left( {b - mean} \right)}}{{\sqrt {\operatorname{var} } }}  + \beta
   $$
-  
+
   也即将卷积与 BN 融合后的新权重 $w'$ 与 $b'$，可表示为如下所示：
-  
+
   $$
   \begin{gathered}
     w' = \gamma\frac{w}{{\sqrt {\operatorname{var} } }}  \hfill \\
     b' = \gamma\frac{{\left( {b - mean} \right)}}{{\sqrt {\operatorname{var} } }}  + \beta \end{gathered}
   $$
-  
+
   最后，将卷积、BN 与 ReLU 融合，可得到如下表达式：
-  
+
   $$
   \hfill \\
     y=max(0,w'*x+b') \hfill \\
@@ -222,14 +249,16 @@ TVM 提供了 4 种融合规则，具体如下：
 - injective(one-to-one map)：映射函数，比如加法，点乘等。
 - reduction：约简，如 sum/max/min，输入到输出具有降维性质，如 sum/max/min。
 - complex-out-fusable(can fuse element-wise map to output)：计算复杂类型的融合，如 conv2d。
-- opaque(cannot be fused) ：无法被融合的算子，如 sort。
+- opaque(cannot be fused)：无法被融合的算子，如 sort。
 
 ![TVM 示意图](images/03OPFusion12.png)
 
 ## 小结与思考
 
 1. 算子的融合方式有横向融合和纵向融合，但根据 AI 模型结构和算子的排列，可以衍生出更多不同的融合方式；
+
 2. 通过 Conv-BN-ReLU 算子融合例子，了解到如何对算子进行融合和融合后的计算，可以减少对于对访存的压力；
+
 3. 在编译器中，一般融合规则都是通过 Pass 来承载，不同的 Pass 处理不同的融合规则，而融合规则主要是人工定义好。
 
 ## 本节视频

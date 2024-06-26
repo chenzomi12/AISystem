@@ -1,6 +1,6 @@
 <!--Copyright ©  适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Winograd 算法(DONE)
+# Winograd 算法
 
 在上一节的介绍中，介绍了 Im2Col 技术，它通过将三维张量重新排列成矩阵形式，然后利用基于内存访问局部性的优化库如 GEMM（通用矩阵乘法库）加速计算。随后，还探讨了空间组合优化，这一种利用局部性原理来提升效率的技术。
 
@@ -45,7 +45,7 @@ $$
 
 具体的过程可以由下图了解到，在卷积的计算过程中，由于在卷积层的设计中，往往卷积的步幅（Stride）的大小会小于卷积核的大小，所以最后转换的矩阵乘中往往有规律的分布着大量重复元素，比如这个一维卷积例子中矩阵乘输入矩阵第一行的 $d_1$、$d_2$ 和第二行中的 $d_1$、$d_2$，卷积转换成的矩阵乘法比一般矩阵乘法的问题域更小，这就让优化存在了可能。
 
-![Winograd01](images/04.Winograd01.png "Winograd01")
+![Winograd01](images/04.winograd01.png "Winograd01")
 
 在 Winograd 算法中则是通过增加加法操作来减少乘法操作从而实现计算加速，具体操作如下式所示：
 
@@ -217,7 +217,7 @@ $$
 
 然后，将上述的矩阵乘的形式进行如下图的分块：
 
-![Winograd02](images/04.Winograd02.png "Winograd02")
+![Winograd02](images/04.winograd02.png "Winograd02")
 
 即可以表示成如下类似于前文中 Winograd 加速一维卷积计算形式：
 
@@ -252,23 +252,23 @@ $$
 
 Winograd 算法的工作流程可以用以下图示来说明：
 
-![Winograd03](images/04.Winograd03.png "Winograd03")
+![Winograd03](images/04.winograd03.png "Winograd03")
 
 以上文中 Winograd 加速二维卷积 $F(2 \times 2, 3 \times 3)$ 的计算为例子，可以具体了解 Winograd 的实现过程。
 
 如下图所示，在输入卷积核的转换过程中，首先通过 Winograd 算法中的卷积核变换矩阵 $G$ 和 $G^T$ 分别将 $3 \times 3$ 的卷积核权重转换为 $4 \times 4$ 的矩阵。然后，将该矩阵中相同位置的点（如下图中蓝色为位置 1 的点）进行重新排布（Relayout），形成一个输入通道数 $IC \times$ 输出通道数 $ OC$ 的矩阵，这一过程最终产生了 $4 \times 4 = 16$ 个转换后的卷积核权重矩阵 $U$。
 
-![Winograd04](images/04.Winograd04.png "Winograd04")
+![Winograd04](images/04.winograd04.png "Winograd04")
 
 如下图所示，在输入数据的转换过程中，首先将输入数据切分成 $4 \times 4$ 的小块（tile）。接着，通过 Winograd 算法中输入数据的变换矩阵 $B$ 和 $B^T$ 将每个小块转换为 $4 \times 4$ 的矩阵形式。完成矩阵转换后，每个小块的数据按照与卷积核转换过程中类似的重新排布方法，转换成 16 个维度是小块数 $nr\ tiles \times$ 输入通道数 $IC$ 的输入数据矩阵 $V$。
 
-![Winograd05](images/04.Winograd05.png "Winograd05")
+![Winograd05](images/04.winograd05.png "Winograd05")
 
 如下图所示，将上述转换得到的卷积核权重矩阵 $U$ 与输入数据矩阵 $V$ 进行矩阵乘的操作，得到 16 个维度为小块数 $nr\ tiles \times$ 输出通道数 $OC$ 的中间矩阵 $M$。
 
 随后，将相同位置的 16 个点重新排布成 $nr\ tiles \times OC$  个维度为 $4 \times 4$ 的矩阵。然后再使用 Winograd 算法中的输出变换矩阵 $A$ 和 $A^T$ 将这些 $4 \times 4$ 的矩阵转换为 $2 \times 2$ 的输出矩阵，最后将这些矩阵写回输出矩阵中就可以得到 Winograd 卷积的最终结果 $Y$。
 
-![Winograd06](images/04.Winograd06.png "Winograd06")
+![Winograd06](images/04.winograd06.png "Winograd06")
 
 ## 算法约束与缺点
 

@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# GPU 架构与 CUDA 关系(DONE)
+# GPU 架构与 CUDA 关系
 
 本节会讲解英伟达 GPU 硬件的基础概念，其次会讲解 CUDA（Compute Unified Device Architecture）并行计算平台和编程模型，详细讲解 CUDA 线程层次结构，最后将讲解 GPU 的算力是如何计算的，这将有助于计算大模型的算力峰值和算力利用率。
 

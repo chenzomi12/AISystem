@@ -1,6 +1,6 @@
 <!--Copyright ©  适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 卷积操作原理(DONE)
+# 卷积操作原理
 
 卷积是神经网络里面的核心计算之一，它是一种特殊的线性运算。而卷积神经网络（CNN）是针对图像领域任务提出的神经网络，其受猫的视觉系统启发，堆叠使用卷积层和池化层提取特征。它在 CV 领域方面的突破性进展引领了深度学习的热潮。
 
@@ -220,9 +220,6 @@ $$
 $$
 F_{out}^{w}=\left[\frac{F_{in_w}-k_{w}+2 p_{w} }s\right]+1
 $$
-
-![卷积乘加过程](images/02Conv10.png) 
-=============== ZOMI 加一个 Padding 的图
 
 2. **步长（Stride）**：步长是指卷积核在每一次卷积操作中滑动的距离。步长的大小可以影响输出数据的大小，也可以影响特征提取能力和计算复杂度。当步长增大时，输出数据的尺寸会减小，特征提取能力会变弱，但计算速度会加快。
 
@@ -487,8 +484,6 @@ for (int oh = 0; oh < OH; oh++) {
 - 张量运算和内存布局（如 NHWC 与 NCHW）对卷积性能有显著影响，是实现高效卷积计算的关键策略。
 
 ## 本节视频
-
-=========== TODO ZOMI
 
 <html>
 <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=395040992&bvid=BV1No4y1e7KX&cid=1027996262&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

@@ -7,7 +7,7 @@
 > *建议优先下载或者使用 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~*
 
 | 编号  | 名称    | 名称                | 备注                                                                                       |
-| --- | ----- | ----------------- | ---------------------------------------------------------------------------------------- |
+| --- | -- | -- | ------- |
 |     | 分布式算法 | 06 大模型训练的挑战       | [PPT](./01Challenge.pdf), [视频](https://www.bilibili.com/video/BV1Y14y1576A/)      |
 |     | 分布式算法 | 07 算法：大模型算法结构     | [PPT](./02AlgorithmArch.pdf), [视频](https://www.bilibili.com/video/BV1Mt4y1M7SE/) |
 |     | 分布式算法 | 08 算法：亿级规模 SOTA 大模型 | [PPT](./03AlgorithmSota.pdf), [视频](https://www.bilibili.com/video/BV1em4y1F7ay/) |

@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# CUDA 编程模式(DONE)
+# CUDA 编程模式
 
 前面的小节对 AI 芯片 SIMD 和 SIMT 计算本质进行了分析，结合英伟达 CUDA 实现对 SIMD 和 SIMT 进行了对比，本节将以英伟达 GPU 为例，讲解 GPU 的编程模型。
 
@@ -90,11 +90,11 @@ AMD 的显卡也是有大量的计算单元和计算核心，为什么没有 SIM
 
 ## 小结与思考
 
-- NVIDIA CUDA允许开发者以更通用的方式编程GPU，利用GPU的SIMT执行模式来提高计算性能和灵活性。
+- NVIDIA CUDA 允许开发者以更通用的方式编程 GPU，利用 GPU 的 SIMT 执行模式来提高计算性能和灵活性。
 
-- SIMD适合向量化指令执行，而SIMT通过线程动态分组（Warp）执行相同指令，提高了并行度和硬件的灵活性。
+- SIMD 适合向量化指令执行，而 SIMT 通过线程动态分组（Warp）执行相同指令，提高了并行度和硬件的灵活性。
 
-- AMD通过ROCm平台支持类似CUDA的编程体验，而英伟达的Hopper架构通过大量流式多处理器（SM）和CUDA核心实现并行计算。
+- AMD 通过 ROCm 平台支持类似 CUDA 的编程体验，而英伟达的 Hopper 架构通过大量流式多处理器（SM）和 CUDA 核心实现并行计算。
 
 ## 本节视频
 

@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 书写规范(DONE)
+# 书写规范
 
 书写规范（Writing Conventions）给出了包含文档内的书写约定。请作者与贡献者参考以下约定检查格式，内容一致性与正确性。
 
@@ -76,7 +76,7 @@ Http 链接不直接暴露。放于语法[文字](https://github.com/chenzomi12/
 5. 图片要有对应格式解释。
 6. 图片文字尽量汉化。
 
-### 代码
+
 
 1. 代码放于 \``` \```中。
    
@@ -98,7 +98,7 @@ python train.py --batch_size=256  --model_name=resnet50
    <center>表 1.2.1 不同图像分类问题数据集的数据量</center>
 
 | MNIST | ImageNet | Web Images |
-| ----- | -------- | ---------- |
+| -- | -- | - |
 | 6 万样本  | 1600 万样本  | 10 亿量级图像样本  |
 | 10 分类  | 1000 分类   | 开放分类       |
 
@@ -184,5 +184,5 @@ $$
 2. 追加到术语表.md
 
 | 英文         | 中文  | 缩写  | 首次提交人 |
-| ---------- | --- | --- | ----- |
+| - | --- | --- | -- |
 | Deployment | 部署  |     | xx    |
