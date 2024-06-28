@@ -14,7 +14,7 @@ AI 硬件体系架构：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu)
 
 AI 编译原理：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12), [@史家兴](), [@宋一帆](https://github.com/sfs999), [@韩昊知](https://github.com/haozhihan), [@李行](), [@武震卿](), [@张浩](), [@陈庚天](), 
 
-推理引擎系列：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12), [高鑫淼](), [何伟](), [刘旭斌](), [杨璇](), [徐宏博](), [栾少](), [谢迎](), [刘欣楠](), [李行](), [江典恒]()
+推理引擎系列：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12), [高鑫淼](), [何伟](), [刘旭斌](), [杨璇](https://github.com/CSXuanYang), [徐宏博](), [栾少](), [谢迎](), [刘欣楠](), [李行](), [江典恒]()
 
 AI 框架：[苏统华教授](https://homepage.hit.edu.cn/tonghuasu), [ZOMI 酱](https://github.com/chenzomi12), [金傲群](https://github.com/AoqunJin)
 
