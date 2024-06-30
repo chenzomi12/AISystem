@@ -39,9 +39,7 @@
 
 15. [Martín Abadi, Paul Barham, Jianmin Chen, Zhifeng Chen, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Geoffrey Irving, Michael Isard, Manjunath Kudlur, Josh Levenberg, Rajat Monga, Sherry Moore, Derek G. Murray, Benoit Steiner, Paul Tucker, Vijay Vasudevan, Pete Warden, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. 2016. TensorFlow: a system for large-scale machine learning. In Proceedings of the 12th USENIX conference on Operating Systems Design and Implementation (OSDI'16). USENIX Association, USA, 265–283.](https://dl.acm.org/doi/10.5555/3026877.3026899)
 
-
-
-##  二. AI 硬件体系结构
+## 二. AI 硬件体系结构
 
 1. https://www.knime.com/blog/a-friendly-introduction-to-deep-neural-networks
 2. https://machine-learning.paperspace.com/wiki/activation-function
@@ -88,8 +86,24 @@
 
 [2] "TPU 演进十年：谷歌的十大经验教训" 知乎, [https://zhuanlan.zhihu.com/p/573794328]
 
-
 ## 三. AI 编译器
+
+1. https://llvm.org/docs/Passes.html
+2. https://getting-started-with-llvm-core-libraries-zh-cn.readthedocs.io/zh-cn/latest/ch04.html
+
+1. https://zh.wikipedia.org/wiki/三位址碼
+2. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_quick_primer.html
+3. https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
+4. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/llvm_ir_ssa.html
+5. https://buaa-se-compiling.github.io/miniSysY-tutorial/pre/design_hints.html
+6. [简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
+1. https://www.youtube.com/watch?v=4HgShra-KnY
+2. https://www.modular.com
+3. https://scottamain.github.io/xla
+4. https://jax.readthedocs.io
+5. https://www.TensorFlow.org
+6. https://tvm.apache.org/
+7. https://julialang.org/
 
 此外，c 语言中常见的操作还有对数组和结构体的操作，内置函数和外部函数的引用等，更深一步的内容可以参考[简单了解 LLVM IR 基本语法-CSDN 博客](https://blog.csdn.net/qq_42570601/article/details/107157224)
 1. https://zh.wikipedia.org/wiki/三位址碼
@@ -110,9 +124,7 @@
 [^2]:Zheng L, Jia C, Sun M, et al. Ansor: Generating {High-Performance} tensor programs for deep learning[C]//14th USENIX symposium on operating systems design and implementation (OSDI 20). 2020: 863-879.
 [^3]:https://github.com/apache/tvm-rfcs/blob/main/rfcs/0005-meta-schedule-autotensorir.md
 
-
 ## 四. 推理系统&引擎
-
 
 1. [Deep Learning Inference in Meta Data Centers: Characterization, Performance Optimizations and Hardware Implications](https://arxiv.org/abs/1811.09886)
 2. [Clipper: A Low-Latency Online Prediction Serving System](https://www.usenix.org/system/files/conference/nsdi17/nsdi17-crankshaw.pdf)
@@ -243,7 +255,6 @@
 
 20.[B. Zoph, V. Vasudevan, J. Shlens, and Q. V. Le. Learning transferable architectures for scalable image recognition. arXiv preprint arXiv:1707.07012, 2017. 1,](https://arxiv.org/abs/1707.07012v1)
 
-
 1.[M. Abadi, A. Agarwal, P. Barham, E. Brevdo, Z. Chen,C. Citro, G. S. Corrado, A. Davis, J. Dean, M. Devin, et al.TensorFlow: Large-scale machine learning on heterogeneous  systems, 2015. Software available from TensorFlow. org, 1,2015.](https://arxiv.org/abs/1603.04467)
 
 2.[I. Hubara, M. Courbariaux, D. Soudry, R. El-Yaniv, and Y. Bengio. Quantized neural networks: Training neural networks with low precision weights and activations. arXiv preprint arXiv:1609.07061, 2016. 2](https://arxiv.org/pdf/1609.07061.pdf)
@@ -306,7 +317,6 @@
 
 30.[Pavan Kumar Anasosalu Vasu, James Gabriel, Jeff Zhu, Oncel Tuzel, and Anurag Ranjan. Fastvit: A fast hybrid vision transformer using structural reparameterization. arXiv preprint arXiv:2303.14189, 2023.](https://arxiv.org/pdf/2303.14189.pdf)
 
-
 1.[Zhao, H., Shi, J., Qi, X., Wang, X., Jia, J.: Pyramid scene parsing network. In: CVPR. (2017)](https://arxiv.org/pdf/1612.01105.pdf)
 
 2.[He, K., Zhang, X., Ren, S., Sun, J.: Spatial pyramid pooling in deep convolutional networks for visual recognition. In: ECCV. (2014)]( https://arxiv.org/abs/1406.4729)
@@ -336,8 +346,6 @@
 14.[Barret Zoph and Quoc V Le. Neural architecture search with reinforcement learning. arXiv preprint arXiv:1611.01578,2016.2](https://ieeexplore.ieee.org/document/6126343)
 
 15.[M. Siam, M. Gamal, M. Abdel-Razek, S. Yogamani, and M.Jagersand. rtseg: Real-time semantic segmentation comparative study. In 2018 25th IEEE International Conference on Image Processing (ICIP).7](https://arxiv.org/pdf/1803.02758v4)
-
-
 
 1.[Anonymous. Snas: stochastic neural architecture search. In Submitted to International Conference on Learning Repre sentations, 2019. under review.](https://arxiv.org/pdf/1812.09926)
 
@@ -378,7 +386,6 @@
 19.[Jieru Mei, Yingwei Li, Xiaochen Lian, Xiaojie Jin, Linjie  Bichen Wu, Xiaoliang Dai, Peizhao Zhang, Yanghan Wang,Yang, AlanYuille, and Jianchao Yang. Atomnas: Fine-grained end-to-end neural architecture search. ICLR, 2020. 7](https://arxiv.longhoe.net/abs/1912.09640)
 
 20.[Linnan Wang, Yiyang Zhao, Yuu Jinnai, Yuandong Tian,and Rodrigo Fonseca. Neural architecture search using deep neural networks and monte carlo tree search. In AAAI, 2020.](https://arxiv.longhoe.net/abs/1805.07440)
-
 
 1.[Huang, G., Liu, Z., Van Der Maaten, L., and Weinberger,K. Q. Densely connected convolutional networks. CVPR,2017.](https://arxiv.org/abs/1608.06993v2)
 
@@ -440,7 +447,6 @@
 
 15.[Cheng Tai, Tong Xiao, Yi Zhang, Xiaogang Wang, et al. Convolutional neural networks with low-rank regularization. arXiv preprint arXiv:1511.06067, 2015.](https://arxiv.org/abs/1511.06067)
 
-
 1.[Irwan Bello, Barret Zoph, Ashish Vaswani, Jonathon Shlens, and Quoc V Le. Attention augmented convolutional networks. In Proceedings of the IEEE/CVF international conference on computer vision, pp. 3286–3295, 2019.](https://arxiv.org/abs/1904.09925)
 
 2.[Chun-Fu Chen, Quanfu Fan, and Rameswar Panda. CrossVit: Cross-attention multi-scale vision transformer for image classification. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), 2021a.](https://arxiv.org/abs/2103.14899)
@@ -481,7 +487,6 @@
 
 20.[Tal Ridnik, Emanuel Ben-Baruch, Asaf Noy, and Lihi Zelnik-Manor. Imagenet-21k pretraining for the masses. arXiv preprint arXiv:2104.10972, 2021.](https://arxiv.org/abs/2104.10972)
 
-
 1.[Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko. End-to end object detection with transformers. In ECCV, 2020. 2,4, 5, 7, 8](https://arxiv.longhoe.net/abs/2005.12872)
 
 2.[Yinpeng Chen, Xiyang Dai, Mengchen Liu, Dongdong Chen, Lu Yuan, and Zicheng Liu. Dynamic relu. In ECCV,2020. 2, 3, 4, 6](https://arxiv.longhoe.net/abs/2003.10027)
@@ -512,7 +517,6 @@
 
 15.[DaquanZhou, Qi-BinHou, Y.Chen, Jiashi Feng, and S. Yan.Rethinking bottleneck structure for efficient mobile network design. In ECCV, August 2020. 2](https://arxiv.longhoe.net/abs/2007.02269)
 
-
 1.[Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. arXiv preprint arXiv:1711.05101, 2017. 6, 8](https://arxiv.org/abs/1711.05101v3)
 
 2.[Hugo Touvron, Matthieu Cord, and Herve J ´ egou. Deit iii: ´Revenge of the vit. arXiv preprint arXiv:2204.07118, 2022.13](https://arxiv.org/abs/2204.07118)
@@ -532,7 +536,6 @@
 9.[Sebastian Jaszczur, Aakanksha Chowdhery, Afroz Mohiuddin, Lukasz Kaiser, Wojciech Gajewski, Henryk Michalewski, and Jonni Kanerva. Sparse is enough in scaling transformers. Advances in Neural Information Processing Systems, 34:9895–9907, 2021.](https://arxiv.org/pdf/2111.12763)
 
 10.[Sachin Mehta and Mohammad Rastegari. Mobilevit: Light-weight, general-purpose, and mobile-friendly vision transformer. arXiv preprint arXiv:2110.02178, 2021.](https://arxiv.org/abs/2110.02178)
-
 
 1.[Khalid Ashraf, Bichen Wu, Forrest N. Iandola, Matthew W. Moskewicz, and Kurt Keutzer. Shallow networks for high-accuracy road object-detection. arXiv:1606.01561, 2016.](https://arxiv.org/abs/1606.01561v1)
 
@@ -568,7 +571,6 @@ learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
 14.[S. Han, H. Mao, and W. J. Dally. Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding. International Conference on Learning Representations(ICLR), 2016.](https://arxiv.org/pdf/1510.00149.pdf)
 
 15.[A. G. Howard, M. Zhu, B. Chen, D. Kalenichenko,W. Wang, T. Weyand, M. Andreetto, and H. Adam.Mobilenets: Efficient convolutional neural networks for mobile vision applications. arXiv preprint arXiv:1704.04861, 2017.](https://arxiv.org/pdf/1704.04861.pdf)
-
 
 - Learning Accurate Low-Bit Deep Neural Networks with Stochastic Quantization
 - Differentiable Soft Quantization: Bridging Full-Precision and Low-Bit Neural Networks（ICCV 2019）
@@ -633,7 +635,6 @@ learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
 11. [如何将在 GPU 上训练的模型加载到 CPU（系统）内存中？](https://www.volcengine.com/theme/9557712-R-7-1)
 12. [11 模型的保存加载¶](http://121.199.45.168:13007/01-PyTorch%E4%BD%BF%E7%94%A8/11-%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BF%9D%E5%AD%98%E5%8A%A0%E8%BD%BD.html)
 
-
 - [Lecun Y , Bottou L .Gradient-based learning applied to document recognition[J].Proceedings of the IEEE, 1998, 86(11):2278-2324.DOI:10.1109/5.726791.](https://ieeexplore.ieee.org/document/726791)
 - [Fukushima, Kunihiko and Sei Miyake. “Neocognitron: A Self-Organizing Neural Network Model for a Mechanism of Visual Pattern Recognition.” (1982).](https://www.semanticscholar.org/paper/Neocognitron%3A-A-Self-Organizing-Neural-Network-for-Fukushima-Miyake/9b2541b8d8ca872149b4dabd2ccdc0cacc46ebf5)
 - [ Bouvrie J .Notes on Convolutional Neural Networks[J].neural nets, 2006.](https://www.semanticscholar.org/paper/Notes-on-Convolutional-Neural-Networks-Bouvrie/2a4393aa1bc3cb7fe2deecc88720bfb84dabb263)
@@ -657,11 +658,7 @@ learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
 13. [Winograd 卷积的纯 Python 实现](https://ajz34.readthedocs.io/zh-cn/latest/ML_Notes/winograd6x3/cnn_winograd.html)
 14. [Winograd 优化算法](https://zhenhuaw.me/blog/2019/convolution-neural-networks-optimization.html#winograd-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95c)
 
-
-
-
 ## 五. AI 框架核心模块
-
 
 1. [深入浅出：AI 框架与计算图的关系](https://developer.baidu.com/article/details/3129186)
 2. [4.1. 计算图的设计背景和作用](https://openmlsys.github.io/chapter_computational_graph/background_and_functionality.html#id1)
@@ -670,7 +667,6 @@ learning, pages 448–456, 2015.](https://arxiv.org/abs/1502.03167v3)
 5. [从零构建 AI 推理引擎系列](https://github.com/lucasjinreal/AI-Infer-Engine-From-Zero)
 6. [一篇就够：高性能推理引擎理论与实践 (TensorRT)](https://developer.aliyun.com/article/995926)
 7. [序列化之 FlatBuffers](https://harmonyhu.com/2018/08/11/flatbuffers/)
-
 
 1. [【AI】推理引擎的模型转换模块](https://blog.csdn.net/weixin_45651194/article/details/132921090)
 2. [深度学习模型转换](https://blog.csdn.net/jasonaidm/article/details/90522615)

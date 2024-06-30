@@ -57,7 +57,7 @@
 
 ## NVIDIA Triton 推理服务
 
-NVIDIA Triton Inference Server（简称 Triton）是一个高性能、可扩展的开源推理框架，由 NVIDIA 等公司推出。Triton 旨在为用户提供云和边缘推理的部署解决方案，支持多种深度学习模型和框架。
+NVIDIA Triton Inference Server（简称 Triton）是一个高性能、可扩展的开源推理框架，由英伟达等公司推出。Triton 旨在为用户提供云和边缘推理的部署解决方案，支持多种神经网络模型和框架。
 
 ![Triton 服务流程图](images/04System02.png)
 
@@ -209,13 +209,13 @@ Pre-Model Scheduler Queues 是模型编排的核心工作区，负责解析请�
 
 ### Triton 推理引擎
 
-Triton 的一大亮点在于其高度灵活且强大的推理引擎支持体系，将 TensorFlow、TensorRT、PyTorch、ONNX Runtime 等主流框架统一整合为“Backends”。这一设计极大地促进了深度学习模型部署的标准化和效率，使得开发者能够在一个统一的平台上轻松管理多样化的模型，而无需关注底层实现细节，获得具有多后端架构的优势。
+Triton 的一大亮点在于其高度灵活且强大的推理引擎支持体系，将 TensorFlow、TensorRT、PyTorch、ONNX Runtime 等主流框架统一整合为“Backends”。这一设计极大地促进了神经网络模型部署的标准化和效率，使得开发者能够在一个统一的平台上轻松管理多样化的模型，而无需关注底层实现细节，获得具有多后端架构的优势。
 
 ![Triton 推理引擎](images/04System07.png)
 
 - **无缝迁移与混合部署**：通过将不同框架的模型推理能力抽象为统一的 Backend 接口，Triton 允许用户在不修改模型代码的情况下，自由选择或切换推理引擎。这意味着，开发者可以在 TensorFlow 模型和 PyTorch 模型之间轻松迁移，甚至在同一服务中混合部署多种框架的模型，极大提升了开发效率和灵活性。
 
-- **性能优化与硬件加速**：Triton 集成的每个 Backend 都针对特定框架进行了优化，尤其是 TensorRT，作为 NVIDIA 开发的高性能推理加速库，能显著提高 GPU 上的推理速度。此外，Triton 还能自动利用硬件加速特性，如 FP16、INT8 量化，进一步提升吞吐量和降低延迟。
+- **性能优化与硬件加速**：Triton 集成的每个 Backend 都针对特定框架进行了优化，尤其是 TensorRT，作为英伟达开发的高性能推理加速库，能显著提高 GPU 上的推理速度。此外，Triton 还能自动利用硬件加速特性，如 FP16、INT8 量化，进一步提升吞吐量和降低延迟。
 
 - **资源高效利用**：多后端架构使得 Triton 能够根据模型特性和硬件资源情况智能选择最合适的推理引擎。例如，对于某些模型，使用 TensorRT 可能比原生 TensorFlow 提供更好的性能；而对于复杂的 PyTorch 模型，直接利用 PyTorch Backend 可能更为合适。这种动态适配策略有助于最大化资源利用率。
 
@@ -431,13 +431,12 @@ Status TritonBackend::LoadBackendLibrary()
 
 - 推理系统架构是实现机器学习模型从训练到实际应用的关键桥梁，涉及推理、部署和服务化三个重要环节。
 
-- NVIDIA Triton Inference Server 是一个高性能、可扩展的开源推理框架，支持多种深度学习模型和框架，提供丰富的模型管理和优化功能。
+- NVIDIA Triton Inference Server 是一个高性能、可扩展的开源推理框架，支持多种神经网络模型和框架，提供丰富的模型管理和优化功能。
 
 - 模型生命周期管理包括金丝雀策略和回滚策略，确保模型的持续迭代和稳定性，降低新版本部署风险，快速应对可能的问题。
 
 ## 本节视频
 
 <html>
-<iframe src="https://player.bilibili.com/player.html?bvid=BV1Gv4y1i7Tw&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=565182107&bvid=BV1Gv4y1i7Tw&cid=960779011&p=1&as_wide=1&high_quality=1&danmaku=0&t=30&autoplay=0" width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </html>
-
