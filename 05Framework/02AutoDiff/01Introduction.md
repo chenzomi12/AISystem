@@ -1,6 +1,6 @@
 <!--适用于[License](https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
 
-# 自动微分(DONE)
+# 自动微分
 
 ## 内容介绍
 

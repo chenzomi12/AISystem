@@ -1,6 +1,6 @@
 <!--Copyright ©  适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Winograd 算法(DONE)
+# Winograd 算法
 
 在上一节的介绍中，介绍了 Im2Col 技术，它通过将三维张量重新排列成矩阵形式，然后利用基于内存访问局部性的优化库如 GEMM（通用矩阵乘法库）加速计算。随后，还探讨了空间组合优化，这一种利用局部性原理来提升效率的技术。
 

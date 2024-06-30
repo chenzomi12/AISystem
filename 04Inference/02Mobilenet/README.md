@@ -10,20 +10,22 @@
 >
 > 建议优先下载 PDF 版本，PPT 版本会因为字体缺失等原因导致版本很丑哦~
 
-| 大纲 | 小节 | 链接|
+| 大纲 | 小节 | 链接 |
 |:--:|:--:|:--:|
 | 模型小型化 | 01 推理参数了解 | [文章](./01Introduction.md), [PPT](./01Introduction.pdf), [视频](https://www.bilibili.com/video/BV1KW4y1G75J/) |
-| CNN 类型 | 02(上) CNN 模型小型化 | [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1Y84y1b7xj/) |
-| CNN 类型 | 02(下) CNN 模型小型化 | [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1DK411k7qt/) |
-| CNN 类型 | SqueezeNet 系列 | [文章](./03Shufflenet.md) |
-| CNN 类型 | MobileNet 系列 | [文章](./04Mobilenet.md.md) |
-| CNN 类型 | ESPNet 系列 | [文章](./05ESPNet.md) |
-| CNN 类型 | FBNet 系列 | [文章](./06FBNet.md) |
-| CNN 类型 | EfficientNet 系列 | [文章](./07EfficientNet.md) |
-| CNN 类型 | GhostNet 系列 | [文章](./08GhostNet.md) |
-| Transformer 类型 | 03 Transformer 小型化 | [PPT](./03Transform.pdf), [视频](https://www.bilibili.com/video/BV19d4y1V7ou/) |
-| Transformer 类型 | MobileVit 系列 | [文章](./09MobileVit.md) |
-| Transformer 类型 | MobileFormer 系列 | [文章](./10MobileFormer.md) |
+| CNN 类型 | 02(上) CNN 模型小型化 | [文章](./02CNN.md), [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1Y84y1b7xj/) |
+| CNN 类型 | 02(下) CNN 模型小型化 | [文章](./02CNN.md), [PPT](./02Cnn.pdf), [视频](https://www.bilibili.com/video/BV1DK411k7qt/) |
+| CNN 类型 | 021 SqueezeNet 系列 | [文章](./021Squeezenet.md), [PPT](./02Cnn.pdf) |
+| CNN 类型 | 022 Shufflenet 系列 | [文章](./022Shufflenet.md), [PPT](./02Cnn.pdf) |
+| CNN 类型 | 023 MobileNet 系列 | [文章](./023Mobilenet.md), [PPT](./02Cnn.pdf) |
+| CNN 类型 | 024 ESPNet 系列 | [文章](./024ESPNet.md), [PPT](./02Cnn.pdf) |
+| CNN 类型 | 025 FBNet 系列 | [文章](./025FBNet.md), [PPT](./02Cnn.pdf) |
+| CNN 类型 | 026 EfficientNet 系列 | [文章](./026EfficientNet.md), [PPT](./02Cnn.pdf) |
+| CNN 类型 | 027 GhostNet 系列 | [文章](./027GhostNet.md), [PPT](./02Cnn.pdf) |
+| Transformer 类型 | 03 Transformer 小型化 | [文章](./03Transformer.md), [PPT](./03Transform.pdf), [视频](https://www.bilibili.com/video/BV19d4y1V7ou/) |
+| Transformer 类型 | 031 MobileVit 系列 | [文章](./031MobileVit.md), [PPT](./03Transform.pdf) |
+| Transformer 类型 | 032 MobileFormer 系列 | [文章](./032MobileFormer.md), [PPT](./03Transform.pdf) |
+| Transformer 类型 | 033 EfficientFormer 系列 | [文章](./033EfficientFormer.md), [PPT](./03Transform.pdf) |
 
 ## 备注
 

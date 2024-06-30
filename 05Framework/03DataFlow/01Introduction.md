@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 基本介绍(DONE)
+# 基本介绍
 
 在 AI 框架发展的最近一个阶段，技术上主要以计算图来描述深度神经网络。前期实践最终催生出了工业级 AI：TensorFlow 和 PyTorch，这一时期同时伴随着如 Chainer、DyNet、CNTK、PaddlePaddle、JAX 等激发了框架设计灵感的诸多实验课程。
 

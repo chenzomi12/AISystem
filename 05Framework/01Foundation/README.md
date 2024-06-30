@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 框架基础(DONE)
+# AI 框架基础
 
 AI 框架基础内容介绍，从 AI 框架基础开始去介绍为什么我们要研究 AI 框架和 AI 系统，目前 AI 框架之争，也就是目前 AI 框架发展了快 10 年的整个历史过程，未来 AI 框架将会朝哪个方向演进。最后介绍用什么 AI 框架的编程范式主流的是声明式编程和命令式编程，其对应 AI 框架系统结构来说有什么区别。
 

@@ -1,4 +1,4 @@
-# 算子手工优化(DONE)
+# 算子手工优化
 
 在上一节中，探讨了算子计算和调度的概念，并强调了高效调度策略在释放硬件性能和降低延迟方面的重要性。本节，我们将深入讨论手写算子调度时需要考虑的关键因素，并介绍一些著名的高性能算子库。
 
@@ -241,6 +241,7 @@ Triton 的前端是基于 Python 实现的，这使得用户的学习成本大�
 
 - [PyTorch/inductor](https://github.com/pytorch/pytorch/tree/ab148da66cb9433effac90c7bd4930a961481d9/torch/_inductor/triton_ops)：Inductor 在 Triton 的集成方面做得更加全面且务实。Inductor 一共包含三种使用 Triton 的方式，针对非计算密集算子，基于 Inductor IR，实现了相对通用的[Codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/codegen/triton.py%23L997)的支持。针对 GEMM，基于 Jinja2，通过模式匹配的方式实现了[半定制的 codegen](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/kernel/mm.py%23L27)。针对 Conv，调用[pre-baked Triton kernel](https://link.zhihu.com/?target=https%3A//github.com/pytorch/pytorch/blob/ab148da66cb9433effac90c7bd4930a961481d19/torch/_inductor/triton_ops/conv.py%23L14)，没有提供定制能力。
 
+<<<<<<< HEAD
 ## Triton实现原理
 
 在没有Triton之前，算子工程师在开发算子时，需要同时处理DRAM、SRAM、计算单元，面临诸多挑战：
@@ -269,6 +270,36 @@ TritonGPU Dialect 相比 Triton Dialect，主要是增加了 GPU 硬件相关的
 +   Shared Layout：表示数据在 shared memory 的一些特性。
 +   MMA Layout：表示 Tensor Core 中 MMA 指令结果的 data layout
 +   DotOperand Layout：表示 Triton 的 DotOp 的输入的 layout
+=======
+## Triton 实现原理
+
+在没有 Triton 之前，算子工程师在开发算子时，需要同时处理 DRAM、SRAM、计算单元，面临诸多挑战：
+
+- 内存管理：合理利用内存体系，将频繁访问的数据块缓存到较快的存储区域；对齐和合并访存请求，避免带宽浪费。
+- 线程管理：最大化利用硬件计算资源，规划并行线程数量和线程束大小。
+- 指令使用：使用 CUDA 实现一个功能有相应多种指令，不同指令具有不同延迟和吞吐量。
+
+Triton 提高了算子开发时的效率，使得开发者不再囿于硬件细节。CUDA 直接面向 Thread 变成，而 Triton 面向 Thread Block 编程，开发者只需关注 1）Kernel launch 的参数；2）每个数据分块的大小；3）数据分块之间的交互。在这之下的细节由 Triton 实现。
+
+Triton 是基于 MLIR 实现的，其架构如下图[^1]：
+
+![img](images/03optimization06.png)
+
+Frontend 用于将开发者利用 Python 编写的 kernel 转换为对应的 Triton IR (Triton Dialect)。使用`@triton.jit`来标注 kernel，Triton 解析 Python AST，将用户定义的计算过程带入 MLIR 体系，之后继续做后续的优化。
+
+Optimizer 大致工作流如下：
+
+![img](images/03optimization07.png)
+
+主要分为 1）TritonIR 的优化；2）TritonIR 到 TritonGPU IR 的转换；3）TritonGPU IR 的优化。贯穿中间的数据结构是 TritonGPU IR。
+
+TritonGPU Dialect 相比 Triton Dialect，主要是增加了 GPU 硬件相关的 Op 和 Type。关键 Op 为数据布局转换。当前有以下几种数据布局：
+
+- Blocked Layout：表示 thread 间平均分配 workload 的情况，每个线程处理一块 memory 上连续的数据。
+- Shared Layout：表示数据在 shared memory 的一些特性。
+- MMA Layout：表示 Tensor Core 中 MMA 指令结果的 data layout
+- DotOperand Layout：表示 Triton 的 DotOp 的输入的 layout
+>>>>>>> upstream/main
 
 列举一些典型的 data layout 的转换，以及特点：
 
@@ -279,7 +310,11 @@ TritonGPU Dialect 相比 Triton Dialect，主要是增加了 GPU 硬件相关的
 
 TritonIR 上的优化主要是计算本身的，与硬件无关的优化，包含了如下 Pass：1）Inliner Pass，将 Kernel Call 的子函数 Inline 展开；2）Combine Pass，一些特定的 Pattern rewrite；3）Canonicalizer Pass，一些化简的 Pattern rewrite；4）CSE Pass，MLIR 的 [cse](https://mlir.llvm.org/docs/Passes/#-cse-eliminate-common-sub-expressions) Pass，用于 消除公共子表达式；5）LICM Pass，MLIR 的 [LoopInvariantCodeMotion Pass](https://mlir.llvm.org/doxygen/LoopInvariantCodeMotion_8cpp_source.html) ，将循环无关的变量挪到 forloop 外面。
 
+<<<<<<< HEAD
 TritonGPU IR优化在计算本身优化外，新增了 GPU 硬件相关的优化，具体的 Pass 列表如下：1）ConvertTritonToTritonGPU Pass，将 Triton IR 转换为 TritonGPU IR，主要是增加 TritonGPU 特有的 layout；2）Coalesce Pass，重排 order，使得最大 contiguity 的维度排在最前面；3）Pipeline Pass，MMA 指令对应的 global memory 到 shared memory 的 N-Buffer 优化；4）Prefetch Pass，MMA 指令对应的 shared memory 到 register file 的 N-Buffer 优化
+=======
+TritonGPU IR 优化在计算本身优化外，新增了 GPU 硬件相关的优化，具体的 Pass 列表如下：1）ConvertTritonToTritonGPU Pass，将 Triton IR 转换为 TritonGPU IR，主要是增加 TritonGPU 特有的 layout；2）Coalesce Pass，重排 order，使得最大 contiguity 的维度排在最前面；3）Pipeline Pass，MMA 指令对应的 global memory 到 shared memory 的 N-Buffer 优化；4）Prefetch Pass，MMA 指令对应的 shared memory 到 register file 的 N-Buffer 优化
+>>>>>>> upstream/main
 
 ## 参考文献
 

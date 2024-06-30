@@ -1,8 +1,8 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 模型转换流程(DONE)
+# 模型转换流程
 
-用户在使用深度学习框架时，可能会遇到训练环境和部署环境不匹配的情况，比如用户用 Caffe 训练好了一个图像识别的模型，但是生产环境是使用 TensorFlow 做预测。
+用户在使用 AI 框架时，可能会遇到训练环境和部署环境不匹配的情况，比如用户用 Caffe 训练好了一个图像识别的模型，但是生产环境是使用 TensorFlow 做预测。
 
 因此就需要将使用不同训练框架训练出来的模型相互联系起来，使用户可以进行快速的转换。模型转换主要有**直接转换**和**规范式转换**两种方式，本文将详细介绍这两种转换方式的流程以及相关的技术细节。
 
@@ -24,7 +24,7 @@
    
 3. 模型保存：在推理引擎下保存模型，可得到推理引擎支持的模型文件，即对应的计算图的显示表示。
 
-直接转换过程中需要考虑多个技术细节，例如不同深度学习框架对算子的实现可能有差异，需要确保转换后的算子能够在目标框架中正确运行；不同框架可能对张量数据的存储格式有不同的要求，如 NCHW（批量数、通道数、高度、宽度）和 NHWC（批量数、高度、宽度、通道数）等，需要在转换过程中进行格式适配；某些框架的算子参数可能存在命名或含义上的差异，需要在转换过程中进行相应调整；为了保证转换后的模型在目标框架中的性能，可能需要对某些计算图进行优化处理，如算子融合、常量折叠等。
+直接转换过程中需要考虑多个技术细节，例如不同 AI 框架对算子的实现可能有差异，需要确保转换后的算子能够在目标框架中正确运行；不同框架可能对张量数据的存储格式有不同的要求，如 NCHW（批量数、通道数、高度、宽度）和 NHWC（批量数、高度、宽度、通道数）等，需要在转换过程中进行格式适配；某些框架的算子参数可能存在命名或含义上的差异，需要在转换过程中进行相应调整；为了保证转换后的模型在目标框架中的性能，可能需要对某些计算图进行优化处理，如算子融合、常量折叠等。
 
 ### 直接转换实例
 
@@ -93,7 +93,7 @@ torch.save(pytorch_model.state_dict(), 'pytorch_model.pth')
 这里列出部分可实现不同框架迁移的模型转换器：
 
 | convertor | [mxnet](http://data.dmlc.ml/models/) | [caffe](https://github.com/BVLC/caffe/wiki/Model-Zoo)   | [caffe2](https://github.com/caffe2/caffe2/wiki/Model-Zoo) | [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/features/model-gallery/) | [theano](https://github.com/Theano/Theano/wiki/Related-projects)/[lasagne](https://github.com/Lasagne/Recipes) | [neon](https://github.com/NervanaSystems/ModelZoo) | [pytorch](https://github.com/pytorch/vision) | [torch](https://github.com/torch/torch7/wiki/ModelZoo) | [keras](https://github.com/fchollet/deep-learning-models)  | [darknet](https://pjreddie.com/darknet/imagesnet/) | [TensorFlow](https://github.com/TensorFlow/models)  | [chainer](http://docs.chainer.org/en/stable/reference/caffe.html) | [coreML/iOS](https://developer.apple.com/documentation/coreml) | [paddle](https://github.com/PaddlePaddle/models) | ONNX |
-| --------- |:-----:|:-----:|:-----:|:-----:|:-----:|:----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| --- |:--:|:--:|:--:|:--:|:--:|:-:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |**[mxnet](http://data.dmlc.ml/models/)**  |   -   | [MMdnn](https://github.com/Microsoft/MMdnn) [MXNet2Caffe](https://github.com/cypw/MXNet2Caffe) [Mxnet2Caffe](https://github.com/wranglerwong/Mxnet2Caffe) | [MMdnn (through ONNX)](https://github.com/Microsoft/MMdnn) | [MMdnn](https://github.com/Microsoft/MMdnn) | None | None | [MMdnn](https://github.com/Microsoft/MMdnn) [gluon2pytorch](https://github.com/nerox8664/gluon2pytorch) | None | [MMdnn](https://github.com/Microsoft/MMdnn) | None | [MMdnn](https://github.com/Microsoft/MMdnn) | None | [mxnet-to-coreml](https://github.com/apache/incubator-mxnet/tree/master/tools/coreml) [MMdnn](https://github.com/Microsoft/MMdnn) | None | None |
 |**[caffe](https://github.com/BVLC/caffe/wiki/Model-Zoo)**  | [mxnet/tools/caffe_converter](https://github.com/dmlc/mxnet/tree/master/tools/caffe_converter) [ResNet_caffe2mxnet](https://github.com/nicklhy/ResNet_caffe2mxnet) [MMdnn](https://github.com/Microsoft/MMdnn) |  - | [CaffeToCaffe2](https://caffe2.ai/docs/caffe-migration.html#caffe-to-caffe2) [MMdnn (through ONNX)](https://github.com/Microsoft/MMdnn) | [crosstalkcaffe/CaffeConverter](https://github.com/Microsoft/CNTK/tree/master/bindings/python/cntk/contrib/crosstalkcaffe) [MMdnn](https://github.com/Microsoft/MMdnn) | [caffe_theano_conversion](https://github.com/an-kumar/caffe-theano-conversion) [caffe-model-convert](https://github.com/kencoken/caffe-model-convert) [caffe-to-theano](https://github.com/piergiaj/caffe-to-theano) |[caffe2neon](https://github.com/NervanaSystems/caffe2neon) | [MMdnn](https://github.com/Microsoft/MMdnn) [pytorch-caffe](https://github.com/marvis/pytorch-caffe) [pytorch-resnet](https://github.com/ruotianluo/pytorch-resnet) | [谷歌 net-caffe2torch](https://github.com/kmatzen/谷歌 net-caffe2torch) [mocha](https://github.com/kuangliu/mocha) [loadcaffe](https://github.com/szagoruyko/loadcaffe) | [keras-caffe-converter](https://github.com/AlexPasqua/keras-caffe-converter) [caffe_weight_converter](https://github.com/AlexPasqua/caffe_weight_converter) [caffe2keras](https://github.com/qxcv/caffe2keras) [nn_tools](https://github.com/hahnyuan/nn_tools) [keras](https://github.com/MarcBS/keras) [caffe2keras](https://github.com/OdinLin/caffe2keras) [Deep_Learning_Model_Converter](https://github.com/jamescfli/Deep_Learning_Model_Converter) [MMdnn](https://github.com/Microsoft/MMdnn) | [pytorch-caffe-darknet-convert](https://github.com/marvis/pytorch-caffe-darknet-convert) | [MMdnn](https://github.com/Microsoft/MMdnn) [nn_tools](https://github.com/hahnyuan/nn_tools) [caffe-TensorFlow](https://github.com/ethereon/caffe-TensorFlow) | None | [CoreMLZoo](https://github.com/mdering/CoreMLZoo) [apple/coremltools](https://apple.github.io/coremltools/) [MMdnn](https://github.com/Microsoft/MMdnn) | [X2Paddle](https://github.com/PaddlePaddle/X2Paddle) | [caffe2onnx](https://github.com/inisis/caffe2onnx) |
 |**[caffe2](https://github.com/caffe2/caffe2/wiki/Model-Zoo)**| None | None | - | ONNX | None | None | ONNX | None | None | None | None | None | None | None | None |
@@ -118,11 +118,11 @@ torch.save(pytorch_model.state_dict(), 'pytorch_model.pth')
 
 ONNX(Open Neural Network Exchange)是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。它使得不同的人工智能框架（如 Pytorch、MXNet）可以采用相同格式存储模型数据并交互。
 
-ONNX 的规范及代码主要由微软，亚马逊，Meta 和 IBM 等公司共同开发，以开放源代码的方式托管在 Github 上。目前官方支持加载 ONNX 模型并进行推理的深度学习框架有：Caffe2、PyTorch、MXNet、ML.NET、TensorRT 和 Microsoft CNTK，并且 TensorFlow 也非官方的支持 ONNX。
+ONNX 的规范及代码主要由微软，亚马逊，Meta 和 IBM 等公司共同开发，以开放源代码的方式托管在 Github 上。目前官方支持加载 ONNX 模型并进行推理的 AI 框架有：Caffe2、PyTorch、MXNet、ML.NET、TensorRT 和 Microsoft CNTK，并且 TensorFlow 也非官方的支持 ONNX。
 
-每个深度学习框架都有自己的图表示形式和特定的 API，这使得在不同框架之间转换模型变得复杂。此外，不同的深度学习框架针对不同的优化和特性进行了优化，例如快速训练、支持复杂网络架构、移动设备上的推理等。ONNX 可以提供计算图的通用表示，帮助开发人员能够在开发或部署的任何阶段选择最适合其课程的框架。
+每个 AI 框架都有自己的图表示形式和特定的 API，这使得在不同框架之间转换模型变得复杂。此外，不同的 AI 框架针对不同的优化和特性进行了优化，例如快速训练、支持复杂网络架构、移动设备上的推理等。ONNX 可以提供计算图的通用表示，帮助开发人员能够在开发或部署的任何阶段选择最适合其课程的框架。
 
-ONNX 定义了一种可扩展的计算图模型、一系列内置的运算单元（OP）和标准数据类型。每一个计算流图都定义为由节点组成的列表，并构建有向无环图。其中每一个节点都有一个或多个输入与输出，每一个节点称之为一个 OP。这相当于一种通用的计算图，不同深度学习框架构建的计算图都能转化为它。
+ONNX 定义了一种可扩展的计算图模型、一系列内置的运算单元（OP）和标准数据类型。每一个计算流图都定义为由节点组成的列表，并构建有向无环图。其中每一个节点都有一个或多个输入与输出，每一个节点称之为一个 OP。这相当于一种通用的计算图，不同 AI 框架构建的计算图都能转化为它。
 
 规范式转换需要确保源框架能够正确导出规范格式的模型文件，并且目标框架能够正确导入；需要定义良好的跨框架兼容性，包括对各种算子的定义和数据格式的支持。同时还应具备良好的扩展性，能够适应新出现的算子和模型结构。
 

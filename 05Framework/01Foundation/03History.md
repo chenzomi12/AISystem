@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 框架之争(DONE)
+# AI 框架之争
 
 在前面的内容主要是讲述了 AI 框架在数学上对自动微分进行表达和处理，最后表示称为开发者和应用程序都能很好地去编写深度学习中神经网络的工具和库，整体流程如下所示：
 

@@ -1,6 +1,6 @@
 <!--Copyright © ZOMI 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# 附录(DONE)
+# 附录
 
 本节附录主要是介绍本开源课程的书写规范、使用到的书写工具、还有关于本课程相关配套内容的介绍。
 

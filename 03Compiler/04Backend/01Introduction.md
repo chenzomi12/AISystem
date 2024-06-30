@@ -1,6 +1,6 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# AI 编译器后端优化(DONE)
+# AI 编译器后端优化
 
 AI 编译器分为多层架构，最顶层由各种 AI 训练框架编写的神经网络模型架构，一般由 Python 编写，常见的 AI 训练框架有 PyTorch、MindSpore、PaddlePaddle 等。在导入 AI 编译器时需要用对应框架的 `converter` 功能转换为 AI 编译器统一的 Graph IR，并在计算图级别由 `Graph Optimizer` 进行计算图级优化，也叫前端优化。
 

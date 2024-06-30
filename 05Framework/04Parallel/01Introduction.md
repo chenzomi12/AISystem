@@ -1,7 +1,13 @@
 <!--Copyright © 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
+<<<<<<< HEAD
 
 # 基本介绍(DONE)
 
+=======
+
+# 基本介绍
+
+>>>>>>> upstream/main
 分布式训练是一种模型训练模式，它将训练工作量分散到多个工作节点上，从而大大提高了训练速度和模型准确性。虽然分布式训练可用于任何类型的 AI 模型训练，但将其用于大模型和计算要求较高的任务最为有利。
 
 本节将围绕在 PyTorch2.0 中提供的多种分布式训练方式展开，包括并行训练，如：数据并行（Data Parallelism, DP）、模型并行（Model Parallelism, MP）、混合并行（Hybrid Parallel），可扩展的分布式训练组件，如：设备网格（Device Mesh）、RPC 分布式训练以及自定义扩展等。每种方法在特定用例中都有独特的优势。

@@ -67,7 +67,7 @@
 
 ### [大模型热点剖析](./13Application/)
 | 名称        | 名称               | 备注                                                                              |
-| --------- | ---------------- | ------------------------------------------------------------------------------- |
+| --- | - | ------- |
 | ChatGPT 狂飙 | 01 GPT 系列详解       | [silde](./13chatGPT/chatGPT01.pdf), [视频](https://www.bilibili.com/video/BV1kv4y1s7V7/) |
 | ChatGPT 狂飙 | 02 RLHF 强化学习 PPO   | [silde](./13chatGPT/chatGPT02.pdf), [视频](https://www.bilibili.com/video/BV1w8411M7YB/) |
 | ChatGPT 狂飙 | 03 InstructGPT 解读 | [silde](./13chatGPT/chatGPT03.pdf), [视频](https://www.bilibili.com/video/BV1e24y1s7k8/) |

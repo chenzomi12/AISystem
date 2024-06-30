@@ -1,6 +1,6 @@
 <!--适用于[License] (https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
 
-# 内容介绍(DONE)
+# 内容介绍
 
 什么是 AI 算法？什么是神经网络？神经网络有什么用？为什么神经网络需要训练？什么是模型？AI 框架有什么用？AI 框架能解决什么问题？
 

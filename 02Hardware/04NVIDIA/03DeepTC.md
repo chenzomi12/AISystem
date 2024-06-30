@@ -1,6 +1,6 @@
 <!--Copyright 适用于[License](https://github.com/chenzomi12/AISystem)版权许可-->
 
-# Tensor Core 深度剖析(DONE)
+# Tensor Core 深度剖析
 
 Tensor Core 是用于加速深度学习计算的关键技术，其主要功能是执行深度神经网络中的矩阵乘法和卷积运算。通过利用混合精度计算和张量核心操作，Tensor Core 能够在较短的时间内完成大量矩阵运算，从而显著加快神经网络模型的训练和推断过程。具体来说，Tensor Core 采用半精度(FP16)作为输入和输出，并利用全精度(FP32)进行存储中间结果计算，以确保计算精度的同时最大限度地提高计算效率。
 
