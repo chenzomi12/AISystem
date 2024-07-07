@@ -21,10 +21,10 @@
 ```{toctree}
 :maxdepth: 1
 
-Editors
-Instruments
-Install
-Inference
-Glossary
-Criterion
+01Editors
+02Install
+03Glossary
+04Inference
+05Criterion
+06Instruments
 ```

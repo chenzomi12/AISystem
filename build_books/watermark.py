@@ -1,13 +1,15 @@
 import os
+import shutil
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 
 watermark_path = "/Users/a1-6/Workspaces/AISystem/images/watermark.png" # 水印图片的路径
-source_folder = "/Users/a1-6/Workspaces/AISystem/01Introduction/images" # 原始图片的文件夹
-output_folder = "/Users/a1-6/Workspaces/AISystem/01Introduction/watermark" # 输出图片的文件夹
+source_folder = "/Users/a1-6/Workspaces/AISystem/02Hardware/01Foundation/images" # 原始图片的文件夹
+output_folder = "/Users/a1-6/Workspaces/AISystem/02Hardware/01Foundation/watermark" # 输出图片的文件夹
 
 watermark = Image.open(watermark_path).convert("RGBA") # 打开并转换水印图片
 watermark_width, watermark_height = watermark.size # 获取水印图片的尺寸
 w_ration = watermark_width/watermark_height
+
 
 def check_image(img_path):
     if(img_path.lower().endswith(('.bmp', '.dib', '.png', '.jpg', '.jpeg', '.pbm', '.pgm', '.ppm', '.tif', '.tiff'))):
@@ -15,6 +17,20 @@ def check_image(img_path):
     else:
         return False
 
+def del_dir_byname(path):
+	if os.path.exists(path):
+		shutil.rmtree(path)
+		print("文件夹已删除！", path)
+	else:
+		print("文件夹不存在！", path)
+
+
+def create_dir(path):
+	del_dir_byname(path)
+	os.makedirs(path)
+	return path
+
+create_dir(output_folder)
 for filename in os.listdir(source_folder): # 遍历原始图片的文件夹
     if check_image(filename): # 判断是否是图片文件
         
@@ -32,5 +48,6 @@ for filename in os.listdir(source_folder): # 遍历原始图片的文件夹
         new_watermark = watermark.resize((new_watermark_width, new_watermark_hight))
         # new_watermark = watermark.thumbnail((400, 400))
         image.paste(new_watermark, (watermark_x, watermark_y), new_watermark) # 将水印图片合成到原始图片上
+        
         output_path = os.path.join(output_folder, filename) # 拼接输出文件的路径
         image.save(output_path, quality=100) # 保存输出文件
