@@ -1,4 +1,6 @@
 ~$*
+.conda
+.venv
 _build/
 *.zip
 */.ipynb_checkpoints
