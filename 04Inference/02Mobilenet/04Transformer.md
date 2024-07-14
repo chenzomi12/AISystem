@@ -1,6 +1,6 @@
 <!--适用于[License](https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
 
-# Transformer模型小型化
+# Transformer 模型小型化
 
 自 Vision Transformer 出现之后，人们发现 Transformer 也可以应用在计算机视觉领域，并且效果还是非常不错的。但是基于 Transformer 的网络模型通常具有数十亿或数百亿个参数，这使得它们的模型文件非常大，不仅占用大量存储空间，而且在训练和部署过程中也需要更多的计算资源。所以在本节中会介绍关于 Transformer 一些轻量化工作。
 
@@ -20,11 +20,11 @@
 
 #### 多尺度采样训练
 
-给定一系列排序的空间分辨率$S = {(H_{1}, W_{1}), ··· , (H_{n}, W_{n})}$，最大空间分辨率有最小的batch，加快优化更新；在每个GPU第t次迭代中随机抽样一个空间分辨率，然后计算迭代大小；相较于以前多尺度采样，这次它不需要自己每隔几个iteration微调得到新的空间分辨率，并且改变batch提高了训练速度；使用多GPU进行训练（我猜不同空间分辨率在不同的GPU上运行）这个可以提高网络的泛化能力，减少训练和验证之间差距；并且适用于其他网络训练。
+给定一系列排序的空间分辨率$S = {(H_{1}, W_{1}), ··· , (H_{n}, W_{n})}$，最大空间分辨率有最小的 batch，加快优化更新；在每个 GPU 第 t 次迭代中随机抽样一个空间分辨率，然后计算迭代大小；相较于以前多尺度采样，这次它不需要自己每隔几个 iteration 微调得到新的空间分辨率，并且改变 batch 提高了训练速度；使用多 GPU 进行训练（我猜不同空间分辨率在不同的 GPU 上运行）这个可以提高网络的泛化能力，减少训练和验证之间差距；并且适用于其他网络训练。
 
 ![MobileVit](images/04Transformer02.png)
 
-## MobileFormer系列
+## MobileFormer 系列
 
 ###  MobileFormer
 
@@ -66,7 +66,7 @@ Mobile-Former 由 Mobile-Former 块组成。每个块包含四部分：Mobile �
 
 Mobile 子块：如上图所示，Mobile 子块将特征图 $X$ 作为输入，并将其输出作为 Mobile←Former 的输入。这和反向瓶颈块略有不同，其用动态 ReLU 替换 ReLU 作为激活函数。不同于原始的动态 ReLU，在平均池化特征图上应用两个 MLP 以生成参数。我们从 Former 的第一个全局 tokens 的输出 $z'_{1}$ 应用两个 MLP 层（上图中的θ）保存平均池化。其中所有块的 depth-wise 卷积的核大小为 3×3。
 
-## EfficientFormer系列
+## EfficientFormer 系列
 
 ### EfficientFormer V1
 
@@ -131,9 +131,9 @@ $$
 
 ## 小结与思考
 
-- MobileVit系列，MobileFormer系列是从模型结构上进行轻量化设计，在MobileNet的基础上，针对Transformer注意力模块去设计轻量化模型；
+- MobileVit 系列，MobileFormer 系列是从模型结构上进行轻量化设计，在 MobileNet 的基础上，针对 Transformer 注意力模块去设计轻量化模型；
 
-- EfficientFormer系列在Vit基础上结合了搜索算法设计轻量化的模型；
+- EfficientFormer 系列在 Vit 基础上结合了搜索算法设计轻量化的模型；
 
 ## 本节视频
 
@@ -145,9 +145,9 @@ $$
 
 ## 如何选择轻量化网络
 
-- 不同网络架构，即使FLOPs相同，但其MAC也可能差异巨大;
+- 不同网络架构，即使 FLOPs 相同，但其 MAC 也可能差异巨大;
 
-- FLOPs低不等于latency低，结合具体硬件架构具体分析;
+- FLOPs 低不等于 latency 低，结合具体硬件架构具体分析;
 
 - 多数时候加速芯片算力的瓶颈在于访存带宽；
 

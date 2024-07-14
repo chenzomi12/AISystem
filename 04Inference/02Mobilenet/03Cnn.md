@@ -2,9 +2,9 @@
 
 # CNN 模型小型化（下）
 
-在本章节会接着介绍CNN模型的小型化，除了第二节提到的三个模型外，在本章节会继续介绍ESPNet系列，FBNet系列，EfficientNet系列和GhostNet系列。
+在本章节会接着介绍 CNN 模型的小型化，除了第二节提到的三个模型外，在本章节会继续介绍 ESPNet 系列，FBNet 系列，EfficientNet 系列和 GhostNet 系列。
 
-## ESPNet系列
+## ESPNet 系列
 
 ### ESPNetV1
 
@@ -26,7 +26,7 @@
 
 上图(b)具有和不具有层次特征融合（Hierarchical feature fusion，HFF）的 ESP 模块特征图可视化。ESP 中的 HFF 消除了网格伪影。彩色观看效果最佳。
 
-为了解决 ESP 中的网格问题，使用不同膨胀率的核获得的特征映射在拼接之前会进行层次化添加（上图b中的 HFF）。该解决方案简单有效，且不会增加 ESP 模块的复杂性，这与现有方法不同，现有方法通过使用膨胀率较小的卷积核学习更多参数来消除网格误差[Dilated residual networks,Understanding convolution for semantic segmentation]。为了改善网络内部的梯度流动，ESP 模块的输入和输出特征映射使用元素求和[Deep residual learning for image recognition]进行组合。
+为了解决 ESP 中的网格问题，使用不同膨胀率的核获得的特征映射在拼接之前会进行层次化添加（上图 b 中的 HFF）。该解决方案简单有效，且不会增加 ESP 模块的复杂性，这与现有方法不同，现有方法通过使用膨胀率较小的卷积核学习更多参数来消除网格误差[Dilated residual networks,Understanding convolution for semantic segmentation]。为了改善网络内部的梯度流动，ESP 模块的输入和输出特征映射使用元素求和[Deep residual learning for image recognition]进行组合。
 
 ### ESPNetV2
 
@@ -40,7 +40,7 @@ EESP 模块结构如下图，图 b 中相比于 ESPNet，输入层采用分组�
 
 如上图中 b 所示，能够降低 $\frac{Md+n^{2}d^{2}K}{\frac{Md}{g}+(n^{2}+d)dK}$ 倍计算复杂度，K 为空洞卷积金字塔层数。考虑到单独计算 K 个 point-wise 卷积等同于单个分组数为 K 的 point-wise 分组卷积，而分组卷积的在实现上更高效，于是改进为上图 c 的最终结构。
 
-## FBNet系列
+## FBNet 系列
 
 ### FBNet V1
 
@@ -127,7 +127,7 @@ A，h，Ω分别表示网络架构、训练策略以及搜索空间；$g_{i}(A)$
 
 - **细粒度阶段(fine-grained)：**借助粗粒度阶段训练的准确率预测器，对候选网络进行快速的进化算法搜索，该搜索集成了论文提出的超参数优化器 Auto Train。
 
-## EfficientNet系列
+## EfficientNet 系列
 
 ### EfficientNet V1
 
@@ -226,7 +226,7 @@ $$
 
 **GhostNet V2**：GhostV2 的主要工作就是在 Ghost module 的基础上，添加了一个改进的注意力块。文中称为解耦全连接注意力机制 DFC（Decouplod fully connected）。它不仅可以在普通硬件上快速执行，还可以捕获远程像素之间的依赖关系。大量的实验表明，GhostNetV2 优于现有的体系结构。例如，它在具有 167M FLOPs 的 ImageNet 上实现了 75.3%的 top-1 精度，显著高于 GhostNetV1 (74.5%)，但计算成本相似。
 
-####   解耦全连接注意力机制DFC
+####   解耦全连接注意力机制 DFC
 
 虽然自注意力操作可以很好地建模长距离依赖，但是部署效率低。相比自注意力机制，具有固定权重的 FC 层更简单，更容易实现，也可以用于生成具有全局感受野的 attention maps。
 
@@ -240,8 +240,8 @@ $$
 
 ## 总结
 
-- ESPNet与GhostNet系列延续了SqueezeNet等系列，从模型结构的改进来进行参数量计算量的减少；
-- FBNet与EfficientNet系列则是利用并优化了NAS搜索技术从而获得了轻量化的模型结构；
+- ESPNet 与 GhostNet 系列延续了 SqueezeNet 等系列，从模型结构的改进来进行参数量计算量的减少；
+- FBNet 与 EfficientNet 系列则是利用并优化了 NAS 搜索技术从而获得了轻量化的模型结构；
 
 ## 本节视频
 

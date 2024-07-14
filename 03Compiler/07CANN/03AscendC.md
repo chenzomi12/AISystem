@@ -1,6 +1,6 @@
 <!--适用于[License] (https://github.com/chenzomi12/AISystem/blob/main/LICENSE)版权许可-->
 
-# 算子开发编程语言 AscendC
+# 算子开发编程语言 Ascend C
 
 本节将深入探讨昇腾算子开发编程语言 Ascend C，这是一种专为昇腾 AI 处理器算子开发设计的编程语言，它原生支持 C 和 C++标准规范，最大化匹配用户的开发习惯。Ascend C 通过多层接口抽象、自动并行计算、孪生调试等关键技术，极大提高算子开发效率，助力 AI 开发者低成本完成算子开发和模型调优部署。
 

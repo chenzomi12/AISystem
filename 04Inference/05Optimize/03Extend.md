@@ -95,7 +95,7 @@ Recomputation（重算）则是一种以计算能力为代价来节省存储空�
 ![flashAttention 算法方式](images/03Extend05.png)
 1. Set block sizes B_c = [M / 4d], B_r = min([M / 4d],d)
 
-所以，在这里我们计算出子块的列大小 Bc =[M/4d]， d 为矩阵维度。当然，需要注意的是，上面的设置子块的大小并非唯一的，只有保证子块大小不超过SRAM的大小即可。
+所以，在这里我们计算出子块的列大小 Bc =[M/4d]， d 为矩阵维度。当然，需要注意的是，上面的设置子块的大小并非唯一的，只有保证子块大小不超过 SRAM 的大小即可。
 
 ### 步骤二：初始化输出矩阵 O
 
@@ -121,7 +121,7 @@ SRAM 上的输出 O 矩阵赋值为全 0，它将作为一个累加器保存 sof
 
 ![flashattention cycle](images/03Extend09.png)
 
-这里要注意的是，Oi, li, mi其中存储的可能是上一个循环计算的中间结果。
+这里要注意的是，Oi, li, mi 其中存储的可能是上一个循环计算的中间结果。
 
 ### 步骤五：实现分块 SoftMax 算法
 
@@ -131,7 +131,7 @@ SRAM 上的输出 O 矩阵赋值为全 0，它将作为一个累加器保存 sof
 
 ![flashattention cycle](images/03Extend10.png)
 
-在实际硬件中，因为浮点数表示的范围是有限的，对于 float32 和 bfloat16 来说，当 z ≥ 89 时，exp(z) 就会变成inf，发生数据上溢的问题。
+在实际硬件中，因为浮点数表示的范围是有限的，对于 float32 和 bfloat16 来说，当 z ≥ 89 时，exp(z) 就会变成 inf，发生数据上溢的问题。
 
 为了确保数值计算的稳定性，避免溢出问题，通常采用一种称为“safe softmax”的计算策略。在此方法中，通过减去最大值来缩放输入数据，以保证数值的相对稳定性。
 
@@ -151,9 +151,9 @@ SRAM 上的输出 O 矩阵赋值为全 0，它将作为一个累加器保存 sof
 
 #### flashAttention 改进方式
 
-虽然softmax与K的列是耦合的，但如果分开计算每个子块的softmax再将最后的结果进行收集转换是否可以等价呢？下面我们看看原版的证明公式：
+虽然 softmax 与 K 的列是耦合的，但如果分开计算每个子块的 softmax 再将最后的结果进行收集转换是否可以等价呢？下面我们看看原版的证明公式：
 
-1. 假如有切片向量x = [x^(1), x^(2)]，切片后softmax 的计算方式：
+1. 假如有切片向量 x = [x^(1), x^(2)]，切片后 softmax 的计算方式：
 
 ![softmax 计算方式 1](images/03Extend12.png)
 
@@ -167,9 +167,9 @@ SRAM 上的输出 O 矩阵赋值为全 0，它将作为一个累加器保存 sof
 
 最终得到 softmax(a) = f(a) / l(a)
 
-需要注意的是，可以利用GPU多线程同时并行计算多个block的softmax。
+需要注意的是，可以利用 GPU 多线程同时并行计算多个 block 的 softmax。
 
-可见通过上述的转换可知，softmax 与分块 softmax是在数学上是等价的关系。不过由于真实计算中次数变多，精度上也可能存在一定丢失。
+可见通过上述的转换可知，softmax 与分块 softmax 是在数学上是等价的关系。不过由于真实计算中次数变多，精度上也可能存在一定丢失。
 
 在介绍完 flashAttention 中 softmax 的改进后，我们继续围绕论文中的代码进行分析：
 
@@ -179,15 +179,15 @@ SRAM 上的输出 O 矩阵赋值为全 0，它将作为一个累加器保存 sof
 
 其次，计算子块与子块间的最大值 m^new 和多个子块的 Pij 的累积值 l^new。
 
-最后，根据 softmax 公式计算最终的 softmax，经结果写到 SRAM 的 Oi 中，并写出到 HBM，同时将最后的最后的l^new 赋值给 li 写出到 HBM，m^new 赋值到 mi 写出到 HBM，开始下一轮循环。
+最后，根据 softmax 公式计算最终的 softmax，经结果写到 SRAM 的 Oi 中，并写出到 HBM，同时将最后的最后的 l^new 赋值给 li 写出到 HBM，m^new 赋值到 mi 写出到 HBM，开始下一轮循环。
 
-到此前向计算就算完成，我们可以通过下图来总结下flashAttention的前向计算过程，这里就不做过多解释了。
+到此前向计算就算完成，我们可以通过下图来总结下 flashAttention 的前向计算过程，这里就不做过多解释了。
 
 ![softmax 计算方式 1](images/03Extend14.png)
 
 步骤六：反向计算
 
-从上面的前向过程中，我们知道前向过程中只将 Oi, li, mi 写出到了 HBM，而S和P的保存则主要在反向的重算中实现。
+从上面的前向过程中，我们知道前向过程中只将 Oi, li, mi 写出到了 HBM，而 S 和 P 的保存则主要在反向的重算中实现。
 
 1. 前向过程会保留 Q，K，V，O， l， m 在 HBM 中，dO 由反向计算获取后，按照前向相同的分块模式重新分块。
 
@@ -195,13 +195,13 @@ SRAM 上的输出 O 矩阵赋值为全 0，它将作为一个累加器保存 sof
 
 3. 分别从 HBM 中 Load K V block on SRAM，再 Load Q block on SRAM。根据前向过程重新计算对应 block 的 S 和 P；按分块矩阵的方式分别计算对应梯度，完成参数更新。
 
-最终可以看到，在将三个kernel进行合并后，flashAttention v1实现了中间计算完全基于SRAM的目的。
+最终可以看到，在将三个 kernel 进行合并后，flashAttention v1 实现了中间计算完全基于 SRAM 的目的。
 
-### flashAttention性能分析
+### flashAttention 性能分析
 
 FlashAttention 节省的访存次数计算如下：
 
-首先，K，V （Nxd）的每个block都需要Load 进SRAM，因此该过程的HBM访问次数为 O(Nxd)。
+首先，K，V （Nxd）的每个 block 都需要 Load 进 SRAM，因此该过程的 HBM 访问次数为 O(Nxd)。
 
 其次，Q 也需要分 block Load 进 SRAM，该过程一共持续外循环 Tc 次，因此该过程的 HBM 访问次数为 O(TcNd)
 

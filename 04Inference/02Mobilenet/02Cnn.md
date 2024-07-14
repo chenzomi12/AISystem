@@ -64,7 +64,7 @@ SqueezeNext 的 block，下图所示
 
 ![Cnn](./images/02Cnn06.png)
 
-#### ShuffleNet单元
+#### ShuffleNet 单元
 
 基于残差块（residual block）和 通道洗牌（channel shuffle）设计的 `ShuffleNet Unit` ：
 
@@ -111,7 +111,7 @@ Depthwise Convolution 的一个卷积核只有一个通道，输入信息的一�
 Pointwise Convolution 的本质就是 1X1 的卷积，它的卷积核的尺寸为 1×1×M，M 为上一层输出信息的通道数。所以这里 Pointwise Convolution 的每个卷积核会将上一步的特征图在通道方向上进行加权组合，生成新的特征图，如下图所示：
 ![Cnn](./images/02Cnn10.png)
 
-#### MBconv模块
+#### MBconv 模块
 
 MBconv 由 Depthwise Convolution，BN，ReLU 组成，基本结构如下图右面所示：
 
@@ -203,9 +203,9 @@ $$
 
 ## 小结与思考
 
-- SqueezeNet系列，ShuffleNet系列是从人工去设计网络中的重要模块去轻量化模型；
+- SqueezeNet 系列，ShuffleNet 系列是从人工去设计网络中的重要模块去轻量化模型；
 
-- MobileNet系列除了一些轻量化的模块设计，还结合了流行的Nas搜索技术去设计去更轻量化，准确率更高的模型;
+- MobileNet 系列除了一些轻量化的模块设计，还结合了流行的 Nas 搜索技术去设计去更轻量化，准确率更高的模型;
 
 <html>
 
