@@ -8,7 +8,7 @@
 
 昇思MindSpore是面向“端-边-云”全场景设计的AI框架，旨在弥合AI算法研究与生产部署之间的鸿沟。在算法研究阶段，为开发者提供动静统一的编程体验以提升算法的开发效率；生产阶段，自动并行可以极大加快分布式训练的开发和调试效率，同时充分挖掘异构硬件的算力；在部署阶段，基于“端-边-云”统一架构，应对企业级部署和安全可信方面的挑战。开源以来，秉持全场景协同、全流程极简、全架构统一三大价值主张，致力于增强开发易用性、提升原生支持大模型和AI+科学计算的体验。” 向上使能AI模型创新，对下兼容多样性算力（NPU、GPU、CPU）。
 
-![MindSporeIntroduction.png](images/01MindSpore01.png)
+![MindSporeIntroduction.png](images/05MindSpore01.png)
 
 ### 昇思MindSpore架构
 
@@ -22,7 +22,7 @@
 
 - **运行时**，按照上层编译优化的结果对接并调用底层硬件算子，同时通过“端 - 边 - 云”统一的运行时架构， 支持包括联邦学习在内的“端 - 边 - 云”AI 协同。
 
-![MindSporeIntroduction.png](images/01MindSpore02.png)
+![MindSporeIntroduction.png](images/05MindSpore02.png)
 
 ## 昇思MindSpore特性
 
@@ -221,7 +221,7 @@ for i in range(epochs):
 
 - 基于源码的转换：该技术是从函数式编程框架演化而来，对中间表达（程序在编译过程中的表达形式），以即时（Just-In-Time，JIT）编译的形式进行自动微分变换，支持复杂的流程控制场景、高阶函数和闭包。基于源码转化的自动微分如图所示。
  
-![02AutomaticDifferentiation.png](images/01MindSpore03.png)
+![02AutomaticDifferentiation.png](images/05MindSpore03.png)
 
 昇思MindSpore开发了一种新的策略，即基于源码转换的自动微分。一方面，它支持流程控制的自动微分，因此构建像PyTorch这样的模型非常方便。另一方面，昇思MindSpore可以对神经网络进行静态编译优化，从而获得良好的性能。
 
@@ -243,7 +243,7 @@ for i in range(epochs):
 
 JIT Fallback是从静态图的角度出发考虑静动统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。JIT Fallback特性主要作用于MindCompiler编译器，应用于图模式场景下的Python语法解析和支持，将纯底层算子执行的计算图改造成，开发者的Python代码和算子执行交替混合执行的计算图。主要过程如下：
 
-![ComputationalGraph](images/01MindSpore04.png)
+![ComputationalGraph](images/05MindSpore04.png)
 
 JIT Fallback特性主要作用于MindCompiler编译器的实现，应用于图模式场景下的Python语法解析和支持，将纯底层算子执行的计算图改造成，开发者的Python代码和算子执行交替混合执行的计算图。主要过程包括：
 
@@ -332,13 +332,13 @@ $$
 
 最终在上面步骤中累积梯度会产生与使用全局Batch size大小相同的梯度总和。
  
-![01MindSporeIntroduction04](images/01MindSpore05.png)
+![01MindSporeIntroduction04](images/05MindSpore05.png)
 
 #### 自适应梯度求和
 
 与传统的分布式训练中的梯度更新不同，自适应梯度求和考虑到梯度的方向。在网络训练初期，不同batch获得的梯度更新方向基本是平行的，但是随着训练进行，梯度更新方向趋向于正交。而且网络的不同层梯度更新的正交性差异也是比较大的。
  
-![01MindSporeIntroduction05](images/01MindSpore06.png)
+![01MindSporeIntroduction05](images/05MindSpore06.png)
 
 以两个训练节点为例，梯度的更新原理如下：
 
@@ -361,7 +361,7 @@ $$
 
 另外，在实际应用过程中，为了优化通信开销，通常会采取Adasum和传统Reducesum混合的执行方式，如下图所示：
  
-![01MindSporeIntroduction06](images/01MindSpore07.png)
+![01MindSporeIntroduction06](images/05MindSpore07.png)
 
 ## 小结与思考
 
