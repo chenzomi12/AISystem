@@ -2,7 +2,7 @@
 
 # CANN & Ascend C
 
-CANN 是昇腾的计算架构（Compute Architecture for Neural Networks），这是一套为高性能深度神经网络计算需求专门设计和优化的架构。而 Ascend C 是构建在 CANN 之上的算子开发编程语言 Ascend C，专为昇腾 AI 处理器算子开发设计的编程语言。
+CANN 是昇腾的计算架构（Compute Architecture for Neural Networks），这是一套为高性能神经网络计算需求专门设计和优化的架构。而 Ascend C 是构建在 CANN 之上的算子开发编程语言 Ascend C，专为昇腾 AI 处理器算子开发设计的编程语言。
 
 **内容大纲**
 

@@ -50,11 +50,11 @@
 
 随着深度学习技术的快速发展，智能音频处理作为其中的一个重要应用领域，利用深度学习技术可以实现音频信号的分析、识别和合成等任务。深度学习技术在智能音频处理中的应用与创新为音频信号的分析、识别和合成等任务提供了强大的工具和方法。通过深度学习技术，可以实现音频信号的自动处理和优化，提高音频处理的效率和准确性。未来，我们可以进一步研究和探索深度学习技术在智能音频处理中的新应用和创新，以满足不断增长的音频处理需求。
 
-- 音频信号分析：深度学习技术可以用于音频信号的分析，如音频分类、音频分割和音频降噪等。通过训练深度神经网络模型，可以提取音频信号的特征，并对音频进行分类或分割。此外，深度学习技术还可以应用于音频降噪，通过学习噪声模型和信号模型，实现对噪声的自动去除。
+- 音频信号分析：深度学习技术可以用于音频信号的分析，如音频分类、音频分割和音频降噪等。通过训练神经网络模型，可以提取音频信号的特征，并对音频进行分类或分割。此外，深度学习技术还可以应用于音频降噪，通过学习噪声模型和信号模型，实现对噪声的自动去除。
 
-- 语音识别：深度学习技术在语音识别领域取得了重大突破。通过使用深度神经网络模型，可以将语音信号转化为文本信息。神经网络模型可以自动学习语音信号的特征，并通过大规模的训练数据提高识别准确率。语音识别技术的应用包括语音助手、语音翻译和语音控制等。
+- 语音识别：深度学习技术在语音识别领域取得了重大突破。通过使用神经网络模型，可以将语音信号转化为文本信息。神经网络模型可以自动学习语音信号的特征，并通过大规模的训练数据提高识别准确率。语音识别技术的应用包括语音助手、语音翻译和语音控制等。
 
-- 音频合成：深度学习技术可以用于音频合成，如语音合成和音乐合成等。通过训练深度神经网络模型，可以生成逼真的语音合成结果。此外，深度学习技术还可以用于音乐合成，通过学习音乐的模式和结构，生成新的音乐作品。
+- 音频合成：深度学习技术可以用于音频合成，如语音合成和音乐合成等。通过训练神经网络模型，可以生成逼真的语音合成结果。此外，深度学习技术还可以用于音乐合成，通过学习音乐的模式和结构，生成新的音乐作品。
 
 - 端到端的音频处理：传统的音频处理方法通常需要多个步骤和模块，而深度学习技术可以实现端到端的音频处理。通过训练端到端的神经网络模型，可以直接从原始音频信号中提取特征并完成音频处理任务，简化了处理流程并提高了效率。
 
@@ -127,13 +127,13 @@
 
 ### 突破驱动繁荣期（约 2010s）
 
-2011 年 8 月，微软研究院 Frank Seide, Gang Li, Dong Yu 在 Interspeech 的论文 " Conversational speech transcription using context-dependent deep neural networks."[<sup>[12]</sup>] 首次介绍了如何通过深度神经网络模型在会话语音转录（Conversational Speech Transcription）上实现突破性进展。文章介绍了模型的的设计和实验结果，“其在单通道非特定人识别（Single-pass Speaker-independent Recognition）基准测试上将相对错误率由 27.4% 降低到 18.5% ，相对错误率降低 33%，在其他 4 类任务中相对错误率降低 22–28%。
+2011 年 8 月，微软研究院 Frank Seide, Gang Li, Dong Yu 在 Interspeech 的论文 " Conversational speech transcription using context-dependent deep neural networks."[<sup>[12]</sup>] 首次介绍了如何通过神经网络模型在会话语音转录（Conversational Speech Transcription）上实现突破性进展。文章介绍了模型的的设计和实验结果，“其在单通道非特定人识别（Single-pass Speaker-independent Recognition）基准测试上将相对错误率由 27.4% 降低到 18.5% ，相对错误率降低 33%，在其他 4 类任务中相对错误率降低 22–28%。
 
-此深度神经网络的训练任务是通过分布式系统（其设计了适合当前作业的张量切片与放置以及通信协调策略以加速训练）部署在多台配置有英伟达 Tesla GPGPU 服务器，通过几百小时的分布式训练才得以完成。论文在最后致谢中提到 “Our special thanks go to Ajith Jayamohan and Igor Kouzminykh of the MSR Extreme Computing Group for access to a Tesla server farm, without which this work would not have been possible.”，由此看到在 AI 领域算法团队与系统团队协作已经由来已久，算法与系统的协同设计将以往不可能完成的计算任务变为了可能，上层应用负载需求驱动系统发展与演化，系统支撑上层应用负载取得新的突破。
+此神经网络的训练任务是通过分布式系统（其设计了适合当前作业的张量切片与放置以及通信协调策略以加速训练）部署在多台配置有英伟达 Tesla GPGPU 服务器，通过几百小时的分布式训练才得以完成。论文在最后致谢中提到 “Our special thanks go to Ajith Jayamohan and Igor Kouzminykh of the MSR Extreme Computing Group for access to a Tesla server farm, without which this work would not have been possible.”，由此看到在 AI 领域算法团队与系统团队协作已经由来已久，算法与系统的协同设计将以往不可能完成的计算任务变为了可能，上层应用负载需求驱动系统发展与演化，系统支撑上层应用负载取得新的突破。
 
 2012 年 1 月，谷歌的神经网络从 1000 万张 YouTube 视频的静止画面中学会了[识别猫](https://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html)。谷歌的科学家通过连接 16,000 个计算机处理器创建了最大的机器学习神经网络之一，他们在互联网上将这些处理器松散开来自行学习，正是大规模系统互联更大的算力支撑了当时相比以往更大的数据和模型的训练。此工作 “[Building high-level features using large scale unsupervised learning](https://dl.acm.org/doi/10.5555/3042573.3042641)” [<sup>[13]</sup>] 发表在 ICML '12 会议上。
 
-2012 年 9 月，Alex Krizhevsky，Ilya Sutskever 和 Geoffrey Hinton，团队通过设计 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)[<sup>[14]</sup>] 赢得 ImageNet 竞赛，深度神经网络开始再次流行。首次采用 ReLU 激活函数，扩展了 LeNet5 结构，添加 Dropout 层减小过拟合，LRN 层增强泛化能力/减小过拟合。这些新的模型结构和训练方法影响着后续的模型设计和系统优化，例如：激活函数和卷积层的内核融合计算等。其花费 5 到 6 天，采用 2 块英伟达 GTX 580 3GB GPUs 对计算进行加速，进而形成 AI 系统以 GPU 等加速器为主要计算单元的架构。
+2012 年 9 月，Alex Krizhevsky，Ilya Sutskever 和 Geoffrey Hinton，团队通过设计 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)[<sup>[14]</sup>] 赢得 ImageNet 竞赛，神经网络开始再次流行。首次采用 ReLU 激活函数，扩展了 LeNet5 结构，添加 Dropout 层减小过拟合，LRN 层增强泛化能力/减小过拟合。这些新的模型结构和训练方法影响着后续的模型设计和系统优化，例如：激活函数和卷积层的内核融合计算等。其花费 5 到 6 天，采用 2 块英伟达 GTX 580 3GB GPUs 对计算进行加速，进而形成 AI 系统以 GPU 等加速器为主要计算单元的架构。
 
 ![](images/01Present09.png)
 
@@ -147,7 +147,7 @@
 
 ### 大模型带来新机遇（约 2020s）
 
-随着神经网络模型结构向更深的网络结构，更多的参数演进，出现了各种基于预训练模型进行参数微调的特大参数模型。2021 年 8 月份，著名人工智能教授李飞飞和 100 多位学者联名发表一份 200 多页的研究报告《[On the Opportunities and Risk of Foundation Models](https://arxiv.org/pdf/2108.07258)》，深度地综述了当前大规模预训练模型面临的机遇和挑战，文中将这种基于深度神经网络和自监督学习技术，在大规模、广泛来源数据集上训练的 AI 模型称为大模型。
+随着神经网络模型结构向更深的网络结构，更多的参数演进，出现了各种基于预训练模型进行参数微调的特大参数模型。2021 年 8 月份，著名人工智能教授李飞飞和 100 多位学者联名发表一份 200 多页的研究报告《[On the Opportunities and Risk of Foundation Models](https://arxiv.org/pdf/2108.07258)》，深度地综述了当前大规模预训练模型面临的机遇和挑战，文中将这种基于神经网络和自监督学习技术，在大规模、广泛来源数据集上训练的 AI 模型称为大模型。
 
 大模型包括多种预训练模型，如 BERT、GPT-3、CLIP、DALL·E 等。目前基础模型所涉及的技术子领域包括：模型的构建、训练、微调、评价、加速、数据、安全、稳健性、对齐（Alignment）、模型理论、可解释等，大模型仍处于快速发展的阶段。
 

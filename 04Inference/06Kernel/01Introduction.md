@@ -48,9 +48,9 @@ GPU 优化：
 
 此外，封装的高性能算子库有：
 
-1. **cuDNN（CUDA Deep Neural Network Library）**：由英伟达开发，为 GPU 优化的深度神经网络算子库，包括卷积、池化、归一化、激活函数等；
+1. **cuDNN（CUDA Deep Neural Network Library）**：由英伟达开发，为 GPU 优化的神经网络算子库，包括卷积、池化、归一化、激活函数等；
 
-2. **MKL-DNN（Intel Math Kernel Library for Deep Neural Networks）**：由 Intel 开发，为 CPU 优化的深度神经网络算子库，现在发展成为 oneDNN，支持多种 Intel 处理器；
+2. **MKL-DNN（Intel Math Kernel Library for Deep Neural Networks）**：由 Intel 开发，为 CPU 优化的神经网络算子库，现在发展成为 oneDNN，支持多种 Intel 处理器；
 
 3. **MIOpen**：由 AMD 开发，为 GPU 优化的深度学习算子库，特别针对 AMD 的 GPU 架构进行了优化；
 

@@ -2,7 +2,7 @@
 
 # 昇腾异构计算架构 CANN
 
-本节将介绍昇腾 AI 异构计算架构 CANN（Compute Architecture for Neural Networks），这是一套为高性能深度神经网络计算需求专门设计和优化的架构。CANN 包括硬件层面的达·芬奇架构和软件层面的全栈支持，旨在提供强大的硬件基础和管理网络模型、计算流及数据流的软件栈，以支撑深度神经网络在异构处理器上的执行。
+本节将介绍昇腾 AI 异构计算架构 CANN（Compute Architecture for Neural Networks），这是一套为高性能神经网络计算需求专门设计和优化的架构。CANN 包括硬件层面的达·芬奇架构和软件层面的全栈支持，旨在提供强大的硬件基础和管理网络模型、计算流及数据流的软件栈，以支撑神经网络在异构处理器上的执行。
 
 通过本节内容的学习，读者将能够理解 CANN 如何为深度学习提供全面的硬件和软件支持，以及如何通过其多层级架构实现高效的 AI 应用开发和性能优化。
 
@@ -10,7 +10,7 @@
 
 本节参考文献：《Ascend C 异构并行程序设计》——苏统华，杜鹏，闫长江，2024
 
-昇腾 AI 异构计算架构（Compute Architecture for Neural Networks，CANN）是专门为高性能深度神经网络计算需求所设计和优化的一套架构。在硬件层面，昇腾 AI 处理器所包含的达·芬奇架构在硬件设计上进行计算资源的定制化设计，在功能实现上进行深度适配，为深度神经网络计算性能的提升提供了强大的硬件基础。在软件层面，CANN 所包含的软件栈则提供了管理网络模型、计算流以及数据流的功能，支撑起深度神经网络在异构处理器上的执行流程。
+昇腾 AI 异构计算架构（Compute Architecture for Neural Networks，CANN）是专门为高性能神经网络计算需求所设计和优化的一套架构。在硬件层面，昇腾 AI 处理器所包含的达·芬奇架构在硬件设计上进行计算资源的定制化设计，在功能实现上进行深度适配，为神经网络计算性能的提升提供了强大的硬件基础。在软件层面，CANN 所包含的软件栈则提供了管理网络模型、计算流以及数据流的功能，支撑起神经网络在异构处理器上的执行流程。
 
 如下图所示，CANN 作为昇腾 AI 处理器的异构计算架构，支持业界多种主流的 AI 框架，包括 MindSpore、TensorFlow、PyTorch、Jittor 等。Ascend C 算子开发语言，开放全量低阶 API 接口使能开发者完成高性能自定义算子开发；开放高阶 API 接口，降低开发难度，开发者可快速实现复杂自定义算子开发。GE 图引擎（Graph Engine），包括图优化、图编译、图执行等，便于开发者使用，优化整网性能。HCCL 集合通信库（Huawei Collective Communication Library），可供开发者直接调用，改善网络拥塞，提升网络资源利用率和运维效率。AOL 算子加速库（Ascend Operator Library），提供基础算子和大模型融合算子 API 接口对外开放，供开发者直接调用，使能大模型极致性能优化。Runtime 运行时，将硬件资源（计算、通信、内存管理等）的 API 接口对外开放，满足开发者对模型开发、系统优化、第三方 AI 框架对接等不同场景诉求。
 
@@ -20,13 +20,13 @@ CANN 提供了功能强大、适配性好、可自定义开发的 AI 异构计�
 
 ![CANN 逻辑架构](images/01CANN02.png)
 
-昇腾计算语言（Ascend Computing Language，简称 AscendCL）：AscendCL 接口是昇腾计算开放编程框架，是对底层昇腾计算服务接口的封装。它提供设备（Device）管理、上下文（Context）管理、流（Stream）管理、内存管理、模型加载与执行、算子加载与执行、媒体数据处理、图（Graph）管理等 API 库，供用户开发人工智能应用。
+昇腾计算语言（Ascend Computing Language，简称 AscendCL）：AscendCL 接口是昇腾计算开放编程框架，是对底层昇腾计算服务接口的封装。它提供设备（Device）管理、上下文（Context）管理、流（Stream）管理、内存管理、模型加载与执行、算子加载与执行、媒体数据处理、图（Graph）管理等 API 库，供用户开发 AI 应用。
 
 昇腾计算服务层（Ascend Computing Service Layer）： 主要提供昇腾算子库 AOL（Ascend Operator Library），通用神经网络（Neural Network，NN）库、线性代数计算库（Basic Linear Algebra Subprograms，BLAS）等高性能算子加速计算；昇腾调优引擎 AOE（Ascend Optimization Engine），通过算子调优 OPAT、子图调优 SGAT、梯度调优 GDAT、模型压缩 AMCT 提升模型端到端运行速度。同时提供 AI 框架适配器 Framework Adaptor 用于兼容 TensorFlow、PyTorch 等主流 AI 框架。
 
 昇腾计算编译层（Ascend Computing Compilation Layer）：昇腾计算编译层通过图编译器（Graph Compiler）将用户输入中间表达（Intermediate Representation，IR）的计算图编译成昇腾硬件可执行模型；同时借助张量加速引擎 TBE（Tensor Boost Engine）的自动调度机制，高效编译算子。
 
-昇腾计算执行层（Ascend Computing Execution Layer）：负责模型和算子的执行，提供运行时库（Runtime）、图执行器（Graph Executor）、数字视觉预处理（Digital Vision Pre-Processing，DVPP）、人工智能预处理（Artificial Intelligence Pre-Processing，AIPP）、华为集合通信库（Huawei Collective Communication Library，HCCL）等功能单元。
+昇腾计算执行层（Ascend Computing Execution Layer）：负责模型和算子的执行，提供运行时库（Runtime）、图执行器（Graph Executor）、数字视觉预处理（Digital Vision Pre-Processing，DVPP）、 AI 预处理（Artificial Intelligence Pre-Processing，AIPP）、华为集合通信库（Huawei Collective Communication Library，HCCL）等功能单元。
 
 昇腾计算基础层（Ascend Computing Base Layer）：主要为其上各层提供基础服务，如共享虚拟内存（Shared Virtual Memory，SVM）、设备虚拟化（Virtual Machine，VM）、主机-设备通信（Host Device Communication，HDC）等。
 
@@ -116,7 +116,7 @@ CANN 包含许多硬件无关的优化，但是到 Low Level 优化层面，由�
 
 ## 小结与思考
 
-- 昇腾 AI 异构计算架构 CANN：专为深度神经网络设计的硬件和软件架构，提供定制化计算资源和深度适配，支持多种 AI 框架和算子开发。
+- 昇腾 AI 异构计算架构 CANN：专为神经网络设计的硬件和软件架构，提供定制化计算资源和深度适配，支持多种 AI 框架和算子开发。
 
 - CANN 的多层级架构：包含 AscendCL、Ascend Computing Service Layer、Ascend Computing Compilation Layer、Ascend Computing Execution Layer 和 Ascend Computing Base Layer，提供从应用开发到硬件资源管理的全面支持。
 

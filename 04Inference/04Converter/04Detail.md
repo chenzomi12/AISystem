@@ -116,7 +116,7 @@ torch.save(pytorch_model.state_dict(), 'pytorch_model.pth')
 
 ### ONNX 概述
 
-ONNX(Open Neural Network Exchange)是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。它使得不同的人工智能框架（如 Pytorch、MXNet）可以采用相同格式存储模型数据并交互。
+ONNX(Open Neural Network Exchange)是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。它使得不同的 AI 框架（如 Pytorch、MXNet）可以采用相同格式存储模型数据并交互。
 
 ONNX 的规范及代码主要由微软，亚马逊，Meta 和 IBM 等公司共同开发，以开放源代码的方式托管在 Github 上。目前官方支持加载 ONNX 模型并进行推理的 AI 框架有：Caffe2、PyTorch、MXNet、ML.NET、TensorRT 和 Microsoft CNTK，并且 TensorFlow 也非官方的支持 ONNX。
 
