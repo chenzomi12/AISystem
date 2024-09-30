@@ -193,7 +193,7 @@ for n in range(batch_size):
                       for fw in range(filter_width):
                           # 乘加（Multiply Add）运算
                           output[h, w, oc] += input[h + fw, w + fh, ic]\
-                                            * kernel[fw, fh, c, oc]  
+                              				* kernel[fw, fh, ic, oc]
 ```
 
 ### AI 系统遇到的问题
@@ -233,7 +233,7 @@ for n in range(batch_size):
 ![](images/04Sample05.png)
 
 1. 通过 cuDNN + CUDA API 编程实现 LeNet
- 
+
 [参考实例 cudnn-training](https://github.com/tbennun/cudnn-training/blob/master/lenet.cu)，需要~1000 行实现模型结构和内存管理等逻辑。
 
 ```C++
