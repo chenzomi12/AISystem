@@ -18,7 +18,7 @@
 |  |  |
 | 02 开源编译器的发展 | [文章](./02History.md), [PPT](./02History.pdf), [视频](https://www.bilibili.com/video/BV1sM411C7Vr/) |
 | 03 GCC 编译过程和原理 | [文章](./03GCC.md), [PPT](./03GCC.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/) |
-| 04 LLVM 设计架构 | [文章](./04LLVM.md), [PPT](./04LLVM.pdf), [视频](https://www.bilibili.com/video/BV1CG4y1V7Dn/ |
+| 04 LLVM 设计架构 | [文章](./04LLVM.md), [PPT](./04LLVM.pdf), [视频](https://www.bilibili.com/video/BV1CG4y1V7Dn/) |
 | 05 LLVM IR 详解 | [文章](./05LLVMIR), [文章](./06LLVMDetail.md), [PPT](./05LLVMDetail01.pdf), [视频](https://www.bilibili.com/video/BV1LR4y1f7et/) |
 | 06 LLVM 前端和优化层 | [文章](./07LLVMFrontend.md), [PPT](./05LLVMDetail02.pdf), [视频](https://www.bilibili.com/video/BV1vd4y1t7vS) |
 | 07 LLVM 后端代码生成 | [文章](./08LLVMBackend.md), [PPT](./05LLVMDetail03.pdf), [视频](https://www.bilibili.com/video/BV1cd4y1b7ho) |
