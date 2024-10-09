@@ -42,7 +42,7 @@ MobileNet 系列的网络设计中，提出了深度可分离卷积的设计策�
 
 在 DenseNet 和 GhostNet 的模型设计中，提出了一种通过 Reuse Feature Map 的设计方式来减少模型参数和运算量。
 
-如下图，对于 DenseNetV1 的结构设计来说，第 n 层的参数量由于复用了之前层的 Feature Map, 由 $kxkxCix(C1+C2)$ 变为了 $kxkxCixC2$，即为原来的 $C2/(C1+C2)$，而 C2 远小于 C1，其中 k 表示卷积核尺寸, C1 表示前 n-1 层的 Feature Map 个数，C2 表示第 n 层的输出 Feature Map 个数。
+如下图，对于 DenseNetV1 的结构设计来说，第 n 层的参数量由于复用了之前层的 Feature Map, 由 $kxkxC1x(C1+C2)$ 变为了 $kxkxC1xC2$，即为原来的 $C2/(C1+C2)$，而 C2 远小于 C1，其中 k 表示卷积核尺寸, C1 表示前 n-1 层的 Feature Map 个数，C2 表示第 n 层的输出 Feature Map 个数。
 
 ![](images/03MobileParallel03.png)
 
