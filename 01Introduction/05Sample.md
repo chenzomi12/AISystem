@@ -106,7 +106,7 @@ def test(model, device, test_loader):
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
             # 推理系统如何高效进行模型推理
-            # 我们将在第思章 AI 推理系统进行介绍
+            # 我们将在第四章 AI 推理系统进行介绍
             output = model(data)
             ...
 
