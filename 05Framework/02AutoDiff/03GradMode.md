@@ -85,7 +85,7 @@ $$
 转化成如上 DAG（有向无环图）结构之后，我们可以很容易分步计算函数的值，并求取它每一步的导数值，然后，我们把 $df/dx_1$ 求导过程利用链式法则表示成如下的形式：
 
 $$
-\dfrac{df}{dx_1}= \dfrac{dv_{-1}}{dx_1} \cdot (\dfrac{dv_{1}}{dv_{-1}} \cdot \dfrac{dv_{4}}{dv_{1}} + \dfrac{dv_{2}}{dv_{-1}} \cdot \dfrac{dv_{4}}{dx_{2}}) \cdot \dfrac{dv_{5}}{dv_{4}} \cdot \dfrac{df}{dv_{5}}
+\dfrac{df}{dx_1}= \dfrac{dv_{-1}}{dx_1} \cdot (\dfrac{dv_{1}}{dv_{-1}} \cdot \dfrac{dv_{4}}{dv_{1}} + \dfrac{dv_{2}}{dv_{-1}} \cdot \dfrac{dv_{4}}{dv_{2}}) \cdot \dfrac{dv_{5}}{dv_{4}} \cdot \dfrac{df}{dv_{5}}
 $$
 
 > 整个求导可以被拆成一系列微分算子的组合。
