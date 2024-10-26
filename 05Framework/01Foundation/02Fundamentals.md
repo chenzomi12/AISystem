@@ -78,7 +78,7 @@ $$ loss(w)=f(w)-g $$
 
 按照高中数学的基本概念，假设神经网络是一个复合函数（高维函数），那么对这个复合函数求导，用的是链式法则。举个简单的例子，考虑函数 $z=f(x,y)$，其中 $x=g(t),t=h(t)$ ，其中 $g(t), h(t)$ 是可微函数，那么对函数 $z$ 关于 $t$ 求导，函数会顺着链式向外逐层进行求导。
 
-$$ \frac{\mathrm{d} x}{\mathrm{d} t} = \frac{\partial z}{\partial x}  \frac{\mathrm{d} x}{\mathrm{d} t} + \frac{\partial z}{\partial y}  \frac{\mathrm{d} y}{\mathrm{d} t} $$
+$$ \frac{\mathrm{d} z}{\mathrm{d} t} = \frac{\partial z}{\partial x}  \frac{\mathrm{d} x}{\mathrm{d} t} + \frac{\partial z}{\partial y}  \frac{\mathrm{d} y}{\mathrm{d} t} $$
 
 既然有了链式求导法则，而神经网络其实就是个庞大的复合函数，直接求导不就解决问题了吗？反向到底起了什么作用？下面来看几组公式。
 
