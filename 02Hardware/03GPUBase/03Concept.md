@@ -10,7 +10,7 @@ A100 GPU 架构中 GPC（Graphic Processing Cluster）表示图像处理簇，�
 
 ![A100 GPU 架构图](images/03Concept01.png)
 
-每个 GPC 中包含 TPC（Texture processing cluster）表示纹理处理簇，每个处理簇被分为多个 SM（Streaming Multiprocessors）流处理器，SM 中包含多个 CUDA Core 和 Tensor Core，用于处理图形图形和 AI 张量计算。
+每个 GPC 中包含 TPC（Texture processing cluster）表示纹理处理簇，每个处理簇被分为多个 SM（Streaming Multiprocessors）流处理器，SM 中包含多个 CUDA Core 和 Tensor Core，用于处理图形和 AI 张量计算。
 
 ![A100 GPU GPC 架构图](images/03Concept02.png)
 
