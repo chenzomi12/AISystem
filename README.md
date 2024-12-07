@@ -1,5 +1,9 @@
 # AI System & AI Infra
 
+大模型内容太多啦！！因此最新大模型的内容归档在 [AIFoundation](https://github.com/chenzomi12/AIFoundation/) https://github.com/chenzomi12/AIFoundation/ 上面，欢迎大家移步过去哦！！
+
+--------------
+
 文字课程内容正在一节节补充更新，尽可能抽空继续更新正在 [AISys](https://chenzomi12.github.io/) ，希望您多多鼓励和参与进来！！！
 
 文字课程开源在 [AISys](https://chenzomi12.github.io/)，系列视频托管[B 站](https://space.bilibili.com/517221395)和[油管](https://www.youtube.com/@zomi6222/videos)，PPT 开源在[github](https://github.com/chenzomi12/AISystem)，欢迎取用！！！
