@@ -129,7 +129,7 @@ define dso_local void @test(i32 noundef %0, i32 noundef %1) #0 { ;定义全局�
   %6 = load i32, ptr %3, align 4 ; 读取%3，值给%6 就是参数 a
   %7 = load i32, ptr %4, align 4 ; 读取%4，值给%7 就是参数 b
   %8 = add nsw i32 %6, %7
-  store i32 %8, ptr %5, align 4 ; 参数 %9 赋值给%5 e 就是转换前函数写的 int c 变量
+  store i32 %8, ptr %5, align 4 ; 参数 %8 赋值给%5 e 就是转换前函数写的 int c 变量
   ret void
 }
 

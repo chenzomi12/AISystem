@@ -14,35 +14,35 @@
 
 **Params 网络参数量**
 
-对于输入为 $w x h x Ci$ 的输入图像，卷积核大小为 $k×k$，得到输出的特征图大小为 $W x H x Co$ 的卷积操作，其参数量为：$Params = (k x k x Ci +1) x Co$。
+对于输入为 $w \times h \times Ci$ 的输入图像，卷积核大小为 $k \times k$，得到输出的特征图大小为 $W \times H \times Co$ 的卷积操作，其参数量为：$Params = (k \times k \times Ci + 1) \times Co$。
 
 **FLOPs 浮点运算数**
 
-对于输入为 $w x h x Ci$ 的输入图像，卷积核大小为 k×k，得到输出的特征图大小为 $W x H x Co$ 的卷积操作，其浮点运算数为：$FLOPs = W x H x (k x k x Ci +1) x Co$。
+对于输入为 $w \times h \times Ci$ 的输入图像，卷积核大小为 k×k，得到输出的特征图大小为 $W \times H \times Co$ 的卷积操作，其浮点运算数为：$FLOPs = W \times H \times (k \times k \times Ci +1) \times Co$。
 
 一般来说，网络模型参数量和浮点运算数越小，模型的速度越快，但是衡量模型的快慢不仅仅是参数量和计算量的多少，还有内存访问的次数多少相关，也就是和网络结构本身相关。现在我们将从 AI 计算模式的角度进一步分析这些轻量化设计的特点。
 
 1. **减少内存空间的设计**
 
-为了减小模型的参数量，在 VGG 和 inceptionNet 系列网络中，提出了将两个 $3x3$ 卷积核一个 $5x5$ 卷积核，和将一个 $5x1$ 卷积核和一个 $1x5$ 卷积核代替一个 $5x5$ 的卷积核的模型卷积层设计，如下图所示。
+为了减小模型的参数量，在 VGG 和 InceptionNet 系列网络中，提出了将两个 $3 \times 3$ 卷积核一个 $5 \times 5$ 卷积核，和将一个 $5 \times 1$ 卷积核和一个 $1 \times 5$ 卷积核代替一个 $5 \times 5$ 的卷积核的模型卷积层设计，如下图所示。
 
-比如使用 2 个 $3x3$ 卷积核来代替 $5x5$ 卷积核，这样做的主要目的是在保证具有相同感知野的条件下，提升了网络的深度，在一定程度上提升了神经网络的效果，并且模型参数可以由 $5 x 5 x Ci x Co$ 变成了 $3 x 3 x Ci x Co+3 x 3 x Ci x Co$，假设 $Ci = Co$, 该层参数可以减小为原来的 $18/25$。
+比如使用 2 个 $3 \times 3$ 卷积核来代替 $5 \times 5$ 卷积核，这样做的主要目的是在保证具有相同感知野的条件下，提升了网络的深度，在一定程度上提升了神经网络的效果，并且模型参数可以由 $5  \times  5  \times  Ci  \times  Co$ 变成了 $3  \times  3  \times  Ci  \times  Co+3  \times  3  \times  Ci  \times  Co$，假设 $Ci = Co$, 该层参数可以减小为原来的 $18/25$。
 
 ![](images/03MobileParallel01.png)
 
 2. **减少通道数的设计**
 
-MobileNet 系列的网络设计中，提出了深度可分离卷积的设计策略，其中通过 Depthwise 逐层卷积加 $1x1$ 的卷积核来实现一个正常的卷积操作（如下图所示），$1x1$ 的 Pointwise 卷积负责完成卷积核通道的缩减来减小模型参数量。
+MobileNet 系列的网络设计中，提出了深度可分离卷积的设计策略，其中通过 Depthwise 逐层卷积加 $1 \times 1$ 的卷积核来实现一个正常的卷积操作（如下图所示），$1 \times 1$ 的 Pointwise 卷积负责完成卷积核通道的缩减来减小模型参数量。
 
 ![](images/03MobileParallel02.png)
 
-比如一个 $3x3$ 卷积核大小的卷积层，输入通道是 16，输出通道是 32，正常的卷积模型参数是 $3x3x16x32=4608$，而将其模型替代设计为一个 $3x3$ 卷积核的 Depthwise 卷积，和 $1x1$ 卷积核的 Pointwise 卷积，模型参数为 $3x3x16+1x1x16x32=656$，可以看出模型参数量得到了很大的减少。
+比如一个 $3 \times 3$ 卷积核大小的卷积层，输入通道是 16，输出通道是 32，正常的卷积模型参数是 $3 \times 3 \times 16 \times 32=4608$，而将其模型替代设计为一个 $3 \times 3$ 卷积核的 Depthwise 卷积，和 $1 \times 1$ 卷积核的 Pointwise 卷积，模型参数为 $3 \times 3 \times 16+1 \times 1 \times 16 \times 32=656$，可以看出模型参数量得到了很大的减少。
 
 3. **减少卷积核个数的设计**
 
 在 DenseNet 和 GhostNet 的模型设计中，提出了一种通过 Reuse Feature Map 的设计方式来减少模型参数和运算量。
 
-如下图，对于 DenseNetV1 的结构设计来说，第 n 层的参数量由于复用了之前层的 Feature Map, 由 $kxkxC1x(C1+C2)$ 变为了 $kxkxC1xC2$，即为原来的 $C2/(C1+C2)$，而 C2 远小于 C1，其中 k 表示卷积核尺寸, C1 表示前 n-1 层的 Feature Map 个数，C2 表示第 n 层的输出 Feature Map 个数。
+如下图，对于 DenseNetV1 的结构设计来说，第 n 层的参数量由于复用了之前层的 Feature Map, 由 $k \times k \times C1 \times (C1+C2)$ 变为了 $k \times k \times C1 \times C2$，即为原来的 $C2/(C1+C2)$，而 C2 远小于 C1，其中 k 表示卷积核尺寸, C1 表示前 n-1 层的 Feature Map 个数，C2 表示第 n 层的输出 Feature Map 个数。
 
 ![](images/03MobileParallel03.png)
 
