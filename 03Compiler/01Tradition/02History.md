@@ -51,7 +51,7 @@ print_id("我是 ZOMI")
 
 在 C 语言的编译器有很多种，不同的平台下有不同的编译器，例如：
 
-- Windows：常用的是微软编译器（cl.exr），被集成在 Visual Studio 或 Visual C++ 中，一般不单独使用；
+- Windows：常用的是微软编译器（cl.exe），被集成在 Visual Studio 或 Visual C++ 中，一般不单独使用；
 - Linux：常用 GUN 组织开发的 GCC，很多 Linux 发行版都自带 GCC；
 - Mac：常用的是 LLVM/Clang，被集成在 Xcode 中
 
