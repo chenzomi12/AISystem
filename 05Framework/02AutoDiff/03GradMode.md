@@ -24,7 +24,7 @@ $$
 
 根据对分解后的基本操作求导和链式规则组合顺序的不同，自动微分可以分为两种模式：
 
-- *前向模式*（Forward Automatic Differentiation，也叫做 tangent mode AD）或者前向累积梯度（前向模式）；
+- *前向模式*（Forward Automatic Differentiation，也叫做 tangent mode AD）或者前向累计梯度（前向模式）；
 
 - *反向模式*（Reverse Automatic Differentiation，也叫做 adjoint mode AD）或者说反向累计梯度（反向模式）。
 
@@ -100,7 +100,7 @@ $$
 f(x1,x2)=ln(x1)+x1x2−sin(x2)
 $$
 
-面是前向模式的计算过程，下表中，左半部分是从左往右每个图节点的求值结果和计算过程，右半部分是每个节点对 x1 的求导结果和计算过程。这里 $𝑉˙i$ 表示 $𝑉i$ 对 $𝑥1$ 的偏导数。即：
+下面是前向模式的计算过程，下表中，左半部分是从左往右每个图节点的求值结果和计算过程，右半部分是每个节点对 x1 的求导结果和计算过程。这里 $𝑉˙i$ 表示 $𝑉i$ 对 $𝑥1$ 的偏导数。即：
 
 $$
 \dot{v_i}=\dfrac{\delta v_i}{\delta x_1}
@@ -242,7 +242,7 @@ $$
 对于函数 $\overline{y}=f(\overline{x})$，其中 $f: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$，那么 $\overline{y}$ 中关于 $\overline{x}$ 的梯度可以表示为 Jacobian 矩阵：
 
 $$
-J_{f}= \left[\begin{array}{ccc} \dfrac{\partial y}{\partial x_{1}} & \cdots & \dfrac{\partial y}{\partial x_{1}} \end{array}\right]= \left[\begin{array}{ccc} \dfrac{\partial y_{1}}{\partial x_{1}} & \cdots & \dfrac{\partial y_{1}}{\partial x_{n}} \\ \vdots & \ddots & \vdots \\ \dfrac{\partial y_{m}}{\partial x_{1}} & \cdots & \dfrac{\partial y_{m}}{\partial x_{n}} \end{array}\right]
+J_{f}= \left[\begin{array}{ccc} \dfrac{\partial y}{\partial x_{1}} & \cdots & \dfrac{\partial y}{\partial x_{n}} \end{array}\right]= \left[\begin{array}{ccc} \dfrac{\partial y_{1}}{\partial x_{1}} & \cdots & \dfrac{\partial y_{1}}{\partial x_{n}} \\ \vdots & \ddots & \vdots \\ \dfrac{\partial y_{m}}{\partial x_{1}} & \cdots & \dfrac{\partial y_{m}}{\partial x_{n}} \end{array}\right]
 $$
 
 设置 $\overline{v}$ 是关于函数 $l=g(\overline{y})$ 的梯度：
@@ -254,7 +254,7 @@ $$
 Jacobian-vector 积就是函数 l 中关于 x_1 的梯度：
 
 $$
-\boldsymbol{J}^T \cdot \overline{v}= \left[\begin{array}{ccc} \dfrac{\partial y_{1}}{\partial x_{1}} & \cdots & \dfrac{\partial y_{1}}{\partial x_{n}} \\ \vdots & \ddots & \vdots \\ \dfrac{\partial y_{m}}{\partial x_{1}} & \cdots & \dfrac{\partial y_{m}}{\partial x_{n}} \end{array}\right] \cdot\left[\begin{array}{c} \dfrac{\partial l}{\partial y_{1}} \\ \vdots \\ \dfrac{\partial l}{\partial y_{m}} \end{array}\right]=\left[\begin{array}{c} \dfrac{\partial y_{1}}{\partial x_{1}} \\ \vdots \\ \dfrac{\partial y_{m}}{\partial x_{1}} \end{array}\right]
+\boldsymbol{J}^T \cdot \overline{v}= \left[\begin{array}{ccc} \dfrac{\partial y_{1}}{\partial x_{1}} & \cdots & \dfrac{\partial y_{m}}{\partial x_{1}} \\ \vdots & \ddots & \vdots \\ \dfrac{\partial y_{1}}{\partial x_{n}} & \cdots & \dfrac{\partial y_{m}}{\partial x_{n}} \end{array}\right] \cdot\left[\begin{array}{c} \dfrac{\partial l}{\partial y_{1}} \\ \vdots \\ \dfrac{\partial l}{\partial y_{m}} \end{array}\right]=\left[\begin{array}{c} \dfrac{\partial l}{\partial x_{1}} \\ \vdots \\ \dfrac{\partial l}{\partial x_{n}} \end{array}\right]
 $$
 
 即通过雅克比矩阵转置与后续节点梯度值的乘积，可以得到当前节点的梯度值。
