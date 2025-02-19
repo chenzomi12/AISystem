@@ -64,7 +64,7 @@ $$ \frac{\partial f}{\partial x}=\sum_{k=1}^{N} \frac{\partial f}{\partial v_{k}
 
 ## 反向操作符重载实现
 
-下面的代码主要介绍反向模式自动微分的实现。目的是通过了解 PyTorch 的 auto diff 实现，来了解到上面复杂的反向操作符重载实现自动微分的原理，值的主要的是千万不要在乎这是 MindSpore 的实现还是 TensorFlow 版的实现（实际上都不是哈）。
+下面的代码主要介绍反向模式自动微分的实现。目的是通过了解 PyTorch 的 auto diff 实现，来了解到上面复杂的反向操作符重载实现自动微分的原理，值得注意的是千万不要在乎这是 MindSpore 的实现还是 TensorFlow 版的实现（实际上都不是哈）。
 
 首先，需要通过 typing 库导入一些辅助函数。
 
