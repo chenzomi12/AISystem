@@ -2,7 +2,7 @@
 #include <math.h>
 // Kernel function to add the elements of two arrays
 // __global__ 变量声明符，作用是将 add 函数变成可以在 GPU 上运行的函数
-// __global__ 函数被称为 kernel
+// __global__ 函数被称为 Kernel
 __global__
 void add(int n, float *x, float *y)
 {
@@ -26,7 +26,7 @@ int main(void)
     y[i] = 2.0f;
   }
 
-  // Run kernel on 1M elements on the GPU
+  // Run Kernel on 1M elements on the GPU
   // execution configuration, 执行配置
   add<<<1, 1>>>(N, x, y);
 

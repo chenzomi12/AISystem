@@ -68,7 +68,7 @@ CUDA 引入主机端（host）和设备（device）概念，CUDA 程序中既包
 
 ![CUDA 使用主机端和设备端实现并行计算](images/03Concept09.png)
 
-代码 cuda_host.cpp 是只使用 CPU 在 host 端实现两个矩阵的加法运算，其中在 CPU 上计算的 kernel 可看作是加法运算函数，代码中包含内存空间的分配和释放。
+代码 cuda_host.cpp 是只使用 CPU 在 host 端实现两个矩阵的加法运算，其中在 CPU 上计算的 Kernel 可看作是加法运算函数，代码中包含内存空间的分配和释放。
 
 ```cpp
 #include <iostream>
@@ -99,7 +99,7 @@ int main(void)
     double timeuse;
     gettimeofday(&t1,NULL);
 
-    // Run kernel on 30M elements on the CPU
+    // Run Kernel on 30M elements on the CPU
     add(N, x, y);
 
     // Free memory
@@ -110,9 +110,9 @@ int main(void)
 }
 ```
 
-在 CUDA 程序架构中，host 代码部分在 CPU 上执行，是普通的 C 代码。当遇到数据并行处理的部分，CUDA 会将程序编译成 GPU 能执行的程序，并传送到 GPU，这个程序在 CUDA 里称做核(kernel)。device 代码部分在 GPU 上执行，此代码部分在 kernel 上编写(.cu 文件)。
+在 CUDA 程序架构中，host 代码部分在 CPU 上执行，是普通的 C 代码。当遇到数据并行处理的部分，CUDA 会将程序编译成 GPU 能执行的程序，并传送到 GPU，这个程序在 CUDA 里称做核(Kernel)。device 代码部分在 GPU 上执行，此代码部分在 Kernel 上编写(.cu 文件)。
 
-kernel 用 `__global__` 符号声明，在调用时需要用 `<<<grid, block>>>` 来指定 kernel 要执行及结构。代码 `cuda_device.cu` 是使用 CUDA 编程实现 GPU 计算，代码涉及到 host（CPU）和 device（GPU）相关计算，使用 `__global__` 声明将 add 函数转变为 GPU 可执行的 kernel。
+Kernel 用 `__global__` 符号声明，在调用时需要用 `<<<grid, block>>>` 来指定 Kernel 要执行及结构。代码 `cuda_device.cu` 是使用 CUDA 编程实现 GPU 计算，代码涉及到 host（CPU）和 device（GPU）相关计算，使用 `__global__` 声明将 add 函数转变为 GPU 可执行的 Kernel。
 
 ```c
 #include <iostream>
@@ -120,7 +120,7 @@ kernel 用 `__global__` 符号声明，在调用时需要用 `<<<grid, block>>>`
 
 // Kernel function to add the elements of two arrays
 // __global__ 变量声明符，作用是将 add 函数变成可以在 GPU 上运行的函数
-// __global__ 函数被称为 kernel
+// __global__ 函数被称为 Kernel
 __global__
 void add(int n, float *x, float *y)
 {
@@ -144,7 +144,7 @@ int main(void)
     y[i] = 2.0f;
   }
 
-  // Run kernel on 1M elements on the GPU
+  // Run Kernel on 1M elements on the GPU
   // execution configuration, 执行配置
   add<<<1, 1>>>(N, x, y);
 
@@ -170,7 +170,7 @@ int main(void)
 
 为了实现以上并行计算，对应于 GPU 硬件在进行实际计算过程时，CUDA 可以分为 Grid，Block 和 Thread 三个层次结构：
 
-- 线程层次结构Ⅰ-Grid：kernel 在 device 上执行时，实际上是启动很多线程，一个 kernel 所启动的所有线程称为一个网格（grid），同一个网格上的线程共享相同的全局内存空间，grid 是线程结构的第一层次。
+- 线程层次结构Ⅰ-Grid：Kernel 在 device 上执行时，实际上是启动很多线程，一个 Kernel 所启动的所有线程称为一个网格（grid），同一个网格上的线程共享相同的全局内存空间，grid 是线程结构的第一层次。
 
 - 线程层次结构Ⅱ-Block：Grid 分为多个线程块（block），一个 block 里面包含很多线程，Block 之间并行执行，并且无法通信，也没有执行顺序，每个 block 包含共享内存（shared memory），可以共享里面的 Thread。
 
@@ -178,7 +178,7 @@ int main(void)
 
 ![CUDA Grid，Block，Thread 三个层次结构](images/03Concept10.png)
 
-因此 CUDA 和英伟达硬件架构有以下对应关系，从软件侧看到的是线程的执行，对应于硬件上的 CUDA Core，每个线程对应于 CUDA Core，软件方面线程数量是超配的，硬件上 CUDA Core 是固定数量的。Block 线程块只在一个 SM 上通过 Warp 进行调度，一旦在 SM 上调用了 Block 线程块，就会一直保留到执行完 kernel，SM 可以同时保存多个 Block 线程块，多个 SM 组成的 TPC 和 GPC 硬件实现了 GPU 并行计算。
+因此 CUDA 和英伟达硬件架构有以下对应关系，从软件侧看到的是线程的执行，对应于硬件上的 CUDA Core，每个线程对应于 CUDA Core，软件方面线程数量是超配的，硬件上 CUDA Core 是固定数量的。Block 线程块只在一个 SM 上通过 Warp 进行调度，一旦在 SM 上调用了 Block 线程块，就会一直保留到执行完 Kernel，SM 可以同时保存多个 Block 线程块，多个 SM 组成的 TPC 和 GPC 硬件实现了 GPU 并行计算。
 
 ![CUDA 和英伟达硬件架构对应关系](images/03Concept11.png)
 

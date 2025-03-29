@@ -29,7 +29,7 @@
 
 - 压缩通道
 
-SqueezeNet 每个网络块利用小于输入通道数量的 1×1 filter 来减少挤压阶段的网络宽度，然后在扩展阶段利用多个 1×1 和 3×3 kernel。通过挤压宽度，计算复杂度明显降低，同时补偿了扩展阶段的精度。SqueezeNext 在扩展阶段利用了可分离的卷积；一个 k×k 的 filter 被分为一个 k×1 和一个 1×k 的 filter。与 SqueezeNet 相比，这种可分离的卷积进一步减少了参数的数量。
+SqueezeNet 每个网络块利用小于输入通道数量的 1×1 filter 来减少挤压阶段的网络宽度，然后在扩展阶段利用多个 1×1 和 3×3 Kernel。通过挤压宽度，计算复杂度明显降低，同时补偿了扩展阶段的精度。SqueezeNext 在扩展阶段利用了可分离的卷积；一个 k×k 的 filter 被分为一个 k×1 和一个 1×k 的 filter。与 SqueezeNet 相比，这种可分离的卷积进一步减少了参数的数量。
 
 - 深度可分离卷积
 
@@ -354,7 +354,7 @@ def _quantized_conv2d(with_relu=False):
             input_zero_point = _expr.const(inputs[9])
 
         weight_shape = infer_shape(weight)
-        kernel_size = (weight_shape[2], weight_shape[3])
+        Kernel_size = (weight_shape[2], weight_shape[3])
         out_channels = weight_shape[0]
 
         if padding[0] != 0 or padding[1] != 0:

@@ -26,7 +26,7 @@ int main(void)
   double timeuse;
   gettimeofday(&t1,NULL);
   
-  // Run kernel on 30M elements on the CPU
+  // Run Kernel on 30M elements on the CPU
   add(N, x, y);
 
   // Free memory

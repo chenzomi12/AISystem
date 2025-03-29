@@ -75,7 +75,7 @@ if __name__ == "__main__":
 	# conv1 偏置与 conv2 偏置融合
 	bias_fusion = torch.concatenate([conv1_bias, conv2_bias], dim=0)
 	# 1 次融合后的权重与偏置卷积，替代 conv1 与 conv2 两次卷积
-	kernel_fusion_output = F.conv2d(input, weight_fusion, bias=bias_fusion, stride=1, padding=1)
+	Kernel_fusion_output = F.conv2d(input, weight_fusion, bias=bias_fusion, stride=1, padding=1)
 	print(kernel_fusion_output)
 ```
 

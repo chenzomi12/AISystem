@@ -74,7 +74,7 @@ int main() {
     // Calculate the grid size
     dim3 dimGrid((N + dimBlock.x - 1) / dimBlock.x, (N + dimBlock.y - 1) / dimBlock.y);
 
-    // Launch the kernel
+    // Launch the Kernel
     add_matrix<<<dimGrid, dimBlock>>>(a, b, c, N);
 }
 ```

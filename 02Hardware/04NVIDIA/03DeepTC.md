@@ -105,7 +105,7 @@ for (int mb = O; mb < M; mb += Mtile)
 
 如上面代码所示，我们沿每个维度将循环嵌套 Loop nest 划分为块 blocks，然后划分成为 Mtile-by-Ntile 的独立矩阵乘，最后通过累积 Mtile-by-Ntile-by-Ktile 的矩阵乘积来计算每个乘积。
 
-在 GPU 计算时，使用 CUDA kernel grid，将 CUDA 线程块分配给输出矩阵 D 的每个分区，CUDA 线程块并行计算 Mtile-by-Ntile-by-Ktile 矩阵乘，在 K 维上进行迭代，执行累积 Mtile-by-Ntile-by-Ktile 矩阵乘的结果。可以看出这里计算主要是在线程块，也就是 Thread Block，面去进行并行计算的。
+在 GPU 计算时，使用 CUDA Kernel grid，将 CUDA 线程块分配给输出矩阵 D 的每个分区，CUDA 线程块并行计算 Mtile-by-Ntile-by-Ktile 矩阵乘，在 K 维上进行迭代，执行累积 Mtile-by-Ntile-by-Ktile 矩阵乘的结果。可以看出这里计算主要是在线程块，也就是 Thread Block，面去进行并行计算的。
 
 ### Warp-level 矩阵乘
 

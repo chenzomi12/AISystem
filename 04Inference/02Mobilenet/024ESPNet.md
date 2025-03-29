@@ -171,7 +171,7 @@ class EESP(nn.Module):
             ksize = ksize if ksize <= r_lim else 3
             self.k_sizes.append(ksize)
         #根据感受野对这些核大小进行排序（升序）
-        #这使我们能够忽略分层中具有相同有效感受野的核（在我们的例子中为 3×3）
+        #这使我们能够忽略分层中具有相同有效感受野的核（在例子中为 3×3）
         # 特征融合，因为 3x3 感受野的核不具有网格伪影。
         self.k_sizes.sort()
         self.spp_dw = nn.ModuleList()
@@ -195,7 +195,7 @@ class EESP(nn.Module):
         for k in range(1, len(self.spp_dw)):
             out_k = self.spp_dw[k](output1)
             # HFF
-            #我们不组合具有相同感受野的分支(在我们的例子中是 3x3)
+            #我们不组合具有相同感受野的分支(在例子中是 3x3)
          
             out_k = out_k + output[k - 1]
             #融合后应用批量定额，然后添加到列表中
