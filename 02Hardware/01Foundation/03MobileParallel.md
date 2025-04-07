@@ -18,7 +18,7 @@
 
 **FLOPs 浮点运算数**
 
-对于输入为 $w \times h \times Ci$ 的输入图像，卷积核大小为 k×k，得到输出的特征图大小为 $W \times H \times Co$ 的卷积操作，其浮点运算数为：$FLOPs = W \times H \times (k \times k \times Ci +1) \times Co$。
+对于输入为 $w \times h \times Ci$ 的输入图像，卷积核大小为 $k \times k$，得到输出的特征图大小为 $W \times H \times Co$ 的卷积操作，其浮点运算数为：$FLOPs = W \times H \times (k \times k \times Ci +1) \times Co$。
 
 一般来说，网络模型参数量和浮点运算数越小，模型的速度越快，但是衡量模型的快慢不仅仅是参数量和计算量的多少，还有内存访问的次数多少相关，也就是和网络结构本身相关。现在我们将从 AI 计算模式的角度进一步分析这些轻量化设计的特点。
 
