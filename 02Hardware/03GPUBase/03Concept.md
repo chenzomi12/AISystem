@@ -42,7 +42,7 @@ Volta 架构取消 CUDA core，变为单独的 FP32 FPU 和 INT32 ALU，因为 F
 
 ![Fermi 架构 CUDA Core](images/03Concept06.png)
 
-Warp 是线程束，逻辑上所有 Thread 并行执行，但是从硬件的角度讲并不是所有的 Thread 能够在同一时刻执行，因此引入 Warp。Warp 是 SM 基本执行单元，一个 Warp 包含 32 个并行 Thread（warp_size=32），这 32 个 Thread 执行 SIMT（Single Instruction Multiple Thread）指令模式。
+Warp 是线程束，逻辑上所有 Thread 并行执行，但是从硬件的角度讲并不是所有的 Thread 能够在同一时刻执行，因此引入 Warp。Warp 是 SM 基本执行单元，一个 Warp 包含 32 个并行 Thread（$\text{warp}_\text{size}=32$），这 32 个 Thread 执行 SIMT（Single Instruction Multiple Thread）指令模式。
 
 也就是说，所有的 Thread 以锁步的方式执行同一条指令，但是每个 Thread 会使用各自的 Data 执行指令分支。如果在 Warp 中没有 32 个 Thread 需要工作，那么 Warp 虽然还是作为一个整体运行，但这部分 Thread 是处于非激活状态。此外，Thread 是最小的逻辑单位，Warp 是硬件执行单位。
 
