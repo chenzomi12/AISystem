@@ -179,7 +179,7 @@ Pascal 架构在 SM 内部作了进一步精简，整体思路是 SM 内部包�
 
 ![volta 伏特架构](images/04History12.png)
 
-Volta 伏特架构 SM 结构相比前几代架构，SM 的数目明显增多，SM 被划分为四个处理块，单个 SM 中包含 4 个 Warp Schedule，4 个 Dispatch Unit，64 个 FP32 Core（4*16），64 个 INT32 Core（4*16），32 个 FP64 Core（4*8），8 个 Tensor Core（4*2），32 个 LD/ST Unit（4*8），4 个 SFU，FP32 和 INT32 两组运算单元独立出现在流水线中，每个 Cycle 都可以同时执行 FP32 和 INT32 指令，因此每个时钟周期可以执行的计算量更大。Volt 架构新增了混合精度张量核心（Tensor Core）以及高性能 L1 数据缓存和新的 SIMT 线程模型。单个 SM 通过共享内存和 L1 资源的合并，相比 GP100 64 KB 的共享内存容量，Volta 架构增加到 96KB。
+Volta 伏特架构 SM 结构相比前几代架构，SM 的数目明显增多，SM 被划分为四个处理块，单个 SM 中包含 4 个 Warp Schedule，4 个 Dispatch Unit，64 个 FP32 Core（$4 \times 16$），64 个 INT32 Core（$4 \times 16$），32 个 FP64 Core（$4 \times 8$），8 个 Tensor Core（$4 \times 2$），32 个 LD/ST Unit（$4 \times 8$），4 个 SFU，FP32 和 INT32 两组运算单元独立出现在流水线中，每个 Cycle 都可以同时执行 FP32 和 INT32 指令，因此每个时钟周期可以执行的计算量更大。Volt 架构新增了混合精度张量核心（Tensor Core）以及高性能 L1 数据缓存和新的 SIMT 线程模型。单个 SM 通过共享内存和 L1 资源的合并，相比 GP100 64 KB 的共享内存容量，Volta 架构增加到 96KB。
 
 ![Volta 伏特架构 SM 结构](images/04History13.png)
 
