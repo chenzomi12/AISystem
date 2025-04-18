@@ -18,7 +18,7 @@ Tensor Core 是针对深度学习和 AI 工作负载而设计的专用核心，�
 
 2010 年，在 Fermi 架构中，英伟达对处理核心进行了改进和调整，引入了新的设计和特性，包括更好的线程调度和管理机制，更高效的内存访问模式，以及更多的可编程功能。在 Fermi 架构之后，英伟达将处理核心更名为 CUDA 核心，以强调其与 CUDA（计算统一设备架构）编程模型的紧密集成。
 
-如图所示，在 Fermi 架构中其计算核心由 16 个 SM（Stream Multiprocesser）组成，每个 SM 包含 2 个线程束（Warp），一个 Warp 中包含 16 个 Cuda Core，共 32 个 CUDA Cores。每一个 Cuda Core 由 1 个浮点数单元 FPU 和 1 个逻辑运算单元 ALU 组成。
+如图所示，在 Fermi 架构中其计算核心由 16 个 SM（Stream Multiprocessor）组成，每个 SM 包含 2 个线程束（Warp），一个 Warp 中包含 16 个 Cuda Core，共 32 个 CUDA Cores。每一个 Cuda Core 由 1 个浮点数单元 FPU 和 1 个逻辑运算单元 ALU 组成。
 
 ![Nvida GPU 架构发展](images/01BasicTC01.png)
 
@@ -51,9 +51,9 @@ Img2col 算法主要包含两个步骤，首先使用 Im2Col 将输入矩阵展�
 Im2Col 算法计算卷积的过程，具体简化过程如下:
 
 1. 将输入由 $N×IH×IW×IC$ 根据卷积计算特性展开成 $(OH×OW)×(N×KH×KW×IC)$ 形状二维矩;
-   阵。显然，转换后使用的内存空间相比原始输入多约 $KH x KW−1$ 倍;
+   阵。显然，转换后使用的内存空间相比原始输入多约 $KH \times KW−1$ 倍;
 2. 权重形状一般为 $OC×KH×KW×IC$ 四维张量，可以将其直接作为形状为 $(OC)×(KH×KW×IC)$ 的二维矩阵处理;
-3. 对于准备好的两个二维矩阵，将 $(KH×KW×IC) 作为累加求和的维度，运行矩阵乘可以得到输出矩阵 $(OH×OW)×(OC)$;
+3. 对于准备好的两个二维矩阵，将 $(KH×KW×IC)$ 作为累加求和的维度，运行矩阵乘可以得到输出矩阵 $(OH×OW)×(OC)$;
 4. 将输出矩阵 $(OH×OW)×(OC)$ 在内存布局视角即为预期的输出张量 $N×OH×OW×OC$，或者使用 Col2Im 算法变为下一个算子输入 $N×OH×OW×OC$。
 
 通过 Im2Col，输入数据被重排成一个大矩阵，而卷积权重（即卷积核）也被转换为另一个矩阵。这样，原本的卷积运算就转化为了这两个矩阵的乘法操作，如图上所示。这种转换后的矩阵乘法可以利用现代计算架构（如 Tensor Core）的强大计算能力，从而实现高效的计算加速。
@@ -72,15 +72,15 @@ Im2Col 算法计算卷积的过程，具体简化过程如下:
 
 2. **参数更新的精度保持**：尽管计算使用了较低的精度，但在更新模型参数时，仍然使用较高的精度（如 FP32）来保持训练过程的稳定性和模型的最终性能。这是因为直接使用 FP16 进行参数更新可能会导致训练不稳定，甚至模型无法收敛，由于 FP16 的表示范围和精度有限，容易出现梯度消失或溢出的问题。
 
-另外，混合精度训练中通常还会使用损失缩放（loss scaling）技术来对于loss进行一定倍数的放大，该放大倍数会进一步作用到梯度上，从而尽量避免训练后期由于梯度过小导致的数值下溢出问题，使得模型参数更新保持稳定。
+另外，混合精度训练中通常还会使用损失缩放（loss scaling）技术来对于 loss 进行一定倍数的放大，该放大倍数会进一步作用到梯度上，从而尽量避免训练后期由于梯度过小导致的数值下溢出问题，使得模型参数更新保持稳定。
 
 具体而言，混合精度训练每一轮更新的流程如下：
-- 将FP32的权重转为FP16，得到一个FP16的权重版本用于前向传播过程，同时依然保留FP32的权重作为用于后续参数更新的副本。
-- Forward过程使用较低精度进行计算：将FP16的激活值（activation）通过FP16的各层权重，最终得到FP16的loss。
-- Loss Scaling：将FP16的loss放大若干倍。
-- 反向传播：使用放大后的FP16 loss进行反向传播，得到FP16的梯度（这里的梯度值相比于实际梯度值也是放大后的，其scale的倍数等同于上一步loss scale的倍数）。由于此时的梯度值是放大后的，因此即便使用FP16保存一般也不会出现下溢出问题。
-- Gradient Upscaling：将FP16的梯度转为FP32，然后进行反缩放（unscale），得到FP32的实际梯度值。这个实际梯度值可能非常小，但此时由于其使用FP32进行保存，因此也避免了下溢出问题。
-- 最终，使用FP32的实际梯度来更新FP32的权重副本。
+- 将 FP32 的权重转为 FP16，得到一个 FP16 的权重版本用于前向传播过程，同时依然保留 FP32 的权重作为用于后续参数更新的副本。
+- Forward 过程使用较低精度进行计算：将 FP16 的激活值（activation）通过 FP16 的各层权重，最终得到 FP16 的 loss。
+- Loss Scaling：将 FP16 的 loss 放大若干倍。
+- 反向传播：使用放大后的 FP16 loss 进行反向传播，得到 FP16 的梯度（这里的梯度值相比于实际梯度值也是放大后的，其 scale 的倍数等同于上一步 loss scale 的倍数）。由于此时的梯度值是放大后的，因此即便使用 FP16 保存一般也不会出现下溢出问题。
+- Gradient Upscaling：将 FP16 的梯度转为 FP32，然后进行反缩放（unscale），得到 FP32 的实际梯度值。这个实际梯度值可能非常小，但此时由于其使用 FP32 进行保存，因此也避免了下溢出问题。
+- 最终，使用 FP32 的实际梯度来更新 FP32 的权重副本。
 
 
 ![FP32 vs FP16](images/01BasicTC03.png)
@@ -161,9 +161,9 @@ void mma_sync(fragment<...> &d, const fragment<...> &a, const fragment<...> &b, 
 
 - `fill_fragment`：fragment 填充 API，支持常数值填充；
 
-- `mma_sync`：Tensor Core 矩阵乘计算 API，支持 D = AB + C 或者 C = AB + C。
+- `mma_sync`：Tensor Core 矩阵乘计算 API，支持 $D = AB + C$ 或者 $C = AB + C$。
 
-CUDA 通过**CUDA C++ WMMA API**向外提供了 Tensor Core 在 Warp 级别上的计算操作支持。这些 C++接口提供了专门用于矩阵加载、矩阵乘法和累加、以及矩阵存储等操作的功能。例如上图所示代码中，其中的 `mma_sync` 就是执行具体计算的 API 接口。借助这些 API，开发者可以高效地利用 Tensor Core 进行深度学习中的矩阵计算，从而加速神经网络模型的训练和推理过程。
+CUDA 通过 **CUDA C++ WMMA API** 向外提供了 Tensor Core 在 Warp 级别上的计算操作支持。这些 C++ 接口提供了专门用于矩阵加载、矩阵乘法和累加、以及矩阵存储等操作的功能。例如上图所示代码中，其中的 `mma_sync` 就是执行具体计算的 API 接口。借助这些 API，开发者可以高效地利用 Tensor Core 进行深度学习中的矩阵计算，从而加速神经网络模型的训练和推理过程。
 
 一个 Tensor Core 每个周期可以执行 4x4x4 的 GEMM 运算。然而，在 CUDA 的层面，为什么提供了使用 16x16x16 的 GEMM 运算 API 呢？
 
@@ -171,13 +171,13 @@ CUDA 通过**CUDA C++ WMMA API**向外提供了 Tensor Core 在 Warp 级别上�
 
 事实上，如果我们整体来看，如上图所示，一个 Tensor Core 是一个 4x4 的 Tensor Core 核心。但实际上，在一个 SM（Streaming Multiprocessor）中有多个 Tensor Core，我们无法对每个 Tensor Core 进行细粒度的控制，否则效率会很低。因此，一个 Warp 就扮演了重要角色，将多个 Tensor Core 打包在一起，以执行更大规模的计算任务。
 
-通过 Warp 层的卷积指令，CUDA 向外提供了一个 16x16x16 的抽象层，使得开发者可以通过一条指令完成多个 Tensor Core 的协同工作，实现高效的并行计算。这条指令也即我们之前提到的`mma_sync` API，它允许开发者利用 Warp 内的线程同时调度多个 Tensor Core 执行矩阵乘加操作，从而提高 GPU 计算的效率和性能。
+通过 Warp 层的卷积指令，CUDA 向外提供了一个 16x16x16 的抽象层，使得开发者可以通过一条指令完成多个 Tensor Core 的协同工作，实现高效的并行计算。这条指令也即我们之前提到的 `mma_sync` API，它允许开发者利用 Warp 内的线程同时调度多个 Tensor Core 执行矩阵乘加操作，从而提高 GPU 计算的效率和性能。
 
 那么现在有一个问题，Tensor Core 是如何跟卷积计算或者 GEMM 计算之间进行映射的呢?
 
 例如 GPU 中的 Tensor Core 一次仅仅只有 4x4 这么小的 Kernel，怎么处理 input image $224*224$，Kernel $7*7$ 的 GEMM 计算呢?
 
-或者说在现在大模型时代，Tensor Core 是怎么处理 Transformer 结构 inputembedding 为 $2048*2048$，hiddensize 为 $1024*1024$ 的 GEMM 呢?
+或者说在现在大模型时代，Tensor Core 是怎么处理 Transformer 结构 input embedding 为 $2048*2048$，hidden size 为 $1024*1024$ 的 GEMM 呢?
 
 上文我们已经提到，卷积运算可以被转化为矩阵乘法操作，这一点是连接卷积和 Tensor Core 的桥梁。
 
@@ -189,7 +189,7 @@ CUDA 通过**CUDA C++ WMMA API**向外提供了 Tensor Core 在 Warp 级别上�
 
 - Tensor Core 的核心作用：Tensor Core 是英伟达 GPU 中专门设计用于加速深度学习和 AI 任务的硬件单元，通过混合精度计算优化了矩阵乘法和累加操作的性能。
 
-Te- nsor Core 的技术演进：自 Volta 架构首次引入后，Tensor Core 在英伟达 GPU 架构的后续迭代中不断得到优化，增加了支持的计算精度并提升了运算能力，以满足日益增长的 AI 计算需求。
+- Tensor Core 的技术演进：自 Volta 架构首次引入后，Tensor Core 在英伟达 GPU 架构的后续迭代中不断得到优化，增加了支持的计算精度并提升了运算能力，以满足日益增长的 AI 计算需求。
 
 - Tensor Core 的工作机制：利用融合乘法加法（FMA）技术，Tensor Core 能在单周期内完成大量 FP16 矩阵乘法和 FP32 累加操作，通过 CUDA 编程模型中的 Warp 调度实现高效并行计算，加速神经网络模型的训练和推理过程。
 

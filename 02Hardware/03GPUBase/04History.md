@@ -179,7 +179,7 @@ Pascal 架构在 SM 内部作了进一步精简，整体思路是 SM 内部包�
 
 ![volta 伏特架构](images/04History12.png)
 
-Volta 伏特架构 SM 结构相比前几代架构，SM 的数目明显增多，SM 被划分为四个处理块，单个 SM 中包含 4 个 Warp Schedule，4 个 Dispatch Unit，64 个 FP32 Core（4*16），64 个 INT32 Core（4*16），32 个 FP64 Core（4*8），8 个 Tensor Core（4*2），32 个 LD/ST Unit（4*8），4 个 SFU，FP32 和 INT32 两组运算单元独立出现在流水线中，每个 Cycle 都可以同时执行 FP32 和 INT32 指令，因此每个时钟周期可以执行的计算量更大。Volt 架构新增了混合精度张量核心（Tensor Core）以及高性能 L1 数据缓存和新的 SIMT 线程模型。单个 SM 通过共享内存和 L1 资源的合并，相比 GP100 64 KB 的共享内存容量，Volta 架构增加到 96KB。
+Volta 伏特架构 SM 结构相比前几代架构，SM 的数目明显增多，SM 被划分为四个处理块，单个 SM 中包含 4 个 Warp Schedule，4 个 Dispatch Unit，64 个 FP32 Core（$4 \times 16$），64 个 INT32 Core（$4 \times 16$），32 个 FP64 Core（$4 \times 8$），8 个 Tensor Core（$4 \times 2$），32 个 LD/ST Unit（$4 \times 8$），4 个 SFU，FP32 和 INT32 两组运算单元独立出现在流水线中，每个 Cycle 都可以同时执行 FP32 和 INT32 指令，因此每个时钟周期可以执行的计算量更大。Volt 架构新增了混合精度张量核心（Tensor Core）以及高性能 L1 数据缓存和新的 SIMT 线程模型。单个 SM 通过共享内存和 L1 资源的合并，相比 GP100 64 KB 的共享内存容量，Volta 架构增加到 96KB。
 
 ![Volta 伏特架构 SM 结构](images/04History13.png)
 
@@ -265,7 +265,7 @@ RT Core 主要用于三角形与光线求交点，并通过 BVH（Bounding Volum
 > 
 > 4. 对电磁学和热力学等领域都有重要贡献，被认为是 19 世纪最杰出的物理学家之一。
 
-英伟达 A100 GPU 包括 8 个 GPC，每个 GPC 包含 8 个 TPC，每个 TPC 包含 2S 个 SMs/，每个 GPC 包含 16 个 SM/GPC，整个 GPU 拥有 128 个 SMs。每个 SM 有 64 个 FP32 CUDA 核心，总共 8192 FP32 CUDA 核心。Tensor Core3.0，总共 512 个。6 个 HBM2 存储栈，12 个 512 位内存控制器，内存可达到 40 GB。第三代 NVLink，GPU 和服务器双向带宽为 4.8 TB/s，GPU 之间的互联速度为 600 GB/s。A100 SM 拥有 192 KB 共享内存和 L1 数据缓存，比 V100 SM 大 1.5 倍。
+英伟达 A100 GPU 包括 8 个 GPC，每个 GPC 包含 8 个 TPC，每个 TPC 包含 2S 个 SMs，每个 GPC 包含 16 个 SM/GPC，整个 GPU 拥有 128 个 SMs。每个 SM 有 64 个 FP32 CUDA 核心，总共 8192 FP32 CUDA 核心。Tensor Core3.0，总共 512 个。6 个 HBM2 存储栈，12 个 512 位内存控制器，内存可达到 40 GB。第三代 NVLink，GPU 和服务器双向带宽为 4.8 TB/s，GPU 之间的互联速度为 600 GB/s。A100 SM 拥有 192 KB 共享内存和 L1 数据缓存，比 V100 SM 大 1.5 倍。
 
 ![Ampere 安培架构](images/04History22.png)
 

@@ -90,50 +90,50 @@
 
 ### 萌芽兴奋期（约 1950s）
 
-1943 年，神经科学家和控制论专家 Warren McCulloch 和逻辑学家 Walter Pitts 基于数学和阈值逻辑算法创造了一种神经网络计算模型。并发表文章 "A Logical Calculus of the ideas Imminent in Nervous Activity"[<sup>[3]</sup>]。
+1943 年，神经科学家和控制论专家 Warren McCulloch 和逻辑学家 Walter Pitts 基于数学和阈值逻辑算法创造了一种神经网络计算模型。并发表文章 "A Logical Calculus of the ideas Imminent in Nervous Activity"<sup>[3]</sup>。
 
 人工智能概念的提出带来了一系列研究成果，如机器定理证明、跳棋程序等，掀起了人工智能发展的第一个高潮。测试机器是否能表现出与人无法区分的智能"图灵测试"就是在 1950 年提出的。
 
-1957 年，Frank Rosenblat 发明感知机（Perceptron）[<sup>[4]</sup>]。奠定了之后 AI 的基本结构，其计算以矩阵乘加运算为主，进而影响了后续人工智能芯片和系统的基本算子类型，例如：英伟达的新款 GPU 就有为矩阵计算设计的专用张量核（Tensor Core）。
+1957 年，Frank Rosenblat 发明感知机（Perceptron）<sup>[4]</sup>。奠定了之后 AI 的基本结构，其计算以矩阵乘加运算为主，进而影响了后续人工智能芯片和系统的基本算子类型，例如：英伟达的新款 GPU 就有为矩阵计算设计的专用张量核（Tensor Core）。
 
 ![](images/01Present07.png)
 
-1960 年，Bernard Widrow[<sup>[5]</sup>] 和 Hoff 发明了感知器 Adaline/Madaline，首次尝试把线性层叠加整合为多层感知器网络。感知器本质上是一种线性模型，可以对输入的训练集数据进行二分类，且能够在训练集中自动更新权值。感知器的提出吸引了大量科学家对人工神经网络研究的兴趣，对神经网络的发展具有里程碑式的意义。为之后的多层 AI 的网络结构奠定了基础，进而后期不断衍生更深层的模型，产生大模型和模型并行等系统问题。
+1960 年，Bernard Widrow<sup>[5]</sup> 和 Hoff 发明了感知器 Adaline/Madaline，首次尝试把线性层叠加整合为多层感知器网络。感知器本质上是一种线性模型，可以对输入的训练集数据进行二分类，且能够在训练集中自动更新权值。感知器的提出吸引了大量科学家对人工神经网络研究的兴趣，对神经网络的发展具有里程碑式的意义。为之后的多层 AI 的网络结构奠定了基础，进而后期不断衍生更深层的模型，产生大模型和模型并行等系统问题。
 
-1969 年，Marvin Minsky 和 Seymour Papert 共同编写了一本书籍 “Perceptrons: an introduction to computational geometry”[<sup>[6]</sup>]，在书中他们证明了单层感知器无法解决线性不可分问题（例如：异或问题）。发现了当时的神经网络的两个重大缺陷：
+1969 年，Marvin Minsky 和 Seymour Papert 共同编写了一本书籍 “Perceptrons: an introduction to computational geometry”<sup>[6]</sup>，在书中他们证明了单层感知器无法解决线性不可分问题（例如：异或问题）。发现了当时的神经网络的两个重大缺陷：
 
 1. 基本感知机无法处理异或回路。
 2. 当时计算机的计算能力不足以用来处理复杂神经网络。
 
 因此对于神经网络的研究就此停滞不前，这也为后来 AI 的两大驱动力，提升硬件算力和模型通过更多的层和非线性计算（激活函数和最大池化等）增加非线性能力的演进埋下了伏笔。
 
-1974 年，Paul Werbos 在博士论文 “Beyond regression : new tools for prediction and analysis in the behavioral sciences”[<sup>[7]</sup>] 中提出了用误差反向传播来训练人工神经网络，使得训练多层神经网络成为可能，有效解决了异或回路问题。这个工作奠定了之后 AI 的训练方式，AI 训练系统中最为重要的执行步骤就是在不断的进行反向传播训练。同时 AI 的编程语言和框架为了支持反向传播训练，默认都提供自动微分（Automatic Differentiation）的功能。
+1974 年，Paul Werbos 在博士论文 “Beyond regression : new tools for prediction and analysis in the behavioral sciences”<sup>[7]</sup> 中提出了用误差反向传播来训练人工神经网络，使得训练多层神经网络成为可能，有效解决了异或回路问题。这个工作奠定了之后 AI 的训练方式，AI 训练系统中最为重要的执行步骤就是在不断的进行反向传播训练。同时 AI 的编程语言和框架为了支持反向传播训练，默认都提供自动微分（Automatic Differentiation）的功能。
 
 ### 蓬勃发展期（约 1980s）
 
-1986 年，AI（Deep Learning）一词由 Rina Dechter 于 1986 年 AAAI 论文“LEARNING WHILE SEARCHING IN CONSTRAINT-SATISFACTION-PROBLEMS”[<sup>[8]</sup>] 引入机器学习社区。目前常常所说的人工智能系统主要以 AI 系统为代表性系统。
+1986 年，AI（Deep Learning）一词由 Rina Dechter 于 1986 年 AAAI 论文“LEARNING WHILE SEARCHING IN CONSTRAINT-SATISFACTION-PROBLEMS”<sup>[8]</sup> 引入机器学习社区。目前常常所说的人工智能系统主要以 AI 系统为代表性系统。
 
-1989 年，Yann LeCun 在论文“Backpropagation Applied to Handwritten Zip Code Recognition”[<sup>[9]</sup>] 提出了一种用反向传导进行更新的卷积神经网络，称为 LeNet 。启发了后续卷积神经网络的研究与发展。卷积神经网络为 AI 系统的重要负载，大多数的 AI 系统都需要在卷积神经网络上验证性能，在未来会看到很多 AI 系统的基准测试中也会引入大量的卷积神经网络。
+1989 年，Yann LeCun 在论文“Backpropagation Applied to Handwritten Zip Code Recognition”<sup>[9]</sup> 提出了一种用反向传导进行更新的卷积神经网络，称为 LeNet 。启发了后续卷积神经网络的研究与发展。卷积神经网络为 AI 系统的重要负载，大多数的 AI 系统都需要在卷积神经网络上验证性能，在未来会看到很多 AI 系统的基准测试中也会引入大量的卷积神经网络。
 
 20 世纪 90 年代中期统计学习登场，支持向量机 SVM 开始成为主流，进入第二个低谷。
 
-2006 年，Geoff Hinton、Ruslan Salakhutdinov、Osindero 的论文 “Reducing the Dimensionality of Data with Neural Networks”[<sup>[10]</sup>] 表明，多层前馈神经网络可以一次有效地预训练一层，依次将每一层视为无监督受限的玻尔兹曼（Boltzmann）机，然后使用监督反向传播对其进行微调，其论文主要研究深度信念网络（Deep Belief Nets）的学习。
+2006 年，Geoff Hinton、Ruslan Salakhutdinov、Osindero 的论文 “Reducing the Dimensionality of Data with Neural Networks”<sup>[10]</sup> 表明，多层前馈神经网络可以一次有效地预训练一层，依次将每一层视为无监督受限的玻尔兹曼（Boltzmann）机，然后使用监督反向传播对其进行微调，其论文主要研究深度信念网络（Deep Belief Nets）的学习。
 
 ![](images/01Present08.png)
 
-2009 年，李飞飞教授团队在佛罗里达州举行的 2009 年计算机视觉和模式识别 (CVPR) 会议上首次以海报的形式展示了他们的 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)[<sup>[11]</sup>] 数据库，之后大量计算机视觉领域的经典模型在此数据库上进行验证，评测并演进。李飞飞于 2006 年产生想法并开始研究 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)[<sup>[11]</sup>] 。
+2009 年，李飞飞教授团队在佛罗里达州举行的 2009 年计算机视觉和模式识别 (CVPR) 会议上首次以海报的形式展示了他们的 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)<sup>[11]</sup> 数据库，之后大量计算机视觉领域的经典模型在此数据库上进行验证，评测并演进。李飞飞于 2006 年产生想法并开始研究 [ImageNet](https://en.wikipedia.org/wiki/ImageNet)<sup>[11]</sup> 。
 
 2007 年，李飞飞与 WordNet 的创始人之一普林斯顿大学教授克里斯蒂安·费尔鲍姆会面，之后从 WordNet 的单词数据库开始构建 ImageNet，并使用了它的许多功能。作为普林斯顿大学的助理教授，李博士组建了一个研究团队，致力于 ImageNet 课程，其通过众包平台 [Amazon Mechanical Turk](https://www.mturk.com/) 的工作人员来进行标记。
 
 ### 突破驱动繁荣期（约 2010s）
 
-2011 年 8 月，微软研究院 Frank Seide, Gang Li, Dong Yu 在 Interspeech 的论文 " Conversational speech transcription using context-dependent deep neural networks."[<sup>[12]</sup>] 首次介绍了如何通过神经网络模型在会话语音转录（Conversational Speech Transcription）上实现突破性进展。文章介绍了模型的的设计和实验结果，“其在单通道非特定人识别（Single-pass Speaker-independent Recognition）基准测试上将相对错误率由 27.4% 降低到 18.5% ，相对错误率降低 33%，在其他 4 类任务中相对错误率降低 22–28%。
+2011 年 8 月，微软研究院 Frank Seide, Gang Li, Dong Yu 在 Interspeech 的论文 " Conversational speech transcription using context-dependent deep neural networks."<sup>[12]</sup> 首次介绍了如何通过神经网络模型在会话语音转录（Conversational Speech Transcription）上实现突破性进展。文章介绍了模型的的设计和实验结果，“其在单通道非特定人识别（Single-pass Speaker-independent Recognition）基准测试上将相对错误率由 27.4% 降低到 18.5% ，相对错误率降低 33%，在其他 4 类任务中相对错误率降低 22–28%。
 
 此神经网络的训练任务是通过分布式系统（其设计了适合当前作业的张量切片与放置以及通信协调策略以加速训练）部署在多台配置有英伟达 Tesla GPGPU 服务器，通过几百小时的分布式训练才得以完成。论文在最后致谢中提到 “Our special thanks go to Ajith Jayamohan and Igor Kouzminykh of the MSR Extreme Computing Group for access to a Tesla server farm, without which this work would not have been possible.”，由此看到在 AI 领域算法团队与系统团队协作已经由来已久，算法与系统的协同设计将以往不可能完成的计算任务变为了可能，上层应用负载需求驱动系统发展与演化，系统支撑上层应用负载取得新的突破。
 
-2012 年 1 月，谷歌的神经网络从 1000 万张 YouTube 视频的静止画面中学会了[识别猫](https://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html)。谷歌的科学家通过连接 16,000 个计算机处理器创建了最大的机器学习神经网络之一，他们在互联网上将这些处理器松散开来自行学习，正是大规模系统互联更大的算力支撑了当时相比以往更大的数据和模型的训练。此工作 “[Building high-level features using large scale unsupervised learning](https://dl.acm.org/doi/10.5555/3042573.3042641)” [<sup>[13]</sup>] 发表在 ICML '12 会议上。
+2012 年 1 月，谷歌的神经网络从 1000 万张 YouTube 视频的静止画面中学会了[识别猫](https://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html)。谷歌的科学家通过连接 16,000 个计算机处理器创建了最大的机器学习神经网络之一，他们在互联网上将这些处理器松散开来自行学习，正是大规模系统互联更大的算力支撑了当时相比以往更大的数据和模型的训练。此工作 “[Building high-level features using large scale unsupervised learning](https://dl.acm.org/doi/10.5555/3042573.3042641)” <sup>[13]</sup> 发表在 ICML '12 会议上。
 
-2012 年 9 月，Alex Krizhevsky，Ilya Sutskever 和 Geoffrey Hinton，团队通过设计 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)[<sup>[14]</sup>] 赢得 ImageNet 竞赛，神经网络开始再次流行。首次采用 ReLU 激活函数，扩展了 LeNet5 结构，添加 Dropout 层减小过拟合，LRN 层增强泛化能力/减小过拟合。这些新的模型结构和训练方法影响着后续的模型设计和系统优化，例如：激活函数和卷积层的内核融合计算等。其花费 5 到 6 天，采用 2 块英伟达 GTX 580 3GB GPUs 对计算进行加速，进而形成 AI 系统以 GPU 等加速器为主要计算单元的架构。
+2012 年 9 月，Alex Krizhevsky，Ilya Sutskever 和 Geoffrey Hinton，团队通过设计 [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)<sup>[14]</sup> 赢得 ImageNet 竞赛，神经网络开始再次流行。首次采用 ReLU 激活函数，扩展了 LeNet5 结构，添加 Dropout 层减小过拟合，LRN 层增强泛化能力/减小过拟合。这些新的模型结构和训练方法影响着后续的模型设计和系统优化，例如：激活函数和卷积层的内核融合计算等。其花费 5 到 6 天，采用 2 块英伟达 GTX 580 3GB GPUs 对计算进行加速，进而形成 AI 系统以 GPU 等加速器为主要计算单元的架构。
 
 ![](images/01Present09.png)
 
