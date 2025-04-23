@@ -42,7 +42,7 @@ Im2Col 操作的目的是将卷积运算转换为矩阵乘法，这样做有几�
 
 Im2Col 是计算机视觉领域中将图片转换成矩阵的矩阵列（Column）的计算过程。由于二维卷积的计算比较复杂不易优化，因此在 AI 框架早期，Caffe 使用 Im2Col 方法将三维张量转换为二维矩阵，从而充分利用已经优化好的 GEMM 库来为各个平台加速卷积计算。最后，再将矩阵乘得到的二维矩阵结果使用 Col2Im 将转换为三维矩阵输出。
 
-Img2col 算法主要包含两个步骤，首先使用 Im2Col 将输入矩阵展开一个大矩阵，矩阵每一列表示卷积核需要的一个输入数据，其次使用上面转换的矩阵进行 Matmul 运算，得到的数据就是最终卷积计算的结果。
+Img2col 算法主要包含两个步骤，首先使用 Im2Col 将输入矩阵展开为一个大矩阵，矩阵每一列表示卷积核需要的一个输入数据，其次使用上面转换的矩阵进行 Matmul 运算，得到的数据就是最终卷积计算的结果。
 
 卷积默认采用数据排布方式为 NHWC，输入维度为 4 维 (N, IH, IW, IC)，卷积核维度为(OC, KH, KW , IC)，输出维度为(N, OH, OW , OC)。
 
@@ -50,8 +50,7 @@ Img2col 算法主要包含两个步骤，首先使用 Im2Col 将输入矩阵展�
 
 Im2Col 算法计算卷积的过程，具体简化过程如下:
 
-1. 将输入由 $N×IH×IW×IC$ 根据卷积计算特性展开成 $(OH×OW)×(N×KH×KW×IC)$ 形状二维矩;
-   阵。显然，转换后使用的内存空间相比原始输入多约 $KH \times KW−1$ 倍;
+1. 将输入由 $N×IH×IW×IC$ 根据卷积计算特性展开成 $(OH×OW)×(N×KH×KW×IC)$ 形状二维矩阵。显然，转换后使用的内存空间相比原始输入多约 $KH \times KW−1$ 倍;
 2. 权重形状一般为 $OC×KH×KW×IC$ 四维张量，可以将其直接作为形状为 $(OC)×(KH×KW×IC)$ 的二维矩阵处理;
 3. 对于准备好的两个二维矩阵，将 $(KH×KW×IC)$ 作为累加求和的维度，运行矩阵乘可以得到输出矩阵 $(OH×OW)×(OC)$;
 4. 将输出矩阵 $(OH×OW)×(OC)$ 在内存布局视角即为预期的输出张量 $N×OH×OW×OC$，或者使用 Col2Im 算法变为下一个算子输入 $N×OH×OW×OC$。
@@ -109,7 +108,7 @@ Im2Col 算法计算卷积的过程，具体简化过程如下:
 
 - **Tensor Core**
 
-随着 Volta 架构的推出，英伟达引入了 Tensor Core，这是一种专为 AI 训练和推理设计的可编程矩阵乘法和累加单元。V100 GPU 中包含了 640 个 Tensor Core，每个流多处理器（SM）配备了 8 个 Tensor Core。相较于 CUDA Core，Tensor Core 能够在每个时钟周期内执行更多的运算，特别是它可以高效地完成矩阵乘法和累加操作两种操作是深度学习中最频繁和计算密集的任务之一。
+随着 Volta 架构的推出，英伟达引入了 Tensor Core，这是一种专为 AI 训练和推理设计的可编程矩阵乘法和累加单元。V100 GPU 中包含了 640 个 Tensor Core，每个流多处理器（SM）配备了 8 个 Tensor Core。相较于 CUDA Core，Tensor Core 能够在每个时钟周期内执行更多的运算，特别是它可以高效地完成矩阵乘法和累加操作，这两种操作是深度学习中最频繁和计算密集的任务之一。
 
 通过利用 Tensor Core，V100 能够为 AI 训练和推理提供高达 125 Tensor TFLOPS 的算力。这种强大的性能，使得 V100 在处理深度学习任务时，相比于仅使用 CUDA Core 的早期架构，能够实现显著的加速。
 
@@ -175,9 +174,9 @@ CUDA 通过 **CUDA C++ WMMA API** 向外提供了 Tensor Core 在 Warp 级别上
 
 那么现在有一个问题，Tensor Core 是如何跟卷积计算或者 GEMM 计算之间进行映射的呢?
 
-例如 GPU 中的 Tensor Core 一次仅仅只有 4x4 这么小的 Kernel，怎么处理 input image $224*224$，Kernel $7*7$ 的 GEMM 计算呢?
+例如 GPU 中的 Tensor Core 一次仅仅只有 4x4 这么小的 Kernel，怎么处理 input image $224 \times 224$，Kernel $7 \times 7$ 的 GEMM 计算呢?
 
-或者说在现在大模型时代，Tensor Core 是怎么处理 Transformer 结构 input embedding 为 $2048*2048$，hidden size 为 $1024*1024$ 的 GEMM 呢?
+或者说在现在大模型时代，Tensor Core 是怎么处理 Transformer 结构 input embedding 为 $2048 \times 2048$，hidden size 为 $1024 \times 1024$ 的 GEMM 呢?
 
 上文我们已经提到，卷积运算可以被转化为矩阵乘法操作，这一点是连接卷积和 Tensor Core 的桥梁。
 
