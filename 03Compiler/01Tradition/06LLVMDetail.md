@@ -219,7 +219,7 @@ define dso_local void @test(i32 noundef %0, i32 noundef %1) #0 {
 
 可以通过一些方法获得高层级的断言，例如 `isAssociative()`，`isCommutative()`，`isIdempotent()` 和 `isTerminator()`。精确功能可以通过 `getOpcode()` 方法获知，它返回 `llvm::Instruction` 枚举的一个成员，代表 LLVM IR opcode。操作数可以通过 `op_begin()` 和 `op_end()` 方法访问，这些方法从 `User` 超类继承而来。
 
-### LLBM IR 整体示例
+### LLVM IR 整体示例
 
 以下是一个完整的 LLVM IR 示例，包含 `Module`、`Function`、`BasicBlock` 和 `Instruction`：
 
@@ -243,7 +243,7 @@ define dso_local void @test(i32 noundef %0, i32 noundef %1) #0 {
 }
 ```
 
-在这个示例中，`Module` 定义了文件的元数据，`Function` 定义了一个函数 `@test`，这个函数有两个 `BasicBlock`，其中包含了一系列的 `Instruction`。
+在这个示例中，`Module` 定义了文件的元数据，`Function` 定义了一个函数 `@test`，这个函数有一个 `BasicBlock`，其中包含了一系列的 `Instruction`。
 
 ## 小结与思考
 
