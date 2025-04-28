@@ -245,7 +245,7 @@ clang -emit-llvm -c hello.c -o hello.bc
 然后执行优化过程：
 
 ```shell
-opt -passes='instcount,adce,mdgc' -o hello-tmp.bc hello.bc -stats
+opt -passes='instcount,adce,constmerge' -o hello-tmp.bc hello.bc -stats
 ```
 就可以生成 hello-tmp.bc 文件，其中包含了优化后的 IR。
 
@@ -253,7 +253,7 @@ opt -passes='instcount,adce,mdgc' -o hello-tmp.bc hello.bc -stats
 
 - 以 adce(Aggressive Dead Code Elimination)为例：adce 是 Analysis Pass 类似死代码消除(Dead Code Elimination)，它会分析代码中是否存在冗余的计算，如果存在，则将冗余的计算消除掉。
 
-- 以 mdgc(Merged Duplicates Global Constant)为例：mdgc 是  Transform Pass，它会合并多个全局常量，以减少内存占用。
+- 以 constmerge(Merged Duplicates Global Constant)为例：constmerge 是  Transform Pass，它会合并多个全局常量，以减少内存占用。
 
 ### Pass 依赖关系
 
