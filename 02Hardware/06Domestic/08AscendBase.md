@@ -33,28 +33,22 @@
 | Atlas 200/300/500 推理产品 | Atlas 200 AI加速模块、Atlas 300I 推理卡（型号：3000）、Atlas 300I 推理卡（型号：3010）Atlas 500 智能小站、Atlas 200 DK 开发者套件 |
 | Atlas 200/500 A2推理产品  | Atlas 500 A2 智能小站、Atlas 200I DK A2 开发者套件、Atlas 200I A2 加速模块 |
 | Atlas 推理系列产品（配置Ascend 310P AI处理器）  | Atlas 300I Pro 推理卡、Atlas 300V 视频解析卡、Atlas 300V Pro 视频解析卡、Atlas 300I Duo 推理卡、Atlas 200I SoC A1核心板 |
-| Atlas 推理服务器系列产品  | 1. 边缘服务器：<br>
-
-Atlas 500 Pro 智能边缘服务器支持插入Atlas 300I 推理卡（型号：3000）、Atlas 300I Pro 推理卡、Atlas 300V 视频解析卡、Atlas 300V Pro 视频解析卡使用 |
-| Atlas 推理服务器系列产品   | 2. 中心推理服务器：<br>
-
-Atlas 800 推理服务器（型号：3000）支持插入Atlas 300I 推理卡（型号：3000）、Atlas 300I 推理卡（型号：3010）、Atlas 300I Pro 推理卡、Atlas 300V 视频解析卡、Atlas 300V Pro 视频解析卡、Atlas 300I Duo 推理卡使用<br>
-
-Atlas 800 推理服务器（型号：3010）支持插入Atlas 300I 推理卡（型号：3010）、Atlas 300I Pro 推理卡、Atlas 300V 视频解析卡、Atlas 300V Pro 视频解析卡、Atlas 300I Duo 推理卡使用 |
+| Atlas 推理服务器系列产品  | 1. 边缘服务器：<br> Atlas 500 Pro 智能边缘服务器支持插入Atlas 300I 推理卡（型号：3000）、Atlas 300I Pro 推理卡、Atlas 300V 视频解析卡、Atlas 300V Pro 视频解析卡使用 |
+| Atlas 推理服务器系列产品   | 2. 中心推理服务器：<br> Atlas 800 推理服务器（型号：3000）支持插入Atlas 300I 推理卡（型号：3000）、Atlas 300I 推理卡（型号：3010）、Atlas 300I Pro 推理卡、Atlas 300V 视频解析卡、Atlas 300V Pro 视频解析卡、Atlas 300I Duo 推理卡使用<br> Atlas 800 推理服务器（型号：3010）支持插入Atlas 300I 推理卡（型号：3010）、Atlas 300I Pro 推理卡、Atlas 300V 视频解析卡、Atlas 300V Pro 视频解析卡、Atlas 300I Duo 推理卡使用 |
 | Atlas 训练系列产品  | Atlas 800 训练服务器（型号：9000）、Atlas 800 训练服务器（型号：9010）、Atlas 900 PoD（型号：9000）、Atlas 900T PoD Lite、Atlas 300T 训练卡（型号 9000）、Atlas 300T Pro 训练卡（型号：9000） |
 | Atlas A2 训练系列产品  | Atlas 800T A2 训练服务器、Atlas 900 A2 PoD 集群基础单元、Atlas 300T A2 训练卡、Atlas 200T A2 Box16 异构子框 |
 
-昇腾产品以昇腾AI处理器的PCle（Peripheral Component Interconnect Express）的工作模式进行区分，分为RC（Root Complex）模式和EP（Endpoint）模式，如果PCle工作在主模式，可以扩展外设，则称为RC模式；如果PCle工作在从模式，则称为EP模式。
+昇腾产品以昇腾AI处理器的 PCle（Peripheral Component Interconnect Express）的工作模式进行区分，分为 RC（Root Complex）模式和EP（Endpoint）模式，如果 PCle 工作在主模式，可以扩展外设，则称为 RC 模式；如果 PCle 工作在从模式，则称为 EP 模式。
 
 |  PCle工作模式   | 支持的昇腾产品 | 工作模式说明  |
 |  ----  | ----  | ----  |
-| RC模式  | Atlas 200 AI加速模块、Atlas 200 DK 开发者套件、Atlas 200I SoC A1、Atlas 500 A2 智能小站、Atlas 200I DK A2 开发者套件、Atlas 200I A2 加速模块 | 产品的CPU直接运行用户指定的AI业务软件，接入网络摄像头、I2C传感器、SPI显示器等其他外挂设备作为从设备接入产品。 |
-| EP模式  | 推理产品：Atlas 500 智能小站、Atlas 200 AI加速模块、Atlas 推理系列产品（配置Ascend 310P AI处理器）、Atlas 200I A2 加速模块 | EP模式通常由Host侧作为主端，Device侧作为从端。客户的AI业务程序运行在Host系统中，昇腾产品作为Device系统以PCIe从设备接入Host系统，Host系统通过PCIe通道与Device系统交互，将AI任务加载到Device侧的昇腾AI处理器中运行。 |
-| EP模式  | 训练产品：Atlas 训练系列产品、Atlas A2 训练系列产品 | 同上 |
+| RC模式  | Atlas 200 AI加速模块、Atlas 200 DK 开发者套件、Atlas 200I SoC A1、Atlas 500 A2 智能小站、Atlas 200I DK A2 开发者套件、Atlas 200I A2 加速模块 | 产品的 CPU 直接运行用户指定的 AI 业务软件，接入网络摄像头、I2C 传感器、SPI 显示器等其他外挂设备作为从设备接入产品。 |
+| EP 模式  | 推理产品：Atlas 500 智能小站、Atlas 200 AI 加速模块、Atlas 推理系列产品（配置 Ascend 310P AI处理器）、Atlas 200I A2 加速模块 | EP 模式通常由 Host 侧作为主端，Device 侧作为从端。客户的 AI 业务程序运行在 Host 系统中，昇腾产品作为 Device 系统以 PCIe 从设备接入 Host 系统，Host 系统通过 PCIe 通道与 Device 系统交互，将 AI 任务加载到 Device 侧的昇腾 AI 处理器中运行。 |
+| EP 模式  | 训练产品：Atlas 训练系列产品、Atlas A2 训练系列产品 | 同上 |
 
 ![](./images/08AscendBase03.png)
 
-在异构计算架构中, 昇腾AI处理器与服务器的CPU通过PCIe总线连接协同工作，我们一般分别称为Device侧和Host侧。
+在异构计算架构中, 昇腾AI处理器与服务器的 CPU 通过 PCIe 总线连接协同工作，我们一般分别称为 Device 侧和 Host 侧。
 
 ### AI 软件体系
 
@@ -104,9 +98,9 @@ Atlas 800 推理服务器（型号：3010）支持插入Atlas 300I 推理卡（�
 
 ### 超强算⼒
 
-在数据中⼼侧，处理边缘侧汇聚过来的海量数据和满⾜上亿级参数的⼤规模模型的深度学习需求。Atlas 训练卡可为服务器提供320 320 TFLOPS FP16 的⾼算⼒。针对更⼤规模需求，Atlas 集群提供256P ~ 1024P FLOPS FP16总算⼒，在 ResNet-50测试中，基于 ImageNet 数据集，训练时间达到⽬前业界最快的25.9s。在边缘侧，满⾜不同场景的灵活轻 25.9s。在边缘侧，满足不同场景的灵活轻量级部署的同时提供了强⼤算⼒。 Atlas 推理卡单卡算⼒达 88 TOPS INT8，并支持多路全⾼清视频实时分析。
+在数据中⼼侧，处理边缘侧汇聚过来的海量数据和满⾜上亿级参数的⼤规模模型的深度学习需求。Atlas 训练卡可为服务器提供 320 TFLOPS FP16 的⾼算⼒。针对更⼤规模需求，Atlas 集群提供 256P ~ 1024P FLOPS FP16 总算⼒，在 ResNet-50 测试中，基于 ImageNet 数据集，训练时间达到⽬前业界最快的 25.9 s。在边缘侧，满⾜不同场景的灵活轻 25.9 s。在边缘侧，满足不同场景的灵活轻量级部署的同时提供了强⼤算⼒。 Atlas 推理卡单卡算⼒达 88 TOPS INT8，并支持多路全⾼清视频实时分析。
 
-⾼算⼒的同时，能效⽐同样关键。在数据中⼼侧，更⾼的能效⽐可⼤幅降低数据中⼼整体运营成本。具体来说，Atlas 集群作为业界⾸个全液冷 AI 集群，采⽤板级液冷、柜级⻛液换热器等独特设计，使数据中⼼ PUE（Power Usage Efﬁciency，能源使⽤效率）<1.1，节约⼤量电费，E 级算⼒集群5年节省电费超1亿元。在边缘侧，模组能效⽐达2 TOPS/W，适应低功耗和边缘部署需求。
+⾼算⼒的同时，能效⽐同样关键。在数据中⼼侧，更⾼的能效⽐可⼤幅降低数据中⼼整体运营成本。具体来说，Atlas 集群作为业界⾸个全液冷 AI 集群，采⽤板级液冷、柜级⻛液换热器等独特设计，使数据中⼼ PUE（Power Usage Efﬁciency，能源使⽤效率）<1.1，节约⼤量电费，E 级算⼒集群5年节省电费超1亿元。在边缘侧，模组能效⽐达 2 TOPS/W，适应低功耗和边缘部署需求。
 
 ### 全栈开放
 

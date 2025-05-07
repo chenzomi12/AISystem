@@ -8,7 +8,7 @@
 
 ## 产品形态
 
-下面我们来简单介绍了一下 2016 年至今寒武纪的各个主流产品。从 1A 处理器核，到思元（意思为“思考的单元”）系列 MLU100、MLU200、MLU300 的各个产品。终端智能处理器 IP 是寒武纪的入局产品，寒武纪是靠它打入的市场，包括 1A、1H、1M，算力在 0.5~1TOPS。
+下面我们来简单介绍了一下 2016 年至今寒武纪的各个主流产品。从 1A 处理器核，到思元（意思为“思考的单元”）系列 MLU100、MLU200、MLU300 的各个产品。终端智能处理器 IP 是寒武纪的入局产品，寒武纪是靠它打入的市场，包括 1A、1H、1M，算力在 0.5~1 TOPS。
 
 基于这些 IP，寒武纪迭代出了若干代边缘端、云端产品，其中主要是 MLU100、MLU200、MLU300 三代或者说三个系列产品。MLU100 属于比较早期的板卡产品，目前的宣传已经不多。MLU200 系列包括 MLU220、MLU270、MLU290 三种形态，分别服务于边缘端、云端推理、云端训练。MLU300 系列主要是 MLU370，从数字上可以看出它与 MLU270 应用场景上的渊源，但它也可以用作训练。
 
@@ -50,7 +50,7 @@ MLU370-X8 智能加速卡是全面升级的数据中心训推一体 AI 加速卡
 
 ![产品形态 2](images/cambricon08.png)
 
-MLU370-X8 通过 MLU-Link™高速网络，组建大规模训练集群，并实现芯片间互联。新一代 MLU-Link™，不仅支持板卡上 2 个思元 370 芯片间通过 MLU-Link™进行通讯，同时也可以通过 MLU-Link™桥接卡对外互联，板卡间 MLU-Link 互联双向总带宽为 200GB/s，满足大型 AI 模型训练的需要。
+MLU370-X8 通过 MLU-Link™高速网络，组建大规模训练集群，并实现芯片间互联。新一代 MLU-Link™，不仅支持板卡上 2 个思元 370 芯片间通过 MLU-Link™进行通讯，同时也可以通过 MLU-Link™桥接卡对外互联，板卡间 MLU-Link 互联双向总带宽为 200 GB/s，满足大型 AI 模型训练的需要。
 
 > 关于芯粒技术，芯粒英文是 Chiplet，是指预先制造好、具有特定功能、可组合集成的晶片（Die），Chiplet 也有翻译为“小芯片”，中科院计算所韩银和等 2020 年时建议将 Chiplet 翻译为“芯粒”。
 >
@@ -211,7 +211,7 @@ CNStream 是面向寒武纪开发平台的数据流处理 SDK，基于模块化�
 
 CNServing 是一款可部署 MagicMind 序列化模型的高性能服务系统，专为生产环境而设计。将任意框架模型通过 MagicMind 生成序列化模型后，使用 CNServing 可将其方便快捷地部署在 MLU 服务器上。可同时部署在多张 MLU 板卡上，也可以部署多个序列化模型，为客户端提供高性能服务。
 
-CNServing 基于 TensorFlow Serving 架构开发。相比 TensorFlow Serving，CNServing 拥有更好的性能表现，并且 CNServing 的 client 端 API 仍然使用 TensorFlow_serving_api，这样使用 TensorFlow Serving 部署模型的用户无需修改 client 端任何代码即可轻松切换到 CNServing 上。
+CNServing 基于 TensorFlow Serving 架构开发。相比 TensorFlow Serving，CNServing 拥有更好的性能表现，并且 CNServing 的 client 端 API 仍然使用 `TensorFlow_serving_api`，这样使用 TensorFlow Serving 部署模型的用户无需修改 client 端任何代码即可轻松切换到 CNServing 上。
 
 ## 寒武纪 MLU 架构细节
 
@@ -221,11 +221,13 @@ IPU 在官方文档中也叫作 MLU Core，下面是示意图。
 
 ![MLU Core 核心模块](images/cambricon09.png)
 
-我们可以看到，Control Unit 比较重要，负责指令的读取、译码和发射。自研指令可以通过 Control Unit 被负责计算和访存的调度器 Dispatch 到 ALU、VFU、TFU、IO-DMA、Move-DMA 四个队列。IO-DMA 用来实现片外 DRAM 与 W/N-RAM 数据传输，也可以用于实现 Register 与片内 RAM 之间的 Load/Store 操作以及原子操作。
+我们可以看到，Control Unit 比较重要，负责指令的读取、译码和发射。自研指令可以通过 Control Unit 被负责计算和访存的调度器 Dispatch 到 ALU、VFU、TFU、IO-DMA、Move-DMA 五个队列。
 
-Move-DMA 用于 IPU 中 W/N-RAM 与 MPU S-RAM 间数据传输和类型转换。I-Cache 顾名思义就是指令缓存，有 64KB，如 512bit 指令可以缓存 1024 条。VA-Cache(Vector Addressing)是离散数据访问指令的专用缓存。用于加速离散向量访问效率，减少对总线和存储单元读写次数。Neural-RAM（nram）是 768KB，需 16byte 对齐，存储 Input 和 Feature Map 数据。Weight-RAM（wram）是 1024KB，需 8byte 对齐，存储权重和优化器数据。
+IO-DMA 用来实现片外 DRAM 与 W/N-RAM 数据传输，也可以用于实现 Register 与片内 RAM 之间的 Load/Store 操作以及原子操作。
 
-ALU 就是标量 Scale 数据的算术逻辑运算。GPR 是指一组位宽 48bit 的寄存器，IPU 为 Load/Store 架构，除立即数以外所有操作加载到 GPR 才能参与算术逻辑运算。SREG 是指位宽 32bit 的特殊寄存器，用于存储硬件特定属性，如 Perf 计数、任务索引等。
+Move-DMA 用于 IPU 中 W/N-RAM 与 MPU S-RAM 间数据传输和类型转换。I-Cache 顾名思义就是指令缓存，有 64 KB，如 512 bit 指令可以缓存 1024 条。VA-Cache（Vector Addressing）是离散数据访问指令的专用缓存。用于加速离散向量访问效率，减少对总线和存储单元读写次数。Neural-RAM（nram）是 768 KB，需 16 byte 对齐，存储 Input 和 Feature Map 数据。Weight-RAM（wram）是 1024 KB，需 8 byte 对齐，存储权重和优化器数据。
+
+ALU 就是标量 Scale 数据的算术逻辑运算。GPR 是指一组位宽 48 bit 的寄存器，IPU 为 Load/Store 架构，除立即数以外所有操作加载到 GPR 才能参与算术逻辑运算。SREG 是指位宽 32 bit 的特殊寄存器，用于存储硬件特定属性，如 Perf 计数、任务索引等。
 
 VFU/TFU 是计算单元，实现张量 Tensor 和向量 Vector 运算；输入输出：Vector 运算输入输出在 Neuron-RAM；Tensor 运算输入自 Neuron-RAM 和 Weight-RAM，输出根据调度情况到 Neuron-RAM 和 Weight-RAM。
 
@@ -241,7 +243,7 @@ MPU 的主要功能是单个 Cluster 内部 Shared-RAM 和多个 Cluster 间 Sha
 
 > 需要注意，MLUv02 以前的寒武纪产品是没有 MPU 架构，也没有 Cluster 概念的。
 
-### MLUv03 片内通信
+### MLUv3 片内通信
 
 这里所述的片内通信分为两种：Cluster 内通信与 Cluster 间通信。
 
@@ -263,9 +265,9 @@ GPR、WRAM 和 NRAM 是一个 MLU Core 的私有存储，Memory Core 没有私�
 
 ### GPR 模块
 
-GPR 是每个 MLU Core 和 Memory Core 私有的存储资源。MLU Core 和 Memory Core 的标量计算系统都采用精简指令集架构，所有的标量数据，无论是整型数据还是浮点数据，在参与运算之前必须先加载到 GPR。GPR 的最大位宽为 48 位，一个 GPR 可以存储一个 8bit、16bit、32bit 或者 48bit 的数据。GPR 中的数据不仅可以用来实现标量运算和控制流功能，还用于存储向量运算所需要的地址、长度和标量参数等。
+GPR 是每个 MLU Core 和 Memory Core 私有的存储资源。MLU Core 和 Memory Core 的标量计算系统都采用精简指令集架构，所有的标量数据，无论是整型数据还是浮点数据，在参与运算之前必须先加载到 GPR。GPR 的最大位宽为 48 位，一个 GPR 可以存储一个 8 bit、16 bit、32 bit 或者 48 bit 的数据。GPR 中的数据不仅可以用来实现标量运算和控制流功能，还用于存储向量运算所需要的地址、长度和标量参数等。
 
-GPR 不区分数据类型和位宽，GPR 中存储的数据的类型和位宽由操作对应数据的指令决定。当实际写入 GPR 中的数据的位宽小于 48bit 时，高位自动清零。
+GPR 不区分数据类型和位宽，GPR 中存储的数据的类型和位宽由操作对应数据的指令决定。当实际写入 GPR 中的数据的位宽小于 48 bit 时，高位自动清零。
 
 Cambricon BANG 异构并行编程模型中的隐式数据迁移都是借助 GPR 实现的。例如，将 GDRAM 上的标量数据赋值给一个位于 LDRAM 的变量时，编译器会自动插入访存指令将 GDRAM 中的数据先加载到 GPR 中，再插入一条访存指令将 GPR 中的数据写入 LDRAM 中。
 
