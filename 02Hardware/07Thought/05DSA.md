@@ -40,9 +40,11 @@ CUDA 在开发方面具有很好的易用性，以下是使用 CPU 编写的矩�
 void add_matrix(float* a, float* b, float* c, int N) {
     int index;
 
-    for (int i = 0; i < N; ++i) {
-        index = i + j * N;
-        c[index] = a[index] + b[index];
+    for (int j = 0; j < N; ++j) {
+        for (int i = 0; i < N; ++i) {
+            index = i + j * N;  // row-major
+            c[index] = a[index] + b[index];
+        }
     }
 }
 
@@ -147,7 +149,7 @@ for (int i = 0; i < 10000; ++i) {
 
 // CUDA 核函数，用于执行向量加法
 __global__ void vectorAdd(int *a, int *b, int *c) {
-    int i = blockDim.x * threadDim.x + threadIdx.x;
+    int i = blockIdx.x * blockDim.x + threadIdx.x;;
 
     if (i < N) {
         c[i] = a[i] + b[i];
