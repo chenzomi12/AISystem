@@ -4,7 +4,7 @@
 
 为了满足数据中心算力需求，谷歌在 2014 年开始研发基于特定领域架构（Domain-specific Architecture，DSA）的 TPU（Tensor Processing Unit），专门为深度学习任务设计的定制硬件加速器，加速谷歌的机器学习工作负载，特别是训练和推理大模型。
 
-David Patterson（大卫·帕特森）是计算机体系结构领域科学家，自 1976 年起担任加州大学伯克利分校的计算机科学教授并在 2016 年宣布退休，在 2017 年加入谷歌 TPU 团队，2020 年在加州大学伯克利分校发表演讲《A Decade of Machine Learning Accelerators:Lessons Learned and Carbon Footprint》，分享了 TPU 近几年的发展历程以及心得体会，本节主要摘录并深入探讨其中的 8 点思考。
+David Patterson（大卫·帕特森）是计算机体系结构领域科学家，自 1976 年起担任加州大学伯克利分校的计算机科学教授并在 2016 年宣布退休，在 2017 年加入谷歌 TPU 团队，2020 年在加州大学伯克利分校发表演讲《A Decade of Machine Learning Accelerators: Lessons Learned and Carbon Footprint》，分享了 TPU 近几年的发展历程以及心得体会，本节主要摘录并深入探讨其中的 8 点思考。
 
 ## 模型对内存和算力的需求
 
