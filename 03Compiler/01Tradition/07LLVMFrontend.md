@@ -178,7 +178,7 @@ AST 节点 CompoundStmt 包含 `if` 和 `return` 语句，`IfStmt` 和 `ReturnSt
 
 ### 语义分析
 
-语法分析（Semantic Analyze）主要关注代码结构是否符合语法规则，而语义分析则负责确保代码的含义和逻辑正确。在语义分析阶段，编译器会检查变量的类型是否匹配、函数调用是否正确、表达式是否合理等，以确保代码在运行时不会出现逻辑错误。
+语法分析（Syntactic Analyze）主要关注代码结构是否符合语法规则，而语义分析（Semantic Analyze）则负责确保代码的含义和逻辑正确。在语义分析阶段，编译器会检查变量的类型是否匹配、函数调用是否正确、表达式是否合理等，以确保代码在运行时不会出现逻辑错误。
 
 语义分析借助符号表来检验代码是否符合语言类型系统。符号表存储标识符和其对应的类型之间的映射，以及其他必要信息。一种直观的类型检查方法是在解析阶段之后，遍历抽象语法树（AST），同时从符号表中获取关于类型的信息。
 
@@ -237,7 +237,7 @@ LLVM 优化层在输入的时候是一个 AST 语法树，输出的时候已经�
 
 优化过程需要执行以下代码：
 
-首先我们需要生成 hello.bc 文件：
+首先我们需要生成 `hello.bc` 文件：
 
 ```shell
 clang -emit-llvm -c hello.c -o hello.bc
@@ -247,7 +247,7 @@ clang -emit-llvm -c hello.c -o hello.bc
 ```shell
 opt -passes='instcount,adce,mdgc' -o hello-tmp.bc hello.bc -stats
 ```
-就可以生成 hello-tmp.bc 文件，其中包含了优化后的 IR。
+就可以生成 `hello-tmp.bc` 文件，其中包含了优化后的 IR。
 
 在上述过程中有很多不同阶段的 pass。
 
