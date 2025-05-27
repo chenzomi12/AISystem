@@ -235,7 +235,7 @@ Triton 的前端是基于 Python 实现的，这使得用户的学习成本大�
 
 - 优化 Pass：主要包括了英伟达 GPU 计算 kernel 优化的一些常见技巧，包括用于辅助向量化访存的[coalescing](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Coalesce.cpp)、用于缓解计算访存差异的[pipeline](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Pipeline.cpp)/[prefetch](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/lib/Dialect/TritonGPU/Transforms/Prefetch.cpp)，用于避免 shared memory 访问 bank-conflict 的[swizzling](https://link.zhihu.com/?target=https%3A//github.com/openai/triton/blob/main/include/triton/Dialect/TritonGPU/IR/TritonGPUAttrDefs.td%23L47)。用户在开发 Kernel 时，主要关注其业务逻辑，而底层硬件优化的细节由 Trition 编译器实现。对于一些十分精细的优化，使用 Triton 可能就无法实现。
 
-在应用场景上，Triton 已经被集成进了多个著名的课程中：
+在应用场景上，Triton 已经被集成进了多个著名的项目中：
 
 - [jax-ml/jax-triton](https://github.com/jax-ml/jax-triton)：JAX 是一个用于加速数值计算的 Python 库，使用 Triton 编写可以嵌入到 JAX 程序中的自定义 GPU 内核。在 JAX 中可以使用 triton_call 方便的调用 Triton kernel。
 

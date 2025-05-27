@@ -170,7 +170,7 @@ Pass 管理：
 
 在编译器的每个模块和 Pass 均可通过 Pass manager 进行管理，可以动态添加、删除或调整 Pass 来优化编译过程中的各个阶段。
 
-## 基于 LLVM 课程
+## 基于 LLVM 项目
 
 1. Modular
 
@@ -214,7 +214,7 @@ TensorFlow 可以更好的应用于工业生产环境，因为它可以利用到
 - 生成过程包括指令选择、寄存器分配、指令调度、代码输出等步骤，可被不同后端实现。
 - LLVM 后端的可扩展性支持新硬件架构和指令集发展，推动编译器技术和工具链进步。
 - 前端和优化层提供统一的编译器前端，实现跨平台开发和优化。
-- 基于 LLVM 的课程有 Modular、XLA、JAX、TensorFlow、TVM、Julia 等。
+- 基于 LLVM 的项目有 Modular、XLA、JAX、TensorFlow、TVM、Julia 等。
 
 ## 本节视频
 
