@@ -84,7 +84,7 @@ for j_o in range(0, m, T):
 
 当 T 个 B 中的元素可以放进 Cache 中时，在 i 层循环即使 i 切换了，但是 B 此时数据还在 Cache 中，只有 j_o 循环变换时，B 中的数据才会发生 Cache miss，对于 B 来说 Cache miss 为 m/T \* T/b = m/b。但是对于 A 来说，Cache miss 变为了 m/T \* n/b = nm / Tb，反而增加了。那么再对 i 层循环进行 tile，最终变为了:
 
-```python`
+```python
 for i_o in range(0, n, W):
     for j_o in range(0, m, T):
         for i_i in range(i_o, min(i_o + W, n)):
