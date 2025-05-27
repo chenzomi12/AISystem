@@ -113,7 +113,7 @@ void demo(double alpha, double *x, double *y)
 }
 ```
 
-示例代码中包含 2 FLOPS 操作，分别是乘法（Multiply）和加法（Add），对于每一次计算操作都需要在内存中读取两个数据，$x[i]$ 和 $y[i]$，最后执行一个线性操作，存储到 $y[i]$ 中，其中把加法和乘法融合在一起的操作也可以称作 FMA（Fused Multiply and Add）。
+示例代码中包含 2 FLOPs 操作，分别是乘法（Multiply）和加法（Add），对于每一次计算操作都需要在内存中读取两个数据，$x[i]$ 和 $y[i]$，最后执行一个线性操作，存储到 $y[i]$ 中，其中把加法和乘法融合在一起的操作也可以称作 FMA（Fused Multiply and Add）。
 
 在 O(n) 的时间复杂度下，根据 n 的大小迭代计算 n 次，在 CPU 中串行地按指令顺序去执行 $AX+Y$ 程序。以 Intel Xeon 8280 这款芯片为例，其内存带宽是 131 GB/s，内存的延时是 89 ns，这意味着 8280 芯片的峰值算力是在 89 ns 的时间内传输 11659 个字节（byte）数据。$AX+Y$ 将在 89 ns 的时间内传输 16 字节（C/C++中 double 数据类型所占的内存空间是 8 bytes）数据，此时内存的利用率只有 0.14%（16/11659），存储总线有 99.86% 的时间处于空闲状态。
 
@@ -185,7 +185,7 @@ void fun_axy(int n, double alpha, double *x, double *y)
 
 ![英伟达 Ampere A100 内存结构](images/01Works05.png)
 
-GPU 和 CPU 内存带宽和时延进行比较，在 GPU 中如果把主内存（HBM Memory）作为内存带宽（B/W, bandwidth）的基本单位，L2 缓存的带宽是主内存的 3 倍，L1 缓存的带宽是主存的 13 倍。在真正计算的时候，希望缓存的数据能够尽快的去用完，然后读取下一批数据，此时就会遇到时延（Lentency）的问题。如果将 L1 缓存的延迟作为基本单位，L2 缓存的延迟是 L1 的 5 倍，HBM 的延迟将是 L1 的 15 倍，因此 GPU 需要有单独的显存。
+GPU 和 CPU 内存带宽和时延进行比较，在 GPU 中如果把主内存（HBM Memory）作为内存带宽（B/W, bandwidth）的基本单位，L2 缓存的带宽是主内存的 3 倍，L1 缓存的带宽是主存的 13 倍。在真正计算的时候，希望缓存的数据能够尽快的去用完，然后读取下一批数据，此时就会遇到时延（Latency）的问题。如果将 L1 缓存的延迟作为基本单位，L2 缓存的延迟是 L1 的 5 倍，HBM 的延迟将是 L1 的 15 倍，因此 GPU 需要有单独的显存。
 
 假设使用 CPU 将 DRAM（Dynamic Random Access Memory）中的数据传入到 GPU 中进行计算，较高的时延（25 倍）会导致数据传输的速度远小于计算的速度，因此需要 GPU 有自己的高带宽内存 HBM（High Bandwidth Memory），GPU 和 CPU 之间的通信和数据传输主要通过 PCIe 来进行。
 

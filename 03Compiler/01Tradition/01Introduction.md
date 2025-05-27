@@ -136,15 +136,15 @@ IR（Intermediate Representation）中间表示，是编译器中很重要的一
 
 如图所示，在编译原理中，通常将编译器分为前端和后端。其中，前端会对所输入的程序进行词法分析、语法分析、语义分析，然后生成中间表达形式 IR。后端会对 IR 进行优化，然后生成目标代码。
 
-![IR 示例图](images/01Introduction06.png)
-:width:`550px`
+<!-- ![IR 示例图](images/01Introduction06.png) -->
+<img src="images/01Introduction06.png" alt="IR 示例图" width="550px">
 
 例如：LLVM 把前端和后端给拆分出来，在中间层明确定义一种抽象的语言，这个语言就叫做 IR。定义了 IR 以后，前端的任务就是负责最终生成 IR，优化器则是负责优化生成的 IR，而后端的任务就是把 IR 给转化成目标平台的语言。LLVM 的 IR 使用 LLVM assembly language 或称为 LLVM language 来实现 LLVM IR 的类型系统，就指的是 LLVM assembly language 中的类型系统。
 
 因此，编译器的前端，优化器，后端之间，唯一交换的数据结构类型就是 IR，通过 IR 来实现不同模块的解耦。有些 IR 还会为其专门起一个名字，比如：Open64 的 IR 通常叫做 WHIRL IR，方舟编译器的 IR 叫做 MAPLE IR，LLVM 则通常就称为 LLVM IR。
 
-![LLVM 架构图中的 IR](images/01Introduction07.png)
-:width:`550px`
+<!-- ![LLVM 架构图中的 IR](images/01Introduction07.png) -->
+<img src="images/01Introduction07.png" alt="LLVM 架构图中的 IR" width="550px">
 
 - **IR 的定义**
 
