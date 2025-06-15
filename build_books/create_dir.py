@@ -150,12 +150,14 @@ def getallfile(path):
 				shutil.copy(fp, new_path)
 
 
+target_dir0 = '/Users/a1-6/Workspaces/AISystem/01Introduction'
 target_dir1 = '/Users/a1-6/Workspaces/AISystem/02Hardware'
 target_dir2 = '/Users/a1-6/Workspaces/AISystem/03Compiler'
 target_dir3 = '/Users/a1-6/Workspaces/AISystem/04Inference'
 target_dir4 = '/Users/a1-6/Workspaces/AISystem/05Framework'
 dir_paths = '/Users/a1-6/Workspaces/AISystem_BOOK/source/'
 
+getallfile(target_dir0)
 getallfile(target_dir1)
 getallfile(target_dir2)
 getallfile(target_dir3)
